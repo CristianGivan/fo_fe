@@ -1,3 +1,7 @@
 # Long
 
-- [ ] theme should be in a new file not in main
+- [x] theme should be in a new file not in main
+
+# Structure
+
+- [ ] shall do some refactoring
