@@ -5,6 +5,7 @@ import '../widgets/custom_button.dart';
 import 'login_email_password_screen.dart';
 
 class LoginScreen extends StatefulWidget {
+  static String routeName = '/signup-email-password';
   const LoginScreen({Key? key}) : super(key: key);
 
   @override

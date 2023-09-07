@@ -45,9 +45,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/', // Specify the initial route
       debugShowCheckedModeBanner: false,
       routes: {
-        '/': (context) => const MyHomePage(), // Define the initial route
-        '/home': (context) => const MyHomePage(), // Define the login route
-        // LoginScreen.routeName: (context) => const LoginScreen(),
+        '/': (context) => MyHomePage(), // Define the initial route
       },
     );
   }
@@ -62,7 +60,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   ThemeMode _themeMode = ThemeMode.dark;
-  final _homeIcon = Icons.home;
+  final _loginIcon = Icons.login;
 
   @override
   Widget build(BuildContext context) {
@@ -70,17 +68,13 @@ class _MyHomePageState extends State<MyHomePage> {
       theme: lightTheme,
       darkTheme: darkTheme,
       themeMode: _themeMode,
-      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Log in Page'),
           actions: [
             IconButton(
-              icon: Icon(_homeIcon),
-              onPressed: () {
-                // Navigate to the login page when the button is pressed
-                Navigator.pushNamed(context, '/home');
-              },
+              icon: Icon(_loginIcon),
+              onPressed: _toggleThemeMode,
             ),
             IconButton(
               icon: Icon(_themeModeIcon),
