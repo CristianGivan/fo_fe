@@ -1,42 +1,17 @@
 import 'package:flutter/material.dart';
+import 'theme/app_theme.dart';
 import 'package:fo_fe/screens/login_email_password_screen.dart';
 import 'package:fo_fe/screens/login_screen.dart';
 import 'package:fo_fe/screens/phone_screen.dart';
 import 'package:fo_fe/screens/signup_email_password_screen.dart';
 
-ThemeData lightTheme = ThemeData(
-  brightness: Brightness.light,
-  useMaterial3: true,
-  textTheme: const TextTheme(
-    displayLarge: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-    bodyLarge: TextStyle(fontSize: 18, color: Colors.black87),
-  ),
-  appBarTheme: const AppBarTheme(
-    color: Colors.blueGrey,
-    iconTheme: IconThemeData(color: Colors.white),
-  ),
-  colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
-);
-
-ThemeData darkTheme = ThemeData(
-  brightness: Brightness.dark,
-  textTheme: const TextTheme(
-    displayLarge: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-    bodyLarge: TextStyle(fontSize: 18, color: Colors.white70),
-  ),
-  appBarTheme: const AppBarTheme(
-    color: Colors.blueGrey,
-    iconTheme: IconThemeData(color: Colors.white),
-  ),
-  colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey)
-      .copyWith(brightness: Brightness.dark),
-);
-
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     // todo is this neede to have routes define here? or go back how it wos at the begining I see the benner
@@ -45,7 +20,9 @@ class MyApp extends StatelessWidget {
       initialRoute: '/', // Specify the initial route
       debugShowCheckedModeBanner: false,
       routes: {
-        '/': (context) => MyHomePage(), // Define the initial route
+        '/': (context) => const MyHomePage(), // Define the initial route
+        '/home': (context) => const MyHomePage(), // Define the login route
+        // LoginScreen.routeName: (context) => const LoginScreen(),
       },
     );
   }
@@ -60,7 +37,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   ThemeMode _themeMode = ThemeMode.dark;
-  final _loginIcon = Icons.login;
+  final _homeIcon = Icons.home;
 
   @override
   Widget build(BuildContext context) {
@@ -68,13 +45,17 @@ class _MyHomePageState extends State<MyHomePage> {
       theme: lightTheme,
       darkTheme: darkTheme,
       themeMode: _themeMode,
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Log in Page'),
           actions: [
             IconButton(
-              icon: Icon(_loginIcon),
-              onPressed: _toggleThemeMode,
+              icon: Icon(_homeIcon),
+              onPressed: () {
+                // Navigate to the login page when the button is pressed
+                Navigator.pushNamed(context, '/home');
+              },
             ),
             IconButton(
               icon: Icon(_themeModeIcon),

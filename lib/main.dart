@@ -1,42 +1,17 @@
 import 'package:flutter/material.dart';
+import 'theme/app_theme.dart';
 import 'package:fo_fe/screens/login_email_password_screen.dart';
 import 'package:fo_fe/screens/login_screen.dart';
 import 'package:fo_fe/screens/phone_screen.dart';
 import 'package:fo_fe/screens/signup_email_password_screen.dart';
 
-ThemeData lightTheme = ThemeData(
-  brightness: Brightness.light,
-  useMaterial3: true,
-  textTheme: const TextTheme(
-    displayLarge: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-    bodyLarge: TextStyle(fontSize: 18, color: Colors.black87),
-  ),
-  appBarTheme: const AppBarTheme(
-    color: Colors.blueGrey,
-    iconTheme: IconThemeData(color: Colors.white),
-  ),
-  colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
-);
-
-ThemeData darkTheme = ThemeData(
-  brightness: Brightness.dark,
-  textTheme: const TextTheme(
-    displayLarge: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-    bodyLarge: TextStyle(fontSize: 18, color: Colors.white70),
-  ),
-  appBarTheme: const AppBarTheme(
-    color: Colors.blueGrey,
-    iconTheme: IconThemeData(color: Colors.white),
-  ),
-  colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey)
-      .copyWith(brightness: Brightness.dark),
-);
-
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     // todo is this neede to have routes define here? or go back how it wos at the begining I see the benner
@@ -73,7 +48,14 @@ class _MyHomePageState extends State<MyHomePage> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Log in Page'),
+          title: const Text('Home Page'),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              // Navigate back to the previous page when the button is pressed
+              Navigator.pop(context);
+            },
+          ),
           actions: [
             IconButton(
               icon: Icon(_homeIcon),
@@ -140,7 +122,6 @@ class LogIn extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: const LoginScreen(),
       routes: {
-        LoginScreen.routeName: (context) => const LoginScreen(),
         EmailPasswordSignup.routeName: (context) => const EmailPasswordSignup(),
         EmailPasswordLogin.routeName: (context) => const EmailPasswordLogin(),
         PhoneScreen.routeName: (context) => const PhoneScreen(),
