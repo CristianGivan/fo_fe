@@ -1,43 +1,29 @@
 import 'package:flutter/material.dart';
-import 'theme/app_theme.dart';
+import 'package:fo_fe/home_page.dart';
+import 'package:fo_fe/screens/home_page_screen.dart';
 import 'package:fo_fe/screens/login_email_password_screen.dart';
 import 'package:fo_fe/screens/login_screen.dart';
+import 'package:fo_fe/screens/other_for_test.dart';
 import 'package:fo_fe/screens/phone_screen.dart';
 import 'package:fo_fe/screens/signup_email_password_screen.dart';
+import 'package:fo_fe/widgets/custom_navigatio_bar.dart';
+import 'theme/app_theme.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
-
   @override
-  Widget build(BuildContext context) {
-    // todo is this neede to have routes define here? or go back how it wos at the begining I see the benner
-
-    return MaterialApp(
-      initialRoute: '/', // Specify the initial route
-      debugShowCheckedModeBanner: false,
-      routes: {
-        '/': (context) => const MyHomePage(), // Define the initial route
-        '/home': (context) => const MyHomePage(), // Define the login route
-        // LoginScreen.routeName: (context) => const LoginScreen(),
-      },
-    );
-  }
+  _MyApp createState() => _MyApp();
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
+class _MyApp extends State<MyApp> {
   ThemeMode _themeMode = ThemeMode.dark;
   final _homeIcon = Icons.home;
+
+  int _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -70,15 +56,41 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ],
         ),
-        body: Center(
-          child: LogIn(
-            themeMode: _themeMode,
-            themeModeIcon: _themeModeIcon,
-          ),
+        body: HomePage(
+          themeMode: _themeMode,
         ),
+        bottomNavigationBar: Padding(
+            padding: MediaQuery.of(context)
+                .viewInsets, // Adjust the padding as needed
+            child: CustomNavigationBar(
+              items: [
+                CustomNavigationBarItem(
+                  icon: Icons.edit,
+                  label: 'Edit',
+                ),
+                CustomNavigationBarItem(
+                  icon: Icons.settings,
+                  label: 'Settings',
+                ),
+                CustomNavigationBarItem(
+                  icon: Icons.link,
+                  label: 'Link',
+                ),
+              ],
+              currentIndex: _selectedIndex,
+              onTap: (index) {
+                setState(() {
+                  _selectedIndex = index;
+                  // print(_selectedIndex);
+                });
+              },
+            )),
       ),
+      // initialRoute: '/', // Specify the initial route
       routes: {
-        LoginScreen.routeName: (context) => const LoginScreen(),
+        // '/': (context) => const HomePageScreen(), // Define the initial route
+        '/home': (context) => const HomePageScreen(), // Define the login route
+        // LoginScreen.routeName: (context) => const LoginScreen(),
       },
     );
   }
@@ -104,28 +116,5 @@ class _MyHomePageState extends State<MyHomePage> {
               : ThemeMode.system;
     });
   }
-}
-
-class LogIn extends StatelessWidget {
-  final ThemeMode themeMode;
-  final IconData themeModeIcon;
-
-  const LogIn({required this.themeMode, required this.themeModeIcon, Key? key})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: lightTheme,
-      darkTheme: darkTheme,
-      themeMode: themeMode,
-      debugShowCheckedModeBanner: false,
-      home: const LoginScreen(),
-      routes: {
-        EmailPasswordSignup.routeName: (context) => const EmailPasswordSignup(),
-        EmailPasswordLogin.routeName: (context) => const EmailPasswordLogin(),
-        PhoneScreen.routeName: (context) => const PhoneScreen(),
-      },
-    );
-  }
+  // var navigationBar =
 }
