@@ -5,7 +5,7 @@ class CustomNavigationBar extends StatelessWidget {
   final int currentIndex;
   final Function(int) onTap;
 
-  CustomNavigationBar({
+  const CustomNavigationBar({super.key, 
     required this.items,
     required this.currentIndex,
     required this.onTap,
@@ -15,7 +15,7 @@ class CustomNavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding:
-          EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0), // Add padding
+          const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0), // Add padding
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: items.asMap().entries.map((entry) {

@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fo_fe/home_page.dart';
 import 'package:fo_fe/screens/home_page_screen.dart';
-import 'package:fo_fe/screens/login_email_password_screen.dart';
-import 'package:fo_fe/screens/login_screen.dart';
-import 'package:fo_fe/screens/other_for_test.dart';
-import 'package:fo_fe/screens/phone_screen.dart';
-import 'package:fo_fe/screens/signup_email_password_screen.dart';
 import 'package:fo_fe/widgets/custom_navigatio_bar.dart';
 import 'theme/app_theme.dart';
 
