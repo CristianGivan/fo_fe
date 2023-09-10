@@ -38,13 +38,13 @@ class _MyApp extends State<MyApp> {
             },
           ),
           actions: [
-            IconButton(
-              icon: Icon(_homeIcon),
-              onPressed: () {
-                // Navigate to the login page when the button is pressed
-                Navigator.pushNamed(context, '/home');
-              },
-            ),
+            // IconButton(
+            //   icon: Icon(_homeIcon),
+            //   onPressed: () {
+            //     // Navigate to the login page when the button is pressed
+            //     Navigator.pushNamed(context, '/home');
+            //   },
+            // ),
             IconButton(
               icon: Icon(_themeModeIcon),
               onPressed: _toggleThemeMode,
@@ -71,6 +71,10 @@ class _MyApp extends State<MyApp> {
                   icon: Icons.link,
                   label: 'Link',
                 ),
+                CustomNavigationBarItem(
+                  icon: Icons.home,
+                  label: 'Home',
+                ),
               ],
               currentIndex: _selectedIndex,
               onTap: (index) {
@@ -82,11 +86,11 @@ class _MyApp extends State<MyApp> {
             )),
       ),
       // initialRoute: '/', // Specify the initial route
-      routes: {
-        // '/': (context) => const HomePageScreen(), // Define the initial route
-        '/home': (context) => const HomePageScreen(), // Define the login route
-        // LoginScreen.routeName: (context) => const LoginScreen(),
-      },
+      // routes: {
+      //   // '/': (context) => const HomePageScreen(), // Define the initial route
+      //   '/home': (context) => const HomePageScreen(), // Define the login route
+      //   // LoginScreen.routeName: (context) => const LoginScreen(),
+      // },
     );
   }
 
