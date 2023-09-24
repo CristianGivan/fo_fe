@@ -25,12 +25,17 @@ class _HomePageScreenState extends State<HomePageScreen> {
             CustomButton(
               onTap: () {
                 Navigator.pushNamed(context, LoginScreen.routeName);
+                print(Theme.of(context).primaryColor.toString());
+
+
               },
               text: 'Login',
             ),
             CustomButton(
                 onTap: () {
                   Navigator.pushNamed(context, OtherForTest.routeName);
+                  
+
                 },
                 text: 'Other'),
             CustomTextField(

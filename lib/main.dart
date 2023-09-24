@@ -37,13 +37,17 @@ class _MyApp extends State<MyApp> {
             },
           ),
           actions: [
-            // IconButton(
-            //   icon: Icon(_homeIcon),
-            //   onPressed: () {
-            //     // Navigate to the login page when the button is pressed
-            //     Navigator.pushNamed(context, '/home');
-            //   },
-            // ),
+            IconButton(
+              icon: Icon(_homeIcon),
+              onPressed: () {
+                // Navigate to the login page when the button is pressed
+                //    Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => const HomePageScreen()),
+                // );
+                HomePageScreen();
+              },
+            ),
             IconButton(
               icon: Icon(_themeModeIcon),
               onPressed: _toggleThemeMode,
@@ -79,17 +83,18 @@ class _MyApp extends State<MyApp> {
               onTap: (index) {
                 setState(() {
                   _selectedIndex = index;
-                  // print(_selectedIndex);
+                  print(_selectedIndex);
+                  print(Theme.of(context).primaryColor.toString());
                 });
               },
             )),
       ),
       // initialRoute: '/', // Specify the initial route
-      // routes: {
-      //   // '/': (context) => const HomePageScreen(), // Define the initial route
-      //   '/home': (context) => const HomePageScreen(), // Define the login route
-      //   // LoginScreen.routeName: (context) => const LoginScreen(),
-      // },
+      routes: {
+        // '/': (context) => const HomePageScreen(), // Define the initial route
+        '/home': (context) => const HomePageScreen(), // Define the login route
+        // LoginScreen.routeName: (context) => const LoginScreen(),
+      },
     );
   }
 
@@ -114,5 +119,4 @@ class _MyApp extends State<MyApp> {
               : ThemeMode.system;
     });
   }
-  // var navigationBar =
 }

@@ -5,4 +5,8 @@
 
 # Structure
 
-- [ ] shall do some refactoring
+- [ ] find the right structure
+
+# Providers
+
+- [ ] find the provider

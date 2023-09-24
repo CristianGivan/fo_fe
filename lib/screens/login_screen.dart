@@ -22,6 +22,8 @@ class _LoginScreenState extends State<LoginScreen> {
             CustomButton(
               onTap: () {
                 Navigator.pushNamed(context, EmailPasswordSignup.routeName);
+                  print(Theme.of(context).primaryColor.toString());
+
               },
               text: 'Email/Password Sign Up',
             ),

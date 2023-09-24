@@ -11,3 +11,18 @@
 - the particular pages had to have other buttons around settings depending of the page that help to navigate or to control 
 
 # Login 
+
+# Structure
+
+assets
+    images
+    logo
+    fonts
+    translations
+    icons
+cloud functions
+lib
+    core
+    features
+packages - https://www.youtube.com/watch?v=yJRpuTP156o
+
