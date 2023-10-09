@@ -13,7 +13,7 @@ class Register extends StatelessWidget {
       body: Container(
         child: Column(
           children: [
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Center(
               child: ElevatedButton(
                 onPressed: () => context.push('/login'),

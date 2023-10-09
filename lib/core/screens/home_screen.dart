@@ -15,14 +15,14 @@ class Home extends StatelessWidget {
       body: Container(
         child: Column(
           children: [
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Center(
               child: ElevatedButton(
                 onPressed: () => context.push(RouteConstants.loginRouteName),
                 child: const Text('Go to the login screen'),
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Center(
               child: ElevatedButton(
                 onPressed: () =>
@@ -30,14 +30,14 @@ class Home extends StatelessWidget {
                 child: const Text('Go to the register screen'),
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Center(
               child: ElevatedButton(
                 onPressed: () => context.push(RouteConstants.otherRouteName),
                 child: const Text('Go to the other screen'),
               ),
             ),
-            Center(
+            const Center(
               child: TextField(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),

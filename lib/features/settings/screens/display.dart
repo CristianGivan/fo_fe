@@ -15,7 +15,7 @@ class DisplaySettings extends StatelessWidget {
       body: Container(
         child: Column(
           children: [
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Center(
               child: ElevatedButton(
                 //todo add change theme function
@@ -24,8 +24,8 @@ class DisplaySettings extends StatelessWidget {
                 child: const Text('todo add change theme function'),
               ),
             ),
-            SizedBox(height: 10),
-            Center(
+            const SizedBox(height: 10),
+            const Center(
               child: TextField(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),

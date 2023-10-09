@@ -15,21 +15,21 @@ class FO extends StatelessWidget {
       body: Container(
         child: Column(
           children: [
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Center(
               child: ElevatedButton(
                 onPressed: () => context.go(RouteConstants.foTasksRouteName),
                 child: const Text('Go to the topics screen'),
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Center(
               child: ElevatedButton(
                 onPressed: () => context.push(RouteConstants.foTasksRouteName),
                 child: const Text('Go to the tasks screen'),
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Center(
               child: ElevatedButton(
                 onPressed: () =>
@@ -37,7 +37,7 @@ class FO extends StatelessWidget {
                 child: const Text('Go to the reminder screen'),
               ),
             ),
-            Center(
+            const Center(
               child: TextField(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),

@@ -8,7 +8,7 @@ class Reminder extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       body: Container(
-        child: Center(
+        child: const Center(
           child: Text('Reminder'),
         ),
       ),

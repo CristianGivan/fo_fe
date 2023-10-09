@@ -13,21 +13,21 @@ class Practice extends StatelessWidget {
       body: Container(
         child: Column(
           children: [
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Center(
               child: ElevatedButton(
                 onPressed: () => context.push('/practice/games'),
                 child: const Text('Go to the games screen'),
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Center(
               child: ElevatedButton(
                 onPressed: () => context.push('/practice/review'),
                 child: const Text('Go to the tasks screen'),
               ),
             ),
-            Center(
+            const Center(
               child: TextField(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
