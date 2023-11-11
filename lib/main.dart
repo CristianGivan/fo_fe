@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fo_fe/app.dart';
-import 'package:fo_fe/core/router/app_routes.dart';
+
+import 'app.dart';
 
 void main() {
-  runApp(MyApp(
-    appRouter: AppRouter(),
-  ));
+  runApp(const MyApp());
 }
