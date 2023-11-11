@@ -1,3 +1,5 @@
+part of organizer;
+
 class OrganizerRouterNames {
   static const String organizerRoute = '/organizer';
   static const String organizerTopicsRoute = '/organizer/topics';

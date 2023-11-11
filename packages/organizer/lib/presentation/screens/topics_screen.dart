@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of '../../organizer.dart';
 
 class Topics extends StatelessWidget {
   const Topics({super.key});

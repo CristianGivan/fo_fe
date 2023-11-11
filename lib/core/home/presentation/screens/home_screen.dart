@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:organizer/organizer.dart';
 
-import '../../../../core/router/routes/app_route_constants.dart';
-import '../../../organizer/router/organizer_router_names.dart';
+import '../../../router/routes/app_route_constants.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});

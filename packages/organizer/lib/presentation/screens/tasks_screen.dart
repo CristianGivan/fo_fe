@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of '../../organizer.dart';
 
 class Tasks extends StatelessWidget {
   const Tasks({super.key});

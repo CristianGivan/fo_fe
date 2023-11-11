@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fo_fe/core/router/routes/stateful_shell_route.dart';
 import 'package:go_router/go_router.dart';
+import 'package:organizer/organizer.dart';
 
 import '../../../features/authentication/presentation/screens/login_screen.dart';
 import '../../../features/authentication/presentation/screens/register_screen.dart';
-import '../../../features/home/presentation/screens/home_screen.dart';
-import '../../../features/organizer/router/organizer_router.dart';
 import '../../../features/other/presentation/screens/other1.dart';
 import '../../../features/other/presentation/screens/other2.dart';
 import '../../../features/other/presentation/screens/other_screen.dart';
@@ -14,6 +13,7 @@ import '../../../features/practice/presentation/screens/practice_screen.dart';
 import '../../../features/practice/presentation/screens/review_screen.dart';
 import '../../../features/settings/presentation/screens/display.dart';
 import '../../../features/settings/presentation/screens/settings_screen.dart';
+import '../../home/presentation/screens/home_screen.dart';
 import 'app_route_constants.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -129,52 +129,6 @@ class AppRouter {
       ],
     );
   }
-
-  // static StatefulShellBranch organizerAppBranch(
-  //   GlobalKey<NavigatorState> navigatorKey,
-  //   bool isAuth,
-  // ) {
-  //   return StatefulShellBranch(
-  //     navigatorKey: navigatorKey,
-  //     routes: [
-  //       organizerAppRoute(isAuth),
-  //     ],
-  //   );
-  // }
-
-  // static GoRoute organizerAppRoute(bool isAuth) {
-  //   return GoRoute(
-  //       name: RouteConstants.organizerRoute,
-  //       path: RouteConstants.organizerRoute,
-  //       pageBuilder: (context, state) => const NoTransitionPage(
-  //             child: Organizer(),
-  //           ),
-  //       routes: [
-  //         GoRoute(
-  //           name: RouteConstants.organizerTopicsRoute,
-  //           path: RouteConstants.topicRouteName,
-  //           builder: (context, state) => const Topics(),
-  //         ),
-  //         GoRoute(
-  //           name: RouteConstants.organizerTasksRoute,
-  //           path: RouteConstants.tasksRouteName,
-  //           builder: (context, state) => const Tasks(),
-  //         ),
-  //         GoRoute(
-  //           name: RouteConstants.organizerReminderRoute,
-  //           path: RouteConstants.reminderRouteName,
-  //           builder: (context, state) => const Reminder(),
-  //         ),
-  //       ],
-  //       redirect: (context, state) {
-  //         if (isAuth) {
-  //           return null;
-  //         } else {
-  //           return context.push(RouteConstants.authenticationRoute);
-  //           // .namedLocation(RouteConstants.homeRouteName);
-  //         }
-  //       });
-  // }
 
   static StatefulShellBranch practiceBranch(
       GlobalKey<NavigatorState> navigatorKey, bool isAuth) {

@@ -1,12 +1,14 @@
-import 'package:flutter/cupertino.dart';
-import 'package:go_router/go_router.dart';
+// import 'package:flutter/cupertino.dart';
+// import 'package:go_router/go_router.dart';
+//
+// import 'presentation/screens/organizer_screen.dart';
+// import 'presentation/screens/reminders_screen.dart';
+// import 'presentation/screens/tasks_screen.dart';
+// import 'presentation/screens/topics_screen.dart';
+//
+// import 'organizer_router_names.dart';
 
-import '../../../core/router/routes/app_route_constants.dart';
-import '../presentation/screens/organizer_screen.dart';
-import '../presentation/screens/reminders_screen.dart';
-import '../presentation/screens/tasks_screen.dart';
-import '../presentation/screens/topics_screen.dart';
-import 'organizer_router_names.dart';
+part of organizer;
 
 class OrganizerAppBranch {
   static StatefulShellBranch branch(
@@ -49,7 +51,8 @@ class OrganizerAppBranch {
           if (isAuth) {
             return null;
           } else {
-            return context.push(RouteCoreConstants.homeMenuName);
+            // todo shall be other screen
+            return context.push(OrganizerRouterNames.organizerRoute);
           }
         });
   }

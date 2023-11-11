@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-
-import '../../../../../core/router/routes/app_route_constants.dart';
+part of '../../organizer.dart';
 
 class Reminder extends StatelessWidget {
   const Reminder({super.key});
@@ -20,7 +17,8 @@ class Reminder extends StatelessWidget {
             const SizedBox(height: 10),
             Center(
               child: ElevatedButton(
-                onPressed: () => context.push(RouteCoreConstants.homeRoute),
+                onPressed: () =>
+                    context.push(OrganizerRouterNames.organizerRoute),
                 child: const Text('Go to the tasks screen'),
               ),
             ),

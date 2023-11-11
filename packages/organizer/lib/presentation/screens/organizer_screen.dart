@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-
-import '../../router/organizer_router_names.dart';
+part of '../../organizer.dart';
 
 class Organizer extends StatelessWidget {
   const Organizer({super.key});

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/router/routes/app_route_constants.dart';
-import '../../../organizer/router/organizer_router_names.dart';
 
 class Login extends StatelessWidget {
   const Login({super.key});
@@ -19,9 +18,8 @@ class Login extends StatelessWidget {
             SizedBox(height: 10),
             Center(
               child: ElevatedButton(
-                onPressed: () =>
-                    context.push(OrganizerRouterNames.organizerRoute),
-                child: const Text('Go to the fo screen'),
+                onPressed: () => context.push(RouteCoreConstants.homeRoute),
+                child: const Text('Go to the home screen'),
               ),
             ),
             SizedBox(height: 10),
