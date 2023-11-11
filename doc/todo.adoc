@@ -3,6 +3,8 @@
 == Next
 
 - Create authentication as plugin
+- bloc for check box
+- create package for organizer
 
 == Login
 
