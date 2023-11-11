@@ -4,6 +4,8 @@
 
 === Routing
 
+https://codewithandrea.com/articles/flutter-bottom-navigation-bar-nested-routes-gorouter/
+
 === Package
 
 - create a new local package
