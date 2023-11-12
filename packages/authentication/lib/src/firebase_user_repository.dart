@@ -1,41 +1,18 @@
-part of authentication;
+part of user_repository;
 
-class FirebaseUserRepository implements UserRepo {
+class FirebaseUserRepository implements UserRepository {
+  final FirebaseAuth _firebaseAuth;
+  final usersCollection = FirebaseFirestore.instance.collection('users');
+
   FirebaseUserRepository({
     FirebaseAuth? firebaseAuth,
   }) : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
 
-  final FirebaseAuth _firebaseAuth;
-  final usersCollection = FirebaseFirestore.instance.collection('users');
-
   @override
   Stream<User?> get user {
     return _firebaseAuth.authStateChanges().map((firebaseUser) {
-      final user = firebaseUser;
-      return user;
+      return firebaseUser;
     });
-  }
-
-  @override
-  Future<MyUser> signUp(MyUser myUser, String password) async {
-    try {
-      UserCredential user = await _firebaseAuth.createUserWithEmailAndPassword(
-          email: myUser.email, password: password);
-
-      myUser = myUser.copyWith(id: user.user!.uid);
-
-      return myUser;
-      // todo if the exceptions are throw
-    // } on FirebaseAuthException catch(e){
-    //   if(e.code=='week-password'){
-    //     throw Exception("Thuis password is to week");
-    //   }else if (e.code=='email-already-in-use'){
-    //     throw Exception("The account already exists for that mail")
-    //   }
-    }catch (e) {
-      log(e.toString());
-      rethrow;
-    }
   }
 
   @override
@@ -50,61 +27,34 @@ class FirebaseUserRepository implements UserRepo {
   }
 
   @override
+  Future<MyUser> signUp(MyUser myUser, String password) async {
+    try {
+      UserCredential user = await _firebaseAuth.createUserWithEmailAndPassword(
+          email: myUser.email, password: password);
+
+      myUser = myUser.copyWith(userId: user.user!.uid);
+
+      return myUser;
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> setUserData(MyUser myUser) async {
+    try {
+      await usersCollection
+          .doc(myUser.userId)
+          .set(myUser.toEntity().toDocument());
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
+  }
+
+  @override
   Future<void> logOut() async {
-    try {
-      await _firebaseAuth.signOut();
-    } catch (e) {
-      log(e.toString());
-      rethrow;
-    }
-  }
-
-  @override
-  Future<void> resetPassword(String email) async {
-    try {
-      await _firebaseAuth.sendPasswordResetEmail(email: email);
-    } catch (e) {
-      log(e.toString());
-      rethrow;
-    }
-  }
-
-  @override
-  Future<void> setUserData(MyUser user) async {
-    try {
-      await usersCollection.doc(user.id).set(user.toEntity().toDocument());
-    } catch (e) {
-      log(e.toString());
-      rethrow;
-    }
-  }
-
-  @override
-  Future<MyUser> getMyUser(String myUserId) async {
-    try {
-      return usersCollection.doc(myUserId).get().then((value) =>
-          MyUser.fromEntity(MyUserEntity.fromDocument(value.data()!)));
-    } catch (e) {
-      log(e.toString());
-      rethrow;
-    }
-  }
-
-  @override
-  Future<String> uploadPicture(String file, String userId) async {
-    try {
-      File imageFile = File(file);
-      Reference firebaseStoreRef =
-          FirebaseStorage.instance.ref().child('$userId/PP/${userId}_lead');
-      await firebaseStoreRef.putFile(
-        imageFile,
-      );
-      String url = await firebaseStoreRef.getDownloadURL();
-      await usersCollection.doc(userId).update({'picture': url});
-      return url;
-    } catch (e) {
-      log(e.toString());
-      rethrow;
-    }
+    await _firebaseAuth.signOut();
   }
 }
