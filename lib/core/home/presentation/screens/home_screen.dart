@@ -1,3 +1,4 @@
+import 'package:authentication/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:organizer/organizer.dart';
@@ -35,7 +36,7 @@ class Home extends StatelessWidget {
             Center(
               child: ElevatedButton(
                 onPressed: () =>
-                    context.push(RouteCoreConstants.authenticationRoute),
+                    context.push(AuthenticationRouterNames.authenticationRoute),
                 child: const Text('Quick'),
               ),
             ),
@@ -51,7 +52,7 @@ class Home extends StatelessWidget {
             Center(
               child: ElevatedButton(
                 onPressed: () =>
-                    context.push(RouteCoreConstants.authenticationRoute),
+                    context.push(AuthenticationRouterNames.authenticationRoute),
                 child: const Text('Communication'),
               ),
             ),
@@ -59,7 +60,7 @@ class Home extends StatelessWidget {
             Center(
               child: ElevatedButton(
                 onPressed: () =>
-                    context.push(RouteCoreConstants.authenticationRoute),
+                    context.push(AuthenticationRouterNames.authenticationRoute),
                 child: const Text('Media'),
               ),
             ),
@@ -75,7 +76,7 @@ class Home extends StatelessWidget {
             Center(
               child: ElevatedButton(
                 onPressed: () =>
-                    context.push(RouteCoreConstants.authenticationRoute),
+                    context.push(AuthenticationRouterNames.authenticationRoute),
                 child: const Text('Authentication'),
               ),
             ),

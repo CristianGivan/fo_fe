@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "312570564124",
+    "project_id": "fo-fe-57e85",
+    "storage_bucket": "fo-fe-57e85.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:312570564124:android:fd4c0618a703feeae7d9d9",
+        "android_client_info": {
+          "package_name": "com.example.fo_fe"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDej5sx126igwrR3M_cKVbBSKVF0sgfbrg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

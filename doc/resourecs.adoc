@@ -6,10 +6,15 @@
 
 https://codewithandrea.com/articles/flutter-bottom-navigation-bar-nested-routes-gorouter/
 
-=== Package
+=== Packages
 
 - create a new local package
 https://www.youtube.com/watch?v=ZABb7PTkT58[link]
+
+== Authentication
+
+- nice UI
+https://www.youtube.com/watch?v=W6Vnv5kmzfk&list=PLheQtUTkY7a6bJj-YYtgIVmjVrxKadSZW&index=2[link]
 
 == App
 

@@ -97,10 +97,10 @@ class ScaffoldWithNavigationBar extends StatelessWidget {
             label: RouteCoreConstants.settingsMenuName,
             icon: Icon(Icons.settings),
           ),
-          NavigationDestination(
-            label: RouteCoreConstants.foAppMenuName,
-            icon: Icon(Icons.home),
-          ),
+          // NavigationDestination(
+          //   label: RouteCoreConstants.foAppMenuName,
+          //   icon: Icon(Icons.home),
+          // ),
         ],
         onDestinationSelected: onDestinationSelected,
       ),
@@ -136,9 +136,9 @@ class ScaffoldWithNavigationRail extends StatelessWidget {
               NavigationRailDestination(
                   label: Text(RouteCoreConstants.settingsMenuName),
                   icon: Icon(Icons.settings)),
-              NavigationRailDestination(
-                  label: Text(RouteCoreConstants.authenticationRouteName),
-                  icon: Icon(Icons.login)),
+              // NavigationRailDestination(
+              //     label: Text(RouteCoreConstants.authenticationRouteName),
+              //     icon: Icon(Icons.login)),
             ],
           ),
           const VerticalDivider(thickness: 1, width: 1),

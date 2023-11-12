@@ -1,10 +1,9 @@
+import 'package:authentication/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:fo_fe/core/router/routes/stateful_shell_route.dart';
 import 'package:go_router/go_router.dart';
 import 'package:organizer/organizer.dart';
 
-import '../../../features/authentication/presentation/screens/login_screen.dart';
-import '../../../features/authentication/presentation/screens/register_screen.dart';
 import '../../../features/other/presentation/screens/other1.dart';
 import '../../../features/other/presentation/screens/other2.dart';
 import '../../../features/other/presentation/screens/other_screen.dart';
@@ -41,9 +40,8 @@ class AppRouter {
           branches: [
             homeBranch(_rootNavigatorKey, isAuth),
             settingsBranch(_settingsShellNavigatorKey, isAuth),
-            // organizerAppBranch(_shellNavigatorBKey, isAuth),
             OrganizerAppBranch.branch(_shellNavigatorBKey, isAuth),
-            loginBranch(_shellNavigatorAKey, isAuth),
+            AuthenticationAppBranch.branch(_shellNavigatorAKey, isAuth),
             practiceBranch(_shellNavigatorCKey, isAuth),
             otherBranch(_shellNavigatorDKey, isAuth),
           ],
@@ -98,33 +96,6 @@ class AppRouter {
           name: RouteCoreConstants.settingsDisplayRoute,
           path: RouteCoreConstants.displayRouteName,
           builder: (context, state) => const DisplaySettings(),
-        ),
-      ],
-    );
-  }
-
-  static StatefulShellBranch loginBranch(
-    GlobalKey<NavigatorState> navigatorKey,
-    bool isAuth,
-  ) {
-    return StatefulShellBranch(
-      navigatorKey: navigatorKey,
-      routes: [
-        loginRoute(isAuth),
-      ],
-    );
-  }
-
-  static GoRoute loginRoute(bool isAuth) {
-    return GoRoute(
-      name: RouteCoreConstants.authenticationRoute,
-      path: RouteCoreConstants.authenticationRoute,
-      pageBuilder: (context, state) => const NoTransitionPage(child: Login()),
-      routes: [
-        GoRoute(
-          name: RouteCoreConstants.authenticationRegisterRoute,
-          path: RouteCoreConstants.registerRouteName,
-          builder: (context, state) => const Register(),
         ),
       ],
     );

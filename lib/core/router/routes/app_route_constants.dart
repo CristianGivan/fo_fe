@@ -7,11 +7,11 @@ class RouteCoreConstants {
   static const String settingsDisplayRoute = '/settings/display';
   static const String displayRouteName = 'display';
 
-  //login
-  static const String authenticationRoute = '/authentication';
-  static const String authenticationRegisterRoute = '/authentication/register';
-  static const String authenticationRouteName = 'authentication';
-  static const String registerRouteName = 'register';
+  // //login
+  // static const String authenticationRoute = '/authentication';
+  // static const String authenticationRegisterRoute = '/authentication/register';
+  // static const String authenticationRouteName = 'authentication';
+  // static const String registerRouteName = 'register';
 
   // //organizer
   // static const String organizerRoute = '/organizer';
