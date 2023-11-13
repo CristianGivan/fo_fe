@@ -1,6 +1,6 @@
 part of authentication;
 
-abstract class SignUpEvent extends Equatable {
+sealed class SignUpEvent extends Equatable {
   const SignUpEvent();
 
   @override

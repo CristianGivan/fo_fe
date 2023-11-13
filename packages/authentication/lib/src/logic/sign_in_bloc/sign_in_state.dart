@@ -1,13 +1,13 @@
 part of authentication;
 
-abstract class SignInState extends Equatable {
+sealed class SignInState extends Equatable {
   const SignInState();
 
   @override
   List<Object> get props => [];
 }
 
-class SignInInitial extends SignInState {}
+final class SignInInitial extends SignInState {}
 
 class SignInSuccess extends SignInState {}
 

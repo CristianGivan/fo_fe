@@ -1,6 +1,6 @@
 part of authentication;
 
-abstract class AuthenticationEvent extends Equatable {
+sealed class AuthenticationEvent extends Equatable {
   const AuthenticationEvent();
 
   @override
@@ -8,7 +8,7 @@ abstract class AuthenticationEvent extends Equatable {
 }
 
 class AuthenticationUserChanged extends AuthenticationEvent {
-  const AuthenticationUserChanged(this.user);
-
   final User? user;
+
+  const AuthenticationUserChanged(this.user);
 }

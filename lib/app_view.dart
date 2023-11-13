@@ -1,8 +1,7 @@
 import 'package:authentication/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'core/router/routes/app_route_configuration.dart';
+import 'package:fo_fe/features/other/presentation/screens/hi_screen.dart';
 
 class AppView extends StatelessWidget {
   const AppView({super.key});
@@ -12,21 +11,25 @@ class AppView extends StatelessWidget {
   // todo add in a check box
   final bool showMenu = false;
 
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => SignInBloc(
-              userRepository:
-                  context.read<AuthenticationBloc>().userRepository),
-        ),
-      ],
-      child: MaterialApp.router(
+    return MaterialApp(
         debugShowCheckedModeBanner: false,
-        routerConfig: AppRouter.returnRouter(showMenu, isAuth),
         theme: ThemeData.dark(),
-      ),
-    );
+        // routerConfig: AppRouter.returnRouter(showMenu, isAuth),
+        home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+            builder: (context, state) {
+          if (state.status == AuthenticationStatus.authenticated) {
+            return BlocProvider(
+              create: (context) => SignInBloc(
+                  userRepository:
+                      context.read<AuthenticationBloc>().userRepository),
+              child: const HiScreeen(),
+            );
+          } else {
+            return const WelcomeScreen();
+          }
+        }));
   }
 }

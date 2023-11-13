@@ -1,17 +1,15 @@
 part of authentication;
 
-class  AuthenticationBloc
+class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
-  final UserRepo userRepository;
+  final UserRepository userRepository;
   late final StreamSubscription<User?> _userSubscription;
 
-  AuthenticationBloc({required UserRepo myUserRepository})
-      : userRepository = myUserRepository,
-        super(const AuthenticationState.unknown()) {
-    _userSubscription = userRepository.user.listen((authUser) {
-      add(AuthenticationUserChanged(authUser));
+  AuthenticationBloc({required this.userRepository})
+      : super(const AuthenticationState.unknown()) {
+    _userSubscription = userRepository.user.listen((user) {
+      add(AuthenticationUserChanged(user));
     });
-
     on<AuthenticationUserChanged>((event, emit) {
       if (event.user != null) {
         emit(AuthenticationState.authenticated(event.user!));
