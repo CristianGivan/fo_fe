@@ -44,38 +44,38 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCwxOF9KeN4SjIQF__sL_sQW_4IJDgtqIE',
-    appId: '1:312570564124:web:07084737f2bfd590e7d9d9',
-    messagingSenderId: '312570564124',
-    projectId: 'fo-fe-57e85',
-    authDomain: 'fo-fe-57e85.firebaseapp.com',
-    storageBucket: 'fo-fe-57e85.appspot.com',
-    measurementId: 'G-3HEMEVY1RH',
+    apiKey: 'AIzaSyA7Fy_2bVGfrUMsH1Zbm9xly9XsXX9JdmE',
+    appId: '1:898234815807:web:3f0130d9b440237b402f8a',
+    messagingSenderId: '898234815807',
+    projectId: 'fo-fe-a120a',
+    authDomain: 'fo-fe-a120a.firebaseapp.com',
+    storageBucket: 'fo-fe-a120a.appspot.com',
+    measurementId: 'G-1JE330D0LR',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDej5sx126igwrR3M_cKVbBSKVF0sgfbrg',
-    appId: '1:312570564124:android:fd4c0618a703feeae7d9d9',
-    messagingSenderId: '312570564124',
-    projectId: 'fo-fe-57e85',
-    storageBucket: 'fo-fe-57e85.appspot.com',
+    apiKey: 'AIzaSyBHG1TfluCR0jURBxMctomJjbe3UJKVQ0s',
+    appId: '1:898234815807:android:2df38e7dad441a4d402f8a',
+    messagingSenderId: '898234815807',
+    projectId: 'fo-fe-a120a',
+    storageBucket: 'fo-fe-a120a.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDi2QmZUAvSyiVqw5C4AviY4dFjbB5eHY8',
-    appId: '1:312570564124:ios:6f797179487159a5e7d9d9',
-    messagingSenderId: '312570564124',
-    projectId: 'fo-fe-57e85',
-    storageBucket: 'fo-fe-57e85.appspot.com',
+    apiKey: 'AIzaSyA2kgWnw9JnXlPOfmDGyvB4UzhOVVNR1co',
+    appId: '1:898234815807:ios:998f0647ef67cfac402f8a',
+    messagingSenderId: '898234815807',
+    projectId: 'fo-fe-a120a',
+    storageBucket: 'fo-fe-a120a.appspot.com',
     iosBundleId: 'com.example.foFe',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDi2QmZUAvSyiVqw5C4AviY4dFjbB5eHY8',
-    appId: '1:312570564124:ios:db91a8b0cefc5151e7d9d9',
-    messagingSenderId: '312570564124',
-    projectId: 'fo-fe-57e85',
-    storageBucket: 'fo-fe-57e85.appspot.com',
+    apiKey: 'AIzaSyA2kgWnw9JnXlPOfmDGyvB4UzhOVVNR1co',
+    appId: '1:898234815807:ios:52645e6f86201466402f8a',
+    messagingSenderId: '898234815807',
+    projectId: 'fo-fe-a120a',
+    storageBucket: 'fo-fe-a120a.appspot.com',
     iosBundleId: 'com.example.foFe.RunnerTests',
   );
 }

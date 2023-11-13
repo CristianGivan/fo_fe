@@ -5,8 +5,8 @@ import 'package:organizer/organizer.dart';
 
 import '../../../router/routes/app_route_constants.dart';
 
-class Home extends StatelessWidget {
-  const Home({super.key});
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

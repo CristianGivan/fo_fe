@@ -11,8 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:user_repository/user_repository.dart';
 
-part 'src/components/strings.dart';
-part 'src/components/text_field.dart';
+part 'src/constants/strings.dart';
 part 'src/logic/authentication_bloc/authentication_bloc.dart';
 part 'src/logic/authentication_bloc/authentication_event.dart';
 part 'src/logic/authentication_bloc/authentication_state.dart';
@@ -25,5 +24,6 @@ part 'src/logic/sign_up_bloc/sign_up_state.dart';
 part 'src/presentation/screens/sign_in_screen.dart';
 part 'src/presentation/screens/sign_up_screen.dart';
 part 'src/presentation/screens/welcome_screen.dart';
+part 'src/presentation/widgets/text_field.dart';
 part 'src/router/authentication_router.dart';
 part 'src/router/authentication_router_names.dart';

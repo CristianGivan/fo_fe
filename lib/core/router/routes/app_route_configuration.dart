@@ -68,7 +68,7 @@ class AppRouter {
       name: RouteCoreConstants.homeRouteName,
       path: '/',
       builder: (BuildContext context, GoRouterState state) {
-        return const Home();
+        return const HomeScreen();
       },
     );
   }
