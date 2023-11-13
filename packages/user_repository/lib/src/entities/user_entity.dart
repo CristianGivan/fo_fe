@@ -1,4 +1,4 @@
-import 'package:equatable/equatable.dart';
+part of user_repository;
 
 class MyUserEntity extends Equatable {
   final String id;

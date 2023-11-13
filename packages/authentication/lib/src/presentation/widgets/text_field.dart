@@ -1,5 +1,3 @@
-// todo find a better place then folder components
-
 part of authentication;
 
 class MyTextField extends StatelessWidget {
