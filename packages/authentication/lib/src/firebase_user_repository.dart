@@ -32,7 +32,7 @@ class FirebaseUserRepository implements UserRepository {
       UserCredential user = await _firebaseAuth.createUserWithEmailAndPassword(
           email: myUser.email, password: password);
 
-      myUser = myUser.copyWith(userId: user.user!.uid);
+      myUser = myUser.copyWith(id: user.user!.uid);
 
       return myUser;
     } catch (e) {
@@ -44,9 +44,7 @@ class FirebaseUserRepository implements UserRepository {
   @override
   Future<void> setUserData(MyUser myUser) async {
     try {
-      await usersCollection
-          .doc(myUser.userId)
-          .set(myUser.toEntity().toDocument());
+      await usersCollection.doc(myUser.id).set(myUser.toEntity().toDocument());
     } catch (e) {
       log(e.toString());
       rethrow;
