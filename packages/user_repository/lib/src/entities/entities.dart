@@ -1,1 +1,1 @@
-part of user_repository;
+export 'my_user_entity.dart';
