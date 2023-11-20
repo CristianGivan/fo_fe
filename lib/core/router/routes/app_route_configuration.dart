@@ -40,8 +40,8 @@ class AppRouter {
           branches: [
             homeBranch(_rootNavigatorKey, isAuth),
             settingsBranch(_settingsShellNavigatorKey, isAuth),
-            OrganizerAppBranch.branch(_shellNavigatorBKey, isAuth),
             AuthenticationAppBranch.branch(_shellNavigatorAKey, isAuth),
+            OrganizerAppBranch.branch(_shellNavigatorBKey, isAuth),
             practiceBranch(_shellNavigatorCKey, isAuth),
             otherBranch(_shellNavigatorDKey, isAuth),
           ],

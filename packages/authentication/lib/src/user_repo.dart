@@ -1,6 +1,6 @@
-part of user_repository;
+part of authentication;
 
-abstract class UserRepository {
+abstract class UserRepo {
   Stream<User?> get user;
 
   Future<MyUser> signUp(MyUser myUser, String password);

@@ -10,11 +10,7 @@ dependencies:
     sdk: flutter
   equatable: ^2.0.5
 
-  # Firebase
-  firebase_auth: ^4.11.1
-  cloud_firestore: ^4.11.0
-  firebase_storage: ^11.5.0
-  firebase_core: ^2.9.0
+
 
 
 dev_dependencies:

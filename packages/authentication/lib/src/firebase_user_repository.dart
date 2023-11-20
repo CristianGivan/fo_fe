@@ -1,6 +1,6 @@
-part of user_repository;
+part of authentication;
 
-class FirebaseUserRepository implements UserRepository {
+class FirebaseUserRepository implements UserRepo {
   FirebaseUserRepository({
     FirebaseAuth? firebaseAuth,
   }) : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
@@ -8,6 +8,7 @@ class FirebaseUserRepository implements UserRepository {
   final FirebaseAuth _firebaseAuth;
   final usersCollection = FirebaseFirestore.instance.collection('users');
 
+  @override
   Stream<User?> get user {
     return _firebaseAuth.authStateChanges().map((firebaseUser) {
       final user = firebaseUser;

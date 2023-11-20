@@ -2,10 +2,10 @@ part of authentication;
 
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
-  final UserRepository userRepository;
+  final UserRepo userRepository;
   late final StreamSubscription<User?> _userSubscription;
 
-  AuthenticationBloc({required UserRepository myUserRepository})
+  AuthenticationBloc({required UserRepo myUserRepository})
       : userRepository = myUserRepository,
         super(const AuthenticationState.unknown()) {
     _userSubscription = userRepository.user.listen((authUser) {

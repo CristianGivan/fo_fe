@@ -1,9 +1,9 @@
 part of authentication;
 
 class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
-  final UserRepository _userRepository;
+  final UserRepo _userRepository;
 
-  SignUpBloc({required UserRepository userRepository})
+  SignUpBloc({required UserRepo userRepository})
       : _userRepository = userRepository,
         super(SignUpInitial()) {
     on<SignUpRequired>((event, emit) async {

@@ -6,16 +6,13 @@ class Organizer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Organizer'),
-      ),
       body: Column(
         children: [
           const SizedBox(height: 10),
           Center(
             child: ElevatedButton(
               onPressed: () =>
-                  context.go(OrganizerRouterNames.organizerTasksRoute),
+                  context.go(OrganizerRouterNames.organizerTopicsRoute),
               child: const Text('Go to the topics screen'),
             ),
           ),

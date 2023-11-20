@@ -18,7 +18,7 @@ class OrganizerAppBranch {
         name: OrganizerRouterNames.organizerRoute,
         path: OrganizerRouterNames.organizerRoute,
         pageBuilder: (context, state) => const NoTransitionPage(
-              child: Organizer(),
+              child: OrganizerHome(),
             ),
         routes: [
           GoRoute(
