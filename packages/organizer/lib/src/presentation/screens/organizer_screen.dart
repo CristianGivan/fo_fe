@@ -12,7 +12,7 @@ class Organizer extends StatelessWidget {
           Center(
             child: ElevatedButton(
               onPressed: () =>
-                  context.go(OrganizerRouterNames.organizerTopicsRoute),
+                  context.push(OrganizerRouterNames.organizerTopicsRoute),
               child: const Text('Go to the topics screen'),
             ),
           ),
