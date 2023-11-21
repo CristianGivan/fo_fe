@@ -7,10 +7,8 @@ class Review extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Container(
-        child: Center(
-          child: Text('Review'),
-        ),
+      body: const Center(
+        child: Text('Review'),
       ),
     );
   }

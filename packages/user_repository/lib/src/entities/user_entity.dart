@@ -1,4 +1,4 @@
-part of user_repository;
+part of '../../user_repository.dart';
 
 class MyUserEntity extends Equatable {
   final String id;

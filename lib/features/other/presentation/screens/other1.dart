@@ -7,10 +7,8 @@ class Other1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Container(
-        child: Center(
-          child: Text('Other1'),
-        ),
+      body: const Center(
+        child: Text('Other1'),
       ),
     );
   }
