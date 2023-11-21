@@ -25,7 +25,14 @@ class FirebaseUserRepository implements UserRepo {
       myUser = myUser.copyWith(id: user.user!.uid);
 
       return myUser;
-    } catch (e) {
+      // todo if the exceptions are throw
+    // } on FirebaseAuthException catch(e){
+    //   if(e.code=='week-password'){
+    //     throw Exception("Thuis password is to week");
+    //   }else if (e.code=='email-already-in-use'){
+    //     throw Exception("The account already exists for that mail")
+    //   }
+    }catch (e) {
       log(e.toString());
       rethrow;
     }
