@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "898234815807",
+    "project_id": "fo-fe-a120a",
+    "storage_bucket": "fo-fe-a120a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:898234815807:android:2df38e7dad441a4d402f8a",
+        "android_client_info": {
+          "package_name": "com.example.fo_fe"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHG1TfluCR0jURBxMctomJjbe3UJKVQ0s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
