@@ -12,28 +12,26 @@ class Settings extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Exercise'),
       ),
-      body: Container(
-        child: Column(
-          children: [
-            SizedBox(height: 10),
-            Center(
-              child: ElevatedButton(
-                onPressed: () =>
-                    context.push(RouteCoreConstants.settingsDisplayRoute),
-                child: const Text('Go to the display settings'),
+      body: Column(
+        children: [
+          const SizedBox(height: 10),
+          Center(
+            child: ElevatedButton(
+              onPressed: () =>
+                  context.push(RouteCoreConstants.settingsDisplayRoute),
+              child: const Text('Go to the display settings'),
+            ),
+          ),
+          const SizedBox(height: 10),
+          const Center(
+            child: TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Enter a search term',
               ),
             ),
-            SizedBox(height: 10),
-            Center(
-              child: TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Enter a search term',
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

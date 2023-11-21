@@ -12,29 +12,27 @@ class DisplaySettings extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Display Settings'),
       ),
-      body: Container(
-        child: Column(
-          children: [
-            SizedBox(height: 10),
-            Center(
-              child: ElevatedButton(
-                //todo add change theme function
-                onPressed: () =>
-                    context.push(RouteCoreConstants.settingsDisplayRoute),
-                child: const Text('todo add change theme function'),
+      body: Column(
+        children: [
+          const SizedBox(height: 10),
+          Center(
+            child: ElevatedButton(
+              //todo add change theme function
+              onPressed: () =>
+                  context.push(RouteCoreConstants.settingsDisplayRoute),
+              child: const Text('todo add change theme function'),
+            ),
+          ),
+          const SizedBox(height: 10),
+          const Center(
+            child: TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Enter a search term',
               ),
             ),
-            SizedBox(height: 10),
-            Center(
-              child: TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Enter a search term',
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

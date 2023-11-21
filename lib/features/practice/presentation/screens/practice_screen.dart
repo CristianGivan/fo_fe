@@ -10,33 +10,31 @@ class Practice extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Exercise'),
       ),
-      body: Container(
-        child: Column(
-          children: [
-            SizedBox(height: 10),
-            Center(
-              child: ElevatedButton(
-                onPressed: () => context.push('/practice/games'),
-                child: const Text('Go to the games screen'),
+      body: Column(
+        children: [
+          const SizedBox(height: 10),
+          Center(
+            child: ElevatedButton(
+              onPressed: () => context.push('/practice/games'),
+              child: const Text('Go to the games screen'),
+            ),
+          ),
+          const SizedBox(height: 10),
+          Center(
+            child: ElevatedButton(
+              onPressed: () => context.push('/practice/review'),
+              child: const Text('Go to the tasks screen'),
+            ),
+          ),
+          const Center(
+            child: TextField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Enter a search term',
               ),
             ),
-            SizedBox(height: 10),
-            Center(
-              child: ElevatedButton(
-                onPressed: () => context.push('/practice/review'),
-                child: const Text('Go to the tasks screen'),
-              ),
-            ),
-            Center(
-              child: TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Enter a search term',
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

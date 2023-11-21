@@ -7,10 +7,8 @@ class Tasks extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Container(
-        child: const Center(
-          child: Text('Tasks'),
-        ),
+      body: const Center(
+        child: Text('Tasks'),
       ),
     );
   }

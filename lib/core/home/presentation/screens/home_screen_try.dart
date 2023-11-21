@@ -15,7 +15,7 @@ class HomeScreenTry extends StatelessWidget {
               onPressed: () {
                 context.read<SignInBloc>().add(const SignOutRequired());
               },
-              icon: Icon(Icons.login))
+              icon: const Icon(Icons.login))
         ],
       ),
     );
