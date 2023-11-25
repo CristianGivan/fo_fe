@@ -1,6 +1,6 @@
 part of authentication;
 
-class AuthenticationBloc
+class  AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   final UserRepo userRepository;
   late final StreamSubscription<User?> _userSubscription;
