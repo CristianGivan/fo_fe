@@ -1,7 +1,9 @@
 library authentication;
 
 import 'dart:async';
+import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,8 +12,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:user_repository/user_repository.dart';
 
-part 'src/components/strings.dart';
-part 'src/components/text_field.dart';
+
+part 'src/firebase_user_repository.dart';
+part 'src/user_repo.dart';
+part 'src/constants//strings.dart';
+part 'src/presentation/widgets/text_field.dart';
 part 'src/logic/authentication_bloc/authentication_bloc.dart';
 part 'src/logic/authentication_bloc/authentication_event.dart';
 part 'src/logic/authentication_bloc/authentication_state.dart';

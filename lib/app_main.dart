@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'app_view.dart';
 
 class AppMain extends StatelessWidget {
-  final UserRepo userRepository;
+  final UserRepository userRepository;
 
   const AppMain(this.userRepository, {super.key});
 
