@@ -19,7 +19,7 @@ class OrganizerHome extends StatelessWidget {
               child: const Organizer(),
             );
           } else {
-            return const WelcomeScreen();
+            return const AuthenticationScreen();
           }
         }));
   }

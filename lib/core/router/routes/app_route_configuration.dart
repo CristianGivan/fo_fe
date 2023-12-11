@@ -1,5 +1,6 @@
 import 'package:authentication/authentication.dart';
 import 'package:flutter/material.dart';
+import 'package:fo_fe/core/home/presentation/screens/home_screen.dart';
 import 'package:fo_fe/core/router/routes/stateful_shell_route.dart';
 import 'package:go_router/go_router.dart';
 import 'package:organizer/organizer.dart';
@@ -12,7 +13,7 @@ import '../../../features/practice/presentation/screens/practice_screen.dart';
 import '../../../features/practice/presentation/screens/review_screen.dart';
 import '../../../features/settings/presentation/screens/display.dart';
 import '../../../features/settings/presentation/screens/settings_screen.dart';
-import '../../home/presentation/screens/home_screen.dart';
+import '../../home/presentation/screens/app_screen.dart';
 import 'app_route_constants.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();

@@ -1,13 +1,13 @@
 part of authentication;
 
-class WelcomeScreen extends StatefulWidget {
-  const WelcomeScreen({super.key});
+class AuthenticationScreen extends StatefulWidget {
+  const AuthenticationScreen({super.key});
 
   @override
-  State<WelcomeScreen> createState() => _WelcomeScreenState();
+  State<AuthenticationScreen> createState() => _AuthenticationScreenState();
 }
 
-class _WelcomeScreenState extends State<WelcomeScreen>
+class _AuthenticationScreenState extends State<AuthenticationScreen>
     with TickerProviderStateMixin {
   late TabController tabController;
 

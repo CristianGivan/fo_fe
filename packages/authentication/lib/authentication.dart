@@ -28,6 +28,6 @@ part 'src/logic/sign_up_bloc/sign_up_event.dart';
 part 'src/logic/sign_up_bloc/sign_up_state.dart';
 part 'src/presentation/screens/sign_in_screen.dart';
 part 'src/presentation/screens/sign_up_screen.dart';
-part 'src/presentation/screens/welcome_screen.dart';
+part 'src/presentation/screens/authentication_screen.dart';
 part 'src/router/authentication_router.dart';
 part 'src/router/authentication_router_names.dart';

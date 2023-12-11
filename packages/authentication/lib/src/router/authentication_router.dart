@@ -18,12 +18,12 @@ class AuthenticationAppBranch {
       name: AuthenticationRouterNames.authenticationRoute,
       path: AuthenticationRouterNames.authenticationRoute,
       pageBuilder: (context, state) =>
-          const NoTransitionPage(child: WelcomeScreen()),
+          const NoTransitionPage(child: AuthenticationScreen()),
       routes: [
         GoRoute(
           name: AuthenticationRouterNames.authenticationRegisterRoute,
           path: AuthenticationRouterNames.registerRouteName,
-          builder: (context, state) => const WelcomeScreen(),
+          builder: (context, state) => const AuthenticationScreen(),
         ),
       ],
     );
