@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_todos/src/bootstrap.dart';
+import 'package:tasks/src/bootstrap.dart';
 import 'package:local_storage_todos_api/local_storage_todos_api.dart';
 
 Future<void> main() async {

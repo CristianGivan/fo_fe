@@ -15,7 +15,8 @@ dependencies:
 
   authentication:
     path: ../authentication
-
+  tasks:
+    path: ../tasks
 
 dev_dependencies:
   flutter_test:

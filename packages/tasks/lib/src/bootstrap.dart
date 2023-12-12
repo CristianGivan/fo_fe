@@ -3,8 +3,8 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_todos/src/app/app.dart';
-import 'package:flutter_todos/src/app/app_bloc_observer.dart';
+import 'package:tasks/src/app/app.dart';
+import 'package:tasks/src/app/app_bloc_observer.dart';
 
 import 'package:todos_api/todos_api.dart';
 import 'package:todos_repository/todos_repository.dart';

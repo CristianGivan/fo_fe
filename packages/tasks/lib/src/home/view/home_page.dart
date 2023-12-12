@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_todos/src/edit_todo/edit_todo.dart';
-import 'package:flutter_todos/src/home/home.dart';
-import 'package:flutter_todos/src/todos_overview/todos_overview.dart';
+import 'package:tasks/src/edit_todo/edit_todo.dart';
+import 'package:tasks/src/home/home.dart';
+import 'package:tasks/src/todos_overview/todos_overview.dart';
 
 import '../../stats/stats.dart';
 

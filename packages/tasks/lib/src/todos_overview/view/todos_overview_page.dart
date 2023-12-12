@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_todos/src/edit_todo/view/edit_todo_page.dart';
-import 'package:flutter_todos/src/l10n/l10n.dart';
-import 'package:flutter_todos/src/todos_overview/todos_overview.dart';
+import 'package:tasks/src/edit_todo/view/edit_todo_page.dart';
+import 'package:tasks/src/l10n/l10n.dart';
+import 'package:tasks/src/todos_overview/todos_overview.dart';
 import 'package:todos_repository/todos_repository.dart';
 
 class TodosOverviewPage extends StatelessWidget {

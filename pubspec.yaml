@@ -27,6 +27,8 @@ dependencies:
     path: packages/user_repository
   authentication:
     path: packages/authentication
+  tasks:
+     path: packages/tasks
 
 dev_dependencies:
   flutter_lints: ^3.0.1

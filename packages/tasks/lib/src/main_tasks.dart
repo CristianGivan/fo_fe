@@ -1,14 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tasks/src/home/home.dart';
-import 'package:tasks/src/l10n/l10n.dart';
-import 'package:tasks/src/theme/theme.dart';
-import 'package:todos_repository/todos_repository.dart';
+part of tasks;
 
 class App extends StatelessWidget {
-  const App({required this.todosRepository, super.key});
+  App({super.key});
 
-  final TodosRepository todosRepository;
+  final TodosRepository todosRepository=mainTask() as TodosRepository;
 
   @override
   Widget build(BuildContext context) {
@@ -32,4 +27,16 @@ class AppView extends StatelessWidget {
       home: const HomePage(),
     );
   }
+}
+
+Future<TodosRepository> mainTask() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final todosApi = LocalStorageTodosApi(
+    plugin: await SharedPreferences.getInstance(),
+  );
+
+
+  TodosRepository todosRepository;
+  return todosRepository = TodosRepository(todosApi: todosApi);
 }
