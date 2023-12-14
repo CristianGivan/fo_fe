@@ -7,7 +7,7 @@ class Tasks extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: App()
-      );
+      body: const Text('Go to the tasks screen'),
+    );
   }
 }

@@ -16,6 +16,7 @@ import 'package:tasks/src/theme/theme.dart';
 import 'package:todos_api/todos_api.dart';
 import 'package:todos_repository/todos_repository.dart';
 
-part 'src/main_tasks.dart';
+// part 'src/main_tasks.dart';
+part 'src/main_development.dart';
 
 

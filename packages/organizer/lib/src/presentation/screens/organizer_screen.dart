@@ -2,6 +2,9 @@ part of organizer;
 
 class Organizer extends StatelessWidget {
   const Organizer({super.key});
+  void appTasks() {
+    main(); // Use the method exposed by the plugin
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +22,8 @@ class Organizer extends StatelessWidget {
           const SizedBox(height: 10),
           Center(
             child: ElevatedButton(
-              onPressed: () =>
-                  context.push(OrganizerRouterNames.organizerTasksRoute),
+              onPressed: () => appTasks(),
+              // context.push(OrganizerRouterNames.organizerTasksRoute),
               child: const Text('Go to the tasks screen'),
             ),
           ),
