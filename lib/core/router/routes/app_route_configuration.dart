@@ -1,10 +1,11 @@
 import 'package:authentication/authentication.dart';
 import 'package:flutter/material.dart';
+import 'package:fo_fe/core/db/objectbox/objectbox.dart';
 import 'package:fo_fe/core/home/presentation/screens/home_screen.dart';
 import 'package:fo_fe/core/router/routes/stateful_shell_route.dart';
 import 'package:go_router/go_router.dart';
-import 'package:organizer/organizer.dart';
 
+import '../../../features/Organizer/organizer.dart';
 import '../../../features/other/presentation/screens/other1.dart';
 import '../../../features/other/presentation/screens/other2.dart';
 import '../../../features/other/presentation/screens/other_screen.dart';
@@ -26,7 +27,7 @@ final _shellNavigatorDKey = GlobalKey<NavigatorState>(debugLabel: 'shellD');
 
 // https://github.com/flutter/packages/blob/main/packages/go_router/example/lib/stateful_shell_route.dart
 class AppRouter {
-  static GoRouter returnRouter(bool showMenu, bool isAuth) {
+  static GoRouter returnRouter(bool showMenu, bool isAuth,ObjectBox objectBox) {
     GoRouter router = GoRouter(
       initialLocation: '/',
       debugLogDiagnostics: true,
@@ -42,7 +43,7 @@ class AppRouter {
             homeBranch(_rootNavigatorKey, isAuth),
             settingsBranch(_settingsShellNavigatorKey, isAuth),
             AuthenticationAppBranch.branch(_shellNavigatorAKey, isAuth),
-            OrganizerAppBranch.branch(_shellNavigatorBKey, isAuth),
+            OrganizerAppBranch.branch(_shellNavigatorBKey,objectBox),
             practiceBranch(_shellNavigatorCKey, isAuth),
             otherBranch(_shellNavigatorDKey, isAuth),
           ],
