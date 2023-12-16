@@ -39,7 +39,7 @@ class OrganizerAppBranch {
         ],
         redirect: (context, state) {
           //todo
-          if (false) {
+          if (true) {
             return null;
           } else {
             // todo shall be other screen

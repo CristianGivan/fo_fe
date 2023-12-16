@@ -3,6 +3,7 @@ library organizer;
 import 'package:authentication/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../main.dart';
 import '../tasks/tasks.dart';
 import 'package:go_router/go_router.dart';
 

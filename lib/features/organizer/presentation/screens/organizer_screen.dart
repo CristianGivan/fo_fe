@@ -19,7 +19,7 @@ class Organizer extends StatelessWidget {
           const SizedBox(height: 10),
           Center(
             child: ElevatedButton(
-              onPressed: () => context.push(OrganizerRouterNames.organizerReminderRoute),
+              onPressed: () => context.push(OrganizerRouterNames.organizerTasksRoute),
               // context.push(OrganizerRouterNames.organizerTasksRoute),
               child: const Text('Go to the tasks screen'),
             ),

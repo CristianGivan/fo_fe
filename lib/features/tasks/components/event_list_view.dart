@@ -3,7 +3,7 @@ part of '../tasks.dart';
 
 /// Generates and returns a widget with list of events stored in the Box.
 class EventList extends StatefulWidget {
-  const EventList({Key? key}) : super(key: key);
+  const EventList( {Key? key}) : super(key: key);
 
   @override
   State<EventList> createState() => _EventListState();

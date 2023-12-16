@@ -2,6 +2,7 @@ library tasks;
 
 import 'package:flutter/material.dart';
 import 'package:fo_fe/core/db/objectbox/model.dart';
+import 'package:fo_fe/core/db/objectbox/objectbox.dart';
 import 'package:fo_fe/main.dart';
 import 'package:intl/intl.dart';
 
