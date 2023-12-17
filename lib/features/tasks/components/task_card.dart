@@ -46,13 +46,13 @@ class _TaskCardState extends State<TaskCard> {
           Expanded(
             child: Container(
               decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 243, 243, 243),
+                color: Colors.grey.shade900,
                 borderRadius: BorderRadius.circular(10),
                 boxShadow: const [
                   BoxShadow(
-                    color: Color.fromARGB(255, 168, 168, 168),
-                    blurRadius: 5,
-                    offset: Offset(1, 2),
+                    color: Colors.white,
+                    blurRadius: 1,
+                    offset: Offset( 0.5, 0.5),
                   )
                 ],
               ),
@@ -80,7 +80,7 @@ class _TaskCardState extends State<TaskCard> {
                                   ? const TextStyle(
                                       fontSize: 20.0,
                                       height: 1.0,
-                                      color: Color.fromARGB(255, 73, 73, 73),
+                                      // color: Color.fromARGB(255, 73, 73, 73),
                                       overflow: TextOverflow.ellipsis,
                                       decoration: TextDecoration.lineThrough)
                                   : const TextStyle(
@@ -98,8 +98,7 @@ class _TaskCardState extends State<TaskCard> {
                                     ? const TextStyle(
                                         fontSize: 15.0,
                                         height: 1.0,
-                                        color:
-                                            Color.fromARGB(255, 106, 106, 106),
+                                        color:Color.fromARGB(255, 106, 106, 106),
                                         fontStyle: FontStyle.italic,
                                         decoration: TextDecoration.lineThrough,
                                         overflow: TextOverflow.visible)

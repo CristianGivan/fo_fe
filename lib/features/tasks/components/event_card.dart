@@ -26,13 +26,13 @@ class _EventCardState extends State<EventCard> {
           children: <Widget>[
             Container(
               decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 243, 243, 243),
+                color: Colors.grey.shade900,
                 borderRadius: BorderRadius.circular(10),
                 boxShadow: const [
                   BoxShadow(
-                    color: Color.fromARGB(255, 168, 168, 168),
-                    blurRadius: 5,
-                    offset: Offset(1, 2),
+                    color: Colors.white,
+                    blurRadius: 1,
+                    offset: Offset( 0.5, 0.5),
                   )
                 ],
               ),

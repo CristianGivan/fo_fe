@@ -29,7 +29,7 @@ class OrganizerAppBranch {
           GoRoute(
             name: OrganizerRouterNames.organizerTasksRoute,
             path: OrganizerRouterNames.tasksRouteName,
-            builder: (context, state) => const Tasks(),
+            builder: (context, state) => const TasksHome(),
           ),
           GoRoute(
             name: OrganizerRouterNames.organizerReminderRoute,

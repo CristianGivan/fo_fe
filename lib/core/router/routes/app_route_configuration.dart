@@ -14,7 +14,6 @@ import '../../../features/practice/presentation/screens/practice_screen.dart';
 import '../../../features/practice/presentation/screens/review_screen.dart';
 import '../../../features/settings/presentation/screens/display.dart';
 import '../../../features/settings/presentation/screens/settings_screen.dart';
-import '../../home/presentation/screens/app_screen.dart';
 import 'app_route_constants.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -29,7 +28,7 @@ final _shellNavigatorDKey = GlobalKey<NavigatorState>(debugLabel: 'shellD');
 class AppRouter {
   static GoRouter returnRouter(bool showMenu, bool isAuth,ObjectBox objectBox) {
     GoRouter router = GoRouter(
-      initialLocation: '/',
+      initialLocation: RouteCoreConstants.homeRoute,
       debugLogDiagnostics: true,
       routes: [
         StatefulShellRoute.indexedStack(
