@@ -10,13 +10,13 @@ class EventList extends StatefulWidget {
 }
 
 class _EventListState extends State<EventList> {
-  EventCard Function(BuildContext, int) _itemBuilder(List<Event> events) =>
-      (BuildContext context, int index) => EventCard(event: events[index]);
+  EventCard Function(BuildContext, int) _itemBuilder(List<TasksEntity> events) =>
+      (BuildContext context, int index) => EventCard(tasks: events[index]);
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<Event>>(
-        stream: objectbox.getEvents(),
+    return StreamBuilder<List<TasksEntity>>(
+        stream: objectbox.getTasksList(),
         builder: (context, snapshot) {
           if (snapshot.data?.isNotEmpty ?? false) {
             return ListView.builder(

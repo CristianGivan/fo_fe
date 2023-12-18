@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:authentication/authentication.dart';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -15,4 +17,6 @@ Future<void> main() async {
 
   objectbox = await ObjectBox.create();
   runApp(AppMain(FirebaseUserRepository()));
+  // todo
+  // objectbox.store.close();
 }

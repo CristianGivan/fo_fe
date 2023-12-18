@@ -2,25 +2,25 @@ part of tasks;
 
 /// Generates and returns list of tasks belonging a parent event.
 class TaskList extends StatefulWidget {
-  final int eventId;
+  final int tasksId;
 
   const TaskList({
-    Key? key,
-    required this.eventId,
-  }) : super(key: key);
+    super.key,
+    required this.tasksId,
+  });
 
   @override
   State<TaskList> createState() => _TaskListState();
 }
 
 class _TaskListState extends State<TaskList> {
-  TaskCard Function(BuildContext, int) _itemBuilder(List<Task> tasks) =>
-      (BuildContext context, int index) => TaskCard(task: tasks[index]);
+  TaskCard Function(BuildContext, int) _itemBuilder(List<TaskEntity> tasks) =>
+      (BuildContext context, int index) => TaskCard(task: tasks[index], tasks:objectbox.getEvent(widget.tasksId) ?? TasksEntity("only to not have optional"));
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<Task>>(
-        stream: objectbox.getTasksOfEvent(widget.eventId),
+    return StreamBuilder<List<TaskEntity>>(
+        stream: objectbox.getTasksOfEvent(widget.tasksId),
         builder: (context, snapshot) {
           if (snapshot.data?.isNotEmpty ?? false) {
             return ListView.builder(

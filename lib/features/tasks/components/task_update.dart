@@ -1,30 +1,54 @@
-part of tasks;
+import 'package:flutter/material.dart';
+import 'package:fo_fe/features/tasks/entity/tag_entity.dart';
+import 'package:fo_fe/features/tasks/entity/task_entity.dart';
+import 'package:fo_fe/features/tasks/entity/tasks_entity.dart';
+import 'package:fo_fe/features/tasks/model/tasks.dart';
+import 'package:fo_fe/features/tasks/tasks.dart';
+import '../../../main.dart';
+
 
 /// Adds a new task and assigns an owner.
-class AddTask extends StatefulWidget {
-  final TasksEntity event;
+class UpdateTask extends StatefulWidget {
+  final TaskEntity? task;
+  final TasksEntity tasks;
 
-  const AddTask({Key? key, required this.event}) : super(key: key);
+  const UpdateTask({Key? key,  this.task ,required this.tasks,}) : super(key: key);
 
   @override
-  State<AddTask> createState() => _AddTaskState();
+  State<UpdateTask> createState() => _UpdateTaskState();
 }
 
-class _AddTaskState extends State<AddTask> {
-  final inputController = TextEditingController();
-  final ownerInputController = TextEditingController();
 
-  List<TagEntity> tags = [];
+class _UpdateTaskState extends State<UpdateTask> {
+  late var inputController = TextEditingController();
+  final ownerInputController = TextEditingController();
+  List<TagEntity> currentTags = [];
+
   @override
   void initState() {
     super.initState();
+    // Check if the widget's task is not null
+    if (widget.task != null) {
+      inputController = TextEditingController(text: widget.task!.subject);
+    } else {
+      // Initialize the inputController with an empty value if the task is null
+      inputController = TextEditingController();
+    }
   }
 
-  void _addOwner(String tagName) {
+  @override
+  void dispose() {
+    // Dispose the inputController when the state is disposed to avoid memory leaks
+    inputController.dispose();
+    super.dispose();
+  }
+
+
+  void _addTag(String tagName) {
     TagEntity newTag = TagEntity(tagName);
     objectbox.tagBox.put(newTag);
     setState(() {
-      tags = [newTag];
+      currentTags = [newTag];
     });
   }
 
@@ -37,6 +61,7 @@ class _AddTaskState extends State<AddTask> {
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: TextField(
                 controller: inputController,
+
               )),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -68,7 +93,7 @@ class _AddTaskState extends State<AddTask> {
                             TextButton(
                               child: const Text('Submit'),
                               onPressed: () {
-                                _addOwner(ownerInputController.text);
+                                _addTag(ownerInputController.text);
                                 Navigator.of(context).pop();
                               },
                             ),
@@ -96,8 +121,8 @@ class _AddTaskState extends State<AddTask> {
                   ),
                   onPressed: () {
                     if (inputController.text.isNotEmpty) {
-                      objectbox.addTask(
-                          inputController.text, tags, widget.event);
+                      objectbox.updateTask(widget.task?.id ?? 0,
+                          inputController.text, currentTags, widget.tasks);
 
                       Navigator.pop(context);
                     }
@@ -116,16 +141,16 @@ class _AddTaskState extends State<AddTask> {
 
       if (selectedOwners == null) return;
       setState(() {
-        tags = selectedOwners;
+        currentTags = selectedOwners;
       });
 
       return selectedOwners;
     }
 
-    return tags.isEmpty
+    return currentTags.isEmpty
         ? buildListTile(title: "No Owner", onTap: onTap)
         : buildListTile(
-            title: tags.map((tag) => tag.tag).join(", "),
+            title: currentTags.map((owners) => owners.tag).join(", "),
             onTap: onTap);
   }
 

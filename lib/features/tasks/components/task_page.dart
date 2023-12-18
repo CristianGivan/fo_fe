@@ -2,16 +2,16 @@ part of tasks;
 
 //Widget containing the list of tasks under an event
 //Also contains a floating action button to add tasks under the same event
-class TaskPage extends StatefulWidget {
-  final Event event;
+class TasksPage extends StatefulWidget {
+  final TasksEntity tasks;
 
-  const TaskPage({Key? key, required this.event}) : super(key: key);
+  const TasksPage({Key? key, required this.tasks}) : super(key: key);
 
   @override
-  State<TaskPage> createState() => _TaskPageState();
+  State<TasksPage> createState() => _TasksPageState();
 }
 
-class _TaskPageState extends State<TaskPage> {
+class _TasksPageState extends State<TasksPage> {
   @override
   void initState() {
     super.initState();
@@ -30,7 +30,7 @@ class _TaskPageState extends State<TaskPage> {
           children: [
             Expanded(
                 child: TaskList(
-              eventId: widget.event.id,
+              tasksId: widget.tasks.id,
             )),
           ],
         ),
@@ -38,7 +38,7 @@ class _TaskPageState extends State<TaskPage> {
       floatingActionButton: FloatingActionButton(
           onPressed: () async {
             await Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => AddTask(event: widget.event)));
+                builder: (context) => AddTask(event: widget.tasks)));
             setState(() {});
           },
           child: const Text("+", style: TextStyle(fontSize: 29))),

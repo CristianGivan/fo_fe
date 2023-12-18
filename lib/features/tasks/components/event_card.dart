@@ -4,9 +4,9 @@ part of tasks;
 /// Clicking a card navigates to a list of tasks related to event.
 
 class EventCard extends StatefulWidget {
-  final Event event;
+  final TasksEntity tasks;
 
-  const EventCard({Key? key, required this.event}) : super(key: key);
+  const EventCard({Key? key, required this.tasks}) : super(key: key);
 
   @override
   State<EventCard> createState() => _EventCardState();
@@ -18,7 +18,7 @@ class _EventCardState extends State<EventCard> {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => TaskPage(event: widget.event)));
+            builder: (context) => TasksPage(tasks: widget.tasks)));
       },
       child: Container(
         margin: const EdgeInsets.all(5),
@@ -45,7 +45,7 @@ class _EventCardState extends State<EventCard> {
                           alignment: Alignment.centerLeft,
                           padding: const EdgeInsets.all(5),
                           child: Text(
-                            widget.event.name,
+                            widget.tasks.name,
                             style: const TextStyle(
                                 fontSize: 25.0,
                                 height: 1.0,
@@ -57,14 +57,14 @@ class _EventCardState extends State<EventCard> {
                           padding: const EdgeInsets.all(10.0),
                           child: Row(
                             children: [
-                              Text("Location: ${widget.event.location}",
+                              Text("Location: ${widget.tasks.location}",
                                   style: const TextStyle(
                                       fontSize: 15.0,
                                       height: 1.0,
                                       overflow: TextOverflow.fade)),
                               const Spacer(),
                               Text(
-                                  "Date: ${DateFormat.yMd().format(widget.event.date!)}",
+                                  "Date: ${DateFormat.yMd().format(widget.tasks.date!)}",
                                   style: const TextStyle(
                                       fontSize: 15.0,
                                       height: 1.0,

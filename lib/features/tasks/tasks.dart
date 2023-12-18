@@ -3,6 +3,11 @@ library tasks;
 import 'package:flutter/material.dart';
 
 import 'package:fo_fe/core/db/objectbox/model.dart';
+import 'package:fo_fe/features/tasks/components/task_update.dart';
+import 'package:fo_fe/features/tasks/entity/tag_entity.dart';
+import 'package:fo_fe/features/tasks/entity/task_entity.dart';
+import 'package:fo_fe/features/tasks/entity/tasks_entity.dart';
+import 'package:fo_fe/features/tasks/model/tasks.dart';
 import 'package:fo_fe/main.dart';
 import 'package:intl/intl.dart';
 

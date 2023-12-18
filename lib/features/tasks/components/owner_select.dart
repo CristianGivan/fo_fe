@@ -1,15 +1,15 @@
 part of tasks;
 
-class OwnerList extends StatefulWidget {
-  const OwnerList({Key? key}) : super(key: key);
+class TagList extends StatefulWidget {
+  const TagList({Key? key}) : super(key: key);
 
   @override
-  State<OwnerList> createState() => _OwnerListState();
+  State<TagList> createState() => _TagListState();
 }
 
-class _OwnerListState extends State<OwnerList> {
-  List<Owner> owners = objectbox.ownerBox.getAll();
-  List<Owner> selectedOwners = [];
+class _TagListState extends State<TagList> {
+  List<TagEntity> tagList = objectbox.tagBox.getAll();
+  List<TagEntity> selectedTag = [];
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +21,11 @@ class _OwnerListState extends State<OwnerList> {
           children: [
             Expanded(
               child: ListView(
-                children: owners.map((owner) {
-                  final isSelected = selectedOwners.contains(owner);
+                children: tagList.map((tag) {
+                  final isSelected = selectedTag.contains(tag);
 
                   return OwnersTileWidget(
-                      owner: owner,
+                      tag: tag,
                       isSelected: isSelected,
                       onSelectedOwner: selectOwner);
                 }).toList(),
@@ -36,21 +36,21 @@ class _OwnerListState extends State<OwnerList> {
         ));
   }
 
-  void selectOwner(Owner owner) {
-    final isSelected = selectedOwners.contains(owner);
+  void selectOwner(TagEntity tag) {
+    final isSelected = selectedTag.contains(tag);
 
     setState(() {
-      isSelected ? selectedOwners.remove(owner) : selectedOwners.add(owner);
+      isSelected ? selectedTag.remove(tag) : selectedTag.add(tag);
     });
   }
 
   Widget buildSelectButton(BuildContext context) {
-    final label = "Select ${selectedOwners.length} Owners";
+    final label = "Select ${selectedTag.length} Owners";
 
     return Padding(
       padding: const EdgeInsets.all(50.0),
       child: ElevatedButton(
-          onPressed: (() => Navigator.pop(context, selectedOwners)),
+          onPressed: (() => Navigator.pop(context, selectedTag)),
           child: Text(label,
               style: const TextStyle(
                   color: Color.fromARGB(255, 255, 255, 255), fontSize: 16))),
@@ -59,28 +59,28 @@ class _OwnerListState extends State<OwnerList> {
 }
 
 class OwnersTileWidget extends StatelessWidget {
-  final Owner owner;
+  final TagEntity tag;
   final bool isSelected;
-  final ValueChanged<Owner> onSelectedOwner;
+  final ValueChanged<TagEntity> onSelectedOwner;
 
   const OwnersTileWidget(
       {Key? key,
-      required this.owner,
+      required this.tag,
       required this.isSelected,
       required this.onSelectedOwner})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final selectedColor = Theme.of(context).primaryColor;
+    final selectedColor = Theme.of(context).secondaryHeaderColor;
     final style = isSelected
         ? TextStyle(
             fontSize: 18, color: selectedColor, fontWeight: FontWeight.bold)
         : const TextStyle(fontSize: 18);
 
     return ListTile(
-      onTap: () => onSelectedOwner(owner),
-      title: Text(owner.name, style: style),
+      onTap: () => onSelectedOwner(tag),
+      title: Text(tag.tag, style: style),
       trailing:
           isSelected ? Icon(Icons.check, color: selectedColor, size: 26) : null,
     );

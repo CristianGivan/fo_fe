@@ -3,16 +3,19 @@ part of tasks;
 /// Styling for an event card. Includes the task name, owner and a checkmark.
 /// A card can be deleted through the delete button inside the menu bar.
 class TaskCard extends StatefulWidget {
-  final Task? task;
+  final TaskEntity? task;
+  final TasksEntity tasks;
 
-  const TaskCard({Key? key, this.task}) : super(key: key);
+  const TaskCard({super.key,this.task, required this.tasks});
 
   @override
-  State<TaskCard> createState() => _TaskCardState();
+  State<TaskCard> createState() {
+    return _TaskCardState();
+  }
 }
 
 class _TaskCardState extends State<TaskCard> {
-  List<Owner> owners = [];
+  List<TagEntity> tagList = [];
   String assignedString = "";
   bool? taskStatus;
 
@@ -30,113 +33,122 @@ class _TaskCardState extends State<TaskCard> {
     super.initState();
     setState(() {});
 
-    owners.addAll(widget.task!.owner);
+    tagList.addAll(widget.task!.tagList);
 
-    assignedString = owners.map((owner) => owner.name).join(', ');
+    assignedString = tagList.map((tag) => tag.tag).join(', ');
     taskStatus = widget.task!.status;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 90,
-      margin: const EdgeInsets.all(5),
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.grey.shade900,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.white,
-                    blurRadius: 1,
-                    offset: Offset( 0.5, 0.5),
-                  )
-                ],
-              ),
-              child: Row(
-                children: <Widget>[
-                  Transform.scale(
-                    scale: 1.3,
-                    child: Checkbox(
-                      shape: const CircleBorder(),
-                      value: taskStatus,
-                      onChanged: (bool? value) {
-                        toggleCheckBox();
-                      },
-                    ),
+    return GestureDetector(
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => UpdateTask(task: widget.task, tasks: widget.tasks)));
+        },
+        child: Container(
+          height: 90,
+          margin: const EdgeInsets.all(5),
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade900,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.white,
+                        blurRadius: 5,
+                        offset: Offset(0.5, 0.5),
+                      )
+                    ],
                   ),
-                  Flexible(
-                    child: Column(
-                      children: [
-                        Expanded(
-                          child: Container(
-                            alignment: Alignment.bottomLeft,
-                            child: Text(
-                              widget.task!.text,
-                              style: taskStatus!
-                                  ? const TextStyle(
+                  child: Row(
+                    children: <Widget>[
+                      Transform.scale(
+                        scale: 1.3,
+                        child: Checkbox(
+                          shape: const CircleBorder(),
+                          value: taskStatus,
+                          onChanged: (bool? value) {
+                            toggleCheckBox();
+                          },
+                        ),
+                      ),
+                      Flexible(
+                        child: Column(
+                          children: [
+                            Expanded(
+                              child: Container(
+                                alignment: Alignment.bottomLeft,
+                                child: Text(
+                                  widget.task!.subject,
+                                  style: taskStatus!
+                                      ? const TextStyle(
                                       fontSize: 20.0,
                                       height: 1.0,
-                                      // color: Color.fromARGB(255, 73, 73, 73),
+                                      color:
+                                      Color.fromARGB(255, 73, 73, 73),
                                       overflow: TextOverflow.ellipsis,
-                                      decoration: TextDecoration.lineThrough)
-                                  : const TextStyle(
+                                      decoration:
+                                      TextDecoration.lineThrough)
+                                      : const TextStyle(
                                       fontSize: 20.0,
                                       height: 1.0,
                                       overflow: TextOverflow.ellipsis),
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                        Flexible(
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text("Assigned to: $assignedString",
-                                style: taskStatus!
-                                    ? const TextStyle(
+                            Flexible(
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text("Assigned to: $assignedString",
+                                    style: taskStatus!
+                                        ? const TextStyle(
                                         fontSize: 15.0,
                                         height: 1.0,
-                                        color:Color.fromARGB(255, 106, 106, 106),
+                                        color: Color.fromARGB(
+                                            255, 106, 106, 106),
                                         fontStyle: FontStyle.italic,
-                                        decoration: TextDecoration.lineThrough,
+                                        decoration:
+                                        TextDecoration.lineThrough,
                                         overflow: TextOverflow.visible)
-                                    : const TextStyle(
-                                        fontSize: 15.0,
-                                        height: 1.0,
-                                        overflow: TextOverflow.visible,
-                                        fontStyle: FontStyle.italic,
-                                      )),
-                          ),
+                                        : const TextStyle(
+                                      fontSize: 15.0,
+                                      height: 1.0,
+                                      overflow: TextOverflow.visible,
+                                      fontStyle: FontStyle.italic,
+                                    )),
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  ),
-                  PopupMenuButton<DeleteMenu>(
-                    onSelected: (item) => onSelected(context, widget.task!),
-                    itemBuilder: (BuildContext context) =>
+                      ),
+                      PopupMenuButton<DeleteMenu>(
+                        onSelected: (item) => onSelected(context, widget.task!),
+                        itemBuilder: (BuildContext context) =>
                         [...MenuItems.itemsFirst.map(buildItem).toList()],
-                    child: const Padding(
-                      padding: EdgeInsets.all(4.0),
-                      child: Icon(color: Colors.grey, Icons.more_horiz),
-                    ),
+                        child: const Padding(
+                          padding: EdgeInsets.all(4.0),
+                          child: Icon(color: Colors.grey, Icons.more_horiz),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
-        ],
-      ),
-    );
+        ));
   }
 
   PopupMenuItem<DeleteMenu> buildItem(DeleteMenu item) =>
       PopupMenuItem<DeleteMenu>(value: item, child: Text(item.text!));
 
-  void onSelected(BuildContext context, Task task) {
+  void onSelected(BuildContext context, TaskEntity task) {
     objectbox.taskBox.remove(task.id);
     debugPrint(
-        "Task ${task.text} deleted and had owners: ${task.owner.map((owner) => owner.name).join(", ")}");
+        "Task ${task.subject} deleted and had owners: ${task.tagList.map((tag) => tag.tag).join(", ")}");
   }
 }
