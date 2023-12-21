@@ -2,7 +2,7 @@ part of tasks;
 
 /// Adds a new task and assigns an owner.
 class AddTask extends StatefulWidget {
-  final TasksEntity event;
+  final Tasks event;
 
   const AddTask({Key? key, required this.event}) : super(key: key);
 
@@ -15,6 +15,7 @@ class _AddTaskState extends State<AddTask> {
   final ownerInputController = TextEditingController();
 
   List<TagEntity> tags = [];
+
   @override
   void initState() {
     super.initState();
@@ -125,8 +126,7 @@ class _AddTaskState extends State<AddTask> {
     return tags.isEmpty
         ? buildListTile(title: "No Owner", onTap: onTap)
         : buildListTile(
-            title: tags.map((tag) => tag.tag).join(", "),
-            onTap: onTap);
+            title: tags.map((tag) => tag.tag).join(", "), onTap: onTap);
   }
 
   Widget buildListTile({

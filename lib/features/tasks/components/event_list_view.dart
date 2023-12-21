@@ -1,17 +1,17 @@
 part of '../tasks.dart';
 
-
 /// Generates and returns a widget with list of events stored in the Box.
-class EventList extends StatefulWidget {
-  const EventList( {Key? key}) : super(key: key);
+class TasksList extends StatefulWidget {
+  const TasksList({Key? key}) : super(key: key);
 
   @override
-  State<EventList> createState() => _EventListState();
+  State<TasksList> createState() => _TasksListState();
 }
 
-class _EventListState extends State<EventList> {
-  EventCard Function(BuildContext, int) _itemBuilder(List<TasksEntity> events) =>
-      (BuildContext context, int index) => EventCard(tasks: events[index]);
+class _TasksListState extends State<TasksList> {
+  TasksCard Function(BuildContext, int) _itemBuilder(
+          List<TasksEntity> events) =>
+      (BuildContext context, int index) => TasksCard(tasks: events[index]);
 
   @override
   Widget build(BuildContext context) {

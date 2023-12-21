@@ -1,6 +1,4 @@
-import 'package:fo_fe/features/tasks/entity/tag_entity.dart';
 import 'package:fo_fe/features/tasks/entity/task_entity.dart';
-import 'package:fo_fe/features/tasks/entity/tasks_entity.dart';
 import 'package:fo_fe/features/tasks/model/tag.dart';
 import 'package:fo_fe/features/tasks/model/tasks.dart';
 
@@ -12,7 +10,7 @@ class Task {
   List<Tasks> tasksList;
 
   Task(this.subject,
-      {this.id ,
+      {this.id,
       this.status = false,
       List<Tag>? tagList,
       List<Tasks>? tasksList})
@@ -26,13 +24,19 @@ class Task {
 
   factory Task.fromObjectBoxDB(TaskEntity data) {
     return Task(
-        data.subject, id: data.id, status: data.status);
+      data.subject,
+      id: data.id,
+      status: data.status,
+      tagList: data.tagList,
+    );
   }
+
   Set<Object?> toObjectBoxDB() => {
-    subject,
-    id,
-    status,
-  };
+        subject,
+        id,
+        status,
+      };
+
   // Convert TaskEntity to Task
   factory Task.fromEntity(TaskEntity entity) {
     return Task(
@@ -49,7 +53,7 @@ class Task {
   TaskEntity toEntity() {
     final entity = TaskEntity(subject);
 
-    entity.status=status;
+    entity.status = status;
 
     // Convert tagList and tasksList to their ObjectBox types
     // entity.tagList.addAll(this.tagList.map((tag) => TagEntity(tag))); // Assuming TagEntity is the ObjectBox entity for Tag
@@ -60,4 +64,3 @@ class Task {
     return entity;
   }
 }
-

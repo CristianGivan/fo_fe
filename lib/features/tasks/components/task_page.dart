@@ -3,7 +3,7 @@ part of tasks;
 //Widget containing the list of tasks under an event
 //Also contains a floating action button to add tasks under the same event
 class TasksPage extends StatefulWidget {
-  final TasksEntity tasks;
+  final Tasks tasks;
 
   const TasksPage({Key? key, required this.tasks}) : super(key: key);
 

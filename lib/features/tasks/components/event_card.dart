@@ -3,16 +3,16 @@ part of tasks;
 /// Styling for an event card. Includes the name, location and date.
 /// Clicking a card navigates to a list of tasks related to event.
 
-class EventCard extends StatefulWidget {
-  final TasksEntity tasks;
+class TasksCard extends StatefulWidget {
+  final Tasks tasks;
 
-  const EventCard({Key? key, required this.tasks}) : super(key: key);
+  const TasksCard({Key? key, required this.tasks}) : super(key: key);
 
   @override
-  State<EventCard> createState() => _EventCardState();
+  State<TasksCard> createState() => _TasksCardState();
 }
 
-class _EventCardState extends State<EventCard> {
+class _TasksCardState extends State<TasksCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -32,7 +32,7 @@ class _EventCardState extends State<EventCard> {
                   BoxShadow(
                     color: Colors.white,
                     blurRadius: 1,
-                    offset: Offset( 0.5, 0.5),
+                    offset: Offset(0.5, 0.5),
                   )
                 ],
               ),
