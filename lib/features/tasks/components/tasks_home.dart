@@ -11,7 +11,7 @@ class _TasksHomeState extends State<TasksHome> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => TasksBloc()..add(TasksInitialized()),
+      create: (context) => TasksBloc()..add(GetAllTasks()),
       child: Scaffold(
         key: UniqueKey(),
         appBar: AppBar(
@@ -30,7 +30,7 @@ class _TasksHomeState extends State<TasksHome> {
                   shrinkWrap: true,
                   itemCount: state.tasksList.length,
                   itemBuilder: (context, int i) {
-                    return TasksCard(tasks: tasks(i));
+                    return TasksCard(tasks: state.tasksList[i]);
                   },
                 );
               } else {

@@ -6,7 +6,7 @@ part of tasks;
 class TasksCard extends StatefulWidget {
   final Tasks tasks;
 
-  const TasksCard({Key? key, required this.tasks}) : super(key: key);
+  const TasksCard({super.key, required this.tasks});
 
   @override
   State<TasksCard> createState() => _TasksCardState();

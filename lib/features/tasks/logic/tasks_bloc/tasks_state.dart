@@ -1,4 +1,5 @@
 part of 'tasks_bloc.dart';
+
 enum TasksStatus { initial, loading, success, error }
 
 final class TasksState extends Equatable {
@@ -22,7 +23,7 @@ final class TasksState extends Equatable {
 
   @override
   String toString() {
-    return '''PostState { status: $status, posts: ${tasksList.length} }''';
+    return '''Task List { status: $status, tasks list length: ${tasksList.length} }''';
   }
 
   @override

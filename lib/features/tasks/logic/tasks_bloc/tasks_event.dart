@@ -7,7 +7,12 @@ sealed class TasksEvent extends Equatable {
   List<Object?> get props => [];
 }
 
+// todo get last tasks viewed before closed
 class TasksInitialized extends TasksEvent {}
+
+class GetAllTasks extends TasksEvent {}
+// todo get all tasks
+// class GetAllTasks extends TasksEvent {}
 
 class TasksAdded extends TasksEvent {
   final Tasks tasks;

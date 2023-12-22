@@ -97,9 +97,8 @@ class _AddTaskState extends State<AddTask> {
                   ),
                   onPressed: () {
                     if (inputController.text.isNotEmpty) {
-                      objectbox.addTask(
-                          inputController.text, tags, widget.event);
-
+                      objectbox.addTask(inputController.text, tags,
+                          widget.event.tasksToObjectBoxTasksEntity());
                       Navigator.pop(context);
                     }
                   },
