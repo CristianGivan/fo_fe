@@ -1,14 +1,14 @@
 part of tasks;
 
 /// Adds a new event
-class AddEvent extends StatefulWidget {
-  const AddEvent({super.key});
+class AddTasks extends StatefulWidget {
+  const AddTasks({super.key});
 
   @override
-  State<AddEvent> createState() => _AddEventState();
+  State<AddTasks> createState() => _AddTasksState();
 }
 
-class _AddEventState extends State<AddEvent> {
+class _AddTasksState extends State<AddTasks> {
   final eventNameController = TextEditingController();
   final eventLocationController = TextEditingController();
 
@@ -92,8 +92,10 @@ class _AddEventState extends State<AddEvent> {
                         tasks = Tasks(eventNameController.text,
                             date: currentDate!,
                             location: eventLocationController.text);
-                        context.read<TasksBloc>().add(TasksAdded(tasks));
-                        Navigator.pop(context);
+                        // context.read<TasksBloc>().add(TasksAdded(tasks));
+                        objectbox.addEvent(eventNameController.text,
+                            currentDate!, eventLocationController.text);
+                        context.pop();
                       }
                     })
               ],

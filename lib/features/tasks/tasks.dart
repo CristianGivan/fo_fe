@@ -15,12 +15,12 @@ import 'package:intl/intl.dart';
 import '../Organizer/organizer.dart';
 import 'components/delete_menu.dart';
 
-part 'components/event_add.dart';
 part 'components/event_card.dart';
 part 'components/owner_select.dart';
 part 'components/task_add.dart';
 part 'components/task_card.dart';
 part 'components/task_list_view.dart';
 part 'components/task_page.dart';
+part 'components/tasks_add.dart';
 part 'components/tasks_home.dart';
 part 'components/tasks_list_view.dart';

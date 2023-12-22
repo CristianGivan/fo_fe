@@ -41,8 +41,7 @@ class _TasksHomeState extends State<TasksHome> {
         ),
         floatingActionButton: FloatingActionButton(
             onPressed: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const AddEvent()));
+              context.push("/organizer/tasks/addTasks");
             },
             child: const Text("+", style: TextStyle(fontSize: 29))),
       ),

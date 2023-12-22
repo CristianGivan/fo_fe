@@ -2,9 +2,7 @@ part of organizer;
 
 class OrganizerAppBranch {
   static StatefulShellBranch branch(
-    GlobalKey<NavigatorState> navigatorKey,
-    ObjectBox objectbox
-  ) {
+      GlobalKey<NavigatorState> navigatorKey, ObjectBox objectbox) {
     return StatefulShellBranch(
       navigatorKey: navigatorKey,
       routes: [
@@ -27,10 +25,16 @@ class OrganizerAppBranch {
             builder: (context, state) => const Topics(),
           ),
           GoRoute(
-            name: OrganizerRouterNames.organizerTasksRoute,
-            path: OrganizerRouterNames.tasksRouteName,
-            builder: (context, state) => const TasksHome(),
-          ),
+              name: OrganizerRouterNames.organizerTasksRoute,
+              path: OrganizerRouterNames.tasksRouteName,
+              builder: (context, state) => const TasksHome(),
+              routes: [
+                GoRoute(
+                  name: OrganizerRouterNames.organizerTasksAddTasksRoute,
+                  path: OrganizerRouterNames.tasksAddTasksRouteName,
+                  builder: (context, state) => const AddTasks(),
+                ),
+              ]),
           GoRoute(
             name: OrganizerRouterNames.organizerReminderRoute,
             path: OrganizerRouterNames.reminderRouteName,
