@@ -2,7 +2,7 @@ library tasks;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fo_fe/features/tasks/components/task_update.dart';
+import 'package:fo_fe/features/tasks/ui/task_update.dart';
 import 'package:fo_fe/features/tasks/entity/tag_entity.dart';
 import 'package:fo_fe/features/tasks/entity/task_entity.dart';
 import 'package:fo_fe/features/tasks/entity/tasks_entity.dart';
@@ -13,14 +13,14 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '../Organizer/organizer.dart';
-import 'components/delete_menu.dart';
+import 'ui/delete_menu.dart';
 
-part 'components/event_card.dart';
-part 'components/owner_select.dart';
-part 'components/task_add.dart';
-part 'components/task_card.dart';
-part 'components/task_list_view.dart';
-part 'components/task_page.dart';
-part 'components/tasks_add.dart';
-part 'components/tasks_home.dart';
-part 'components/tasks_list_view.dart';
+part 'ui/event_card.dart';
+part 'ui/owner_select.dart';
+part 'ui/task_add.dart';
+part 'ui/task_card.dart';
+part 'ui/task_list_view.dart';
+part 'ui/task_page.dart';
+part 'ui/tasks_add.dart';
+part 'ui/tasks_home.dart';
+part 'ui/tasks_list_view.dart';
