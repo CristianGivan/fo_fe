@@ -62,7 +62,7 @@ class ObjectBox {
     // eventBox.put(event);
   }
 
-  TasksEntity? getEvent(int eventId) {
+  TasksEntity? getTasks(int eventId) {
     return tasksBox.get(eventId);
   }
 
@@ -71,10 +71,10 @@ class ObjectBox {
 
     newTask.tagList.addAll(tags);
 
-    TasksEntity updatedTasks = tasks;
-    updatedTasks.taskList.add(newTask);
+    TasksEntity? updatedTasks = getTasks(tasks.id);
+    updatedTasks?.taskList.add(newTask);
 
-    int eventId = tasksBox.put(updatedTasks);
+    int eventId = tasksBox.put(updatedTasks!);
 
     debugPrint(
         "Added Task: ${newTask.subject} assigned to ${newTask.tagList.map((tag) => tag.tag).join(", ")} in event: ${tasksBox.get(eventId)?.name}");

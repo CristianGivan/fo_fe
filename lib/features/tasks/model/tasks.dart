@@ -10,7 +10,7 @@ class Tasks {
   Tasks(this.name, {this.id = 0, this.date, this.location = ""});
 
   TasksEntity tasksToObjectBoxTasksEntity() {
-    return TasksEntity(name, date: date, location: location);
+    return TasksEntity(name,id: id, date: date, location: location);
   }
 
   static Tasks objectBoxTasksEntityToTasks(TasksEntity tasksEntity) {

@@ -15,7 +15,7 @@ class TaskList extends StatefulWidget {
 
 class _TaskListState extends State<TaskList> {
   TaskCard Function(BuildContext, int) _itemBuilder(List<TaskEntity> tasks) =>
-      (BuildContext context, int index) => TaskCard(task: tasks[index], tasks:objectbox.getEvent(widget.tasksId) ?? TasksEntity("only to not have optional"));
+      (BuildContext context, int index) => TaskCard(task: tasks[index], tasks:objectbox.getTasks(widget.tasksId) ?? TasksEntity("only to not have optional"));
 
   @override
   Widget build(BuildContext context) {

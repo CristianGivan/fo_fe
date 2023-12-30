@@ -125,10 +125,10 @@ class _TaskCardState extends State<TaskCard> {
                           ],
                         ),
                       ),
-                      PopupMenuButton<DeleteMenu>(
-                        onSelected: (item) => onSelected(context, widget.task!),
+                      PopupMenuButton<Menu>(
+                        onSelected: (item) => onSelected(context, item.text ,widget.task!),
                         itemBuilder: (BuildContext context) =>
-                        [...MenuItems.itemsFirst.map(buildItem).toList()],
+                        [...MenuItems.menuList.map(buildItem).toList()],
                         child: const Padding(
                           padding: EdgeInsets.all(4.0),
                           child: Icon(color: Colors.grey, Icons.more_vert),
@@ -143,12 +143,19 @@ class _TaskCardState extends State<TaskCard> {
         ));
   }
 
-  PopupMenuItem<DeleteMenu> buildItem(DeleteMenu item) =>
-      PopupMenuItem<DeleteMenu>(value: item, child: Text(item.text!));
+  PopupMenuItem<Menu> buildItem(Menu item) =>
+      PopupMenuItem<Menu>(value: item, child: Text(item.text!));
 
-  void onSelected(BuildContext context, TaskEntity task) {
-    objectbox.taskBox.remove(task.id);
-    debugPrint(
-        "Task ${task.subject} deleted and had owners: ${task.tagList.map((tag) => tag.tag).join(", ")}");
+  void onSelected(BuildContext context, String? item, TaskEntity task) {
+    if (item == "Delete") {
+      objectbox.taskBox.remove(task.id);
+      debugPrint(
+          "Task ${task.subject} deleted and had owners: ${task.tagList.map((
+              tag) => tag.tag).join(", ")}");
+    }
+    else{
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => UpdateTask(task: widget.task, tasks: widget.tasks)));
+    }
   }
 }

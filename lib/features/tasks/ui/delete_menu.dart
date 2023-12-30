@@ -1,13 +1,13 @@
-class DeleteMenu {
+class Menu {
   final String? text;
 
-  const DeleteMenu({required this.text});
+  const Menu({required this.text});
 }
 
 class MenuItems {
-  static const List<DeleteMenu> itemsFirst = [itemDelete];
-  static const List<DeleteMenu> itemsSecond = [itemEdit];
+  static const List<Menu> menuList = [itemUpdate,itemDelete];
 
-  static const itemDelete = DeleteMenu(text: "Delete");
-  static const itemEdit = DeleteMenu(text: "Edit");
+  static const itemUpdate = Menu(text: "Update");
+  static const itemDelete = Menu(text: "Delete");
+
 }
