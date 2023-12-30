@@ -131,7 +131,7 @@ class _TaskCardState extends State<TaskCard> {
                         [...MenuItems.itemsFirst.map(buildItem).toList()],
                         child: const Padding(
                           padding: EdgeInsets.all(4.0),
-                          child: Icon(color: Colors.grey, Icons.more_horiz),
+                          child: Icon(color: Colors.grey, Icons.more_vert),
                         ),
                       ),
                     ],

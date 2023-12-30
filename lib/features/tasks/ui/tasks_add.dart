@@ -95,7 +95,10 @@ class _AddTasksState extends State<AddTasks> {
                         // context.read<TasksBloc>().add(TasksAdded(tasks));
                         objectbox.addEvent(eventNameController.text,
                             currentDate!, eventLocationController.text);
-                        context.pop();
+                            // () => context.read<TasksBloc>().add(TasksAdded(tasks));
+                         context.pop();
+                         context.pushReplacement(OrganizerRouterNames.organizerTasksRoute);
+                        // context.pushReplacementNamed(OrganizerRouterNames.organizerTasksRoute);
                       }
                     })
               ],
