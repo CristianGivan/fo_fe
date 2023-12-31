@@ -17,9 +17,14 @@ class _AddTasksState extends State<AddTasks> {
   late Tasks tasks;
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => TasksBloc(),
+      create: (context) => TasksBloc()..add(GetAllTasks()),
       child: Scaffold(
         appBar: AppBar(
           title: const Text("Add Event"),
@@ -87,18 +92,21 @@ class _AddTasksState extends State<AddTasks> {
                     ),
                     onPressed: () {
                       if (eventLocationController.text.isNotEmpty &&
-                          eventNameController.text.isNotEmpty &&
-                          currentDate != null) {
+                              eventNameController
+                                  .text.isNotEmpty //&& currentDate != null
+                          ) {
                         tasks = Tasks(eventNameController.text,
                             date: currentDate!,
                             location: eventLocationController.text);
                         // context.read<TasksBloc>().add(TasksAdded(tasks));
                         objectbox.addEvent(eventNameController.text,
                             currentDate!, eventLocationController.text);
-                            // () => context.read<TasksBloc>().add(TasksAdded(tasks));
-                         context.pop();
-                         context.pushReplacement(OrganizerRouterNames.organizerTasksRoute);
-                        // context.pushReplacementNamed(OrganizerRouterNames.organizerTasksRoute);
+                        // Navigator.pop(context);
+                        // () => context.read<TasksBloc>().add(TasksAdded(tasks));
+                        // context.pushReplacement(OrganizerRouterNames.organizerTasksRoute);
+                        context.pop();
+                        context.pushReplacementNamed(
+                            OrganizerRouterNames.organizerTasksRoute);
                       }
                     })
               ],

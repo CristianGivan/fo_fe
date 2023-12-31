@@ -40,9 +40,14 @@ class _TasksHomeState extends State<TasksHome> {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              context.push("/organizer/tasks/addTasks");
+            onPressed: () async {
+              await Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const AddTasks()));
+              setState(() {});
             },
+          // onPressed: () {
+            //   context.push("/organizer/tasks/addTasks");
+            // },
             child: const Text("+", style: TextStyle(fontSize: 29))),
       ),
     );

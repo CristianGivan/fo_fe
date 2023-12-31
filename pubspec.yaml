@@ -20,6 +20,8 @@ dependencies:
   #firebase_core:
   firebase_core: ^2.22.0
 
+#  firebase_for_all: ^0.1.1
+
   objectbox: ^2.4.0
   objectbox_flutter_libs: any
   intl: any
@@ -42,6 +44,8 @@ dev_dependencies:
   build_runner: ^2.1.11
   objectbox_generator: any
 
+#  dependency_overrides:
+#    firebase_core_platform_interface: 4.5.1
 
 
 flutter:

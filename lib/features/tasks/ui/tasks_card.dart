@@ -72,15 +72,41 @@ class _TasksCardState extends State<TasksCard> {
                             ],
                           ),
                         ),
+
                       ],
                     ),
                   ),
-                ],
+                  PopupMenuButton<Menu>(
+                    onSelected: (item) => onSelected(context, item.text ,widget.tasks.tasksToObjectBoxTasksEntity()!),
+                    itemBuilder: (BuildContext context) =>
+                    [...MenuItems.menuList.map(buildItem).toList()],
+                    child: const Padding(
+                      padding: EdgeInsets.all(4.0),
+                      child: Icon(color: Colors.grey, Icons.more_vert),
+                    ),
+                  ),],
               ),
             ),
           ],
         ),
       ),
     );
+  }
+  PopupMenuItem<Menu> buildItem(Menu item) =>
+      PopupMenuItem<Menu>(value: item, child: Text(item.text!));
+
+  void onSelected(BuildContext context, String? item, TasksEntity tasks) {
+    if (item == "Delete") {
+      objectbox.tasksBox.remove(tasks.id);
+      // context.pop();
+      context.pushReplacementNamed(
+          OrganizerRouterNames.organizerTasksRoute);
+      debugPrint(
+          "Task ${tasks.name} deleted ");
+    }
+    else{
+      // Navigator.of(context).push(MaterialPageRoute(
+      //     builder: (context) => UpdateTask(task: widget.task, tasks: widget.tasks)));
+    }
   }
 }
