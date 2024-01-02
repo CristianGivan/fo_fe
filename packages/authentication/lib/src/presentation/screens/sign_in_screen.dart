@@ -102,6 +102,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               context.read<SignInBloc>().add(SignInRequired(
                                   emailController.text,
                                   passwordController.text));
+                              context.pop();
                             }
                           },
                           style: TextButton.styleFrom(
