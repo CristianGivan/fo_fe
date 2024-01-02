@@ -3,7 +3,8 @@ part of authentication;
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   final UserRepository userRepository;
-  late final StreamSubscription<User?> _userSubscription;
+  late final StreamSubscription<MyUser?> _userSubscription;
+
 
   AuthenticationBloc({required this.userRepository})
       : super(const AuthenticationState.unknown()) {

@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../entities/entities.dart';
 
@@ -24,6 +25,9 @@ class MyUser extends Equatable {
 
   static MyUser fromEntity(MyUserEntity entity) {
     return MyUser(id: entity.id, email: entity.email, name: entity.name);
+  }
+  static MyUser fromFirebaseUser(User firebaseUser){
+    return MyUser(id: firebaseUser.uid, email: firebaseUser.email??"", name: firebaseUser.displayName??"");
   }
 
   @override

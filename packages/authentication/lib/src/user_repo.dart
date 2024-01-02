@@ -2,7 +2,7 @@ part of authentication;
 
 
 abstract class UserRepository {
-  Stream<User?> get user;
+  Stream<MyUser?> get user;
 
   Future<MyUser> signUp(MyUser myUser, String password);
 

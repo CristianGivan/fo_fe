@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:authentication/authentication.dart';
@@ -9,14 +10,64 @@ import 'package:fo_fe/app_main.dart';
 import 'core/db/objectbox/objectbox.dart';
 import 'functions/firebase_options.dart';
 import 'functions/simple_bloc_observer.dart';
+
 late ObjectBox objectbox;
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   Bloc.observer = SimpleBlocObserver();
 
-  objectbox = await ObjectBox.create();
-  runApp(AppMain(FirebaseUserRepository()));
+  switch (Platform.operatingSystem) {
+    case "android":
+      {
+        objectbox = await ObjectBox.create();
+        await Firebase.initializeApp(
+            options: DefaultFirebaseOptions.currentPlatform);
+        runApp(AppMain(FirebaseUserRepository()));
+      }
+      break;
+    case "windows":
+      {
+        objectbox = await ObjectBox.create();
+        runApp(AppMain(LocalUserRepository()));
+      }
+      break;
+    case "linux":
+      {
+        objectbox = await ObjectBox.create();
+        runApp(AppMain(LocalUserRepository()));
+      }
+      break;
+    default: // web
+      {
+        objectbox = await ObjectBox.create();
+        await Firebase.initializeApp(
+            options: DefaultFirebaseOptions.currentPlatform);
+        runApp(AppMain(FirebaseUserRepository()));
+      }
+      break;
+  }
+
+  // if (Platform.isAndroid) {
+  //   objectbox = await ObjectBox.create();
+  //   await Firebase.initializeApp(
+  //       options: DefaultFirebaseOptions.currentPlatform);
+  //
+  //   runApp(AppMain(FirebaseUserRepository()));
+  // } else if (Platform.isWindows) {
+  //   objectbox = await ObjectBox.create();
+  //   runApp(AppMain(LocalUserRepository()));
+  // } else if (Platform.isLinux) {
+  //   objectbox = await ObjectBox.create();
+  //   runApp(AppMain(LocalUserRepository()));
+  // } else {
+  //   // web
+  //   objectbox = await ObjectBox.create();
+  //   await Firebase.initializeApp(
+  //       options: DefaultFirebaseOptions.currentPlatform);
+  //   runApp(AppMain(FirebaseUserRepository()));
+  // }
+
   // todo
   // objectbox.store.close();
 }

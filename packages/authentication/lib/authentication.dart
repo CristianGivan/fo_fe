@@ -14,6 +14,7 @@ import 'package:user_repository/user_repository.dart';
 
 
 part 'src/firebase_user_repository.dart';
+part 'src/local_user_repository.dart';
 part 'src/user_repo.dart';
 part 'src/constants//strings.dart';
 part 'src/presentation/widgets/text_field.dart';
