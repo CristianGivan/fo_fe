@@ -1,6 +1,7 @@
 import 'package:authentication/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fo_fe/core/themes/app_themes.dart';
 import 'package:fo_fe/features/other/presentation/screens/hi_screen.dart';
 import 'package:fo_fe/core/home/presentation/screens/app_screen.dart';
 import 'package:fo_fe/main.dart';
@@ -19,10 +20,10 @@ class AppView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData.dark(),
-        routerConfig: AppRouter.returnRouter(showMenu, isAuth,objectbox),
-        //
+      debugShowCheckedModeBanner: false,
+      theme: AppThemes.darkTheme(),
+      routerConfig: AppRouter.returnRouter(showMenu, isAuth, objectbox),
+      //
     );
   }
 }

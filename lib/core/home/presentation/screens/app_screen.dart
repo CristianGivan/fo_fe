@@ -7,14 +7,16 @@ import '../../../../features/Organizer/organizer.dart';
 import '../../../router/routes/app_route_constants.dart';
 
 class AppScreen extends StatelessWidget {
-   const AppScreen({super.key});
+  const AppScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final String email=context.select((AuthenticationBloc bloc) => bloc.state.user?.email.toString())??"no user!";
+    final String email = context.select(
+            (AuthenticationBloc bloc) => bloc.state.user?.email.toString()) ??
+        "no user!";
     return Scaffold(
       appBar: AppBar(
-        title:  Text(email),
+        title: Text(email),
       ),
       body: ListView(
         children: [
