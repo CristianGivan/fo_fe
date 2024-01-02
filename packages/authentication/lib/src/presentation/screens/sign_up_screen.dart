@@ -229,13 +229,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               });
                             }
                           },
-                          style: TextButton.styleFrom(
-                              elevation: 3.0,
-                              backgroundColor:
-                                  Theme.of(context).colorScheme.primary,
-                              foregroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(60))),
+                          // style: TextButton.styleFrom(
+                          //     elevation: 3.0,
+                          //     backgroundColor:
+                          //         Theme.of(context).colorScheme.primary,
+                          //     foregroundColor: Colors.white,
+                          //     shape: RoundedRectangleBorder(
+                          //         borderRadius: BorderRadius.circular(60))),
                           child: const Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: 25, vertical: 5),

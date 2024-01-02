@@ -6,11 +6,16 @@ class AppThemes{
       textButtonTheme: TextButtonThemeData(
           style: ButtonStyle(
               foregroundColor: MaterialStateProperty.resolveWith(
-                      (state) => Colors.lightBlue[100]))),
+                      (state) => Colors.lightBlue[100]),
+          backgroundColor: MaterialStateProperty.resolveWith(
+                  (state) => Colors.grey[800]))),
+
       elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
               foregroundColor: MaterialStateProperty.resolveWith(
-                      (state) => Colors.lightBlue[100]))),
+                      (state) => Colors.lightBlue[100]),
+              backgroundColor: MaterialStateProperty.resolveWith(
+                      (state) => Colors.grey[800]))),
     );
   }
 }

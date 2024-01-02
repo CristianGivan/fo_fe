@@ -96,7 +96,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   ? SizedBox(
                       width: MediaQuery.of(context).size.width * 0.9,
                       height: 50,
-                      child: TextButton(
+                      child: ElevatedButton(
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
                               context.read<SignInBloc>().add(SignInRequired(
@@ -105,13 +105,13 @@ class _SignInScreenState extends State<SignInScreen> {
                               context.pop();
                             }
                           },
-                          style: TextButton.styleFrom(
-                              elevation: 3.0,
-                              backgroundColor:
-                                  Theme.of(context).colorScheme.primary,
-                              foregroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(60))),
+                          // style: TextButton.styleFrom(
+                          //     elevation: 3.0,
+                          //     backgroundColor:
+                          //         Theme.of(context).colorScheme.primary,
+                          //     foregroundColor: Colors.white,
+                          //     shape: RoundedRectangleBorder(
+                          //         borderRadius: BorderRadius.circular(60))),
                           child: const Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: 25, vertical: 5),
