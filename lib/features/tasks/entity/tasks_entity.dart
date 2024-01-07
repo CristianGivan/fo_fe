@@ -13,7 +13,7 @@ class TasksEntity {
 
   String? location;
 
-  TasksEntity(this.name, DateTime? date, String? location, {this.id = 0});
+  TasksEntity(this.name, {DateTime? date, String? location, this.id = 0});
 
   @Backlink()
   final taskList = ToMany<TaskEntity>();

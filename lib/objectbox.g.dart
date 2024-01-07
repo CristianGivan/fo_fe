@@ -274,8 +274,8 @@ ModelDefinition getObjectBoxModel() {
               .vTableGetNullable(buffer, rootOffset, 10);
           final idParam =
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
-          final object =
-              TasksEntity(nameParam, dateParam, locationParam, id: idParam);
+          final object = TasksEntity(nameParam,
+              date: dateParam, location: locationParam, id: idParam);
           InternalToManyAccess.setRelInfo<TasksEntity>(
               object.taskList,
               store,

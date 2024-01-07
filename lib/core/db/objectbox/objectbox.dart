@@ -131,7 +131,8 @@ class ObjectBox implements Database {
   }
 
   TasksEntity tasksToTasksEntity(Tasks tasks) {
-    return TasksEntity(tasks.name, id: tasks.id, tasks.date, tasks.location);
+    return TasksEntity(tasks.name,
+        id: tasks.id, date: tasks.date, location: tasks.location);
   }
 
   TaskEntity taskToTaskEntity(Task task) {
@@ -222,7 +223,7 @@ class ObjectBox implements Database {
   int addTasks(Tasks tasks) {
     try {
       TasksEntity newEvent =
-          TasksEntity(tasks.name, tasks.date, tasks.location);
+          TasksEntity(tasks.name, date: tasks.date, location: tasks.location);
 
       debugPrint("Added Event: ${newEvent.name}");
       return tasksBox.put(newEvent);
