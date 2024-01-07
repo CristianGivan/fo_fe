@@ -7,7 +7,6 @@ class TaskEntity {
   @Id()
   int id;
   String subject;
-
   bool status;
 
   TaskEntity(this.subject, {this.id = 0, this.status = false});
@@ -22,6 +21,4 @@ class TaskEntity {
     status = !status;
     return status;
   }
-
-
 }

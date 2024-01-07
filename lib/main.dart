@@ -1,17 +1,17 @@
 import 'dart:io';
-import 'dart:math';
 
 import 'package:authentication/authentication.dart';
 import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fo_fe/app_main.dart';
+import 'package:fo_fe/core/db/database.dart';
 
 import 'core/db/objectbox/objectbox.dart';
 import 'functions/firebase_options.dart';
 import 'functions/simple_bloc_observer.dart';
 
-late ObjectBox objectbox;
+late Database database;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +20,7 @@ Future<void> main() async {
   switch (Platform.operatingSystem) {
     case "android":
       {
-        objectbox = await ObjectBox.create();
+        database = await ObjectBox.create();
         await Firebase.initializeApp(
             options: DefaultFirebaseOptions.currentPlatform);
         runApp(AppMain(FirebaseUserRepository()));
@@ -28,19 +28,19 @@ Future<void> main() async {
       break;
     case "windows":
       {
-        objectbox = await ObjectBox.create();
+        database = await ObjectBox.create();
         runApp(AppMain(LocalUserRepository()));
       }
       break;
     case "linux":
       {
-        objectbox = await ObjectBox.create();
+        database = await ObjectBox.create();
         runApp(AppMain(LocalUserRepository()));
       }
       break;
     default: // web
       {
-        objectbox = await ObjectBox.create();
+        database = await ObjectBox.create();
         await Firebase.initializeApp(
             options: DefaultFirebaseOptions.currentPlatform);
         runApp(AppMain(FirebaseUserRepository()));

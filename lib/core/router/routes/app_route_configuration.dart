@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fo_fe/core/db/objectbox/objectbox.dart';
 import 'package:fo_fe/core/home/presentation/screens/home_screen.dart';
 import 'package:fo_fe/core/router/routes/stateful_shell_route.dart';
+import 'package:fo_fe/main_dev1.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../features/Organizer/organizer.dart';
@@ -26,7 +27,7 @@ final _shellNavigatorDKey = GlobalKey<NavigatorState>(debugLabel: 'shellD');
 
 // https://github.com/flutter/packages/blob/main/packages/go_router/example/lib/stateful_shell_route.dart
 class AppRouter {
-  static GoRouter returnRouter(bool showMenu, bool isAuth,ObjectBox objectBox) {
+  static GoRouter returnRouter() {
     GoRouter router = GoRouter(
       initialLocation: RouteCoreConstants.homeRoute,
       debugLogDiagnostics: true,
@@ -34,17 +35,15 @@ class AppRouter {
         StatefulShellRoute.indexedStack(
           builder: (context, state, navigationShell) {
             return ScaffoldWithNestedNavigation(
-              navigationShell: navigationShell,
-              showMenu: showMenu,
-            );
+                navigationShell: navigationShell);
           },
           branches: [
-            homeBranch(_rootNavigatorKey, isAuth),
-            settingsBranch(_settingsShellNavigatorKey, isAuth),
-            AuthenticationAppBranch.branch(_shellNavigatorAKey, isAuth),
-            OrganizerAppBranch.branch(_shellNavigatorBKey,objectBox),
-            practiceBranch(_shellNavigatorCKey, isAuth),
-            otherBranch(_shellNavigatorDKey, isAuth),
+            homeBranch(_rootNavigatorKey),
+            settingsBranch(_settingsShellNavigatorKey),
+            AuthenticationAppBranch.branch(_shellNavigatorAKey),
+            OrganizerAppBranch.branch(_shellNavigatorBKey),
+            practiceBranch(_shellNavigatorCKey),
+            otherBranch(_shellNavigatorDKey),
           ],
         ),
       ],
@@ -54,17 +53,16 @@ class AppRouter {
 
   static StatefulShellBranch homeBranch(
     GlobalKey<NavigatorState> navigatorKey,
-    bool isAuth,
   ) {
     return StatefulShellBranch(
       navigatorKey: navigatorKey,
       routes: [
-        homeRoute(isAuth),
+        homeRoute(),
       ],
     );
   }
 
-  static GoRoute homeRoute(bool isAuth) {
+  static GoRoute homeRoute() {
     return GoRoute(
       name: RouteCoreConstants.homeRouteName,
       path: '/',
@@ -76,17 +74,16 @@ class AppRouter {
 
   static StatefulShellBranch settingsBranch(
     GlobalKey<NavigatorState> navigatorKey,
-    bool isAuth,
   ) {
     return StatefulShellBranch(
       navigatorKey: navigatorKey,
       routes: [
-        settingsRoute(isAuth),
+        settingsRoute(),
       ],
     );
   }
 
-  static GoRoute settingsRoute(bool isAuth) {
+  static GoRoute settingsRoute() {
     return GoRoute(
       name: RouteCoreConstants.settingsRoute,
       path: RouteCoreConstants.settingsRoute,
@@ -103,16 +100,16 @@ class AppRouter {
   }
 
   static StatefulShellBranch practiceBranch(
-      GlobalKey<NavigatorState> navigatorKey, bool isAuth) {
+      GlobalKey<NavigatorState> navigatorKey) {
     return StatefulShellBranch(
       navigatorKey: navigatorKey,
       routes: [
-        practiceRoute(isAuth),
+        practiceRoute(),
       ],
     );
   }
 
-  static GoRoute practiceRoute(bool isAuth) {
+  static GoRoute practiceRoute() {
     return GoRoute(
       name: RouteCoreConstants.practiceRoute,
       path: RouteCoreConstants.practiceRoute,
@@ -137,16 +134,16 @@ class AppRouter {
   }
 
   static StatefulShellBranch otherBranch(
-      GlobalKey<NavigatorState> navigatorKey, bool isAuth) {
+      GlobalKey<NavigatorState> navigatorKey) {
     return StatefulShellBranch(
       navigatorKey: navigatorKey,
       routes: [
-        otherRoute(isAuth),
+        otherRoute(),
       ],
     );
   }
 
-  static GoRoute otherRoute(bool isAuth) {
+  static GoRoute otherRoute() {
     return GoRoute(
       name: RouteCoreConstants.otherRoute,
       path: RouteCoreConstants.otherRoute,

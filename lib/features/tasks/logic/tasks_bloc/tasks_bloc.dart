@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-
-import '../../model/tasks.dart';
+import 'package:fo_fe/features/tasks/model/tasks.dart';
+import 'package:fo_fe/main.dart';
 
 part 'tasks_event.dart';
 part 'tasks_state.dart';
@@ -21,7 +21,8 @@ class TasksBloc extends Bloc<TasksEvent, TasksState> {
     emit(state.copyWith(status: TasksStatus.loading));
     try {
       emit(state.copyWith(
-          tasksList: await Tasks.getAllTasks(), status: TasksStatus.success));
+          tasksList: await database.getAllTasks(),
+          status: TasksStatus.success));
     } catch (e) {
       emit(state.copyWith(status: TasksStatus.error));
     }

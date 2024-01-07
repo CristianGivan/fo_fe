@@ -9,40 +9,14 @@ class Tasks {
 
   Tasks(this.name, {this.id = 0, this.date, this.location = ""});
 
-  TasksEntity tasksToObjectBoxTasksEntity() {
-    return TasksEntity(name,id: id, date: date, location: location);
-  }
-
-  static Tasks objectBoxTasksEntityToTasks(TasksEntity tasksEntity) {
-    return Tasks(tasksEntity.name,
-        id: tasksEntity.id,
-        date: tasksEntity.date,
-        location: tasksEntity.location);
-  }
-
-  static List<Tasks> objectBoxTasksEntityListToTasksList(
-      List<TasksEntity> tasksEntityList) {
-    List<Tasks> tasksList = tasksEntityList
-        .map((tasksEntity) => Tasks(tasksEntity.name,
-            id: tasksEntity.id,
-            date: tasksEntity.date,
-            location: tasksEntity.location))
-        .toList();
-    return tasksList;
-  }
-
-  // static Future<List<Tasks>> streamObjectBoxTasksEntityListToTasksList(
-  //     Stream<List<TasksEntity>> tasksEntityList) async {
-  //   List<TasksEntity> tasksEntity = await
-  //   return await objectBoxTasksEntityListToTasksList(tasksEntityList.first);
+  // TasksEntity tasksToObjectBoxTasksEntity() {
+  //   return TasksEntity(name,id: id, date: date, location: location);
   // }
 
-  static Future<List<Tasks>> getAllTasks() async {
-    Future<List<Tasks>> futureTasksLeast;
-    List<Tasks> tasksLists = [];
-    Stream<List<TasksEntity>> streamTasksEntity = objectbox.getTasksList();
-    tasksLists =
-        objectBoxTasksEntityListToTasksList(await streamTasksEntity.first);
-    return tasksLists;
-  }
+  // static Tasks objectBoxTasksEntityToTasks(TasksEntity tasksEntity) {
+  //   return Tasks(tasksEntity.name,
+  //       id: tasksEntity.id,
+  //       date: tasksEntity.date,
+  //       location: tasksEntity.location);
+  // }
 }

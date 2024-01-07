@@ -267,15 +267,15 @@ ModelDefinition getObjectBoxModel() {
               const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 8);
           final nameParam = const fb.StringReader(asciiOptimization: true)
               .vTableGet(buffer, rootOffset, 6, '');
-          final idParam =
-              const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
           final dateParam = dateValue == null
               ? null
               : DateTime.fromMillisecondsSinceEpoch(dateValue);
           final locationParam = const fb.StringReader(asciiOptimization: true)
               .vTableGetNullable(buffer, rootOffset, 10);
-          final object = TasksEntity(nameParam,
-              id: idParam, date: dateParam, location: locationParam);
+          final idParam =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
+          final object =
+              TasksEntity(nameParam, dateParam, locationParam, id: idParam);
           InternalToManyAccess.setRelInfo<TasksEntity>(
               object.taskList,
               store,

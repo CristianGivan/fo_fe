@@ -2,27 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:fo_fe/features/tasks/entity/tag_entity.dart';
 import 'package:fo_fe/features/tasks/entity/task_entity.dart';
 import 'package:fo_fe/features/tasks/entity/tasks_entity.dart';
+import 'package:fo_fe/features/tasks/model/tag.dart';
+import 'package:fo_fe/features/tasks/model/task.dart';
 import 'package:fo_fe/features/tasks/model/tasks.dart';
 import 'package:fo_fe/features/tasks/tasks.dart';
 import '../../../main.dart';
 
-
 /// Adds a new task and assigns an owner.
-class UpdateTask extends StatefulWidget {
-  final TaskEntity? task;
-  final TasksEntity tasks;
+class UpdateTaskPage extends StatefulWidget {
+  final Task task;
+  final Tasks tasks;
 
-  const UpdateTask({Key? key,  this.task ,required this.tasks,}) : super(key: key);
+  const UpdateTaskPage({
+    super.key,
+    required this.task,
+    required this.tasks,
+  });
 
   @override
-  State<UpdateTask> createState() => _UpdateTaskState();
+  State<UpdateTaskPage> createState() => _UpdateTaskPageState();
 }
 
-
-class _UpdateTaskState extends State<UpdateTask> {
+class _UpdateTaskPageState extends State<UpdateTaskPage> {
   late var inputController = TextEditingController();
   final ownerInputController = TextEditingController();
-  List<TagEntity> currentTags = [];
+  Set<Tag> currentTags = <Tag>{};
 
   @override
   void initState() {
@@ -43,12 +47,11 @@ class _UpdateTaskState extends State<UpdateTask> {
     super.dispose();
   }
 
-
   void _addTag(String tagName) {
-    TagEntity newTag = TagEntity(tagName);
-    objectbox.tagBox.put(newTag);
+    Tag newTag = Tag(tagName);
+    newTag.id = database.addTag(newTag);
     setState(() {
-      currentTags = [newTag];
+      currentTags = {newTag};
     });
   }
 
@@ -61,7 +64,6 @@ class _UpdateTaskState extends State<UpdateTask> {
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: TextField(
                 controller: inputController,
-
               )),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -121,7 +123,7 @@ class _UpdateTaskState extends State<UpdateTask> {
                   ),
                   onPressed: () {
                     if (inputController.text.isNotEmpty) {
-                      objectbox.updateTask(widget.task?.id ?? 0,
+                      database.updateTaskFields(widget.task.id ?? 0,
                           inputController.text, currentTags, widget.tasks);
 
                       Navigator.pop(context);

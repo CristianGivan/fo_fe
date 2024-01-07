@@ -98,9 +98,8 @@ class _AddTasksState extends State<AddTasks> {
                         tasks = Tasks(eventNameController.text,
                             date: currentDate!,
                             location: eventLocationController.text);
+                        tasks.id = database.addTasks(tasks);
                         // context.read<TasksBloc>().add(TasksAdded(tasks));
-                        objectbox.addEvent(eventNameController.text,
-                            currentDate!, eventLocationController.text);
                         // Navigator.pop(context);
                         // () => context.read<TasksBloc>().add(TasksAdded(tasks));
                         // context.pushReplacement(OrganizerRouterNames.organizerTasksRoute);

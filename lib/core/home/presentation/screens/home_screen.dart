@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
             create: (context) => SignInBloc(
                 userRepository:
                     context.read<AuthenticationBloc>().userRepository),
-            child:  AppScreen(),
+            child:  const AppScreen(),
           );
         } else {
           return const AuthenticationScreen();

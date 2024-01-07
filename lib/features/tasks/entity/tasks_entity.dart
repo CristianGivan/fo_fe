@@ -1,4 +1,3 @@
-
 import 'package:fo_fe/features/tasks/entity/task_entity.dart';
 import 'package:objectbox/objectbox.dart';
 
@@ -14,7 +13,7 @@ class TasksEntity {
 
   String? location;
 
-  TasksEntity(this.name, {this.id = 0, this.date, this.location});
+  TasksEntity(this.name, DateTime? date, String? location, {this.id = 0});
 
   @Backlink()
   final taskList = ToMany<TaskEntity>();

@@ -13,35 +13,48 @@ class TasksPage extends StatefulWidget {
 
 class _TasksPageState extends State<TasksPage> {
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: UniqueKey(),
-      appBar: AppBar(
-        title: const Text("Tasks"),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          children: [
-            Expanded(
-                child: TaskList(
-              tasksId: widget.tasks.id,
-            )),
-          ],
+    return BlocProvider(
+      create: (context) =>
+          TaskBloc()..add(GetTaskListByTasksId(tasksId: widget.tasks.id)),
+      child: Scaffold(
+        key: UniqueKey(),
+        appBar: AppBar(
+          title: const Text("Tasks"),
         ),
+        body: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: BlocBuilder<TaskBloc, TaskState>(
+            builder: (context, state) {
+              if (state.status == TasksStatus.initial) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (state.status == TaskStatus.loading) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (state.status == TaskStatus.success) {
+                return ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: state.taskList.length,
+                  itemBuilder: (context, int i) {
+                    return TaskCard(
+                      task: state.taskList[i],
+                      tasks: widget.tasks,
+                    );
+                  },
+                );
+              } else {
+                return const Center(child: Text('Unknown'));
+              }
+            },
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+            onPressed: () async {
+              await Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => AddTask(tasks: widget.tasks)));
+              setState(() {});
+            },
+            child: const Text("+", style: TextStyle(fontSize: 29))),
       ),
-      floatingActionButton: FloatingActionButton(
-          onPressed: () async {
-            await Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => AddTask(event: widget.tasks)));
-            setState(() {});
-          },
-          child: const Text("+", style: TextStyle(fontSize: 29))),
     );
   }
 }

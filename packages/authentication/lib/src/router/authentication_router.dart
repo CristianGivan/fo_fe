@@ -3,17 +3,16 @@ part of authentication;
 class AuthenticationAppBranch {
   static StatefulShellBranch branch(
     GlobalKey<NavigatorState> navigatorKey,
-    bool isAuth,
   ) {
     return StatefulShellBranch(
       navigatorKey: navigatorKey,
       routes: [
-        route(isAuth),
+        route(),
       ],
     );
   }
 
-  static GoRoute route(bool isAuth) {
+  static GoRoute route() {
     return GoRoute(
       name: AuthenticationRouterNames.authenticationRoute,
       path: AuthenticationRouterNames.authenticationRoute,

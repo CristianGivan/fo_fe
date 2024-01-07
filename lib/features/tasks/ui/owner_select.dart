@@ -8,49 +8,55 @@ class TagList extends StatefulWidget {
 }
 
 class _TagListState extends State<TagList> {
-  List<TagEntity> tagList = objectbox.tagBox.getAll();
-  List<TagEntity> selectedTag = [];
+  // Set<Tag> tagList = database.getAllTags();
+  Set<Tag> selectedTagSet = <Tag>{};
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text('Select Owner'),
-        ),
-        body: Column(
-          children: [
-            Expanded(
-              child: ListView(
-                children: tagList.map((tag) {
-                  final isSelected = selectedTag.contains(tag);
-
-                  return OwnersTileWidget(
-                      tag: tag,
-                      isSelected: isSelected,
-                      onSelectedOwner: selectOwner);
-                }).toList(),
-              ),
-            ),
-            buildSelectButton(context),
-          ],
-        ));
+    return BlocProvider(
+      create: (context) => TagBloc()..add(GetAllTag()),
+      child: Scaffold(
+          appBar: AppBar(
+            title: const Text('Select Owner'),
+          ),
+          body: BlocBuilder<TagBloc, TagBlocState>(
+            builder: (context, state) {
+              return Column(
+                children: [
+                  Expanded(
+                    child: ListView(
+                      children: state.tagList.map((tag) {
+                        final isSelected = selectedTagSet.contains(tag);
+                        return OwnersTileWidget(
+                            tag: tag,
+                            isSelected: isSelected,
+                            onSelectedOwner: selectOwner);
+                      }).toList(),
+                    ),
+                  ),
+                  buildSelectButton(context),
+                ],
+              );
+            },
+          )),
+    );
   }
 
-  void selectOwner(TagEntity tag) {
-    final isSelected = selectedTag.contains(tag);
+  void selectOwner(Tag tag) {
+    final isSelected = selectedTagSet.contains(tag);
 
     setState(() {
-      isSelected ? selectedTag.remove(tag) : selectedTag.add(tag);
+      isSelected ? selectedTagSet.remove(tag) : selectedTagSet.add(tag);
     });
   }
 
   Widget buildSelectButton(BuildContext context) {
-    final label = "Select ${selectedTag.length} Owners";
+    final label = "Select ${selectedTagSet.length} Owners";
 
     return Padding(
       padding: const EdgeInsets.all(50.0),
       child: ElevatedButton(
-          onPressed: (() => Navigator.pop(context, selectedTag)),
+          onPressed: (() => Navigator.pop(context, selectedTagSet)),
           child: Text(label,
               style: const TextStyle(
                   color: Color.fromARGB(255, 255, 255, 255), fontSize: 16))),
@@ -59,9 +65,9 @@ class _TagListState extends State<TagList> {
 }
 
 class OwnersTileWidget extends StatelessWidget {
-  final TagEntity tag;
+  final Tag tag;
   final bool isSelected;
-  final ValueChanged<TagEntity> onSelectedOwner;
+  final ValueChanged<Tag> onSelectedOwner;
 
   const OwnersTileWidget(
       {Key? key,

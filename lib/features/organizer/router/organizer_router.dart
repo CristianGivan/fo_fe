@@ -2,7 +2,7 @@ part of organizer;
 
 class OrganizerAppBranch {
   static StatefulShellBranch branch(
-      GlobalKey<NavigatorState> navigatorKey, ObjectBox objectbox) {
+      GlobalKey<NavigatorState> navigatorKey) {
     return StatefulShellBranch(
       navigatorKey: navigatorKey,
       routes: [

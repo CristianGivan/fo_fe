@@ -1,7 +1,6 @@
 import 'package:authentication/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fo_fe/core/home/presentation/screens/app_screen.dart';
 
 class HiScreen extends StatelessWidget {
    const HiScreen(this._displayName, {super.key});
@@ -19,7 +18,7 @@ class HiScreen extends StatelessWidget {
               onPressed: () {
                 context.read<SignInBloc>().add(const SignOutRequired());
               },
-              icon: Icon(Icons.login))
+              icon: const Icon(Icons.login))
         ],
       ),
       body: Text(_displayName),

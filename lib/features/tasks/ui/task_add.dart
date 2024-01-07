@@ -2,9 +2,9 @@ part of tasks;
 
 /// Adds a new task and assigns an owner.
 class AddTask extends StatefulWidget {
-  final Tasks event;
+  final Tasks tasks;
 
-  const AddTask({Key? key, required this.event}) : super(key: key);
+  const AddTask({Key? key, required this.tasks}) : super(key: key);
 
   @override
   State<AddTask> createState() => _AddTaskState();
@@ -14,7 +14,7 @@ class _AddTaskState extends State<AddTask> {
   final inputController = TextEditingController();
   final ownerInputController = TextEditingController();
 
-  List<TagEntity> tags = [];
+  Set<Tag> tagSet = <Tag>{};
 
   @override
   void initState() {
@@ -22,10 +22,10 @@ class _AddTaskState extends State<AddTask> {
   }
 
   void _addOwner(String tagName) {
-    TagEntity newTag = TagEntity(tagName);
-    objectbox.tagBox.put(newTag);
+    Tag newTag = Tag(tagName);
+    database.addTag(newTag);
     setState(() {
-      tags = [newTag];
+      tagSet = {newTag};
     });
   }
 
@@ -97,8 +97,8 @@ class _AddTaskState extends State<AddTask> {
                   ),
                   onPressed: () {
                     if (inputController.text.isNotEmpty) {
-                      objectbox.addTask(inputController.text, tags,
-                          widget.event.tasksToObjectBoxTasksEntity());
+                      database.addTaskWithTagSetToTasks(
+                          inputController.text, tagSet, widget.tasks);
                       Navigator.pop(context);
                     }
                   },
@@ -116,16 +116,16 @@ class _AddTaskState extends State<AddTask> {
 
       if (selectedOwners == null) return;
       setState(() {
-        tags = selectedOwners;
+        tagSet = selectedOwners;
       });
 
       return selectedOwners;
     }
 
-    return tags.isEmpty
+    return tagSet.isEmpty
         ? buildListTile(title: "No Owner", onTap: onTap)
         : buildListTile(
-            title: tags.map((tag) => tag.tag).join(", "), onTap: onTap);
+            title: tagSet.map((tag) => tag.tag).join(", "), onTap: onTap);
   }
 
   Widget buildListTile({

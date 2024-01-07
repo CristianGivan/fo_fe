@@ -3,24 +3,29 @@ import 'package:go_router/go_router.dart';
 
 import 'app_route_constants.dart';
 
-class ScaffoldWithNestedNavigation extends StatelessWidget {
+class ScaffoldWithNestedNavigation extends StatefulWidget {
+  
   const ScaffoldWithNestedNavigation({
     Key? key,
     required this.navigationShell,
-    required this.showMenu,
   }) : super(
             key: key ?? const ValueKey<String>('ScaffoldWithNestedNavigation'));
   final StatefulNavigationShell navigationShell;
-  final bool showMenu;
 
+  @override
+  State<ScaffoldWithNestedNavigation> createState() => _ScaffoldWithNestedNavigationState();
+}
+
+class _ScaffoldWithNestedNavigationState extends State<ScaffoldWithNestedNavigation> {
+  bool showMenu= true;
   void _goBranch(int index) {
-    navigationShell.goBranch(
+    widget.navigationShell.goBranch(
       index,
       // A common pattern when using bottom navigation bars is to support
       // navigating to the initial location when tapping the item that is
       // already active. This example demonstrates how to support this behavior,
       // using the initialLocation parameter of goBranch.
-      initialLocation: index == navigationShell.currentIndex,
+      initialLocation: index == widget.navigationShell.currentIndex,
     );
   }
 
@@ -33,21 +38,21 @@ class ScaffoldWithNestedNavigation extends StatelessWidget {
             padding: MediaQuery.of(context)
                 .viewInsets, // Adjust the padding as needed
             child: ScaffoldWithNavigationBar(
-              body: navigationShell,
-              selectedIndex: navigationShell.currentIndex,
+              body: widget.navigationShell,
+              selectedIndex: widget.navigationShell.currentIndex,
               onDestinationSelected: _goBranch,
             ),
           );
         } else {
           return ScaffoldWithNavigationRail(
-            body: navigationShell,
-            selectedIndex: navigationShell.currentIndex,
+            body: widget.navigationShell,
+            selectedIndex: widget.navigationShell.currentIndex,
             onDestinationSelected: _goBranch,
           );
         }
       } else {
         return WithoutNavigationBar(
-          body: navigationShell,
+          body: widget.navigationShell,
         );
       }
     });

@@ -15,7 +15,7 @@ class _TasksHomeState extends State<TasksHome> {
       child: Scaffold(
         key: UniqueKey(),
         appBar: AppBar(
-          title: const Text("Events"),
+          title: const Text("All Tasks"),
         ),
         body: Padding(
           padding: const EdgeInsets.all(5.0),
@@ -41,11 +41,11 @@ class _TasksHomeState extends State<TasksHome> {
         ),
         floatingActionButton: FloatingActionButton(
             onPressed: () async {
-              await Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const AddTasks()));
+              await Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const AddTasks()));
               setState(() {});
             },
-          // onPressed: () {
+            // onPressed: () {
             //   context.push("/organizer/tasks/addTasks");
             // },
             child: const Text("+", style: TextStyle(fontSize: 29))),

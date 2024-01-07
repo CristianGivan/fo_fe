@@ -64,7 +64,7 @@ class _TasksCardState extends State<TasksCard> {
                                       overflow: TextOverflow.fade)),
                               const Spacer(),
                               Text(
-                                  "Date: ${DateFormat.yMd().format(widget.tasks.date!)}",
+                                  "Date: ${DateFormat.yMd().format(widget.tasks.date ?? DateTime.now())}",
                                   style: const TextStyle(
                                       fontSize: 15.0,
                                       height: 1.0,
@@ -72,19 +72,20 @@ class _TasksCardState extends State<TasksCard> {
                             ],
                           ),
                         ),
-
                       ],
                     ),
                   ),
                   PopupMenuButton<Menu>(
-                    onSelected: (item) => onSelected(context, item.text ,widget.tasks.tasksToObjectBoxTasksEntity()!),
+                    onSelected: (item) =>
+                        onSelected(context, item.text, widget.tasks.id!),
                     itemBuilder: (BuildContext context) =>
-                    [...MenuItems.menuList.map(buildItem).toList()],
+                        [...MenuItems.menuList.map(buildItem).toList()],
                     child: const Padding(
                       padding: EdgeInsets.all(4.0),
                       child: Icon(color: Colors.grey, Icons.more_vert),
                     ),
-                  ),],
+                  ),
+                ],
               ),
             ),
           ],
@@ -92,19 +93,17 @@ class _TasksCardState extends State<TasksCard> {
       ),
     );
   }
+
   PopupMenuItem<Menu> buildItem(Menu item) =>
       PopupMenuItem<Menu>(value: item, child: Text(item.text!));
 
-  void onSelected(BuildContext context, String? item, TasksEntity tasks) {
+  void onSelected(BuildContext context, String? item, int id) {
     if (item == "Delete") {
-      objectbox.tasksBox.remove(tasks.id);
+      database.deleteTasks(id);
       // context.pop();
-      context.pushReplacementNamed(
-          OrganizerRouterNames.organizerTasksRoute);
-      debugPrint(
-          "Task ${tasks.name} deleted ");
-    }
-    else{
+      context.pushReplacementNamed(OrganizerRouterNames.organizerTasksRoute);
+      debugPrint("Task with id ${id} deleted ");
+    } else {
       // Navigator.of(context).push(MaterialPageRoute(
       //     builder: (context) => UpdateTask(task: widget.task, tasks: widget.tasks)));
     }
