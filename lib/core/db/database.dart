@@ -1,4 +1,3 @@
-import 'package:fo_fe/features/tasks/entity/tasks_entity.dart';
 import 'package:fo_fe/features/tasks/model/tag.dart';
 import 'package:fo_fe/features/tasks/model/task.dart';
 import 'package:fo_fe/features/tasks/model/tasks.dart';

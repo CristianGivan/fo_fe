@@ -1,6 +1,3 @@
-import 'package:fo_fe/features/tasks/entity/tasks_entity.dart';
-import 'package:fo_fe/main.dart';
-
 class Tasks {
   int id;
   String name;

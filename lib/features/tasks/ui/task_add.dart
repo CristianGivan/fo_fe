@@ -1,10 +1,10 @@
-part of tasks;
+part of '../tasks.dart';
 
 /// Adds a new task and assigns an owner.
 class AddTask extends StatefulWidget {
   final Tasks tasks;
 
-  const AddTask({Key? key, required this.tasks}) : super(key: key);
+  const AddTask({super.key, required this.tasks});
 
   @override
   State<AddTask> createState() => _AddTaskState();
@@ -60,7 +60,6 @@ class _AddTaskState extends State<AddTask> {
                         builder: (BuildContext context) => AlertDialog(
                           title: const Text('New Owner'),
                           content: TextField(
-                            autofocus: true,
                             decoration: const InputDecoration(
                                 hintText: 'Enter the owner name'),
                             controller: ownerInputController,

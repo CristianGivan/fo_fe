@@ -1,6 +1,4 @@
-import 'package:fo_fe/features/tasks/entity/task_entity.dart';
 import 'package:fo_fe/features/tasks/model/tag.dart';
-import 'package:fo_fe/main.dart';
 
 class Task {
   int id;

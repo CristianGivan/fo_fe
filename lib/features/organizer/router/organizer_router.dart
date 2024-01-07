@@ -1,8 +1,7 @@
-part of organizer;
+part of '../organizer.dart';
 
 class OrganizerAppBranch {
-  static StatefulShellBranch branch(
-      GlobalKey<NavigatorState> navigatorKey) {
+  static StatefulShellBranch branch(GlobalKey<NavigatorState> navigatorKey) {
     return StatefulShellBranch(
       navigatorKey: navigatorKey,
       routes: [
@@ -45,9 +44,9 @@ class OrganizerAppBranch {
           //todo
           if (true) {
             return null;
-          } else {
-            // todo shall be other screen
-            return context.push(OrganizerRouterNames.organizerRoute);
+            // } else {
+            //   // todo shall be other screen
+            //   return context.push(OrganizerRouterNames.organizerRoute);
           }
         });
   }

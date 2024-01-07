@@ -1,6 +1,6 @@
-part of tasks;
+part of '../tasks.dart';
 
-/// Styling for an event card. Includes the task name, owner and a checkmark.
+/// Styling for an event card. Includes the task name, owner and a check mark.
 /// A card can be deleted through the delete button inside the menu bar.
 class TaskCard extends StatefulWidget {
   final Task task;
@@ -20,8 +20,8 @@ class _TaskCardState extends State<TaskCard> {
   bool? taskStatus;
 
   void toggleCheckBox() {
-    bool newStatus = widget.task!.changeState();
-    database.updateTask(widget.task!);
+    bool newStatus = widget.task.changeState();
+    database.updateTask(widget.task);
 
     setState(() {
       taskStatus = newStatus;
@@ -36,7 +36,7 @@ class _TaskCardState extends State<TaskCard> {
     tagSet.addAll(database.getTagSetFromTask(widget.task));
 
     assignedString = tagSet.map((tag) => tag.tag).join(', ');
-    taskStatus = widget.task!.status;
+    taskStatus = widget.task.status;
   }
 
   @override
@@ -84,7 +84,7 @@ class _TaskCardState extends State<TaskCard> {
                               child: Container(
                                 alignment: Alignment.bottomLeft,
                                 child: Text(
-                                  widget.task!.subject,
+                                  widget.task.subject,
                                   style: taskStatus!
                                       ? const TextStyle(
                                           fontSize: 20.0,
@@ -128,9 +128,9 @@ class _TaskCardState extends State<TaskCard> {
                       ),
                       PopupMenuButton<Menu>(
                         onSelected: (item) =>
-                            onSelected(context, item.text, widget.task!),
+                            onSelected(context, item.text, widget.task),
                         itemBuilder: (BuildContext context) =>
-                            [...MenuItems.menuList.map(buildItem).toList()],
+                            [...MenuItems.menuList.map(buildItem)],
                         child: const Padding(
                           padding: EdgeInsets.all(4.0),
                           child: Icon(color: Colors.grey, Icons.more_vert),

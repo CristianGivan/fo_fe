@@ -5,7 +5,6 @@ import 'package:fo_fe/core/db/database.dart';
 import 'package:fo_fe/features/tasks/entity/tag_entity.dart';
 import 'package:fo_fe/features/tasks/entity/task_entity.dart';
 import 'package:fo_fe/features/tasks/entity/tasks_entity.dart';
-import 'package:fo_fe/features/tasks/logic/task_bloc/task_bloc.dart';
 import 'package:fo_fe/features/tasks/model/tag.dart';
 import 'package:fo_fe/features/tasks/model/task.dart';
 import 'package:fo_fe/features/tasks/model/tasks.dart';
@@ -36,31 +35,29 @@ class ObjectBox implements Database {
     eventsStream = qBuilderEvents.watch(triggerImmediately: true);
 
     if (tasksBox.isEmpty()) {
-      _putDemoData();
+      // _putDemoData();
     }
   }
 
-  void _putDemoData() {
-    // TasksEntity event = TasksEntity("One Direction Concert",
-    //     date: DateTime.now(), location: "Miami, Florida");
-    //
-    // Owner owner1 = Owner('Roger');
-    // Owner owner2 = Owner('Eren');
-    // Owner owner3 = Owner('John');
-    //
-    // Task task1 = Task('This is a shared task.');
-    // task1.owner.addAll([owner1, owner2, owner3]); //set the relation
-    //
-    // Task task2 = Task('This is Eren\'s task.');
-    // task2.owner.add(owner2);
-    //
-    // event.tasks.addAll([task1, task2]);
-    //
-    // // Task and Owner objects will also be put along with Event.
-    // // ToOne and ToMany will put new Objects when the source object is put.
-    // // If the target objects already existed, then only the relation is mapped.
-    // eventBox.put(event);
-  }
+  // void _putDemoData() {
+  //   // TasksEntity event = TasksEntity("One Direction Concert",
+  //   //     date: DateTime.now(), location: "Miami, Florida");
+  //   //
+  //   // Owner owner1 = Owner('Roger');
+  //   // Owner owner3 = Owner('John');
+  //   //
+  //   // Task task1 = Task('This is a shared task.');
+  //   // task1.owner.addAll([owner1, owner2, owner3]); //set the relation
+  //   //
+  //   // task2.owner.add(owner2);
+  //   //
+  //   // event.tasks.addAll([task1, task2]);
+  //   //
+  //   // // Task and Owner objects will also be put along with Event.
+  //   // // ToOne and ToMany will put new Objects when the source object is put.
+  //   // // If the target objects already existed, then only the relation is mapped.
+  //   // eventBox.put(event);
+  // }
 
   TasksEntity? getTasks(int eventId) {
     return tasksBox.get(eventId);
@@ -265,11 +262,11 @@ class ObjectBox implements Database {
     }
   }
 
-  @override
-  Future<void> changeTaskStatus(Task task) async {
-    task.status = !task.status;
-    updateTask(task);
-  }
+  // @override
+  // Future<void> changeTaskStatus(Task task) async {
+  //   task.status = !task.status;
+  //   updateTask(task);
+  // }
 
   @override
   int updateTask(Task task) {
@@ -289,7 +286,8 @@ class ObjectBox implements Database {
     TasksEntity updatedTasks = tasksEntity;
     updatedTasks.taskList.add(updatedTask);
 
-    int tasksId = tasksBox.put(updatedTasks);
+    // int tasksId =
+    tasksBox.put(updatedTasks);
 
     // debugPrint(
     // "Added Task: ${updatedTask.subject} assigned to ${updatedTask.tasksList.map((owner) => owner.name).join(", ")} in event: ${tasksBox.get(eventId)?.name}");
@@ -306,7 +304,8 @@ class ObjectBox implements Database {
     TasksEntity? updatedTasks = getTasks(tasksEntity.id);
     updatedTasks?.taskList.add(newTask);
 
-    int eventId = tasksBox.put(updatedTasks!);
+    // int eventId =
+    tasksBox.put(updatedTasks!);
 
     // debugPrint(
     //     "Added Task: ${newTask.subject} assigned to ${newTask.tagList.map((tag) => tag.tag).join(", ")} in event: ${tasksBox.get(eventId)?.name}");

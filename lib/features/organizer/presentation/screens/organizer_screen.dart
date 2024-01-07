@@ -1,4 +1,4 @@
-part of organizer;
+part of '../../organizer.dart';
 
 class Organizer extends StatelessWidget {
   const Organizer({super.key});
@@ -19,7 +19,8 @@ class Organizer extends StatelessWidget {
           const SizedBox(height: 10),
           Center(
             child: ElevatedButton(
-              onPressed: () => context.push(OrganizerRouterNames.organizerTasksRoute),
+              onPressed: () =>
+                  context.push(OrganizerRouterNames.organizerTasksRoute),
               // context.push(OrganizerRouterNames.organizerTasksRoute),
               child: const Text('Go to the tasks screen'),
             ),

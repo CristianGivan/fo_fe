@@ -1,4 +1,4 @@
-part of organizer;
+part of '../organizer.dart';
 
 class OrganizerRouterNames {
   static const String organizerRoute = '/organizer';

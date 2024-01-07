@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fo_fe/features/tasks/entity/tag_entity.dart';
-import 'package:fo_fe/features/tasks/entity/task_entity.dart';
-import 'package:fo_fe/features/tasks/entity/tasks_entity.dart';
 import 'package:fo_fe/features/tasks/model/tag.dart';
 import 'package:fo_fe/features/tasks/model/task.dart';
 import 'package:fo_fe/features/tasks/model/tasks.dart';
@@ -33,7 +30,7 @@ class _UpdateTaskPageState extends State<UpdateTaskPage> {
     super.initState();
     // Check if the widget's task is not null
     if (widget.task != null) {
-      inputController = TextEditingController(text: widget.task!.subject);
+      inputController = TextEditingController(text: widget.task.subject);
     } else {
       // Initialize the inputController with an empty value if the task is null
       inputController = TextEditingController();
@@ -86,7 +83,6 @@ class _UpdateTaskPageState extends State<UpdateTaskPage> {
                         builder: (BuildContext context) => AlertDialog(
                           title: const Text('New Owner'),
                           content: TextField(
-                            autofocus: true,
                             decoration: const InputDecoration(
                                 hintText: 'Enter the owner name'),
                             controller: ownerInputController,
@@ -123,7 +119,7 @@ class _UpdateTaskPageState extends State<UpdateTaskPage> {
                   ),
                   onPressed: () {
                     if (inputController.text.isNotEmpty) {
-                      database.updateTaskFields(widget.task.id ?? 0,
+                      database.updateTaskFields(widget.task.id,
                           inputController.text, currentTags, widget.tasks);
 
                       Navigator.pop(context);

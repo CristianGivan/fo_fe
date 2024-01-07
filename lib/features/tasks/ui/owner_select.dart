@@ -1,7 +1,7 @@
-part of tasks;
+part of '../tasks.dart';
 
 class TagList extends StatefulWidget {
-  const TagList({Key? key}) : super(key: key);
+  const TagList({super.key});
 
   @override
   State<TagList> createState() => _TagListState();
@@ -70,11 +70,10 @@ class OwnersTileWidget extends StatelessWidget {
   final ValueChanged<Tag> onSelectedOwner;
 
   const OwnersTileWidget(
-      {Key? key,
+      {super.key,
       required this.tag,
       required this.isSelected,
-      required this.onSelectedOwner})
-      : super(key: key);
+      required this.onSelectedOwner});
 
   @override
   Widget build(BuildContext context) {

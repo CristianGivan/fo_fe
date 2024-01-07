@@ -1,4 +1,4 @@
-part of organizer;
+part of '../../organizer.dart';
 
 class Topics extends StatelessWidget {
   const Topics({super.key});

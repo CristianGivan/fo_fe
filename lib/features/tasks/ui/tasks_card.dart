@@ -1,4 +1,4 @@
-part of tasks;
+part of '../tasks.dart';
 
 /// Styling for an event card. Includes the name, location and date.
 /// Clicking a card navigates to a list of tasks related to event.
@@ -77,9 +77,9 @@ class _TasksCardState extends State<TasksCard> {
                   ),
                   PopupMenuButton<Menu>(
                     onSelected: (item) =>
-                        onSelected(context, item.text, widget.tasks.id!),
+                        onSelected(context, item.text, widget.tasks.id),
                     itemBuilder: (BuildContext context) =>
-                        [...MenuItems.menuList.map(buildItem).toList()],
+                        [...MenuItems.menuList.map(buildItem)],
                     child: const Padding(
                       padding: EdgeInsets.all(4.0),
                       child: Icon(color: Colors.grey, Icons.more_vert),
@@ -102,7 +102,7 @@ class _TasksCardState extends State<TasksCard> {
       database.deleteTasks(id);
       // context.pop();
       context.pushReplacementNamed(OrganizerRouterNames.organizerTasksRoute);
-      debugPrint("Task with id ${id} deleted ");
+      // debugPrint("Task with id ${id} deleted ");
     } else {
       // Navigator.of(context).push(MaterialPageRoute(
       //     builder: (context) => UpdateTask(task: widget.task, tasks: widget.tasks)));

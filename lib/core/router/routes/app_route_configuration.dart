@@ -1,9 +1,7 @@
 import 'package:authentication/authentication.dart';
 import 'package:flutter/material.dart';
-import 'package:fo_fe/core/db/objectbox/objectbox.dart';
 import 'package:fo_fe/core/home/presentation/screens/home_screen.dart';
 import 'package:fo_fe/core/router/routes/stateful_shell_route.dart';
-import 'package:fo_fe/main_dev1.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../features/Organizer/organizer.dart';
