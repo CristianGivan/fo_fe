@@ -9,6 +9,8 @@ class Task {
   Task(this.subject, {this.id = 0, this.status = false, Set<int>? tagIdSet})
       : tagIdSet = tagIdSet ?? {};
 
+  get empty => null;
+
   bool changeState() {
     status = !status;
     return status;

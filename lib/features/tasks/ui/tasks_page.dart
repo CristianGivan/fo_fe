@@ -1,36 +1,44 @@
 part of '../tasks.dart';
 
-class TasksHome extends StatefulWidget {
-  const TasksHome({super.key});
+//Widget containing the list of tasks under an event
+//Also contains a floating action button to add tasks under the same event
+class TasksPage extends StatefulWidget {
+  final Tasks? tasks;
+
+  const TasksPage({super.key, this.tasks});
 
   @override
-  State<TasksHome> createState() => _TasksHomeState();
+  State<TasksPage> createState() => _TasksPageState();
 }
 
-class _TasksHomeState extends State<TasksHome> {
+class _TasksPageState extends State<TasksPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => TasksBloc()..add(GetAllTasks()),
+      create: (context) =>
+          TaskBloc()..add(GetTaskListByTasksId(tasksId: widget.tasks!.id)),
       child: Scaffold(
         key: UniqueKey(),
         appBar: AppBar(
-          title: const Text("All Tasks"),
+          title: const Text("Tasks"),
         ),
         body: Padding(
-          padding: const EdgeInsets.all(5.0),
-          child: BlocBuilder<TasksBloc, TasksState>(
+          padding: const EdgeInsets.all(10.0),
+          child: BlocBuilder<TaskBloc, TaskState>(
             builder: (context, state) {
               if (state.status == TasksStatus.initial) {
                 return const Center(child: CircularProgressIndicator());
-              } else if (state.status == TasksStatus.loading) {
+              } else if (state.status == TaskStatus.loading) {
                 return const Center(child: CircularProgressIndicator());
-              } else if (state.status == TasksStatus.success) {
+              } else if (state.status == TaskStatus.success) {
                 return ListView.builder(
                   shrinkWrap: true,
-                  itemCount: state.tasksList.length,
+                  itemCount: state.taskList.length,
                   itemBuilder: (context, int i) {
-                    return TasksCard(tasks: state.tasksList[i]);
+                    return TaskCard(
+                      task: state.taskList[i],
+                      tasks: widget.tasks ?? Tasks(""),
+                    );
                   },
                 );
               } else {
@@ -41,13 +49,11 @@ class _TasksHomeState extends State<TasksHome> {
         ),
         floatingActionButton: FloatingActionButton(
             onPressed: () async {
-              await Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const AddTasks()));
+              await Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) =>
+                      AddTask(tasks: widget.tasks ?? Tasks(""))));
               setState(() {});
             },
-            // onPressed: () {
-            //   context.push("/organizer/tasks/addTasks");
-            // },
             child: const Text("+", style: TextStyle(fontSize: 29))),
       ),
     );

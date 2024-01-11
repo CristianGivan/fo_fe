@@ -33,6 +33,11 @@ class OrganizerAppBranch {
                   path: OrganizerRouterNames.tasksAddTasksRouteName,
                   builder: (context, state) => const AddTasks(),
                 ),
+                GoRoute(
+                  name: OrganizerRouterNames.organizerTasksPageTasksRoute,
+                  path: OrganizerRouterNames.tasksPageTasksRouteName,
+                  builder: (context, state) => const TasksPage(),
+                ),
               ]),
           GoRoute(
             name: OrganizerRouterNames.organizerReminderRoute,

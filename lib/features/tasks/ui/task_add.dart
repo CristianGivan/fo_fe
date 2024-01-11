@@ -99,6 +99,8 @@ class _AddTaskState extends State<AddTask> {
                       database.addTaskWithTagSetToTasks(
                           inputController.text, tagSet, widget.tasks);
                       Navigator.pop(context);
+                      context.pushReplacementNamed(
+                          OrganizerRouterNames.organizerTasksRoute);
                     }
                   },
                 ),
