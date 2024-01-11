@@ -131,12 +131,16 @@ class ObjectBox implements Database {
   }
 
   TasksEntity tasksToTasksEntity(Tasks tasks) {
-    return TasksEntity(tasks.name,
-        id: tasks.id, date: tasks.date, location: tasks.location);
+    TasksEntity tasksEntity = TasksEntity(name: tasks.name, id: tasks.id);
+    return tasksEntity.copyWithTasks(tasks: tasks);
   }
 
   TaskEntity taskToTaskEntity(Task task) {
-    return TaskEntity(task.subject, id: task.id, status: task.status);
+    TaskEntity taskEntity = TaskEntity(task.subject);
+    taskEntity.id = task.id;
+    taskEntity.status = task.status;
+    return taskEntity;
+    // return TaskEntity(task.subject, id: task.id, status: task.status);
   }
 
   Set<Tag> tagEntityListToTagList(Set<TagEntity> tagEntitySet) {
@@ -222,8 +226,7 @@ class ObjectBox implements Database {
   @override
   int addTasks(Tasks tasks) {
     try {
-      TasksEntity newEvent =
-          TasksEntity(tasks.name, date: tasks.date, location: tasks.location);
+      TasksEntity newEvent = tasksToTasksEntity(tasks);
 
       debugPrint("Added Event: ${newEvent.name}");
       return tasksBox.put(newEvent);

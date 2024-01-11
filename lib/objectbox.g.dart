@@ -265,6 +265,8 @@ ModelDefinition getObjectBoxModel() {
           final rootOffset = buffer.derefObject(0);
           final dateValue =
               const fb.Int64Reader().vTableGetNullable(buffer, rootOffset, 8);
+          final idParam =
+              const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
           final nameParam = const fb.StringReader(asciiOptimization: true)
               .vTableGet(buffer, rootOffset, 6, '');
           final dateParam = dateValue == null
@@ -272,10 +274,11 @@ ModelDefinition getObjectBoxModel() {
               : DateTime.fromMillisecondsSinceEpoch(dateValue);
           final locationParam = const fb.StringReader(asciiOptimization: true)
               .vTableGetNullable(buffer, rootOffset, 10);
-          final idParam =
-              const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
-          final object = TasksEntity(nameParam,
-              date: dateParam, location: locationParam, id: idParam);
+          final object = TasksEntity(
+              id: idParam,
+              name: nameParam,
+              date: dateParam,
+              location: locationParam);
           InternalToManyAccess.setRelInfo<TasksEntity>(
               object.taskList,
               store,
