@@ -16,7 +16,7 @@ class _TasksPageState extends State<TasksPage> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          TaskBloc()..add(GetTaskListByTasksId(tasksId: widget.tasks!.id)),
+          TaskBloc()..add(GetTaskListByTasksId(widget.tasks!.id)),
       child: Scaffold(
         key: UniqueKey(),
         appBar: AppBar(
@@ -48,8 +48,9 @@ class _TasksPageState extends State<TasksPage> {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-            onPressed: () async {
-              await Navigator.of(context).push(MaterialPageRoute(
+            onPressed: () {
+              Navigator.pop(context);
+              Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) =>
                       AddTask(tasks: widget.tasks ?? Tasks(""))));
               setState(() {});

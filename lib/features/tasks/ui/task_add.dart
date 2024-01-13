@@ -98,9 +98,14 @@ class _AddTaskState extends State<AddTask> {
                     if (inputController.text.isNotEmpty) {
                       database.addTaskWithTagSetToTasks(
                           inputController.text, tagSet, widget.tasks);
+                      // context.pop();
+                      // context.pushReplacementNamed(
+                      //     OrganizerRouterNames.organizerTasksRoute);
                       Navigator.pop(context);
-                      context.pushReplacementNamed(
-                          OrganizerRouterNames.organizerTasksRoute);
+
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) =>
+                              TasksPage(tasks: widget.tasks)));
                     }
                   },
                 ),

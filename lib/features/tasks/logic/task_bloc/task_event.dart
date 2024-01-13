@@ -15,10 +15,14 @@ class GetAllTask extends TaskEvent {}
 // class GetAllTask extends TaskEvent {}
 
 class GetTaskListByTasksId extends TaskEvent {
-  int tasksId;
-  GetTaskListByTasksId({
-    required this.tasksId,
-  });
+  final int tasksId;
+
+  const GetTaskListByTasksId(
+    this.tasksId,
+  );
+
+  @override
+  List<Object?> get props => [tasksId];
 }
 
 class TaskAdded extends TaskEvent {

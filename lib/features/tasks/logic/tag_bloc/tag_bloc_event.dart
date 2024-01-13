@@ -15,10 +15,13 @@ class GetAllTag extends TagBlocEvent {}
 // class GetAllTag extends TagBlocEvent {}
 
 class GetTagListByTaskId extends TagBlocEvent {
-  int taskId;
-  GetTagListByTaskId({
-    required this.taskId,
-  });
+  final int taskId;
+
+  const GetTagListByTaskId(
+    this.taskId,
+  );
+  @override
+  List<Object?> get props => [taskId];
 }
 
 class TagAdded extends TagBlocEvent {

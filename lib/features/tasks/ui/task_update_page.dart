@@ -123,6 +123,9 @@ class _UpdateTaskPageState extends State<UpdateTaskPage> {
                           inputController.text, currentTags, widget.tasks);
 
                       Navigator.pop(context);
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) =>
+                              TasksPage(tasks: widget.tasks)));
                     }
                   },
                 ),

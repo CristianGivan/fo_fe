@@ -7,6 +7,8 @@ class Tasks {
   Tasks(this.name, {this.id = 0, this.date, this.location = ""});
   static Tasks empty = Tasks("", id: 0, date: DateTime.now(), location: "");
 
+  get taskList => null;
+
   // TasksEntity tasksToObjectBoxTasksEntity() {
   //   return TasksEntity(name,id: id, date: date, location: location);
   // }

@@ -151,6 +151,9 @@ class _TaskCardState extends State<TaskCard> {
   void onSelected(BuildContext context, String? item, Task task) {
     if (item == "Delete") {
       database.deleteTask(task.id);
+      Navigator.pop(context);
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => TasksPage(tasks: widget.tasks)));
       debugPrint("Task ${task.subject} ");
     } else {
       Navigator.of(context).push(MaterialPageRoute(
