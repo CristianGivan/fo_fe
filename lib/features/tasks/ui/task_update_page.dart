@@ -55,7 +55,7 @@ class _UpdateTaskPageState extends State<UpdateTaskPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text("Add Task")),
+        appBar: AppBar(title: const Text("Update Task")),
         body: Column(children: <Widget>[
           Container(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -81,10 +81,10 @@ class _UpdateTaskPageState extends State<UpdateTaskPage> {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) => AlertDialog(
-                          title: const Text('New Owner'),
+                          title: const Text('New tag'),
                           content: TextField(
                             decoration: const InputDecoration(
-                                hintText: 'Enter the owner name'),
+                                hintText: 'Enter the tag name'),
                             controller: ownerInputController,
                           ),
                           actions: [
@@ -101,7 +101,7 @@ class _UpdateTaskPageState extends State<UpdateTaskPage> {
                       ownerInputController.clear();
                     },
                     child: const Text(
-                      "Add Owner",
+                      "Add Tag",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     )),
               ],

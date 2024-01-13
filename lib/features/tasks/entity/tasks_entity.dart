@@ -15,6 +15,7 @@ class TasksEntity {
   DateTime? date;
 
   String? location;
+
   TasksEntity({
     required this.id,
     required this.name,

@@ -213,18 +213,24 @@ class ObjectBox implements Database {
   @override
   Future<List<Task>> getTaskListByTasksId(int id) async {
     try {
-      // final builder = taskBox.query()..order(TaskEntity_.subject);
-      // Stream<List<TaskEntity>> result =
-      //     builder.watch(triggerImmediately: true).map((query) => query.find());
-
-      // List<Task> result1 = taskEntityListToTaskList(await result.first);
-
       final tasks = store.box<TasksEntity>().get(id);
-
       List<TaskEntity> result1 = tasks!.taskList.toList();
 
       List<Task> result = taskEntityListToTaskList(result1);
       return result; //taskEntityListToTaskList(await result.first);
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
+  }
+
+  @override
+  Future<Set<Tag>> getTagSetFromTaskId(int id) async {
+    try {
+      final task = store.box<TaskEntity>().get(id);
+      Set<TagEntity> result1 = task!.tagList.toSet();
+      Set<Tag> result = tagEntityListToTagList(result1);
+      return result;
     } catch (e) {
       log(e.toString());
       rethrow;
@@ -328,13 +334,6 @@ class ObjectBox implements Database {
   Set<Tag> getTagSetFromTask(Task task) {
     Set<TagEntity> tagEntitySet = <TagEntity>{};
     tagEntitySet = taskToTaskEntity(task).tagList.toSet();
-    return tagEntityListToTagList(tagEntitySet);
-  }
-
-  @override
-  Set<Tag> getTagSetFromTaskId(int id) {
-    Set<TagEntity> tagEntitySet = <TagEntity>{};
-    tagEntitySet = taskBox.get(id)!.tagList.toSet();
     return tagEntityListToTagList(tagEntitySet);
   }
 

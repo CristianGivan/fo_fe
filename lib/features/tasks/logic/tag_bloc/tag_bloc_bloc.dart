@@ -44,12 +44,13 @@ class TagBloc extends Bloc<TagBlocEvent, TagBlocState> {
     }
   }
 
-  void _onGetTagListByTaskId(
-      GetTagListByTaskId event, Emitter<TagBlocState> emit) {
+  Future<void> _onGetTagListByTaskId(
+      GetTagListByTaskId event, Emitter<TagBlocState> emit) async {
     emit(state.copyWith(status: TagBlocStatus.loading));
     try {
-      Set<Tag> temp = database.getTagSetFromTaskId(event.taskId);
-      emit(state.copyWith(tagList: temp, status: TagBlocStatus.success));
+      emit(state.copyWith(
+          tagList: await database.getTagSetFromTaskId(event.taskId),
+          status: TagBlocStatus.success));
     } catch (e) {
       emit(state.copyWith(status: TagBlocStatus.error));
     }

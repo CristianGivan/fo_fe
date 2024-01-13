@@ -27,6 +27,6 @@ abstract class Database {
 
   Future<Set<Tag>> getAllTags();
   Set<Tag> getTagSetFromTask(Task task);
-  Set<Tag> getTagSetFromTaskId(int id);
+  Future<Set<Tag>> getTagSetFromTaskId(int id);
   int addTag(Tag tag);
 }

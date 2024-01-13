@@ -48,13 +48,6 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
       GetTaskListByTasksId event, Emitter<TaskState> emit) async {
     emit(state.copyWith(status: TaskStatus.loading));
     try {
-      // Future<List<Task>> temp1 = database.getTaskListByTasksId(event.tasksId);
-      // var a = 3;
-      // temp1 = database.getTaskListByTasksId(event.tasksId);
-      // var a1 = 3;
-
-      // List<Task> temp = [];
-      // temp = temp1 as List<Task>;
       emit(state.copyWith(
           taskList: await database.getTaskListByTasksId(event.tasksId),
           status: TaskStatus.success));
