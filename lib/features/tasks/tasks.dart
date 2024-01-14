@@ -17,7 +17,7 @@ import '../Organizer/organizer.dart';
 import 'ui/delete_menu.dart';
 
 part 'ui/tasks_card.dart';
-part 'ui/owner_select.dart';
+part 'ui/tag_select.dart';
 part 'ui/task_add.dart';
 part 'ui/task_card.dart';
 // part 'ui/task_list_view.dart';

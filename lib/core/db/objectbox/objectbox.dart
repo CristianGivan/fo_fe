@@ -273,7 +273,11 @@ class ObjectBox implements Database {
   @override
   Future<Set<Tag>> getAllTags() async {
     try {
-      return tagEntityListToTagList(tagBox.getAllAsync() as Set<TagEntity>);
+      final builder = tagBox.query()..order(TagEntity_.tag);
+      Stream<Set<TagEntity>> result = builder
+          .watch(triggerImmediately: true)
+          .map((query) => query.find().toSet());
+      return tagEntityListToTagList(await result.first);
     } catch (e) {
       log(e.toString());
       rethrow;

@@ -114,7 +114,7 @@ class _TaskCardState extends State<TaskCard> {
                                     return const Center(
                                         child: CircularProgressIndicator());
                                   } else if (state.status ==
-                                      TagBlocStatus.loading) {
+                                      TagBlocStatus.success) {
                                     assignedString = state.tagList
                                         .map((tag) => tag.tag)
                                         .join(', ');

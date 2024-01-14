@@ -17,26 +17,34 @@ class _TagListState extends State<TagList> {
       create: (context) => TagBloc()..add(GetAllTag()),
       child: Scaffold(
           appBar: AppBar(
-            title: const Text('Select Owner'),
+            title: const Text('Select Tag'),
           ),
           body: BlocBuilder<TagBloc, TagBlocState>(
             builder: (context, state) {
-              return Column(
-                children: [
-                  Expanded(
-                    child: ListView(
-                      children: state.tagList.map((tag) {
-                        final isSelected = selectedTagSet.contains(tag);
-                        return OwnersTileWidget(
-                            tag: tag,
-                            isSelected: isSelected,
-                            onSelectedOwner: selectOwner);
-                      }).toList(),
+              if (state.status == TagBlocStatus.initial) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (state.status == TagBlocStatus.loading) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (state.status == TagBlocStatus.success) {
+                return Column(
+                  children: [
+                    Expanded(
+                      child: ListView(
+                        children: state.tagList.map((tag) {
+                          final isSelected = selectedTagSet.contains(tag);
+                          return OwnersTileWidget(
+                              tag: tag,
+                              isSelected: isSelected,
+                              onSelectedOwner: selectOwner);
+                        }).toList(),
+                      ),
                     ),
-                  ),
-                  buildSelectButton(context),
-                ],
-              );
+                    buildSelectButton(context),
+                  ],
+                );
+              } else {
+                return const Center(child: Text('Unknown'));
+              }
             },
           )),
     );
