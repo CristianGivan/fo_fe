@@ -26,7 +26,7 @@ class _TasksPageState extends State<TasksPage> {
           padding: const EdgeInsets.all(10.0),
           child: BlocBuilder<TaskBloc, TaskState>(
             builder: (context, state) {
-              if (state.status == TasksStatus.initial) {
+              if (state.status == TaskStatus.initial) {
                 return const Center(child: CircularProgressIndicator());
               } else if (state.status == TaskStatus.loading) {
                 return const Center(child: CircularProgressIndicator());

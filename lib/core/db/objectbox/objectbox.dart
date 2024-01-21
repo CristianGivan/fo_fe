@@ -2,9 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:fo_fe/core/db/database.dart';
-import 'package:fo_fe/features/tasks/entity/tag_entity.dart';
-import 'package:fo_fe/features/tasks/entity/task_entity.dart';
-import 'package:fo_fe/features/tasks/entity/tasks_entity.dart';
+import 'package:fo_fe/features/tasks/entity/objectBox/tag_entity.dart';
+import 'package:fo_fe/features/tasks/entity/objectBox/task_entity.dart';
+import 'package:fo_fe/features/tasks/entity/objectBox/tasks_entity.dart';
 import 'package:fo_fe/features/tasks/model/tag.dart';
 import 'package:fo_fe/features/tasks/model/task.dart';
 import 'package:fo_fe/features/tasks/model/tasks.dart';
@@ -16,18 +16,18 @@ import 'package:fo_fe/objectbox.g.dart';
 class ObjectBox implements Database {
   late final Store store;
 
-  late final Box<TaskEntity> taskBox;
+  late final Box<TaskEntityObjectBox> taskBox;
   // late final Box<Owner> ownerBox;
-  late final Box<TasksEntity> tasksBox;
-  late final Box<TagEntity> tagBox;
+  late final Box<TasksEntityObjectBox> tasksBox;
+  late final Box<TagEntityObjectBox> tagBox;
 
-  late final Stream<Query<TasksEntity>> eventsStream;
+  late final Stream<Query<TasksEntityObjectBox>> eventsStream;
 
   ObjectBox._create(this.store) {
-    taskBox = Box<TaskEntity>(store);
+    taskBox = Box<TaskEntityObjectBox>(store);
     // ownerBox = Box<Owner>(store);
-    tasksBox = Box<TasksEntity>(store);
-    tagBox = Box<TagEntity>(store);
+    tasksBox = Box<TasksEntityObjectBox>(store);
+    tagBox = Box<TagEntityObjectBox>(store);
 
     // Prepare a Query for all tasks and events.
     // https://docs.objectbox.io/queries
@@ -59,16 +59,17 @@ class ObjectBox implements Database {
   //   // eventBox.put(event);
   // }
 
-  TasksEntity? getTasks(int eventId) {
+  TasksEntityObjectBox? getTasks(int eventId) {
     return tasksBox.get(eventId);
   }
 
-  void addTask(String taskText, List<TagEntity> tags, TasksEntity tasks) {
-    TaskEntity newTask = TaskEntity(taskText);
+  void addTask(String taskText, List<TagEntityObjectBox> tags,
+      TasksEntityObjectBox tasks) {
+    TaskEntityObjectBox newTask = TaskEntityObjectBox(taskText);
 
     newTask.tagList.addAll(tags);
 
-    TasksEntity? updatedTasks = getTasks(tasks.id);
+    TasksEntityObjectBox? updatedTasks = getTasks(tasks.id);
     updatedTasks?.taskList.add(newTask);
 
     int eventId = tasksBox.put(updatedTasks!);
@@ -96,7 +97,7 @@ class ObjectBox implements Database {
   //   return builder.watch(triggerImmediately: true).map((query) => query.find());
   // }
 
-  Stream<List<TaskEntity>> getTasksOfEvent(int eventId) {
+  Stream<List<TaskEntityObjectBox>> getTasksOfEvent(int eventId) {
     final builder = taskBox.query()
       ..order(TaskEntity_.id, flags: Order.descending);
     builder.link(TaskEntity_.tasksList, TasksEntity_.id.equals(eventId));
@@ -111,7 +112,8 @@ class ObjectBox implements Database {
 
 //---------------------------------------------
 
-  List<Tasks> tasksEntityListToTasksList(List<TasksEntity> tasksEntityList) {
+  List<Tasks> tasksEntityListToTasksList(
+      List<TasksEntityObjectBox> tasksEntityList) {
     return tasksEntityList
         .map((tasksEntity) => Tasks(tasksEntity.name,
             id: tasksEntity.id,
@@ -120,7 +122,8 @@ class ObjectBox implements Database {
         .toList();
   }
 
-  List<Task> taskEntityListToTaskList(List<TaskEntity> taskEntityList) {
+  List<Task> taskEntityListToTaskList(
+      List<TaskEntityObjectBox> taskEntityList) {
     return taskEntityList
         .map((taskEntity) => Task(
               taskEntity.subject,
@@ -130,27 +133,28 @@ class ObjectBox implements Database {
         .toList();
   }
 
-  TasksEntity tasksToTasksEntity(Tasks tasks) {
-    TasksEntity tasksEntity = TasksEntity(name: tasks.name, id: tasks.id);
+  TasksEntityObjectBox tasksToTasksEntity(Tasks tasks) {
+    TasksEntityObjectBox tasksEntity =
+        TasksEntityObjectBox(name: tasks.name, id: tasks.id);
     return tasksEntity.copyWithTasks(tasks: tasks);
   }
 
-  TaskEntity taskToTaskEntity(Task task) {
-    TaskEntity taskEntity = TaskEntity(task.subject);
+  TaskEntityObjectBox taskToTaskEntity(Task task) {
+    TaskEntityObjectBox taskEntity = TaskEntityObjectBox(task.subject);
     taskEntity.id = task.id;
     taskEntity.status = task.status;
     return taskEntity;
     // return TaskEntity(task.subject, id: task.id, status: task.status);
   }
 
-  Set<Tag> tagEntityListToTagList(Set<TagEntity> tagEntitySet) {
+  Set<Tag> tagEntityListToTagList(Set<TagEntityObjectBox> tagEntitySet) {
     return tagEntitySet
         .map((tagEntity) => Tag(tagEntity.tag, id: tagEntity.id))
         .toSet();
   }
 
-  Set<TagEntity> tagSetToTagEntitySet(Set<Tag> tagSet) {
-    return tagSet.map((tag) => TagEntity(tag.tag, id: tag.id)).toSet();
+  Set<TagEntityObjectBox> tagSetToTagEntitySet(Set<Tag> tagSet) {
+    return tagSet.map((tag) => TagEntityObjectBox(tag.tag, id: tag.id)).toSet();
   }
 
   @override
@@ -188,7 +192,7 @@ class ObjectBox implements Database {
   Future<List<Tasks>> getAllTasks() async {
     try {
       final builder = tasksBox.query()..order(TasksEntity_.date);
-      Stream<List<TasksEntity>> result =
+      Stream<List<TasksEntityObjectBox>> result =
           builder.watch(triggerImmediately: true).map((query) => query.find());
       return tasksEntityListToTasksList(await result.first);
     } catch (e) {
@@ -201,7 +205,7 @@ class ObjectBox implements Database {
   Future<List<Task>> getAllTask() async {
     try {
       final builder = taskBox.query()..order(TaskEntity_.subject);
-      Stream<List<TaskEntity>> result =
+      Stream<List<TaskEntityObjectBox>> result =
           builder.watch(triggerImmediately: true).map((query) => query.find());
       return taskEntityListToTaskList(await result.first);
     } catch (e) {
@@ -213,8 +217,8 @@ class ObjectBox implements Database {
   @override
   Future<List<Task>> getTaskListByTasksId(int id) async {
     try {
-      final tasks = store.box<TasksEntity>().get(id);
-      List<TaskEntity> result1 = tasks!.taskList.toList();
+      final tasks = store.box<TasksEntityObjectBox>().get(id);
+      List<TaskEntityObjectBox> result1 = tasks!.taskList.toList();
 
       List<Task> result = taskEntityListToTaskList(result1);
       return result; //taskEntityListToTaskList(await result.first);
@@ -227,8 +231,8 @@ class ObjectBox implements Database {
   @override
   Future<Set<Tag>> getTagSetFromTaskId(int id) async {
     try {
-      final task = store.box<TaskEntity>().get(id);
-      Set<TagEntity> result1 = task!.tagList.toSet();
+      final task = store.box<TaskEntityObjectBox>().get(id);
+      Set<TagEntityObjectBox> result1 = task!.tagList.toSet();
       Set<Tag> result = tagEntityListToTagList(result1);
       return result;
     } catch (e) {
@@ -240,7 +244,7 @@ class ObjectBox implements Database {
   @override
   int addTasks(Tasks tasks) {
     try {
-      TasksEntity newEvent = tasksToTasksEntity(tasks);
+      TasksEntityObjectBox newEvent = tasksToTasksEntity(tasks);
 
       debugPrint("Added Event: ${newEvent.name}");
       return tasksBox.put(newEvent);
@@ -274,7 +278,7 @@ class ObjectBox implements Database {
   Future<Set<Tag>> getAllTags() async {
     try {
       final builder = tagBox.query()..order(TagEntity_.tag);
-      Stream<Set<TagEntity>> result = builder
+      Stream<Set<TagEntityObjectBox>> result = builder
           .watch(triggerImmediately: true)
           .map((query) => query.find().toSet());
       return tagEntityListToTagList(await result.first);
@@ -297,15 +301,15 @@ class ObjectBox implements Database {
 
   @override
   void updateTaskFields(int id, String taskText, Set<Tag> tagSet, Tasks tasks) {
-    TasksEntity tasksEntity = tasksToTasksEntity(tasks);
-    Set<TagEntity> tagEntitySet = tagSetToTagEntitySet(tagSet);
-    TaskEntity updatedTask = TaskEntity(taskText);
+    TasksEntityObjectBox tasksEntity = tasksToTasksEntity(tasks);
+    Set<TagEntityObjectBox> tagEntitySet = tagSetToTagEntitySet(tagSet);
+    TaskEntityObjectBox updatedTask = TaskEntityObjectBox(taskText);
 
     updatedTask.id = id;
 
     updatedTask.tagList.addAll(tagEntitySet);
 
-    TasksEntity updatedTasks = tasksEntity;
+    TasksEntityObjectBox updatedTasks = tasksEntity;
     updatedTasks.taskList.add(updatedTask);
 
     // int tasksId =
@@ -317,16 +321,16 @@ class ObjectBox implements Database {
 
   @override
   void addTaskWithTagSetToTasks(String taskText, Set<Tag> tagSet, Tasks tasks) {
-    TaskEntity newTask = TaskEntity(taskText);
-    TasksEntity tasksEntity = tasksToTasksEntity(tasks);
-    Set<TagEntity> tagEntitySet = tagSetToTagEntitySet(tagSet);
+    TaskEntityObjectBox newTask = TaskEntityObjectBox(taskText);
+    TasksEntityObjectBox tasksEntity = tasksToTasksEntity(tasks);
+    Set<TagEntityObjectBox> tagEntitySet = tagSetToTagEntitySet(tagSet);
 
     newTask.tagList.addAll(tagEntitySet);
 
-    TasksEntity? updatedTasks = getTasks(tasksEntity.id);
+    TasksEntityObjectBox? updatedTasks = getTasks(tasksEntity.id);
     updatedTasks?.taskList.add(newTask);
 
-    int eventId = tasksBox.put(updatedTasks!);
+    // int eventId = tasksBox.put(updatedTasks!);
 
     // debugPrint(
     //     "Added Task: ${newTask.subject} assigned to ${newTask.tagList.map((tag) => tag.tag).join(", ")} in event: ${tasksBox.get(eventId)?.name}");
@@ -336,13 +340,13 @@ class ObjectBox implements Database {
 
   @override
   Set<Tag> getTagSetFromTask(Task task) {
-    Set<TagEntity> tagEntitySet = <TagEntity>{};
+    Set<TagEntityObjectBox> tagEntitySet = <TagEntityObjectBox>{};
     tagEntitySet = taskToTaskEntity(task).tagList.toSet();
     return tagEntityListToTagList(tagEntitySet);
   }
 
   @override
   int addTag(Tag tag) {
-    return tagBox.put(TagEntity.tagEntityFromTag(tag));
+    return tagBox.put(TagEntityObjectBox.tagEntityFromTag(tag));
   }
 }

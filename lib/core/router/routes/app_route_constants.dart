@@ -1,6 +1,7 @@
 class RouteCoreConstants {
-  static const String homeRoute = '/';
-  // static const String homeRoute = '/organizer/tasks';//for developing one one route
+  // static const String homeRoute = '/';
+  static const String homeRoute =
+      '/organizer/tasks'; //for developing one one route
   static const String homeRouteName = 'home';
 
   //settings

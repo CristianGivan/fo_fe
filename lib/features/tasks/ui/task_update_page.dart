@@ -29,13 +29,8 @@ class _UpdateTaskPageState extends State<UpdateTaskPage> {
   void initState() {
     super.initState();
     // Check if the widget's task is not null
-    if (widget.task != null) {
-      inputController = TextEditingController(text: widget.task.subject);
-    } else {
-      // Initialize the inputController with an empty value if the task is null
-      inputController = TextEditingController();
+    inputController = TextEditingController(text: widget.task.subject);
     }
-  }
 
   @override
   void dispose() {

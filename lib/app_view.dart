@@ -5,8 +5,6 @@ import 'core/router/routes/app_route_configuration.dart';
 class AppView extends StatelessWidget {
   const AppView({super.key});
 
-  final bool isAuth = true;
-
   // todo add in a check box
   final bool showMenu = false;
 

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:fo_fe/features/tasks/entity/task_entity.dart';
+import 'package:fo_fe/features/tasks/entity/objectBox/task_entity.dart';
 import 'delete_menu.dart';
 
 class MenuTask extends StatefulWidget {
   const MenuTask({super.key, this.task});
 
-  final TaskEntity? task;
+  final TaskEntityObjectBox? task;
 
   @override
   State<MenuTask> createState() => _MenuTaskState();
@@ -28,7 +28,7 @@ class _MenuTaskState extends State<MenuTask> {
   PopupMenuItem<Menu> buildItem(Menu item) =>
       PopupMenuItem<Menu>(value: item, child: Text(item.text!));
 
-  void _onSelected(BuildContext context, TaskEntity task) {
+  void _onSelected(BuildContext context, TaskEntityObjectBox task) {
     // task.deleteTask(task.id);
     // debugPrint(
     //     "Task ${task.subject} deleted and had owners: ${task.tagList.map((tag) => tag.tag).join(", ")}");

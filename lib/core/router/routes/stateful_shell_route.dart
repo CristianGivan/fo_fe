@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'app_route_constants.dart';
 
 class ScaffoldWithNestedNavigation extends StatefulWidget {
-  
   const ScaffoldWithNestedNavigation({
     Key? key,
     required this.navigationShell,
@@ -13,11 +12,13 @@ class ScaffoldWithNestedNavigation extends StatefulWidget {
   final StatefulNavigationShell navigationShell;
 
   @override
-  State<ScaffoldWithNestedNavigation> createState() => _ScaffoldWithNestedNavigationState();
+  State<ScaffoldWithNestedNavigation> createState() =>
+      _ScaffoldWithNestedNavigationState();
 }
 
-class _ScaffoldWithNestedNavigationState extends State<ScaffoldWithNestedNavigation> {
-  bool showMenu= true;
+class _ScaffoldWithNestedNavigationState
+    extends State<ScaffoldWithNestedNavigation> {
+  bool showMenu = false;
   void _goBranch(int index) {
     widget.navigationShell.goBranch(
       index,

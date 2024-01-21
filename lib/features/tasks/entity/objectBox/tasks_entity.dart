@@ -1,11 +1,10 @@
 import 'package:flutter/widgets.dart';
+import 'package:fo_fe/features/tasks/entity/objectBox/task_entity.dart';
 import 'package:fo_fe/features/tasks/model/tasks.dart';
 import 'package:objectbox/objectbox.dart';
 
-import 'package:fo_fe/features/tasks/entity/task_entity.dart';
-
 @Entity()
-class TasksEntity {
+class TasksEntityObjectBox {
   @Id()
   int id;
 
@@ -16,7 +15,7 @@ class TasksEntity {
 
   String? location;
 
-  TasksEntity({
+  TasksEntityObjectBox({
     required this.id,
     required this.name,
     this.date,
@@ -24,15 +23,15 @@ class TasksEntity {
   });
 
   @Backlink()
-  final taskList = ToMany<TaskEntity>();
+  final taskList = ToMany<TaskEntityObjectBox>();
 
-  TasksEntity copyWith({
+  TasksEntityObjectBox copyWith({
     int? id,
     ValueGetter<String?>? name,
     ValueGetter<DateTime?>? date,
     ValueGetter<String?>? location,
   }) {
-    return TasksEntity(
+    return TasksEntityObjectBox(
       id: id ?? this.id,
       name: name?.call() ?? this.name,
       date: date?.call() ?? this.date,
@@ -40,12 +39,12 @@ class TasksEntity {
     );
   }
 
-  TasksEntity copyWithTasks({Tasks? tasks}) {
-    return TasksEntity(
-      id: tasks?.id ?? this.id,
-      name: tasks?.name ?? this.name,
-      date: tasks?.date ?? this.date,
-      location: tasks?.location ?? this.location,
+  TasksEntityObjectBox copyWithTasks({Tasks? tasks}) {
+    return TasksEntityObjectBox(
+      id: tasks?.id ?? id,
+      name: tasks?.name ?? name,
+      date: tasks?.date ?? date,
+      location: tasks?.location ?? location,
     );
   }
 }

@@ -10,13 +10,12 @@
 import 'dart:typed_data';
 
 import 'package:flat_buffers/flat_buffers.dart' as fb;
+import 'package:fo_fe/features/tasks/entity/objectBox/tag_entity.dart';
+import 'package:fo_fe/features/tasks/entity/objectBox/task_entity.dart';
+import 'package:fo_fe/features/tasks/entity/objectBox/tasks_entity.dart';
 import 'package:objectbox/internal.dart'; // generated code can access "internal" functionality
 import 'package:objectbox/objectbox.dart';
 import 'package:objectbox_flutter_libs/objectbox_flutter_libs.dart';
-
-import 'features/tasks/entity/tag_entity.dart';
-import 'features/tasks/entity/task_entity.dart';
-import 'features/tasks/entity/tasks_entity.dart';
 
 export 'package:objectbox/objectbox.dart'; // so that callers only have to import this file
 
@@ -169,16 +168,16 @@ ModelDefinition getObjectBoxModel() {
       version: 1);
 
   final bindings = <Type, EntityDefinition>{
-    TagEntity: EntityDefinition<TagEntity>(
+    TagEntityObjectBox: EntityDefinition<TagEntityObjectBox>(
         model: _entities[0],
-        toOneRelations: (TagEntity object) => [],
-        toManyRelations: (TagEntity object) =>
-            {RelInfo<TagEntity>.toMany(2, object.id): object.tagList},
-        getId: (TagEntity object) => object.id,
-        setId: (TagEntity object, int id) {
+        toOneRelations: (TagEntityObjectBox object) => [],
+        toManyRelations: (TagEntityObjectBox object) =>
+            {RelInfo<TagEntityObjectBox>.toMany(2, object.id): object.tagList},
+        getId: (TagEntityObjectBox object) => object.id,
+        setId: (TagEntityObjectBox object, int id) {
           object.id = id;
         },
-        objectToFB: (TagEntity object, fb.Builder fbb) {
+        objectToFB: (TagEntityObjectBox object, fb.Builder fbb) {
           final tagOffset = fbb.writeString(object.tag);
           fbb.startTable(3);
           fbb.addInt64(0, object.id);
@@ -193,21 +192,21 @@ ModelDefinition getObjectBoxModel() {
               .vTableGet(buffer, rootOffset, 6, '');
           final idParam =
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
-          final object = TagEntity(tagParam, id: idParam);
-          InternalToManyAccess.setRelInfo<TagEntity>(
-              object.tagList, store, RelInfo<TagEntity>.toMany(2, object.id));
+          final object = TagEntityObjectBox(tagParam, id: idParam);
+          InternalToManyAccess.setRelInfo<TagEntityObjectBox>(object.tagList,
+              store, RelInfo<TagEntityObjectBox>.toMany(2, object.id));
           return object;
         }),
-    TaskEntity: EntityDefinition<TaskEntity>(
+    TaskEntityObjectBox: EntityDefinition<TaskEntityObjectBox>(
         model: _entities[1],
-        toOneRelations: (TaskEntity object) => [object.tasksList],
-        toManyRelations: (TaskEntity object) =>
-            {RelInfo<TaskEntity>.toMany(3, object.id): object.tagList},
-        getId: (TaskEntity object) => object.id,
-        setId: (TaskEntity object, int id) {
+        toOneRelations: (TaskEntityObjectBox object) => [object.tasksList],
+        toManyRelations: (TaskEntityObjectBox object) =>
+            {RelInfo<TaskEntityObjectBox>.toMany(3, object.id): object.tagList},
+        getId: (TaskEntityObjectBox object) => object.id,
+        setId: (TaskEntityObjectBox object, int id) {
           object.id = id;
         },
-        objectToFB: (TaskEntity object, fb.Builder fbb) {
+        objectToFB: (TaskEntityObjectBox object, fb.Builder fbb) {
           final subjectOffset = fbb.writeString(object.subject);
           fbb.startTable(5);
           fbb.addInt64(0, object.id);
@@ -226,28 +225,28 @@ ModelDefinition getObjectBoxModel() {
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
           final statusParam =
               const fb.BoolReader().vTableGet(buffer, rootOffset, 8, false);
-          final object =
-              TaskEntity(subjectParam, id: idParam, status: statusParam);
+          final object = TaskEntityObjectBox(subjectParam,
+              id: idParam, status: statusParam);
           object.tasksList.targetId =
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 10, 0);
           object.tasksList.attach(store);
-          InternalToManyAccess.setRelInfo<TaskEntity>(
-              object.tagList, store, RelInfo<TaskEntity>.toMany(3, object.id));
+          InternalToManyAccess.setRelInfo<TaskEntityObjectBox>(object.tagList,
+              store, RelInfo<TaskEntityObjectBox>.toMany(3, object.id));
           return object;
         }),
-    TasksEntity: EntityDefinition<TasksEntity>(
+    TasksEntityObjectBox: EntityDefinition<TasksEntityObjectBox>(
         model: _entities[2],
-        toOneRelations: (TasksEntity object) => [],
-        toManyRelations: (TasksEntity object) => {
-              RelInfo<TaskEntity>.toOneBacklink(4, object.id,
-                      (TaskEntity srcObject) => srcObject.tasksList):
+        toOneRelations: (TasksEntityObjectBox object) => [],
+        toManyRelations: (TasksEntityObjectBox object) => {
+              RelInfo<TaskEntityObjectBox>.toOneBacklink(4, object.id,
+                      (TaskEntityObjectBox srcObject) => srcObject.tasksList):
                   object.taskList
             },
-        getId: (TasksEntity object) => object.id,
-        setId: (TasksEntity object, int id) {
+        getId: (TasksEntityObjectBox object) => object.id,
+        setId: (TasksEntityObjectBox object, int id) {
           object.id = id;
         },
-        objectToFB: (TasksEntity object, fb.Builder fbb) {
+        objectToFB: (TasksEntityObjectBox object, fb.Builder fbb) {
           final nameOffset = fbb.writeString(object.name);
           final locationOffset = object.location == null
               ? null
@@ -274,16 +273,16 @@ ModelDefinition getObjectBoxModel() {
               : DateTime.fromMillisecondsSinceEpoch(dateValue);
           final locationParam = const fb.StringReader(asciiOptimization: true)
               .vTableGetNullable(buffer, rootOffset, 10);
-          final object = TasksEntity(
+          final object = TasksEntityObjectBox(
               id: idParam,
               name: nameParam,
               date: dateParam,
               location: locationParam);
-          InternalToManyAccess.setRelInfo<TasksEntity>(
+          InternalToManyAccess.setRelInfo<TasksEntityObjectBox>(
               object.taskList,
               store,
-              RelInfo<TaskEntity>.toOneBacklink(
-                  4, object.id, (TaskEntity srcObject) => srcObject.tasksList));
+              RelInfo<TaskEntityObjectBox>.toOneBacklink(4, object.id,
+                  (TaskEntityObjectBox srcObject) => srcObject.tasksList));
           return object;
         })
   };
@@ -291,57 +290,62 @@ ModelDefinition getObjectBoxModel() {
   return ModelDefinition(model, bindings);
 }
 
-/// [TagEntity] entity fields to define ObjectBox queries.
+/// [TagEntityObjectBox] entity fields to define ObjectBox queries.
 class TagEntity_ {
-  /// see [TagEntity.id]
-  static final id = QueryIntegerProperty<TagEntity>(_entities[0].properties[0]);
+  /// see [TagEntityObjectBox.id]
+  static final id =
+      QueryIntegerProperty<TagEntityObjectBox>(_entities[0].properties[0]);
 
-  /// see [TagEntity.tag]
-  static final tag = QueryStringProperty<TagEntity>(_entities[0].properties[1]);
+  /// see [TagEntityObjectBox.tag]
+  static final tag =
+      QueryStringProperty<TagEntityObjectBox>(_entities[0].properties[1]);
 
-  /// see [TagEntity.tagList]
+  /// see [TagEntityObjectBox.tagList]
   static final tagList =
-      QueryRelationToMany<TagEntity, TasksEntity>(_entities[0].relations[0]);
+      QueryRelationToMany<TagEntityObjectBox, TasksEntityObjectBox>(
+          _entities[0].relations[0]);
 }
 
-/// [TaskEntity] entity fields to define ObjectBox queries.
+/// [TaskEntityObjectBox] entity fields to define ObjectBox queries.
 class TaskEntity_ {
-  /// see [TaskEntity.id]
+  /// see [TaskEntityObjectBox.id]
   static final id =
-      QueryIntegerProperty<TaskEntity>(_entities[1].properties[0]);
+      QueryIntegerProperty<TaskEntityObjectBox>(_entities[1].properties[0]);
 
-  /// see [TaskEntity.subject]
+  /// see [TaskEntityObjectBox.subject]
   static final subject =
-      QueryStringProperty<TaskEntity>(_entities[1].properties[1]);
+      QueryStringProperty<TaskEntityObjectBox>(_entities[1].properties[1]);
 
-  /// see [TaskEntity.status]
+  /// see [TaskEntityObjectBox.status]
   static final status =
-      QueryBooleanProperty<TaskEntity>(_entities[1].properties[2]);
+      QueryBooleanProperty<TaskEntityObjectBox>(_entities[1].properties[2]);
 
-  /// see [TaskEntity.tasksList]
+  /// see [TaskEntityObjectBox.tasksList]
   static final tasksList =
-      QueryRelationToOne<TaskEntity, TasksEntity>(_entities[1].properties[3]);
+      QueryRelationToOne<TaskEntityObjectBox, TasksEntityObjectBox>(
+          _entities[1].properties[3]);
 
-  /// see [TaskEntity.tagList]
+  /// see [TaskEntityObjectBox.tagList]
   static final tagList =
-      QueryRelationToMany<TaskEntity, TagEntity>(_entities[1].relations[0]);
+      QueryRelationToMany<TaskEntityObjectBox, TagEntityObjectBox>(
+          _entities[1].relations[0]);
 }
 
-/// [TasksEntity] entity fields to define ObjectBox queries.
+/// [TasksEntityObjectBox] entity fields to define ObjectBox queries.
 class TasksEntity_ {
-  /// see [TasksEntity.id]
+  /// see [TasksEntityObjectBox.id]
   static final id =
-      QueryIntegerProperty<TasksEntity>(_entities[2].properties[0]);
+      QueryIntegerProperty<TasksEntityObjectBox>(_entities[2].properties[0]);
 
-  /// see [TasksEntity.name]
+  /// see [TasksEntityObjectBox.name]
   static final name =
-      QueryStringProperty<TasksEntity>(_entities[2].properties[1]);
+      QueryStringProperty<TasksEntityObjectBox>(_entities[2].properties[1]);
 
-  /// see [TasksEntity.date]
+  /// see [TasksEntityObjectBox.date]
   static final date =
-      QueryIntegerProperty<TasksEntity>(_entities[2].properties[2]);
+      QueryIntegerProperty<TasksEntityObjectBox>(_entities[2].properties[2]);
 
-  /// see [TasksEntity.location]
+  /// see [TasksEntityObjectBox.location]
   static final location =
-      QueryStringProperty<TasksEntity>(_entities[2].properties[3]);
+      QueryStringProperty<TasksEntityObjectBox>(_entities[2].properties[3]);
 }
