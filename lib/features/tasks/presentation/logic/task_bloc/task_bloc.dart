@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:fo_fe/features/tasks/model/task.dart';
+import 'package:fo_fe/features/tasks/domain/entities/task.dart';
 import 'package:fo_fe/main.dart';
 
 part 'task_event.dart';

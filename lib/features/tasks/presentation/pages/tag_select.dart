@@ -1,4 +1,4 @@
-part of '../tasks.dart';
+part of '../../tasks.dart';
 
 class TagList extends StatefulWidget {
   const TagList({super.key});

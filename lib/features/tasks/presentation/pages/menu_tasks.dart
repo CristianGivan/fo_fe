@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fo_fe/features/tasks/entity/objectBox/task_entity.dart';
+import 'package:fo_fe/features/tasks/data/models/objectBox/task_entity.dart';
 import 'delete_menu.dart';
 
 class MenuTask extends StatefulWidget {

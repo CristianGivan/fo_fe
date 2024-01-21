@@ -1,5 +1,5 @@
-import 'package:fo_fe/features/tasks/entity/objectBox/tag_entity.dart';
-import 'package:fo_fe/features/tasks/entity/objectBox/tasks_entity.dart';
+import 'package:fo_fe/features/tasks/data/models/objectBox/tag_model.dart';
+import 'package:fo_fe/features/tasks/data/models/objectBox/tasks_entity.dart';
 import 'package:objectbox/objectbox.dart';
 
 @Entity()
@@ -13,7 +13,7 @@ class TaskEntityObjectBox {
 
   // Here, the To-One relation on the base application is replaced by To-Many.
   // https://docs.objectbox.io/relations#to-many-relations
-  final tagList = ToMany<TagEntityObjectBox>();
+  final tagList = ToMany<TagModelObjectBox>();
 
   final tasksList = ToOne<TasksEntityObjectBox>();
 

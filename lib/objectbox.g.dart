@@ -10,9 +10,9 @@
 import 'dart:typed_data';
 
 import 'package:flat_buffers/flat_buffers.dart' as fb;
-import 'package:fo_fe/features/tasks/entity/objectBox/tag_entity.dart';
-import 'package:fo_fe/features/tasks/entity/objectBox/task_entity.dart';
-import 'package:fo_fe/features/tasks/entity/objectBox/tasks_entity.dart';
+import 'package:fo_fe/features/tasks/data/models/objectBox/tag_model.dart';
+import 'package:fo_fe/features/tasks/data/models/objectBox/task_entity.dart';
+import 'package:fo_fe/features/tasks/data/models/objectBox/tasks_entity.dart';
 import 'package:objectbox/internal.dart'; // generated code can access "internal" functionality
 import 'package:objectbox/objectbox.dart';
 import 'package:objectbox_flutter_libs/objectbox_flutter_libs.dart';
@@ -168,16 +168,16 @@ ModelDefinition getObjectBoxModel() {
       version: 1);
 
   final bindings = <Type, EntityDefinition>{
-    TagEntityObjectBox: EntityDefinition<TagEntityObjectBox>(
+    TagModelObjectBox: EntityDefinition<TagModelObjectBox>(
         model: _entities[0],
-        toOneRelations: (TagEntityObjectBox object) => [],
-        toManyRelations: (TagEntityObjectBox object) =>
-            {RelInfo<TagEntityObjectBox>.toMany(2, object.id): object.tagList},
-        getId: (TagEntityObjectBox object) => object.id,
-        setId: (TagEntityObjectBox object, int id) {
+        toOneRelations: (TagModelObjectBox object) => [],
+        toManyRelations: (TagModelObjectBox object) =>
+            {RelInfo<TagModelObjectBox>.toMany(2, object.id): object.tagList},
+        getId: (TagModelObjectBox object) => object.id,
+        setId: (TagModelObjectBox object, int id) {
           object.id = id;
         },
-        objectToFB: (TagEntityObjectBox object, fb.Builder fbb) {
+        objectToFB: (TagModelObjectBox object, fb.Builder fbb) {
           final tagOffset = fbb.writeString(object.tag);
           fbb.startTable(3);
           fbb.addInt64(0, object.id);
@@ -192,9 +192,9 @@ ModelDefinition getObjectBoxModel() {
               .vTableGet(buffer, rootOffset, 6, '');
           final idParam =
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
-          final object = TagEntityObjectBox(tagParam, id: idParam);
-          InternalToManyAccess.setRelInfo<TagEntityObjectBox>(object.tagList,
-              store, RelInfo<TagEntityObjectBox>.toMany(2, object.id));
+          final object = TagModelObjectBox(tagParam, id: idParam);
+          InternalToManyAccess.setRelInfo<TagModelObjectBox>(object.tagList,
+              store, RelInfo<TagModelObjectBox>.toMany(2, object.id));
           return object;
         }),
     TaskEntityObjectBox: EntityDefinition<TaskEntityObjectBox>(
@@ -290,19 +290,19 @@ ModelDefinition getObjectBoxModel() {
   return ModelDefinition(model, bindings);
 }
 
-/// [TagEntityObjectBox] entity fields to define ObjectBox queries.
+/// [TagModelObjectBox] entity fields to define ObjectBox queries.
 class TagEntity_ {
-  /// see [TagEntityObjectBox.id]
+  /// see [TagModelObjectBox.id]
   static final id =
-      QueryIntegerProperty<TagEntityObjectBox>(_entities[0].properties[0]);
+      QueryIntegerProperty<TagModelObjectBox>(_entities[0].properties[0]);
 
-  /// see [TagEntityObjectBox.tag]
+  /// see [TagModelObjectBox.tag]
   static final tag =
-      QueryStringProperty<TagEntityObjectBox>(_entities[0].properties[1]);
+      QueryStringProperty<TagModelObjectBox>(_entities[0].properties[1]);
 
-  /// see [TagEntityObjectBox.tagList]
+  /// see [TagModelObjectBox.tagList]
   static final tagList =
-      QueryRelationToMany<TagEntityObjectBox, TasksEntityObjectBox>(
+      QueryRelationToMany<TagModelObjectBox, TasksEntityObjectBox>(
           _entities[0].relations[0]);
 }
 
@@ -327,7 +327,7 @@ class TaskEntity_ {
 
   /// see [TaskEntityObjectBox.tagList]
   static final tagList =
-      QueryRelationToMany<TaskEntityObjectBox, TagEntityObjectBox>(
+      QueryRelationToMany<TaskEntityObjectBox, TagModelObjectBox>(
           _entities[1].relations[0]);
 }
 

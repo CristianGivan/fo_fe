@@ -1,4 +1,4 @@
-part of '../tasks.dart';
+part of '../../tasks.dart';
 
 /// Styling for an event card. Includes the name, location and date.
 /// Clicking a card navigates to a list of tasks related to event.

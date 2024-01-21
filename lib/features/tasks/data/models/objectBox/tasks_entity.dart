@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:fo_fe/features/tasks/entity/objectBox/task_entity.dart';
-import 'package:fo_fe/features/tasks/model/tasks.dart';
+import 'package:fo_fe/features/tasks/data/models/objectBox/task_entity.dart';
+import 'package:fo_fe/features/tasks/domain/entities/tasks.dart';
 import 'package:objectbox/objectbox.dart';
 
 @Entity()

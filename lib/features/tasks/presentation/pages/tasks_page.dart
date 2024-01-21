@@ -1,4 +1,4 @@
-part of '../tasks.dart';
+part of '../../tasks.dart';
 
 //Widget containing the list of tasks under an event
 //Also contains a floating action button to add tasks under the same event

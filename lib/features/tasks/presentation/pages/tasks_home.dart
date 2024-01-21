@@ -1,4 +1,4 @@
-part of '../tasks.dart';
+part of '../../tasks.dart';
 
 class TasksHome extends StatefulWidget {
   const TasksHome({super.key});

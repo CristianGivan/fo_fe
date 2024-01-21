@@ -8,8 +8,6 @@ import 'functions/simple_bloc_observer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
-
 late ObjectBox objectbox;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,7 +17,6 @@ Future<void> main() async {
   objectbox = await ObjectBox.create();
   runApp(AppMain(FirebaseUserRepository()));
 }
-
 
 class AppMain extends StatelessWidget {
   final UserRepository userRepository;

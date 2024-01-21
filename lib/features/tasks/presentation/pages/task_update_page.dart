@@ -1,38 +1,57 @@
-part of '../tasks.dart';
+import 'package:flutter/material.dart';
+import 'package:fo_fe/features/tasks/domain/entities/tag.dart';
+
+import 'package:fo_fe/features/tasks/domain/entities/task.dart';
+import 'package:fo_fe/features/tasks/domain/entities/tasks.dart';
+import 'package:fo_fe/features/tasks/tasks.dart';
+import 'package:fo_fe/main.dart';
 
 /// Adds a new task and assigns an owner.
-class AddTask extends StatefulWidget {
+class UpdateTaskPage extends StatefulWidget {
+  final Task task;
   final Tasks tasks;
 
-  const AddTask({super.key, required this.tasks});
+  const UpdateTaskPage({
+    Key? key,
+    required this.task,
+    required this.tasks,
+  }) : super(key: key);
 
   @override
-  State<AddTask> createState() => _AddTaskState();
+  State<UpdateTaskPage> createState() => _UpdateTaskPageState();
 }
 
-class _AddTaskState extends State<AddTask> {
-  final inputController = TextEditingController();
+class _UpdateTaskPageState extends State<UpdateTaskPage> {
+  late var inputController = TextEditingController();
   final ownerInputController = TextEditingController();
-
-  Set<Tag> tagSet = <Tag>{};
+  Set<Tag> currentTags = <Tag>{};
 
   @override
   void initState() {
     super.initState();
+    // Check if the widget's task is not null
+    inputController = TextEditingController(text: widget.task.subject);
   }
 
-  void _addOwner(String tagName) {
+  @override
+  void dispose() {
+    // Dispose the inputController when the state is disposed to avoid memory leaks
+    inputController.dispose();
+    super.dispose();
+  }
+
+  void _addTag(String tagName) {
     Tag newTag = Tag(tagName);
-    database.addTag(newTag);
+    newTag.id = database.addTag(newTag);
     setState(() {
-      tagSet = {newTag};
+      currentTags = {newTag};
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text("Add Task")),
+        appBar: AppBar(title: const Text("Update Task")),
         body: Column(children: <Widget>[
           Container(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -58,17 +77,17 @@ class _AddTaskState extends State<AddTask> {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) => AlertDialog(
-                          title: const Text('New Owner'),
+                          title: const Text('New tag'),
                           content: TextField(
                             decoration: const InputDecoration(
-                                hintText: 'Enter the owner name'),
+                                hintText: 'Enter the tag name'),
                             controller: ownerInputController,
                           ),
                           actions: [
                             TextButton(
                               child: const Text('Submit'),
                               onPressed: () {
-                                _addOwner(ownerInputController.text);
+                                _addTag(ownerInputController.text);
                                 Navigator.of(context).pop();
                               },
                             ),
@@ -78,7 +97,7 @@ class _AddTaskState extends State<AddTask> {
                       ownerInputController.clear();
                     },
                     child: const Text(
-                      "Add Owner",
+                      "Add Tag",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     )),
               ],
@@ -96,13 +115,10 @@ class _AddTaskState extends State<AddTask> {
                   ),
                   onPressed: () {
                     if (inputController.text.isNotEmpty) {
-                      database.addTaskWithTagSetToTasks(
-                          inputController.text, tagSet, widget.tasks);
-                      // context.pop();
-                      // context.pushReplacementNamed(
-                      //     OrganizerRouterNames.organizerTasksRoute);
-                      Navigator.pop(context);
+                      database.updateTaskFields(widget.task.id,
+                          inputController.text, currentTags, widget.tasks);
 
+                      Navigator.pop(context);
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) =>
                               TasksPage(tasks: widget.tasks)));
@@ -122,16 +138,17 @@ class _AddTaskState extends State<AddTask> {
 
       if (selectedOwners == null) return;
       setState(() {
-        tagSet = selectedOwners;
+        currentTags = selectedOwners;
       });
 
       return selectedOwners;
     }
 
-    return tagSet.isEmpty
+    return currentTags.isEmpty
         ? buildListTile(title: "No Owner", onTap: onTap)
         : buildListTile(
-            title: tagSet.map((tag) => tag.tag).join(", "), onTap: onTap);
+            title: currentTags.map((owners) => owners.tag).join(", "),
+            onTap: onTap);
   }
 
   Widget buildListTile({
