@@ -1,6 +1,6 @@
-import 'package:fo_fe/features/tasks/domain/entities/tag.dart';
-import 'package:fo_fe/features/tasks/domain/entities/task.dart';
-import 'package:fo_fe/features/tasks/domain/entities/tasks.dart';
+import 'package:fo_fe/features/organizer/elements/tag/tag.dart';
+import '../../features/organizer/elements/task/task.dart';
+import '../../features/organizer/elements/tasks/tasks.dart';
 
 abstract class Database {
   // Future<void>create();

@@ -2,13 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:fo_fe/core/db/database.dart';
-import 'package:fo_fe/features/tasks/data/models/objectBox/tag_model.dart';
-import 'package:fo_fe/features/tasks/data/models/objectBox/task_entity.dart';
-import 'package:fo_fe/features/tasks/data/models/objectBox/tasks_entity.dart';
-import 'package:fo_fe/features/tasks/domain/entities/tag.dart';
-import 'package:fo_fe/features/tasks/domain/entities/task.dart';
-import 'package:fo_fe/features/tasks/domain/entities/tasks.dart';
+import 'package:fo_fe/features/organizer/elements/task/task.dart';
 import 'package:fo_fe/objectbox.g.dart';
+
+import '../../../features/organizer/elements/tag/tag.dart';
+import '../../../features/organizer/elements/tasks/tasks.dart';
 
 /// Provides access to the ObjectBox Store throughout the app.
 ///
@@ -74,8 +72,8 @@ class ObjectBox implements Database {
 
     int eventId = tasksBox.put(updatedTasks!);
 
-    debugPrint(
-        "Added Task: ${newTask.subject} assigned to ${newTask.tagList.map((tag) => tag.tag).join(", ")} in event: ${tasksBox.get(eventId)?.name}");
+    // debugPrint(
+    //     "Added Task: ${newTask.subject} assigned to ${newTask.tagList.map((tag) => tag.tag).join(", ")} in event: ${tasksBox.get(eventId)?.name}");
   }
 
   // int addTasks(String name, DateTime date, String location) {

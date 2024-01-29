@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../features/Organizer/organizer.dart';
+import '../../../../features/organizer/organizer.dart';
 import '../../../router/routes/app_route_constants.dart';
 
 class AppScreen extends StatelessWidget {

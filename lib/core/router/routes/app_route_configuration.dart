@@ -4,7 +4,7 @@ import 'package:fo_fe/core/home/presentation/screens/home_screen.dart';
 import 'package:fo_fe/core/router/routes/stateful_shell_route.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../features/Organizer/organizer.dart';
+import '../../../features/organizer/organizer.dart';
 import '../../../features/other/presentation/screens/other1.dart';
 import '../../../features/other/presentation/screens/other2.dart';
 import '../../../features/other/presentation/screens/other_screen.dart';

@@ -10,9 +10,10 @@
 import 'dart:typed_data';
 
 import 'package:flat_buffers/flat_buffers.dart' as fb;
-import 'package:fo_fe/features/tasks/data/models/objectBox/tag_model.dart';
-import 'package:fo_fe/features/tasks/data/models/objectBox/task_entity.dart';
-import 'package:fo_fe/features/tasks/data/models/objectBox/tasks_entity.dart';
+import 'package:fo_fe/features/organizer/elements/tag/tag.dart';
+import 'package:fo_fe/features/organizer/elements/task/task.dart';
+import 'package:fo_fe/features/organizer/elements/tasks/tasks.dart';
+
 import 'package:objectbox/internal.dart'; // generated code can access "internal" functionality
 import 'package:objectbox/objectbox.dart';
 import 'package:objectbox_flutter_libs/objectbox_flutter_libs.dart';
