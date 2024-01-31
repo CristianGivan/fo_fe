@@ -1,4 +1,4 @@
-part of '../../../tag.dart';
+part of '../../../tag_lib.dart';
 
 class TagBloc extends Bloc<TagBlocEvent, TagBlocState> {
   TagBloc() : super(const TagBlocState()) {

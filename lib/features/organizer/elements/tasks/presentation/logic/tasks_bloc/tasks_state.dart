@@ -1,4 +1,4 @@
-part of '../../../tasks.dart';
+part of '../../../tasks_lib.dart';
 
 enum TasksStatus { initial, loading, success, error }
 

@@ -1,18 +1,18 @@
-part of '../../../task.dart';
+part of '../../../task_lib.dart';
 
-enum TaskStatus { initial, loading, success, error }
+enum TaskBlocStatus { initial, loading, success, error }
 
 final class TaskState extends Equatable {
   const TaskState({
-    this.status = TaskStatus.initial,
+    this.status = TaskBlocStatus.initial,
     this.taskList = const <Task>[],
   });
 
-  final TaskStatus status;
+  final TaskBlocStatus status;
   final List<Task> taskList;
 
   TaskState copyWith({
-    TaskStatus? status,
+    TaskBlocStatus? status,
     List<Task>? taskList,
   }) {
     return TaskState(

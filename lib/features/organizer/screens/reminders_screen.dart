@@ -1,4 +1,4 @@
-part of '../../organizer.dart';
+part of '../organizer.dart';
 
 class Reminder extends StatelessWidget {
   const Reminder({super.key});

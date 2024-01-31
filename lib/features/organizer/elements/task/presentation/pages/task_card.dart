@@ -1,4 +1,4 @@
-part of '../../task.dart';
+part of '../../task_lib.dart';
 
 /// Styling for an event card. Includes the task name, owner and a check mark.
 /// A card can be deleted through the delete button inside the menu bar.

@@ -1,4 +1,4 @@
-part of '../../task.dart';
+part of '../../task_lib.dart';
 
 @Entity()
 class TaskEntityObjectBox {

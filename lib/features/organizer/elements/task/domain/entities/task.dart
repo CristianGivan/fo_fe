@@ -1,39 +1,73 @@
-part of '../../task.dart';
+part of '../../task_lib.dart';
 
-class Task {
+class Task extends Equatable {
   int id;
   String subject;
-  bool status;
-  Set<int> tagIdSet;
+  DateTime createdDate;
+  DateTime startDate;
+  DateTime endDate;
+  double workingTime;
+  double estimatedTime;
+  double estimatedLeftTime;
+  double workingProgress;
+  bool status; //todo tb del
+  TaskStatus taskStatus;
+  User creator;
+  List<User> userList;
+  List<Tag> tagList;
+  List<Reminder> reminderList;
+  List<Work> workList;
+  List<Topic> topicList;
 
-  Task(this.subject, {this.id = 0, this.status = false, Set<int>? tagIdSet})
-      : tagIdSet = tagIdSet ?? {};
-
-  get empty => null;
-
+  // todo tb del
   bool changeState() {
     status = !status;
     return status;
   }
 
-  void setTagList(List<Tag> tagList) {
-    tagIdSet.addAll(tagList.map((tag) => tag.id));
+  Task(
+      this.id,
+      this.subject,
+      this.status, // todo tb del
+      this.createdDate,
+      this.startDate,
+      this.endDate,
+      this.workingTime,
+      this.estimatedTime,
+      this.estimatedLeftTime,
+      this.workingProgress,
+      this.taskStatus,
+      this.creator,
+      this.userList,
+      this.tagList,
+      this.reminderList,
+      this.workList,
+      this.topicList);
+
+  @override
+  String toString() {
+    return 'Task{id: $id, subject: $subject, createdDate: $createdDate, startDate: $startDate, endDate: $endDate, workingTime: $workingTime, estimatedTime: $estimatedTime, estimatedLeftTime: $estimatedLeftTime, workingProgress: $workingProgress, status: $status, taskStatus: $taskStatus, creator: $creator, userList: $userList, tagList: $tagList, reminderList: $reminderList, workList: $workList, topicList: $topicList}';
   }
 
-  // factory Task.fromObjectBoxDB(TaskEntity taskEntity) {
-  //   return Task(
-  //     id: taskEntity.id,
-  //     taskEntity.subject,
-  //     status: taskEntity.status,
-  //   );
-  // }
-
-  // Set<Object?> toObjectBoxDB() => {
-  //       id,
-  //       subject,
-  //       status,
-  //     };
-  // bool deleteTask(int id){
-  //   return database.deleteTask(id);
-  // }
+  @override
+  List<Object> get props {
+    return [
+      id,
+      subject,
+      createdDate,
+      startDate,
+      endDate,
+      workingTime,
+      estimatedTime,
+      estimatedLeftTime,
+      workingProgress,
+      status,
+      creator,
+      userList,
+      tagList,
+      reminderList,
+      workList,
+      topicList,
+    ];
+  }
 }

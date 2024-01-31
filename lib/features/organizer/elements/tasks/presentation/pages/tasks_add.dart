@@ -1,4 +1,4 @@
-part of '../../tasks.dart';
+part of '../../tasks_lib.dart';
 
 /// Adds a new event
 class AddTasks extends StatefulWidget {

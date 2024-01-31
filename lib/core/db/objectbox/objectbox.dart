@@ -2,11 +2,13 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:fo_fe/core/db/database.dart';
-import 'package:fo_fe/features/organizer/elements/task/task.dart';
+import 'package:fo_fe/features/organizer/elements/task/task_lib.dart';
 import 'package:fo_fe/objectbox.g.dart';
 
-import '../../../features/organizer/elements/tag/tag.dart';
-import '../../../features/organizer/elements/tasks/tasks.dart';
+import '../../../features/organizer/elements/tag/tag_lib.dart';
+import '../../../features/organizer/elements/task/domain/entities/user.dart';
+import '../../../features/organizer/elements/tasks/tasks_lib.dart';
+import '../../../features/organizer/util/organizer_enums.dart';
 
 /// Provides access to the ObjectBox Store throughout the app.
 ///
@@ -15,6 +17,7 @@ class ObjectBox implements Database {
   late final Store store;
 
   late final Box<TaskEntityObjectBox> taskBox;
+
   // late final Box<Owner> ownerBox;
   late final Box<TasksEntityObjectBox> tasksBox;
   late final Box<TagModelObjectBox> tagBox;
@@ -101,6 +104,7 @@ class ObjectBox implements Database {
     builder.link(TaskEntity_.tasksList, TasksEntity_.id.equals(eventId));
     return builder.watch(triggerImmediately: true).map((query) => query.find());
   }
+
   // @override
   // static Future<ObjectBox> create() async {
   //   // Future<Store> openStore() {...} is defined in the generated objectbox.g.dart
@@ -124,9 +128,23 @@ class ObjectBox implements Database {
       List<TaskEntityObjectBox> taskEntityList) {
     return taskEntityList
         .map((taskEntity) => Task(
+              taskEntity.id,
               taskEntity.subject,
-              id: taskEntity.id,
-              status: taskEntity.status,
+              taskEntity.status,
+              DateTime.now(),
+              DateTime.now(),
+              DateTime.now(),
+              0,
+              0,
+              0,
+              0,
+              TaskStatus.start,
+              User(0),
+              [],
+              [],
+              [],
+              [],
+              [],
             ))
         .toList();
   }

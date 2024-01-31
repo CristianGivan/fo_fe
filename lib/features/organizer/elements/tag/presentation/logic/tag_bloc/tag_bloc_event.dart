@@ -1,4 +1,4 @@
-part of '../../../tag.dart';
+part of '../../../tag_lib.dart';
 
 sealed class TagBlocEvent extends Equatable {
   const TagBlocEvent();
@@ -20,6 +20,7 @@ class GetTagListByTaskId extends TagBlocEvent {
   const GetTagListByTaskId(
     this.taskId,
   );
+
   @override
   List<Object?> get props => [taskId];
 }

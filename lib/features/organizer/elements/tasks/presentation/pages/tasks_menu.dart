@@ -1,4 +1,4 @@
-part of '../../tasks.dart';
+part of '../../tasks_lib.dart';
 
 class MenuTask extends StatefulWidget {
   const MenuTask({super.key, this.task});

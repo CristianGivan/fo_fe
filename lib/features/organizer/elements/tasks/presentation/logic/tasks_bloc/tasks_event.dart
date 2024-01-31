@@ -1,4 +1,4 @@
-part of '../../../tasks.dart';
+part of '../../../tasks_lib.dart';
 
 sealed class TasksEvent extends Equatable {
   const TasksEvent();

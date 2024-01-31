@@ -1,4 +1,4 @@
-part of '../../../tasks.dart';
+part of '../../../tasks_lib.dart';
 
 class TasksBloc extends Bloc<TasksEvent, TasksState> {
   TasksBloc() : super(const TasksState()) {

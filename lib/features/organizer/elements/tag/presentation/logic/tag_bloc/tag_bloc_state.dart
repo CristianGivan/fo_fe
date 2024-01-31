@@ -1,4 +1,4 @@
-part of '../../../tag.dart';
+part of '../../../tag_lib.dart';
 
 enum TagBlocStatus { initial, loading, success, error }
 

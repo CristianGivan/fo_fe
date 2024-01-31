@@ -1,4 +1,4 @@
-part of '../../../task.dart';
+part of '../../../task_lib.dart';
 
 class TaskBloc extends Bloc<TaskEvent, TaskState> {
   TaskBloc() : super(const TaskState()) {
@@ -12,41 +12,43 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
   }
 
   Future<void> _onGetAllTask(GetAllTask event, Emitter<TaskState> emit) async {
-    emit(state.copyWith(status: TaskStatus.loading));
+    emit(state.copyWith(status: TaskBlocStatus.loading));
     try {
       emit(state.copyWith(
-          taskList: await database.getAllTask(), status: TaskStatus.success));
+          taskList: await database.getAllTask(),
+          status: TaskBlocStatus.success));
     } catch (e) {
-      emit(state.copyWith(status: TaskStatus.error));
+      emit(state.copyWith(status: TaskBlocStatus.error));
     }
   }
 
   void _onStarted(TaskInitialized event, Emitter<TaskState> emit) {
-    if (state.status == TaskStatus.success) return;
-    emit(state.copyWith(taskList: state.taskList, status: TaskStatus.success));
+    if (state.status == TaskBlocStatus.success) return;
+    emit(state.copyWith(
+        taskList: state.taskList, status: TaskBlocStatus.success));
   }
 
   void _onTaskAdded(TaskAdded event, Emitter<TaskState> emit) {
-    emit(state.copyWith(status: TaskStatus.loading));
+    emit(state.copyWith(status: TaskBlocStatus.loading));
     try {
       List<Task> temp = [];
       temp.addAll(state.taskList);
       temp.insert(0, event.task);
-      emit(state.copyWith(taskList: temp, status: TaskStatus.success));
+      emit(state.copyWith(taskList: temp, status: TaskBlocStatus.success));
     } catch (e) {
-      emit(state.copyWith(status: TaskStatus.error));
+      emit(state.copyWith(status: TaskBlocStatus.error));
     }
   }
 
   Future<void> _onGetTaskListByTasksId(
       GetTaskListByTasksId event, Emitter<TaskState> emit) async {
-    emit(state.copyWith(status: TaskStatus.loading));
+    emit(state.copyWith(status: TaskBlocStatus.loading));
     try {
       emit(state.copyWith(
           taskList: await database.getTaskListByTasksId(event.tasksId),
-          status: TaskStatus.success));
+          status: TaskBlocStatus.success));
     } catch (e) {
-      emit(state.copyWith(status: TaskStatus.error));
+      emit(state.copyWith(status: TaskBlocStatus.error));
     }
   }
 }

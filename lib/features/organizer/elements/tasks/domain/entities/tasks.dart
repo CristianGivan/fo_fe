@@ -1,4 +1,4 @@
-part of '../../tasks.dart';
+part of '../../tasks_lib.dart';
 
 class Tasks {
   int id;
@@ -7,5 +7,6 @@ class Tasks {
   String? location;
 
   Tasks(this.name, {this.id = 0, this.date, this.location = ""});
+
   static Tasks empty = Tasks("", id: 0, date: DateTime.now(), location: "");
 }

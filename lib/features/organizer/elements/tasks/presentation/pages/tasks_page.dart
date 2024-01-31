@@ -1,4 +1,4 @@
-part of '../../tasks.dart';
+part of '../../tasks_lib.dart';
 
 //Widget containing the list of tasks under an event
 //Also contains a floating action button to add tasks under the same event
@@ -26,11 +26,11 @@ class _TasksPageState extends State<TasksPage> {
           padding: const EdgeInsets.all(10.0),
           child: BlocBuilder<TaskBloc, TaskState>(
             builder: (context, state) {
-              if (state.status == TaskStatus.initial) {
+              if (state.status == TaskBlocStatus.initial) {
                 return const Center(child: CircularProgressIndicator());
-              } else if (state.status == TaskStatus.loading) {
+              } else if (state.status == TaskBlocStatus.loading) {
                 return const Center(child: CircularProgressIndicator());
-              } else if (state.status == TaskStatus.success) {
+              } else if (state.status == TaskBlocStatus.success) {
                 return ListView.builder(
                   shrinkWrap: true,
                   itemCount: state.taskList.length,
