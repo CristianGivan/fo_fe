@@ -1,4 +1,4 @@
-part of '../../organizer.dart';
+part of '../organizer.dart';
 
 class OrganizerHome extends StatelessWidget {
   const OrganizerHome({super.key});
