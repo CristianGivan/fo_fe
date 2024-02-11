@@ -1,12 +1,14 @@
 import 'package:dartz/dartz.dart';
+import 'package:fo_fe/features/organizer/elements/task/task_lib.dart';
+
 import '../../../../../../core/error/failures.dart';
 
 abstract class TaskRepository {
-  putTask(Task task);
+  putTask(TaskEntity task);
 
-  postTask(Task task);
+  postTask(TaskEntity task);
 
-  deleteTask(Task task);
+  deleteTask(TaskEntity task);
 
-  Future<Either<Failure, Task>> getTaskByTasksId(int id);
+  Future<Either<Failure, TaskEntity>> getTaskById(int id);
 }

@@ -45,6 +45,7 @@ dependencies:
   http: ^1.2.0
   # Local cache
   shared_preferences: ^2.2.2
+  
 
 dev_dependencies:
   flutter_lints: ^3.0.1
@@ -53,7 +54,8 @@ dev_dependencies:
   mockito: ^5.4.4
 
 
-  build_runner: ^2.1.11
+  build_runner: ^2.4.8
+
   objectbox_generator: any
 
 #  dependency_overrides:

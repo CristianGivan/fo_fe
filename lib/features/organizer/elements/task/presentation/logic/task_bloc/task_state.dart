@@ -5,15 +5,15 @@ enum TaskBlocStatus { initial, loading, success, error }
 final class TaskState extends Equatable {
   const TaskState({
     this.status = TaskBlocStatus.initial,
-    this.taskList = const <Task>[],
+    this.taskList = const <TaskEntity>[],
   });
 
   final TaskBlocStatus status;
-  final List<Task> taskList;
+  final List<TaskEntity> taskList;
 
   TaskState copyWith({
     TaskBlocStatus? status,
-    List<Task>? taskList,
+    List<TaskEntity>? taskList,
   }) {
     return TaskState(
       status: status ?? this.status,

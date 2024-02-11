@@ -1,6 +1,6 @@
 part of '../../task_lib.dart';
 
-class TaskModelSQL extends Task {
+class TaskModelSQL extends TaskEntity {
   TaskModelSQL(
       super.id,
       super.subject,

@@ -10,106 +10,108 @@
 import 'dart:typed_data';
 
 import 'package:flat_buffers/flat_buffers.dart' as fb;
-import 'package:fo_fe/features/organizer/elements/tag/tag_lib.dart';
-import 'package:fo_fe/features/organizer/elements/task/task_lib.dart';
-import 'package:fo_fe/features/organizer/elements/tasks/tasks_lib.dart';
 import 'package:objectbox/internal.dart'; // generated code can access "internal" functionality
 import 'package:objectbox/objectbox.dart';
 import 'package:objectbox_flutter_libs/objectbox_flutter_libs.dart';
+
+import 'features/organizer/elements/tag/tag_lib.dart';
+import 'features/organizer/elements/task/task_lib.dart';
+import 'features/organizer/elements/tasks/tasks_lib.dart';
 
 export 'package:objectbox/objectbox.dart'; // so that callers only have to import this file
 
 final _entities = <ModelEntity>[
   ModelEntity(
-      id: const IdUid(4, 5754620483051360054),
-      name: 'TagEntity',
-      lastPropertyId: const IdUid(2, 4231793772058500342),
+      id: const IdUid(7, 5650714963522330027),
+      name: 'TagModelObjectBox',
+      lastPropertyId: const IdUid(2, 5242424261184802348),
       flags: 0,
       properties: <ModelProperty>[
         ModelProperty(
-            id: const IdUid(1, 2639039194009327659),
+            id: const IdUid(1, 2258511365302918199),
             name: 'id',
             type: 6,
             flags: 1),
         ModelProperty(
-            id: const IdUid(2, 4231793772058500342),
+            id: const IdUid(2, 5242424261184802348),
             name: 'tag',
             type: 9,
             flags: 0)
       ],
       relations: <ModelRelation>[
         ModelRelation(
-            id: const IdUid(2, 2866779773342488094),
+            id: const IdUid(4, 5710533945711838494),
             name: 'tagList',
-            targetId: const IdUid(6, 524205366324894762))
+            targetId: const IdUid(9, 3053398241385483537))
       ],
       backlinks: <ModelBacklink>[]),
   ModelEntity(
-      id: const IdUid(5, 3285700931215435993),
-      name: 'TaskEntity',
-      lastPropertyId: const IdUid(4, 5090821216454948599),
+      id: const IdUid(8, 8841294787726541045),
+      name: 'TaskEntityObjectBox',
+      lastPropertyId: const IdUid(4, 5045021498320082843),
       flags: 0,
       properties: <ModelProperty>[
         ModelProperty(
-            id: const IdUid(1, 7123980248889949558),
+            id: const IdUid(1, 8388656654865544023),
             name: 'id',
             type: 6,
             flags: 1),
         ModelProperty(
-            id: const IdUid(2, 3015836608076066763),
+            id: const IdUid(2, 2313022321528077314),
             name: 'subject',
             type: 9,
             flags: 0),
         ModelProperty(
-            id: const IdUid(3, 437847706315127330),
+            id: const IdUid(3, 5563824768326263453),
             name: 'status',
             type: 1,
             flags: 0),
         ModelProperty(
-            id: const IdUid(4, 5090821216454948599),
+            id: const IdUid(4, 5045021498320082843),
             name: 'tasksListId',
             type: 11,
             flags: 520,
-            indexId: const IdUid(2, 6852783443853021295),
-            relationTarget: 'TasksEntity')
+            indexId: const IdUid(3, 7753468892164461201),
+            relationTarget: 'TasksEntityObjectBox')
       ],
       relations: <ModelRelation>[
         ModelRelation(
-            id: const IdUid(3, 7846698519573524815),
+            id: const IdUid(5, 1766363893111537619),
             name: 'tagList',
-            targetId: const IdUid(4, 5754620483051360054))
+            targetId: const IdUid(7, 5650714963522330027))
       ],
       backlinks: <ModelBacklink>[]),
   ModelEntity(
-      id: const IdUid(6, 524205366324894762),
-      name: 'TasksEntity',
-      lastPropertyId: const IdUid(4, 4393132937231206203),
+      id: const IdUid(9, 3053398241385483537),
+      name: 'TasksEntityObjectBox',
+      lastPropertyId: const IdUid(4, 1299006206327415992),
       flags: 0,
       properties: <ModelProperty>[
         ModelProperty(
-            id: const IdUid(1, 872689623534653838),
+            id: const IdUid(1, 7151006859267257590),
             name: 'id',
             type: 6,
             flags: 1),
         ModelProperty(
-            id: const IdUid(2, 4968635037491189103),
+            id: const IdUid(2, 2217746610498390072),
             name: 'name',
             type: 9,
             flags: 0),
         ModelProperty(
-            id: const IdUid(3, 201832726302280569),
+            id: const IdUid(3, 8246088054932938447),
             name: 'date',
             type: 10,
             flags: 0),
         ModelProperty(
-            id: const IdUid(4, 4393132937231206203),
+            id: const IdUid(4, 1299006206327415992),
             name: 'location',
             type: 9,
             flags: 0)
       ],
       relations: <ModelRelation>[],
       backlinks: <ModelBacklink>[
-        ModelBacklink(name: 'taskList', srcEntity: 'TaskEntity', srcField: '')
+        ModelBacklink(
+            name: 'taskList', srcEntity: 'TaskEntityObjectBox', srcField: '')
       ])
 ];
 
@@ -140,14 +142,17 @@ Future<Store> openStore(
 ModelDefinition getObjectBoxModel() {
   final model = ModelInfo(
       entities: _entities,
-      lastEntityId: const IdUid(6, 524205366324894762),
-      lastIndexId: const IdUid(2, 6852783443853021295),
-      lastRelationId: const IdUid(3, 7846698519573524815),
+      lastEntityId: const IdUid(9, 3053398241385483537),
+      lastIndexId: const IdUid(3, 7753468892164461201),
+      lastRelationId: const IdUid(5, 1766363893111537619),
       lastSequenceId: const IdUid(0, 0),
       retiredEntityUids: const [
         5735795579823374075,
         4787668857948876254,
-        5201131681681810458
+        5201131681681810458,
+        5754620483051360054,
+        3285700931215435993,
+        524205366324894762
       ],
       retiredIndexUids: const [],
       retiredPropertyUids: const [
@@ -160,7 +165,17 @@ ModelDefinition getObjectBoxModel() {
         1092399789920343667,
         4846626173629698775,
         6505559489564168971,
-        1455233171597280513
+        1455233171597280513,
+        2639039194009327659,
+        4231793772058500342,
+        7123980248889949558,
+        3015836608076066763,
+        437847706315127330,
+        5090821216454948599,
+        872689623534653838,
+        4968635037491189103,
+        201832726302280569,
+        4393132937231206203
       ],
       retiredRelationUids: const [],
       modelVersion: 5,
@@ -172,7 +187,7 @@ ModelDefinition getObjectBoxModel() {
         model: _entities[0],
         toOneRelations: (TagModelObjectBox object) => [],
         toManyRelations: (TagModelObjectBox object) =>
-            {RelInfo<TagModelObjectBox>.toMany(2, object.id): object.tagList},
+            {RelInfo<TagModelObjectBox>.toMany(4, object.id): object.tagList},
         getId: (TagModelObjectBox object) => object.id,
         setId: (TagModelObjectBox object, int id) {
           object.id = id;
@@ -194,14 +209,14 @@ ModelDefinition getObjectBoxModel() {
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
           final object = TagModelObjectBox(tagParam, id: idParam);
           InternalToManyAccess.setRelInfo<TagModelObjectBox>(object.tagList,
-              store, RelInfo<TagModelObjectBox>.toMany(2, object.id));
+              store, RelInfo<TagModelObjectBox>.toMany(4, object.id));
           return object;
         }),
     TaskEntityObjectBox: EntityDefinition<TaskEntityObjectBox>(
         model: _entities[1],
         toOneRelations: (TaskEntityObjectBox object) => [object.tasksList],
         toManyRelations: (TaskEntityObjectBox object) =>
-            {RelInfo<TaskEntityObjectBox>.toMany(3, object.id): object.tagList},
+            {RelInfo<TaskEntityObjectBox>.toMany(5, object.id): object.tagList},
         getId: (TaskEntityObjectBox object) => object.id,
         setId: (TaskEntityObjectBox object, int id) {
           object.id = id;
@@ -231,7 +246,7 @@ ModelDefinition getObjectBoxModel() {
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 10, 0);
           object.tasksList.attach(store);
           InternalToManyAccess.setRelInfo<TaskEntityObjectBox>(object.tagList,
-              store, RelInfo<TaskEntityObjectBox>.toMany(3, object.id));
+              store, RelInfo<TaskEntityObjectBox>.toMany(5, object.id));
           return object;
         }),
     TasksEntityObjectBox: EntityDefinition<TasksEntityObjectBox>(
@@ -291,7 +306,7 @@ ModelDefinition getObjectBoxModel() {
 }
 
 /// [TagModelObjectBox] entity fields to define ObjectBox queries.
-class TagEntity_ {
+class TagModelObjectBox_ {
   /// see [TagModelObjectBox.id]
   static final id =
       QueryIntegerProperty<TagModelObjectBox>(_entities[0].properties[0]);
@@ -307,7 +322,7 @@ class TagEntity_ {
 }
 
 /// [TaskEntityObjectBox] entity fields to define ObjectBox queries.
-class TaskEntity_ {
+class TaskEntityObjectBox_ {
   /// see [TaskEntityObjectBox.id]
   static final id =
       QueryIntegerProperty<TaskEntityObjectBox>(_entities[1].properties[0]);
@@ -332,7 +347,7 @@ class TaskEntity_ {
 }
 
 /// [TasksEntityObjectBox] entity fields to define ObjectBox queries.
-class TasksEntity_ {
+class TasksEntityObjectBox_ {
   /// see [TasksEntityObjectBox.id]
   static final id =
       QueryIntegerProperty<TasksEntityObjectBox>(_entities[2].properties[0]);

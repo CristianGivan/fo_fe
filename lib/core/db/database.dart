@@ -17,18 +17,18 @@ abstract class Database {
   bool deleteTasks(int id);
 
   //Task
-  Future<void> saveTask(Task task);
+  Future<void> saveTask(TaskEntity task);
 
-  Future<List<Task>> getAllTask();
+  Future<List<TaskEntity>> getAllTask();
 
-  Future<List<Task>> getTaskListByTasksId(int id);
+  Future<List<TaskEntity>> getTaskListByTasksId(int id);
 
-  Future<Task> getTaskById(int taskId);
+  Future<TaskEntity> getTaskById(int taskId);
 
   // Future<void> changeTaskStatus(Task task);
   void addTaskWithTagSetToTasks(String taskText, Set<Tag> tagSet, Tasks tasks);
 
-  int updateTask(Task task);
+  int updateTask(TaskEntity task);
 
   void updateTaskFields(int i, String text, Set<Tag> currentTags, Tasks tasks);
 
@@ -38,7 +38,7 @@ abstract class Database {
 
   Future<Set<Tag>> getAllTags();
 
-  Set<Tag> getTagSetFromTask(Task task);
+  Set<Tag> getTagSetFromTask(TaskEntity task);
 
   Future<Set<Tag>> getTagSetFromTaskId(int id);
 

@@ -4,7 +4,8 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fo_fe/main.dart';
-import 'package:fo_fe/objectbox.g.dart';
+import 'package:objectbox/objectbox.dart';
+// import 'package:fo_fe/objectbox.g.dart';
 
 import '../tasks/tasks_lib.dart';
 

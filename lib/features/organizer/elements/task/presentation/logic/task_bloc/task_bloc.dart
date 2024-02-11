@@ -31,7 +31,7 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
   void _onTaskAdded(TaskAdded event, Emitter<TaskState> emit) {
     emit(state.copyWith(status: TaskBlocStatus.loading));
     try {
-      List<Task> temp = [];
+      List<TaskEntity> temp = [];
       temp.addAll(state.taskList);
       temp.insert(0, event.task);
       emit(state.copyWith(taskList: temp, status: TaskBlocStatus.success));

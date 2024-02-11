@@ -26,7 +26,7 @@ class GetTaskListByTasksId extends TaskEvent {
 }
 
 class TaskAdded extends TaskEvent {
-  final Task task;
+  final TaskEntity task;
 
   const TaskAdded(this.task);
 
@@ -35,7 +35,7 @@ class TaskAdded extends TaskEvent {
 }
 
 class RemoveTask extends TaskEvent {
-  final Task task;
+  final TaskEntity task;
 
   const RemoveTask(this.task);
 

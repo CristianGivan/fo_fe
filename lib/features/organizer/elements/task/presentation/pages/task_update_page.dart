@@ -2,7 +2,7 @@ part of '../../task_lib.dart';
 
 /// Adds a new task and assigns an owner.
 class UpdateTaskPage extends StatefulWidget {
-  final Task task;
+  final TaskEntity task;
   final Tasks tasks;
 
   const UpdateTaskPage({

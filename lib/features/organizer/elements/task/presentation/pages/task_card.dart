@@ -3,7 +3,7 @@ part of '../../task_lib.dart';
 /// Styling for an event card. Includes the task name, owner and a check mark.
 /// A card can be deleted through the delete button inside the menu bar.
 class TaskCard extends StatefulWidget {
-  final Task task;
+  final TaskEntity task;
   final Tasks tasks;
 
   const TaskCard({super.key, required this.task, required this.tasks});
@@ -174,7 +174,7 @@ class _TaskCardState extends State<TaskCard> {
   PopupMenuItem<Menu> buildItem(Menu item) =>
       PopupMenuItem<Menu>(value: item, child: Text(item.text!));
 
-  void onSelected(BuildContext context, String? item, Task task) {
+  void onSelected(BuildContext context, String? item, TaskEntity task) {
     if (item == "Delete") {
       database.deleteTask(task.id);
       Navigator.pop(context);
