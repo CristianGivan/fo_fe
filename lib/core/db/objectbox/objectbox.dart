@@ -1,9 +1,9 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:fo_fe/core/db/database.dart';
-import 'package:fo_fe/features/organizer/elements/task/task_lib.dart';
-import 'package:fo_fe/objectbox.g.dart';
+import '../database.dart';
+import '../../../features/organizer/elements/task/task_lib.dart';
+import '../../../objectbox.g.dart';
 
 import '../../../features/organizer/elements/tag/tag_lib.dart';
 import '../../../features/organizer/elements/task/domain/entities/user.dart';

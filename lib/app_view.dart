@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fo_fe/core/themes/app_themes.dart';
+import 'core/themes/app_themes.dart';
 import 'core/router/routes/app_route_configuration.dart';
 
 class AppView extends StatelessWidget {

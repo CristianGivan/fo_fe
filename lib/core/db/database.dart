@@ -1,4 +1,4 @@
-import 'package:fo_fe/features/organizer/elements/tag/tag_lib.dart';
+import '../../features/organizer/elements/tag/tag_lib.dart';
 
 import '../../features/organizer/elements/task/task_lib.dart';
 import '../../features/organizer/elements/tasks/tasks_lib.dart';
