@@ -49,13 +49,31 @@ class MockTaskRepository extends _i1.Mock implements _i3.TaskRepository {
       );
 
   @override
-  dynamic postTask(_i4.TaskEntity? task) => super.noSuchMethod(
+  _i5.Future<_i2.Either<_i6.Failure, _i4.TaskEntity>> postTask(
+          _i4.TaskEntity? task) =>
+      (super.noSuchMethod(
         Invocation.method(
           #postTask,
           [task],
         ),
-        returnValueForMissingStub: null,
-      );
+        returnValue: _i5.Future<_i2.Either<_i6.Failure, _i4.TaskEntity>>.value(
+            _FakeEither_0<_i6.Failure, _i4.TaskEntity>(
+          this,
+          Invocation.method(
+            #postTask,
+            [task],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i5.Future<_i2.Either<_i6.Failure, _i4.TaskEntity>>.value(
+                _FakeEither_0<_i6.Failure, _i4.TaskEntity>(
+          this,
+          Invocation.method(
+            #postTask,
+            [task],
+          ),
+        )),
+      ) as _i5.Future<_i2.Either<_i6.Failure, _i4.TaskEntity>>);
 
   @override
   dynamic deleteTask(_i4.TaskEntity? task) => super.noSuchMethod(

@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fo_fe/features/organizer/elements/task/domain/repositories/task_repository.dart';
@@ -20,7 +18,7 @@ void main() {
     usecase = GetTaskById(mockTaskRepository);
   });
 
-  final tId = 1;
+  const tId = 1;
   final tTask = task.TaskEntity.empty();
 
   test(
@@ -31,7 +29,7 @@ void main() {
           .thenAnswer((_) async => Right(tTask));
 
       // Act
-      final result = await usecase.execute(id: tId);
+      final result = await usecase(Params(id: tId));
 
       // Assert
       expect(result, equals(Right(tTask)));

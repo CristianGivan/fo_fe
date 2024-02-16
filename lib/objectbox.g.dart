@@ -10,8 +10,9 @@
 import 'dart:typed_data';
 
 import 'package:flat_buffers/flat_buffers.dart' as fb;
-import 'package:objectbox/internal.dart'; // generated code can access "internal" functionality
-import 'package:objectbox/objectbox.dart';
+import 'package:objectbox/internal.dart'
+    as obx_int; // generated code can access "internal" functionality
+import 'package:objectbox/objectbox.dart' as obx;
 import 'package:objectbox_flutter_libs/objectbox_flutter_libs.dart';
 
 import 'features/organizer/elements/tag/tag_lib.dart';
@@ -20,97 +21,97 @@ import 'features/organizer/elements/tasks/tasks_lib.dart';
 
 export 'package:objectbox/objectbox.dart'; // so that callers only have to import this file
 
-final _entities = <ModelEntity>[
-  ModelEntity(
-      id: const IdUid(7, 5650714963522330027),
+final _entities = <obx_int.ModelEntity>[
+  obx_int.ModelEntity(
+      id: const obx_int.IdUid(7, 5650714963522330027),
       name: 'TagModelObjectBox',
-      lastPropertyId: const IdUid(2, 5242424261184802348),
+      lastPropertyId: const obx_int.IdUid(2, 5242424261184802348),
       flags: 0,
-      properties: <ModelProperty>[
-        ModelProperty(
-            id: const IdUid(1, 2258511365302918199),
+      properties: <obx_int.ModelProperty>[
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(1, 2258511365302918199),
             name: 'id',
             type: 6,
             flags: 1),
-        ModelProperty(
-            id: const IdUid(2, 5242424261184802348),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(2, 5242424261184802348),
             name: 'tag',
             type: 9,
             flags: 0)
       ],
-      relations: <ModelRelation>[
-        ModelRelation(
-            id: const IdUid(4, 5710533945711838494),
+      relations: <obx_int.ModelRelation>[
+        obx_int.ModelRelation(
+            id: const obx_int.IdUid(4, 5710533945711838494),
             name: 'tagList',
-            targetId: const IdUid(9, 3053398241385483537))
+            targetId: const obx_int.IdUid(9, 3053398241385483537))
       ],
-      backlinks: <ModelBacklink>[]),
-  ModelEntity(
-      id: const IdUid(8, 8841294787726541045),
+      backlinks: <obx_int.ModelBacklink>[]),
+  obx_int.ModelEntity(
+      id: const obx_int.IdUid(8, 8841294787726541045),
       name: 'TaskEntityObjectBox',
-      lastPropertyId: const IdUid(4, 5045021498320082843),
+      lastPropertyId: const obx_int.IdUid(4, 5045021498320082843),
       flags: 0,
-      properties: <ModelProperty>[
-        ModelProperty(
-            id: const IdUid(1, 8388656654865544023),
+      properties: <obx_int.ModelProperty>[
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(1, 8388656654865544023),
             name: 'id',
             type: 6,
             flags: 1),
-        ModelProperty(
-            id: const IdUid(2, 2313022321528077314),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(2, 2313022321528077314),
             name: 'subject',
             type: 9,
             flags: 0),
-        ModelProperty(
-            id: const IdUid(3, 5563824768326263453),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(3, 5563824768326263453),
             name: 'status',
             type: 1,
             flags: 0),
-        ModelProperty(
-            id: const IdUid(4, 5045021498320082843),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(4, 5045021498320082843),
             name: 'tasksListId',
             type: 11,
             flags: 520,
-            indexId: const IdUid(3, 7753468892164461201),
+            indexId: const obx_int.IdUid(3, 7753468892164461201),
             relationTarget: 'TasksEntityObjectBox')
       ],
-      relations: <ModelRelation>[
-        ModelRelation(
-            id: const IdUid(5, 1766363893111537619),
+      relations: <obx_int.ModelRelation>[
+        obx_int.ModelRelation(
+            id: const obx_int.IdUid(5, 1766363893111537619),
             name: 'tagList',
-            targetId: const IdUid(7, 5650714963522330027))
+            targetId: const obx_int.IdUid(7, 5650714963522330027))
       ],
-      backlinks: <ModelBacklink>[]),
-  ModelEntity(
-      id: const IdUid(9, 3053398241385483537),
+      backlinks: <obx_int.ModelBacklink>[]),
+  obx_int.ModelEntity(
+      id: const obx_int.IdUid(9, 3053398241385483537),
       name: 'TasksEntityObjectBox',
-      lastPropertyId: const IdUid(4, 1299006206327415992),
+      lastPropertyId: const obx_int.IdUid(4, 1299006206327415992),
       flags: 0,
-      properties: <ModelProperty>[
-        ModelProperty(
-            id: const IdUid(1, 7151006859267257590),
+      properties: <obx_int.ModelProperty>[
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(1, 7151006859267257590),
             name: 'id',
             type: 6,
             flags: 1),
-        ModelProperty(
-            id: const IdUid(2, 2217746610498390072),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(2, 2217746610498390072),
             name: 'name',
             type: 9,
             flags: 0),
-        ModelProperty(
-            id: const IdUid(3, 8246088054932938447),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(3, 8246088054932938447),
             name: 'date',
             type: 10,
             flags: 0),
-        ModelProperty(
-            id: const IdUid(4, 1299006206327415992),
+        obx_int.ModelProperty(
+            id: const obx_int.IdUid(4, 1299006206327415992),
             name: 'location',
             type: 9,
             flags: 0)
       ],
-      relations: <ModelRelation>[],
-      backlinks: <ModelBacklink>[
-        ModelBacklink(
+      relations: <obx_int.ModelRelation>[],
+      backlinks: <obx_int.ModelBacklink>[
+        obx_int.ModelBacklink(
             name: 'taskList', srcEntity: 'TaskEntityObjectBox', srcField: '')
       ])
 ];
@@ -122,30 +123,38 @@ final _entities = <ModelEntity>[
 /// Note: for desktop apps it is recommended to specify a unique [directory].
 ///
 /// See [Store.new] for an explanation of all parameters.
-Future<Store> openStore(
-        {String? directory,
-        int? maxDBSizeInKB,
-        int? fileMode,
-        int? maxReaders,
-        bool queriesCaseSensitiveDefault = true,
-        String? macosApplicationGroup}) async =>
-    Store(getObjectBoxModel(),
-        directory: directory ?? (await defaultStoreDirectory()).path,
-        maxDBSizeInKB: maxDBSizeInKB,
-        fileMode: fileMode,
-        maxReaders: maxReaders,
-        queriesCaseSensitiveDefault: queriesCaseSensitiveDefault,
-        macosApplicationGroup: macosApplicationGroup);
+///
+/// For Flutter apps, also calls `loadObjectBoxLibraryAndroidCompat()` from
+/// the ObjectBox Flutter library to fix loading the native ObjectBox library
+/// on Android 6 and older.
+Future<obx.Store> openStore(
+    {String? directory,
+    int? maxDBSizeInKB,
+    int? maxDataSizeInKB,
+    int? fileMode,
+    int? maxReaders,
+    bool queriesCaseSensitiveDefault = true,
+    String? macosApplicationGroup}) async {
+  await loadObjectBoxLibraryAndroidCompat();
+  return obx.Store(getObjectBoxModel(),
+      directory: directory ?? (await defaultStoreDirectory()).path,
+      maxDBSizeInKB: maxDBSizeInKB,
+      maxDataSizeInKB: maxDataSizeInKB,
+      fileMode: fileMode,
+      maxReaders: maxReaders,
+      queriesCaseSensitiveDefault: queriesCaseSensitiveDefault,
+      macosApplicationGroup: macosApplicationGroup);
+}
 
 /// Returns the ObjectBox model definition for this project for use with
 /// [Store.new].
-ModelDefinition getObjectBoxModel() {
-  final model = ModelInfo(
+obx_int.ModelDefinition getObjectBoxModel() {
+  final model = obx_int.ModelInfo(
       entities: _entities,
-      lastEntityId: const IdUid(9, 3053398241385483537),
-      lastIndexId: const IdUid(3, 7753468892164461201),
-      lastRelationId: const IdUid(5, 1766363893111537619),
-      lastSequenceId: const IdUid(0, 0),
+      lastEntityId: const obx_int.IdUid(9, 3053398241385483537),
+      lastIndexId: const obx_int.IdUid(3, 7753468892164461201),
+      lastRelationId: const obx_int.IdUid(5, 1766363893111537619),
+      lastSequenceId: const obx_int.IdUid(0, 0),
       retiredEntityUids: const [
         5735795579823374075,
         4787668857948876254,
@@ -182,12 +191,14 @@ ModelDefinition getObjectBoxModel() {
       modelVersionParserMinimum: 5,
       version: 1);
 
-  final bindings = <Type, EntityDefinition>{
-    TagModelObjectBox: EntityDefinition<TagModelObjectBox>(
+  final bindings = <Type, obx_int.EntityDefinition>{
+    TagModelObjectBox: obx_int.EntityDefinition<TagModelObjectBox>(
         model: _entities[0],
         toOneRelations: (TagModelObjectBox object) => [],
-        toManyRelations: (TagModelObjectBox object) =>
-            {RelInfo<TagModelObjectBox>.toMany(4, object.id): object.tagList},
+        toManyRelations: (TagModelObjectBox object) => {
+              obx_int.RelInfo<TagModelObjectBox>.toMany(4, object.id):
+                  object.tagList
+            },
         getId: (TagModelObjectBox object) => object.id,
         setId: (TagModelObjectBox object, int id) {
           object.id = id;
@@ -200,7 +211,7 @@ ModelDefinition getObjectBoxModel() {
           fbb.finish(fbb.endTable());
           return object.id;
         },
-        objectFromFB: (Store store, ByteData fbData) {
+        objectFromFB: (obx.Store store, ByteData fbData) {
           final buffer = fb.BufferContext(fbData);
           final rootOffset = buffer.derefObject(0);
           final tagParam = const fb.StringReader(asciiOptimization: true)
@@ -208,15 +219,19 @@ ModelDefinition getObjectBoxModel() {
           final idParam =
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 4, 0);
           final object = TagModelObjectBox(tagParam, id: idParam);
-          InternalToManyAccess.setRelInfo<TagModelObjectBox>(object.tagList,
-              store, RelInfo<TagModelObjectBox>.toMany(4, object.id));
+          obx_int.InternalToManyAccess.setRelInfo<TagModelObjectBox>(
+              object.tagList,
+              store,
+              obx_int.RelInfo<TagModelObjectBox>.toMany(4, object.id));
           return object;
         }),
-    TaskEntityObjectBox: EntityDefinition<TaskEntityObjectBox>(
+    TaskEntityObjectBox: obx_int.EntityDefinition<TaskEntityObjectBox>(
         model: _entities[1],
         toOneRelations: (TaskEntityObjectBox object) => [object.tasksList],
-        toManyRelations: (TaskEntityObjectBox object) =>
-            {RelInfo<TaskEntityObjectBox>.toMany(5, object.id): object.tagList},
+        toManyRelations: (TaskEntityObjectBox object) => {
+              obx_int.RelInfo<TaskEntityObjectBox>.toMany(5, object.id):
+                  object.tagList
+            },
         getId: (TaskEntityObjectBox object) => object.id,
         setId: (TaskEntityObjectBox object, int id) {
           object.id = id;
@@ -231,7 +246,7 @@ ModelDefinition getObjectBoxModel() {
           fbb.finish(fbb.endTable());
           return object.id;
         },
-        objectFromFB: (Store store, ByteData fbData) {
+        objectFromFB: (obx.Store store, ByteData fbData) {
           final buffer = fb.BufferContext(fbData);
           final rootOffset = buffer.derefObject(0);
           final subjectParam = const fb.StringReader(asciiOptimization: true)
@@ -245,15 +260,17 @@ ModelDefinition getObjectBoxModel() {
           object.tasksList.targetId =
               const fb.Int64Reader().vTableGet(buffer, rootOffset, 10, 0);
           object.tasksList.attach(store);
-          InternalToManyAccess.setRelInfo<TaskEntityObjectBox>(object.tagList,
-              store, RelInfo<TaskEntityObjectBox>.toMany(5, object.id));
+          obx_int.InternalToManyAccess.setRelInfo<TaskEntityObjectBox>(
+              object.tagList,
+              store,
+              obx_int.RelInfo<TaskEntityObjectBox>.toMany(5, object.id));
           return object;
         }),
-    TasksEntityObjectBox: EntityDefinition<TasksEntityObjectBox>(
+    TasksEntityObjectBox: obx_int.EntityDefinition<TasksEntityObjectBox>(
         model: _entities[2],
         toOneRelations: (TasksEntityObjectBox object) => [],
         toManyRelations: (TasksEntityObjectBox object) => {
-              RelInfo<TaskEntityObjectBox>.toOneBacklink(4, object.id,
+              obx_int.RelInfo<TaskEntityObjectBox>.toOneBacklink(4, object.id,
                       (TaskEntityObjectBox srcObject) => srcObject.tasksList):
                   object.taskList
             },
@@ -274,7 +291,7 @@ ModelDefinition getObjectBoxModel() {
           fbb.finish(fbb.endTable());
           return object.id;
         },
-        objectFromFB: (Store store, ByteData fbData) {
+        objectFromFB: (obx.Store store, ByteData fbData) {
           final buffer = fb.BufferContext(fbData);
           final rootOffset = buffer.derefObject(0);
           final dateValue =
@@ -293,31 +310,31 @@ ModelDefinition getObjectBoxModel() {
               name: nameParam,
               date: dateParam,
               location: locationParam);
-          InternalToManyAccess.setRelInfo<TasksEntityObjectBox>(
+          obx_int.InternalToManyAccess.setRelInfo<TasksEntityObjectBox>(
               object.taskList,
               store,
-              RelInfo<TaskEntityObjectBox>.toOneBacklink(4, object.id,
+              obx_int.RelInfo<TaskEntityObjectBox>.toOneBacklink(4, object.id,
                   (TaskEntityObjectBox srcObject) => srcObject.tasksList));
           return object;
         })
   };
 
-  return ModelDefinition(model, bindings);
+  return obx_int.ModelDefinition(model, bindings);
 }
 
 /// [TagModelObjectBox] entity fields to define ObjectBox queries.
 class TagModelObjectBox_ {
   /// see [TagModelObjectBox.id]
   static final id =
-      QueryIntegerProperty<TagModelObjectBox>(_entities[0].properties[0]);
+      obx.QueryIntegerProperty<TagModelObjectBox>(_entities[0].properties[0]);
 
   /// see [TagModelObjectBox.tag]
   static final tag =
-      QueryStringProperty<TagModelObjectBox>(_entities[0].properties[1]);
+      obx.QueryStringProperty<TagModelObjectBox>(_entities[0].properties[1]);
 
   /// see [TagModelObjectBox.tagList]
   static final tagList =
-      QueryRelationToMany<TagModelObjectBox, TasksEntityObjectBox>(
+      obx.QueryRelationToMany<TagModelObjectBox, TasksEntityObjectBox>(
           _entities[0].relations[0]);
 }
 
@@ -325,42 +342,47 @@ class TagModelObjectBox_ {
 class TaskEntityObjectBox_ {
   /// see [TaskEntityObjectBox.id]
   static final id =
-      QueryIntegerProperty<TaskEntityObjectBox>(_entities[1].properties[0]);
+      obx.QueryIntegerProperty<TaskEntityObjectBox>(_entities[1].properties[0]);
 
   /// see [TaskEntityObjectBox.subject]
   static final subject =
-      QueryStringProperty<TaskEntityObjectBox>(_entities[1].properties[1]);
+      obx.QueryStringProperty<TaskEntityObjectBox>(_entities[1].properties[1]);
 
   /// see [TaskEntityObjectBox.status]
   static final status =
-      QueryBooleanProperty<TaskEntityObjectBox>(_entities[1].properties[2]);
+      obx.QueryBooleanProperty<TaskEntityObjectBox>(_entities[1].properties[2]);
 
   /// see [TaskEntityObjectBox.tasksList]
   static final tasksList =
-      QueryRelationToOne<TaskEntityObjectBox, TasksEntityObjectBox>(
+      obx.QueryRelationToOne<TaskEntityObjectBox, TasksEntityObjectBox>(
           _entities[1].properties[3]);
 
   /// see [TaskEntityObjectBox.tagList]
   static final tagList =
-      QueryRelationToMany<TaskEntityObjectBox, TagModelObjectBox>(
+      obx.QueryRelationToMany<TaskEntityObjectBox, TagModelObjectBox>(
           _entities[1].relations[0]);
 }
 
 /// [TasksEntityObjectBox] entity fields to define ObjectBox queries.
 class TasksEntityObjectBox_ {
   /// see [TasksEntityObjectBox.id]
-  static final id =
-      QueryIntegerProperty<TasksEntityObjectBox>(_entities[2].properties[0]);
+  static final id = obx.QueryIntegerProperty<TasksEntityObjectBox>(
+      _entities[2].properties[0]);
 
   /// see [TasksEntityObjectBox.name]
   static final name =
-      QueryStringProperty<TasksEntityObjectBox>(_entities[2].properties[1]);
+      obx.QueryStringProperty<TasksEntityObjectBox>(_entities[2].properties[1]);
 
   /// see [TasksEntityObjectBox.date]
   static final date =
-      QueryIntegerProperty<TasksEntityObjectBox>(_entities[2].properties[2]);
+      obx.QueryDateProperty<TasksEntityObjectBox>(_entities[2].properties[2]);
 
   /// see [TasksEntityObjectBox.location]
   static final location =
-      QueryStringProperty<TasksEntityObjectBox>(_entities[2].properties[3]);
+      obx.QueryStringProperty<TasksEntityObjectBox>(_entities[2].properties[3]);
+
+  /// see [TasksEntityObjectBox.taskList]
+  static final taskList =
+      obx.QueryBacklinkToMany<TaskEntityObjectBox, TasksEntityObjectBox>(
+          TaskEntityObjectBox_.tasksList);
 }

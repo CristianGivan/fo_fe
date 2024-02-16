@@ -6,7 +6,7 @@ import '../../../../../../core/error/failures.dart';
 abstract class TaskRepository {
   putTask(TaskEntity task);
 
-  postTask(TaskEntity task);
+  Future<Either<Failure, TaskEntity>> postTask(TaskEntity task);
 
   deleteTask(TaskEntity task);
 
