@@ -140,13 +140,13 @@ class ObjectBox implements Database {
               0,
               0,
               0,
+              TaskStatus.undefined,
               User(0),
               [],
               [],
               [],
               [],
               [],
-              TaskStatus.start,
             ))
         .toList();
   }

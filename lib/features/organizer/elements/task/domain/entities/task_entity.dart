@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of '../../task_lib.dart';
 
 class TaskEntity extends Equatable {
@@ -12,24 +11,18 @@ class TaskEntity extends Equatable {
   double estimatedTime;
   double estimatedLeftTime;
   double workingProgress;
+  TaskStatus taskStatus;
   User creator;
   List<User> userList;
   List<Tag> tagList;
   List<Reminder> reminderList;
   List<Work> workList;
   List<Topic> topicList;
-  TaskStatus taskStatus;
-
-  // todo tb del
-  bool changeState() {
-    status = !status;
-    return status;
-  }
 
   TaskEntity(
     this.id,
     this.subject,
-    this.status, // todo tb del
+    this.status,
     this.createdDate,
     this.startDate,
     this.endDate,
@@ -37,18 +30,46 @@ class TaskEntity extends Equatable {
     this.estimatedTime,
     this.estimatedLeftTime,
     this.workingProgress,
+    this.taskStatus,
     this.creator,
     this.userList,
     this.tagList,
     this.reminderList,
     this.workList,
     this.topicList,
-    this.taskStatus,
   );
+
+  // todo tb del
+  bool changeState() {
+    status = !status;
+    return status;
+  }
+
+  static TaskEntity empty() {
+    return TaskEntity(
+      0,
+      "",
+      false,
+      DateTime.now(),
+      DateTime.now(),
+      DateTime.now(),
+      0,
+      0,
+      0,
+      0,
+      TaskStatus.undefined,
+      User(0),
+      [],
+      [],
+      [],
+      [],
+      [],
+    );
+  }
 
   @override
   String toString() {
-    return 'Task{id: $id, subject: $subject, createdDate: $createdDate, startDate: $startDate, endDate: $endDate, workingTime: $workingTime, estimatedTime: $estimatedTime, estimatedLeftTime: $estimatedLeftTime, workingProgress: $workingProgress, status: $status, taskStatus: $taskStatus, creator: $creator, userList: $userList, tagList: $tagList, reminderList: $reminderList, workList: $workList, topicList: $topicList}';
+    return 'TaskEntity(id: $id, subject: $subject, status: $status, createdDate: $createdDate, startDate: $startDate, endDate: $endDate, workingTime: $workingTime, estimatedTime: $estimatedTime, estimatedLeftTime: $estimatedLeftTime, workingProgress: $workingProgress, taskStatus: $taskStatus, creator: $creator, userList: $userList, tagList: $tagList, reminderList: $reminderList, workList: $workList, topicList: $topicList)';
   }
 
   @override
@@ -56,6 +77,7 @@ class TaskEntity extends Equatable {
     return [
       id,
       subject,
+      status,
       createdDate,
       startDate,
       endDate,
@@ -63,35 +85,14 @@ class TaskEntity extends Equatable {
       estimatedTime,
       estimatedLeftTime,
       workingProgress,
+      taskStatus,
       creator,
       userList,
       tagList,
       reminderList,
       workList,
       topicList,
-      status,
     ];
-  }
-
-  static TaskEntity empty() {
-    return TaskEntity(
-        0,
-        "",
-        false,
-        DateTime.now(),
-        DateTime.now(),
-        DateTime.now(),
-        0,
-        0,
-        0,
-        0,
-        User(0),
-        [],
-        [],
-        [],
-        [],
-        [],
-        TaskStatus.start);
   }
 
   TaskEntity copyWith({
@@ -105,13 +106,13 @@ class TaskEntity extends Equatable {
     double? estimatedTime,
     double? estimatedLeftTime,
     double? workingProgress,
+    TaskStatus? taskStatus,
     User? creator,
     List<User>? userList,
     List<Tag>? tagList,
     List<Reminder>? reminderList,
     List<Work>? workList,
     List<Topic>? topicList,
-    TaskStatus? taskStatus,
   }) {
     return TaskEntity(
       id ?? this.id,
@@ -124,13 +125,36 @@ class TaskEntity extends Equatable {
       estimatedTime ?? this.estimatedTime,
       estimatedLeftTime ?? this.estimatedLeftTime,
       workingProgress ?? this.workingProgress,
+      taskStatus ?? this.taskStatus,
       creator ?? this.creator,
       userList ?? this.userList,
       tagList ?? this.tagList,
       reminderList ?? this.reminderList,
       workList ?? this.workList,
       topicList ?? this.topicList,
-      taskStatus ?? this.taskStatus,
     );
   }
-}
+    factory TaskEntity.fromJson(Map<String, dynamic> json) {
+      return TaskModel(
+        json['taskId'],
+        json['task'],
+        json['taskStatus'] == 'COMPLETED',
+        DateTime.parse(json['createdDate']),
+        DateTime.parse(json['startDate']),
+        DateTime.parse(json['endDate']),
+        0,
+        0,
+        0,
+        0,
+        statusMap[json['taskStatus']] ?? TaskStatus.undefined, //todo to be
+        User(0),
+        [],
+        [],
+        [],
+        [],
+        [],
+      );
+    }
+  }
+
+

@@ -15,9 +15,11 @@ import '../tasks/tasks_lib.dart';
 import 'domain/entities/topic.dart';
 import 'domain/entities/work.dart';
 
-part 'data/models/task_entity.dart';
-part 'data/models/task_model_sql.dart';
-part 'domain/entities/task.dart';
+part 'data/models/task_model_objectbox.dart';
+part 'data/models/task_model.dart';
+part 'data/models/task_test_model.dart';
+part 'domain/entities/task_entity.dart';
+part 'domain/entities/task_test.dart';
 part 'presentation/logic/task_bloc/task_bloc.dart';
 part 'presentation/logic/task_bloc/task_event.dart';
 part 'presentation/logic/task_bloc/task_state.dart';
