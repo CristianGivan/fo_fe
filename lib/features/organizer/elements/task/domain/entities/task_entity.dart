@@ -134,27 +134,6 @@ class TaskEntity extends Equatable {
       topicList ?? this.topicList,
     );
   }
-    factory TaskEntity.fromJson(Map<String, dynamic> json) {
-      return TaskModel(
-        json['taskId'],
-        json['task'],
-        json['taskStatus'] == 'COMPLETED',
-        DateTime.parse(json['createdDate']),
-        DateTime.parse(json['startDate']),
-        DateTime.parse(json['endDate']),
-        0,
-        0,
-        0,
-        0,
-        statusMap[json['taskStatus']] ?? TaskStatus.undefined, //todo to be
-        User(0),
-        [],
-        [],
-        [],
-        [],
-        [],
-      );
-    }
-  }
+}
 
 

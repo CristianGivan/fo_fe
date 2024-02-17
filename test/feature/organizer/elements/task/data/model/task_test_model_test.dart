@@ -6,7 +6,13 @@ import 'package:fo_fe/features/organizer/elements/task/task_lib.dart';
 import '../../../../../../fixtures/elements/fixture_reader_element.dart';
 
 void main() {
-  final tTaskTestModel = TaskTestModel(4, "Test Task");
+  final tTaskTestModel = TaskTestModel.empty().copyWith(
+    id: 4,
+    subject: "Test Task",
+    createdDate: DateTime.parse("2020-02-02 02:02:01.000"),
+    startDate: DateTime.parse("2020-02-02 02:02:02.000"),
+    endDate: DateTime.parse("2020-02-02 02:02:03.000"),
+  );
 
 
   test('Should be an instance of TaskEntity', () async {
