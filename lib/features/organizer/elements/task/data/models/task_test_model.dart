@@ -13,6 +13,12 @@ class TaskTestModel extends TaskTest {
       super.estimatedLeftTime,
       super.workingProgress,
       super.taskStatus,
+      super.creator,
+      super.userList,
+      super.tagList,
+      super.reminderList,
+      super.workList,
+      super.topicList,
   );
 
   static TaskTestModel empty() {
@@ -28,6 +34,12 @@ class TaskTestModel extends TaskTest {
       0,
       0,
       TaskStatus.undefined,
+      User(0),
+      [],
+      [],
+      [],
+      [],
+      [],
     );
   }
   TaskTestModel copyWith({
@@ -42,6 +54,12 @@ class TaskTestModel extends TaskTest {
     double? estimatedLeftTime,
     double? workingProgress,
     TaskStatus? taskStatus,
+    User? creator,
+    List<User>? userList,
+    List<Tag>? tagList,
+    List<Reminder>? reminderList,
+    List<Work>? workList,
+    List<Topic>? topicList,
   }) {
     return TaskTestModel(
       id ?? this.id,
@@ -55,6 +73,12 @@ class TaskTestModel extends TaskTest {
       estimatedLeftTime ?? this.estimatedLeftTime,
       workingProgress ?? this.workingProgress,
       taskStatus ?? this.taskStatus,
+      creator ?? this.creator,
+      userList ?? this.userList,
+      tagList ?? this.tagList,
+      reminderList ?? this.reminderList,
+      workList ?? this.workList,
+      topicList ?? this.topicList,
     );
   }
 
@@ -71,6 +95,12 @@ class TaskTestModel extends TaskTest {
       0,
       0,
       statusMap[json['taskStatus']] ?? TaskStatus.undefined, //todo to be
+      User(0),
+      [],
+      [],
+      [],
+      [],
+      [],
     );
   }
 }

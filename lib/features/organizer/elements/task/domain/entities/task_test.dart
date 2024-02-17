@@ -12,6 +12,12 @@ class TaskTest extends Equatable {
   double estimatedLeftTime;
   double workingProgress;
   TaskStatus taskStatus;
+  User creator;
+  List<User> userList;
+  List<Tag> tagList;
+  List<Reminder> reminderList;
+  List<Work> workList;
+  List<Topic> topicList;
 
   TaskTest(
       this.id,
@@ -25,6 +31,12 @@ class TaskTest extends Equatable {
       this.estimatedLeftTime,
       this.workingProgress,
       this.taskStatus,
+      this.creator,
+      this.userList,
+      this.tagList,
+      this.reminderList,
+      this.workList,
+      this.topicList,
   );
 
 
@@ -42,6 +54,12 @@ class TaskTest extends Equatable {
       0,
       0,
       TaskStatus.undefined,
+      User(0),
+      [],
+      [],
+      [],
+      [],
+      [],
     );
   }
 
@@ -64,6 +82,12 @@ class TaskTest extends Equatable {
       estimatedLeftTime,
       workingProgress,
       taskStatus,
+      creator,
+      userList,
+      tagList,
+      reminderList,
+      workList,
+      topicList,
     ];
   }
 
@@ -79,6 +103,12 @@ class TaskTest extends Equatable {
     double? estimatedLeftTime,
     double? workingProgress,
     TaskStatus? taskStatus,
+    User? creator,
+    List<User>? userList,
+    List<Tag>? tagList,
+    List<Reminder>? reminderList,
+    List<Work>? workList,
+    List<Topic>? topicList,
 
   }) {
     return TaskTest(
@@ -93,6 +123,12 @@ class TaskTest extends Equatable {
       estimatedLeftTime ?? this.estimatedLeftTime,
       workingProgress ?? this.workingProgress,
       taskStatus ?? this.taskStatus,
+      creator ?? this.creator,
+      userList ?? this.userList,
+      tagList ?? this.tagList,
+      reminderList ?? this.reminderList,
+      workList ?? this.workList,
+      topicList ?? this.topicList,
     );
   }
 }

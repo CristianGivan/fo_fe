@@ -42,7 +42,7 @@ void main() {
 
       // Assert
       // expect(result, expected);
-      expect(, TaskModel.empty());
+      expect(result, TaskModel.empty());
     });
   });
 }
