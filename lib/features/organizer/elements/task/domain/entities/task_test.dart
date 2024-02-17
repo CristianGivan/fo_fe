@@ -12,34 +12,24 @@ class TaskTest extends Equatable {
   double estimatedLeftTime;
   double workingProgress;
   TaskStatus taskStatus;
-  User creator;
   List<User> userList;
-  List<Tag> tagList;
-  List<Reminder> reminderList;
-  List<Work> workList;
-  List<Topic> topicList;
+
 
   TaskTest(
-      this.id,
-      this.subject,
-      this.status,
-      this.createdDate,
-      this.startDate,
-      this.endDate,
-      this.workingTime,
-      this.estimatedTime,
-      this.estimatedLeftTime,
-      this.workingProgress,
-      this.taskStatus,
-      this.creator,
-      this.userList,
-      this.tagList,
-      this.reminderList,
-      this.workList,
-      this.topicList,
+    this.id,
+    this.subject,
+    this.status,
+    this.createdDate,
+    this.startDate,
+    this.endDate,
+    this.workingTime,
+    this.estimatedTime,
+    this.estimatedLeftTime,
+    this.workingProgress,
+    this.taskStatus,
+    this.userList,
+
   );
-
-
 
   static TaskTest empty() {
     return TaskTest(
@@ -54,18 +44,14 @@ class TaskTest extends Equatable {
       0,
       0,
       TaskStatus.undefined,
-      User(0),
       [],
-      [],
-      [],
-      [],
-      [],
+
     );
   }
 
   @override
   String toString() {
-    return 'TaskTest(id: $id, subject: $subject, )';
+    return 'TaskTest(id: $id, subject: $subject, status: $status, createdDate: $createdDate, startDate: $startDate, endDate: $endDate, workingTime: $workingTime, estimatedTime: $estimatedTime, estimatedLeftTime: $estimatedLeftTime, workingProgress: $workingProgress, taskStatus: $taskStatus, userList: $userList)';
   }
 
   @override
@@ -82,12 +68,7 @@ class TaskTest extends Equatable {
       estimatedLeftTime,
       workingProgress,
       taskStatus,
-      creator,
       userList,
-      tagList,
-      reminderList,
-      workList,
-      topicList,
     ];
   }
 
@@ -103,12 +84,7 @@ class TaskTest extends Equatable {
     double? estimatedLeftTime,
     double? workingProgress,
     TaskStatus? taskStatus,
-    User? creator,
     List<User>? userList,
-    List<Tag>? tagList,
-    List<Reminder>? reminderList,
-    List<Work>? workList,
-    List<Topic>? topicList,
 
   }) {
     return TaskTest(
@@ -123,14 +99,8 @@ class TaskTest extends Equatable {
       estimatedLeftTime ?? this.estimatedLeftTime,
       workingProgress ?? this.workingProgress,
       taskStatus ?? this.taskStatus,
-      creator ?? this.creator,
       userList ?? this.userList,
-      tagList ?? this.tagList,
-      reminderList ?? this.reminderList,
-      workList ?? this.workList,
-      topicList ?? this.topicList,
+
     );
   }
 }
-
-

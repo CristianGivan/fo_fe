@@ -7,7 +7,7 @@ import '../../../../../../fixtures/elements/fixture_reader_element.dart';
 
 void main() {
   final tTaskTestModel = TaskTestModel.empty().copyWith(
-    id: 4,
+    id: 5,
     subject: "Test Task",
     createdDate: DateTime.parse("2020-02-02 02:02:01.000"),
     startDate: DateTime.parse("2020-02-02 02:02:02.000"),
@@ -33,6 +33,7 @@ void main() {
 
       // Assert
       // expect(result, expected);
+      print(TaskTestModel.fromJson(jsonMap));
       expect(result, expected);
     });
   });
