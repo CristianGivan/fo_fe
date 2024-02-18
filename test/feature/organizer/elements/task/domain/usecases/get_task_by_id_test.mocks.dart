@@ -3,13 +3,13 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i5;
+import 'dart:async' as _i4;
 
 import 'package:dartz/dartz.dart' as _i2;
-import 'package:fo_fe/core/error/failures.dart' as _i6;
+import 'package:fo_fe/core/error/failures.dart' as _i5;
 import 'package:fo_fe/features/organizer/elements/task/domain/repositories/task_repository.dart'
     as _i3;
-import 'package:fo_fe/features/organizer/elements/task/task_lib.dart' as _i4;
+import 'package:fo_fe/features/organizer/elements/task/task_lib.dart' as _i6;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -40,24 +40,42 @@ class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
 /// See the documentation for Mockito's code generation for more information.
 class MockTaskRepository extends _i1.Mock implements _i3.TaskRepository {
   @override
-  dynamic putTask(_i4.TaskEntity? task) => super.noSuchMethod(
+  _i4.Future<_i2.Either<_i5.Failure, _i6.TaskEntity>> putTask(
+          _i6.TaskEntity? task) =>
+      (super.noSuchMethod(
         Invocation.method(
           #putTask,
           [task],
         ),
-        returnValueForMissingStub: null,
-      );
+        returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.TaskEntity>>.value(
+            _FakeEither_0<_i5.Failure, _i6.TaskEntity>(
+          this,
+          Invocation.method(
+            #putTask,
+            [task],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<_i2.Either<_i5.Failure, _i6.TaskEntity>>.value(
+                _FakeEither_0<_i5.Failure, _i6.TaskEntity>(
+          this,
+          Invocation.method(
+            #putTask,
+            [task],
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.TaskEntity>>);
 
   @override
-  _i5.Future<_i2.Either<_i6.Failure, _i4.TaskEntity>> postTask(
-          _i4.TaskEntity? task) =>
+  _i4.Future<_i2.Either<_i5.Failure, _i6.TaskEntity>> postTask(
+          _i6.TaskEntity? task) =>
       (super.noSuchMethod(
         Invocation.method(
           #postTask,
           [task],
         ),
-        returnValue: _i5.Future<_i2.Either<_i6.Failure, _i4.TaskEntity>>.value(
-            _FakeEither_0<_i6.Failure, _i4.TaskEntity>(
+        returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.TaskEntity>>.value(
+            _FakeEither_0<_i5.Failure, _i6.TaskEntity>(
           this,
           Invocation.method(
             #postTask,
@@ -65,34 +83,25 @@ class MockTaskRepository extends _i1.Mock implements _i3.TaskRepository {
           ),
         )),
         returnValueForMissingStub:
-            _i5.Future<_i2.Either<_i6.Failure, _i4.TaskEntity>>.value(
-                _FakeEither_0<_i6.Failure, _i4.TaskEntity>(
+            _i4.Future<_i2.Either<_i5.Failure, _i6.TaskEntity>>.value(
+                _FakeEither_0<_i5.Failure, _i6.TaskEntity>(
           this,
           Invocation.method(
             #postTask,
             [task],
           ),
         )),
-      ) as _i5.Future<_i2.Either<_i6.Failure, _i4.TaskEntity>>);
+      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.TaskEntity>>);
 
   @override
-  dynamic deleteTask(_i4.TaskEntity? task) => super.noSuchMethod(
-        Invocation.method(
-          #deleteTask,
-          [task],
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
-  _i5.Future<_i2.Either<_i6.Failure, _i4.TaskEntity>> getTaskById(int? id) =>
+  _i4.Future<_i2.Either<_i5.Failure, _i6.TaskEntity>> getTaskById(int? id) =>
       (super.noSuchMethod(
         Invocation.method(
           #getTaskById,
           [id],
         ),
-        returnValue: _i5.Future<_i2.Either<_i6.Failure, _i4.TaskEntity>>.value(
-            _FakeEither_0<_i6.Failure, _i4.TaskEntity>(
+        returnValue: _i4.Future<_i2.Either<_i5.Failure, _i6.TaskEntity>>.value(
+            _FakeEither_0<_i5.Failure, _i6.TaskEntity>(
           this,
           Invocation.method(
             #getTaskById,
@@ -100,13 +109,23 @@ class MockTaskRepository extends _i1.Mock implements _i3.TaskRepository {
           ),
         )),
         returnValueForMissingStub:
-            _i5.Future<_i2.Either<_i6.Failure, _i4.TaskEntity>>.value(
-                _FakeEither_0<_i6.Failure, _i4.TaskEntity>(
+            _i4.Future<_i2.Either<_i5.Failure, _i6.TaskEntity>>.value(
+                _FakeEither_0<_i5.Failure, _i6.TaskEntity>(
           this,
           Invocation.method(
             #getTaskById,
             [id],
           ),
         )),
-      ) as _i5.Future<_i2.Either<_i6.Failure, _i4.TaskEntity>>);
+      ) as _i4.Future<_i2.Either<_i5.Failure, _i6.TaskEntity>>);
+
+  @override
+  _i4.Future<void> deleteTask(_i6.TaskEntity? task) => (super.noSuchMethod(
+        Invocation.method(
+          #deleteTask,
+          [task],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 }

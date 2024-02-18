@@ -51,7 +51,7 @@ class TaskModel extends TaskEntity {
       "startDate": startDate.toIso8601String(),
       "endDate": endDate.toIso8601String(),
       "taskStatus":
-          taskStatus.toString().split('.').last.toUpperCase() ?? 'UNDEFINED'
+          taskStatus?.toString()?.split('.')?.last?.toUpperCase() ?? 'UNDEFINED'
     };
   }
 
