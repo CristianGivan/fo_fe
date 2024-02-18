@@ -24,13 +24,30 @@ void main() {
       // Arrange
       final Map<String, dynamic> jsonMap = json.decode(fixture('task.json'));
 
-      var expected = tTaskModel;
-
       // Act
       var result = TaskModel.fromJson(jsonMap);
 
       // Assert
-      expect(result, expected);
+      expect(result, tTaskModel);
     });
+  });
+  test('should return a JSON map that contain the proper data', () async {
+    // Arrange
+    final expected = {
+      "taskId": 4,
+      "task": "Test Task",
+      "createdDate": "2020-02-02T02:02:01.000",
+      "startDate": "2020-02-02T02:02:02.000",
+      "endDate": "2020-02-02T02:02:03.000",
+      "taskStatus": "UNDEFINED"
+    };
+
+    // Act
+    final result = tTaskModel.toJson();
+
+    // Assert
+    print(tTaskModel.taskStatus.toString());
+
+    expect(result, expected);
   });
 }

@@ -23,7 +23,7 @@ class TaskModel extends TaskEntity {
 
   factory TaskModel.fromJson(Map<String, dynamic> json) {
     return TaskModel(
-      json['taskId'],
+      (json['taskId'] as num).toInt(),
       json['task'],
       json['taskStatus'] == 'COMPLETED',
       DateTime.parse(json['createdDate']),
@@ -41,6 +41,18 @@ class TaskModel extends TaskEntity {
       [],
       [],
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "taskId": id,
+      "task": subject,
+      "createdDate": createdDate.toIso8601String(),
+      "startDate": startDate.toIso8601String(),
+      "endDate": endDate.toIso8601String(),
+      "taskStatus":
+          taskStatus.toString().split('.').last.toUpperCase() ?? 'UNDEFINED'
+    };
   }
 
   static TaskModel empty() {
