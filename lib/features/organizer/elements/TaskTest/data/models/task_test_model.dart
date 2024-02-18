@@ -1,25 +1,45 @@
-part of '../../task_lib.dart';
+part of '../../task_test_lib.dart';
 
 class TaskTestModel extends TaskTest {
   TaskTestModel(
-      super.id,
-      super.subject,
-      super.status,
-      super.createdDate,
-      super.startDate,
-      super.endDate,
-      super.workingTime,
-      super.estimatedTime,
-      super.estimatedLeftTime,
-      super.workingProgress,
-      super.taskStatus,
-      super.userList,
-      super.tagList,
-      super.reminderList,
-      super.workList,
-      super.topicList,
-
+    super.id,
+    super.subject,
+    super.status,
+    super.createdDate,
+    super.startDate,
+    super.endDate,
+    super.workingTime,
+    super.estimatedTime,
+    super.estimatedLeftTime,
+    super.workingProgress,
+    super.taskStatus,
+    super.userList,
+    super.tagList,
+    super.reminderList,
+    super.workList,
+    super.topicList,
   );
+
+  factory TaskTestModel.fromJson(Map<String, dynamic> json) {
+    return TaskTestModel(
+      json['taskId'],
+      json['task'],
+      json['taskStatus'] == 'COMPLETED',
+      DateTime.parse(json['createdDate']),
+      DateTime.parse(json['startDate']),
+      DateTime.parse(json['endDate']),
+      0,
+      0,
+      0,
+      0,
+      statusMap[json['taskStatus']] ?? TaskStatus.undefined, //todo to be
+      [],
+      [],
+      [],
+      [],
+      [],
+    );
+  }
 
   static TaskTestModel empty() {
     return TaskTestModel(
@@ -39,9 +59,10 @@ class TaskTestModel extends TaskTest {
       [],
       [],
       [],
-
     );
   }
+
+  @override
   TaskTestModel copyWith({
     int? id,
     String? subject,
@@ -79,26 +100,4 @@ class TaskTestModel extends TaskTest {
       topicList ?? this.topicList,
     );
   }
-
-  factory TaskTestModel.fromJson(Map<String, dynamic> json) {
-    return TaskTestModel(
-      json['taskId'],
-      json['task'],
-      json['taskStatus'] == 'COMPLETED',
-      DateTime.parse(json['createdDate']),
-      DateTime.parse(json['startDate']),
-      DateTime.parse(json['endDate']),
-      0,
-      0,
-      0,
-      0,
-      statusMap[json['taskStatus']] ?? TaskStatus.undefined, //todo to be
-      [],
-      [],
-      [],
-      [],
-      [],
-    );
-  }
-
 }

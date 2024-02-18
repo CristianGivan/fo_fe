@@ -67,34 +67,6 @@ class TaskEntity extends Equatable {
     );
   }
 
-  @override
-  String toString() {
-    return 'TaskEntity(id: $id, subject: $subject, status: $status, createdDate: $createdDate, startDate: $startDate, endDate: $endDate, workingTime: $workingTime, estimatedTime: $estimatedTime, estimatedLeftTime: $estimatedLeftTime, workingProgress: $workingProgress, taskStatus: $taskStatus, creator: $creator, userList: $userList, tagList: $tagList, reminderList: $reminderList, workList: $workList, topicList: $topicList)';
-  }
-
-  @override
-  List<Object> get props {
-    return [
-      id,
-      subject,
-      status,
-      createdDate,
-      startDate,
-      endDate,
-      workingTime,
-      estimatedTime,
-      estimatedLeftTime,
-      workingProgress,
-      taskStatus,
-      creator,
-      userList,
-      tagList,
-      reminderList,
-      workList,
-      topicList,
-    ];
-  }
-
   TaskEntity copyWith({
     int? id,
     String? subject,
@@ -134,6 +106,32 @@ class TaskEntity extends Equatable {
       topicList ?? this.topicList,
     );
   }
+
+  @override
+  String toString() {
+    return 'TaskEntity(id: $id, subject: $subject, status: $status, createdDate: $createdDate, startDate: $startDate, endDate: $endDate, workingTime: $workingTime, estimatedTime: $estimatedTime, estimatedLeftTime: $estimatedLeftTime, workingProgress: $workingProgress, taskStatus: $taskStatus, creator: $creator, userList: $userList, tagList: $tagList, reminderList: $reminderList, workList: $workList, topicList: $topicList)';
+  }
+
+  @override
+  List<Object> get props {
+    return [
+      id,
+      subject,
+      status,
+      createdDate,
+      startDate,
+      endDate,
+      workingTime,
+      estimatedTime,
+      estimatedLeftTime,
+      workingProgress,
+      taskStatus,
+      creator,
+      userList,
+      tagList,
+      reminderList,
+      workList,
+      topicList,
+    ];
+  }
 }
-
-

@@ -21,6 +21,28 @@ class TaskModel extends TaskEntity {
     super.topicList,
   );
 
+  factory TaskModel.fromJson(Map<String, dynamic> json) {
+    return TaskModel(
+      json['taskId'],
+      json['task'],
+      json['taskStatus'] == 'COMPLETED',
+      DateTime.parse(json['createdDate']),
+      DateTime.parse(json['startDate']),
+      DateTime.parse(json['endDate']),
+      0,
+      0,
+      0,
+      0,
+      statusMap[json['taskStatus']] ?? TaskStatus.undefined, //todo to be
+      User(0),
+      [],
+      [],
+      [],
+      [],
+      [],
+    );
+  }
+
   static TaskModel empty() {
     return TaskModel(
       0,
@@ -43,27 +65,6 @@ class TaskModel extends TaskEntity {
     );
   }
 
-  factory TaskModel.fromJson(Map<String, dynamic> json) {
-    return TaskModel(
-      json['taskId'],
-      json['task'],
-      json['taskStatus'] == 'COMPLETED',
-      DateTime.parse(json['createdDate']),
-      DateTime.parse(json['startDate']),
-      DateTime.parse(json['endDate']),
-      0,
-      0,
-      0,
-      0,
-      statusMap[json['taskStatus']] ?? TaskStatus.undefined, //todo to be
-      User(0),
-      [],
-      [],
-      [],
-      [],
-      [],
-    );
-  }
   @override
   TaskModel copyWith({
     int? id,
@@ -103,28 +104,5 @@ class TaskModel extends TaskEntity {
       workList ?? this.workList,
       topicList ?? this.topicList,
     );
-  }
-
-  @override
-  List<Object> get props {
-    return [
-      id,
-      subject,
-      status,
-      createdDate,
-      startDate,
-      endDate,
-      workingTime,
-      estimatedTime,
-      estimatedLeftTime,
-      workingProgress,
-      taskStatus,
-      creator,
-      userList,
-      tagList,
-      reminderList,
-      workList,
-      topicList,
-    ];
   }
 }

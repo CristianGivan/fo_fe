@@ -1,4 +1,4 @@
-part of '../../task_lib.dart';
+part of '../../task_test_lib.dart';
 
 class TaskTest extends Equatable {
   int id;
@@ -58,33 +58,6 @@ class TaskTest extends Equatable {
     );
   }
 
-  @override
-  String toString() {
-    return 'TaskTest(id: $id, subject: $subject, status: $status, createdDate: $createdDate, startDate: $startDate, endDate: $endDate, workingTime: $workingTime, estimatedTime: $estimatedTime, estimatedLeftTime: $estimatedLeftTime, workingProgress: $workingProgress, taskStatus: $taskStatus, userList: $userList)';
-  }
-
-  @override
-  List<Object> get props {
-    return [
-      id,
-      subject,
-      status,
-      createdDate,
-      startDate,
-      endDate,
-      workingTime,
-      estimatedTime,
-      estimatedLeftTime,
-      workingProgress,
-      taskStatus,
-      userList,
-      tagList,
-      reminderList,
-      workList,
-      topicList,
-    ];
-  }
-
   TaskTest copyWith({
     int? id,
     String? subject,
@@ -121,5 +94,32 @@ class TaskTest extends Equatable {
       workList ?? this.workList,
       topicList ?? this.topicList,
     );
+  }
+
+  @override
+  String toString() {
+    return 'TaskTest(id: $id, subject: $subject, status: $status, createdDate: $createdDate, startDate: $startDate, endDate: $endDate, workingTime: $workingTime, estimatedTime: $estimatedTime, estimatedLeftTime: $estimatedLeftTime, workingProgress: $workingProgress, taskStatus: $taskStatus, userList: $userList)';
+  }
+
+  @override
+  List<Object> get props {
+    return [
+      id,
+      subject,
+      status,
+      createdDate,
+      startDate,
+      endDate,
+      workingTime,
+      estimatedTime,
+      estimatedLeftTime,
+      workingProgress,
+      taskStatus,
+      userList,
+      tagList,
+      reminderList,
+      workList,
+      topicList,
+    ];
   }
 }

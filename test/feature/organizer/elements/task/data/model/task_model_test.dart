@@ -13,14 +13,6 @@ void main() {
     startDate: DateTime.parse("2020-02-02 02:02:02.000"),
     endDate: DateTime.parse("2020-02-02 02:02:03.000"),
   );
-  final tTaskEntity = TaskEntity.empty();
-  //   final tTaskEntity = TaskEntity.empty().copyWith(
-  //   id: 4,
-  //   subject: "Test Task",
-  //   createdDate: DateTime.parse("2020-02-02 02:02:01.000"),
-  //   startDate: DateTime.parse("2020-02-02 02:02:02.000"),
-  //   endDate: DateTime.parse("2020-02-02 02:02:03.000"),
-  // );
 
   test('Should be an instance of TaskEntity', () async {
     // Assert
@@ -35,14 +27,10 @@ void main() {
       var expected = tTaskModel;
 
       // Act
-      var result = TaskModel.empty();
-      // var result = TaskModel.fromJson(jsonMap);
-      // var result1 = TaskEntity.fromJson(jsonMap);
-      var result1 = TaskEntity.empty();
+      var result = TaskModel.fromJson(jsonMap);
 
       // Assert
-      // expect(result, expected);
-      expect(result, TaskModel.empty());
+      expect(result, expected);
     });
   });
 }

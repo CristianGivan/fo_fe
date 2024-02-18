@@ -1,0 +1,6 @@
+bricks:
+  element:
+    git:
+      url: "https://github.com/CristianGivan/bricks.git"
+      path: bricks/element
+      ref: 8536df42242a2519675356343da5782a34487f30
