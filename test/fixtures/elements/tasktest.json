@@ -4,5 +4,12 @@
     "createdDate": "2020-02-02T02:02:01",
     "startDate": "2020-02-02T02:02:02",
     "endDate": "2020-02-02T02:02:03",
-    "taskStatus": "UNDEFINE"
+    "syncDate": "2020-02-02T02:02:03",
+    "taskStatus": "UNDEFINED",
+    "remoteId": "4",
+    "lastUpdate": "2020-02-02T02:02:03",
+    "lastViewDate": "2020-02-02T02:02:03",
+    "remoteViews": "1",
+    "views": "1",
+    "checksum": "checksum"
 }

@@ -8,6 +8,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../../../../../../fixtures/elements/entities_models.dart';
 import 'task_repository_impl_test.mocks.dart';
 
 @GenerateNiceMocks([MockSpec<TaskRemoteDataSource>()])
@@ -15,29 +16,20 @@ import 'task_repository_impl_test.mocks.dart';
 @GenerateNiceMocks([MockSpec<NetworkInfo>()])
 void main() {
   late TaskRepositoryImpl repositoryImpl;
-  late MockTaskRemoteDataSource mockTaskRemoteDataSource;
   late MockTaskLocalDataSource mockTaskLocalDataSource;
   late MockNetworkInfo mockNetworkInfo;
 
   setUp(() {
-    mockTaskRemoteDataSource = MockTaskRemoteDataSource();
     mockTaskLocalDataSource = MockTaskLocalDataSource();
     mockNetworkInfo = MockNetworkInfo();
     repositoryImpl = TaskRepositoryImpl(
-        taskRemoteDataSource: mockTaskRemoteDataSource,
         taskLocalDataSource: mockTaskLocalDataSource,
         networkInfo: mockNetworkInfo);
   });
 
-  group('description', () {
+  group('getTask', () {
     final tId = 1;
-    final tTaskModel = TaskModel.empty().copyWith(
-      id: 4,
-      subject: "Test Task",
-      createdDate: DateTime.parse("2020-02-02 02:02:01.000"),
-      startDate: DateTime.parse("2020-02-02 02:02:02.000"),
-      endDate: DateTime.parse("2020-02-02 02:02:03.000"),
-    );
+    final tTaskModel = getTaskModelTestOnline();
 
     final tTaskEntity = tTaskModel;
 
@@ -57,11 +49,9 @@ void main() {
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
       });
 
-      test(
-          'should return remote data when the call to remote data source is success',
-          () async {
+      test('should sync the local data when device is online', () async {
         // Arrange
-        when(mockTaskRemoteDataSource.getTaskById(any))
+        when(mockTaskLocalDataSource.getTaskById(any))
             .thenAnswer((_) async => tTaskModel);
 
         final expected = Right(tTaskEntity);
@@ -70,7 +60,22 @@ void main() {
         final result = await repositoryImpl.getTaskById(tId);
 
         // Assert
-        verify(mockTaskRemoteDataSource.getTaskById(tId));
+        verify(mockTaskLocalDataSource.getTaskById(tId));
+        expect(result, equals(expected));
+      });
+
+      test('should return updated data when device is online', () async {
+        // Arrange
+        when(mockTaskLocalDataSource.getTaskById(any))
+            .thenAnswer((_) async => tTaskModel);
+
+        final expected = Right(tTaskEntity);
+        // Act
+
+        final result = await repositoryImpl.getTaskById(tId);
+
+        // Assert
+        verify(mockTaskLocalDataSource.getTaskById(tId));
         expect(result, equals(expected));
       });
       test(
@@ -78,7 +83,7 @@ void main() {
           'should save the data in local db  when the call to remote data source is success',
           () async {
         // Arrange
-        when(mockTaskRemoteDataSource.getTaskById(any))
+        when(mockTaskLocalDataSource.getTaskById(any))
             .thenAnswer((_) async => tTaskModel);
 
         final expected = Right(tTaskEntity);
@@ -87,7 +92,7 @@ void main() {
         final result = await repositoryImpl.getTaskById(tId);
 
         // Assert
-        verify(mockTaskRemoteDataSource.getTaskById(tId));
+        verify(mockTaskLocalDataSource.getTaskById(tId));
         expect(result, equals(expected));
       });
     });

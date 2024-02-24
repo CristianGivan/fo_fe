@@ -26,8 +26,8 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeTaskEntity_0 extends _i1.SmartFake implements _i2.TaskEntity {
-  _FakeTaskEntity_0(
+class _FakeTaskModel_0 extends _i1.SmartFake implements _i2.TaskModel {
+  _FakeTaskModel_0(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -42,13 +42,12 @@ class _FakeTaskEntity_0 extends _i1.SmartFake implements _i2.TaskEntity {
 class MockTaskRemoteDataSource extends _i1.Mock
     implements _i3.TaskRemoteDataSource {
   @override
-  _i4.Future<_i2.TaskEntity> putTask(_i2.TaskEntity? task) =>
-      (super.noSuchMethod(
+  _i4.Future<_i2.TaskModel> putTask(_i2.TaskModel? task) => (super.noSuchMethod(
         Invocation.method(
           #putTask,
           [task],
         ),
-        returnValue: _i4.Future<_i2.TaskEntity>.value(_FakeTaskEntity_0(
+        returnValue: _i4.Future<_i2.TaskModel>.value(_FakeTaskModel_0(
           this,
           Invocation.method(
             #putTask,
@@ -56,23 +55,23 @@ class MockTaskRemoteDataSource extends _i1.Mock
           ),
         )),
         returnValueForMissingStub:
-            _i4.Future<_i2.TaskEntity>.value(_FakeTaskEntity_0(
+            _i4.Future<_i2.TaskModel>.value(_FakeTaskModel_0(
           this,
           Invocation.method(
             #putTask,
             [task],
           ),
         )),
-      ) as _i4.Future<_i2.TaskEntity>);
+      ) as _i4.Future<_i2.TaskModel>);
 
   @override
-  _i4.Future<_i2.TaskEntity> postTask(_i2.TaskEntity? task) =>
+  _i4.Future<_i2.TaskModel> postTask(_i2.TaskModel? task) =>
       (super.noSuchMethod(
         Invocation.method(
           #postTask,
           [task],
         ),
-        returnValue: _i4.Future<_i2.TaskEntity>.value(_FakeTaskEntity_0(
+        returnValue: _i4.Future<_i2.TaskModel>.value(_FakeTaskModel_0(
           this,
           Invocation.method(
             #postTask,
@@ -80,22 +79,22 @@ class MockTaskRemoteDataSource extends _i1.Mock
           ),
         )),
         returnValueForMissingStub:
-            _i4.Future<_i2.TaskEntity>.value(_FakeTaskEntity_0(
+            _i4.Future<_i2.TaskModel>.value(_FakeTaskModel_0(
           this,
           Invocation.method(
             #postTask,
             [task],
           ),
         )),
-      ) as _i4.Future<_i2.TaskEntity>);
+      ) as _i4.Future<_i2.TaskModel>);
 
   @override
-  _i4.Future<_i2.TaskEntity> getTaskById(int? id) => (super.noSuchMethod(
+  _i4.Future<_i2.TaskModel> getTaskById(int? id) => (super.noSuchMethod(
         Invocation.method(
           #getTaskById,
           [id],
         ),
-        returnValue: _i4.Future<_i2.TaskEntity>.value(_FakeTaskEntity_0(
+        returnValue: _i4.Future<_i2.TaskModel>.value(_FakeTaskModel_0(
           this,
           Invocation.method(
             #getTaskById,
@@ -103,20 +102,20 @@ class MockTaskRemoteDataSource extends _i1.Mock
           ),
         )),
         returnValueForMissingStub:
-            _i4.Future<_i2.TaskEntity>.value(_FakeTaskEntity_0(
+            _i4.Future<_i2.TaskModel>.value(_FakeTaskModel_0(
           this,
           Invocation.method(
             #getTaskById,
             [id],
           ),
         )),
-      ) as _i4.Future<_i2.TaskEntity>);
+      ) as _i4.Future<_i2.TaskModel>);
 
   @override
-  _i4.Future<void> deleteTask(_i2.TaskEntity? task) => (super.noSuchMethod(
+  _i4.Future<void> deleteTask(int? id) => (super.noSuchMethod(
         Invocation.method(
           #deleteTask,
-          [task],
+          [id],
         ),
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
@@ -129,13 +128,12 @@ class MockTaskRemoteDataSource extends _i1.Mock
 class MockTaskLocalDataSource extends _i1.Mock
     implements _i5.TaskLocalDataSource {
   @override
-  _i4.Future<_i2.TaskEntity> putTask(_i2.TaskEntity? task) =>
-      (super.noSuchMethod(
+  _i4.Future<_i2.TaskModel> putTask(_i2.TaskModel? task) => (super.noSuchMethod(
         Invocation.method(
           #putTask,
           [task],
         ),
-        returnValue: _i4.Future<_i2.TaskEntity>.value(_FakeTaskEntity_0(
+        returnValue: _i4.Future<_i2.TaskModel>.value(_FakeTaskModel_0(
           this,
           Invocation.method(
             #putTask,
@@ -143,23 +141,23 @@ class MockTaskLocalDataSource extends _i1.Mock
           ),
         )),
         returnValueForMissingStub:
-            _i4.Future<_i2.TaskEntity>.value(_FakeTaskEntity_0(
+            _i4.Future<_i2.TaskModel>.value(_FakeTaskModel_0(
           this,
           Invocation.method(
             #putTask,
             [task],
           ),
         )),
-      ) as _i4.Future<_i2.TaskEntity>);
+      ) as _i4.Future<_i2.TaskModel>);
 
   @override
-  _i4.Future<_i2.TaskEntity> postTask(_i2.TaskEntity? task) =>
+  _i4.Future<_i2.TaskModel> postTask(_i2.TaskModel? task) =>
       (super.noSuchMethod(
         Invocation.method(
           #postTask,
           [task],
         ),
-        returnValue: _i4.Future<_i2.TaskEntity>.value(_FakeTaskEntity_0(
+        returnValue: _i4.Future<_i2.TaskModel>.value(_FakeTaskModel_0(
           this,
           Invocation.method(
             #postTask,
@@ -167,22 +165,22 @@ class MockTaskLocalDataSource extends _i1.Mock
           ),
         )),
         returnValueForMissingStub:
-            _i4.Future<_i2.TaskEntity>.value(_FakeTaskEntity_0(
+            _i4.Future<_i2.TaskModel>.value(_FakeTaskModel_0(
           this,
           Invocation.method(
             #postTask,
             [task],
           ),
         )),
-      ) as _i4.Future<_i2.TaskEntity>);
+      ) as _i4.Future<_i2.TaskModel>);
 
   @override
-  _i4.Future<_i2.TaskEntity> getTaskById(int? id) => (super.noSuchMethod(
+  _i4.Future<_i2.TaskModel> getTaskById(int? id) => (super.noSuchMethod(
         Invocation.method(
           #getTaskById,
           [id],
         ),
-        returnValue: _i4.Future<_i2.TaskEntity>.value(_FakeTaskEntity_0(
+        returnValue: _i4.Future<_i2.TaskModel>.value(_FakeTaskModel_0(
           this,
           Invocation.method(
             #getTaskById,
@@ -190,20 +188,20 @@ class MockTaskLocalDataSource extends _i1.Mock
           ),
         )),
         returnValueForMissingStub:
-            _i4.Future<_i2.TaskEntity>.value(_FakeTaskEntity_0(
+            _i4.Future<_i2.TaskModel>.value(_FakeTaskModel_0(
           this,
           Invocation.method(
             #getTaskById,
             [id],
           ),
         )),
-      ) as _i4.Future<_i2.TaskEntity>);
+      ) as _i4.Future<_i2.TaskModel>);
 
   @override
-  _i4.Future<void> deleteTask(_i2.TaskEntity? task) => (super.noSuchMethod(
+  _i4.Future<void> deleteTask(int? id) => (super.noSuchMethod(
         Invocation.method(
           #deleteTask,
-          [task],
+          [id],
         ),
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),

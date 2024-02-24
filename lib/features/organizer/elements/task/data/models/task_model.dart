@@ -19,6 +19,12 @@ class TaskModel extends TaskEntity {
     super.reminderList,
     super.workList,
     super.topicList,
+    super.remoteTaskId,
+    super.lastUpdate,
+    super.lastViewDate,
+    super.remoteViews,
+    super.views,
+    super.checksum,
   );
 
   factory TaskModel.fromJson(Map<String, dynamic> json) {
@@ -35,11 +41,17 @@ class TaskModel extends TaskEntity {
       0,
       statusMap[json['taskStatus']] ?? TaskStatus.undefined, //todo to be
       User(0),
-      [],
-      [],
-      [],
-      [],
-      [],
+      const [],
+      const [],
+      const [],
+      const [],
+      const [],
+      (json['remoteTaskId'] as num).toInt(),
+      DateTime.parse(json['lastUpdate']),
+      DateTime.parse(json['lastViewDate']),
+      (json['remoteViews'] as num).toInt(),
+      (json['views'] as num).toInt(),
+      json['checksum'],
     );
   }
 
@@ -51,7 +63,13 @@ class TaskModel extends TaskEntity {
       "startDate": startDate.toIso8601String(),
       "endDate": endDate.toIso8601String(),
       "taskStatus":
-          taskStatus?.toString()?.split('.')?.last?.toUpperCase() ?? 'UNDEFINED'
+          taskStatus.toString().split('.').last.toUpperCase() ?? 'UNDEFINED',
+      "remoteTaskId": remoteTaskId,
+      "lastUpdate": lastUpdate.toIso8601String(),
+      "lastViewDate": lastViewDate.toIso8601String(),
+      "remoteViews": remoteViews,
+      "views": views,
+      "checksum": checksum,
     };
   }
 
@@ -69,11 +87,17 @@ class TaskModel extends TaskEntity {
       0,
       TaskStatus.undefined,
       User(0),
-      [],
-      [],
-      [],
-      [],
-      [],
+      const [],
+      const [],
+      const [],
+      const [],
+      const [],
+      0,
+      DateTime.now(),
+      DateTime.now(),
+      0,
+      0,
+      "",
     );
   }
 
@@ -96,6 +120,12 @@ class TaskModel extends TaskEntity {
     List<Reminder>? reminderList,
     List<Work>? workList,
     List<Topic>? topicList,
+    int? remoteTaskId,
+    DateTime? lastUpdate,
+    DateTime? lastViewDate,
+    int? remoteViews,
+    int? views,
+    String? checksum,
   }) {
     return TaskModel(
       id ?? this.id,
@@ -115,6 +145,12 @@ class TaskModel extends TaskEntity {
       reminderList ?? this.reminderList,
       workList ?? this.workList,
       topicList ?? this.topicList,
+      remoteTaskId ?? this.remoteTaskId,
+      lastUpdate ?? this.lastUpdate,
+      lastViewDate ?? this.lastViewDate,
+      remoteViews ?? this.remoteViews,
+      views ?? this.views,
+      checksum ?? this.checksum,
     );
   }
 }

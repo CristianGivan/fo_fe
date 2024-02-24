@@ -130,9 +130,9 @@ class ObjectBox implements Database {
       List<TaskEntityObjectBox> taskEntityList) {
     return taskEntityList
         .map((taskEntity) => TaskEntity(
-              taskEntity.id,
-              taskEntity.subject,
-              taskEntity.status,
+              0,
+              "",
+              false,
               DateTime.now(),
               DateTime.now(),
               DateTime.now(),
@@ -147,6 +147,12 @@ class ObjectBox implements Database {
               [],
               [],
               [],
+              0,
+              DateTime.now(),
+              DateTime.now(),
+              0,
+              0,
+              "",
             ))
         .toList();
   }
