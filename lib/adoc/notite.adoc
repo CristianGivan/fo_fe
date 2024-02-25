@@ -1,0 +1,6 @@
+== Toughs
+
+* if I want to sync a task and I separate the sync of the task with the sync of other tasks that are downloaded with that task that had to be update afterwords 
+** can I combine sync with async data?
+
+* the error handler and update the local cash shall be don in lower level methods

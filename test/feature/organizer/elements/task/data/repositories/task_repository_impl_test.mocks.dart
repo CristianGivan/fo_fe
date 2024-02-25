@@ -5,11 +5,15 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
 
-import 'package:fo_fe/core/platform/network_info.dart' as _i6;
-import 'package:fo_fe/features/organizer/elements/task/data/datasources/task_local_data_source.dart'
+import 'package:fo_fe/core/platform/network_info.dart' as _i3;
+import 'package:fo_fe/features/organizer/elements/task/data/datasources/task_sync.dart'
+    as _i8;
+import 'package:fo_fe/features/organizer/elements/task/data/datasources/task_cache_data_source.dart'
     as _i5;
+import 'package:fo_fe/features/organizer/elements/task/data/datasources/task_local_data_source.dart'
+    as _i6;
 import 'package:fo_fe/features/organizer/elements/task/data/datasources/task_remote_data_source.dart'
-    as _i3;
+    as _i7;
 import 'package:fo_fe/features/organizer/elements/task/task_lib.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -36,85 +40,48 @@ class _FakeTaskModel_0 extends _i1.SmartFake implements _i2.TaskModel {
         );
 }
 
-/// A class which mocks [TaskRemoteDataSource].
+class _FakeTaskEntity_1 extends _i1.SmartFake implements _i2.TaskEntity {
+  _FakeTaskEntity_1(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+/// A class which mocks [NetworkInfo].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockTaskRemoteDataSource extends _i1.Mock
-    implements _i3.TaskRemoteDataSource {
+class MockNetworkInfo extends _i1.Mock implements _i3.NetworkInfo {
   @override
-  _i4.Future<_i2.TaskModel> putTask(_i2.TaskModel? task) => (super.noSuchMethod(
-        Invocation.method(
-          #putTask,
-          [task],
-        ),
-        returnValue: _i4.Future<_i2.TaskModel>.value(_FakeTaskModel_0(
-          this,
-          Invocation.method(
-            #putTask,
-            [task],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i4.Future<_i2.TaskModel>.value(_FakeTaskModel_0(
-          this,
-          Invocation.method(
-            #putTask,
-            [task],
-          ),
-        )),
-      ) as _i4.Future<_i2.TaskModel>);
+  _i4.Future<bool> get isConnected => (super.noSuchMethod(
+        Invocation.getter(#isConnected),
+        returnValue: _i4.Future<bool>.value(false),
+        returnValueForMissingStub: _i4.Future<bool>.value(false),
+      ) as _i4.Future<bool>);
+}
 
+/// A class which mocks [TaskCacheDataSource].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockTaskCacheDataSource extends _i1.Mock
+    implements _i5.TaskCacheDataSource {
   @override
-  _i4.Future<_i2.TaskModel> postTask(_i2.TaskModel? task) =>
+  _i4.Future<List<int>> getUpdatedTaskList(String? updatedTaskList) =>
       (super.noSuchMethod(
         Invocation.method(
-          #postTask,
-          [task],
+          #getUpdatedTaskList,
+          [updatedTaskList],
         ),
-        returnValue: _i4.Future<_i2.TaskModel>.value(_FakeTaskModel_0(
-          this,
-          Invocation.method(
-            #postTask,
-            [task],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i4.Future<_i2.TaskModel>.value(_FakeTaskModel_0(
-          this,
-          Invocation.method(
-            #postTask,
-            [task],
-          ),
-        )),
-      ) as _i4.Future<_i2.TaskModel>);
+        returnValue: _i4.Future<List<int>>.value(<int>[]),
+        returnValueForMissingStub: _i4.Future<List<int>>.value(<int>[]),
+      ) as _i4.Future<List<int>>);
 
   @override
-  _i4.Future<_i2.TaskModel> getTaskById(int? id) => (super.noSuchMethod(
+  _i4.Future<void> cacheTask(int? id) => (super.noSuchMethod(
         Invocation.method(
-          #getTaskById,
-          [id],
-        ),
-        returnValue: _i4.Future<_i2.TaskModel>.value(_FakeTaskModel_0(
-          this,
-          Invocation.method(
-            #getTaskById,
-            [id],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i4.Future<_i2.TaskModel>.value(_FakeTaskModel_0(
-          this,
-          Invocation.method(
-            #getTaskById,
-            [id],
-          ),
-        )),
-      ) as _i4.Future<_i2.TaskModel>);
-
-  @override
-  _i4.Future<void> deleteTask(int? id) => (super.noSuchMethod(
-        Invocation.method(
-          #deleteTask,
+          #cacheTaskId,
           [id],
         ),
         returnValue: _i4.Future<void>.value(),
@@ -126,7 +93,7 @@ class MockTaskRemoteDataSource extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockTaskLocalDataSource extends _i1.Mock
-    implements _i5.TaskLocalDataSource {
+    implements _i6.TaskLocalDataSource {
   @override
   _i4.Future<_i2.TaskModel> putTask(_i2.TaskModel? task) => (super.noSuchMethod(
         Invocation.method(
@@ -208,14 +175,116 @@ class MockTaskLocalDataSource extends _i1.Mock
       ) as _i4.Future<void>);
 }
 
-/// A class which mocks [NetworkInfo].
+/// A class which mocks [TaskRemoteDataSource].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockNetworkInfo extends _i1.Mock implements _i6.NetworkInfo {
+class MockTaskRemoteDataSource extends _i1.Mock
+    implements _i7.TaskRemoteDataSource {
   @override
-  _i4.Future<bool> get isConnected => (super.noSuchMethod(
-        Invocation.getter(#isConnected),
-        returnValue: _i4.Future<bool>.value(false),
-        returnValueForMissingStub: _i4.Future<bool>.value(false),
-      ) as _i4.Future<bool>);
+  _i4.Future<_i2.TaskModel> putTask(_i2.TaskModel? task) => (super.noSuchMethod(
+        Invocation.method(
+          #putTask,
+          [task],
+        ),
+        returnValue: _i4.Future<_i2.TaskModel>.value(_FakeTaskModel_0(
+          this,
+          Invocation.method(
+            #putTask,
+            [task],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<_i2.TaskModel>.value(_FakeTaskModel_0(
+          this,
+          Invocation.method(
+            #putTask,
+            [task],
+          ),
+        )),
+      ) as _i4.Future<_i2.TaskModel>);
+
+  @override
+  _i4.Future<_i2.TaskModel> postTask(_i2.TaskModel? task) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #postTask,
+          [task],
+        ),
+        returnValue: _i4.Future<_i2.TaskModel>.value(_FakeTaskModel_0(
+          this,
+          Invocation.method(
+            #postTask,
+            [task],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<_i2.TaskModel>.value(_FakeTaskModel_0(
+          this,
+          Invocation.method(
+            #postTask,
+            [task],
+          ),
+        )),
+      ) as _i4.Future<_i2.TaskModel>);
+
+  @override
+  _i4.Future<_i2.TaskModel> getTaskById(int? id) => (super.noSuchMethod(
+        Invocation.method(
+          #getTaskById,
+          [id],
+        ),
+        returnValue: _i4.Future<_i2.TaskModel>.value(_FakeTaskModel_0(
+          this,
+          Invocation.method(
+            #getTaskById,
+            [id],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<_i2.TaskModel>.value(_FakeTaskModel_0(
+          this,
+          Invocation.method(
+            #getTaskById,
+            [id],
+          ),
+        )),
+      ) as _i4.Future<_i2.TaskModel>);
+
+  @override
+  _i4.Future<void> deleteTask(int? id) => (super.noSuchMethod(
+        Invocation.method(
+          #deleteTask,
+          [id],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+}
+
+/// A class which mocks [SyncTask].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockSyncTask extends _i1.Mock implements _i8.TaskSync {
+  @override
+  _i4.Future<_i2.TaskEntity> syncTaskWithId(int? id) => (super.noSuchMethod(
+        Invocation.method(
+          #syncTaskWithId,
+          [id],
+        ),
+        returnValue: _i4.Future<_i2.TaskEntity>.value(_FakeTaskEntity_1(
+          this,
+          Invocation.method(
+            #syncTaskWithId,
+            [id],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<_i2.TaskEntity>.value(_FakeTaskEntity_1(
+          this,
+          Invocation.method(
+            #syncTaskWithId,
+            [id],
+          ),
+        )),
+      ) as _i4.Future<_i2.TaskEntity>);
 }

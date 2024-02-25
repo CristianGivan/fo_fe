@@ -1,37 +1,44 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:fo_fe/core/platform/network_info.dart';
+import 'package:fo_fe/features/organizer/elements/task/data/datasources/task_sync.dart';
+import 'package:fo_fe/features/organizer/elements/task/data/datasources/task_cache_data_source.dart';
 import 'package:fo_fe/features/organizer/elements/task/data/datasources/task_local_data_source.dart';
 import 'package:fo_fe/features/organizer/elements/task/data/datasources/task_remote_data_source.dart';
 import 'package:fo_fe/features/organizer/elements/task/data/repositories/task_repositories_impl.dart';
-import 'package:fo_fe/features/organizer/elements/task/task_lib.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:flutter_test/flutter_test.dart';
 
 import '../../../../../../fixtures/elements/entities_models.dart';
 import 'task_repository_impl_test.mocks.dart';
 
-@GenerateNiceMocks([MockSpec<TaskRemoteDataSource>()])
-@GenerateNiceMocks([MockSpec<TaskLocalDataSource>()])
 @GenerateNiceMocks([MockSpec<NetworkInfo>()])
+@GenerateNiceMocks([MockSpec<TaskCacheDataSource>()])
+@GenerateNiceMocks([MockSpec<TaskLocalDataSource>()])
+@GenerateNiceMocks([MockSpec<TaskRemoteDataSource>()])
+@GenerateNiceMocks([MockSpec<TaskSync>()])
 void main() {
-  late TaskRepositoryImpl repositoryImpl;
-  late MockTaskLocalDataSource mockTaskLocalDataSource;
   late MockNetworkInfo mockNetworkInfo;
+  late MockTaskLocalDataSource mockTaskLocalDataSource;
+  late MockSyncTask mockSyncTask;
+  late TaskRepositoryImpl repositoryImpl;
 
   setUp(() {
-    mockTaskLocalDataSource = MockTaskLocalDataSource();
     mockNetworkInfo = MockNetworkInfo();
+    mockTaskLocalDataSource = MockTaskLocalDataSource();
+    mockSyncTask = MockSyncTask();
+
     repositoryImpl = TaskRepositoryImpl(
-        taskLocalDataSource: mockTaskLocalDataSource,
-        networkInfo: mockNetworkInfo);
+      taskLocalDataSource: mockTaskLocalDataSource,
+      networkInfo: mockNetworkInfo,
+      syncLocalData: mockSyncTask,
+    );
   });
 
   group('getTask', () {
-    final tId = 1;
-    final tTaskModel = getTaskModelTestOnline();
-
-    final tTaskEntity = tTaskModel;
+    const tId = 1;
+    final tTaskModelOnline = getTaskModelTestOnline();
+    final tTaskModelOffline = getTaskModelTestOffline();
 
     test('should check if the device is online', () async {
       // Arrange
@@ -47,58 +54,39 @@ void main() {
     group('device is online', () {
       setUp(() {
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
+        when(mockSyncTask.syncTaskWithId(any))
+            .thenAnswer((_) async => tTaskModelOnline);
       });
 
-      test('should sync the local data when device is online', () async {
+      test('should return sync task entity when device is online', () async {
         // Arrange
-        when(mockTaskLocalDataSource.getTaskById(any))
-            .thenAnswer((_) async => tTaskModel);
+        final expected = Right(tTaskModelOnline);
 
-        final expected = Right(tTaskEntity);
         // Act
-
         final result = await repositoryImpl.getTaskById(tId);
 
         // Assert
-        verify(mockTaskLocalDataSource.getTaskById(tId));
-        expect(result, equals(expected));
-      });
-
-      test('should return updated data when device is online', () async {
-        // Arrange
-        when(mockTaskLocalDataSource.getTaskById(any))
-            .thenAnswer((_) async => tTaskModel);
-
-        final expected = Right(tTaskEntity);
-        // Act
-
-        final result = await repositoryImpl.getTaskById(tId);
-
-        // Assert
-        verify(mockTaskLocalDataSource.getTaskById(tId));
-        expect(result, equals(expected));
-      });
-      test(
-          //todo to be updated for syncDate
-          'should save the data in local db  when the call to remote data source is success',
-          () async {
-        // Arrange
-        when(mockTaskLocalDataSource.getTaskById(any))
-            .thenAnswer((_) async => tTaskModel);
-
-        final expected = Right(tTaskEntity);
-        // Act
-
-        final result = await repositoryImpl.getTaskById(tId);
-
-        // Assert
-        verify(mockTaskLocalDataSource.getTaskById(tId));
-        expect(result, equals(expected));
+        verify(mockSyncTask.syncTaskWithId(tId));
+        expect(result, expected);
       });
     });
     group('device is offline', () {
       setUp(() {
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
+        when(mockTaskLocalDataSource.getTaskById(any))
+            .thenAnswer((_) async => tTaskModelOffline);
+      });
+
+      test('should return local task entity when device is offline', () async {
+        // Arrange
+        final expected = Right(tTaskModelOffline);
+
+        // Act
+        final result = await repositoryImpl.getTaskById(tId);
+
+        // Assert
+        verify(mockTaskLocalDataSource.getTaskById(tId));
+        expect(result, expected);
       });
     });
   });

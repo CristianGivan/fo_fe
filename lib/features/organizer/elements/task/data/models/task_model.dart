@@ -73,6 +73,13 @@ class TaskModel extends TaskEntity {
     };
   }
 
+    Map<String, dynamic> sendJsonToCheckIfIsUpdated() {
+    return {
+      "remoteTaskId": remoteTaskId,
+      "checksum": checksum,
+    };
+  }
+
   static TaskModel empty() {
     return TaskModel(
       0,

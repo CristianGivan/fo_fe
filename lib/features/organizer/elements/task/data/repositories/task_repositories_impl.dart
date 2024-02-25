@@ -1,17 +1,21 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:dartz/dartz.dart';
-
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/platform/network_info.dart';
 import 'package:fo_fe/features/organizer/elements/task/data/datasources/task_local_data_source.dart';
 import 'package:fo_fe/features/organizer/elements/task/domain/repositories/task_repository.dart';
 import 'package:fo_fe/features/organizer/elements/task/task_lib.dart';
 
+import '../datasources/task_sync.dart';
+
 class TaskRepositoryImpl implements TaskRepository {
   final TaskLocalDataSource taskLocalDataSource;
+  final TaskSync syncLocalData;
   final NetworkInfo networkInfo;
 
   TaskRepositoryImpl({
     required this.taskLocalDataSource,
+    required this.syncLocalData,
     required this.networkInfo,
   });
 
@@ -23,9 +27,13 @@ class TaskRepositoryImpl implements TaskRepository {
 
   @override
   Future<Either<Failure, TaskEntity>> getTaskById(int id) async {
-    networkInfo.isConnected;
-
-    return Right(await taskLocalDataSource.getTaskById(id)); // todo update
+    if (await networkInfo.isConnected) {
+      return Right(await syncLocalData
+          .syncTaskWithId(id)); // todo error handler and update local check
+    } else {
+      return Right(await taskLocalDataSource
+          .getTaskById(id)); // todo error handler and update local check
+    }
   }
 
   @override
