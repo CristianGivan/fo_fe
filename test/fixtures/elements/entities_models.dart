@@ -30,6 +30,6 @@ TaskModel getTaskModelTestOffline() {
     lastViewDate: DateTime.parse("2020-03-02 02:02:05.000"),
     remoteViews: 3,
     views: 3,
-    checksum: 'checksum',
+    checksum: 'checksum offline 3',
   );
 }

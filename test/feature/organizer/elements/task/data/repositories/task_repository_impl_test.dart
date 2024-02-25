@@ -1,11 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fo_fe/core/platform/network_info.dart';
-import 'package:fo_fe/features/organizer/elements/task/data/datasources/task_sync.dart';
-import 'package:fo_fe/features/organizer/elements/task/data/datasources/task_cache_data_source.dart';
 import 'package:fo_fe/features/organizer/elements/task/data/datasources/task_local_data_source.dart';
 import 'package:fo_fe/features/organizer/elements/task/data/datasources/task_remote_data_source.dart';
+import 'package:fo_fe/features/organizer/elements/task/data/datasources/task_sync.dart';
 import 'package:fo_fe/features/organizer/elements/task/data/repositories/task_repositories_impl.dart';
+import 'package:fo_fe/features/organizer/elements/task/task_lib.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
@@ -13,25 +13,25 @@ import '../../../../../../fixtures/elements/entities_models.dart';
 import 'task_repository_impl_test.mocks.dart';
 
 @GenerateNiceMocks([MockSpec<NetworkInfo>()])
-@GenerateNiceMocks([MockSpec<TaskCacheDataSource>()])
 @GenerateNiceMocks([MockSpec<TaskLocalDataSource>()])
 @GenerateNiceMocks([MockSpec<TaskRemoteDataSource>()])
 @GenerateNiceMocks([MockSpec<TaskSync>()])
+@GenerateNiceMocks([MockSpec<TaskModel>()])
 void main() {
   late MockNetworkInfo mockNetworkInfo;
   late MockTaskLocalDataSource mockTaskLocalDataSource;
-  late MockSyncTask mockSyncTask;
+  late MockTaskSync mockSyncTask;
   late TaskRepositoryImpl repositoryImpl;
 
   setUp(() {
     mockNetworkInfo = MockNetworkInfo();
     mockTaskLocalDataSource = MockTaskLocalDataSource();
-    mockSyncTask = MockSyncTask();
+    mockSyncTask = MockTaskSync();
 
     repositoryImpl = TaskRepositoryImpl(
       taskLocalDataSource: mockTaskLocalDataSource,
-      networkInfo: mockNetworkInfo,
       syncLocalData: mockSyncTask,
+      networkInfo: mockNetworkInfo,
     );
   });
 

@@ -1,41 +1,85 @@
+import 'dart:convert';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fo_fe/features/organizer/elements/task/data/datasources/task_sync.dart';
+import 'package:mockito/mockito.dart';
+
+import '../../../../../../fixtures/elements/entities_models.dart';
+import '../../../../../../fixtures/elements/fixture_reader_element.dart';
 import '../repositories/task_repository_impl_test.mocks.dart';
 
 void main() {
-  late MockTaskCacheDataSource mockTaskCacheDataSource;
   late MockTaskLocalDataSource mockTaskLocalDataSource;
   late MockTaskRemoteDataSource mockTaskRemoteDataSource;
   late TaskSyncImpl syncTaskImpl;
 
   setUp(() {
-    mockTaskCacheDataSource = MockTaskCacheDataSource();
     mockTaskLocalDataSource = MockTaskLocalDataSource();
     mockTaskRemoteDataSource = MockTaskRemoteDataSource();
     syncTaskImpl = TaskSyncImpl(
-      mockTaskCacheDataSource,
       mockTaskLocalDataSource,
       mockTaskRemoteDataSource,
     );
   });
-  group('sync task', () {
-    // todo
-    // should send the request to the server to check what tasks are updated when the
-    // should return the local task if the checksum and lastUpdate are the same like on local
-    // should return the remote task if the checksum or lastUpdate are no the same like on local
-    // should throw exception when the response is not Json is not correct less fields
-    // should throw exception when we have a server error
 
-    test('should get the list ', () async {
+  // todo
+  // should return the local task if the checksum and lastUpdate are the same like on local
+  // should return the remote task if the checksum or lastUpdate are no the same like on local
+  // should throw exception when the response is not Json is not correct less fields
+  // should throw exception when we have a server error
+
+  group('TaskSyncImpl', () {
+    const tId = 1;
+    final tTaskModelOnline = getTaskModelTestOnline();
+    final tTaskModelOffline = getTaskModelTestOffline();
+
+    // Mock behavior
+
+    test('syncTaskWithId returns local task if checksums are the same',
+        () async {
       // Arrange
+      final Map<String, dynamic> tJsonReceived =
+          json.decode(fixture('task_no_update.json'));
 
-      //final expected = expected;
+      when(mockTaskLocalDataSource.getTaskById(any))
+          .thenAnswer((_) => Future.value(getTaskModelTestOffline()));
+
+      when(mockTaskRemoteDataSource.getUpdatedTaskAsJsonIfDifferent(any))
+          .thenAnswer((_) => Future.value(tJsonReceived));
+
+      final expected = tTaskModelOffline;
 
       // Act
-      //final result = actual;
+      final result = await syncTaskImpl.syncTaskWithId(tId);
 
       // Assert
-      //expect(result, expected);
+      verify(mockTaskLocalDataSource.getTaskById(tId));
+      verify(mockTaskRemoteDataSource.getUpdatedTaskAsJsonIfDifferent(any));
+      expect(result, expected);
+    });
+    test('syncTaskWithId returns updated task if checksums are different',
+        () async {
+      // Arrange
+
+      final Map<String, dynamic> tJsonReceived =
+          json.decode(fixture('task_online.json'));
+
+      when(mockTaskLocalDataSource.getTaskById(any))
+          .thenAnswer((_) => Future.value(getTaskModelTestOffline()));
+
+      when(mockTaskRemoteDataSource.getUpdatedTaskAsJsonIfDifferent(any))
+          .thenAnswer((_) => Future.value(tJsonReceived));
+
+      final expected = tTaskModelOnline;
+
+      // Act
+      final result = await syncTaskImpl.syncTaskWithId(tId);
+
+      // Assert
+      verify(mockTaskLocalDataSource.getTaskById(tId));
+      // verify(mockTaskRemoteDataSource.getUpdatedTaskAsJsonIfDifferent(any));
+      // verify(mockTaskRemoteDataSource.getTaskById(any));
+      expect(result, expected);
     });
   });
 }

@@ -51,4 +51,14 @@ void main() {
     // Assert
     expect(result, expected);
   });
+  test('should return a JSON map that contain the proper data', () async {
+    // Arrange
+    final expected = {"remoteTaskId": 2, "checksum": "checksum online 2"};
+
+    // Act
+    final result = tTaskModel.sendJsonToCheckIfIsUpdated();
+
+    // Assert
+    expect(result, expected);
+  });
 }
