@@ -27,7 +27,6 @@ class TaskSyncImpl implements TaskSync {
     if (jsonSend["checksum"] != jsonResponse["checksum"]) {
       //todo check if the response Json is valid
       taskModel = TaskModel.fromJson(jsonResponse);
-
       taskLocalDataSource.postTask(taskModel);
     }
 

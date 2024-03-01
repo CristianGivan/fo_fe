@@ -7,7 +7,7 @@ import 'package:mockito/mockito.dart';
 
 import '../../../../../../fixtures/elements/entities_models.dart';
 import '../../../../../../fixtures/elements/fixture_reader_element.dart';
-import '../repositories/task_repository_impl_test.mocks.dart';
+import '../repositories/task_repositories_impl_test.mocks.dart';
 
 void main() {
   late MockTaskLocalDataSource mockTaskLocalDataSource;
@@ -36,7 +36,7 @@ void main() {
 
     // Mock behavior
 
-    test('syncTaskWithId returns local task if checksums are the same',
+    test('should returns local task when checksums are the same',
         () async {
       // Arrange
       final Map<String, dynamic> tJsonReceived =
@@ -58,7 +58,7 @@ void main() {
       verify(mockTaskRemoteDataSource.getUpdatedTaskAsJsonIfDifferent(any));
       expect(result, expected);
     });
-    test('syncTaskWithId returns updated task if checksums are different',
+    test('should returns updated task when checksums are different',
         () async {
       // Arrange
 
@@ -84,8 +84,35 @@ void main() {
       verify(
           mockTaskRemoteDataSource.getUpdatedTaskAsJsonIfDifferent(tSendJson));
       verify(mockTaskLocalDataSource.postTask(tReceivedTask));
-      verifyNever(mockTaskLocalDataSource.postTask(getTaskModelTestOffline()));
       expect(result, expected);
+    });
+
+    test('should update the local task when checksums are different',
+        () async {
+      // Arrange
+
+      final Map<String, dynamic> tJsonReceived =
+          json.decode(fixture('task_online.json'));
+
+      when(mockTaskLocalDataSource.getTaskById(any))
+          .thenAnswer((_) => Future.value(getTaskModelTestOffline()));
+
+      when(mockTaskRemoteDataSource.getUpdatedTaskAsJsonIfDifferent(any))
+          .thenAnswer((_) => Future.value(tJsonReceived));
+
+      final tSendJson = getTaskModelTestOffline().sendJsonToCheckIfIsUpdated();
+      final tReceivedTask = TaskModel.fromJson(tJsonReceived);
+
+
+      // Act
+      await syncTaskImpl.syncTaskWithId(tId);
+
+      // Assert
+      verify(mockTaskLocalDataSource.getTaskById(tId));
+      verify(
+          mockTaskRemoteDataSource.getUpdatedTaskAsJsonIfDifferent(tSendJson));
+      verify(mockTaskLocalDataSource.postTask(tReceivedTask));
+      verifyNever(mockTaskLocalDataSource.postTask(getTaskModelTestOffline()));
     });
   });
 }
