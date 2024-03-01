@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fo_fe/features/organizer/elements/task/data/datasources/task_sync.dart';
+import 'package:fo_fe/features/organizer/elements/task/task_lib.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../../../../fixtures/elements/entities_models.dart';
@@ -70,6 +71,9 @@ void main() {
       when(mockTaskRemoteDataSource.getUpdatedTaskAsJsonIfDifferent(any))
           .thenAnswer((_) => Future.value(tJsonReceived));
 
+      final tSendJson = getTaskModelTestOffline().sendJsonToCheckIfIsUpdated();
+      final tReceivedTask = TaskModel.fromJson(tJsonReceived);
+
       final expected = tTaskModelOnline;
 
       // Act
@@ -77,8 +81,10 @@ void main() {
 
       // Assert
       verify(mockTaskLocalDataSource.getTaskById(tId));
-      // verify(mockTaskRemoteDataSource.getUpdatedTaskAsJsonIfDifferent(any));
-      // verify(mockTaskRemoteDataSource.getTaskById(any));
+      verify(
+          mockTaskRemoteDataSource.getUpdatedTaskAsJsonIfDifferent(tSendJson));
+      verify(mockTaskLocalDataSource.postTask(tReceivedTask));
+      verifyNever(mockTaskLocalDataSource.postTask(getTaskModelTestOffline()));
       expect(result, expected);
     });
   });
