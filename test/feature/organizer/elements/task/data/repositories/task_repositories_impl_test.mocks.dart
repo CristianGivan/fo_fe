@@ -5,7 +5,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i5;
 
-import 'package:fo_fe/core/platform/network_info.dart' as _i4;
+import 'package:fo_fe/core/network/network_info.dart' as _i4;
 import 'package:fo_fe/features/organizer/elements/tag/tag_lib.dart' as _i11;
 import 'package:fo_fe/features/organizer/elements/task/data/datasources/task_local_data_source.dart'
     as _i6;
@@ -242,11 +242,11 @@ class MockTaskRemoteDataSource extends _i1.Mock
       ) as _i5.Future<_i2.TaskModel>);
 
   @override
-  _i5.Future<Map<String, dynamic>> getUpdatedTaskAsJsonIfDifferent(
+  _i5.Future<Map<String, dynamic>> getUpdatedTaskIfDifferent(
           Map<String, dynamic>? json) =>
       (super.noSuchMethod(
         Invocation.method(
-          #getUpdatedTaskAsJsonIfDifferent,
+          #getUpdatedTaskIfDifferent,
           [json],
         ),
         returnValue:

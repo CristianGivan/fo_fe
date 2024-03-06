@@ -1,3 +1,11 @@
-class ServerException implements Exception {}
+class ServerException implements Exception {
+  final String message;
 
-class LocalException implements Exception {}
+  ServerException(this.message);
+
+}
+
+class LocalException implements Exception {
+  final String message;
+  LocalException(this.message);
+}

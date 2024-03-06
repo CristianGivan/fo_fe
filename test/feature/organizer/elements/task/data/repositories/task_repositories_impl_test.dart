@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fo_fe/core/error/exceptions.dart';
 import 'package:fo_fe/core/error/failures.dart';
-import 'package:fo_fe/core/platform/network_info.dart';
+import 'package:fo_fe/core/network/network_info.dart';
 import 'package:fo_fe/features/organizer/elements/task/data/datasources/task_local_data_source.dart';
 import 'package:fo_fe/features/organizer/elements/task/data/datasources/task_remote_data_source.dart';
 import 'package:fo_fe/features/organizer/elements/task/data/datasources/task_sync.dart';
@@ -37,6 +37,15 @@ void main() {
     );
   });
 
+  // void runTestOnline(Function body) {
+  //   group('device is online', () {
+  //     setUp(() {
+  //       when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
+  //     });
+  //     body();
+  //   });
+  // }
+
   group('getTask', () {
     const tId = 1;
     final tTaskModelOnline = getTaskModelTestOnline();
@@ -56,7 +65,6 @@ void main() {
     group('device is online', () {
       setUp(() {
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
-
       });
 
       test('should return sync task entity when device is online', () async {
@@ -74,10 +82,11 @@ void main() {
         expect(result, expected);
       });
 
-      test('should return server failure when connection is unsuccessful', () async {
+      test('should return server failure when connection is unsuccessful',
+          () async {
         // Arrange
-        when(mockSyncTask.syncTaskWithId(any))
-            .thenThrow(ServerException());
+        when(mockSyncTask.syncTaskWithId(any)).thenThrow(ServerException(
+            "the task was not find on server or we have a server err"));
 
         final expected = Left(ServerFailure());
 
@@ -92,7 +101,6 @@ void main() {
     group('device is offline', () {
       setUp(() {
         when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
-
       });
 
       test('should return local task entity when device is offline', () async {
@@ -110,12 +118,14 @@ void main() {
         expect(result, expected);
       });
 
-      test('should return local failure when device is offline', () async {
+      test(
+          'should return local failure when device is offline and local task is empty',
+          () async {
         // Arrange
         when(mockTaskLocalDataSource.getTaskById(any))
-            .thenAnswer((_) async => tTaskModelOffline);
+            .thenAnswer((_) async => Future(TaskModel.empty));
 
-        final expected = Right(tTaskModelOffline);
+        final expected = Left(LocalFailure());
 
         // Act
         final result = await repositoryImpl.getTaskById(tId);
