@@ -22,7 +22,7 @@ class TaskSyncImpl implements TaskSync {
     taskModel = await taskLocalDataSource.getTaskById(id);
     Map<String, dynamic> jsonSend = taskModel.sendJsonToCheckIfIsUpdated();
     Map<String, dynamic> jsonResponse =
-        await taskRemoteDataSource.getUpdatedTaskAsJsonIfDifferent(jsonSend);
+        await taskRemoteDataSource.getUpdatedTaskIfDifferent(jsonSend);
 
     if (jsonSend["checksum"] != jsonResponse["checksum"]) {
       //todo check if the response Json is valid

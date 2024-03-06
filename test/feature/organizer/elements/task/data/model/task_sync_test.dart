@@ -36,8 +36,7 @@ void main() {
 
     // Mock behavior
 
-    test('should returns local task when checksums are the same',
-        () async {
+    test('should returns local task when checksums are the same', () async {
       // Arrange
       final Map<String, dynamic> tJsonReceived =
           json.decode(fixture('task_no_update.json'));
@@ -45,7 +44,7 @@ void main() {
       when(mockTaskLocalDataSource.getTaskById(any))
           .thenAnswer((_) => Future.value(getTaskModelTestOffline()));
 
-      when(mockTaskRemoteDataSource.getUpdatedTaskAsJsonIfDifferent(any))
+      when(mockTaskRemoteDataSource.getUpdatedTaskIfDifferent(any))
           .thenAnswer((_) => Future.value(tJsonReceived));
 
       final expected = tTaskModelOffline;
@@ -55,11 +54,10 @@ void main() {
 
       // Assert
       verify(mockTaskLocalDataSource.getTaskById(tId));
-      verify(mockTaskRemoteDataSource.getUpdatedTaskAsJsonIfDifferent(any));
+      verify(mockTaskRemoteDataSource.getUpdatedTaskIfDifferent(any));
       expect(result, expected);
     });
-    test('should returns updated task when checksums are different',
-        () async {
+    test('should returns updated task when checksums are different', () async {
       // Arrange
 
       final Map<String, dynamic> tJsonReceived =
@@ -68,7 +66,7 @@ void main() {
       when(mockTaskLocalDataSource.getTaskById(any))
           .thenAnswer((_) => Future.value(getTaskModelTestOffline()));
 
-      when(mockTaskRemoteDataSource.getUpdatedTaskAsJsonIfDifferent(any))
+      when(mockTaskRemoteDataSource.getUpdatedTaskIfDifferent(any))
           .thenAnswer((_) => Future.value(tJsonReceived));
 
       final tSendJson = getTaskModelTestOffline().sendJsonToCheckIfIsUpdated();
@@ -81,14 +79,12 @@ void main() {
 
       // Assert
       verify(mockTaskLocalDataSource.getTaskById(tId));
-      verify(
-          mockTaskRemoteDataSource.getUpdatedTaskAsJsonIfDifferent(tSendJson));
+      verify(mockTaskRemoteDataSource.getUpdatedTaskIfDifferent(tSendJson));
       verify(mockTaskLocalDataSource.postTask(tReceivedTask));
       expect(result, expected);
     });
 
-    test('should update the local task when checksums are different',
-        () async {
+    test('should update the local task when checksums are different', () async {
       // Arrange
 
       final Map<String, dynamic> tJsonReceived =
@@ -97,20 +93,18 @@ void main() {
       when(mockTaskLocalDataSource.getTaskById(any))
           .thenAnswer((_) => Future.value(getTaskModelTestOffline()));
 
-      when(mockTaskRemoteDataSource.getUpdatedTaskAsJsonIfDifferent(any))
+      when(mockTaskRemoteDataSource.getUpdatedTaskIfDifferent(any))
           .thenAnswer((_) => Future.value(tJsonReceived));
 
       final tSendJson = getTaskModelTestOffline().sendJsonToCheckIfIsUpdated();
       final tReceivedTask = TaskModel.fromJson(tJsonReceived);
-
 
       // Act
       await syncTaskImpl.syncTaskWithId(tId);
 
       // Assert
       verify(mockTaskLocalDataSource.getTaskById(tId));
-      verify(
-          mockTaskRemoteDataSource.getUpdatedTaskAsJsonIfDifferent(tSendJson));
+      verify(mockTaskRemoteDataSource.getUpdatedTaskIfDifferent(tSendJson));
       verify(mockTaskLocalDataSource.postTask(tReceivedTask));
       verifyNever(mockTaskLocalDataSource.postTask(getTaskModelTestOffline()));
     });
