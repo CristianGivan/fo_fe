@@ -11,12 +11,12 @@ import '../datasources/task_sync.dart';
 
 class TaskRepositoryImpl implements TaskRepository {
   final TaskLocalDataSource taskLocalDataSource;
-  final TaskSync syncLocalData;
+  final TaskSync taskSync;
   final NetworkInfo networkInfo;
 
   TaskRepositoryImpl({
     required this.taskLocalDataSource,
-    required this.syncLocalData,
+    required this.taskSync,
     required this.networkInfo,
   });
 
@@ -31,18 +31,15 @@ class TaskRepositoryImpl implements TaskRepository {
     Either<Failure, TaskEntity> result;
     try {
       if (await networkInfo.isConnected) {
-        result = Right(await syncLocalData.syncTaskWithId(id));
+        result = Right(await taskSync.syncTaskWithId(id));
       } else {
         result = Right(await taskLocalDataSource.getTaskById(id));
       }
-      result.fold(
-        (failure) => result = Left(failure), // Keep the existing failure
-        (taskModel) { 
+      result.fold((failure) => result = Left(failure), (taskModel) {
         if (taskModel == TaskModel.empty()) {
-          result = Left(
-              LocalFailure()); // Replace with a Left containing LocalFailure
+          result = Left(LocalFailure());
         } else {
-          result = Right(taskModel); // Otherwise, keep it unchanged
+          result = Right(taskModel);
         }
       });
     } on ServerException catch (e) {

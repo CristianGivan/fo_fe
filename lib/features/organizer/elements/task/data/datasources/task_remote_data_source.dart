@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:fo_fe/core/error/exceptions.dart';
 import 'package:http/http.dart' as http;
 
 import '../../task_lib.dart';
@@ -27,7 +28,7 @@ class TaskRemoteDataSourceImpl implements TaskRemoteDataSource {
   };
   final serverUrl = 'https://fo.givanc.eu/';
 
-  TaskRemoteDataSourceImpl(this.httpClient);
+  TaskRemoteDataSourceImpl({required this.httpClient});
 
   @override
   Future<void> deleteTask(int id) {
@@ -37,13 +38,14 @@ class TaskRemoteDataSourceImpl implements TaskRemoteDataSource {
 
   @override
   Future<TaskModel> getTaskById(int id) async {
-    TaskModel taskModel;
     final url = Uri.parse('${serverUrl}task/getTaskById?taskId=$id');
 
     final response = await httpClient.get(url, headers: headers);
-    taskModel = TaskModel.fromJson(json.decode(response.body));
-    // print(taskModel);
-    return taskModel;
+    if (response.statusCode == 200) {
+      return TaskModel.fromJson(json.decode(response.body));
+    } else {
+      throw ServerException("Server exception");
+    }
   }
 
   @override

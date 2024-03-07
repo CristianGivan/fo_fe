@@ -32,7 +32,7 @@ void main() {
 
     repositoryImpl = TaskRepositoryImpl(
       taskLocalDataSource: mockTaskLocalDataSource,
-      syncLocalData: mockSyncTask,
+      taskSync: mockSyncTask,
       networkInfo: mockNetworkInfo,
     );
   });

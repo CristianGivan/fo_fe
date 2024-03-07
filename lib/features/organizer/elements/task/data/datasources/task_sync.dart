@@ -10,10 +10,10 @@ class TaskSyncImpl implements TaskSync {
   TaskLocalDataSource taskLocalDataSource;
   TaskRemoteDataSource taskRemoteDataSource;
 
-  TaskSyncImpl(
-    this.taskLocalDataSource,
-    this.taskRemoteDataSource,
-  );
+  TaskSyncImpl({
+    required this.taskLocalDataSource,
+    required this.taskRemoteDataSource,
+  });
 
   @override
   Future<TaskModel> syncTaskWithId(int id) async {

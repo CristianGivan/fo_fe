@@ -9,3 +9,29 @@ abstract class TaskLocalDataSource {
 
   Future<void> deleteTask(int id);
 }
+
+class TaskLocalDataSourceImpl implements TaskLocalDataSource {
+  @override
+  Future<void> deleteTask(int id) {
+    // TODO: implement deleteTask
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<TaskModel> getTaskById(int id) {
+    // TODO: implement getTaskById
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<TaskModel> postTask(TaskModel task) {
+    // TODO: implement postTask
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<TaskModel> putTask(TaskModel task) {
+    // TODO: implement putTask
+    throw UnimplementedError();
+  }
+}

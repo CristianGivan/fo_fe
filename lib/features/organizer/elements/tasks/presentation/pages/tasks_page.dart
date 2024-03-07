@@ -16,7 +16,7 @@ class _TasksPageState extends State<TasksPage> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          TaskBloc()..add(GetTaskListByTasksId(widget.tasks!.id)),
+          TaskBlocOld()..add(GetTaskListByTasksId(widget.tasks!.id)),
       child: Scaffold(
         key: UniqueKey(),
         appBar: AppBar(
@@ -24,13 +24,13 @@ class _TasksPageState extends State<TasksPage> {
         ),
         body: Padding(
           padding: const EdgeInsets.all(10.0),
-          child: BlocBuilder<TaskBloc, TaskState>(
+          child: BlocBuilder<TaskBlocOld, TaskState>(
             builder: (context, state) {
-              if (state.status == TaskBlocStatus.initial) {
+              if (state.status == TaskBlocStatusOld.initial) {
                 return const Center(child: CircularProgressIndicator());
-              } else if (state.status == TaskBlocStatus.loading) {
+              } else if (state.status == TaskBlocStatusOld.loading) {
                 return const Center(child: CircularProgressIndicator());
-              } else if (state.status == TaskBlocStatus.success) {
+              } else if (state.status == TaskBlocStatusOld.success) {
                 return ListView.builder(
                   shrinkWrap: true,
                   itemCount: state.taskList.length,

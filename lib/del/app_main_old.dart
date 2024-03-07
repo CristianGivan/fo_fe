@@ -4,10 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../app_view.dart';
 
-class AppMain extends StatelessWidget {
+class AppMainOld extends StatelessWidget {
   final UserRepository userRepository;
 
-  const AppMain(this.userRepository, {super.key});
+  const AppMainOld(this.userRepository, {super.key});
 
   @override
   Widget build(BuildContext context) {

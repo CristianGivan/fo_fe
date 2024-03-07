@@ -18,8 +18,8 @@ void main() {
     mockTaskLocalDataSource = MockTaskLocalDataSource();
     mockTaskRemoteDataSource = MockTaskRemoteDataSource();
     syncTaskImpl = TaskSyncImpl(
-      mockTaskLocalDataSource,
-      mockTaskRemoteDataSource,
+      taskLocalDataSource: mockTaskLocalDataSource,
+      taskRemoteDataSource: mockTaskRemoteDataSource,
     );
   });
 

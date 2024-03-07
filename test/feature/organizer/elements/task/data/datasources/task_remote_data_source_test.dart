@@ -23,8 +23,18 @@ void main() {
 
   setUp(() {
     mockHttpClient = MockClient();
-    taskRemoteDataSource = TaskRemoteDataSourceImpl(mockHttpClient);
+    taskRemoteDataSource = TaskRemoteDataSourceImpl(httpClient: mockHttpClient);
   });
+
+  void setUpMockHttpClientSuccess200() {
+    when(mockHttpClient.get(any, headers: anyNamed('headers'))).thenAnswer(
+        (_) async => http.Response(fixture('task_online.json'), 200));
+  }
+
+  void setUpMockHttpClientFailure404() {
+    when(mockHttpClient.get(any, headers: anyNamed('headers')))
+        .thenAnswer((_) async => http.Response("Something went wrong", 404));
+  }
 
   group('GetTaskById', () {
     int tId = 1;
@@ -35,9 +45,7 @@ void main() {
 
     test('should perform a GET request on URL with headers', () async {
       // Arrange
-
-      when(mockHttpClient.get(any, headers: anyNamed('headers'))).thenAnswer(
-          (_) async => http.Response(fixture('task_online.json'), 200));
+      setUpMockHttpClientSuccess200();
 
       // Act
       taskRemoteDataSource.getTaskById(tId);
@@ -50,8 +58,7 @@ void main() {
         'should return the correct test model when response code is 200(success)',
         () async {
       // Arrange
-      when(mockHttpClient.get(any, headers: anyNamed('headers'))).thenAnswer(
-          (_) async => http.Response(fixture('task_online.json'), 200));
+      setUpMockHttpClientSuccess200();
       final expected = tTaskModel;
 
       // Act
@@ -59,6 +66,12 @@ void main() {
 
       // Assert
       expect(result, equals(expected));
+    });
+    test("Should throw server exception when the response code is 404 or other",
+        () async {
+      setUpMockHttpClientFailure404();
+
+      expect(taskRemoteDataSource.getTaskById(tId), throwsException);
     });
   });
 }

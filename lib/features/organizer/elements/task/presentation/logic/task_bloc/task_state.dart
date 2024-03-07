@@ -1,31 +1,42 @@
 part of '../../../task_lib.dart';
 
-enum TaskBlocStatus { initial, loading, success, error }
+abstract class TaskBlocState extends Equatable {
+  const TaskBlocState();
+}
 
-final class TaskState extends Equatable {
-  const TaskState({
-    this.status = TaskBlocStatus.initial,
-    this.taskList = const <TaskEntity>[],
-  });
+class TaskInitialState extends TaskBlocState {
+  @override
+  List<Object> get props => [];
+}
 
-  final TaskBlocStatus status;
-  final List<TaskEntity> taskList;
+class TaskLoadingState extends TaskBlocState {
+  @override
+  List<Object> get props => [];
+}
 
-  TaskState copyWith({
-    TaskBlocStatus? status,
-    List<TaskEntity>? taskList,
-  }) {
-    return TaskState(
-      status: status ?? this.status,
-      taskList: taskList ?? this.taskList,
-    );
-  }
+class TaskLoadedState extends TaskBlocState {
+  final TaskEntity taskEntity;
+
+  const TaskLoadedState(this.taskEntity);
 
   @override
-  String toString() {
-    return '''Task List { status: $status, task list length: ${taskList.length} }''';
-  }
+  List<Object> get props => [taskEntity];
+}
+
+class TaskListLoadedState extends TaskBlocState {
+  final List<TaskEntity> taskEntityList;
+
+  const TaskListLoadedState(this.taskEntityList);
 
   @override
-  List<Object> get props => [status, taskList];
+  List<Object> get props => [taskEntityList];
+}
+
+class TaskErrorState extends TaskBlocState {
+  final String message;
+
+  const TaskErrorState(this.message);
+
+  @override
+  List<Object> get props => [message];
 }
