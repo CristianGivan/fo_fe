@@ -26,7 +26,8 @@ class OrganizerAppBranch {
           GoRoute(
               name: OrganizerRouterNames.organizerTasksRoute,
               path: OrganizerRouterNames.tasksRouteName,
-              builder: (context, state) => const TasksHome(),
+              builder: (context, state) => const TasksView(),
+              //todo cg: TasksHome(),
               routes: [
                 GoRoute(
                   name: OrganizerRouterNames.organizerTasksAddTasksRoute,

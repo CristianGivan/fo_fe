@@ -1,12 +1,9 @@
-import 'package:data_connection_checker_nulls/data_connection_checker_nulls.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fo_fe/core/network/network_info.dart';
-import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'network_info_test.mocks.dart';
+import '../../helpers/test_helper.mocks.dart';
 
-@GenerateNiceMocks([MockSpec<DataConnectionChecker>()])
 void main() {
   late NetworkInfoImpl networkInfo;
   late MockDataConnectionChecker mockDataConnectionChecker;

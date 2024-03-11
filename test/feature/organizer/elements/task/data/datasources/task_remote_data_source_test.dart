@@ -4,13 +4,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:fo_fe/features/organizer/elements/task/data/datasources/task_remote_data_source.dart';
 import 'package:fo_fe/features/organizer/elements/task/task_lib.dart';
 import 'package:http/http.dart' as http;
-import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../../../../../fixtures/elements/fixture_reader_element.dart';
-import 'task_remote_data_source_test.mocks.dart';
+import '../../../../../../helpers/fixtures/elements/fixture_reader_element.dart';
+import '../../../../../../helpers/test_helper.mocks.dart';
 
-@GenerateNiceMocks([MockSpec<http.Client>()])
 void main() {
   late TaskRemoteDataSourceImpl taskRemoteDataSource;
   late MockClient mockHttpClient;

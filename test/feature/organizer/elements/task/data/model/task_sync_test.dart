@@ -5,9 +5,9 @@ import 'package:fo_fe/features/organizer/elements/task/data/datasources/task_syn
 import 'package:fo_fe/features/organizer/elements/task/task_lib.dart';
 import 'package:mockito/mockito.dart';
 
-import '../../../../../../fixtures/elements/entities_models.dart';
-import '../../../../../../fixtures/elements/fixture_reader_element.dart';
-import '../repositories/task_repositories_impl_test.mocks.dart';
+import '../../../../../../helpers/fixtures/elements/entities_models.dart';
+import '../../../../../../helpers/fixtures/elements/fixture_reader_element.dart';
+import '../../../../../../helpers/test_helper.mocks.dart';
 
 void main() {
   late MockTaskLocalDataSource mockTaskLocalDataSource;

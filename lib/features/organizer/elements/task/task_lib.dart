@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fo_fe/features/organizer/elements/task/domain/entities/user.dart';
 import 'package:objectbox/objectbox.dart';
 
+import '../../../../core/const/error_message.dart';
 import '../../../../core/util/input_converter.dart';
 import '../../../../main.dart';
 import '../../organizer.dart';

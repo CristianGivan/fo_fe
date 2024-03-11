@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fo_fe/features/organizer/elements/task/task_lib.dart';
 
-import '../../../../../../fixtures/elements/entities_models.dart';
-import '../../../../../../fixtures/elements/fixture_reader_element.dart';
+import '../../../../../../helpers/fixtures/elements/entities_models.dart';
+import '../../../../../../helpers/fixtures/elements/fixture_reader_element.dart';
 
 void main() {
   final tTaskModel = getTaskModelTestOnline();
