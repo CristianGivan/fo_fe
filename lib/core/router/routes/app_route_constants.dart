@@ -1,7 +1,10 @@
+import 'package:fo_fe/features/organizer/organizer.dart';
+
 class RouteCoreConstants {
   // static const String homeRoute = '/';
+
   static const String homeRoute =
-      '/organizer/tasks'; // todo cg //for developing one route
+      OrganizerRouterNames.organizerTasksRoute; // todo cg //for developing
   static const String homeRouteName = 'home';
 
   //settings

@@ -3,6 +3,7 @@ library task_lib;
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/features/organizer/elements/task/domain/entities/user.dart';
 import 'package:objectbox/objectbox.dart';
 

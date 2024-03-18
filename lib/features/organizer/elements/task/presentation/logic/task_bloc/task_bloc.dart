@@ -10,17 +10,30 @@ class TaskBloc extends Bloc<TaskEvent, TaskBlocState> {
   }) : super(TaskInitialState()) {
     on<GetTaskByIdEvent>((event, emit) async {
       emit(TaskLoadingState());
-      final idEathre =
+      final idEither =
           inputConverter.stringToUnasingInteger(event.numberString);
-      idEathre.fold(
-          (failure) => emit(const TaskErrorState(invalidInputFailureMessage)),
-          (id) async {
-        final taskEntityEither = (await getTaskById(Params(id: id)));
-        taskEntityEither.fold(
-          (failure) => UnimplementedError(),
-          (taskEntity) => UnimplementedError(),
-        );
-      });
+      idEither.fold(
+        (failure) => emit(const TaskErrorState(invalidInputFailureMessage)),
+        (id) => _fetchTask(id, emit),
+      );
     });
+  }
+
+  void _fetchTask(int id, Emitter<TaskBlocState> emit) async {
+    final taskEntityEither = await getTaskById(Params(id: id));
+
+    taskEntityEither.fold(
+      (failure) => emit(TaskErrorState(_getFailureMessage(failure))),
+      (taskEntity) => emit(TaskLoadedState(taskEntity)),
+    );
+  }
+
+  String _getFailureMessage(Failure failure) {
+    switch (failure.runtimeType) {
+      case ServerFailure:
+        return serverFailureMessage;
+      default:
+        return localFailureMessage;
+    }
   }
 }

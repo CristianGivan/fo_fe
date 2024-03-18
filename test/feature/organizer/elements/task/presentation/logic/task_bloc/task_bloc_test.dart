@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:fo_fe/core/const/error_message.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/util/input_converter.dart';
+import 'package:fo_fe/features/organizer/elements/task/domain/usecases/get_task_by_id.dart';
 import 'package:fo_fe/features/organizer/elements/task/task_lib.dart';
 import 'package:mockito/mockito.dart';
 
@@ -24,12 +25,24 @@ void main() {
         getTaskById: mockGetTaskById, inputConverter: InputConverter());
   });
 
-  void setUpFailureForValidInput() {
-    when(mockInputConverter.stringToUnasingInteger("abc"))
-        .thenReturn(Left(InvalidInputFailure()));
-  }
-
   group("TaskBLoc", () {
+    final tTask = TaskEntity.empty();
+
+    Future<void> setUpMockGetTaskByIdForValidInput() async {
+      when(mockGetTaskById(Params(id: 1)))
+          .thenAnswer((_) => Future.value(Right(tTask)));
+    }
+
+    Future<void> setUpMockGetTaskByIdForServerFailure() async {
+      when(mockGetTaskById(Params(id: 1)))
+          .thenAnswer((_) => Future.value(Left(ServerFailure())));
+    }
+
+    Future<void> setUpMockGetTaskByIdForLocalFailure() async {
+      when(mockGetTaskById(Params(id: 1)))
+          .thenAnswer((_) => Future.value(Left(LocalFailure())));
+    }
+
     test("Initial state should be TaskInitialState", () {
       expect(blocWithMock.state, equals(TaskInitialState()));
     });
@@ -58,17 +71,30 @@ void main() {
       ],
     );
 
-    // blocTest(
-    //   'Should throw an exception when input id negative number',
-    //   build: () => bloc,
-    //   act: (bloc) {
-    //     setUpFailureForInvalidInput();
-    //     bloc.add(const GetTaskByIdEvent(numberString: "1"));
-    //   },
-    //   expect: () => <TaskBlocState>[
-    //     TaskLoadingState(),
-    //     const TaskLoadedState(invalidInputFailureMessage),
-    //   ],
-    // );
+    blocTest(
+      'Should emit the [TaskLoadingState,TaskErrorState] when a server failure occurs',
+      build: () => bloc,
+      act: (bloc) {
+        setUpMockGetTaskByIdForServerFailure();
+        bloc.add(const GetTaskByIdEvent(numberString: "1"));
+      },
+      expect: () => <TaskBlocState>[
+        TaskLoadingState(),
+        const TaskErrorState(serverFailureMessage),
+      ],
+    );
+
+    blocTest(
+      'Should emit the [TaskLoadingState,TaskErrorState] when a local failure occurs',
+      build: () => bloc,
+      act: (bloc) {
+        setUpMockGetTaskByIdForLocalFailure();
+        bloc.add(const GetTaskByIdEvent(numberString: "1"));
+      },
+      expect: () => <TaskBlocState>[
+        TaskLoadingState(),
+        const TaskErrorState(localFailureMessage),
+      ],
+    );
   });
 }

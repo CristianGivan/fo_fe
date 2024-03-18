@@ -42,7 +42,7 @@ void initFeature() {
   sl.registerLazySingleton<TaskRemoteDataSource>(() => TaskRemoteDataSourceImpl(
         httpClient: sl(),
       ));
-  sl.registerLazySingleton(() => TaskSyncImpl(
+  sl.registerLazySingleton<TaskSync>(() => TaskSyncImpl(
         taskLocalDataSource: sl(),
         taskRemoteDataSource: sl(),
       ));

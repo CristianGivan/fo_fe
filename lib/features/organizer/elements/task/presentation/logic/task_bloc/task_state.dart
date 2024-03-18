@@ -2,6 +2,10 @@ part of '../../../task_lib.dart';
 
 abstract class TaskBlocState extends Equatable {
   const TaskBlocState();
+
+  @override
+  List<Object> get props => [];
+
 }
 
 class TaskInitialState extends TaskBlocState {
