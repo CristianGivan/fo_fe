@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:fo_fe/core/const/error_message.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/util/input_converter.dart';
-import 'package:fo_fe/features/organizer/elements/task/domain/usecases/get_task_by_id.dart';
+import 'package:fo_fe/core/util/elements/params.dart';
 import 'package:fo_fe/features/organizer/elements/task/task_lib.dart';
 import 'package:mockito/mockito.dart';
 
@@ -29,17 +29,17 @@ void main() {
     final tTask = TaskEntity.empty();
 
     Future<void> setUpMockGetTaskByIdForValidInput() async {
-      when(mockGetTaskById(Params(id: 1)))
+      when(mockGetTaskById(Params.withSingleId(1)))
           .thenAnswer((_) => Future.value(Right(tTask)));
     }
 
     Future<void> setUpMockGetTaskByIdForServerFailure() async {
-      when(mockGetTaskById(Params(id: 1)))
+      when(mockGetTaskById(Params.withSingleId(1)))
           .thenAnswer((_) => Future.value(Left(ServerFailure())));
     }
 
     Future<void> setUpMockGetTaskByIdForLocalFailure() async {
-      when(mockGetTaskById(Params(id: 1)))
+      when(mockGetTaskById(Params.withSingleId(1)))
           .thenAnswer((_) => Future.value(Left(LocalFailure())));
     }
 

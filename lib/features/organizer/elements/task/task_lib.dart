@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/features/organizer/elements/task/domain/entities/user.dart';
+import 'package:fo_fe/core/util/elements/params.dart';
 import 'package:objectbox/objectbox.dart';
 
 import '../../../../core/const/error_message.dart';

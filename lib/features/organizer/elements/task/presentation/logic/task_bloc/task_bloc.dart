@@ -20,7 +20,7 @@ class TaskBloc extends Bloc<TaskEvent, TaskBlocState> {
   }
 
   void _fetchTask(int id, Emitter<TaskBlocState> emit) async {
-    final taskEntityEither = await getTaskById(Params(id: id));
+    final taskEntityEither = await getTaskById(Params.withSingleId(id));
 
     taskEntityEither.fold(
       (failure) => emit(TaskErrorState(_getFailureMessage(failure))),

@@ -73,7 +73,7 @@ class TaskModel extends TaskEntity {
     };
   }
 
-    Map<String, dynamic> sendJsonToCheckIfIsUpdated() {
+  Map<String, dynamic> sendJsonToCheckIfIsUpdated() {
     return {
       "remoteTaskId": remoteTaskId,
       "checksum": checksum,
@@ -85,9 +85,9 @@ class TaskModel extends TaskEntity {
       0,
       "",
       false,
-      DateTime.now(),
-      DateTime.now(),
-      DateTime.now(),
+      DateTime.utc(1970, 1, 1),
+      DateTime.utc(1970, 1, 1),
+      DateTime.utc(1970, 1, 1),
       0,
       0,
       0,
@@ -100,8 +100,8 @@ class TaskModel extends TaskEntity {
       const [],
       const [],
       0,
-      DateTime.now(),
-      DateTime.now(),
+      DateTime.utc(1970, 1, 1),
+      DateTime.utc(1970, 1, 1),
       0,
       0,
       "",

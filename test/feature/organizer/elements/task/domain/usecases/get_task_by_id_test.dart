@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fo_fe/features/organizer/elements/task/domain/usecases/get_task_by_id.dart';
+import 'package:fo_fe/core/util/elements/params.dart';
 import 'package:fo_fe/features/organizer/elements/task/task_lib.dart' as task;
 import 'package:mockito/mockito.dart';
 
@@ -25,7 +26,7 @@ void main() {
           .thenAnswer((_) async => Right(tTask));
 
       // Act
-      final result = await usecase(Params(id: tId));
+      final result = await usecase(Params.withSingleId(tId));
 
       // Assert
       expect(result, equals(Right(tTask)));

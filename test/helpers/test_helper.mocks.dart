@@ -30,6 +30,8 @@ import 'package:fo_fe/features/organizer/elements/task/domain/repositories/task_
     as _i7;
 import 'package:fo_fe/features/organizer/elements/task/domain/usecases/get_task_by_id.dart'
     as _i23;
+import 'package:fo_fe/core/util/elements/params.dart'
+    as _i24;
 import 'package:fo_fe/features/organizer/elements/task/task_lib.dart' as _i2;
 import 'package:fo_fe/features/organizer/organizer.dart' as _i16;
 import 'package:fo_fe/features/organizer/util/organizer_enums.dart' as _i14;
@@ -1529,7 +1531,7 @@ class MockGetTaskById extends _i1.Mock implements _i23.GetTaskById {
 
   @override
   _i9.Future<_i4.Either<_i19.Failure, _i2.TaskEntity>> call(
-          _i23.Params? params) =>
+          _i24.Params? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
