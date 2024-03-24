@@ -109,7 +109,7 @@ class _UpdateTaskPageState extends State<UpdateTaskPage> {
                   ),
                   onPressed: () {
                     if (inputController.text.isNotEmpty) {
-                      database.updateTaskFields(widget.task.id,
+                      database.updateTaskFields(widget.task.id ?? 0,
                           inputController.text, currentTags, widget.tasks);
 
                       Navigator.pop(context);

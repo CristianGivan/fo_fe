@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:fo_fe/features/organizer/elements/task/task_lib.dart';
+import 'package:fo_fe/features/organizer/items/task/task_lib.dart';
 
 import '../../../../../../core/error/failures.dart';
 

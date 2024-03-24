@@ -3,9 +3,9 @@ import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/error/exceptions.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/network/network_info.dart';
-import 'package:fo_fe/features/organizer/elements/task/data/datasources/task_local_data_source.dart';
-import 'package:fo_fe/features/organizer/elements/task/domain/repositories/task_repository.dart';
-import 'package:fo_fe/features/organizer/elements/task/task_lib.dart';
+import 'package:fo_fe/features/organizer/items/task/data/datasources/task_local_data_source.dart';
+import 'package:fo_fe/features/organizer/items/task/domain/repositories/task_repository.dart';
+import 'package:fo_fe/features/organizer/items/task/task_lib.dart';
 
 import '../datasources/task_sync.dart';
 

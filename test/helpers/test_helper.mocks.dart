@@ -13,26 +13,25 @@ import 'package:data_connection_checker_nulls/data_connection_checker_nulls.dart
 import 'package:fo_fe/core/error/failures.dart' as _i19;
 import 'package:fo_fe/core/network/network_info.dart' as _i8;
 import 'package:fo_fe/core/util/input_converter.dart' as _i22;
-import 'package:fo_fe/features/organizer/elements/tag/tag_lib.dart' as _i15;
-import 'package:fo_fe/features/organizer/elements/task/data/datasources/task_local_data_source.dart'
+import 'package:fo_fe/core/util/organizer/params.dart' as _i24;
+import 'package:fo_fe/features/organizer/items/tag/tag_lib.dart' as _i15;
+import 'package:fo_fe/features/organizer/items/task/data/datasources/task_local_data_source.dart'
     as _i10;
-import 'package:fo_fe/features/organizer/elements/task/data/datasources/task_remote_data_source.dart'
+import 'package:fo_fe/features/organizer/items/task/data/datasources/task_remote_data_source.dart'
     as _i11;
-import 'package:fo_fe/features/organizer/elements/task/data/datasources/task_sync.dart'
+import 'package:fo_fe/features/organizer/items/task/data/datasources/task_sync.dart'
     as _i12;
-import 'package:fo_fe/features/organizer/elements/task/domain/entities/topic.dart'
+import 'package:fo_fe/features/organizer/items/task/domain/entities/topic.dart'
     as _i18;
-import 'package:fo_fe/features/organizer/elements/task/domain/entities/user.dart'
+import 'package:fo_fe/features/organizer/items/task/domain/entities/user.dart'
     as _i3;
-import 'package:fo_fe/features/organizer/elements/task/domain/entities/work.dart'
+import 'package:fo_fe/features/organizer/items/task/domain/entities/work.dart'
     as _i17;
-import 'package:fo_fe/features/organizer/elements/task/domain/repositories/task_repository.dart'
+import 'package:fo_fe/features/organizer/items/task/domain/repositories/task_repository.dart'
     as _i7;
-import 'package:fo_fe/features/organizer/elements/task/domain/usecases/get_task_by_id.dart'
+import 'package:fo_fe/features/organizer/items/task/domain/usecases/get_task_by_id.dart'
     as _i23;
-import 'package:fo_fe/core/util/elements/params.dart'
-    as _i24;
-import 'package:fo_fe/features/organizer/elements/task/task_lib.dart' as _i2;
+import 'package:fo_fe/features/organizer/items/task/task_lib.dart' as _i2;
 import 'package:fo_fe/features/organizer/organizer.dart' as _i16;
 import 'package:fo_fe/features/organizer/util/organizer_enums.dart' as _i14;
 import 'package:http/http.dart' as _i6;

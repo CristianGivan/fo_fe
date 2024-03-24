@@ -49,7 +49,7 @@ class _TaskCardState extends State<TaskCard> {
         },
         child: BlocProvider(
           create: (context) =>
-              TagBloc()..add(GetTagListByTaskId(widget.task.id)),
+              TagBloc()..add(GetTagListByTaskId(widget.task.id ?? 0)),
           child: Container(
             height: 90,
             margin: const EdgeInsets.all(5),
@@ -87,7 +87,7 @@ class _TaskCardState extends State<TaskCard> {
                                 child: Container(
                                   alignment: Alignment.centerLeft,
                                   child: Text(
-                                    widget.task.subject,
+                                    widget.task.subject ?? "undefined",
                                     style: taskStatus!
                                         ? const TextStyle(
                                             fontSize: 20.0,
@@ -176,7 +176,7 @@ class _TaskCardState extends State<TaskCard> {
 
   void onSelected(BuildContext context, String? item, TaskEntity task) {
     if (item == "Delete") {
-      database.deleteTask(task.id);
+      database.deleteTask(task.id ?? 0);
       Navigator.pop(context);
       Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => TasksPage(tasks: widget.tasks)));

@@ -2,8 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fo_fe/core/error/exceptions.dart';
 import 'package:fo_fe/core/error/failures.dart';
-import 'package:fo_fe/features/organizer/elements/task/data/repositories/task_repositories_impl.dart';
-import 'package:fo_fe/features/organizer/elements/task/task_lib.dart';
+import 'package:fo_fe/features/organizer/items/task/data/repositories/task_repositories_impl.dart';
+import 'package:fo_fe/features/organizer/items/task/task_lib.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../../../../helpers/fixtures/elements/entities_models.dart';

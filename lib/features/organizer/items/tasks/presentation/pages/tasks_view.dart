@@ -1,7 +1,6 @@
-import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fo_fe/features/organizer/elements/task/task_lib.dart';
+import 'package:fo_fe/features/organizer/items/task/task_lib.dart';
 
 import '../../../../../../injection_container.dart';
 
@@ -31,15 +30,15 @@ class TasksView extends StatelessWidget {
               const SizedBox(height: 10),
               BlocBuilder<TaskBloc, TaskBlocState>(
                 builder: (context, state) {
-                  if (state is TaskErrorState){
+                  if (state is TaskErrorState) {
                     return const taskInit(text: "initializing task");
-                  }else if(state is TaskLoadedState){
+                  } else if (state is TaskLoadedState) {
                     return const taskInit(text: "Loading task");
-                  }else if(state is TaskLoadedState){
+                  } else if (state is TaskLoadedState) {
                     return taskText(taskEntity: state.taskEntity);
-                  }else if(state is TaskErrorState){
+                  } else if (state is TaskErrorState) {
                     return taskInit(text: state.message);
-                  }else{
+                  } else {
                     return const taskInit(text: "something went wrong");
                   }
 
@@ -81,6 +80,7 @@ class TasksView extends StatelessWidget {
 
 class taskInit extends StatelessWidget {
   final String text;
+
   const taskInit({
     required this.text,
     super.key,
@@ -93,10 +93,11 @@ class taskInit extends StatelessWidget {
       child: Text(text),
     );
   }
-
 }
-  class taskText extends StatelessWidget {
+
+class taskText extends StatelessWidget {
   final TaskEntity taskEntity;
+
   const taskText({
     required this.taskEntity,
     super.key,
@@ -106,7 +107,7 @@ class taskInit extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height / 1.5,
-      child: Text(taskEntity.checksum),
+      child: Text(taskEntity.checksum ?? ""),
     );
-  }}
-  
+  }
+}

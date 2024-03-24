@@ -1,15 +1,14 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:objectbox/objectbox.dart';
-import '../database.dart';
-import '../../../features/organizer/elements/task/task_lib.dart';
-import '../../../objectbox.g.dart';
 
-import '../../../features/organizer/elements/tag/tag_lib.dart';
-import '../../../features/organizer/elements/task/domain/entities/user.dart';
-import '../../../features/organizer/elements/tasks/tasks_lib.dart';
+import '../../../features/organizer/items/tag/tag_lib.dart';
+import '../../../features/organizer/items/task/domain/entities/user.dart';
+import '../../../features/organizer/items/task/task_lib.dart';
+import '../../../features/organizer/items/tasks/tasks_lib.dart';
 import '../../../features/organizer/util/organizer_enums.dart';
+import '../../../objectbox.g.dart';
+import '../database.dart';
 
 /// Provides access to the ObjectBox Store throughout the app.
 ///

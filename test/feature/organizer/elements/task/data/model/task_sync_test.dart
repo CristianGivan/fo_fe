@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:fo_fe/features/organizer/elements/task/data/datasources/task_sync.dart';
-import 'package:fo_fe/features/organizer/elements/task/task_lib.dart';
+import 'package:fo_fe/features/organizer/items/task/data/datasources/task_sync.dart';
+import 'package:fo_fe/features/organizer/items/task/task_lib.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../../../../helpers/fixtures/elements/entities_models.dart';

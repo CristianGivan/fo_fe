@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:fo_fe/features/organizer/elements/task/domain/usecases/get_task_by_id.dart';
-import 'package:fo_fe/core/util/elements/params.dart';
-import 'package:fo_fe/features/organizer/elements/task/task_lib.dart' as task;
+import 'package:fo_fe/core/util/organizer/params.dart';
+import 'package:fo_fe/features/organizer/items/task/domain/usecases/get_task_by_id.dart';
+import 'package:fo_fe/features/organizer/items/task/task_lib.dart' as task;
 import 'package:mockito/mockito.dart';
 
 import '../../../../../../helpers/test_helper.mocks.dart';

@@ -1,4 +1,4 @@
-import 'package:fo_fe/features/organizer/elements/task/task_lib.dart';
+import 'package:fo_fe/features/organizer/items/task/task_lib.dart';
 import 'package:fo_fe/features/organizer/util/organizer_enums.dart';
 
 TaskModel getTaskModelTestOnline() {

@@ -3,7 +3,7 @@ library tasks_lib;
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fo_fe/features/organizer/elements/tasks/presentation/pages/delete_menu.dart';
+import 'package:fo_fe/features/organizer/items/tasks/presentation/pages/delete_menu.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:objectbox/objectbox.dart';

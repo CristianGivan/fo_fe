@@ -1,6 +1,6 @@
-import 'package:fo_fe/features/organizer/elements/task/data/datasources/task_local_data_source.dart';
-import 'package:fo_fe/features/organizer/elements/task/data/datasources/task_remote_data_source.dart';
-import 'package:fo_fe/features/organizer/elements/task/task_lib.dart';
+import 'package:fo_fe/features/organizer/items/task/data/datasources/task_local_data_source.dart';
+import 'package:fo_fe/features/organizer/items/task/data/datasources/task_remote_data_source.dart';
+import 'package:fo_fe/features/organizer/items/task/task_lib.dart';
 
 abstract class TaskSync {
   Future<TaskModel> syncTaskWithId(int id);

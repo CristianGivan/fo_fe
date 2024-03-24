@@ -1,7 +1,7 @@
-== Elements
+== items
 
 === Repository
 //todo check if is done
-* the repository shall return a failure if 
+* the repository shall return a failure if
 ** the id is null
 ** the idSet is empty

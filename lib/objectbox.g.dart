@@ -15,9 +15,9 @@ import 'package:objectbox/internal.dart'
 import 'package:objectbox/objectbox.dart' as obx;
 import 'package:objectbox_flutter_libs/objectbox_flutter_libs.dart';
 
-import 'features/organizer/elements/tag/tag_lib.dart';
-import 'features/organizer/elements/task/task_lib.dart';
-import 'features/organizer/elements/tasks/tasks_lib.dart';
+import 'features/organizer/items/tag/tag_lib.dart';
+import 'features/organizer/items/task/task_lib.dart';
+import 'features/organizer/items/tasks/tasks_lib.dart';
 
 export 'package:objectbox/objectbox.dart'; // so that callers only have to import this file
 
