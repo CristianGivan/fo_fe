@@ -1,6 +1,7 @@
 part of 'organizer_item.dart';
 
 class OrganizerItemEntity extends Equatable {
+  // todo private?
   final int? id;
   final String? subject;
   final DateTime? createdDate;

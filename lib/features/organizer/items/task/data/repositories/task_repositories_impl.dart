@@ -3,6 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/error/exceptions.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/network/network_info.dart';
+import 'package:fo_fe/core/util/organizer/id_set.dart';
 import 'package:fo_fe/features/organizer/items/task/data/datasources/task_local_data_source.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/repositories/task_repository.dart';
 import 'package:fo_fe/features/organizer/items/task/task_lib.dart';
@@ -58,6 +59,12 @@ class TaskRepositoryImpl implements TaskRepository {
   @override
   Future<Either<Failure, TaskEntity>> putTask(TaskEntity task) {
     // TODO: implement putTask
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, TaskEntity>> getTaskByIdSet(IdSet ids) {
+    // TODO: implement getTaskByIdSet
     throw UnimplementedError();
   }
 }

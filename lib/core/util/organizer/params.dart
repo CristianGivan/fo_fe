@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:fo_fe/core/util/organizer/id_set.dart';
 
 import 'filter_criteria.dart';
 import 'sorting_criteria.dart';
@@ -6,7 +7,7 @@ import 'sorting_criteria.dart';
 class Params extends Equatable {
   //both id and idSet are non-nullable because it should checked in repository
   final int id;
-  final Set<int> idSet;
+  final IdSet idSet;
   final FilterCriteria filterCriteria;
   final SortingCriteria sortingCriteria;
 
@@ -24,12 +25,12 @@ class Params extends Equatable {
   factory Params.withSingleId(int id) {
     return Params(
       id: id,
-      idSet: const <int>{},
+      idSet: IdSet.empty(),
     );
   }
 
   // Factory for multiple IDs
-  factory Params.withIdSet(Set<int> ids) {
+  factory Params.withIdSet(IdSet ids) {
     return Params(
         id: ids.first, //todo should be first or null?
         idSet: ids);
