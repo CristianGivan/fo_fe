@@ -1,7 +1,7 @@
 class IdSet {
-  final Set<int> _idSet;
+  final Set<int?> _idSet;
 
-  IdSet(Set<int> idSet) : _idSet = idSet;
+  IdSet(Set<int?> idSet) : _idSet = idSet;
 
   static IdSet empty() {
     return IdSet(<int>{});
@@ -23,16 +23,16 @@ class IdSet {
     return _idSet.length;
   }
 
-  int get first {
+  int? get first {
     return _idSet.first;
   }
 
-  Iterable<int> get ids {
+  Iterable<int?> get ids {
     return _idSet;
   }
 
 // todo nullable is ok?
-  bool any(int? id) {
+  bool contains(int? id) {
     return _idSet.any((element) => element == id);
   }
 

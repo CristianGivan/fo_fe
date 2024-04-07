@@ -1,13 +1,11 @@
-
-
 import 'package:equatable/equatable.dart';
 
-class User extends Equatable{
-  int id;
+class User extends Equatable {
+  final _id;
 
-  User(this.id);
+  const User({int id = 0}) : _id = id;
 
   @override
   // TODO: implement props
-  List<Object?> get props => [id];
+  List<Object?> get props => [_id];
 }

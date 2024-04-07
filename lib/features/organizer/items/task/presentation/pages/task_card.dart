@@ -36,7 +36,7 @@ class _TaskCardState extends State<TaskCard> {
     tagSet.addAll(database.getTagSetFromTask(widget.task));
 
     assignedString = tagSet.map((tag) => tag.tag).join(', ');
-    taskStatus = widget.task.status;
+    taskStatus = true; //todo delete
   }
 
   @override

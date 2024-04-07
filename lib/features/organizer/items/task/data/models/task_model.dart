@@ -2,7 +2,6 @@ part of '../../task_lib.dart';
 
 class TaskModel extends TaskEntity {
   TaskModel({
-    super.status,
     super.startDate,
     super.endDate,
     super.workingTime,
@@ -30,7 +29,6 @@ class TaskModel extends TaskEntity {
 // todo to be uodated
   factory TaskModel.fromJson(Map<String, dynamic> json) {
     return TaskModel(
-      status: json['taskStatus'] == 'COMPLETED',
       startDate:
           json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
       endDate: json['endDate'] != null ? DateTime.parse(json['endDate']) : null,
@@ -48,7 +46,7 @@ class TaskModel extends TaskEntity {
       createdDate: json['createdDate'] != null
           ? DateTime.parse(json['createdDate'])
           : null,
-      creator: User(0),
+      creator: const User(id: 0),
       //json['creator'] != null ? User.fromJson(json['creator']) : null, // Assuming User has a fromJson method
       userList: const [],
       //json['userList'] != null ? List<User>.from(json['userList'].map((x) => User.fromJson(x))) : null,
@@ -73,7 +71,7 @@ class TaskModel extends TaskEntity {
     return {
       "taskId": id,
       "task": subject,
-      "createdDate": createdDate?.toIso8601String(),
+      "createdDate": createdDate.toIso8601String(),
       "startDate": startDate?.toIso8601String(),
       "endDate": endDate?.toIso8601String(),
       "taskStatus":
@@ -97,9 +95,8 @@ class TaskModel extends TaskEntity {
 //todo check if is needed
   static TaskModel empty() {
     return TaskModel(
-      status: false,
-      startDate: DateTime.utc(1970, 1, 1),
-      endDate: DateTime.utc(1970, 1, 1),
+      startDate: INITIAL_EPOCH_DATE,
+      endDate: INITIAL_EPOCH_DATE,
       workingTime: 0,
       estimatedTime: 0,
       estimatedLeftTime: 0,
@@ -109,14 +106,14 @@ class TaskModel extends TaskEntity {
       topicList: [],
       id: 0,
       subject: "",
-      createdDate: DateTime.utc(1970, 1, 1),
-      creator: User(0),
+      createdDate: INITIAL_EPOCH_DATE,
+      creator: const User(id: 0),
       userList: [],
       tagList: [],
       reminderList: [],
       remoteTaskId: 0,
-      lastUpdate: DateTime.utc(1970, 1, 1),
-      lastViewDate: DateTime.utc(1970, 1, 1),
+      lastUpdate: INITIAL_EPOCH_DATE,
+      lastViewDate: INITIAL_EPOCH_DATE,
       remoteViews: 0,
       views: 0,
       checksum: "",
@@ -150,7 +147,6 @@ class TaskModel extends TaskEntity {
     String? checksum,
   }) {
     return TaskModel(
-      status: status ?? this.status,
       startDate: startDate ?? this.startDate,
       endDate: endDate ?? this.endDate,
       workingTime: workingTime ?? this.workingTime,

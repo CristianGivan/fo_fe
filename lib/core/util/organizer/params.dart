@@ -32,7 +32,7 @@ class Params extends Equatable {
   // Factory for multiple IDs
   factory Params.withIdSet(IdSet ids) {
     return Params(
-        id: ids.first, //todo should be first or null?
+        id: ids.first ?? 0, //todo should be first or null?
         idSet: ids);
   }
 }

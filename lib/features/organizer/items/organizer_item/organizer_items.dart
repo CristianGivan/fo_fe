@@ -4,45 +4,47 @@ import 'organizer_item.dart';
 
 class OrganizerItems {
   // todo !!! should return list of OrganizerItems or an OrganizerItem?
-  // todo !!!organizerItems should be private?
-  final List<OrganizerItemEntity> organizerItems;
 
-  OrganizerItems({required this.organizerItems});
+  // is not final because I need to change it
+  List<OrganizerItemEntity> _organizerItems;
+
+  OrganizerItems({required List<OrganizerItemEntity> organizerItems})
+      : _organizerItems = organizerItems;
 
   void add(OrganizerItemEntity organizerItem) {
-    organizerItems.add(organizerItem);
+    _organizerItems.add(organizerItem);
   }
 
   void addAll(Iterable<OrganizerItemEntity> elements) {
-    organizerItems.addAll(elements);
+    _organizerItems.addAll(elements);
   }
 
   void remove(OrganizerItemEntity organizerItem) {
-    organizerItems.remove(organizerItem);
+    _organizerItems.remove(organizerItem);
   }
 
   void removeAt(int index) {
-    organizerItems.removeAt(index);
+    _organizerItems.removeAt(index);
   }
 
   void clear() {
-    organizerItems.clear();
+    _organizerItems.clear();
   }
 
   OrganizerItemEntity get(int index) {
-    return organizerItems[index];
+    return _organizerItems[index];
   }
 
   int size() {
-    return organizerItems.length;
+    return _organizerItems.length;
   }
 
   int indexOf(OrganizerItemEntity organizerItem) {
-    return organizerItems.indexOf(organizerItem);
+    return _organizerItems.indexOf(organizerItem);
   }
 
   bool contains(OrganizerItemEntity organizerItem) {
-    return organizerItems.contains(organizerItem);
+    return _organizerItems.contains(organizerItem);
   }
 
   ///bool hasOverdueTasks = organizerItemList.any((task) => task.endDate.isBefore(DateTime.now()));
@@ -50,7 +52,7 @@ class OrganizerItems {
   ///  print("You have overdue tasks!");
   ///}
   bool any(bool Function(OrganizerItemEntity element) test) {
-    return organizerItems.any(test);
+    return _organizerItems.any(test);
   }
 
   ///bool allTasksHaveValidPriority = organizerItemList.every((task) => task.priorityLevel >= 1 && task.priorityLevel <= 5);
@@ -58,20 +60,20 @@ class OrganizerItems {
   ///   print("Some tasks have invalid priority levels!");
   /// }
   bool every(bool Function(OrganizerItemEntity element) test) =>
-      organizerItems.every(test);
+      _organizerItems.every(test);
 
   /// List<int> numbers = [1, 2, 3, 4, 5];
   /// List<int> doubledNumbers = numbers.map((int x) => x * 2).toList();
   /// doubledNumbers is now [2, 4, 6, 8, 10]
   List<R> map<R>(R Function(OrganizerItemEntity) f) {
-    return organizerItems.map(f).toList();
+    return _organizerItems.map(f).toList();
   }
 
   ///List<int> numbers = [1, 2, 3, 4, 5];
   /// List<int> sublist = numbers.sublist(1, 4);
   /// sublist is now [2, 3, 4]
   void sort([int Function(OrganizerItemEntity, OrganizerItemEntity)? compare]) {
-    organizerItems.sort(compare);
+    _organizerItems.sort(compare);
   }
 
   ///  List<int> numbers = [1, 2, 3, 4, 5];
@@ -79,11 +81,16 @@ class OrganizerItems {
   /// evenNumbers is now [2, 4]
   List<OrganizerItemEntity> where(
       bool Function(OrganizerItemEntity) predicate) {
-    return organizerItems.where(predicate).toList();
+    return _organizerItems.where(predicate).toList();
   }
 
   List<OrganizerItemEntity> filterByIdSet(IdSet idSet) {
-    return organizerItems.where((element) => idSet.any(element.id)).toList();
+    return _organizerItems
+        .where((element) => idSet.contains(element.id))
+        .toList();
   }
-//todo filter by
+
+  IdSet mapToIdSet() {
+    return IdSet(_organizerItems.map((e) => e.id).toSet());
+  }
 }
