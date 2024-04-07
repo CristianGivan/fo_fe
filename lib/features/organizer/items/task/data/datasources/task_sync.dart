@@ -1,9 +1,13 @@
+import 'package:fo_fe/core/util/organizer/id_set.dart';
+import 'package:fo_fe/features/organizer/items/organizer_item/organizer_items.dart';
 import 'package:fo_fe/features/organizer/items/task/data/datasources/task_local_data_source.dart';
 import 'package:fo_fe/features/organizer/items/task/data/datasources/task_remote_data_source.dart';
 import 'package:fo_fe/features/organizer/items/task/task_lib.dart';
 
 abstract class TaskSync {
   Future<TaskModel> syncTaskWithId(int id);
+
+  Future<OrganizerItems> syncTaskListWithIdSet(IdSet idSet);
 }
 
 class TaskSyncImpl implements TaskSync {
@@ -31,5 +35,11 @@ class TaskSyncImpl implements TaskSync {
     }
 
     return taskModel;
+  }
+
+  @override
+  Future<OrganizerItems> syncTaskListWithIdSet(IdSet idSet) {
+    // TODO: implement syncTaskListWithIdSet
+    throw UnimplementedError();
   }
 }

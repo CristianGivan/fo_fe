@@ -147,6 +147,7 @@ class TaskEntity extends OrganizerItemEntity with EquatableMixin {
     );
   }
 
+// todo to be deleted
   bool changeState() {
     // if(status==null){
     //   status=false;
@@ -154,30 +155,4 @@ class TaskEntity extends OrganizerItemEntity with EquatableMixin {
     // status = !status!;
     return true; //todo status delete it;
   }
-// static TaskEntity empty() {
-//   return TaskEntity(
-//     status: false,
-//     startDate: DateTime.utc(1970, 1, 1),
-//     endDate: DateTime.utc(1970, 1, 1),
-//     workingTime: 0,
-//     estimatedTime: 0,
-//     estimatedLeftTime: 0,
-//     workingProgress: 0,
-//     taskStatus: TaskStatus.undefined,
-//     workList: [],
-//     topicList: [],
-//     id: 0,
-//     subject: "",
-//     createdDate: DateTime.utc(1970, 1, 1),
-//     creator: const User(id: 0),
-//     userList: [],
-//     tagList: [],
-//     reminderList: [],
-//     remoteTaskId: 0,
-//     lastUpdate: DateTime.utc(1970, 1, 1),
-//     lastViewDate: DateTime.utc(1970, 1, 1),
-//     remoteViews: 0,
-//     views: 0,
-//     checksum: "",
-//   );
 }

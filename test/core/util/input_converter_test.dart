@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:fo_fe/core/const/error_message.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/util/input_converter.dart';
 
@@ -18,7 +19,7 @@ void main() {
 
     test('Should return Left(InvalidInputFailure) for non-numeric input', () {
       const input = 'abc';
-      final expectedResult = Left(InvalidInputFailure());
+      const expectedResult = Left(InvalidInputFailure(notNumber));
 
       final result = inputConverter.stringToUnasingInteger(input);
 
@@ -29,7 +30,8 @@ void main() {
       const string = "-123";
       var convertedNumber = inputConverter.stringToUnasingInteger(string);
 
-      expect(convertedNumber, Left(InvalidInputFailure()));
+      expect(convertedNumber,
+          const Left(InvalidInputFailure(zeroOrNegativeNumber)));
     });
   });
 }

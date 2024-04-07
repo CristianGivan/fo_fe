@@ -23,17 +23,8 @@ class TaskBloc extends Bloc<TaskEvent, TaskBlocState> {
     final taskEntityEither = await getTaskById(Params.withSingleId(id));
 
     taskEntityEither.fold(
-      (failure) => emit(TaskErrorState(_getFailureMessage(failure))),
+      (failure) => emit(TaskErrorState(getFailureMessage(failure))),
       (taskEntity) => emit(TaskLoadedState(taskEntity)),
     );
-  }
-
-  String _getFailureMessage(Failure failure) {
-    switch (failure.runtimeType) {
-      case ServerFailure:
-        return serverFailureMessage;
-      default:
-        return localFailureMessage;
-    }
   }
 }

@@ -34,13 +34,13 @@ void main() {
     }
 
     Future<void> setUpMockGetTaskByIdForServerFailure() async {
-      when(mockGetTaskById(Params.withSingleId(1)))
-          .thenAnswer((_) => Future.value(Left(ServerFailure())));
+      when(mockGetTaskById(Params.withSingleId(1))).thenAnswer(
+          (_) => Future.value(const Left(ServerFailure(serverFailureMessage))));
     }
 
     Future<void> setUpMockGetTaskByIdForLocalFailure() async {
-      when(mockGetTaskById(Params.withSingleId(1)))
-          .thenAnswer((_) => Future.value(Left(LocalFailure())));
+      when(mockGetTaskById(Params.withSingleId(1))).thenAnswer(
+          (_) => Future.value(const Left(LocalFailure(localFailureMessage))));
     }
 
     test("Initial state should be TaskInitialState", () {

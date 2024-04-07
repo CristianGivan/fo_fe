@@ -43,6 +43,10 @@ class OrganizerItems {
     return _organizerItems.indexOf(organizerItem);
   }
 
+  bool isEmpty() {
+    return _organizerItems.isEmpty;
+  }
+
   bool contains(OrganizerItemEntity organizerItem) {
     return _organizerItems.contains(organizerItem);
   }

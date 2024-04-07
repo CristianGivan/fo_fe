@@ -2,29 +2,56 @@ part of '../../task_lib.dart';
 
 class TaskModel extends TaskEntity {
   TaskModel({
-    super.startDate,
-    super.endDate,
-    super.workingTime,
-    super.estimatedTime,
-    super.estimatedLeftTime,
-    super.workingProgress,
-    super.taskStatus,
-    super.workList,
-    super.topicList,
-    super.id,
-    super.subject,
-    super.createdDate,
-    super.creator,
-    super.userList,
-    super.tagList,
-    super.reminderList,
-    super.remoteTaskId,
-    super.lastUpdate,
-    super.lastViewDate,
-    super.remoteViews,
-    super.views,
-    super.checksum,
-  });
+    int? id,
+    String? subject,
+    DateTime? createdDate,
+    User? creator,
+    List<User>? userList,
+    List<Tag>? tagList,
+    List<Reminder>? reminderList,
+    int? remoteTaskId,
+    DateTime? lastUpdate,
+    DateTime? lastViewDate,
+    int? remoteViews,
+    int? views,
+    String? checksum,
+    DateTime? startDate,
+    DateTime? endDate,
+    double? workingTime,
+    double? estimatedTime,
+    double? estimatedLeftTime,
+    double? workingProgress,
+    TaskStatus? taskStatus,
+    List<Work>? workList,
+    List<Topic>? topicList,
+  }) : super(
+          id: id ?? 0,
+          subject: subject ?? '',
+          createdDate: createdDate ?? INITIAL_EPOCH_DATE,
+          creator: creator ?? User(id: 0),
+          userList: userList ?? [],
+          tagList: tagList ?? [],
+          reminderList: reminderList ?? [],
+          remoteTaskId: remoteTaskId ?? 0,
+          lastUpdate: lastUpdate ?? INITIAL_EPOCH_DATE,
+          lastViewDate: lastViewDate ?? INITIAL_EPOCH_DATE,
+          remoteViews: remoteViews ?? 0,
+          views: views ?? 0,
+          checksum: checksum ?? '',
+          startDate: startDate ?? INITIAL_EPOCH_DATE,
+          endDate: endDate ?? INITIAL_EPOCH_DATE,
+          workingTime: workingTime ?? 0,
+          estimatedTime: estimatedTime ?? 0,
+          estimatedLeftTime: estimatedLeftTime ?? 0,
+          workingProgress: workingProgress ?? 0,
+          taskStatus: taskStatus ?? TaskStatus.undefined,
+          workList: workList ?? [],
+          topicList: topicList ?? [],
+        );
+
+  static TaskModel empty() {
+    return TaskModel();
+  }
 
 // todo to be uodated
   factory TaskModel.fromJson(Map<String, dynamic> json) {
@@ -90,34 +117,6 @@ class TaskModel extends TaskEntity {
       "remoteTaskId": remoteTaskId,
       "checksum": checksum,
     };
-  }
-
-//todo check if is needed
-  static TaskModel empty() {
-    return TaskModel(
-      startDate: INITIAL_EPOCH_DATE,
-      endDate: INITIAL_EPOCH_DATE,
-      workingTime: 0,
-      estimatedTime: 0,
-      estimatedLeftTime: 0,
-      workingProgress: 0,
-      taskStatus: TaskStatus.undefined,
-      workList: [],
-      topicList: [],
-      id: 0,
-      subject: "",
-      createdDate: INITIAL_EPOCH_DATE,
-      creator: const User(id: 0),
-      userList: [],
-      tagList: [],
-      reminderList: [],
-      remoteTaskId: 0,
-      lastUpdate: INITIAL_EPOCH_DATE,
-      lastViewDate: INITIAL_EPOCH_DATE,
-      remoteViews: 0,
-      views: 0,
-      checksum: "",
-    );
   }
 
   @override

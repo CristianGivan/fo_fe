@@ -5,6 +5,7 @@ import 'package:fo_fe/features/organizer/items/organizer_item/organizer_items.da
 
 void main() {
   group('OrganizerItems', () {
+    late OrganizerItems emptyOrganizerItems;
     late OrganizerItems organizerItems;
     late OrganizerItemEntity organizerItem1;
     late OrganizerItemEntity organizerItem2;
@@ -20,6 +21,7 @@ void main() {
       );
       organizerItems =
           OrganizerItems(organizerItems: [organizerItem1, organizerItem2]);
+      emptyOrganizerItems = OrganizerItems(organizerItems: []);
     });
 
     test('adding an item should increase the size', () {
@@ -104,6 +106,20 @@ void main() {
       final filteredList = organizerItems.filterByIdSet(idSet);
       expect(filteredList.length, equals(1));
       expect(filteredList[0].id, equals(1));
+    });
+
+    group('isEmpty', () {
+      test('returns true for empty list', () {
+        final organizerItems = OrganizerItems(organizerItems: []);
+        expect(organizerItems.isEmpty(), equals(true));
+      });
+
+      test('returns false for non-empty list', () {
+        final organizerItems = OrganizerItems(organizerItems: [
+          OrganizerItemEntity(id: 1, subject: "Task 1"),
+        ]);
+        expect(organizerItems.isEmpty(), equals(false));
+      });
     });
   });
 }

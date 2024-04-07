@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:fo_fe/core/const/error_message.dart';
 
 import '../error/failures.dart';
 
@@ -11,10 +12,10 @@ class InputConverter {
       if (convertedNumber > 0) {
         return Right(convertedNumber);
       } else {
-        return Left(InvalidInputFailure());
+        return const Left(InvalidInputFailure(zeroOrNegativeNumber));
       }
     } on FormatException {
-      return Left(InvalidInputFailure());
+      return const Left(InvalidInputFailure(notNumber));
     }
   }
 }

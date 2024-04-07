@@ -4,13 +4,13 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fo_fe/core/const/constants.dart';
-import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/util/organizer/params.dart';
 import 'package:fo_fe/features/organizer/items/organizer_item/organizer_item.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/entities/user.dart';
 import 'package:objectbox/objectbox.dart';
 
 import '../../../../core/const/error_message.dart';
+import '../../../../core/error/get_failure.dart';
 import '../../../../core/util/input_converter.dart';
 import '../../../../main.dart';
 import '../../organizer.dart';
