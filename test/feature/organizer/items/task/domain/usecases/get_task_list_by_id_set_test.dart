@@ -18,7 +18,7 @@ void main() {
     usecase = GetTaskListByIdSet(mockTaskRepository);
   });
 
-  final tIdSet = IdSet(<int>{1, 2, 3});
+  final tIdSet = IdSet.of([1, 2, 3]);
   final TaskEntity taskEntity1 = TaskEntity(id: 1, subject: "Task1");
   final TaskEntity taskEntity2 = TaskEntity(id: 2, subject: "Task2");
   final TaskEntity taskEntity3 = TaskEntity(id: 3, subject: "Task3");

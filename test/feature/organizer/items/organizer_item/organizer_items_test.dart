@@ -95,14 +95,8 @@ void main() {
       expect(organizerItems.indexOf(organizerItem2), equals(1));
     });
 
-    test('mapToIdSet should return a valid IdSet', () {
-      final idSet = organizerItems.mapToIdSet();
-      expect(idSet.contains(1), isTrue);
-      expect(idSet.contains(2), isTrue);
-    });
-
     test('filterByIdSet should filter items based on IdSet', () {
-      final idSet = IdSet({1});
+      final idSet = IdSet.of({1});
       final filteredList = organizerItems.filterByIdSet(idSet);
       expect(filteredList.length, equals(1));
       expect(filteredList[0].id, equals(1));

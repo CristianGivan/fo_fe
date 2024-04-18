@@ -1,61 +1,49 @@
+import 'package:fo_fe/core/util/organizer/id_set_builder.dart';
+
+import '../../../features/organizer/items/organizer_item/organizer_items.dart';
+
 class IdSet {
-  final Set<int?> _idSet;
+  final Set<int> _ids;
 
-  IdSet(Set<int?> idSet) : _idSet = idSet;
+  IdSet._(this._ids);
 
-  static IdSet empty() {
-    return IdSet(<int>{});
-  }
+  factory IdSet.empty() => IdSet._({});
 
-  void addId(int id) {
-    _idSet.add(id);
-  }
+  factory IdSet.of(Iterable<int> ids) =>
+      IdSet._(ids.where((id) => id != null).toSet());
 
-  void removeId(int id) {
-    _idSet.remove(id);
-  }
+  Set<int> toSet() => _ids.toSet();
 
-  bool containsId(int id) {
-    return _idSet.contains(id);
-  }
+  IdSetBuilder toBuilder() => IdSetBuilder(_ids);
 
-  int get size {
-    return _idSet.length;
-  }
+  bool containsId(int id) => _ids.contains(id);
 
-  int? get first {
-    return _idSet.first;
-  }
+  bool isEmpty(int id) => _ids.isEmpty;
 
-  Iterable<int?> get ids {
-    return _idSet;
-  }
+  int get size => _ids.length;
 
-// todo nullable is ok?
-  bool contains(int? id) {
-    return _idSet.any((element) => element == id);
-  }
+  int get first => _ids.first;
 
-  void clear() {
-    _idSet.clear();
-  }
+  int get last => _ids.last;
+
+  bool contains(Object? other) => _ids.contains(other);
 
   @override
-  bool operator ==(Object other) {
+  bool operator ==(Object? other) {
     if (identical(this, other)) return true;
-
-    return other is IdSet &&
-        _idSet.length == other._idSet.length &&
-        _idSet.containsAll(other._idSet);
+    return other is IdSet && _ids == other._ids;
   }
 
   @override
-  int get hashCode {
-    return _idSet.hashCode;
-  }
+  int get hashCode => _ids.hashCode;
 
   @override
-  String toString() {
-    return _idSet.toString();
+  String toString() => _ids.toString();
+
+  void forEach(void Function(int id) f) => _ids.forEach(f);
+
+  factory IdSet.fromOrganizerItems(OrganizerItems items) {
+    return IdSet.of(
+        items.where((item) => item.id != null).map((item) => item.id!));
   }
 }

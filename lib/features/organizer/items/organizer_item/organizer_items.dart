@@ -93,8 +93,4 @@ class OrganizerItems {
         .where((element) => idSet.contains(element.id))
         .toList();
   }
-
-  IdSet mapToIdSet() {
-    return IdSet(_organizerItems.map((e) => e.id).toSet());
-  }
 }
