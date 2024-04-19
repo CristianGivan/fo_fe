@@ -3,57 +3,47 @@ import 'package:test/test.dart';
 
 void main() {
   group('IdSetBuilder', () {
-    final tIds = [1, 2, 3];
-    test('creates an empty IdSetBuilder', () {
+    test('empty() creates an empty IdSetBuilder', () {
       final builder = IdSetBuilder.empty();
-      expect(builder.ids, isEmpty);
+      expect(builder.ids, equals([]));
     });
 
-    test('creates an IdSetBuilder with provided ids', () {
-      final builder = IdSetBuilder.of(tIds);
-      expect(builder.ids, equals(Set<int>.of(tIds)));
+    test('of() creates IdSetBuilder from Iterable', () {
+      final builder = IdSetBuilder.of([1, 2, 3, null]);
+      expect(builder.ids, equals({1, 2, 3}));
     });
 
-    test('get ids', () {
-      final builder = IdSetBuilder.of(tIds);
-
-      expect(builder.ids, containsAll(tIds));
-    });
-
-    test('addId()', () {
+    test('addId() adds an ID to the builder', () {
       final builder = IdSetBuilder.empty();
-      builder.addId(1).addId(2).addId(3);
-      expect(builder.ids, containsAll(tIds));
+      builder.add(1);
+      expect(builder.ids, equals({1}));
     });
 
-    test('addAll()', () {
+    test('addAll() adds multiple IDs to the builder', () {
       final builder = IdSetBuilder.empty();
-      builder.addAll(tIds);
-      expect(builder.ids, containsAll(tIds));
+      builder.addAll([2, 3, 4, null]);
+      expect(builder.ids, equals({2, 3, 4}));
     });
 
-    test('removeId()', () {
-      final builder = IdSetBuilder.of(tIds);
-
-      builder.removeId(2);
-      expect(builder.ids, containsAll([1, 3]));
+    test('removeId() removes an ID from the builder', () {
+      final builder = IdSetBuilder.of([1, 2, 3]);
+      builder.remove(2);
+      expect(builder.ids, equals({1, 3}));
     });
 
-    test('build()', () {
-      final builder = IdSetBuilder.of(tIds);
-      expect(builder.ids, containsAll(tIds));
+    test('build() creates an IdSet from the builder', () {
+      final builder = IdSetBuilder.of([1, 2, 3]);
+      final idSet = builder.build();
+      expect(idSet.toSet(), equals({1, 2, 3}));
     });
 
-    test('evaluates equality of IdSetBuilder instances', () {
-      final builder1 = IdSetBuilder.of(tIds);
-      final builder2 = IdSetBuilder.of(tIds);
-      expect(builder1 == builder2, equals(true));
-    });
-
-    test('calculates hashCode correctly', () {
-      final builder1 = IdSetBuilder.of(tIds);
-      final builder2 = IdSetBuilder.of(tIds);
-      expect(builder1.hashCode, equals(builder2.hashCode));
+    test('props returns a list with _ids for Equatable', () {
+      final builder = IdSetBuilder.of([1, 2, 3]);
+      expect(
+          builder.props,
+          equals([
+            {1, 2, 3}
+          ]));
     });
   });
 }

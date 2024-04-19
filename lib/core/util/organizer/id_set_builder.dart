@@ -9,24 +9,25 @@ class IdSetBuilder extends Equatable {
 
   factory IdSetBuilder.empty() => IdSetBuilder({});
 
-  factory IdSetBuilder.of(Iterable<int> ids) =>
-      IdSetBuilder(ids.where((id) => id != null).toSet());
+  factory IdSetBuilder.of(Iterable<int?> ids) {
+    return IdSetBuilder(ids.whereType<int>().toSet());
+  }
 
   Set<int> get ids => _ids;
 
-  IdSetBuilder addId(int id) {
+  IdSetBuilder add(int? id) {
     if (id != null) {
       _ids.add(id);
     }
     return this;
   }
 
-  IdSetBuilder addAll(Iterable<int> ids) {
-    _ids.addAll(ids.where((id) => id != null));
+  IdSetBuilder addAll(Iterable<int?> ids) {
+    _ids.addAll(ids.whereType<int>());
     return this;
   }
 
-  IdSetBuilder removeId(int id) {
+  IdSetBuilder remove(int id) {
     _ids.remove(id);
     return this;
   }

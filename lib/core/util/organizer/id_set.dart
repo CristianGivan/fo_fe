@@ -1,49 +1,50 @@
-import 'package:fo_fe/core/util/organizer/id_set_builder.dart';
+import 'package:equatable/equatable.dart';
 
 import '../../../features/organizer/items/organizer_item/organizer_items.dart';
+import 'id_set_builder.dart';
 
-class IdSet {
+class IdSet extends Equatable {
   final Set<int> _ids;
 
   IdSet._(this._ids);
 
   factory IdSet.empty() => IdSet._({});
 
-  factory IdSet.of(Iterable<int> ids) =>
-      IdSet._(ids.where((id) => id != null).toSet());
+  factory IdSet.of(Iterable<int?> ids) => IdSet._(ids.whereType<int>().toSet());
 
   Set<int> toSet() => _ids.toSet();
 
   IdSetBuilder toBuilder() => IdSetBuilder(_ids);
 
-  bool containsId(int id) => _ids.contains(id);
+  bool contains(int id) => _ids.contains(id);
 
-  bool isEmpty(int id) => _ids.isEmpty;
+  bool isEmpty() => _ids.isEmpty;
 
   int get size => _ids.length;
 
-  int get first => _ids.first;
-
-  int get last => _ids.last;
-
-  bool contains(Object? other) => _ids.contains(other);
-
-  @override
-  bool operator ==(Object? other) {
-    if (identical(this, other)) return true;
-    return other is IdSet && _ids == other._ids;
+  int get first {
+    if (_ids.isEmpty) {
+      throw StateError('IdSet is empty. Cannot get first element.');
+    }
+    return _ids.first;
   }
 
-  @override
-  int get hashCode => _ids.hashCode;
-
-  @override
-  String toString() => _ids.toString();
+  int get last {
+    if (_ids.isEmpty) {
+      throw StateError('IdSet is empty. Cannot get last element.');
+    }
+    return _ids.last;
+  }
 
   void forEach(void Function(int id) f) => _ids.forEach(f);
 
   factory IdSet.fromOrganizerItems(OrganizerItems items) {
-    return IdSet.of(
-        items.where((item) => item.id != null).map((item) => item.id!));
+    return IdSet.of(items.map((item) => item.id).whereType<int>());
   }
+
+  @override
+  String toString() => _ids.toString();
+
+  @override
+  List<Object> get props => [_ids];
 }

@@ -3,8 +3,6 @@ import 'package:fo_fe/core/util/organizer/id_set.dart';
 import 'organizer_item.dart';
 
 class OrganizerItems {
-  // todo !!! should return list of OrganizerItems or an OrganizerItem?
-
   // is not final because I need to change it
   List<OrganizerItemEntity> _organizerItems;
 
@@ -25,10 +23,6 @@ class OrganizerItems {
 
   void removeAt(int index) {
     _organizerItems.removeAt(index);
-  }
-
-  void clear() {
-    _organizerItems.clear();
   }
 
   OrganizerItemEntity get(int index) {
