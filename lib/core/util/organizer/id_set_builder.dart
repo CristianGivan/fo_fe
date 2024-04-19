@@ -5,12 +5,12 @@ import 'id_set.dart';
 class IdSetBuilder extends Equatable {
   final Set<int> _ids;
 
-  IdSetBuilder(this._ids);
+  IdSetBuilder._(this._ids);
 
-  factory IdSetBuilder.empty() => IdSetBuilder({});
+  factory IdSetBuilder.empty() => IdSetBuilder._({});
 
   factory IdSetBuilder.of(Iterable<int?> ids) {
-    return IdSetBuilder(ids.whereType<int>().toSet());
+    return IdSetBuilder._(ids.whereType<int>().toSet());
   }
 
   Set<int> get ids => _ids;

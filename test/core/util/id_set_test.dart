@@ -62,7 +62,7 @@ void main() {
       expect(idSet1.toSet(), equals({1, 2, 3, 4}));
     });
 
-    test('IdSet.toBuilder returns an IdSetBuilder with same IDs', () {
+    test('Modifying builder does not affect built instance', () {
       final idSet = IdSet.of([1, 2, 3]);
       final builder = idSet.toBuilder();
       builder.add(4);

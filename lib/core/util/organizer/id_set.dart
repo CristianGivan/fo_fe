@@ -14,7 +14,7 @@ class IdSet extends Equatable {
 
   Set<int> toSet() => _ids.toSet();
 
-  IdSetBuilder toBuilder() => IdSetBuilder(_ids);
+  IdSetBuilder toBuilder() => IdSetBuilder.of(_ids);
 
   bool contains(int id) => _ids.contains(id);
 
