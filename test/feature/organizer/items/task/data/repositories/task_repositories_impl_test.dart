@@ -38,10 +38,9 @@ void main() {
     final TaskEntity taskEntity1 = TaskEntity(id: 1, subject: "Task1");
     final TaskEntity taskEntity2 = TaskEntity(id: 2, subject: "Task2");
     final TaskEntity taskEntity3 = TaskEntity(id: 3, subject: "Task3");
-    final OrganizerItems tEmptyOrganizerItems =
-        OrganizerItems(organizerItems: <TaskEntity>[]);
-    final OrganizerItems tOrganizerItems = OrganizerItems(
-        organizerItems: <TaskEntity>[taskEntity1, taskEntity2, taskEntity3]);
+    final OrganizerItems tEmptyOrganizerItems = OrganizerItems.empty();
+    final OrganizerItems tOrganizerItems =
+        OrganizerItems.of(<TaskEntity>[taskEntity1, taskEntity2, taskEntity3]);
 
     test('should check if the device is online', () async {
       // Arrange

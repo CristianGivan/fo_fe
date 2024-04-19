@@ -23,8 +23,8 @@ void main() {
   final TaskEntity taskEntity2 = TaskEntity(id: 2, subject: "Task2");
   final TaskEntity taskEntity3 = TaskEntity(id: 3, subject: "Task3");
 
-  final OrganizerItems tTaskEntityList = OrganizerItems(
-      organizerItems: <TaskEntity>[taskEntity1, taskEntity2, taskEntity3]);
+  final OrganizerItems tTaskEntityList =
+      OrganizerItems.of(<TaskEntity>[taskEntity1, taskEntity2, taskEntity3]);
 
   test("Print out the local variables", () {
     if (kDebugMode) {

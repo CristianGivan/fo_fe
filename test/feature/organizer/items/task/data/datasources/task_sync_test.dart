@@ -117,7 +117,7 @@ void main() {
     final TaskModel tTaskModel2 = TaskModel(id: 2, subject: "Task2");
     final TaskModel tTaskModel3 = TaskModel(id: 3, subject: "Task3");
     OrganizerItems tOrganizerItems =
-        OrganizerItems(organizerItems: [tTaskModel1, tTaskModel2, tTaskModel3]);
+        OrganizerItems.of([tTaskModel1, tTaskModel2, tTaskModel3]);
 
     when(mockTaskLocalDataSource.getTaskListByIdSet(tIdSet))
         .thenAnswer((_) => Future.value(tOrganizerItems));
@@ -128,7 +128,7 @@ void main() {
     final TaskModel tTaskModel2 = TaskModel(id: 2, subject: "Task2");
     final TaskModel tTaskModel3 = TaskModel(id: 3, subject: "Task3");
     OrganizerItems tOrganizerItems =
-        OrganizerItems(organizerItems: [tTaskModel1, tTaskModel2, tTaskModel3]);
+        OrganizerItems.of([tTaskModel1, tTaskModel2, tTaskModel3]);
     return tOrganizerItems;
   }
 

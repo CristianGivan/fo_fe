@@ -1,29 +1,47 @@
+import 'package:equatable/equatable.dart';
+import 'package:fo_fe/features/organizer/items/organizer_item/organizer_items.dart';
+
 import 'organizer_item.dart';
 
-class OrganizerItemsBuilder {
+class OrganizerItemsBuilder extends Equatable {
   final List<OrganizerItemEntity> _organizerItems;
 
-  OrganizerItemsBuilder(this._organizerItems);
+  OrganizerItemsBuilder._(this._organizerItems);
 
-  factory OrganizerItemsBuilder.empty() => OrganizerItemsBuilder([]);
+  factory OrganizerItemsBuilder.empty() => OrganizerItemsBuilder._([]);
 
   factory OrganizerItemsBuilder.of(List<OrganizerItemEntity> organizerItems) =>
-      OrganizerItemsBuilder(
+      OrganizerItemsBuilder._(
           organizerItems.whereType<OrganizerItemEntity>().toList());
 
-  void add(OrganizerItemEntity organizerItem) {
+  OrganizerItemsBuilder add(OrganizerItemEntity organizerItem) {
     _organizerItems.add(organizerItem);
+    return this;
   }
 
-  void addAll(Iterable<OrganizerItemEntity> elements) {
+  OrganizerItemsBuilder addAll(Iterable<OrganizerItemEntity> elements) {
     _organizerItems.addAll(elements);
+    return this;
   }
 
-  void remove(OrganizerItemEntity organizerItem) {
+  OrganizerItemsBuilder remove(OrganizerItemEntity organizerItem) {
     _organizerItems.remove(organizerItem);
+    return this;
   }
 
-  void removeAt(int index) {
+  OrganizerItemsBuilder removeAt(int index) {
+    if (_organizerItems.isEmpty) {
+      throw StateError('Cannot remove item from an empty list');
+    }
+    if (index < 0 || index >= _organizerItems.length) {
+      throw RangeError.index(index, _organizerItems, 'Index out of range');
+    }
     _organizerItems.removeAt(index);
+    return this;
   }
+
+  OrganizerItems build() => OrganizerItems.of(_organizerItems);
+
+  @override
+  List<Object> get props => [_organizerItems];
 }

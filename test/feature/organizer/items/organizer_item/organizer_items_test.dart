@@ -19,28 +19,12 @@ void main() {
         id: 2,
         subject: 'Task 2', /* other properties */
       );
-      organizerItems =
-          OrganizerItems(organizerItems: [organizerItem1, organizerItem2]);
-      emptyOrganizerItems = OrganizerItems(organizerItems: []);
-    });
-
-    test('adding an item should increase the size', () {
-      final initialSize = organizerItems.size();
-      organizerItems.add(OrganizerItemEntity(
-        id: 3,
-        subject: 'Task 3', /* other properties */
-      ));
-      expect(organizerItems.size(), equals(initialSize + 1));
-    });
-
-    test('removing an item should decrease the size', () {
-      final initialSize = organizerItems.size();
-      organizerItems.remove(organizerItem1);
-      expect(organizerItems.size(), equals(initialSize - 1));
+      organizerItems = OrganizerItems.of([organizerItem1, organizerItem2]);
+      emptyOrganizerItems = OrganizerItems.empty();
     });
 
     test('get item at index should return the correct item', () {
-      expect(organizerItems.get(0), equals(organizerItem1));
+      expect(organizerItems.getAt(0), equals(organizerItem1));
     });
 
     test('contains should return true if item exists', () {
@@ -68,51 +52,47 @@ void main() {
       expect(mappedList, containsAll(['Task 1', 'Task 2']));
     });
 
-    test('addAll should add all elements to the list', () {
-      final initialSize = organizerItems.size();
-      organizerItems.addAll([
-        OrganizerItemEntity(
-          id: 3,
-          subject: 'Task 3', /* other properties */
-        )
-      ]);
-      expect(organizerItems.size(), equals(initialSize + 1));
-    });
-
-    test('removeAt should remove item at specified index', () {
-      final initialSize = organizerItems.size();
-      organizerItems.removeAt(0);
-      expect(organizerItems.size(), equals(initialSize - 1));
-      expect(organizerItems.contains(organizerItem1), isFalse);
-    });
-
-    test('clear should remove all items from the list', () {
-      organizerItems.clear();
-      expect(organizerItems.size(), equals(0));
-    });
-
     test('indexOf should return the index of the specified item', () {
       expect(organizerItems.indexOf(organizerItem2), equals(1));
     });
 
-    test('filterByIdSet should filter items based on IdSet', () {
-      final idSet = IdSet.of({1});
-      final filteredList = organizerItems.filterByIdSet(idSet);
-      expect(filteredList.length, equals(1));
-      expect(filteredList[0].id, equals(1));
-    });
-
     group('isEmpty', () {
       test('returns true for empty list', () {
-        final organizerItems = OrganizerItems(organizerItems: []);
+        final organizerItems = OrganizerItems.empty();
         expect(organizerItems.isEmpty(), equals(true));
       });
 
       test('returns false for non-empty list', () {
-        final organizerItems = OrganizerItems(organizerItems: [
+        final organizerItems = OrganizerItems.of([
           OrganizerItemEntity(id: 1, subject: "Task 1"),
         ]);
         expect(organizerItems.isEmpty(), equals(false));
+      });
+    });
+
+    group('filterByIdSet', () {
+      test('filterByIdSet filters items correctly', () {
+        // Arrange
+        final idSet =
+            IdSet.of([1, 3, 5]); // Example IdSet with IDs to filter by
+        final items = OrganizerItems.of([
+          OrganizerItemEntity(id: 1),
+          OrganizerItemEntity(id: 2),
+          OrganizerItemEntity(id: 3),
+          OrganizerItemEntity(id: 4),
+          OrganizerItemEntity(id: 5),
+        ]);
+
+        // Act
+        final filteredItems = items.filterByIdSet(idSet);
+
+        // Assert
+        expect(filteredItems.size(),
+            equals(3)); // Expecting 3 items after filtering
+        expect(filteredItems.contains(OrganizerItemEntity(id: 1)), isTrue);
+        expect(filteredItems.contains(OrganizerItemEntity(id: 2)), isFalse);
+        expect(filteredItems.contains(OrganizerItemEntity(id: 3)), isTrue);
+        expect(filteredItems.contains(OrganizerItemEntity(id: 5)), isTrue);
       });
     });
   });

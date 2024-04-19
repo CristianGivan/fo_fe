@@ -67,7 +67,7 @@ class ObjectBox implements Database {
     TasksEntityObjectBox? updatedTasks = getTasks(tasks.id);
     updatedTasks?.taskList.add(newTask);
 
-    int eventId = tasksBox.put(updatedTasks!);
+    // int eventId = tasksBox.put(updatedTasks!);
 
     // debugPrint(
     //     "Added Task: ${newTask.subject} assigned to ${newTask.tagList.map((tag) => tag.tag).join(", ")} in event: ${tasksBox.get(eventId)?.name}");

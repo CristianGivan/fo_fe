@@ -98,8 +98,8 @@ void main() {
         id: 3,
         subject: 'Task 3',
       );
-      OrganizerItems organizerItems = OrganizerItems(
-          organizerItems: [organizerItem1, organizerItem2, organizerItem3]);
+      OrganizerItems organizerItems =
+          OrganizerItems.of([organizerItem1, organizerItem2, organizerItem3]);
 
       final idSet = IdSet.fromOrganizerItems(organizerItems);
       expect(idSet.toSet(), equals({1, 2, 3}));
