@@ -1,11 +1,10 @@
 import 'package:equatable/equatable.dart';
 
-import '../../../../core/util/organizer/id_set.dart';
-import 'organizer_item.dart';
+import '../../../features/organizer/items/organizer_item/organizer_item.dart';
+import 'id_set.dart';
 import 'organizer_items_builder.dart';
 
 class OrganizerItems extends Equatable {
-  // is not final because I need to change it
   final List<OrganizerItemEntity> _organizerItems;
 
   OrganizerItems._(this._organizerItems);

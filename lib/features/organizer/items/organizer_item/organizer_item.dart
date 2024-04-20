@@ -5,4 +5,4 @@ import '../../organizer.dart';
 import '../tag/tag_lib.dart';
 import '../task/domain/entities/user.dart';
 
-part 'organizer_item_entity.dart';
+part 'data/entities/organizer_item_entity.dart';

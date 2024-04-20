@@ -5,7 +5,7 @@ import 'package:fo_fe/core/error/exceptions.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/network/network_info.dart';
 import 'package:fo_fe/core/util/organizer/id_set.dart';
-import 'package:fo_fe/features/organizer/items/organizer_item/organizer_items.dart';
+import 'package:fo_fe/core/util/organizer/organizer_items.dart';
 import 'package:fo_fe/features/organizer/items/task/data/datasources/task_local_data_source.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/repositories/task_repository.dart';
 import 'package:fo_fe/features/organizer/items/task/task_lib.dart';

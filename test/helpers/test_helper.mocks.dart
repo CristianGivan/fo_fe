@@ -14,9 +14,8 @@ import 'package:fo_fe/core/error/failures.dart' as _i21;
 import 'package:fo_fe/core/network/network_info.dart' as _i9;
 import 'package:fo_fe/core/util/input_converter.dart' as _i24;
 import 'package:fo_fe/core/util/organizer/id_set.dart' as _i12;
+import 'package:fo_fe/core/util/organizer/organizer_items.dart' as _i3;
 import 'package:fo_fe/core/util/organizer/params.dart' as _i26;
-import 'package:fo_fe/features/organizer/items/organizer_item/organizer_items.dart'
-    as _i3;
 import 'package:fo_fe/features/organizer/items/tag/tag_lib.dart' as _i16;
 import 'package:fo_fe/features/organizer/items/task/data/datasources/task_local_data_source.dart'
     as _i11;

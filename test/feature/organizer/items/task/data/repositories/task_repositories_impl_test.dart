@@ -4,7 +4,7 @@ import 'package:fo_fe/core/const/error_message.dart';
 import 'package:fo_fe/core/error/exceptions.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/util/organizer/id_set.dart';
-import 'package:fo_fe/features/organizer/items/organizer_item/organizer_items.dart';
+import 'package:fo_fe/core/util/organizer/organizer_items.dart';
 import 'package:fo_fe/features/organizer/items/task/data/repositories/task_repositories_impl.dart';
 import 'package:fo_fe/features/organizer/items/task/task_lib.dart';
 import 'package:mockito/mockito.dart';

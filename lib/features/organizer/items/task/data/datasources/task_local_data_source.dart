@@ -1,5 +1,5 @@
 import 'package:fo_fe/core/util/organizer/id_set.dart';
-import 'package:fo_fe/features/organizer/items/organizer_item/organizer_items.dart';
+import 'package:fo_fe/core/util/organizer/organizer_items.dart';
 
 import '../../task_lib.dart';
 

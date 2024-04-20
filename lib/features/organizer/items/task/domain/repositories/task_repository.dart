@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/util/organizer/id_set.dart';
-import 'package:fo_fe/features/organizer/items/organizer_item/organizer_items.dart';
+import 'package:fo_fe/core/util/organizer/organizer_items.dart';
 import 'package:fo_fe/features/organizer/items/task/task_lib.dart';
 
 import '../../../../../../core/error/failures.dart';

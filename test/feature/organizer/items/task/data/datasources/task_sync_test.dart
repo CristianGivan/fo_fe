@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fo_fe/core/util/organizer/id_set.dart';
-import 'package:fo_fe/features/organizer/items/organizer_item/organizer_items.dart';
+import 'package:fo_fe/core/util/organizer/organizer_items.dart';
 import 'package:fo_fe/features/organizer/items/task/data/datasources/task_sync.dart';
 import 'package:fo_fe/features/organizer/items/task/task_lib.dart';
 import 'package:mockito/mockito.dart';

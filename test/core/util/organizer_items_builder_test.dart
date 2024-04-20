@@ -1,5 +1,5 @@
+import 'package:fo_fe/core/util/organizer/organizer_items_builder.dart';
 import 'package:fo_fe/features/organizer/items/organizer_item/organizer_item.dart';
-import 'package:fo_fe/features/organizer/items/organizer_item/organizer_items_builder.dart';
 import 'package:test/test.dart';
 
 void main() {
