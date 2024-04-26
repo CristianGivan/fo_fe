@@ -4,47 +4,44 @@ import '../../../features/organizer/items/organizer_item/organizer_item.dart';
 import 'id_set.dart';
 import 'organizer_items_builder.dart';
 
-class OrganizerItems extends Equatable {
-  final List<OrganizerItemEntity> _organizerItems;
+class OrganizerItems<T extends OrganizerItemEntity> extends Equatable {
+  final List<T> _organizerItems;
 
   OrganizerItems._(this._organizerItems);
 
   factory OrganizerItems.empty() => OrganizerItems._([]);
 
-  factory OrganizerItems.of(Iterable<OrganizerItemEntity> organizerItems) =>
-      OrganizerItems._(
-          organizerItems.whereType<OrganizerItemEntity>().toList());
+  factory OrganizerItems.of(Iterable<T> organizerItems) =>
+      OrganizerItems._(organizerItems.whereType<T>().toList());
 
   OrganizerItemsBuilder toBuilder() =>
       OrganizerItemsBuilder.of(_organizerItems);
 
-  List<OrganizerItemEntity> toList() => _organizerItems.toList();
+  List<T> toList() => _organizerItems.toList();
 
   int size() => _organizerItems.length;
 
-  int indexOf(OrganizerItemEntity organizerItem) {
+  int indexOf(T organizerItem) {
     return _organizerItems.indexOf(organizerItem);
   }
 
-  OrganizerItemEntity getAt(int index) => _organizerItems[index];
+  T getAt(int index) => _organizerItems[index];
 
   bool isEmpty() {
     return _organizerItems.isEmpty;
   }
 
-  bool contains(OrganizerItemEntity organizerItem) {
+  bool contains(T organizerItem) {
     return _organizerItems.contains(organizerItem);
   }
 
-  bool any(bool Function(OrganizerItemEntity element) test) {
+  bool any(bool Function(T element) test) {
     return _organizerItems.any(test);
   }
 
-  bool every(bool Function(OrganizerItemEntity element) test) =>
-      _organizerItems.every(test);
+  bool every(bool Function(T element) test) => _organizerItems.every(test);
 
-  List<R> map<R>(R Function(OrganizerItemEntity) f) =>
-      _organizerItems.map(f).toList();
+  List<R> map<R>(R Function(T) f) => _organizerItems.map(f).toList();
 
   OrganizerItems filterByIdSet(IdSet idSet) {
     final filteredItems =

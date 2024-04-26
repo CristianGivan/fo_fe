@@ -5,3 +5,7 @@
 * the repository shall return a failure if
 ** the id is null
 ** the idSet is empty
+
+=== Collections
+
+TasksEntity one element TasksEntities colections of Tasks

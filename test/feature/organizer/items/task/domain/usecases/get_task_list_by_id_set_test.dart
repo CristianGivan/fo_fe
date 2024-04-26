@@ -12,7 +12,7 @@ import '../../../../../../helpers/test_helper.mocks.dart';
 
 void main() {
   late GetTaskListByIdSet usecase;
-  late MockTaskRepository mockTaskRepository;
+  late MockTaskRepository<TaskEntity> mockTaskRepository;
   setUp(() {
     mockTaskRepository = MockTaskRepository();
     usecase = GetTaskListByIdSet(mockTaskRepository);
@@ -23,8 +23,8 @@ void main() {
   final TaskEntity taskEntity2 = TaskEntity(id: 2, subject: "Task2");
   final TaskEntity taskEntity3 = TaskEntity(id: 3, subject: "Task3");
 
-  final OrganizerItems tTaskEntityList =
-      OrganizerItems.of(<TaskEntity>[taskEntity1, taskEntity2, taskEntity3]);
+  final OrganizerItems<TaskEntity> tTaskEntityList =
+      OrganizerItems.of([taskEntity1, taskEntity2, taskEntity3]);
 
   test("Print out the local variables", () {
     if (kDebugMode) {
@@ -38,7 +38,7 @@ void main() {
     'should get the task list by idSet from repository',
     () async {
       // Arrange
-      when(mockTaskRepository.getTaskListByIdSet(tIdSet))
+      when(mockTaskRepository.getOrganizerItemsByIdSet(tIdSet))
           .thenAnswer((_) async => Right(tTaskEntityList));
 
       // Act
@@ -46,7 +46,7 @@ void main() {
 
       // Assert
       expect(result, equals(Right(tTaskEntityList)));
-      verify(mockTaskRepository.getTaskListByIdSet(tIdSet));
+      verify(mockTaskRepository.getOrganizerItemsByIdSet(tIdSet));
       verifyNoMoreInteractions(mockTaskRepository);
     },
   );

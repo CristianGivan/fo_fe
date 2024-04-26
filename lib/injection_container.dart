@@ -3,9 +3,7 @@ import 'package:fo_fe/core/network/network_info.dart';
 import 'package:fo_fe/core/util/input_converter.dart';
 import 'package:fo_fe/features/organizer/items/task/data/datasources/task_local_data_source.dart';
 import 'package:fo_fe/features/organizer/items/task/data/datasources/task_remote_data_source.dart';
-import 'package:fo_fe/features/organizer/items/task/data/datasources/task_sync.dart';
-import 'package:fo_fe/features/organizer/items/task/data/repositories/task_repositories_impl.dart';
-import 'package:fo_fe/features/organizer/items/task/domain/repositories/task_repository.dart';
+import 'package:fo_fe/features/organizer/items/task/data/datasources/task_sync_data_source.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/usecases/get_task_by_id.dart';
 import 'package:fo_fe/features/organizer/items/task/task_lib.dart';
 import 'package:get_it/get_it.dart';
@@ -30,11 +28,11 @@ void initFeature() {
   sl.registerLazySingleton(() => GetTaskById(sl()));
 
   // Repository
-  sl.registerLazySingleton<TaskRepository>(() => TaskRepositoryImpl(
-        taskLocalDataSource: sl(),
-        taskSync: sl(),
-        networkInfo: sl(),
-      ));
+  // sl.registerLazySingleton<TaskRepository>(() => TaskRepositoryImpl(
+  //       organizerItemLocalDataSource: sl(),
+  //       organizerItemSyncDataSource: sl(),
+  //       networkInfo: sl(),
+  //     ));
 
   //Data source
   sl.registerLazySingleton<TaskLocalDataSource>(
@@ -42,7 +40,7 @@ void initFeature() {
   sl.registerLazySingleton<TaskRemoteDataSource>(() => TaskRemoteDataSourceImpl(
         httpClient: sl(),
       ));
-  sl.registerLazySingleton<TaskSync>(() => TaskSyncImpl(
+  sl.registerLazySingleton<TaskSyncDataSource>(() => TaskSyncDataSourceImpl(
         taskLocalDataSource: sl(),
         taskRemoteDataSource: sl(),
       ));

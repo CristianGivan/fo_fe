@@ -14,20 +14,25 @@ import '../../../../../../helpers/test_helper.mocks.dart';
 
 void main() {
   late MockNetworkInfo mockNetworkInfo;
+  late MockOrganizerItemLocalDataSource organizerItemLocalDataSource;
+  late MockOrganizerItemSyncDataSource organizerItemSyncDataSource;
   late MockTaskLocalDataSource mockTaskLocalDataSource;
-  late MockTaskSync mockTaskSync;
+  late MockTaskSyncDataSource mockTaskSyncDataSource;
   late TaskRepositoryImpl repositoryImpl;
 
   setUp(() {
     mockNetworkInfo = MockNetworkInfo();
+    organizerItemLocalDataSource = MockOrganizerItemLocalDataSource();
+    organizerItemSyncDataSource = MockOrganizerItemSyncDataSource();
     mockTaskLocalDataSource = MockTaskLocalDataSource();
-    mockTaskSync = MockTaskSync();
+    mockTaskSyncDataSource = MockTaskSyncDataSource();
 
     repositoryImpl = TaskRepositoryImpl(
-      taskLocalDataSource: mockTaskLocalDataSource,
-      taskSync: mockTaskSync,
-      networkInfo: mockNetworkInfo,
-    );
+        networkInfo: mockNetworkInfo,
+        organizerItemLocalDataSource: organizerItemLocalDataSource,
+        organizerItemSyncDataSource: organizerItemSyncDataSource,
+        taskLocalDataSource: mockTaskLocalDataSource,
+        taskSyncDataSource: mockTaskSyncDataSource);
   });
 
   group("task repositories implement test", () {
@@ -61,7 +66,7 @@ void main() {
 
         test('should return sync task entity when device is online', () async {
           // Arrange
-          when(mockTaskSync.syncTaskWithId(any))
+          when(mockTaskSyncDataSource.syncTaskWithId(any))
               .thenAnswer((_) async => tTaskModelOnline);
 
           final expected = Right(tTaskModelOnline);
@@ -70,14 +75,14 @@ void main() {
           final result = await repositoryImpl.getTaskById(tId);
 
           // Assert
-          verify(mockTaskSync.syncTaskWithId(tId));
+          verify(mockTaskSyncDataSource.syncTaskWithId(tId));
           expect(result, expected);
         });
 
         test('should return server failure when connection is unsuccessful',
             () async {
           // Arrange
-          when(mockTaskSync.syncTaskWithId(any))
+          when(mockTaskSyncDataSource.syncTaskWithId(any))
               .thenThrow(ServerException(serverFailureMessage));
 
           const expected = Left(ServerFailure(serverFailureMessage));
@@ -86,7 +91,7 @@ void main() {
           final result = await repositoryImpl.getTaskById(tId);
 
           // Assert
-          verify(mockTaskSync.syncTaskWithId(tId));
+          verify(mockTaskSyncDataSource.syncTaskWithId(tId));
           expect(result, expected);
         });
       });
@@ -127,50 +132,6 @@ void main() {
           verify(mockTaskLocalDataSource.getTaskById(tId));
           expect(result, expected);
         });
-      });
-    });
-    group('getTaskListByIdSet', () {
-      test('fetches from remote source when online', () async {
-        when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
-        when(mockTaskSync.syncTaskListWithIdSet(tIdSet))
-            .thenAnswer((_) async => tOrganizerItems);
-
-        final result = await repositoryImpl.getTaskListByIdSet(tIdSet);
-
-        expect(result, equals(Right(tOrganizerItems)));
-        verify(mockTaskSync.syncTaskListWithIdSet(tIdSet));
-        verifyNever(mockTaskLocalDataSource.getTaskListByIdSet(tIdSet));
-      });
-
-      test('fetches from local source when offline', () async {
-        when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
-        when(mockTaskLocalDataSource.getTaskListByIdSet(tIdSet))
-            .thenAnswer((_) async => tOrganizerItems);
-
-        final result = await repositoryImpl.getTaskListByIdSet(tIdSet);
-
-        expect(result, equals(Right(tOrganizerItems)));
-        verify(mockTaskLocalDataSource.getTaskListByIdSet(tIdSet));
-        verifyNever(mockTaskSync.syncTaskListWithIdSet(tIdSet));
-      });
-
-      test('returns NoDataFilure when local data is empty', () async {
-        when(mockTaskLocalDataSource.getTaskListByIdSet(tIdSet))
-            .thenAnswer((_) async => tEmptyOrganizerItems);
-
-        final result = await repositoryImpl.getTaskListByIdSet(tIdSet);
-
-        expect(result, equals(const Left(NoDataFailure(noDataFailure))));
-      });
-
-      test('returns ServerFailure when server error occurs', () async {
-        when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
-        when(mockTaskSync.syncTaskListWithIdSet(tIdSet))
-            .thenThrow(ServerException(serverFailureMessage));
-
-        final result = await repositoryImpl.getTaskListByIdSet(tIdSet);
-
-        expect(result, equals(const Left(ServerFailure(serverFailureMessage))));
       });
     });
   });

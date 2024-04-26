@@ -1,20 +1,16 @@
-import 'package:fo_fe/core/util/organizer/id_set.dart';
-import 'package:fo_fe/core/util/organizer/organizer_items.dart';
 import 'package:fo_fe/features/organizer/items/task/data/datasources/task_local_data_source.dart';
 import 'package:fo_fe/features/organizer/items/task/data/datasources/task_remote_data_source.dart';
 import 'package:fo_fe/features/organizer/items/task/task_lib.dart';
 
-abstract class TaskSync {
+abstract class TaskSyncDataSource {
   Future<TaskModel> syncTaskWithId(int id);
-
-  Future<OrganizerItems> syncTaskListWithIdSet(IdSet idSet);
 }
 
-class TaskSyncImpl implements TaskSync {
+class TaskSyncDataSourceImpl implements TaskSyncDataSource {
   TaskLocalDataSource taskLocalDataSource;
   TaskRemoteDataSource taskRemoteDataSource;
 
-  TaskSyncImpl({
+  TaskSyncDataSourceImpl({
     required this.taskLocalDataSource,
     required this.taskRemoteDataSource,
   });
@@ -35,11 +31,5 @@ class TaskSyncImpl implements TaskSync {
     }
 
     return taskModel;
-  }
-
-  @override
-  Future<OrganizerItems> syncTaskListWithIdSet(IdSet idSet) {
-    // TODO: implement syncTaskListWithIdSet
-    throw UnimplementedError();
   }
 }

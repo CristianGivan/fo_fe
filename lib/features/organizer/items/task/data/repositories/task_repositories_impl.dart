@@ -3,24 +3,26 @@ import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/const/error_message.dart';
 import 'package:fo_fe/core/error/exceptions.dart';
 import 'package:fo_fe/core/error/failures.dart';
-import 'package:fo_fe/core/network/network_info.dart';
 import 'package:fo_fe/core/util/organizer/id_set.dart';
 import 'package:fo_fe/core/util/organizer/organizer_items.dart';
+import 'package:fo_fe/features/organizer/items/organizer_item/organizer_item.dart';
 import 'package:fo_fe/features/organizer/items/task/data/datasources/task_local_data_source.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/repositories/task_repository.dart';
 import 'package:fo_fe/features/organizer/items/task/task_lib.dart';
 
-import '../datasources/task_sync.dart';
+import '../datasources/task_sync_data_source.dart';
 
-class TaskRepositoryImpl implements TaskRepository {
+class TaskRepositoryImpl<T extends OrganizerItemEntity>
+    extends OrganizerItemRepositoryImpl<T> implements TaskRepository<T> {
   final TaskLocalDataSource taskLocalDataSource;
-  final TaskSync taskSync;
-  final NetworkInfo networkInfo;
+  final TaskSyncDataSource taskSyncDataSource;
 
   TaskRepositoryImpl({
+    required super.networkInfo,
+    required super.organizerItemSyncDataSource,
+    required super.organizerItemLocalDataSource,
     required this.taskLocalDataSource,
-    required this.taskSync,
-    required this.networkInfo,
+    required this.taskSyncDataSource,
   });
 
   @override
@@ -34,7 +36,7 @@ class TaskRepositoryImpl implements TaskRepository {
     Either<Failure, TaskEntity> result;
     try {
       if (await networkInfo.isConnected) {
-        result = Right(await taskSync.syncTaskWithId(id));
+        result = Right(await taskSyncDataSource.syncTaskWithId(id));
       } else {
         result = Right(await taskLocalDataSource.getTaskById(id));
       }
@@ -52,34 +54,34 @@ class TaskRepositoryImpl implements TaskRepository {
     return result;
   }
 
-  @override
-  Future<Either<Failure, OrganizerItems>> getTaskListByIdSet(
-      IdSet idSet) async {
-    final Right<dynamic, OrganizerItems> eitherOrganizerItems;
-
-    try {
-      if (await networkInfo.isConnected) {
-        eitherOrganizerItems =
-            Right(await taskSync.syncTaskListWithIdSet(idSet));
-      } else {
-        eitherOrganizerItems =
-            Right(await taskLocalDataSource.getTaskListByIdSet(idSet));
-      }
-      return eitherOrganizerItems.fold((failure) => Left(failure),
-          (result) => _handleEmptyOrganizerItems(result));
-    } on ServerException catch (e) {
-      return Left(ServerFailure(e.message));
-    }
-  }
-
-  Either<Failure, OrganizerItems> _handleEmptyOrganizerItems(
-      OrganizerItems result) {
-    if (result.isEmpty()) {
-      return const Left(NoDataFailure(noDataFailure));
-    } else {
-      return Right(result);
-    }
-  }
+  // @override
+  // Future<Either<Failure, OrganizerItems>> getOrganizerItemsByIdSet(
+  //     IdSet idSet) async {
+  //   final Right<dynamic, OrganizerItems> eitherOrganizerItems;
+  //
+  //   try {
+  //     if (await networkInfo.isConnected) {
+  //       eitherOrganizerItems =
+  //           Right(await taskSync.syncTaskListWithIdSet(idSet));
+  //     } else {
+  //       eitherOrganizerItems =
+  //           Right(await taskLocalDataSource.getTaskListByIdSet(idSet));
+  //     }
+  //     return eitherOrganizerItems.fold((failure) => Left(failure),
+  //         (result) => _handleEmptyOrganizerItems(result));
+  //   } on ServerException catch (e) {
+  //     return Left(ServerFailure(e.message));
+  //   }
+  // }
+  //
+  // Either<Failure, OrganizerItems> _handleEmptyOrganizerItems(
+  //     OrganizerItems result) {
+  //   if (result.isEmpty()) {
+  //     return const Left(NoDataFailure(noDataFailure));
+  //   } else {
+  //     return Right(result);
+  //   }
+  // }
 
   @override
   Future<Either<Failure, TaskEntity>> postTask(TaskEntity task) {
@@ -93,9 +95,14 @@ class TaskRepositoryImpl implements TaskRepository {
     throw UnimplementedError();
   }
 
+  // @override
+  // Future<Either<Failure, TaskEntity>> getTaskByIdSet(IdSet ids) {
+  //   // TODO: implement getTaskByIdSet
+  //   throw UnimplementedError();
+  // }
+
   @override
-  Future<Either<Failure, TaskEntity>> getTaskByIdSet(IdSet ids) {
-    // TODO: implement getTaskByIdSet
-    throw UnimplementedError();
+  Future<Either<Failure, OrganizerItems<T>>> getTaskListByIdSet(IdSet idSet) {
+    return super.getOrganizerItemsByIdSet(idSet);
   }
 }
