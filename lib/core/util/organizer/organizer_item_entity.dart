@@ -1,4 +1,4 @@
-part of '../../organizer_item.dart';
+part of '../../../features/organizer/items/organizer_item/organizer_item.dart';
 
 class OrganizerItemEntity extends Equatable {
   final int _id;

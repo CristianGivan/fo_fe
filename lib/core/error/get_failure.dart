@@ -1,4 +1,4 @@
-import '../const/error_message.dart';
+import '../const/failures_message.dart';
 import 'failures.dart';
 
 String getFailureMessage(Failure failure) {

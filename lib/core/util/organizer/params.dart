@@ -1,8 +1,4 @@
-import 'package:equatable/equatable.dart';
-import 'package:fo_fe/core/util/organizer/id_set.dart';
-
-import 'filter_criteria.dart';
-import 'sorting_criteria.dart';
+part of 'core_util_organizer.dart';
 
 class Params extends Equatable {
   //both id and idSet are non-nullable because it should checked in repository

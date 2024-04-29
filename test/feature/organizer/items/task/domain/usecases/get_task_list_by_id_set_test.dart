@@ -1,53 +1,53 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:fo_fe/core/util/organizer/id_set.dart';
-import 'package:fo_fe/core/util/organizer/organizer_items.dart';
-import 'package:fo_fe/core/util/organizer/params.dart';
+import 'package:fo_fe/core/const/failures_message.dart';
+import 'package:fo_fe/core/error/failures.dart';
+import 'package:fo_fe/core/util/organizer/core_util_organizer.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/usecases/get_task_list_by_id_set.dart';
 import 'package:fo_fe/features/organizer/items/task/task_lib.dart';
 import 'package:mockito/mockito.dart';
 
+import '../../../../../../helpers/fixtures/elements/organizer_items_getters.dart';
 import '../../../../../../helpers/test_helper.mocks.dart';
 
 void main() {
   late GetTaskListByIdSet usecase;
-  late MockTaskRepository<TaskEntity> mockTaskRepository;
+  late MockTaskRepository mockTaskRepository;
   setUp(() {
     mockTaskRepository = MockTaskRepository();
     usecase = GetTaskListByIdSet(mockTaskRepository);
   });
 
   final tIdSet = IdSet.of([1, 2, 3]);
-  final TaskEntity taskEntity1 = TaskEntity(id: 1, subject: "Task1");
-  final TaskEntity taskEntity2 = TaskEntity(id: 2, subject: "Task2");
-  final TaskEntity taskEntity3 = TaskEntity(id: 3, subject: "Task3");
 
-  final OrganizerItems<TaskEntity> tTaskEntityList =
-      OrganizerItems.of([taskEntity1, taskEntity2, taskEntity3]);
+  OrganizerItems<TaskEntity> tTaskEntityList = getOrganizerItems3Tasks();
 
-  test("Print out the local variables", () {
-    if (kDebugMode) {
-      //todo what is this kDebugMode
-      print(tIdSet);
-      print(taskEntity1);
-    }
+  test('should get a list of tasks from the repository', () async {
+    // Arrange
+    when(mockTaskRepository.getTaskListByIdSet(tIdSet))
+        .thenAnswer((_) async => Right(tTaskEntityList));
+
+    // Act
+    final result = await usecase(Params.withIdSet(tIdSet));
+
+    // Assert
+    expect(result, Right(tTaskEntityList));
+    verify(mockTaskRepository.getTaskListByIdSet(tIdSet));
+    verifyNoMoreInteractions(mockTaskRepository);
   });
 
-  test(
-    'should get the task list by idSet from repository',
-    () async {
-      // Arrange
-      when(mockTaskRepository.getOrganizerItemsByIdSet(tIdSet))
-          .thenAnswer((_) async => Right(tTaskEntityList));
+  test('should return a Failure when the repository call fails', () async {
+    // Arrange
+    const failure = ServerFailure(serverFailureMessage);
+    when(mockTaskRepository.getTaskListByIdSet(tIdSet))
+        .thenAnswer((_) async => Left(failure));
 
-      // Act
-      final result = await usecase(Params.withIdSet(tIdSet));
+    // Act
+    final result = await usecase(Params.withIdSet(tIdSet));
 
-      // Assert
-      expect(result, equals(Right(tTaskEntityList)));
-      verify(mockTaskRepository.getOrganizerItemsByIdSet(tIdSet));
-      verifyNoMoreInteractions(mockTaskRepository);
-    },
-  );
+    // Assert
+    expect(result, Left(failure));
+    verify(mockTaskRepository.getTaskListByIdSet(tIdSet));
+    verifyNoMoreInteractions(mockTaskRepository);
+  });
 }

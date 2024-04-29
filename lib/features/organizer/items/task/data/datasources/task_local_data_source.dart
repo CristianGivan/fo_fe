@@ -1,3 +1,5 @@
+import 'package:fo_fe/core/util/organizer/core_util_organizer.dart';
+
 import '../../task_lib.dart';
 
 abstract class TaskLocalDataSource {
@@ -7,7 +9,7 @@ abstract class TaskLocalDataSource {
 
   Future<TaskModel> getTaskById(int id);
 
-  // Future<OrganizerItems> getTaskListByIdSet(IdSet idSet);
+  Future<OrganizerItems<TaskModel>> getTaskListByIdSet(IdSet idSet);
 
   Future<void> deleteTask(int id);
 }
@@ -34,6 +36,12 @@ class TaskLocalDataSourceImpl implements TaskLocalDataSource {
   @override
   Future<TaskModel> putTask(TaskModel task) {
     // TODO: implement putTask
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<OrganizerItems<TaskModel>> getTaskListByIdSet(IdSet idSet) {
+    // TODO: implement getTaskListByIdSet
     throw UnimplementedError();
   }
 

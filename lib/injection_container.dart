@@ -9,6 +9,9 @@ import 'package:fo_fe/features/organizer/items/task/task_lib.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 
+import 'features/organizer/items/task/data/repositories/task_repositories_impl.dart';
+import 'features/organizer/items/task/domain/repositories/task_repository.dart';
+
 final sl = GetIt.instance; //service locator
 
 void init() {
@@ -28,11 +31,11 @@ void initFeature() {
   sl.registerLazySingleton(() => GetTaskById(sl()));
 
   // Repository
-  // sl.registerLazySingleton<TaskRepository>(() => TaskRepositoryImpl(
-  //       organizerItemLocalDataSource: sl(),
-  //       organizerItemSyncDataSource: sl(),
-  //       networkInfo: sl(),
-  //     ));
+  sl.registerLazySingleton<TaskRepository>(() => TaskRepositoryImpl(
+        networkInfo: sl(),
+        taskLocalDataSource: sl(),
+        taskSyncDataSource: sl(),
+      ));
 
   //Data source
   sl.registerLazySingleton<TaskLocalDataSource>(

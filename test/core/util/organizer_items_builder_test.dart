@@ -1,4 +1,4 @@
-import 'package:fo_fe/core/util/organizer/organizer_items_builder.dart';
+import 'package:fo_fe/core/util/organizer/core_util_organizer.dart';
 import 'package:fo_fe/features/organizer/items/organizer_item/organizer_item.dart';
 import 'package:test/test.dart';
 

@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:fo_fe/core/const/error_message.dart';
+import 'package:fo_fe/core/const/failures_message.dart';
 
 import '../error/failures.dart';
 

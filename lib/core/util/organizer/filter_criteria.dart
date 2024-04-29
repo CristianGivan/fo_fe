@@ -1,3 +1,5 @@
+part of 'core_util_organizer.dart';
+
 abstract class FilterCriteria {
   const FilterCriteria();
 }

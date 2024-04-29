@@ -1,7 +1,4 @@
-import 'package:equatable/equatable.dart';
-import 'package:fo_fe/core/util/organizer/organizer_items.dart';
-
-import '../../../features/organizer/items/organizer_item/organizer_item.dart';
+part of 'core_util_organizer.dart';
 
 class OrganizerItemsBuilder extends Equatable {
   final List<OrganizerItemEntity> _organizerItems;

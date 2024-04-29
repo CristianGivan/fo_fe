@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:fo_fe/core/const/error_message.dart';
+import 'package:fo_fe/core/const/failures_message.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/util/input_converter.dart';
 
