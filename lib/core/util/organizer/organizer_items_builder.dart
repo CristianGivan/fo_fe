@@ -1,22 +1,43 @@
 part of 'core_util_organizer.dart';
 
 class OrganizerItemsBuilder<T extends OrganizerItemEntity> extends Equatable {
-  final List<T> _organizerItems;
+  // I don't know if it is a good decision but:
+  // this class is immutable because I don't want to many copies of an object
+  // I will if I have to change it but lets start so.
+  List<T> _organizerItems;
+  SortedBy _sortedBy; // to don't sort if I all ready sort the
+  final Map<SortedBy, Function(List<T>)> _sortingFunctions = {
+    SortedBy.none: (items) => {},
+    SortedBy.remoteIdAscending: (items) =>
+        items.sort((a, b) => a.remoteId.compareTo(b.remoteId)),
+    SortedBy.remoteIdDescending: (items) =>
+        items.sort((a, b) => b.remoteId.compareTo(a.remoteId)),
+  };
 
-  OrganizerItemsBuilder._(this._organizerItems);
+  OrganizerItemsBuilder._(this._organizerItems, this._sortedBy);
 
-  factory OrganizerItemsBuilder.empty() => OrganizerItemsBuilder._([]);
+  factory OrganizerItemsBuilder.empty() =>
+      OrganizerItemsBuilder._([], SortedBy.none);
 
-  factory OrganizerItemsBuilder.of(List<T> organizerItems) =>
-      OrganizerItemsBuilder._(organizerItems.whereType<T>().toList());
+  factory OrganizerItemsBuilder.of(List<T> organizerItems,
+          {SortedBy sortedBy = SortedBy.none}) =>
+      OrganizerItemsBuilder._(organizerItems.whereType<T>().toList(), sortedBy);
+
+  SortedBy get sortedBy => _sortedBy;
+
+  List<T> get organizerItems => _organizerItems;
 
   OrganizerItemsBuilder add(T organizerItem) {
     _organizerItems.add(organizerItem);
+    //todo tests
+    _sortedBy = SortedBy.none; // todo maybe I add it and left the items sorted
     return this;
   }
 
   OrganizerItemsBuilder addAll(Iterable<T> elements) {
     _organizerItems.addAll(elements);
+    //todo tests
+    _sortedBy = SortedBy.none; // todo maybe I add it and left the items sorted
     return this;
   }
 
@@ -36,6 +57,18 @@ class OrganizerItemsBuilder<T extends OrganizerItemEntity> extends Equatable {
     return this;
   }
 
+// todo tests
+  OrganizerItemsBuilder<T> sortBy(SortedBy sortBy) {
+    final sortFunction = _sortingFunctions[sortBy];
+    if (sortFunction != null) {
+      sortFunction(_organizerItems);
+      _sortedBy = sortBy;
+    } else {
+      throw ArgumentError('Unsupported sorting criteria: $sortBy');
+    }
+    return this;
+  }
+
   //
   // OrganizerItemsBuilder updateItem(T optimizerItem) {
   //   if (optimizerItem.remoteId)
@@ -44,7 +77,7 @@ class OrganizerItemsBuilder<T extends OrganizerItemEntity> extends Equatable {
   OrganizerItems build() => OrganizerItems.of(_organizerItems);
 
   @override
-  List<Object> get props => [_organizerItems];
+  List<Object> get props => [_organizerItems, _sortedBy];
 }
 //
 // class OrganizerItemsBuilder<T> {

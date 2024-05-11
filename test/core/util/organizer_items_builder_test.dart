@@ -16,6 +16,22 @@ void main() {
       expect(result.size(), equals(1));
       expect(result.contains(organizerItem), isTrue);
     });
+    test('add method chaining adds organizer item correctly', () {
+      // Arrange
+      final builder = OrganizerItemsBuilder.empty();
+      final organizerItem = OrganizerItemEntity(id: 1);
+      final organizerItem2 = OrganizerItemEntity(id: 2);
+
+      // Act
+      builder
+        ..add(organizerItem)
+        ..add(organizerItem2);
+      final result = builder.build();
+
+      // Assert
+      expect(result.size(), equals(2));
+      expect(result.contains(organizerItem), isTrue);
+    });
 
     test('addAll method adds multiple organizer items correctly', () {
       // Arrange
@@ -83,9 +99,8 @@ void main() {
 
         final resultBuilder = builder.removeAt(1);
 
-        expect(resultBuilder.props, [
-          [OrganizerItemEntity(id: 1), OrganizerItemEntity(id: 3)]
-        ]);
+        expect(resultBuilder.organizerItems,
+            [OrganizerItemEntity(id: 1), OrganizerItemEntity(id: 3)]);
       });
 
       test('removeAt method throws RangeError for out-of-range index', () {

@@ -393,6 +393,33 @@ class MockTaskRemoteDataSource extends _i1.Mock
         returnValue: _i11.Future<void>.value(),
         returnValueForMissingStub: _i11.Future<void>.value(),
       ) as _i11.Future<void>);
+
+  @override
+  _i11.Future<_i4.OrganizerItems<_i2.TaskModel>> getUpdatedItems(
+          _i4.OrganizerItems<_i2.TaskModel>? items) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getUpdatedItems,
+          [items],
+        ),
+        returnValue: _i11.Future<_i4.OrganizerItems<_i2.TaskModel>>.value(
+            _FakeOrganizerItems_1<_i2.TaskModel>(
+          this,
+          Invocation.method(
+            #getUpdatedItems,
+            [items],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i11.Future<_i4.OrganizerItems<_i2.TaskModel>>.value(
+                _FakeOrganizerItems_1<_i2.TaskModel>(
+          this,
+          Invocation.method(
+            #getUpdatedItems,
+            [items],
+          ),
+        )),
+      ) as _i11.Future<_i4.OrganizerItems<_i2.TaskModel>>);
 }
 
 /// A class which mocks [TaskSyncDataSource].
@@ -547,16 +574,6 @@ class MockTaskModel extends _i1.Mock implements _i2.TaskModel {
       ) as Map<String, dynamic>);
 
   @override
-  Map<String, dynamic> sendJsonToCheckIfIsUpdated() => (super.noSuchMethod(
-        Invocation.method(
-          #sendJsonToCheckIfIsUpdated,
-          [],
-        ),
-        returnValue: <String, dynamic>{},
-        returnValueForMissingStub: <String, dynamic>{},
-      ) as Map<String, dynamic>);
-
-  @override
   _i2.TaskModel copyWith({
     bool? status,
     DateTime? startDate,
@@ -687,6 +704,16 @@ class MockTaskModel extends _i1.Mock implements _i2.TaskModel {
         returnValue: false,
         returnValueForMissingStub: false,
       ) as bool);
+
+  @override
+  Map<String, dynamic> jsonToCheckForUpdates() => (super.noSuchMethod(
+        Invocation.method(
+          #jsonToCheckForUpdates,
+          [],
+        ),
+        returnValue: <String, dynamic>{},
+        returnValueForMissingStub: <String, dynamic>{},
+      ) as Map<String, dynamic>);
 }
 
 /// A class which mocks [TaskRepository].
@@ -1019,6 +1046,26 @@ class MockOrganizerItemEntity extends _i1.Mock
           ),
         ),
       ) as _i3.OrganizerItemEntity);
+
+  @override
+  Map<String, dynamic> jsonToCheckForUpdates() => (super.noSuchMethod(
+        Invocation.method(
+          #jsonToCheckForUpdates,
+          [],
+        ),
+        returnValue: <String, dynamic>{},
+        returnValueForMissingStub: <String, dynamic>{},
+      ) as Map<String, dynamic>);
+
+  @override
+  Map<String, dynamic> toJson() => (super.noSuchMethod(
+        Invocation.method(
+          #toJson,
+          [],
+        ),
+        returnValue: <String, dynamic>{},
+        returnValueForMissingStub: <String, dynamic>{},
+      ) as Map<String, dynamic>);
 }
 
 /// A class which mocks [OrganizerItemSyncDataSource].

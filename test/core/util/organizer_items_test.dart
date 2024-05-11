@@ -12,7 +12,7 @@ void main() {
     setUp(() {
       organizerItem1 = OrganizerItemEntity(
         id: 1,
-        subject: 'Task 2', /* other properties */
+        subject: 'Task 1', /* other properties */
       );
       organizerItem2 = OrganizerItemEntity(
         id: 2,
@@ -48,7 +48,7 @@ void main() {
 
     test('map should return a list of mapped items', () {
       final mappedList = organizerItems.map<String>((item) => item.subject);
-      expect(mappedList, containsAll(['Task 1', 'Task 2']));
+      expect(mappedList, ['Task 1', 'Task 2']);
     });
 
     test('indexOf should return the index of the specified item', () {
