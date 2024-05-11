@@ -8,7 +8,7 @@ class OrganizerItemEntity extends Equatable {
   final List<User> _userList;
   final List<Tag> _tagList;
   final List<Reminder> _reminderList;
-  final int _remoteTaskId;
+  final int _remoteId;
   final DateTime? _lastUpdate;
   final DateTime? _lastViewDate;
   final int? _remoteViews;
@@ -24,7 +24,7 @@ class OrganizerItemEntity extends Equatable {
     List<User>? userList,
     List<Tag>? tagList,
     List<Reminder>? reminderList,
-    int? remoteTaskId,
+    int? remoteId,
     DateTime? lastUpdate,
     DateTime? lastViewDate,
     int? remoteViews,
@@ -37,7 +37,7 @@ class OrganizerItemEntity extends Equatable {
         _userList = userList ?? const [],
         _tagList = tagList ?? const [],
         _reminderList = reminderList ?? const [],
-        _remoteTaskId = remoteTaskId ?? 0,
+        _remoteId = remoteId ?? 0,
         _lastUpdate = lastUpdate,
         _lastViewDate = lastViewDate,
         _remoteViews = remoteViews,
@@ -53,7 +53,7 @@ class OrganizerItemEntity extends Equatable {
         userList,
         tagList,
         reminderList,
-        remoteTaskId,
+        remoteId,
         lastUpdate,
         lastViewDate,
         remoteViews,
@@ -75,7 +75,7 @@ class OrganizerItemEntity extends Equatable {
 
   List<Reminder> get reminderList => List.unmodifiable(_reminderList);
 
-  int get remoteTaskId => _remoteTaskId;
+  int get remoteId => _remoteId;
 
   DateTime? get lastUpdate => _lastUpdate;
 
@@ -95,7 +95,7 @@ class OrganizerItemEntity extends Equatable {
     List<User>? userList,
     List<Tag>? tagList,
     List<Reminder>? reminderList,
-    int? remoteTaskId,
+    int? remoteId,
     DateTime? lastUpdate,
     DateTime? lastViewDate,
     int? remoteViews,
@@ -110,12 +110,40 @@ class OrganizerItemEntity extends Equatable {
       userList: userList ?? this.userList,
       tagList: tagList ?? this.tagList,
       reminderList: reminderList ?? this.reminderList,
-      remoteTaskId: remoteTaskId ?? this.remoteTaskId,
+      remoteId: remoteId ?? this.remoteId,
       lastUpdate: lastUpdate ?? this.lastUpdate,
       lastViewDate: lastViewDate ?? this.lastViewDate,
       remoteViews: remoteViews ?? this.remoteViews,
       views: views ?? this.views,
       checksum: checksum ?? this.checksum,
     );
+  }
+
+// todo tests
+  Map<String, dynamic> jsonToCheckForUpdates() {
+    return {
+      "remoteId": remoteId,
+      "checksum": checksum,
+      "lastUpdate": lastUpdate?.toIso8601String(),
+    };
+  }
+
+  //todo how to add to the child class the rest of the Json
+  Map<String, dynamic> toJson() {
+    return {
+      "taskId": id,
+      "task": subject,
+      "createdDate": createdDate.toIso8601String(),
+      //todo creator
+      //todo userlist
+      //todo tag
+      //todo reminder
+      "remoteId": remoteId,
+      "lastUpdate": lastUpdate?.toIso8601String(),
+      "lastViewDate": lastViewDate?.toIso8601String(),
+      "remoteViews": remoteViews,
+      "views": views,
+      "checksum": checksum,
+    };
   }
 }

@@ -9,7 +9,7 @@ class TaskModel extends TaskEntity {
     List<User>? userList,
     List<Tag>? tagList,
     List<Reminder>? reminderList,
-    int? remoteTaskId,
+    int? remoteId,
     DateTime? lastUpdate,
     DateTime? lastViewDate,
     int? remoteViews,
@@ -32,7 +32,7 @@ class TaskModel extends TaskEntity {
           userList: userList ?? [],
           tagList: tagList ?? [],
           reminderList: reminderList ?? [],
-          remoteTaskId: remoteTaskId ?? 0,
+          remoteId: remoteId ?? 0,
           lastUpdate: lastUpdate ?? INITIAL_EPOCH_DATE,
           lastViewDate: lastViewDate ?? INITIAL_EPOCH_DATE,
           remoteViews: remoteViews ?? 0,
@@ -53,7 +53,7 @@ class TaskModel extends TaskEntity {
     return TaskModel();
   }
 
-// todo to be uodated
+// todo to be uodated see how it can be puteed in all other sub classes?
   factory TaskModel.fromJson(Map<String, dynamic> json) {
     return TaskModel(
       startDate:
@@ -81,7 +81,7 @@ class TaskModel extends TaskEntity {
       //json['tagList'] != null ? List<Tag>.from(json['tagList'].map((x) => Tag.fromJson(x))) : null,
       reminderList: const [],
       //json['reminderList'] != null ? List<Reminder>.from(json['reminderList'].map((x) => Reminder.fromJson(x))) : null,
-      remoteTaskId: json['remoteId'],
+      remoteId: json['remoteId'],
       lastUpdate: json['lastUpdate'] != null
           ? DateTime.parse(json['lastUpdate'])
           : null,
@@ -94,6 +94,7 @@ class TaskModel extends TaskEntity {
     );
   }
 
+  //todo overwrite
   Map<String, dynamic> toJson() {
     return {
       "taskId": id,
@@ -103,18 +104,11 @@ class TaskModel extends TaskEntity {
       "endDate": endDate?.toIso8601String(),
       "taskStatus":
           taskStatus.toString().split('.').last.toUpperCase() ?? 'UNDEFINED',
-      "remoteTaskId": remoteTaskId,
+      "remoteId": remoteId,
       "lastUpdate": lastUpdate?.toIso8601String(),
       "lastViewDate": lastViewDate?.toIso8601String(),
       "remoteViews": remoteViews,
       "views": views,
-      "checksum": checksum,
-    };
-  }
-
-  Map<String, dynamic> sendJsonToCheckIfIsUpdated() {
-    return {
-      "remoteTaskId": remoteTaskId,
       "checksum": checksum,
     };
   }
@@ -138,7 +132,7 @@ class TaskModel extends TaskEntity {
     List<User>? userList,
     List<Tag>? tagList,
     List<Reminder>? reminderList,
-    int? remoteTaskId,
+    int? remoteId,
     DateTime? lastUpdate,
     DateTime? lastViewDate,
     int? remoteViews,
@@ -162,7 +156,7 @@ class TaskModel extends TaskEntity {
       userList: userList ?? this.userList,
       tagList: tagList ?? this.tagList,
       reminderList: reminderList ?? this.reminderList,
-      remoteTaskId: remoteTaskId ?? this.remoteTaskId,
+      remoteId: remoteId ?? this.remoteId,
       lastUpdate: lastUpdate ?? this.lastUpdate,
       lastViewDate: lastViewDate ?? this.lastViewDate,
       remoteViews: remoteViews ?? this.remoteViews,

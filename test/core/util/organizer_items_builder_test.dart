@@ -67,10 +67,10 @@ void main() {
 
     test('removeAt method throws error if index is out of range', () {
       // Arrange
-      final builder = OrganizerItemsBuilder.of([]);
+      final builder = OrganizerItemsBuilder.empty();
 
       // Act & Assert
-      expect(() => builder.removeAt(0), throwsRangeError);
+      expect(() => builder.removeAt(1), throwsStateError);
     });
 
     group('removeAt', () {

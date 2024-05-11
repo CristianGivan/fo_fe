@@ -41,8 +41,13 @@ void main() {
     final TaskEntity taskEntity2 = TaskEntity(id: 2, subject: "Task2");
     final TaskEntity taskEntity3 = TaskEntity(id: 3, subject: "Task3");
     final OrganizerItems tEmptyOrganizerItems = OrganizerItems.empty();
-    final OrganizerItems tOrganizerItems =
+    final OrganizerItems<TaskEntity> tOrganizerItems =
         OrganizerItems.of(<TaskEntity>[taskEntity1, taskEntity2, taskEntity3]);
+    final TaskModel taskModel1 = TaskModel(id: 1, subject: "Task1");
+    final TaskModel taskModel2 = TaskModel(id: 2, subject: "Task2");
+    final TaskModel taskModel3 = TaskModel(id: 3, subject: "Task3");
+    final OrganizerItems<TaskModel> tOrganizerItemsModel =
+        OrganizerItems.of(<TaskModel>[taskModel1, taskModel2, taskModel3]);
 
     test('should check if the device is online', () async {
       // Arrange
@@ -129,6 +134,25 @@ void main() {
           verify(mockTaskLocalDataSource.getTaskById(tId));
           expect(result, expected);
         });
+      });
+    });
+
+    // todo to create tests
+    group("getTaskListByIdSet", () {
+      test('getTaskListByIdSet - Online Success', () async {
+        // Arrange
+        when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
+        when(mockTaskSyncDataSource.syncTaskListWithIdSet(tIdSet))
+            .thenAnswer((_) => Future.value(tOrganizerItemsModel));
+
+        // Act
+        final result = await repositoryImpl.getTaskListByIdSet(tIdSet);
+
+        // Assert
+        expect(result, Right(tOrganizerItems));
+        verify(mockNetworkInfo.isConnected).called(1);
+        verify(mockTaskSyncDataSource.syncTaskListWithIdSet(tIdSet)).called(1);
+        verifyNoMoreInteractions(mockTaskLocalDataSource);
       });
     });
   });

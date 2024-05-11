@@ -12,7 +12,7 @@ void main() {
     setUp(() {
       organizerItem1 = OrganizerItemEntity(
         id: 1,
-        subject: 'Task 1', /* other properties */
+        subject: 'Task 2', /* other properties */
       );
       organizerItem2 = OrganizerItemEntity(
         id: 2,

@@ -37,7 +37,7 @@ void main() {
       "startDate": "2020-02-02T02:02:02.000",
       "endDate": "2020-02-02T02:02:03.000",
       "taskStatus": "UNDEFINED",
-      "remoteTaskId": 2,
+      "remoteId": 2,
       "lastUpdate": "2020-02-02T02:02:04.000",
       "lastViewDate": "2020-02-02T02:02:05.000",
       "remoteViews": 2,
@@ -53,10 +53,14 @@ void main() {
   });
   test('should return a JSON map that contain the proper data', () async {
     // Arrange
-    final expected = {"remoteTaskId": 2, "checksum": "checksum online 2"};
+    final expected = {
+      "remoteId": 2,
+      "checksum": "checksum online 2",
+      "lastUpdate": "2020-02-02T02:02:04.000"
+    };
 
     // Act
-    final result = tTaskModel.sendJsonToCheckIfIsUpdated();
+    final result = tTaskModel.jsonToCheckForUpdates();
 
     // Assert
     expect(result, expected);

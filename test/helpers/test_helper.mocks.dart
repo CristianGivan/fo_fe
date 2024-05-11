@@ -530,8 +530,8 @@ class MockTaskModel extends _i1.Mock implements _i2.TaskModel {
       ) as List<_i17.Reminder>);
 
   @override
-  int get remoteTaskId => (super.noSuchMethod(
-        Invocation.getter(#remoteTaskId),
+  int get remoteId => (super.noSuchMethod(
+        Invocation.getter(#remoteId),
         returnValue: 0,
         returnValueForMissingStub: 0,
       ) as int);
@@ -575,7 +575,7 @@ class MockTaskModel extends _i1.Mock implements _i2.TaskModel {
     List<_i5.User>? userList,
     List<_i16.Tag>? tagList,
     List<_i17.Reminder>? reminderList,
-    int? remoteTaskId,
+    int? remoteId,
     DateTime? lastUpdate,
     DateTime? lastViewDate,
     int? remoteViews,
@@ -604,7 +604,7 @@ class MockTaskModel extends _i1.Mock implements _i2.TaskModel {
             #userList: userList,
             #tagList: tagList,
             #reminderList: reminderList,
-            #remoteTaskId: remoteTaskId,
+            #remoteId: remoteId,
             #lastUpdate: lastUpdate,
             #lastViewDate: lastViewDate,
             #remoteViews: remoteViews,
@@ -635,7 +635,7 @@ class MockTaskModel extends _i1.Mock implements _i2.TaskModel {
               #userList: userList,
               #tagList: tagList,
               #reminderList: reminderList,
-              #remoteTaskId: remoteTaskId,
+              #remoteId: remoteId,
               #lastUpdate: lastUpdate,
               #lastViewDate: lastViewDate,
               #remoteViews: remoteViews,
@@ -667,7 +667,7 @@ class MockTaskModel extends _i1.Mock implements _i2.TaskModel {
               #userList: userList,
               #tagList: tagList,
               #reminderList: reminderList,
-              #remoteTaskId: remoteTaskId,
+              #remoteId: remoteId,
               #lastUpdate: lastUpdate,
               #lastViewDate: lastViewDate,
               #remoteViews: remoteViews,
@@ -932,8 +932,8 @@ class MockOrganizerItemEntity extends _i1.Mock
       ) as List<_i17.Reminder>);
 
   @override
-  int get remoteTaskId => (super.noSuchMethod(
-        Invocation.getter(#remoteTaskId),
+  int get remoteId => (super.noSuchMethod(
+        Invocation.getter(#remoteId),
         returnValue: 0,
         returnValueForMissingStub: 0,
       ) as int);
@@ -947,7 +947,7 @@ class MockOrganizerItemEntity extends _i1.Mock
     List<_i5.User>? userList,
     List<_i16.Tag>? tagList,
     List<_i17.Reminder>? reminderList,
-    int? remoteTaskId,
+    int? remoteId,
     DateTime? lastUpdate,
     DateTime? lastViewDate,
     int? remoteViews,
@@ -966,7 +966,7 @@ class MockOrganizerItemEntity extends _i1.Mock
             #userList: userList,
             #tagList: tagList,
             #reminderList: reminderList,
-            #remoteTaskId: remoteTaskId,
+            #remoteId: remoteId,
             #lastUpdate: lastUpdate,
             #lastViewDate: lastViewDate,
             #remoteViews: remoteViews,
@@ -987,7 +987,7 @@ class MockOrganizerItemEntity extends _i1.Mock
               #userList: userList,
               #tagList: tagList,
               #reminderList: reminderList,
-              #remoteTaskId: remoteTaskId,
+              #remoteId: remoteId,
               #lastUpdate: lastUpdate,
               #lastViewDate: lastViewDate,
               #remoteViews: remoteViews,
@@ -1009,7 +1009,7 @@ class MockOrganizerItemEntity extends _i1.Mock
               #userList: userList,
               #tagList: tagList,
               #reminderList: reminderList,
-              #remoteTaskId: remoteTaskId,
+              #remoteId: remoteId,
               #lastUpdate: lastUpdate,
               #lastViewDate: lastViewDate,
               #remoteViews: remoteViews,

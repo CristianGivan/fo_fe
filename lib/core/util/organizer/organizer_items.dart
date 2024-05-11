@@ -45,6 +45,16 @@ class OrganizerItems<T extends OrganizerItemEntity> extends Equatable {
     return OrganizerItems.of(filteredItems);
   }
 
+  // //todo tests
+  // OrganizerItems updateItems(OrganizerItems<T> updateItems) {
+  //
+  // }
+
+//todo tests
+  Iterable<Map<String, dynamic>> createJsonToCheckForUpdates() {
+    return _organizerItems.map((e) => e.jsonToCheckForUpdates());
+  }
+
   @override
   List<Object> get props => [_organizerItems];
 }

@@ -1,7 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
+import 'dart:core';
+import 'dart:io';
 
 import 'package:fo_fe/core/error/exceptions.dart';
+import 'package:fo_fe/core/util/organizer/core_util_organizer.dart';
 import 'package:http/http.dart' as http;
 
 import '../../task_lib.dart';
@@ -17,6 +20,9 @@ abstract class TaskRemoteDataSource {
       Map<String, dynamic> json);
 
   Future<void> deleteTask(int id);
+
+  Future<OrganizerItems<TaskModel>> getUpdatedItems(
+      OrganizerItems<TaskModel> items);
 }
 
 class TaskRemoteDataSourceImpl implements TaskRemoteDataSource {
@@ -65,5 +71,51 @@ class TaskRemoteDataSourceImpl implements TaskRemoteDataSource {
   Future<TaskModel> putTask(TaskModel task) {
     // TODO: implement putTask
     throw UnimplementedError();
+  }
+
+  //todo tests
+  @override
+  Future<OrganizerItems<TaskModel>> getUpdatedItems(
+      OrganizerItems<TaskModel> organizerItems) async {
+    Iterable<Map<String, dynamic>> jsonSend =
+        organizerItems.createJsonToCheckForUpdates();
+    final url =
+        Uri.parse('${serverUrl}task/getTaskByIdSet'); //todo correct link
+    try {
+      final response = await httpClient.get(url, headers: headers);
+      if (response.statusCode == 200) {
+        final jsonResponse = json.decode(response.body);
+        _areAllItemsProcessed(organizerItems, jsonResponse);
+        return _getUpdatedItemsFromResponse(jsonResponse);
+      } else {
+        throw ServerException("Server exception");
+      }
+    } on SocketException catch (e) {
+      throw ServerException("Network error: $e");
+    }
+    //todo check FormatException
+    // on decode.FormatException catch (e) {
+    //   throw ServerException("Invalid JSON format: $e");
+    // }
+  }
+
+// todo now there is a minimal check it shall be created a more more detailed check
+  bool _areAllItemsProcessed(
+    OrganizerItems<TaskModel> organizerItems,
+    Map<String, dynamic> jsonResponse,
+  ) {
+    final updatedCount = (jsonResponse['Updated'] as List).length;
+    final notUpdatedCount = (jsonResponse['NotUpdated'] as List).length;
+
+    return organizerItems.size() != updatedCount + notUpdatedCount;
+  }
+
+  Future<OrganizerItems<TaskModel>> _getUpdatedItemsFromResponse(
+    Map<String, dynamic> jsonResponse,
+  ) async {
+    final updatedTasks = (jsonResponse['Updated'] as List)
+        .map((dynamic item) => TaskModel.fromJson(item))
+        .toList();
+    return OrganizerItems.of(updatedTasks);
   }
 }

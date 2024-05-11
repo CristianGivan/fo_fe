@@ -21,7 +21,7 @@ class TaskSyncDataSourceImpl implements TaskSyncDataSource {
   @override
   Future<TaskModel> syncTaskWithId(int id) async {
     TaskModel taskModel = await taskLocalDataSource.getTaskById(id);
-    Map<String, dynamic> jsonSend = taskModel.sendJsonToCheckIfIsUpdated();
+    Map<String, dynamic> jsonSend = taskModel.jsonToCheckForUpdates();
     Map<String, dynamic> jsonResponse =
         await taskRemoteDataSource.getUpdatedTaskIfDifferent(jsonSend);
 
@@ -33,9 +33,26 @@ class TaskSyncDataSourceImpl implements TaskSyncDataSource {
     return taskModel;
   }
 
+//todo tests
   @override
-  Future<OrganizerItems<TaskModel>> syncTaskListWithIdSet(IdSet idSet) {
-    // TODO: implement getTaskListByIdSet
+  Future<OrganizerItems<TaskModel>> syncTaskListWithIdSet(IdSet idSet) async {
+    OrganizerItems<TaskModel> taskModelList =
+        await taskLocalDataSource.getTaskListByIdSet(idSet);
+    OrganizerItems<TaskModel> updatedTaskModelList =
+        await taskRemoteDataSource.getUpdatedItems(taskModelList);
+    _updateLocalDB(updatedTaskModelList);
+    return _getUpdatedTaskList(taskModelList, updatedTaskModelList);
+  }
+
+  // todo how to do it
+  Future<void> _updateLocalDB(OrganizerItems<TaskModel> updatedTaskModelList) {
+    // TODO: implement connect
     throw UnimplementedError();
+  }
+
+  Future<OrganizerItems<TaskModel>> _getUpdatedTaskList(
+      OrganizerItems<TaskModel> taskModelList,
+      OrganizerItems<TaskModel> updatedTaskModelList) {
+    return Future(() => taskModelList);
   }
 }

@@ -70,7 +70,7 @@ void main() {
       when(mockTaskRemoteDataSource.getUpdatedTaskIfDifferent(any))
           .thenAnswer((_) => Future.value(tJsonReceived));
 
-      final tSendJson = getTaskModelTestOffline().sendJsonToCheckIfIsUpdated();
+      final tSendJson = getTaskModelTestOffline().jsonToCheckForUpdates();
       final tReceivedTask = TaskModel.fromJson(tJsonReceived);
 
       final expected = tTaskModelOnline;
@@ -97,7 +97,7 @@ void main() {
       when(mockTaskRemoteDataSource.getUpdatedTaskIfDifferent(any))
           .thenAnswer((_) => Future.value(tJsonReceived));
 
-      final tSendJson = getTaskModelTestOffline().sendJsonToCheckIfIsUpdated();
+      final tSendJson = getTaskModelTestOffline().jsonToCheckForUpdates();
       final tReceivedTask = TaskModel.fromJson(tJsonReceived);
 
       // Act

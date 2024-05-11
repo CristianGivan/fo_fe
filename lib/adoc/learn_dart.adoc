@@ -1,0 +1,2 @@
+* In Dart, extension methods are a relatively new feature introduced in version 2.7. They allow you to add new methods to existing classes without modifying the original class itself.
+This provides a cleaner and more modular way to extend the functionality of existing types.

@@ -1,1 +1,2 @@
-rezolv problema cu Tipurile care se paseaza de la Usecase la datasource
+- [ ] create a method sortByRemoteId
+-
