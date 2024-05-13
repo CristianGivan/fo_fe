@@ -36,23 +36,30 @@ class TaskSyncDataSourceImpl implements TaskSyncDataSource {
 //todo tests
   @override
   Future<OrganizerItems<TaskModel>> syncTaskListWithIdSet(IdSet idSet) async {
-    OrganizerItems<TaskModel> taskModelList =
-        await taskLocalDataSource.getTaskListByIdSet(idSet);
-    OrganizerItems<TaskModel> updatedTaskModelList =
-        await taskRemoteDataSource.getUpdatedItems(taskModelList);
-    _updateLocalDB(updatedTaskModelList);
-    return _getUpdatedTaskList(taskModelList, updatedTaskModelList);
+    final items = await taskLocalDataSource.getTaskListByIdSet(idSet);
+    final remoteItems = await taskRemoteDataSource.getUpdatedItems(items);
+    final updatedItems = items.toBuilder()
+      ..updateItems(_getOnlyRemoteUpdatedItems(remoteItems))
+      ..updateItems(await _getLocalyUpdatedItemsCreatedRemote(remoteItems));
+
+    return Future.value(updatedItems.build());
+  }
+
+  OrganizerItems<TaskModel> _getOnlyRemoteUpdatedItems(
+      OrganizerItems<TaskModel> remoteItems) {
+    return remoteItems;
   }
 
   // todo how to do it
-  Future<void> _updateLocalDB(OrganizerItems<TaskModel> updatedTaskModelList) {
-    // TODO: implement connect
-    throw UnimplementedError();
+  Future<OrganizerItems<TaskModel>> _getLocalyUpdatedItemsCreatedRemote(
+      OrganizerItems<TaskModel> remoteItems) {
+    final remoteCreatedItems = _getRemoteCreatedItems(remoteItems);
+    return remoteCreatedItems;
   }
 
-  Future<OrganizerItems<TaskModel>> _getUpdatedTaskList(
-      OrganizerItems<TaskModel> taskModelList,
-      OrganizerItems<TaskModel> updatedTaskModelList) {
-    return Future(() => taskModelList);
+  //todo implement and test
+  Future<OrganizerItems<TaskModel>> _getRemoteCreatedItems(
+      OrganizerItems<TaskModel> remoteItems) {
+    return Future.value(remoteItems);
   }
 }

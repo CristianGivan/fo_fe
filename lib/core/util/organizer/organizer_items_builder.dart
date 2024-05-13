@@ -6,6 +6,7 @@ class OrganizerItemsBuilder<T extends OrganizerItemEntity> extends Equatable {
   // I will if I have to change it but lets start so.
   List<T> _organizerItems;
   SortedBy _sortedBy; // to don't sort if I all ready sort the
+
   final Map<SortedBy, Function(List<T>)> _sortingFunctions = {
     SortedBy.none: (items) => {},
     SortedBy.remoteIdAscending: (items) =>
@@ -27,6 +28,11 @@ class OrganizerItemsBuilder<T extends OrganizerItemEntity> extends Equatable {
 
   List<T> get organizerItems => _organizerItems;
 
+  //todo violate DRY
+  bool isEmpty() {
+    return _organizerItems.isEmpty;
+  }
+
   OrganizerItemsBuilder add(T organizerItem) {
     _organizerItems.add(organizerItem);
     //todo tests
@@ -34,8 +40,8 @@ class OrganizerItemsBuilder<T extends OrganizerItemEntity> extends Equatable {
     return this;
   }
 
-  OrganizerItemsBuilder addAll(Iterable<T> elements) {
-    _organizerItems.addAll(elements);
+  OrganizerItemsBuilder addAllOrganizerItems(OrganizerItems<T> elements) {
+    _organizerItems.addAll(elements._organizerItems);
     //todo tests
     _sortedBy = SortedBy.none; // todo maybe I add it and left the items sorted
     return this;
@@ -69,15 +75,62 @@ class OrganizerItemsBuilder<T extends OrganizerItemEntity> extends Equatable {
     return this;
   }
 
-  //
-  // OrganizerItemsBuilder updateItem(T optimizerItem) {
-  //   if (optimizerItem.remoteId)
-  // }
+  //todo implement and tests
+  OrganizerItemsBuilder<T> updateItem(T optimizerItem) {
+    return this;
+  }
 
-  OrganizerItems build() => OrganizerItems.of(_organizerItems);
+  OrganizerItemsBuilder<T> updateItems(OrganizerItems<T> updatedAndNewItem) {
+    List<T> result = [];
+    if (updatedAndNewItem.isEmpty()) {
+      return this;
+    }
+    this.sortBy(SortedBy.remoteIdAscending);
+    updatedAndNewItem.toBuilder().sortBy(SortedBy.remoteIdAscending);
+    int k = 0;
+
+    for (int i = 0; i < updatedAndNewItem.size(); i++) {
+      if (k <= _organizerItems.length - 1) {
+        for (int j = k; j < _organizerItems.length; j++) {
+          if (updatedAndNewItem.getAt(i).remoteId ==
+              _organizerItems[j].remoteId) {
+            result.add(updatedAndNewItem.getAt(i));
+            k = j + 1;
+            break;
+          } else {
+            result.add(_organizerItems[j]);
+          }
+        }
+      } else {
+        result.add(updatedAndNewItem.getAt(i));
+      }
+    }
+    // int k = 0;
+    // for (int i = 0; i < _organizerItems.length; i++) {
+    //   for (int j = k; j < updatedAndNewItem.size(); j++) {
+    //     if (_organizerItems[i].remoteId ==
+    //         updatedAndNewItem.getAt(j).remoteId) {
+    //       result.add(updatedAndNewItem.getAt(j));
+    //       k++;
+    //       break;
+    //     } else {
+    //       result.add(_organizerItems[i]);
+    //       break;
+    //     }
+    //   }
+    // }
+    _organizerItems = result;
+    return this;
+  }
+
+  OrganizerItems<T> build() => OrganizerItems.of(_organizerItems);
 
   @override
   List<Object> get props => [_organizerItems, _sortedBy];
+
+  @override
+  // TODO: implement iterator
+  Iterator<T> get iterator => throw UnimplementedError();
 }
 //
 // class OrganizerItemsBuilder<T> {

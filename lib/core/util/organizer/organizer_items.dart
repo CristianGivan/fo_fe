@@ -2,20 +2,19 @@ part of 'core_util_organizer.dart';
 
 class OrganizerItems<T extends OrganizerItemEntity> extends Equatable {
   final List<T> _organizerItems;
-  final SortedBy _sortedBy;
 
-  OrganizerItems._(this._organizerItems, this._sortedBy);
+  OrganizerItems._(this._organizerItems);
 
-  factory OrganizerItems.empty() => OrganizerItems._([], SortedBy.none);
+  factory OrganizerItems.empty() => OrganizerItems._([]);
 
   factory OrganizerItems.of(Iterable<T> organizerItems,
           {SortedBy sortedBy = SortedBy.none}) =>
-      OrganizerItems._(organizerItems.whereType<T>().toList(), sortedBy);
+      OrganizerItems._(organizerItems.whereType<T>().toList());
 
-  OrganizerItemsBuilder toBuilder() =>
+  OrganizerItemsBuilder<T> toBuilder() =>
       OrganizerItemsBuilder.of(_organizerItems);
 
-  SortedBy get sortedBy => _sortedBy;
+  // SortedBy get sortedBy => _sortedBy;
 
   List<T> toList() => _organizerItems.toList();
 
@@ -61,5 +60,5 @@ class OrganizerItems<T extends OrganizerItemEntity> extends Equatable {
   }
 
   @override
-  List<Object> get props => [_organizerItems, _sortedBy];
+  List<Object> get props => [_organizerItems];
 }

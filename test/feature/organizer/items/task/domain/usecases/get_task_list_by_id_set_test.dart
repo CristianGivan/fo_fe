@@ -20,7 +20,7 @@ void main() {
 
   final tIdSet = IdSet.of([1, 2, 3]);
 
-  OrganizerItems<TaskEntity> tTaskEntityList = getOrganizerItems3Tasks();
+  OrganizerItems<TaskEntity> tTaskEntityList = getOrganizerItems3TaskEntity();
 
   test('should get a list of tasks from the repository', () async {
     // Arrange
