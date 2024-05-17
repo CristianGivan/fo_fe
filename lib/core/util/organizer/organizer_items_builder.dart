@@ -80,49 +80,6 @@ class OrganizerItemsBuilder<T extends OrganizerItemEntity> extends Equatable {
     return this;
   }
 
-  OrganizerItemsBuilder<T> updateItems(OrganizerItems<T> updatedAndNewItem) {
-    List<T> result = [];
-    if (updatedAndNewItem.isEmpty()) {
-      return this;
-    }
-    this.sortBy(SortedBy.remoteIdAscending);
-    updatedAndNewItem.toBuilder().sortBy(SortedBy.remoteIdAscending);
-    int k = 0;
-
-    for (int i = 0; i < updatedAndNewItem.size(); i++) {
-      if (k <= _organizerItems.length - 1) {
-        for (int j = k; j < _organizerItems.length; j++) {
-          if (updatedAndNewItem.getAt(i).remoteId ==
-              _organizerItems[j].remoteId) {
-            result.add(updatedAndNewItem.getAt(i));
-            k = j + 1;
-            break;
-          } else {
-            result.add(_organizerItems[j]);
-          }
-        }
-      } else {
-        result.add(updatedAndNewItem.getAt(i));
-      }
-    }
-    // int k = 0;
-    // for (int i = 0; i < _organizerItems.length; i++) {
-    //   for (int j = k; j < updatedAndNewItem.size(); j++) {
-    //     if (_organizerItems[i].remoteId ==
-    //         updatedAndNewItem.getAt(j).remoteId) {
-    //       result.add(updatedAndNewItem.getAt(j));
-    //       k++;
-    //       break;
-    //     } else {
-    //       result.add(_organizerItems[i]);
-    //       break;
-    //     }
-    //   }
-    // }
-    _organizerItems = result;
-    return this;
-  }
-
   OrganizerItems<T> build() => OrganizerItems.of(_organizerItems);
 
   @override
@@ -132,6 +89,56 @@ class OrganizerItemsBuilder<T extends OrganizerItemEntity> extends Equatable {
   // TODO: implement iterator
   Iterator<T> get iterator => throw UnimplementedError();
 }
+
+OrganizerItemsBuilder<T> updateItems(OrganizerItems<T> updatedAndNewItem) {
+  List<T> result = [];
+  if (updatedAndNewItem.isEmpty()) {
+    return this;
+  }
+
+  _organizerItems.s;
+
+  //v02 - working imperative stile
+  // this.sortBy(SortedBy.remoteIdAscending);
+  // updatedAndNewItem.toBuilder().sortBy(SortedBy.remoteIdAscending);
+  // int k = 0;
+  //
+  // for (int i = 0; i < updatedAndNewItem.size(); i++) {
+  //   if (k <= _organizerItems.length - 1) {
+  //     for (int j = k; j < _organizerItems.length; j++) {
+  //       if (updatedAndNewItem.getAt(i).remoteId ==
+  //           _organizerItems[j].remoteId) {
+  //         result.add(updatedAndNewItem.getAt(i));
+  //         k = j + 1;
+  //         break;
+  //       } else {
+  //         result.add(_organizerItems[j]);
+  //       }
+  //     }
+  //   } else {
+  //     result.add(updatedAndNewItem.getAt(i));
+  //   }
+  // }
+
+  //v01 -not working
+  // int k = 0;
+  // for (int i = 0; i < _organizerItems.length; i++) {
+  //   for (int j = k; j < updatedAndNewItem.size(); j++) {
+  //     if (_organizerItems[i].remoteId ==
+  //         updatedAndNewItem.getAt(j).remoteId) {
+  //       result.add(updatedAndNewItem.getAt(j));
+  //       k++;
+  //       break;
+  //     } else {
+  //       result.add(_organizerItems[i]);
+  //       break;
+  //     }
+  //   }
+  // }
+  _organizerItems = result;
+  return this;
+}
+
 //
 // class OrganizerItemsBuilder<T> {
 //   // ... other methods and properties
