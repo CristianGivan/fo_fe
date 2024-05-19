@@ -88,115 +88,38 @@ class OrganizerItemsBuilder<T extends OrganizerItemEntity> extends Equatable {
   @override
   // TODO: implement iterator
   Iterator<T> get iterator => throw UnimplementedError();
-}
 
-OrganizerItemsBuilder<T> updateItems(OrganizerItems<T> updatedAndNewItem) {
-  List<T> result = [];
-  if (updatedAndNewItem.isEmpty()) {
+  OrganizerItemsBuilder<T> updateItems(OrganizerItems<T> updatedAndNewItem) {
+    List<T> result = [];
+    if (updatedAndNewItem.isEmpty()) {
+      return this;
+    }
+
+    //todo functional style
+
+    //v02 - working imperative style
+    this.sortBy(SortedBy.remoteIdAscending);
+    updatedAndNewItem.toBuilder().sortBy(SortedBy.remoteIdAscending);
+    int k = 0;
+
+    for (int i = 0; i < updatedAndNewItem.size(); i++) {
+      if (k <= _organizerItems.length - 1) {
+        for (int j = k; j < _organizerItems.length; j++) {
+          if (updatedAndNewItem.getAt(i).remoteId ==
+              _organizerItems[j].remoteId) {
+            result.add(updatedAndNewItem.getAt(i));
+            k = j + 1;
+            break;
+          } else {
+            result.add(_organizerItems[j]);
+          }
+        }
+      } else {
+        result.add(updatedAndNewItem.getAt(i));
+      }
+    }
+
+    _organizerItems = result;
     return this;
   }
-
-  _organizerItems.s;
-
-  //v02 - working imperative stile
-  // this.sortBy(SortedBy.remoteIdAscending);
-  // updatedAndNewItem.toBuilder().sortBy(SortedBy.remoteIdAscending);
-  // int k = 0;
-  //
-  // for (int i = 0; i < updatedAndNewItem.size(); i++) {
-  //   if (k <= _organizerItems.length - 1) {
-  //     for (int j = k; j < _organizerItems.length; j++) {
-  //       if (updatedAndNewItem.getAt(i).remoteId ==
-  //           _organizerItems[j].remoteId) {
-  //         result.add(updatedAndNewItem.getAt(i));
-  //         k = j + 1;
-  //         break;
-  //       } else {
-  //         result.add(_organizerItems[j]);
-  //       }
-  //     }
-  //   } else {
-  //     result.add(updatedAndNewItem.getAt(i));
-  //   }
-  // }
-
-  //v01 -not working
-  // int k = 0;
-  // for (int i = 0; i < _organizerItems.length; i++) {
-  //   for (int j = k; j < updatedAndNewItem.size(); j++) {
-  //     if (_organizerItems[i].remoteId ==
-  //         updatedAndNewItem.getAt(j).remoteId) {
-  //       result.add(updatedAndNewItem.getAt(j));
-  //       k++;
-  //       break;
-  //     } else {
-  //       result.add(_organizerItems[i]);
-  //       break;
-  //     }
-  //   }
-  // }
-  _organizerItems = result;
-  return this;
 }
-
-//
-// class OrganizerItemsBuilder<T> {
-//   // ... other methods and properties
-//
-//   OrganizerItems<T> replaceWithUpdates(OrganizerItems<T> updateItems) {
-//     final existingItems = <int, T>{}; // Map to store existing items by remoteId
-//
-//     // Build a map of existing items with their remoteId as key
-//     items.forEach((item) => existingItems[item.remoteId] = item);
-//
-//     final updatedItemsList =
-//         updateItems.toList(); // Convert to a list for easier processing
-//
-//     // Replace existing items with updates based on remoteId
-//     final updatedBuilder = OrganizerItemsBuilder<T>();
-//     for (final updateItem in updatedItemsList) {
-//       final existingItem = existingItems.remove(updateItem.remoteId);
-//       if (existingItem != null) {
-//         updatedBuilder.add(updateItem); // Add the updated item
-//       } else {
-//         // Add the update item if no existing item with the same remoteId is found
-//         updatedBuilder.add(updateItem);
-//       }
-//     }
-//
-//     // Add remaining existing items (not updated)
-//     existingItems.forEach((_, item) => updatedBuilder.add(item));
-//
-//     return updatedBuilder.build();
-//   }
-//
-// // ... other methods
-// }
-//
-// Stream<OrganizerItems<T>> replaceWithUpdatesStream(
-//   OrganizerItems<T> organizerItems,
-//   Stream<OrganizerItems<T>> updateItemsStream,
-// ) {
-//   return updateItemsStream.transform(
-//     StreamTransformer<OrganizerItems<T>, OrganizerItems<T>>.fromHandlers(
-//       handleData: (updateItems, sink) async {
-//         final existingItemsMap = <int, T>{};
-//         organizerItems
-//             .forEach((item) => existingItemsMap[item.remoteId] = item);
-//
-//         final updatedList =
-//             updateItems.toList(); // Convert to list for processing
-//
-//         final updatedBuilder = OrganizerItemsBuilder<T>();
-//         for (final updateItem in updatedList) {
-//           final existingItem = existingItemsMap.remove(updateItem.remoteId);
-//           updatedBuilder
-//               .add(existingItem ?? updateItem); // Add updated or original
-//         }
-//
-//         existingItemsMap.forEach((_, item) => updatedBuilder.add(item));
-//         sink.add(updatedBuilder.build());
-//       },
-//     ),
-//   );
-// }
