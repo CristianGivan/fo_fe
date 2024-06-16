@@ -17,11 +17,11 @@ import 'package:fo_fe/core/util/organizer/core_util_organizer.dart' as _i4;
 import 'package:fo_fe/features/organizer/items/organizer_item/organizer_item.dart'
     as _i3;
 import 'package:fo_fe/features/organizer/items/tag/tag_lib.dart' as _i16;
-import 'package:fo_fe/features/organizer/items/task/data/datasources/task_local_data_source.dart'
+import 'package:fo_fe/features/organizer/items/task/data/other/datasources/task_local_data_source.dart'
     as _i12;
-import 'package:fo_fe/features/organizer/items/task/data/datasources/task_remote_data_source.dart'
+import 'package:fo_fe/features/organizer/items/task/data/other/datasources/task_remote_data_source.dart'
     as _i13;
-import 'package:fo_fe/features/organizer/items/task/data/datasources/task_sync_data_source.dart'
+import 'package:fo_fe/features/organizer/items/task/data/other/datasources/task_sync_data_source.dart'
     as _i14;
 import 'package:fo_fe/features/organizer/items/task/domain/entities/topic.dart'
     as _i20;
@@ -173,8 +173,8 @@ class _FakeTaskRepository_10 extends _i1.SmartFake
 /// See the documentation for Mockito's code generation for more information.
 class MockNetworkInfo extends _i1.Mock implements _i10.NetworkInfo {
   @override
-  _i11.Future<bool> get isConnected => (super.noSuchMethod(
-        Invocation.getter(#isConnected),
+  _i11.Future<bool> get isInternet => (super.noSuchMethod(
+        Invocation.getter(#isInternet),
         returnValue: _i11.Future<bool>.value(false),
         returnValueForMissingStub: _i11.Future<bool>.value(false),
       ) as _i11.Future<bool>);

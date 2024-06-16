@@ -28,11 +28,6 @@ class OrganizerItemsBuilder<T extends OrganizerItemEntity> extends Equatable {
 
   List<T> get organizerItems => _organizerItems;
 
-  //todo violate DRY
-  bool isEmpty() {
-    return _organizerItems.isEmpty;
-  }
-
   OrganizerItemsBuilder add(T organizerItem) {
     _organizerItems.add(organizerItem);
     //todo tests
@@ -40,7 +35,7 @@ class OrganizerItemsBuilder<T extends OrganizerItemEntity> extends Equatable {
     return this;
   }
 
-  OrganizerItemsBuilder addAllOrganizerItems(OrganizerItems<T> elements) {
+  OrganizerItemsBuilder addAll(OrganizerItems<T> elements) {
     _organizerItems.addAll(elements._organizerItems);
     //todo tests
     _sortedBy = SortedBy.none; // todo maybe I add it and left the items sorted
@@ -85,10 +80,6 @@ class OrganizerItemsBuilder<T extends OrganizerItemEntity> extends Equatable {
   @override
   List<Object> get props => [_organizerItems, _sortedBy];
 
-  @override
-  // TODO: implement iterator
-  Iterator<T> get iterator => throw UnimplementedError();
-
   OrganizerItemsBuilder<T> updateItems(OrganizerItems<T> updatedAndNewItem) {
     List<T> result = [];
     if (updatedAndNewItem.isEmpty()) {
@@ -118,7 +109,6 @@ class OrganizerItemsBuilder<T extends OrganizerItemEntity> extends Equatable {
         result.add(updatedAndNewItem.getAt(i));
       }
     }
-
     _organizerItems = result;
     return this;
   }

@@ -21,7 +21,7 @@ void main() {
           .thenAnswer((_) => tHasConnectionFuture);
 
       // Act
-      final result = networkInfo.isConnected;
+      final result = networkInfo.isInternet;
 
       // Assert
       verify(mockDataConnectionChecker.hasConnection);

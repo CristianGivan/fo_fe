@@ -1,6 +1,6 @@
 import 'package:fo_fe/core/util/organizer/core_util_organizer.dart';
-import 'package:fo_fe/features/organizer/items/task/data/datasources/task_local_data_source.dart';
-import 'package:fo_fe/features/organizer/items/task/data/datasources/task_remote_data_source.dart';
+import 'package:fo_fe/features/organizer/items/task/data/other/datasources/task_local_data_source.dart';
+import 'package:fo_fe/features/organizer/items/task/data/other/datasources/task_remote_data_source.dart';
 import 'package:fo_fe/features/organizer/items/task/task_lib.dart';
 
 abstract class TaskSyncDataSource {
@@ -33,24 +33,25 @@ class TaskSyncDataSourceImpl implements TaskSyncDataSource {
     return taskModel;
   }
 
-//todo tests
+//todo implementation tests
   @override
   Future<OrganizerItems<TaskModel>> syncTaskListWithIdSet(IdSet idSet) async {
     final items = await taskLocalDataSource.getTaskListByIdSet(idSet);
     final remoteItems = await taskRemoteDataSource.getUpdatedItems(items);
     final updatedItems = items.toBuilder()
       ..updateItems(_getOnlyRemoteUpdatedItems(remoteItems))
-      ..updateItems(await _getLocalyUpdatedItemsCreatedRemote(remoteItems));
+      ..addAll(await _getLocalyUpdatedItemsCreatedRemote(remoteItems));
 
     return Future.value(updatedItems.build());
   }
 
   OrganizerItems<TaskModel> _getOnlyRemoteUpdatedItems(
       OrganizerItems<TaskModel> remoteItems) {
-    return remoteItems;
+    return OrganizerItems.empty();
   }
 
   // todo how to do it
+  // to get the id it had to be included in the local DB
   Future<OrganizerItems<TaskModel>> _getLocalyUpdatedItemsCreatedRemote(
       OrganizerItems<TaskModel> remoteItems) {
     final remoteCreatedItems = _getRemoteCreatedItems(remoteItems);
@@ -60,6 +61,6 @@ class TaskSyncDataSourceImpl implements TaskSyncDataSource {
   //todo implement and test
   Future<OrganizerItems<TaskModel>> _getRemoteCreatedItems(
       OrganizerItems<TaskModel> remoteItems) {
-    return Future.value(remoteItems);
+    return Future.value(OrganizerItems.empty());
   }
 }

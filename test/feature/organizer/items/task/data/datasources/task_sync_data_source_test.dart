@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fo_fe/core/util/organizer/core_util_organizer.dart';
-import 'package:fo_fe/features/organizer/items/task/data/datasources/task_sync_data_source.dart';
+import 'package:fo_fe/features/organizer/items/task/data/other/datasources/task_sync_data_source.dart';
 import 'package:fo_fe/features/organizer/items/task/task_lib.dart';
 import 'package:mockito/mockito.dart';
 
@@ -171,7 +171,29 @@ void main() {
       organizerItems.map((p0) => print(p0));
       updatedOrganizerItems.map((p0) => print(p0));
     });
-    test("LT ", () async {
+    test(
+        "Shall return the local items when there are no updated items on remote",
+        () async {
+      //Arrange
+
+      when(mockTaskLocalDataSource.getTaskListByIdSet(any))
+          .thenAnswer((_) => Future.value(getOrganizerItems5TaskModel()));
+
+      when(mockTaskRemoteDataSource.getUpdatedItems(any))
+          .thenAnswer((_) => Future.value(OrganizerItems.empty()));
+
+      final expected = getOrganizerItems5TaskModel();
+      //Act
+
+      final result = await syncTaskImpl.syncTaskListWithIdSet(tIdSet);
+
+      //Assert
+      expect(result, expected);
+    });
+
+    test(
+        "Shall return the all items (updated and not updated) when"
+        " there are updated items received from remote", () async {
       //Arrange
 
       when(mockTaskLocalDataSource.getTaskListByIdSet(any))

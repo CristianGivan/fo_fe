@@ -1,4 +1,4 @@
-part of '../../task_lib.dart';
+part of '../../../task_lib.dart';
 
 class TaskModel extends TaskEntity {
   TaskModel({
@@ -28,10 +28,10 @@ class TaskModel extends TaskEntity {
           id: id ?? 0,
           subject: subject ?? '',
           createdDate: createdDate ?? INITIAL_EPOCH_DATE,
-          creator: creator ?? User(id: 0),
-          userList: userList ?? [],
-          tagList: tagList ?? [],
-          reminderList: reminderList ?? [],
+          // creator: creator ?? User(id: 0),
+          // userList: userList ?? [],
+          // tagList: tagList ?? [],
+          // reminderList: reminderList ?? [],
           remoteId: remoteId ?? 0,
           lastUpdate: lastUpdate ?? INITIAL_EPOCH_DATE,
           lastViewDate: lastViewDate ?? INITIAL_EPOCH_DATE,
@@ -45,8 +45,8 @@ class TaskModel extends TaskEntity {
           estimatedLeftTime: estimatedLeftTime ?? 0,
           workingProgress: workingProgress ?? 0,
           taskStatus: taskStatus ?? TaskStatus.undefined,
-          workList: workList ?? [],
-          topicList: topicList ?? [],
+          // workList: workList ?? [],
+          // topicList: topicList ?? [],
         );
 
   static TaskModel empty() {
@@ -147,8 +147,8 @@ class TaskModel extends TaskEntity {
       estimatedLeftTime: estimatedLeftTime ?? this.estimatedLeftTime,
       workingProgress: workingProgress ?? this.workingProgress,
       taskStatus: taskStatus ?? this.taskStatus,
-      workList: workList ?? this.workList,
-      topicList: topicList ?? this.topicList,
+      // workList: workList ?? this.workList,
+      // topicList: topicList ?? this.topicList,
       id: id ?? this.id,
       subject: subject ?? this.subject,
       createdDate: createdDate ?? this.createdDate,

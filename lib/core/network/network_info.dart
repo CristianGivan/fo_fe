@@ -2,9 +2,10 @@
 import 'package:data_connection_checker_nulls/data_connection_checker_nulls.dart';
 
 abstract class NetworkInfo {
-  Future<bool> get isConnected;
+  Future<bool> get isInternet;
 }
 
+// todo remote have a methode to check if my server is online
 class NetworkInfoImpl implements NetworkInfo {
   DataConnectionChecker connectionChecker;
 
@@ -12,6 +13,8 @@ class NetworkInfoImpl implements NetworkInfo {
     required this.connectionChecker,
   });
 
+  //todo remote
   @override
-  Future<bool> get isConnected => connectionChecker.hasConnection;
+  Future<bool> get isInternet =>
+      Future.value(false); //connectionChecker.hasConnection;
 }

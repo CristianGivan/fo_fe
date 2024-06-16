@@ -4,7 +4,7 @@ import 'package:fo_fe/core/const/failures_message.dart';
 import 'package:fo_fe/core/error/exceptions.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/util/organizer/core_util_organizer.dart';
-import 'package:fo_fe/features/organizer/items/task/data/repositories/task_repositories_impl.dart';
+import 'package:fo_fe/features/organizer/items/task/data/other/repositories/task_repositories_impl.dart';
 import 'package:fo_fe/features/organizer/items/task/task_lib.dart';
 import 'package:mockito/mockito.dart';
 
@@ -51,19 +51,19 @@ void main() {
 
     test('should check if the device is online', () async {
       // Arrange
-      when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
+      when(mockNetworkInfo.isInternet).thenAnswer((_) async => true);
 
       // Act
       repositoryImpl.getTaskById(1);
 
       // Assert
-      verify(mockNetworkInfo.isConnected);
+      verify(mockNetworkInfo.isInternet);
     });
 
     group('getTask', () {
       group('device is online', () {
         setUp(() {
-          when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
+          when(mockNetworkInfo.isInternet).thenAnswer((_) async => true);
         });
 
         test('should return sync task entity when device is online', () async {
@@ -99,7 +99,7 @@ void main() {
       });
       group('device is offline', () {
         setUp(() {
-          when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
+          when(mockNetworkInfo.isInternet).thenAnswer((_) async => false);
         });
 
         test('should return local task entity when device is offline',
@@ -141,7 +141,7 @@ void main() {
     group("getTaskListByIdSet", () {
       test('getTaskListByIdSet - Online Success', () async {
         // Arrange
-        when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
+        when(mockNetworkInfo.isInternet).thenAnswer((_) async => false);
         when(mockTaskSyncDataSource.syncTaskListWithIdSet(tIdSet))
             .thenAnswer((_) => Future.value(tOrganizerItemsModel));
 
@@ -150,7 +150,7 @@ void main() {
 
         // Assert
         expect(result, Right(tOrganizerItems));
-        verify(mockNetworkInfo.isConnected).called(1);
+        verify(mockNetworkInfo.isInternet).called(1);
         verify(mockTaskSyncDataSource.syncTaskListWithIdSet(tIdSet)).called(1);
         verifyNoMoreInteractions(mockTaskLocalDataSource);
       });

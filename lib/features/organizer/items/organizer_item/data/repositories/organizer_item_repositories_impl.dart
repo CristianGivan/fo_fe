@@ -18,7 +18,7 @@ class OrganizerItemRepositoryImpl<T extends OrganizerItemEntity>
     final Right<dynamic, OrganizerItems<T>> eitherOrganizerItems;
 
     try {
-      if (await networkInfo.isConnected) {
+      if (await networkInfo.isInternet) {
         eitherOrganizerItems = Right(
             await organizerItemSyncDataSource.syncTaskListWithIdSet(idSet));
       } else {

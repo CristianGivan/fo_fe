@@ -1,0 +1,3 @@
+=== 2024.06.02
+
+* I studied the sqlite and drift and I concluded that I will use drift because it could help me to write less boiler code and there is the extension that I can tri it, I think it is easy to switch to other api.

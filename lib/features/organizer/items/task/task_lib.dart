@@ -22,8 +22,8 @@ import 'domain/entities/topic.dart';
 import 'domain/entities/work.dart';
 import 'domain/usecases/get_task_by_id.dart';
 
-part 'data/models/task_model.dart';
-part 'data/models/task_model_objectbox.dart';
+part 'data/other/models/task_model.dart';
+part 'data/other/models/task_model_objectbox.dart';
 part 'domain/entities/task_entity.dart';
 part 'presentation/logic/task_bloc/task_bloc.dart';
 part 'presentation/logic/task_bloc/task_event.dart';

@@ -6,7 +6,8 @@ import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/network/network_info.dart';
 import 'package:fo_fe/core/util/organizer/core_util_organizer.dart';
 import 'package:fo_fe/features/organizer/items/organizer_item/organizer_item.dart';
-import 'package:fo_fe/features/organizer/items/task/data/datasources/task_local_data_source.dart';
+import 'package:fo_fe/features/organizer/items/task/data/drift/models/task_model_drift.dart';
+import 'package:fo_fe/features/organizer/items/task/data/other/datasources/task_local_data_source.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/repositories/task_repository.dart';
 import 'package:fo_fe/features/organizer/items/task/task_lib.dart';
 
@@ -33,7 +34,7 @@ class TaskRepositoryImpl implements TaskRepository {
   Future<Either<Failure, TaskEntity>> getTaskById(int id) async {
     Either<Failure, TaskModel> result;
     try {
-      if (await networkInfo.isConnected) {
+      if (await networkInfo.isInternet) {
         result = Right(await taskSyncDataSource.syncTaskWithId(id));
       } else {
         result = Right(await taskLocalDataSource.getTaskById(id));
@@ -58,7 +59,7 @@ class TaskRepositoryImpl implements TaskRepository {
     final Right<dynamic, OrganizerItems<TaskEntity>> eitherOrganizerItems;
 
     try {
-      if (await networkInfo.isConnected) {
+      if (await networkInfo.isInternet) {
         eitherOrganizerItems =
             Right(await taskSyncDataSource.syncTaskListWithIdSet(idSet));
       } else {

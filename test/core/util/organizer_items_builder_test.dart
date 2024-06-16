@@ -42,7 +42,7 @@ void main() {
             [OrganizerItemEntity(id: 1), OrganizerItemEntity(id: 2)]);
 
         // Act
-        final result = builder.addAllOrganizerItems(organizerItems).build();
+        final result = builder.addAll(organizerItems).build();
 
         // Assert
         expect(result.size(), equals(2));

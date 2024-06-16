@@ -1,0 +1,6 @@
+Data types
+
+- Datas shall be immutable
+- Data shall be not nullable (shall be checked at constructor or adding) for IdSet or OrganizerItems
+
+- I will start only with local DB to get started (having the the mind also remote for the future) for Task, Tasks, Note, Topics, Tag, Reminder, User

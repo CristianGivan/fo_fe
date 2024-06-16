@@ -1,6 +1,6 @@
 import 'package:fo_fe/core/util/organizer/core_util_organizer.dart';
 
-import '../../task_lib.dart';
+import '../../../task_lib.dart';
 
 abstract class TaskLocalDataSource {
   Future<TaskModel> putTask(TaskModel task);

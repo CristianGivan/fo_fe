@@ -7,7 +7,7 @@ import 'package:fo_fe/core/error/exceptions.dart';
 import 'package:fo_fe/core/util/organizer/core_util_organizer.dart';
 import 'package:http/http.dart' as http;
 
-import '../../task_lib.dart';
+import '../../../task_lib.dart';
 
 abstract class TaskRemoteDataSource {
   Future<TaskModel> putTask(TaskModel task);
