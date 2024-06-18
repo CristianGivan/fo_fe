@@ -43,7 +43,7 @@ void main() {
     });
 
     test('every should return true if all items pass the test', () {
-      expect(organizerItems.every((item) => item.id >= 1), isTrue);
+      expect(organizerItems.every((item) => item.id! >= 1), isTrue);
     });
 
     test('map should return a list of mapped items', () {

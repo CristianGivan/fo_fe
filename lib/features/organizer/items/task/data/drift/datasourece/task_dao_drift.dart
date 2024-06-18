@@ -1,12 +1,13 @@
 import 'package:drift/drift.dart';
-import 'package:fo_fe/core/db/drift_sqlite/drift_db.dart';
-import 'package:fo_fe/features/organizer/items/task/data/drift/datasourece/local_drift_sqlite/task_table_drift.dart';
+import 'package:fo_fe/core/db/drift_sqlite/organizer_drift_db.dart';
+import 'package:fo_fe/features/organizer/items/task/data/drift/datasourece/task_table_drift.dart';
 
 part 'task_dao_drift.g.dart';
 
 @DriftAccessor(tables: [TaskTableDrift])
-class TaskDaoDrift extends DatabaseAccessor<DriftDB> with _$TaskDaoDriftMixin {
-  final DriftDB db;
+class TaskDaoDrift extends DatabaseAccessor<DriftDBOrganizer>
+    with _$TaskDaoDriftMixin {
+  final DriftDBOrganizer db;
 
   TaskDaoDrift(this.db) : super(db);
 
@@ -17,8 +18,8 @@ class TaskDaoDrift extends DatabaseAccessor<DriftDB> with _$TaskDaoDriftMixin {
       into(taskTableDrift).insert(task);
 
   // Example: Insert a new task
-  Future<int> insertTask(TaskTableDriftCompanion task) {
-    return into(taskTableDrift).insert(task);
+  Future<int> insertTask(TaskEntity task) {
+    return into(taskTableDrift).insert(task.toCompanion(false));
   }
 
   Future<void> updateTask(TaskTableDriftCompanion task) =>

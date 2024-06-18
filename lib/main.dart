@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fo_fe/injection_container.dart' as di;
 
 import 'app_main.dart';
-import 'core/db/database.dart';
+import 'core/db/objectbox_db.dart';
 import 'functions/simple_bloc_observer.dart';
 
 late Database database;

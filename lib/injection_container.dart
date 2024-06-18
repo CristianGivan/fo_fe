@@ -6,6 +6,8 @@ import 'package:fo_fe/features/organizer/items/task/task_lib.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 
+import 'core/db/drift_sqlite/organizer_drift_db.dart';
+import 'features/organizer/items/task/data/drift/datasourece/task_dao_drift.dart';
 import 'features/organizer/items/task/data/other/datasources/task_local_data_source.dart';
 import 'features/organizer/items/task/data/other/datasources/task_remote_data_source.dart';
 import 'features/organizer/items/task/data/other/datasources/task_sync_data_source.dart';
@@ -18,6 +20,7 @@ void init() {
   initFeature();
   initCore();
   initExternals();
+  initDb();
 }
 
 void initFeature() {
@@ -30,7 +33,7 @@ void initFeature() {
   // Use cases
   sl.registerLazySingleton(() => GetTaskById(sl()));
 
-  // Repository
+  // Repositories
   sl.registerLazySingleton<TaskRepository>(() => TaskRepositoryImpl(
         networkInfo: sl(),
         taskLocalDataSource: sl(),
@@ -59,4 +62,9 @@ void initCore() {
 void initExternals() {
   sl.registerLazySingleton(() => http.Client());
   sl.registerLazySingleton(() => DataConnectionChecker());
+}
+
+void initDb() {
+  sl.registerSingleton<DriftDBOrganizer>(DriftDBOrganizer());
+  sl.registerSingleton<TaskDaoDrift>(sl<DriftDBOrganizer>().taskDaoDrift);
 }

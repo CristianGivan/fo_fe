@@ -3,6 +3,6 @@
 part of 'task_dao_drift.dart';
 
 // ignore_for_file: type=lint
-mixin _$TaskDaoDriftMixin on DatabaseAccessor<DriftDB> {
+mixin _$TaskDaoDriftMixin on DatabaseAccessor<DriftDBOrganizer> {
   $TaskTableDriftTable get taskTableDrift => attachedDatabase.taskTableDrift;
 }

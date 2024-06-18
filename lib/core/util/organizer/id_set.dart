@@ -13,7 +13,7 @@ class IdSet extends Equatable {
 
   IdSetBuilder toBuilder() => IdSetBuilder.of(_ids);
 
-  bool contains(int id) => _ids.contains(id);
+  bool contains(int? id) => _ids.contains(id);
 
   bool isEmpty() => _ids.isEmpty;
 

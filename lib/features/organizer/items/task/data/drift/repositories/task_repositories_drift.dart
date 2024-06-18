@@ -4,7 +4,7 @@ import 'package:fo_fe/core/util/organizer/core_util_organizer.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/repositories/task_repository.dart';
 import 'package:fo_fe/features/organizer/items/task/task_lib.dart';
 
-import '../datasourece/local_drift_sqlite/task_dao_drift.dart';
+import '../datasourece/task_dao_drift.dart';
 
 class TaskRepositoriesDrift implements TaskRepository {
   final TaskDaoDrift taskDao;

@@ -1,10 +1,8 @@
-import 'package:objectbox/objectbox.dart';
-
 import '../../../features/organizer/items/tag/tag_lib.dart';
 import '../../../features/organizer/items/task/task_lib.dart';
 import '../../../features/organizer/items/tasks/tasks_lib.dart';
 import '../../../objectbox.g.dart';
-import '../database.dart';
+import '../objectbox_db.dart';
 
 /// Provides access to the ObjectBox Store throughout the app.
 ///
