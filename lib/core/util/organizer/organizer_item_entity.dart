@@ -1,7 +1,7 @@
 part of '../../../features/organizer/items/organizer_item/organizer_item.dart';
 
 class OrganizerItemEntity extends Equatable {
-  final int? _id;
+  final int _id;
   final String _subject;
   final DateTime _createdDate;
   final User _creator;
@@ -61,7 +61,7 @@ class OrganizerItemEntity extends Equatable {
         checksum,
       ];
 
-  int? get id => _id;
+  int get id => _id;
 
   String get subject => _subject;
 

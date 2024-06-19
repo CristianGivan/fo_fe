@@ -490,6 +490,13 @@ class MockTaskModel extends _i1.Mock implements _i2.TaskModel {
       ) as List<Object?>);
 
   @override
+  int get id => (super.noSuchMethod(
+        Invocation.getter(#id),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as int);
+
+  @override
   String get subject => (super.noSuchMethod(
         Invocation.getter(#subject),
         returnValue: _i15.dummyValue<String>(
@@ -913,6 +920,13 @@ class MockOrganizerItemEntity extends _i1.Mock
         returnValue: <Object?>[],
         returnValueForMissingStub: <Object?>[],
       ) as List<Object?>);
+
+  @override
+  int get id => (super.noSuchMethod(
+        Invocation.getter(#id),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as int);
 
   @override
   String get subject => (super.noSuchMethod(

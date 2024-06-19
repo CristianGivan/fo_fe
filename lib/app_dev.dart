@@ -34,6 +34,57 @@ class _AppDevState extends State<AppDev> {
     setState(() {}); // Refresh the UI after loading tasks
   }
 
+  Future<void> _deleteTask(int id) async {
+    final taskDao = getIt<TaskDaoDrift>();
+    await taskDao.deleteTask(id);
+    _loadTasks(); // Reload tasks after deletion
+  }
+
+  Future<void> _updateTask(TaskEntity task) async {
+    final taskDao = getIt<TaskDaoDrift>();
+    await taskDao.updateTask(task);
+    _loadTasks(); // Reload tasks after updating
+  }
+
+  void _showUpdateDialog(TaskEntity task) {
+    final TextEditingController updateController =
+        TextEditingController(text: task.subject);
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Update Task'),
+          content: TextField(
+            controller: updateController,
+            decoration: InputDecoration(labelText: 'Task Subject'),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () {
+                final updatedTask =
+                    task.copyWith(subject: updateController.text);
+                _updateTask(updatedTask).then((_) {
+                  Navigator.of(context).pop(); // Close dialog
+                  _loadTasks(); // Reload tasks after updating
+                }).catchError((error) {
+                  print('Update failed: $error');
+                  // Optionally handle error display
+                });
+              },
+              child: Text('Update'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final taskDao = getIt<TaskDaoDrift>();
@@ -88,6 +139,19 @@ class _AppDevState extends State<AppDev> {
                           title: Text(task.subject),
                           subtitle: Text(
                               'Created: ${_dateFormat.format(task.createdDate)}'),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                icon: Icon(Icons.edit),
+                                onPressed: () => _showUpdateDialog(task),
+                              ),
+                              IconButton(
+                                icon: Icon(Icons.delete),
+                                onPressed: () => _deleteTask(task.id),
+                              ),
+                            ],
+                          ),
                         );
                       },
                     );
