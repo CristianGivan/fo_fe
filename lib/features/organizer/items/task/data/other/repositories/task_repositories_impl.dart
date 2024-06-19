@@ -6,7 +6,6 @@ import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/network/network_info.dart';
 import 'package:fo_fe/core/util/organizer/core_util_organizer.dart';
 import 'package:fo_fe/features/organizer/items/organizer_item/organizer_item.dart';
-import 'package:fo_fe/features/organizer/items/task/data/drift/models/task_model_drift.dart';
 import 'package:fo_fe/features/organizer/items/task/data/other/datasources/task_local_data_source.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/repositories/task_repository.dart';
 import 'package:fo_fe/features/organizer/items/task/task_lib.dart';
@@ -98,6 +97,12 @@ class TaskRepositoryImpl implements TaskRepository {
   Future<Either<Failure, OrganizerItems<OrganizerItemEntity>>>
       getOrganizerItemsByIdSet(IdSet id) {
     // TODO: implement getOrganizerItemsByIdSet
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, OrganizerItems<TaskEntity>>> getTaskListAll() {
+    // TODO: implement getAllTaskList
     throw UnimplementedError();
   }
 }

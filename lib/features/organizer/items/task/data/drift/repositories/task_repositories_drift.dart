@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/util/organizer/core_util_organizer.dart';
+import 'package:fo_fe/features/organizer/items/task/data/drift/models/task_model_drift.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/repositories/task_repository.dart';
 import 'package:fo_fe/features/organizer/items/task/task_lib.dart';
 
@@ -24,10 +25,14 @@ class TaskRepositoriesDrift implements TaskRepository {
   }
 
   @override
-  Future<Either<Failure, OrganizerItems<TaskEntity>>> getTaskListByIdSet(
-      IdSet id) {
-    // TODO: implement getTaskListByIdSet
-    throw UnimplementedError();
+  Future<Either<Failure, OrganizerItems<TaskEntity>>> getTaskListAll() async {
+    Either<Failure, OrganizerItems<TaskEntity>> result;
+    final tasks = (await taskDao.getAllTasks());
+    final List<TaskEntity> taskEntities = await Future.wait(
+        tasks.map((e) async => TaskModelDrift.toTaskEntityE(e)));
+    result = Right(OrganizerItems.of(taskEntities));
+
+    return result;
   }
 
   @override
@@ -39,6 +44,13 @@ class TaskRepositoriesDrift implements TaskRepository {
   @override
   Future<Either<Failure, TaskEntity>> putTask(TaskEntity task) {
     // TODO: implement putTask
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, OrganizerItems<TaskEntity>>> getTaskListByIdSet(
+      IdSet id) {
+    // TODO: implement getTaskListByIdSet
     throw UnimplementedError();
   }
 }

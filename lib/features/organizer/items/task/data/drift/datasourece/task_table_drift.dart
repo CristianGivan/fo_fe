@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:fo_fe/features/organizer/items/organizer_item/data/drift/OrganizerItemDriftTable.dart';
 
-@DataClassName('TaskEntity')
+@DataClassName('TaskTableDriftGen')
 class TaskTableDrift extends OrganizerItemDriftTable {
   // DateTimeColumn get startDate => dateTime().nullable()();
   //

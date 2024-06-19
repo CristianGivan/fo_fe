@@ -1,19 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
+import 'package:fo_fe/core/util/organizer/core_util_organizer.dart';
+import 'package:fo_fe/features/organizer/items/task/data/drift/repositories/task_repositories_drift.dart';
+import 'package:fo_fe/features/organizer/util/organizer_enums.dart';
+import 'package:fo_fe/injection_container.dart' as di;
 import 'package:intl/intl.dart';
 
-import 'core/db/drift_sqlite/organizer_drift_db.dart';
 import 'features/organizer/items/task/data/drift/datasourece/task_dao_drift.dart';
+import 'features/organizer/items/task/task_lib.dart';
 
-final getIt = GetIt.instance;
+final getIt = di.sl;
 
-class AppDev extends StatelessWidget {
+class AppDev extends StatefulWidget {
+  @override
+  _AppDevState createState() => _AppDevState();
+}
+
+class _AppDevState extends State<AppDev> {
   final TextEditingController _subjectController = TextEditingController();
   final DateFormat _dateFormat = DateFormat('yyyy-MM-dd HH:mm:ss');
+  Future<List<TaskEntity>>? _tasksFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadTasks();
+  }
+
+  Future<void> _loadTasks() async {
+    final taskRepository = getIt<TaskRepositoriesDrift>();
+    _tasksFuture = Future.value((await taskRepository.getTaskListAll())
+        .getOrElse(OrganizerItems<TaskEntity>.empty)
+        .toList());
+    setState(() {}); // Refresh the UI after loading tasks
+  }
 
   @override
   Widget build(BuildContext context) {
-    final database = getIt<DriftDBOrganizer>();
     final taskDao = getIt<TaskDaoDrift>();
 
     return MaterialApp(
@@ -31,43 +53,37 @@ class AppDev extends StatelessWidget {
             ElevatedButton(
               onPressed: () async {
                 final task = TaskEntity(
-                  id: 0,
                   subject: _subjectController.text,
                   createdDate: DateTime.now(),
-                  // remoteId: null,
-                  // lastUpdate: DateTime.now(),
-                  // lastViewDate: DateTime.now(),
-                  // remoteViews: 0,
-                  // views: 0,
-                  // checksum: '',
-                  // startDate: DateTime.now(),
-                  // endDate: DateTime.now().add(Duration(hours: 1)),
-                  // workingTime: 1.0,
-                  // estimatedTime: 1.0,
-                  // estimatedLeftTime: 1.0,
-                  // workingProgress: 0.0,
-                  taskStatus: 'pending',
+                  taskStatus: TaskStatus.undefined,
                 );
 
                 await taskDao.insertTask(task);
                 _subjectController.clear();
+                _loadTasks();
               },
               child: const Text('Add Task'),
             ),
+            ElevatedButton(
+              onPressed: _loadTasks,
+              child: const Text('Load Tasks'),
+            ),
             Expanded(
               child: FutureBuilder<List<TaskEntity>>(
-                future: taskDao.getAllTasks(),
+                future: _tasksFuture,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CircularProgressIndicator();
+                    return const Center(child: CircularProgressIndicator());
                   } else if (snapshot.hasError) {
-                    return Text('Error: ${snapshot.error}');
+                    return Center(child: Text('Error: ${snapshot.error}'));
+                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return const Center(child: Text('No tasks found'));
                   } else {
-                    final tasks = snapshot.data;
+                    final tasks = snapshot.data!;
                     return ListView.builder(
-                      itemCount: tasks?.length,
+                      itemCount: tasks.length,
                       itemBuilder: (context, index) {
-                        final task = tasks![index];
+                        final task = tasks[index];
                         return ListTile(
                           title: Text(task.subject),
                           subtitle: Text(

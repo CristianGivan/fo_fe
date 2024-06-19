@@ -827,6 +827,36 @@ class MockTaskRepository extends _i1.Mock implements _i9.TaskRepository {
               _i6.Either<_i21.Failure, _i4.OrganizerItems<_i2.TaskEntity>>>);
 
   @override
+  _i11.Future<_i6.Either<_i21.Failure, _i4.OrganizerItems<_i2.TaskEntity>>>
+      getTaskListAll() => (super.noSuchMethod(
+            Invocation.method(
+              #getTaskListAll,
+              [],
+            ),
+            returnValue: _i11.Future<
+                    _i6.Either<_i21.Failure,
+                        _i4.OrganizerItems<_i2.TaskEntity>>>.value(
+                _FakeEither_4<_i21.Failure, _i4.OrganizerItems<_i2.TaskEntity>>(
+              this,
+              Invocation.method(
+                #getTaskListAll,
+                [],
+              ),
+            )),
+            returnValueForMissingStub: _i11.Future<
+                    _i6.Either<_i21.Failure,
+                        _i4.OrganizerItems<_i2.TaskEntity>>>.value(
+                _FakeEither_4<_i21.Failure, _i4.OrganizerItems<_i2.TaskEntity>>(
+              this,
+              Invocation.method(
+                #getTaskListAll,
+                [],
+              ),
+            )),
+          ) as _i11.Future<
+              _i6.Either<_i21.Failure, _i4.OrganizerItems<_i2.TaskEntity>>>);
+
+  @override
   _i11.Future<void> deleteTask(_i2.TaskEntity? task) => (super.noSuchMethod(
         Invocation.method(
           #deleteTask,

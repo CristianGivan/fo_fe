@@ -2,12 +2,12 @@ import 'package:drift/drift.dart';
 
 import '../../../../../../../core/db/drift_sqlite/organizer_drift_db.dart';
 import '../../../../../util/organizer_enums.dart';
-import '../../../task_lib.dart' as task;
+import '../../../task_lib.dart';
 
-extension TaskModelDrift on task.TaskEntity {
-  Future<TaskTableDriftCompanion> toCompanion() async {
+extension TaskModelDrift on TaskEntity {
+  TaskTableDriftCompanion toCompanion() {
     return TaskTableDriftCompanion(
-      id: id != null ? Value(id!) : const Value.absent(),
+      id: id != 0 ? Value(id!) : const Value.absent(),
       subject: Value(subject ?? ''),
       createdDate: Value(createdDate ?? DateTime(0)),
       // creatorId: Value(creator?.id ?? 0),
@@ -33,28 +33,54 @@ extension TaskModelDrift on task.TaskEntity {
     );
   }
 
-// Future<TaskEntity> toEntity() async {
-//   return TaskEntity(
-//     id: id,
-//     subject: subject,
-//     createdDate: createdDate,
-//     // creator: creator,
-//     // userList: userList,
-//     // tagList: tagList,
-//     // reminderList: reminderList,
-//     // remoteId: remoteId,
-//     // lastUpdate: lastUpdate,
-//     // lastViewDate: lastViewDate,
-//     // remoteViews: remoteViews,
-//     // views: views,
-//     // checksum: checksum,
-//     // startDate: startDate,
-//     // endDate: endDate,
-//     // workingTime: workingTime,
-//     // estimatedTime: estimatedTime,
-//     // estimatedLeftTime: estimatedLeftTime,
-//     // workingProgress: workingProgress,
-//     taskStatus: taskStatus,
-//   );
-// }
+  static Future<TaskEntity> toTaskEntity(
+      TaskTableDriftCompanion companion) async {
+    return TaskEntity(
+      id: companion.id.value,
+      subject: companion.subject.value,
+      createdDate: companion.createdDate.value,
+      // creator: creator,
+      // userList: userList,
+      // tagList: tagList,
+      // reminderList: reminderList,
+      // remoteId: remoteId,
+      // lastUpdate: lastUpdate,
+      // lastViewDate: lastViewDate,
+      // remoteViews: remoteViews,
+      // views: views,
+      // checksum: checksum,
+      // startDate: startDate,
+      // endDate: endDate,
+      // workingTime: workingTime,
+      // estimatedTime: estimatedTime,
+      // estimatedLeftTime: estimatedLeftTime,
+      // workingProgress: workingProgress,
+      taskStatus: TaskStatus.undefined,
+    );
+  }
+
+  static Future<TaskEntity> toTaskEntityE(TaskTableDriftGen companion) async {
+    return TaskEntity(
+      id: companion.id,
+      subject: companion.subject,
+      createdDate: companion.createdDate,
+      // creator: creator,
+      // userList: userList,
+      // tagList: tagList,
+      // reminderList: reminderList,
+      // remoteId: remoteId,
+      // lastUpdate: lastUpdate,
+      // lastViewDate: lastViewDate,
+      // remoteViews: remoteViews,
+      // views: views,
+      // checksum: checksum,
+      // startDate: startDate,
+      // endDate: endDate,
+      // workingTime: workingTime,
+      // estimatedTime: estimatedTime,
+      // estimatedLeftTime: estimatedLeftTime,
+      // workingProgress: workingProgress,
+      taskStatus: TaskStatus.undefined,
+    );
+  }
 }

@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
 
-@DataClassName('OrganizerItem')
+@DataClassName('OrganizerItemDriftTableGen')
 class OrganizerItemDriftTable extends Table {
   IntColumn get id => integer().autoIncrement()();
 
