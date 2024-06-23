@@ -59,7 +59,7 @@ extension TaskModelDrift on TaskEntity {
     );
   }
 
-  static Future<TaskEntity> toTaskEntityE(TaskTableDriftGen companion) async {
+  static Future<TaskEntity> toTaskEntityE(TaskTableDriftG companion) async {
     return TaskEntity(
       id: companion.id,
       subject: companion.subject,

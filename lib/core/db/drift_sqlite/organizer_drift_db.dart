@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:fo_fe/core/db/drift_db.dart';
-import 'package:fo_fe/features/organizer/items/task/data/drift/datasourece/task_table_drift.dart';
+import 'package:fo_fe/features/organizer/items/task/data/drift/datasourece/tables/task_table_drift.dart';
 import 'package:fo_fe/features/organizer/items/task/try/task_dao.dart';
 
 import '../../../features/organizer/items/task/data/drift/datasourece/task_dao_drift.dart';
