@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:fo_fe/core/db/drift_sqlite/organizer_drift_db.dart';
-import 'package:fo_fe/features/organizer/items/task/data/drift/datasourece/tables/task_table_drift.dart';
+import 'package:fo_fe/features/organizer/items/task/data/drift/datasourece/task_table_drift.dart';
 import 'package:fo_fe/features/organizer/items/task/data/drift/models/task_model_drift.dart';
 
 import '../../../task_lib.dart';

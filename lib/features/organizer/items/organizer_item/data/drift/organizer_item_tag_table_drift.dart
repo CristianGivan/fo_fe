@@ -8,5 +8,5 @@ class OrganizerItemTagTableDrift extends Table {
       integer().customConstraint('REFERENCES OrganizerItemTableDriftG(id)')();
 
   IntColumn get tagId =>
-      integer().customConstraint('REFERENCES OrganizerItemTableDriftG(id)')();
+      integer().customConstraint('REFERENCES TagTableDriftG(id)')();
 }

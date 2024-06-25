@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
+import 'package:fo_fe/core/db/drift_sqlite/organizer_drift_db.dart';
 
-import '../../../../../../../core/db/drift_sqlite/organizer_drift_db.dart';
 import '../../../../../util/organizer_enums.dart';
 import '../../../task_lib.dart';
 

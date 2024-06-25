@@ -3,6 +3,1082 @@
 part of 'organizer_drift_db.dart';
 
 // ignore_for_file: type=lint
+class $OrganizerItemTableDriftTable extends OrganizerItemTableDrift
+    with TableInfo<$OrganizerItemTableDriftTable, OrganizerItemTableDriftG> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $OrganizerItemTableDriftTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _subjectMeta =
+      const VerificationMeta('subject');
+  @override
+  late final GeneratedColumn<String> subject = GeneratedColumn<String>(
+      'subject', aliasedName, false,
+      additionalChecks:
+          GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 255),
+      type: DriftSqlType.string,
+      requiredDuringInsert: true);
+  static const VerificationMeta _createdDateMeta =
+      const VerificationMeta('createdDate');
+  @override
+  late final GeneratedColumn<DateTime> createdDate = GeneratedColumn<DateTime>(
+      'created_date', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _creatorIDMeta =
+      const VerificationMeta('creatorID');
+  @override
+  late final GeneratedColumn<int> creatorID = GeneratedColumn<int>(
+      'creator_i_d', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'REFERENCES User(id)');
+  static const VerificationMeta _remoteIdMeta =
+      const VerificationMeta('remoteId');
+  @override
+  late final GeneratedColumn<int> remoteId = GeneratedColumn<int>(
+      'remote_id', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _lastUpdateMeta =
+      const VerificationMeta('lastUpdate');
+  @override
+  late final GeneratedColumn<DateTime> lastUpdate = GeneratedColumn<DateTime>(
+      'last_update', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _lastViewDateMeta =
+      const VerificationMeta('lastViewDate');
+  @override
+  late final GeneratedColumn<DateTime> lastViewDate = GeneratedColumn<DateTime>(
+      'last_view_date', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _remoteViewsMeta =
+      const VerificationMeta('remoteViews');
+  @override
+  late final GeneratedColumn<int> remoteViews = GeneratedColumn<int>(
+      'remote_views', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _viewsMeta = const VerificationMeta('views');
+  @override
+  late final GeneratedColumn<int> views = GeneratedColumn<int>(
+      'views', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _checksumMeta =
+      const VerificationMeta('checksum');
+  @override
+  late final GeneratedColumn<String> checksum = GeneratedColumn<String>(
+      'checksum', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        subject,
+        createdDate,
+        creatorID,
+        remoteId,
+        lastUpdate,
+        lastViewDate,
+        remoteViews,
+        views,
+        checksum
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'organizer_item_table_drift';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<OrganizerItemTableDriftG> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('subject')) {
+      context.handle(_subjectMeta,
+          subject.isAcceptableOrUnknown(data['subject']!, _subjectMeta));
+    } else if (isInserting) {
+      context.missing(_subjectMeta);
+    }
+    if (data.containsKey('created_date')) {
+      context.handle(
+          _createdDateMeta,
+          createdDate.isAcceptableOrUnknown(
+              data['created_date']!, _createdDateMeta));
+    } else if (isInserting) {
+      context.missing(_createdDateMeta);
+    }
+    if (data.containsKey('creator_i_d')) {
+      context.handle(
+          _creatorIDMeta,
+          creatorID.isAcceptableOrUnknown(
+              data['creator_i_d']!, _creatorIDMeta));
+    } else if (isInserting) {
+      context.missing(_creatorIDMeta);
+    }
+    if (data.containsKey('remote_id')) {
+      context.handle(_remoteIdMeta,
+          remoteId.isAcceptableOrUnknown(data['remote_id']!, _remoteIdMeta));
+    }
+    if (data.containsKey('last_update')) {
+      context.handle(
+          _lastUpdateMeta,
+          lastUpdate.isAcceptableOrUnknown(
+              data['last_update']!, _lastUpdateMeta));
+    }
+    if (data.containsKey('last_view_date')) {
+      context.handle(
+          _lastViewDateMeta,
+          lastViewDate.isAcceptableOrUnknown(
+              data['last_view_date']!, _lastViewDateMeta));
+    }
+    if (data.containsKey('remote_views')) {
+      context.handle(
+          _remoteViewsMeta,
+          remoteViews.isAcceptableOrUnknown(
+              data['remote_views']!, _remoteViewsMeta));
+    }
+    if (data.containsKey('views')) {
+      context.handle(
+          _viewsMeta, views.isAcceptableOrUnknown(data['views']!, _viewsMeta));
+    }
+    if (data.containsKey('checksum')) {
+      context.handle(_checksumMeta,
+          checksum.isAcceptableOrUnknown(data['checksum']!, _checksumMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  OrganizerItemTableDriftG map(Map<String, dynamic> data,
+      {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return OrganizerItemTableDriftG(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      subject: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}subject'])!,
+      createdDate: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_date'])!,
+      creatorID: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}creator_i_d'])!,
+      remoteId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}remote_id']),
+      lastUpdate: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}last_update']),
+      lastViewDate: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}last_view_date']),
+      remoteViews: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}remote_views']),
+      views: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}views']),
+      checksum: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}checksum']),
+    );
+  }
+
+  @override
+  $OrganizerItemTableDriftTable createAlias(String alias) {
+    return $OrganizerItemTableDriftTable(attachedDatabase, alias);
+  }
+}
+
+class OrganizerItemTableDriftG extends DataClass
+    implements Insertable<OrganizerItemTableDriftG> {
+  final int id;
+  final String subject;
+  final DateTime createdDate;
+  final int creatorID;
+  final int? remoteId;
+  final DateTime? lastUpdate;
+  final DateTime? lastViewDate;
+  final int? remoteViews;
+  final int? views;
+  final String? checksum;
+  const OrganizerItemTableDriftG(
+      {required this.id,
+      required this.subject,
+      required this.createdDate,
+      required this.creatorID,
+      this.remoteId,
+      this.lastUpdate,
+      this.lastViewDate,
+      this.remoteViews,
+      this.views,
+      this.checksum});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['subject'] = Variable<String>(subject);
+    map['created_date'] = Variable<DateTime>(createdDate);
+    map['creator_i_d'] = Variable<int>(creatorID);
+    if (!nullToAbsent || remoteId != null) {
+      map['remote_id'] = Variable<int>(remoteId);
+    }
+    if (!nullToAbsent || lastUpdate != null) {
+      map['last_update'] = Variable<DateTime>(lastUpdate);
+    }
+    if (!nullToAbsent || lastViewDate != null) {
+      map['last_view_date'] = Variable<DateTime>(lastViewDate);
+    }
+    if (!nullToAbsent || remoteViews != null) {
+      map['remote_views'] = Variable<int>(remoteViews);
+    }
+    if (!nullToAbsent || views != null) {
+      map['views'] = Variable<int>(views);
+    }
+    if (!nullToAbsent || checksum != null) {
+      map['checksum'] = Variable<String>(checksum);
+    }
+    return map;
+  }
+
+  OrganizerItemTableDriftCompanion toCompanion(bool nullToAbsent) {
+    return OrganizerItemTableDriftCompanion(
+      id: Value(id),
+      subject: Value(subject),
+      createdDate: Value(createdDate),
+      creatorID: Value(creatorID),
+      remoteId: remoteId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(remoteId),
+      lastUpdate: lastUpdate == null && nullToAbsent
+          ? const Value.absent()
+          : Value(lastUpdate),
+      lastViewDate: lastViewDate == null && nullToAbsent
+          ? const Value.absent()
+          : Value(lastViewDate),
+      remoteViews: remoteViews == null && nullToAbsent
+          ? const Value.absent()
+          : Value(remoteViews),
+      views:
+          views == null && nullToAbsent ? const Value.absent() : Value(views),
+      checksum: checksum == null && nullToAbsent
+          ? const Value.absent()
+          : Value(checksum),
+    );
+  }
+
+  factory OrganizerItemTableDriftG.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return OrganizerItemTableDriftG(
+      id: serializer.fromJson<int>(json['id']),
+      subject: serializer.fromJson<String>(json['subject']),
+      createdDate: serializer.fromJson<DateTime>(json['createdDate']),
+      creatorID: serializer.fromJson<int>(json['creatorID']),
+      remoteId: serializer.fromJson<int?>(json['remoteId']),
+      lastUpdate: serializer.fromJson<DateTime?>(json['lastUpdate']),
+      lastViewDate: serializer.fromJson<DateTime?>(json['lastViewDate']),
+      remoteViews: serializer.fromJson<int?>(json['remoteViews']),
+      views: serializer.fromJson<int?>(json['views']),
+      checksum: serializer.fromJson<String?>(json['checksum']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'subject': serializer.toJson<String>(subject),
+      'createdDate': serializer.toJson<DateTime>(createdDate),
+      'creatorID': serializer.toJson<int>(creatorID),
+      'remoteId': serializer.toJson<int?>(remoteId),
+      'lastUpdate': serializer.toJson<DateTime?>(lastUpdate),
+      'lastViewDate': serializer.toJson<DateTime?>(lastViewDate),
+      'remoteViews': serializer.toJson<int?>(remoteViews),
+      'views': serializer.toJson<int?>(views),
+      'checksum': serializer.toJson<String?>(checksum),
+    };
+  }
+
+  OrganizerItemTableDriftG copyWith(
+          {int? id,
+          String? subject,
+          DateTime? createdDate,
+          int? creatorID,
+          Value<int?> remoteId = const Value.absent(),
+          Value<DateTime?> lastUpdate = const Value.absent(),
+          Value<DateTime?> lastViewDate = const Value.absent(),
+          Value<int?> remoteViews = const Value.absent(),
+          Value<int?> views = const Value.absent(),
+          Value<String?> checksum = const Value.absent()}) =>
+      OrganizerItemTableDriftG(
+        id: id ?? this.id,
+        subject: subject ?? this.subject,
+        createdDate: createdDate ?? this.createdDate,
+        creatorID: creatorID ?? this.creatorID,
+        remoteId: remoteId.present ? remoteId.value : this.remoteId,
+        lastUpdate: lastUpdate.present ? lastUpdate.value : this.lastUpdate,
+        lastViewDate:
+            lastViewDate.present ? lastViewDate.value : this.lastViewDate,
+        remoteViews: remoteViews.present ? remoteViews.value : this.remoteViews,
+        views: views.present ? views.value : this.views,
+        checksum: checksum.present ? checksum.value : this.checksum,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('OrganizerItemTableDriftG(')
+          ..write('id: $id, ')
+          ..write('subject: $subject, ')
+          ..write('createdDate: $createdDate, ')
+          ..write('creatorID: $creatorID, ')
+          ..write('remoteId: $remoteId, ')
+          ..write('lastUpdate: $lastUpdate, ')
+          ..write('lastViewDate: $lastViewDate, ')
+          ..write('remoteViews: $remoteViews, ')
+          ..write('views: $views, ')
+          ..write('checksum: $checksum')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, subject, createdDate, creatorID, remoteId,
+      lastUpdate, lastViewDate, remoteViews, views, checksum);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is OrganizerItemTableDriftG &&
+          other.id == this.id &&
+          other.subject == this.subject &&
+          other.createdDate == this.createdDate &&
+          other.creatorID == this.creatorID &&
+          other.remoteId == this.remoteId &&
+          other.lastUpdate == this.lastUpdate &&
+          other.lastViewDate == this.lastViewDate &&
+          other.remoteViews == this.remoteViews &&
+          other.views == this.views &&
+          other.checksum == this.checksum);
+}
+
+class OrganizerItemTableDriftCompanion
+    extends UpdateCompanion<OrganizerItemTableDriftG> {
+  final Value<int> id;
+  final Value<String> subject;
+  final Value<DateTime> createdDate;
+  final Value<int> creatorID;
+  final Value<int?> remoteId;
+  final Value<DateTime?> lastUpdate;
+  final Value<DateTime?> lastViewDate;
+  final Value<int?> remoteViews;
+  final Value<int?> views;
+  final Value<String?> checksum;
+  const OrganizerItemTableDriftCompanion({
+    this.id = const Value.absent(),
+    this.subject = const Value.absent(),
+    this.createdDate = const Value.absent(),
+    this.creatorID = const Value.absent(),
+    this.remoteId = const Value.absent(),
+    this.lastUpdate = const Value.absent(),
+    this.lastViewDate = const Value.absent(),
+    this.remoteViews = const Value.absent(),
+    this.views = const Value.absent(),
+    this.checksum = const Value.absent(),
+  });
+  OrganizerItemTableDriftCompanion.insert({
+    this.id = const Value.absent(),
+    required String subject,
+    required DateTime createdDate,
+    required int creatorID,
+    this.remoteId = const Value.absent(),
+    this.lastUpdate = const Value.absent(),
+    this.lastViewDate = const Value.absent(),
+    this.remoteViews = const Value.absent(),
+    this.views = const Value.absent(),
+    this.checksum = const Value.absent(),
+  })  : subject = Value(subject),
+        createdDate = Value(createdDate),
+        creatorID = Value(creatorID);
+  static Insertable<OrganizerItemTableDriftG> custom({
+    Expression<int>? id,
+    Expression<String>? subject,
+    Expression<DateTime>? createdDate,
+    Expression<int>? creatorID,
+    Expression<int>? remoteId,
+    Expression<DateTime>? lastUpdate,
+    Expression<DateTime>? lastViewDate,
+    Expression<int>? remoteViews,
+    Expression<int>? views,
+    Expression<String>? checksum,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (subject != null) 'subject': subject,
+      if (createdDate != null) 'created_date': createdDate,
+      if (creatorID != null) 'creator_i_d': creatorID,
+      if (remoteId != null) 'remote_id': remoteId,
+      if (lastUpdate != null) 'last_update': lastUpdate,
+      if (lastViewDate != null) 'last_view_date': lastViewDate,
+      if (remoteViews != null) 'remote_views': remoteViews,
+      if (views != null) 'views': views,
+      if (checksum != null) 'checksum': checksum,
+    });
+  }
+
+  OrganizerItemTableDriftCompanion copyWith(
+      {Value<int>? id,
+      Value<String>? subject,
+      Value<DateTime>? createdDate,
+      Value<int>? creatorID,
+      Value<int?>? remoteId,
+      Value<DateTime?>? lastUpdate,
+      Value<DateTime?>? lastViewDate,
+      Value<int?>? remoteViews,
+      Value<int?>? views,
+      Value<String?>? checksum}) {
+    return OrganizerItemTableDriftCompanion(
+      id: id ?? this.id,
+      subject: subject ?? this.subject,
+      createdDate: createdDate ?? this.createdDate,
+      creatorID: creatorID ?? this.creatorID,
+      remoteId: remoteId ?? this.remoteId,
+      lastUpdate: lastUpdate ?? this.lastUpdate,
+      lastViewDate: lastViewDate ?? this.lastViewDate,
+      remoteViews: remoteViews ?? this.remoteViews,
+      views: views ?? this.views,
+      checksum: checksum ?? this.checksum,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (subject.present) {
+      map['subject'] = Variable<String>(subject.value);
+    }
+    if (createdDate.present) {
+      map['created_date'] = Variable<DateTime>(createdDate.value);
+    }
+    if (creatorID.present) {
+      map['creator_i_d'] = Variable<int>(creatorID.value);
+    }
+    if (remoteId.present) {
+      map['remote_id'] = Variable<int>(remoteId.value);
+    }
+    if (lastUpdate.present) {
+      map['last_update'] = Variable<DateTime>(lastUpdate.value);
+    }
+    if (lastViewDate.present) {
+      map['last_view_date'] = Variable<DateTime>(lastViewDate.value);
+    }
+    if (remoteViews.present) {
+      map['remote_views'] = Variable<int>(remoteViews.value);
+    }
+    if (views.present) {
+      map['views'] = Variable<int>(views.value);
+    }
+    if (checksum.present) {
+      map['checksum'] = Variable<String>(checksum.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('OrganizerItemTableDriftCompanion(')
+          ..write('id: $id, ')
+          ..write('subject: $subject, ')
+          ..write('createdDate: $createdDate, ')
+          ..write('creatorID: $creatorID, ')
+          ..write('remoteId: $remoteId, ')
+          ..write('lastUpdate: $lastUpdate, ')
+          ..write('lastViewDate: $lastViewDate, ')
+          ..write('remoteViews: $remoteViews, ')
+          ..write('views: $views, ')
+          ..write('checksum: $checksum')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $UserTableDriftTable extends UserTableDrift
+    with TableInfo<$UserTableDriftTable, UserTableDriftG> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $UserTableDriftTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+      'name', aliasedName, false,
+      additionalChecks:
+          GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 255),
+      type: DriftSqlType.string,
+      requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [id, name];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'user_table_drift';
+  @override
+  VerificationContext validateIntegrity(Insertable<UserTableDriftG> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  UserTableDriftG map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return UserTableDriftG(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      name: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+    );
+  }
+
+  @override
+  $UserTableDriftTable createAlias(String alias) {
+    return $UserTableDriftTable(attachedDatabase, alias);
+  }
+}
+
+class UserTableDriftG extends DataClass implements Insertable<UserTableDriftG> {
+  final int id;
+  final String name;
+  const UserTableDriftG({required this.id, required this.name});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['name'] = Variable<String>(name);
+    return map;
+  }
+
+  UserTableDriftCompanion toCompanion(bool nullToAbsent) {
+    return UserTableDriftCompanion(
+      id: Value(id),
+      name: Value(name),
+    );
+  }
+
+  factory UserTableDriftG.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return UserTableDriftG(
+      id: serializer.fromJson<int>(json['id']),
+      name: serializer.fromJson<String>(json['name']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'name': serializer.toJson<String>(name),
+    };
+  }
+
+  UserTableDriftG copyWith({int? id, String? name}) => UserTableDriftG(
+        id: id ?? this.id,
+        name: name ?? this.name,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('UserTableDriftG(')
+          ..write('id: $id, ')
+          ..write('name: $name')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, name);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is UserTableDriftG &&
+          other.id == this.id &&
+          other.name == this.name);
+}
+
+class UserTableDriftCompanion extends UpdateCompanion<UserTableDriftG> {
+  final Value<int> id;
+  final Value<String> name;
+  const UserTableDriftCompanion({
+    this.id = const Value.absent(),
+    this.name = const Value.absent(),
+  });
+  UserTableDriftCompanion.insert({
+    this.id = const Value.absent(),
+    required String name,
+  }) : name = Value(name);
+  static Insertable<UserTableDriftG> custom({
+    Expression<int>? id,
+    Expression<String>? name,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (name != null) 'name': name,
+    });
+  }
+
+  UserTableDriftCompanion copyWith({Value<int>? id, Value<String>? name}) {
+    return UserTableDriftCompanion(
+      id: id ?? this.id,
+      name: name ?? this.name,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('UserTableDriftCompanion(')
+          ..write('id: $id, ')
+          ..write('name: $name')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $TagTableDriftTable extends TagTableDrift
+    with TableInfo<$TagTableDriftTable, TagTableDriftG> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $TagTableDriftTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _tagMeta = const VerificationMeta('tag');
+  @override
+  late final GeneratedColumn<String> tag = GeneratedColumn<String>(
+      'tag', aliasedName, false,
+      additionalChecks:
+          GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 255),
+      type: DriftSqlType.string,
+      requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [id, tag];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'tag_table_drift';
+  @override
+  VerificationContext validateIntegrity(Insertable<TagTableDriftG> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('tag')) {
+      context.handle(
+          _tagMeta, tag.isAcceptableOrUnknown(data['tag']!, _tagMeta));
+    } else if (isInserting) {
+      context.missing(_tagMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  TagTableDriftG map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return TagTableDriftG(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      tag: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}tag'])!,
+    );
+  }
+
+  @override
+  $TagTableDriftTable createAlias(String alias) {
+    return $TagTableDriftTable(attachedDatabase, alias);
+  }
+}
+
+class TagTableDriftG extends DataClass implements Insertable<TagTableDriftG> {
+  final int id;
+  final String tag;
+  const TagTableDriftG({required this.id, required this.tag});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['tag'] = Variable<String>(tag);
+    return map;
+  }
+
+  TagTableDriftCompanion toCompanion(bool nullToAbsent) {
+    return TagTableDriftCompanion(
+      id: Value(id),
+      tag: Value(tag),
+    );
+  }
+
+  factory TagTableDriftG.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return TagTableDriftG(
+      id: serializer.fromJson<int>(json['id']),
+      tag: serializer.fromJson<String>(json['tag']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'tag': serializer.toJson<String>(tag),
+    };
+  }
+
+  TagTableDriftG copyWith({int? id, String? tag}) => TagTableDriftG(
+        id: id ?? this.id,
+        tag: tag ?? this.tag,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('TagTableDriftG(')
+          ..write('id: $id, ')
+          ..write('tag: $tag')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, tag);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is TagTableDriftG && other.id == this.id && other.tag == this.tag);
+}
+
+class TagTableDriftCompanion extends UpdateCompanion<TagTableDriftG> {
+  final Value<int> id;
+  final Value<String> tag;
+  const TagTableDriftCompanion({
+    this.id = const Value.absent(),
+    this.tag = const Value.absent(),
+  });
+  TagTableDriftCompanion.insert({
+    this.id = const Value.absent(),
+    required String tag,
+  }) : tag = Value(tag);
+  static Insertable<TagTableDriftG> custom({
+    Expression<int>? id,
+    Expression<String>? tag,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (tag != null) 'tag': tag,
+    });
+  }
+
+  TagTableDriftCompanion copyWith({Value<int>? id, Value<String>? tag}) {
+    return TagTableDriftCompanion(
+      id: id ?? this.id,
+      tag: tag ?? this.tag,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (tag.present) {
+      map['tag'] = Variable<String>(tag.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TagTableDriftCompanion(')
+          ..write('id: $id, ')
+          ..write('tag: $tag')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $ReminderTableDriftTable extends ReminderTableDrift
+    with TableInfo<$ReminderTableDriftTable, ReminderTableDriftG> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ReminderTableDriftTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _reminderDateMeta =
+      const VerificationMeta('reminderDate');
+  @override
+  late final GeneratedColumn<DateTime> reminderDate = GeneratedColumn<DateTime>(
+      'reminder_date', aliasedName, true,
+      type: DriftSqlType.dateTime, requiredDuringInsert: false);
+  static const VerificationMeta _organizerItemIdMeta =
+      const VerificationMeta('organizerItemId');
+  @override
+  late final GeneratedColumn<int> organizerItemId = GeneratedColumn<int>(
+      'organizer_item_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'REFERENCES OrganizerItemTableDriftG(id)');
+  @override
+  List<GeneratedColumn> get $columns => [id, reminderDate, organizerItemId];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'reminder_table_drift';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<ReminderTableDriftG> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('reminder_date')) {
+      context.handle(
+          _reminderDateMeta,
+          reminderDate.isAcceptableOrUnknown(
+              data['reminder_date']!, _reminderDateMeta));
+    }
+    if (data.containsKey('organizer_item_id')) {
+      context.handle(
+          _organizerItemIdMeta,
+          organizerItemId.isAcceptableOrUnknown(
+              data['organizer_item_id']!, _organizerItemIdMeta));
+    } else if (isInserting) {
+      context.missing(_organizerItemIdMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  ReminderTableDriftG map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ReminderTableDriftG(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      reminderDate: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}reminder_date']),
+      organizerItemId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}organizer_item_id'])!,
+    );
+  }
+
+  @override
+  $ReminderTableDriftTable createAlias(String alias) {
+    return $ReminderTableDriftTable(attachedDatabase, alias);
+  }
+}
+
+class ReminderTableDriftG extends DataClass
+    implements Insertable<ReminderTableDriftG> {
+  final int id;
+  final DateTime? reminderDate;
+  final int organizerItemId;
+  const ReminderTableDriftG(
+      {required this.id, this.reminderDate, required this.organizerItemId});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    if (!nullToAbsent || reminderDate != null) {
+      map['reminder_date'] = Variable<DateTime>(reminderDate);
+    }
+    map['organizer_item_id'] = Variable<int>(organizerItemId);
+    return map;
+  }
+
+  ReminderTableDriftCompanion toCompanion(bool nullToAbsent) {
+    return ReminderTableDriftCompanion(
+      id: Value(id),
+      reminderDate: reminderDate == null && nullToAbsent
+          ? const Value.absent()
+          : Value(reminderDate),
+      organizerItemId: Value(organizerItemId),
+    );
+  }
+
+  factory ReminderTableDriftG.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ReminderTableDriftG(
+      id: serializer.fromJson<int>(json['id']),
+      reminderDate: serializer.fromJson<DateTime?>(json['reminderDate']),
+      organizerItemId: serializer.fromJson<int>(json['organizerItemId']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'reminderDate': serializer.toJson<DateTime?>(reminderDate),
+      'organizerItemId': serializer.toJson<int>(organizerItemId),
+    };
+  }
+
+  ReminderTableDriftG copyWith(
+          {int? id,
+          Value<DateTime?> reminderDate = const Value.absent(),
+          int? organizerItemId}) =>
+      ReminderTableDriftG(
+        id: id ?? this.id,
+        reminderDate:
+            reminderDate.present ? reminderDate.value : this.reminderDate,
+        organizerItemId: organizerItemId ?? this.organizerItemId,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('ReminderTableDriftG(')
+          ..write('id: $id, ')
+          ..write('reminderDate: $reminderDate, ')
+          ..write('organizerItemId: $organizerItemId')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, reminderDate, organizerItemId);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ReminderTableDriftG &&
+          other.id == this.id &&
+          other.reminderDate == this.reminderDate &&
+          other.organizerItemId == this.organizerItemId);
+}
+
+class ReminderTableDriftCompanion extends UpdateCompanion<ReminderTableDriftG> {
+  final Value<int> id;
+  final Value<DateTime?> reminderDate;
+  final Value<int> organizerItemId;
+  const ReminderTableDriftCompanion({
+    this.id = const Value.absent(),
+    this.reminderDate = const Value.absent(),
+    this.organizerItemId = const Value.absent(),
+  });
+  ReminderTableDriftCompanion.insert({
+    this.id = const Value.absent(),
+    this.reminderDate = const Value.absent(),
+    required int organizerItemId,
+  }) : organizerItemId = Value(organizerItemId);
+  static Insertable<ReminderTableDriftG> custom({
+    Expression<int>? id,
+    Expression<DateTime>? reminderDate,
+    Expression<int>? organizerItemId,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (reminderDate != null) 'reminder_date': reminderDate,
+      if (organizerItemId != null) 'organizer_item_id': organizerItemId,
+    });
+  }
+
+  ReminderTableDriftCompanion copyWith(
+      {Value<int>? id,
+      Value<DateTime?>? reminderDate,
+      Value<int>? organizerItemId}) {
+    return ReminderTableDriftCompanion(
+      id: id ?? this.id,
+      reminderDate: reminderDate ?? this.reminderDate,
+      organizerItemId: organizerItemId ?? this.organizerItemId,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (reminderDate.present) {
+      map['reminder_date'] = Variable<DateTime>(reminderDate.value);
+    }
+    if (organizerItemId.present) {
+      map['organizer_item_id'] = Variable<int>(organizerItemId.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ReminderTableDriftCompanion(')
+          ..write('id: $id, ')
+          ..write('reminderDate: $reminderDate, ')
+          ..write('organizerItemId: $organizerItemId')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class $TaskTableDriftTable extends TaskTableDrift
     with TableInfo<$TaskTableDriftTable, TaskTableDriftG> {
   @override
@@ -33,39 +1109,20 @@ class $TaskTableDriftTable extends TaskTableDrift
   late final GeneratedColumn<DateTime> createdDate = GeneratedColumn<DateTime>(
       'created_date', aliasedName, false,
       type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  static const VerificationMeta _creatorMeta =
-      const VerificationMeta('creator');
+  static const VerificationMeta _creatorIDMeta =
+      const VerificationMeta('creatorID');
   @override
-  late final GeneratedColumn<String> creator = GeneratedColumn<String>(
-      'creator', aliasedName, false,
-      additionalChecks:
-          GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 255),
-      type: DriftSqlType.string,
-      requiredDuringInsert: true);
-  static const VerificationMeta _userListMeta =
-      const VerificationMeta('userList');
-  @override
-  late final GeneratedColumn<String> userList = GeneratedColumn<String>(
-      'user_list', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _tagListMeta =
-      const VerificationMeta('tagList');
-  @override
-  late final GeneratedColumn<String> tagList = GeneratedColumn<String>(
-      'tag_list', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _reminderListMeta =
-      const VerificationMeta('reminderList');
-  @override
-  late final GeneratedColumn<String> reminderList = GeneratedColumn<String>(
-      'reminder_list', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+  late final GeneratedColumn<int> creatorID = GeneratedColumn<int>(
+      'creator_i_d', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'REFERENCES User(id)');
   static const VerificationMeta _remoteIdMeta =
       const VerificationMeta('remoteId');
   @override
   late final GeneratedColumn<int> remoteId = GeneratedColumn<int>(
-      'remote_id', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+      'remote_id', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
   static const VerificationMeta _lastUpdateMeta =
       const VerificationMeta('lastUpdate');
   @override
@@ -142,10 +1199,7 @@ class $TaskTableDriftTable extends TaskTableDrift
         id,
         subject,
         createdDate,
-        creator,
-        userList,
-        tagList,
-        reminderList,
+        creatorID,
         remoteId,
         lastUpdate,
         lastViewDate,
@@ -187,37 +1241,17 @@ class $TaskTableDriftTable extends TaskTableDrift
     } else if (isInserting) {
       context.missing(_createdDateMeta);
     }
-    if (data.containsKey('creator')) {
-      context.handle(_creatorMeta,
-          creator.isAcceptableOrUnknown(data['creator']!, _creatorMeta));
-    } else if (isInserting) {
-      context.missing(_creatorMeta);
-    }
-    if (data.containsKey('user_list')) {
-      context.handle(_userListMeta,
-          userList.isAcceptableOrUnknown(data['user_list']!, _userListMeta));
-    } else if (isInserting) {
-      context.missing(_userListMeta);
-    }
-    if (data.containsKey('tag_list')) {
-      context.handle(_tagListMeta,
-          tagList.isAcceptableOrUnknown(data['tag_list']!, _tagListMeta));
-    } else if (isInserting) {
-      context.missing(_tagListMeta);
-    }
-    if (data.containsKey('reminder_list')) {
+    if (data.containsKey('creator_i_d')) {
       context.handle(
-          _reminderListMeta,
-          reminderList.isAcceptableOrUnknown(
-              data['reminder_list']!, _reminderListMeta));
+          _creatorIDMeta,
+          creatorID.isAcceptableOrUnknown(
+              data['creator_i_d']!, _creatorIDMeta));
     } else if (isInserting) {
-      context.missing(_reminderListMeta);
+      context.missing(_creatorIDMeta);
     }
     if (data.containsKey('remote_id')) {
       context.handle(_remoteIdMeta,
           remoteId.isAcceptableOrUnknown(data['remote_id']!, _remoteIdMeta));
-    } else if (isInserting) {
-      context.missing(_remoteIdMeta);
     }
     if (data.containsKey('last_update')) {
       context.handle(
@@ -298,16 +1332,10 @@ class $TaskTableDriftTable extends TaskTableDrift
           .read(DriftSqlType.string, data['${effectivePrefix}subject'])!,
       createdDate: attachedDatabase.typeMapping
           .read(DriftSqlType.dateTime, data['${effectivePrefix}created_date'])!,
-      creator: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}creator'])!,
-      userList: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}user_list'])!,
-      tagList: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}tag_list'])!,
-      reminderList: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}reminder_list'])!,
+      creatorID: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}creator_i_d'])!,
       remoteId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}remote_id'])!,
+          .read(DriftSqlType.int, data['${effectivePrefix}remote_id']),
       lastUpdate: attachedDatabase.typeMapping
           .read(DriftSqlType.dateTime, data['${effectivePrefix}last_update']),
       lastViewDate: attachedDatabase.typeMapping.read(
@@ -345,11 +1373,8 @@ class TaskTableDriftG extends DataClass implements Insertable<TaskTableDriftG> {
   final int id;
   final String subject;
   final DateTime createdDate;
-  final String creator;
-  final String userList;
-  final String tagList;
-  final String reminderList;
-  final int remoteId;
+  final int creatorID;
+  final int? remoteId;
   final DateTime? lastUpdate;
   final DateTime? lastViewDate;
   final int? remoteViews;
@@ -366,11 +1391,8 @@ class TaskTableDriftG extends DataClass implements Insertable<TaskTableDriftG> {
       {required this.id,
       required this.subject,
       required this.createdDate,
-      required this.creator,
-      required this.userList,
-      required this.tagList,
-      required this.reminderList,
-      required this.remoteId,
+      required this.creatorID,
+      this.remoteId,
       this.lastUpdate,
       this.lastViewDate,
       this.remoteViews,
@@ -389,11 +1411,10 @@ class TaskTableDriftG extends DataClass implements Insertable<TaskTableDriftG> {
     map['id'] = Variable<int>(id);
     map['subject'] = Variable<String>(subject);
     map['created_date'] = Variable<DateTime>(createdDate);
-    map['creator'] = Variable<String>(creator);
-    map['user_list'] = Variable<String>(userList);
-    map['tag_list'] = Variable<String>(tagList);
-    map['reminder_list'] = Variable<String>(reminderList);
-    map['remote_id'] = Variable<int>(remoteId);
+    map['creator_i_d'] = Variable<int>(creatorID);
+    if (!nullToAbsent || remoteId != null) {
+      map['remote_id'] = Variable<int>(remoteId);
+    }
     if (!nullToAbsent || lastUpdate != null) {
       map['last_update'] = Variable<DateTime>(lastUpdate);
     }
@@ -438,11 +1459,10 @@ class TaskTableDriftG extends DataClass implements Insertable<TaskTableDriftG> {
       id: Value(id),
       subject: Value(subject),
       createdDate: Value(createdDate),
-      creator: Value(creator),
-      userList: Value(userList),
-      tagList: Value(tagList),
-      reminderList: Value(reminderList),
-      remoteId: Value(remoteId),
+      creatorID: Value(creatorID),
+      remoteId: remoteId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(remoteId),
       lastUpdate: lastUpdate == null && nullToAbsent
           ? const Value.absent()
           : Value(lastUpdate),
@@ -488,11 +1508,8 @@ class TaskTableDriftG extends DataClass implements Insertable<TaskTableDriftG> {
       id: serializer.fromJson<int>(json['id']),
       subject: serializer.fromJson<String>(json['subject']),
       createdDate: serializer.fromJson<DateTime>(json['createdDate']),
-      creator: serializer.fromJson<String>(json['creator']),
-      userList: serializer.fromJson<String>(json['userList']),
-      tagList: serializer.fromJson<String>(json['tagList']),
-      reminderList: serializer.fromJson<String>(json['reminderList']),
-      remoteId: serializer.fromJson<int>(json['remoteId']),
+      creatorID: serializer.fromJson<int>(json['creatorID']),
+      remoteId: serializer.fromJson<int?>(json['remoteId']),
       lastUpdate: serializer.fromJson<DateTime?>(json['lastUpdate']),
       lastViewDate: serializer.fromJson<DateTime?>(json['lastViewDate']),
       remoteViews: serializer.fromJson<int?>(json['remoteViews']),
@@ -515,11 +1532,8 @@ class TaskTableDriftG extends DataClass implements Insertable<TaskTableDriftG> {
       'id': serializer.toJson<int>(id),
       'subject': serializer.toJson<String>(subject),
       'createdDate': serializer.toJson<DateTime>(createdDate),
-      'creator': serializer.toJson<String>(creator),
-      'userList': serializer.toJson<String>(userList),
-      'tagList': serializer.toJson<String>(tagList),
-      'reminderList': serializer.toJson<String>(reminderList),
-      'remoteId': serializer.toJson<int>(remoteId),
+      'creatorID': serializer.toJson<int>(creatorID),
+      'remoteId': serializer.toJson<int?>(remoteId),
       'lastUpdate': serializer.toJson<DateTime?>(lastUpdate),
       'lastViewDate': serializer.toJson<DateTime?>(lastViewDate),
       'remoteViews': serializer.toJson<int?>(remoteViews),
@@ -539,11 +1553,8 @@ class TaskTableDriftG extends DataClass implements Insertable<TaskTableDriftG> {
           {int? id,
           String? subject,
           DateTime? createdDate,
-          String? creator,
-          String? userList,
-          String? tagList,
-          String? reminderList,
-          int? remoteId,
+          int? creatorID,
+          Value<int?> remoteId = const Value.absent(),
           Value<DateTime?> lastUpdate = const Value.absent(),
           Value<DateTime?> lastViewDate = const Value.absent(),
           Value<int?> remoteViews = const Value.absent(),
@@ -560,11 +1571,8 @@ class TaskTableDriftG extends DataClass implements Insertable<TaskTableDriftG> {
         id: id ?? this.id,
         subject: subject ?? this.subject,
         createdDate: createdDate ?? this.createdDate,
-        creator: creator ?? this.creator,
-        userList: userList ?? this.userList,
-        tagList: tagList ?? this.tagList,
-        reminderList: reminderList ?? this.reminderList,
-        remoteId: remoteId ?? this.remoteId,
+        creatorID: creatorID ?? this.creatorID,
+        remoteId: remoteId.present ? remoteId.value : this.remoteId,
         lastUpdate: lastUpdate.present ? lastUpdate.value : this.lastUpdate,
         lastViewDate:
             lastViewDate.present ? lastViewDate.value : this.lastViewDate,
@@ -590,10 +1598,7 @@ class TaskTableDriftG extends DataClass implements Insertable<TaskTableDriftG> {
           ..write('id: $id, ')
           ..write('subject: $subject, ')
           ..write('createdDate: $createdDate, ')
-          ..write('creator: $creator, ')
-          ..write('userList: $userList, ')
-          ..write('tagList: $tagList, ')
-          ..write('reminderList: $reminderList, ')
+          ..write('creatorID: $creatorID, ')
           ..write('remoteId: $remoteId, ')
           ..write('lastUpdate: $lastUpdate, ')
           ..write('lastViewDate: $lastViewDate, ')
@@ -616,10 +1621,7 @@ class TaskTableDriftG extends DataClass implements Insertable<TaskTableDriftG> {
       id,
       subject,
       createdDate,
-      creator,
-      userList,
-      tagList,
-      reminderList,
+      creatorID,
       remoteId,
       lastUpdate,
       lastViewDate,
@@ -640,10 +1642,7 @@ class TaskTableDriftG extends DataClass implements Insertable<TaskTableDriftG> {
           other.id == this.id &&
           other.subject == this.subject &&
           other.createdDate == this.createdDate &&
-          other.creator == this.creator &&
-          other.userList == this.userList &&
-          other.tagList == this.tagList &&
-          other.reminderList == this.reminderList &&
+          other.creatorID == this.creatorID &&
           other.remoteId == this.remoteId &&
           other.lastUpdate == this.lastUpdate &&
           other.lastViewDate == this.lastViewDate &&
@@ -663,11 +1662,8 @@ class TaskTableDriftCompanion extends UpdateCompanion<TaskTableDriftG> {
   final Value<int> id;
   final Value<String> subject;
   final Value<DateTime> createdDate;
-  final Value<String> creator;
-  final Value<String> userList;
-  final Value<String> tagList;
-  final Value<String> reminderList;
-  final Value<int> remoteId;
+  final Value<int> creatorID;
+  final Value<int?> remoteId;
   final Value<DateTime?> lastUpdate;
   final Value<DateTime?> lastViewDate;
   final Value<int?> remoteViews;
@@ -684,10 +1680,7 @@ class TaskTableDriftCompanion extends UpdateCompanion<TaskTableDriftG> {
     this.id = const Value.absent(),
     this.subject = const Value.absent(),
     this.createdDate = const Value.absent(),
-    this.creator = const Value.absent(),
-    this.userList = const Value.absent(),
-    this.tagList = const Value.absent(),
-    this.reminderList = const Value.absent(),
+    this.creatorID = const Value.absent(),
     this.remoteId = const Value.absent(),
     this.lastUpdate = const Value.absent(),
     this.lastViewDate = const Value.absent(),
@@ -706,11 +1699,8 @@ class TaskTableDriftCompanion extends UpdateCompanion<TaskTableDriftG> {
     this.id = const Value.absent(),
     required String subject,
     required DateTime createdDate,
-    required String creator,
-    required String userList,
-    required String tagList,
-    required String reminderList,
-    required int remoteId,
+    required int creatorID,
+    this.remoteId = const Value.absent(),
     this.lastUpdate = const Value.absent(),
     this.lastViewDate = const Value.absent(),
     this.remoteViews = const Value.absent(),
@@ -725,19 +1715,12 @@ class TaskTableDriftCompanion extends UpdateCompanion<TaskTableDriftG> {
     this.taskStatus = const Value.absent(),
   })  : subject = Value(subject),
         createdDate = Value(createdDate),
-        creator = Value(creator),
-        userList = Value(userList),
-        tagList = Value(tagList),
-        reminderList = Value(reminderList),
-        remoteId = Value(remoteId);
+        creatorID = Value(creatorID);
   static Insertable<TaskTableDriftG> custom({
     Expression<int>? id,
     Expression<String>? subject,
     Expression<DateTime>? createdDate,
-    Expression<String>? creator,
-    Expression<String>? userList,
-    Expression<String>? tagList,
-    Expression<String>? reminderList,
+    Expression<int>? creatorID,
     Expression<int>? remoteId,
     Expression<DateTime>? lastUpdate,
     Expression<DateTime>? lastViewDate,
@@ -756,10 +1739,7 @@ class TaskTableDriftCompanion extends UpdateCompanion<TaskTableDriftG> {
       if (id != null) 'id': id,
       if (subject != null) 'subject': subject,
       if (createdDate != null) 'created_date': createdDate,
-      if (creator != null) 'creator': creator,
-      if (userList != null) 'user_list': userList,
-      if (tagList != null) 'tag_list': tagList,
-      if (reminderList != null) 'reminder_list': reminderList,
+      if (creatorID != null) 'creator_i_d': creatorID,
       if (remoteId != null) 'remote_id': remoteId,
       if (lastUpdate != null) 'last_update': lastUpdate,
       if (lastViewDate != null) 'last_view_date': lastViewDate,
@@ -780,11 +1760,8 @@ class TaskTableDriftCompanion extends UpdateCompanion<TaskTableDriftG> {
       {Value<int>? id,
       Value<String>? subject,
       Value<DateTime>? createdDate,
-      Value<String>? creator,
-      Value<String>? userList,
-      Value<String>? tagList,
-      Value<String>? reminderList,
-      Value<int>? remoteId,
+      Value<int>? creatorID,
+      Value<int?>? remoteId,
       Value<DateTime?>? lastUpdate,
       Value<DateTime?>? lastViewDate,
       Value<int?>? remoteViews,
@@ -801,10 +1778,7 @@ class TaskTableDriftCompanion extends UpdateCompanion<TaskTableDriftG> {
       id: id ?? this.id,
       subject: subject ?? this.subject,
       createdDate: createdDate ?? this.createdDate,
-      creator: creator ?? this.creator,
-      userList: userList ?? this.userList,
-      tagList: tagList ?? this.tagList,
-      reminderList: reminderList ?? this.reminderList,
+      creatorID: creatorID ?? this.creatorID,
       remoteId: remoteId ?? this.remoteId,
       lastUpdate: lastUpdate ?? this.lastUpdate,
       lastViewDate: lastViewDate ?? this.lastViewDate,
@@ -833,17 +1807,8 @@ class TaskTableDriftCompanion extends UpdateCompanion<TaskTableDriftG> {
     if (createdDate.present) {
       map['created_date'] = Variable<DateTime>(createdDate.value);
     }
-    if (creator.present) {
-      map['creator'] = Variable<String>(creator.value);
-    }
-    if (userList.present) {
-      map['user_list'] = Variable<String>(userList.value);
-    }
-    if (tagList.present) {
-      map['tag_list'] = Variable<String>(tagList.value);
-    }
-    if (reminderList.present) {
-      map['reminder_list'] = Variable<String>(reminderList.value);
+    if (creatorID.present) {
+      map['creator_i_d'] = Variable<int>(creatorID.value);
     }
     if (remoteId.present) {
       map['remote_id'] = Variable<int>(remoteId.value);
@@ -893,10 +1858,7 @@ class TaskTableDriftCompanion extends UpdateCompanion<TaskTableDriftG> {
           ..write('id: $id, ')
           ..write('subject: $subject, ')
           ..write('createdDate: $createdDate, ')
-          ..write('creator: $creator, ')
-          ..write('userList: $userList, ')
-          ..write('tagList: $tagList, ')
-          ..write('reminderList: $reminderList, ')
+          ..write('creatorID: $creatorID, ')
           ..write('remoteId: $remoteId, ')
           ..write('lastUpdate: $lastUpdate, ')
           ..write('lastViewDate: $lastViewDate, ')
@@ -915,230 +1877,534 @@ class TaskTableDriftCompanion extends UpdateCompanion<TaskTableDriftG> {
   }
 }
 
-class $TaskTableTable extends TaskTable
-    with TableInfo<$TaskTableTable, TaskTableData> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  $TaskTableTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _subjectMeta =
-      const VerificationMeta('subject');
-  @override
-  late final GeneratedColumn<String> subject = GeneratedColumn<String>(
-      'subject', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _createdDateMeta =
-      const VerificationMeta('createdDate');
-  @override
-  late final GeneratedColumn<DateTime> createdDate = GeneratedColumn<DateTime>(
-      'created_date', aliasedName, false,
-      type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  @override
-  List<GeneratedColumn> get $columns => [id, subject, createdDate];
-  @override
-  String get aliasedName => _alias ?? actualTableName;
-  @override
-  String get actualTableName => $name;
-  static const String $name = 'task_table';
-  @override
-  VerificationContext validateIntegrity(Insertable<TaskTableData> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('subject')) {
-      context.handle(_subjectMeta,
-          subject.isAcceptableOrUnknown(data['subject']!, _subjectMeta));
-    } else if (isInserting) {
-      context.missing(_subjectMeta);
-    }
-    if (data.containsKey('created_date')) {
-      context.handle(
-          _createdDateMeta,
-          createdDate.isAcceptableOrUnknown(
-              data['created_date']!, _createdDateMeta));
-    } else if (isInserting) {
-      context.missing(_createdDateMeta);
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  TaskTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return TaskTableData(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      subject: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}subject'])!,
-      createdDate: attachedDatabase.typeMapping
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_date'])!,
-    );
-  }
-
-  @override
-  $TaskTableTable createAlias(String alias) {
-    return $TaskTableTable(attachedDatabase, alias);
-  }
-}
-
-class TaskTableData extends DataClass implements Insertable<TaskTableData> {
-  final int id;
-  final String subject;
-  final DateTime createdDate;
-  const TaskTableData(
-      {required this.id, required this.subject, required this.createdDate});
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
-    map['subject'] = Variable<String>(subject);
-    map['created_date'] = Variable<DateTime>(createdDate);
-    return map;
-  }
-
-  TaskTableCompanion toCompanion(bool nullToAbsent) {
-    return TaskTableCompanion(
-      id: Value(id),
-      subject: Value(subject),
-      createdDate: Value(createdDate),
-    );
-  }
-
-  factory TaskTableData.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return TaskTableData(
-      id: serializer.fromJson<int>(json['id']),
-      subject: serializer.fromJson<String>(json['subject']),
-      createdDate: serializer.fromJson<DateTime>(json['createdDate']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
-      'subject': serializer.toJson<String>(subject),
-      'createdDate': serializer.toJson<DateTime>(createdDate),
-    };
-  }
-
-  TaskTableData copyWith({int? id, String? subject, DateTime? createdDate}) =>
-      TaskTableData(
-        id: id ?? this.id,
-        subject: subject ?? this.subject,
-        createdDate: createdDate ?? this.createdDate,
-      );
-  @override
-  String toString() {
-    return (StringBuffer('TaskTableData(')
-          ..write('id: $id, ')
-          ..write('subject: $subject, ')
-          ..write('createdDate: $createdDate')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(id, subject, createdDate);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is TaskTableData &&
-          other.id == this.id &&
-          other.subject == this.subject &&
-          other.createdDate == this.createdDate);
-}
-
-class TaskTableCompanion extends UpdateCompanion<TaskTableData> {
-  final Value<int> id;
-  final Value<String> subject;
-  final Value<DateTime> createdDate;
-  const TaskTableCompanion({
-    this.id = const Value.absent(),
-    this.subject = const Value.absent(),
-    this.createdDate = const Value.absent(),
-  });
-  TaskTableCompanion.insert({
-    this.id = const Value.absent(),
-    required String subject,
-    required DateTime createdDate,
-  })  : subject = Value(subject),
-        createdDate = Value(createdDate);
-  static Insertable<TaskTableData> custom({
-    Expression<int>? id,
-    Expression<String>? subject,
-    Expression<DateTime>? createdDate,
-  }) {
-    return RawValuesInsertable({
-      if (id != null) 'id': id,
-      if (subject != null) 'subject': subject,
-      if (createdDate != null) 'created_date': createdDate,
-    });
-  }
-
-  TaskTableCompanion copyWith(
-      {Value<int>? id, Value<String>? subject, Value<DateTime>? createdDate}) {
-    return TaskTableCompanion(
-      id: id ?? this.id,
-      subject: subject ?? this.subject,
-      createdDate: createdDate ?? this.createdDate,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<int>(id.value);
-    }
-    if (subject.present) {
-      map['subject'] = Variable<String>(subject.value);
-    }
-    if (createdDate.present) {
-      map['created_date'] = Variable<DateTime>(createdDate.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('TaskTableCompanion(')
-          ..write('id: $id, ')
-          ..write('subject: $subject, ')
-          ..write('createdDate: $createdDate')
-          ..write(')'))
-        .toString();
-  }
-}
-
 abstract class _$OrganizerDriftDB extends GeneratedDatabase {
   _$OrganizerDriftDB(QueryExecutor e) : super(e);
   _$OrganizerDriftDBManager get managers => _$OrganizerDriftDBManager(this);
+  late final $OrganizerItemTableDriftTable organizerItemTableDrift =
+      $OrganizerItemTableDriftTable(this);
+  late final $UserTableDriftTable userTableDrift = $UserTableDriftTable(this);
+  late final $TagTableDriftTable tagTableDrift = $TagTableDriftTable(this);
+  late final $ReminderTableDriftTable reminderTableDrift =
+      $ReminderTableDriftTable(this);
   late final $TaskTableDriftTable taskTableDrift = $TaskTableDriftTable(this);
-  late final $TaskTableTable taskTable = $TaskTableTable(this);
   late final TaskDaoDrift taskDaoDrift = TaskDaoDrift(this as OrganizerDriftDB);
-  late final TaskDao taskDao = TaskDao(this as OrganizerDriftDB);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities =>
-      [taskTableDrift, taskTable];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [
+        organizerItemTableDrift,
+        userTableDrift,
+        tagTableDrift,
+        reminderTableDrift,
+        taskTableDrift
+      ];
+}
+
+typedef $$OrganizerItemTableDriftTableInsertCompanionBuilder
+    = OrganizerItemTableDriftCompanion Function({
+  Value<int> id,
+  required String subject,
+  required DateTime createdDate,
+  required int creatorID,
+  Value<int?> remoteId,
+  Value<DateTime?> lastUpdate,
+  Value<DateTime?> lastViewDate,
+  Value<int?> remoteViews,
+  Value<int?> views,
+  Value<String?> checksum,
+});
+typedef $$OrganizerItemTableDriftTableUpdateCompanionBuilder
+    = OrganizerItemTableDriftCompanion Function({
+  Value<int> id,
+  Value<String> subject,
+  Value<DateTime> createdDate,
+  Value<int> creatorID,
+  Value<int?> remoteId,
+  Value<DateTime?> lastUpdate,
+  Value<DateTime?> lastViewDate,
+  Value<int?> remoteViews,
+  Value<int?> views,
+  Value<String?> checksum,
+});
+
+class $$OrganizerItemTableDriftTableTableManager extends RootTableManager<
+    _$OrganizerDriftDB,
+    $OrganizerItemTableDriftTable,
+    OrganizerItemTableDriftG,
+    $$OrganizerItemTableDriftTableFilterComposer,
+    $$OrganizerItemTableDriftTableOrderingComposer,
+    $$OrganizerItemTableDriftTableProcessedTableManager,
+    $$OrganizerItemTableDriftTableInsertCompanionBuilder,
+    $$OrganizerItemTableDriftTableUpdateCompanionBuilder> {
+  $$OrganizerItemTableDriftTableTableManager(
+      _$OrganizerDriftDB db, $OrganizerItemTableDriftTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer: $$OrganizerItemTableDriftTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$OrganizerItemTableDriftTableOrderingComposer(
+              ComposerState(db, table)),
+          getChildManagerBuilder: (p) =>
+              $$OrganizerItemTableDriftTableProcessedTableManager(p),
+          getUpdateCompanionBuilder: ({
+            Value<int> id = const Value.absent(),
+            Value<String> subject = const Value.absent(),
+            Value<DateTime> createdDate = const Value.absent(),
+            Value<int> creatorID = const Value.absent(),
+            Value<int?> remoteId = const Value.absent(),
+            Value<DateTime?> lastUpdate = const Value.absent(),
+            Value<DateTime?> lastViewDate = const Value.absent(),
+            Value<int?> remoteViews = const Value.absent(),
+            Value<int?> views = const Value.absent(),
+            Value<String?> checksum = const Value.absent(),
+          }) =>
+              OrganizerItemTableDriftCompanion(
+            id: id,
+            subject: subject,
+            createdDate: createdDate,
+            creatorID: creatorID,
+            remoteId: remoteId,
+            lastUpdate: lastUpdate,
+            lastViewDate: lastViewDate,
+            remoteViews: remoteViews,
+            views: views,
+            checksum: checksum,
+          ),
+          getInsertCompanionBuilder: ({
+            Value<int> id = const Value.absent(),
+            required String subject,
+            required DateTime createdDate,
+            required int creatorID,
+            Value<int?> remoteId = const Value.absent(),
+            Value<DateTime?> lastUpdate = const Value.absent(),
+            Value<DateTime?> lastViewDate = const Value.absent(),
+            Value<int?> remoteViews = const Value.absent(),
+            Value<int?> views = const Value.absent(),
+            Value<String?> checksum = const Value.absent(),
+          }) =>
+              OrganizerItemTableDriftCompanion.insert(
+            id: id,
+            subject: subject,
+            createdDate: createdDate,
+            creatorID: creatorID,
+            remoteId: remoteId,
+            lastUpdate: lastUpdate,
+            lastViewDate: lastViewDate,
+            remoteViews: remoteViews,
+            views: views,
+            checksum: checksum,
+          ),
+        ));
+}
+
+class $$OrganizerItemTableDriftTableProcessedTableManager
+    extends ProcessedTableManager<
+        _$OrganizerDriftDB,
+        $OrganizerItemTableDriftTable,
+        OrganizerItemTableDriftG,
+        $$OrganizerItemTableDriftTableFilterComposer,
+        $$OrganizerItemTableDriftTableOrderingComposer,
+        $$OrganizerItemTableDriftTableProcessedTableManager,
+        $$OrganizerItemTableDriftTableInsertCompanionBuilder,
+        $$OrganizerItemTableDriftTableUpdateCompanionBuilder> {
+  $$OrganizerItemTableDriftTableProcessedTableManager(super.$state);
+}
+
+class $$OrganizerItemTableDriftTableFilterComposer
+    extends FilterComposer<_$OrganizerDriftDB, $OrganizerItemTableDriftTable> {
+  $$OrganizerItemTableDriftTableFilterComposer(super.$state);
+  ColumnFilters<int> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get subject => $state.composableBuilder(
+      column: $state.table.subject,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get createdDate => $state.composableBuilder(
+      column: $state.table.createdDate,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<int> get creatorID => $state.composableBuilder(
+      column: $state.table.creatorID,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<int> get remoteId => $state.composableBuilder(
+      column: $state.table.remoteId,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get lastUpdate => $state.composableBuilder(
+      column: $state.table.lastUpdate,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get lastViewDate => $state.composableBuilder(
+      column: $state.table.lastViewDate,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<int> get remoteViews => $state.composableBuilder(
+      column: $state.table.remoteViews,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<int> get views => $state.composableBuilder(
+      column: $state.table.views,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get checksum => $state.composableBuilder(
+      column: $state.table.checksum,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+}
+
+class $$OrganizerItemTableDriftTableOrderingComposer extends OrderingComposer<
+    _$OrganizerDriftDB, $OrganizerItemTableDriftTable> {
+  $$OrganizerItemTableDriftTableOrderingComposer(super.$state);
+  ColumnOrderings<int> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get subject => $state.composableBuilder(
+      column: $state.table.subject,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get createdDate => $state.composableBuilder(
+      column: $state.table.createdDate,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<int> get creatorID => $state.composableBuilder(
+      column: $state.table.creatorID,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<int> get remoteId => $state.composableBuilder(
+      column: $state.table.remoteId,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get lastUpdate => $state.composableBuilder(
+      column: $state.table.lastUpdate,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get lastViewDate => $state.composableBuilder(
+      column: $state.table.lastViewDate,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<int> get remoteViews => $state.composableBuilder(
+      column: $state.table.remoteViews,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<int> get views => $state.composableBuilder(
+      column: $state.table.views,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get checksum => $state.composableBuilder(
+      column: $state.table.checksum,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+}
+
+typedef $$UserTableDriftTableInsertCompanionBuilder = UserTableDriftCompanion
+    Function({
+  Value<int> id,
+  required String name,
+});
+typedef $$UserTableDriftTableUpdateCompanionBuilder = UserTableDriftCompanion
+    Function({
+  Value<int> id,
+  Value<String> name,
+});
+
+class $$UserTableDriftTableTableManager extends RootTableManager<
+    _$OrganizerDriftDB,
+    $UserTableDriftTable,
+    UserTableDriftG,
+    $$UserTableDriftTableFilterComposer,
+    $$UserTableDriftTableOrderingComposer,
+    $$UserTableDriftTableProcessedTableManager,
+    $$UserTableDriftTableInsertCompanionBuilder,
+    $$UserTableDriftTableUpdateCompanionBuilder> {
+  $$UserTableDriftTableTableManager(
+      _$OrganizerDriftDB db, $UserTableDriftTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer:
+              $$UserTableDriftTableFilterComposer(ComposerState(db, table)),
+          orderingComposer:
+              $$UserTableDriftTableOrderingComposer(ComposerState(db, table)),
+          getChildManagerBuilder: (p) =>
+              $$UserTableDriftTableProcessedTableManager(p),
+          getUpdateCompanionBuilder: ({
+            Value<int> id = const Value.absent(),
+            Value<String> name = const Value.absent(),
+          }) =>
+              UserTableDriftCompanion(
+            id: id,
+            name: name,
+          ),
+          getInsertCompanionBuilder: ({
+            Value<int> id = const Value.absent(),
+            required String name,
+          }) =>
+              UserTableDriftCompanion.insert(
+            id: id,
+            name: name,
+          ),
+        ));
+}
+
+class $$UserTableDriftTableProcessedTableManager extends ProcessedTableManager<
+    _$OrganizerDriftDB,
+    $UserTableDriftTable,
+    UserTableDriftG,
+    $$UserTableDriftTableFilterComposer,
+    $$UserTableDriftTableOrderingComposer,
+    $$UserTableDriftTableProcessedTableManager,
+    $$UserTableDriftTableInsertCompanionBuilder,
+    $$UserTableDriftTableUpdateCompanionBuilder> {
+  $$UserTableDriftTableProcessedTableManager(super.$state);
+}
+
+class $$UserTableDriftTableFilterComposer
+    extends FilterComposer<_$OrganizerDriftDB, $UserTableDriftTable> {
+  $$UserTableDriftTableFilterComposer(super.$state);
+  ColumnFilters<int> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get name => $state.composableBuilder(
+      column: $state.table.name,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+}
+
+class $$UserTableDriftTableOrderingComposer
+    extends OrderingComposer<_$OrganizerDriftDB, $UserTableDriftTable> {
+  $$UserTableDriftTableOrderingComposer(super.$state);
+  ColumnOrderings<int> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get name => $state.composableBuilder(
+      column: $state.table.name,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+}
+
+typedef $$TagTableDriftTableInsertCompanionBuilder = TagTableDriftCompanion
+    Function({
+  Value<int> id,
+  required String tag,
+});
+typedef $$TagTableDriftTableUpdateCompanionBuilder = TagTableDriftCompanion
+    Function({
+  Value<int> id,
+  Value<String> tag,
+});
+
+class $$TagTableDriftTableTableManager extends RootTableManager<
+    _$OrganizerDriftDB,
+    $TagTableDriftTable,
+    TagTableDriftG,
+    $$TagTableDriftTableFilterComposer,
+    $$TagTableDriftTableOrderingComposer,
+    $$TagTableDriftTableProcessedTableManager,
+    $$TagTableDriftTableInsertCompanionBuilder,
+    $$TagTableDriftTableUpdateCompanionBuilder> {
+  $$TagTableDriftTableTableManager(
+      _$OrganizerDriftDB db, $TagTableDriftTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer:
+              $$TagTableDriftTableFilterComposer(ComposerState(db, table)),
+          orderingComposer:
+              $$TagTableDriftTableOrderingComposer(ComposerState(db, table)),
+          getChildManagerBuilder: (p) =>
+              $$TagTableDriftTableProcessedTableManager(p),
+          getUpdateCompanionBuilder: ({
+            Value<int> id = const Value.absent(),
+            Value<String> tag = const Value.absent(),
+          }) =>
+              TagTableDriftCompanion(
+            id: id,
+            tag: tag,
+          ),
+          getInsertCompanionBuilder: ({
+            Value<int> id = const Value.absent(),
+            required String tag,
+          }) =>
+              TagTableDriftCompanion.insert(
+            id: id,
+            tag: tag,
+          ),
+        ));
+}
+
+class $$TagTableDriftTableProcessedTableManager extends ProcessedTableManager<
+    _$OrganizerDriftDB,
+    $TagTableDriftTable,
+    TagTableDriftG,
+    $$TagTableDriftTableFilterComposer,
+    $$TagTableDriftTableOrderingComposer,
+    $$TagTableDriftTableProcessedTableManager,
+    $$TagTableDriftTableInsertCompanionBuilder,
+    $$TagTableDriftTableUpdateCompanionBuilder> {
+  $$TagTableDriftTableProcessedTableManager(super.$state);
+}
+
+class $$TagTableDriftTableFilterComposer
+    extends FilterComposer<_$OrganizerDriftDB, $TagTableDriftTable> {
+  $$TagTableDriftTableFilterComposer(super.$state);
+  ColumnFilters<int> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get tag => $state.composableBuilder(
+      column: $state.table.tag,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+}
+
+class $$TagTableDriftTableOrderingComposer
+    extends OrderingComposer<_$OrganizerDriftDB, $TagTableDriftTable> {
+  $$TagTableDriftTableOrderingComposer(super.$state);
+  ColumnOrderings<int> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get tag => $state.composableBuilder(
+      column: $state.table.tag,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+}
+
+typedef $$ReminderTableDriftTableInsertCompanionBuilder
+    = ReminderTableDriftCompanion Function({
+  Value<int> id,
+  Value<DateTime?> reminderDate,
+  required int organizerItemId,
+});
+typedef $$ReminderTableDriftTableUpdateCompanionBuilder
+    = ReminderTableDriftCompanion Function({
+  Value<int> id,
+  Value<DateTime?> reminderDate,
+  Value<int> organizerItemId,
+});
+
+class $$ReminderTableDriftTableTableManager extends RootTableManager<
+    _$OrganizerDriftDB,
+    $ReminderTableDriftTable,
+    ReminderTableDriftG,
+    $$ReminderTableDriftTableFilterComposer,
+    $$ReminderTableDriftTableOrderingComposer,
+    $$ReminderTableDriftTableProcessedTableManager,
+    $$ReminderTableDriftTableInsertCompanionBuilder,
+    $$ReminderTableDriftTableUpdateCompanionBuilder> {
+  $$ReminderTableDriftTableTableManager(
+      _$OrganizerDriftDB db, $ReminderTableDriftTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer:
+              $$ReminderTableDriftTableFilterComposer(ComposerState(db, table)),
+          orderingComposer: $$ReminderTableDriftTableOrderingComposer(
+              ComposerState(db, table)),
+          getChildManagerBuilder: (p) =>
+              $$ReminderTableDriftTableProcessedTableManager(p),
+          getUpdateCompanionBuilder: ({
+            Value<int> id = const Value.absent(),
+            Value<DateTime?> reminderDate = const Value.absent(),
+            Value<int> organizerItemId = const Value.absent(),
+          }) =>
+              ReminderTableDriftCompanion(
+            id: id,
+            reminderDate: reminderDate,
+            organizerItemId: organizerItemId,
+          ),
+          getInsertCompanionBuilder: ({
+            Value<int> id = const Value.absent(),
+            Value<DateTime?> reminderDate = const Value.absent(),
+            required int organizerItemId,
+          }) =>
+              ReminderTableDriftCompanion.insert(
+            id: id,
+            reminderDate: reminderDate,
+            organizerItemId: organizerItemId,
+          ),
+        ));
+}
+
+class $$ReminderTableDriftTableProcessedTableManager
+    extends ProcessedTableManager<
+        _$OrganizerDriftDB,
+        $ReminderTableDriftTable,
+        ReminderTableDriftG,
+        $$ReminderTableDriftTableFilterComposer,
+        $$ReminderTableDriftTableOrderingComposer,
+        $$ReminderTableDriftTableProcessedTableManager,
+        $$ReminderTableDriftTableInsertCompanionBuilder,
+        $$ReminderTableDriftTableUpdateCompanionBuilder> {
+  $$ReminderTableDriftTableProcessedTableManager(super.$state);
+}
+
+class $$ReminderTableDriftTableFilterComposer
+    extends FilterComposer<_$OrganizerDriftDB, $ReminderTableDriftTable> {
+  $$ReminderTableDriftTableFilterComposer(super.$state);
+  ColumnFilters<int> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get reminderDate => $state.composableBuilder(
+      column: $state.table.reminderDate,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<int> get organizerItemId => $state.composableBuilder(
+      column: $state.table.organizerItemId,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+}
+
+class $$ReminderTableDriftTableOrderingComposer
+    extends OrderingComposer<_$OrganizerDriftDB, $ReminderTableDriftTable> {
+  $$ReminderTableDriftTableOrderingComposer(super.$state);
+  ColumnOrderings<int> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get reminderDate => $state.composableBuilder(
+      column: $state.table.reminderDate,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<int> get organizerItemId => $state.composableBuilder(
+      column: $state.table.organizerItemId,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
 typedef $$TaskTableDriftTableInsertCompanionBuilder = TaskTableDriftCompanion
@@ -1146,11 +2412,8 @@ typedef $$TaskTableDriftTableInsertCompanionBuilder = TaskTableDriftCompanion
   Value<int> id,
   required String subject,
   required DateTime createdDate,
-  required String creator,
-  required String userList,
-  required String tagList,
-  required String reminderList,
-  required int remoteId,
+  required int creatorID,
+  Value<int?> remoteId,
   Value<DateTime?> lastUpdate,
   Value<DateTime?> lastViewDate,
   Value<int?> remoteViews,
@@ -1169,11 +2432,8 @@ typedef $$TaskTableDriftTableUpdateCompanionBuilder = TaskTableDriftCompanion
   Value<int> id,
   Value<String> subject,
   Value<DateTime> createdDate,
-  Value<String> creator,
-  Value<String> userList,
-  Value<String> tagList,
-  Value<String> reminderList,
-  Value<int> remoteId,
+  Value<int> creatorID,
+  Value<int?> remoteId,
   Value<DateTime?> lastUpdate,
   Value<DateTime?> lastViewDate,
   Value<int?> remoteViews,
@@ -1212,11 +2472,8 @@ class $$TaskTableDriftTableTableManager extends RootTableManager<
             Value<int> id = const Value.absent(),
             Value<String> subject = const Value.absent(),
             Value<DateTime> createdDate = const Value.absent(),
-            Value<String> creator = const Value.absent(),
-            Value<String> userList = const Value.absent(),
-            Value<String> tagList = const Value.absent(),
-            Value<String> reminderList = const Value.absent(),
-            Value<int> remoteId = const Value.absent(),
+            Value<int> creatorID = const Value.absent(),
+            Value<int?> remoteId = const Value.absent(),
             Value<DateTime?> lastUpdate = const Value.absent(),
             Value<DateTime?> lastViewDate = const Value.absent(),
             Value<int?> remoteViews = const Value.absent(),
@@ -1234,10 +2491,7 @@ class $$TaskTableDriftTableTableManager extends RootTableManager<
             id: id,
             subject: subject,
             createdDate: createdDate,
-            creator: creator,
-            userList: userList,
-            tagList: tagList,
-            reminderList: reminderList,
+            creatorID: creatorID,
             remoteId: remoteId,
             lastUpdate: lastUpdate,
             lastViewDate: lastViewDate,
@@ -1256,11 +2510,8 @@ class $$TaskTableDriftTableTableManager extends RootTableManager<
             Value<int> id = const Value.absent(),
             required String subject,
             required DateTime createdDate,
-            required String creator,
-            required String userList,
-            required String tagList,
-            required String reminderList,
-            required int remoteId,
+            required int creatorID,
+            Value<int?> remoteId = const Value.absent(),
             Value<DateTime?> lastUpdate = const Value.absent(),
             Value<DateTime?> lastViewDate = const Value.absent(),
             Value<int?> remoteViews = const Value.absent(),
@@ -1278,10 +2529,7 @@ class $$TaskTableDriftTableTableManager extends RootTableManager<
             id: id,
             subject: subject,
             createdDate: createdDate,
-            creator: creator,
-            userList: userList,
-            tagList: tagList,
-            reminderList: reminderList,
+            creatorID: creatorID,
             remoteId: remoteId,
             lastUpdate: lastUpdate,
             lastViewDate: lastViewDate,
@@ -1329,23 +2577,8 @@ class $$TaskTableDriftTableFilterComposer
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
-  ColumnFilters<String> get creator => $state.composableBuilder(
-      column: $state.table.creator,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get userList => $state.composableBuilder(
-      column: $state.table.userList,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get tagList => $state.composableBuilder(
-      column: $state.table.tagList,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get reminderList => $state.composableBuilder(
-      column: $state.table.reminderList,
+  ColumnFilters<int> get creatorID => $state.composableBuilder(
+      column: $state.table.creatorID,
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
@@ -1433,23 +2666,8 @@ class $$TaskTableDriftTableOrderingComposer
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 
-  ColumnOrderings<String> get creator => $state.composableBuilder(
-      column: $state.table.creator,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get userList => $state.composableBuilder(
-      column: $state.table.userList,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get tagList => $state.composableBuilder(
-      column: $state.table.tagList,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get reminderList => $state.composableBuilder(
-      column: $state.table.reminderList,
+  ColumnOrderings<int> get creatorID => $state.composableBuilder(
+      column: $state.table.creatorID,
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 
@@ -1519,114 +2737,18 @@ class $$TaskTableDriftTableOrderingComposer
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
-typedef $$TaskTableTableInsertCompanionBuilder = TaskTableCompanion Function({
-  Value<int> id,
-  required String subject,
-  required DateTime createdDate,
-});
-typedef $$TaskTableTableUpdateCompanionBuilder = TaskTableCompanion Function({
-  Value<int> id,
-  Value<String> subject,
-  Value<DateTime> createdDate,
-});
-
-class $$TaskTableTableTableManager extends RootTableManager<
-    _$OrganizerDriftDB,
-    $TaskTableTable,
-    TaskTableData,
-    $$TaskTableTableFilterComposer,
-    $$TaskTableTableOrderingComposer,
-    $$TaskTableTableProcessedTableManager,
-    $$TaskTableTableInsertCompanionBuilder,
-    $$TaskTableTableUpdateCompanionBuilder> {
-  $$TaskTableTableTableManager(_$OrganizerDriftDB db, $TaskTableTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          filteringComposer:
-              $$TaskTableTableFilterComposer(ComposerState(db, table)),
-          orderingComposer:
-              $$TaskTableTableOrderingComposer(ComposerState(db, table)),
-          getChildManagerBuilder: (p) =>
-              $$TaskTableTableProcessedTableManager(p),
-          getUpdateCompanionBuilder: ({
-            Value<int> id = const Value.absent(),
-            Value<String> subject = const Value.absent(),
-            Value<DateTime> createdDate = const Value.absent(),
-          }) =>
-              TaskTableCompanion(
-            id: id,
-            subject: subject,
-            createdDate: createdDate,
-          ),
-          getInsertCompanionBuilder: ({
-            Value<int> id = const Value.absent(),
-            required String subject,
-            required DateTime createdDate,
-          }) =>
-              TaskTableCompanion.insert(
-            id: id,
-            subject: subject,
-            createdDate: createdDate,
-          ),
-        ));
-}
-
-class $$TaskTableTableProcessedTableManager extends ProcessedTableManager<
-    _$OrganizerDriftDB,
-    $TaskTableTable,
-    TaskTableData,
-    $$TaskTableTableFilterComposer,
-    $$TaskTableTableOrderingComposer,
-    $$TaskTableTableProcessedTableManager,
-    $$TaskTableTableInsertCompanionBuilder,
-    $$TaskTableTableUpdateCompanionBuilder> {
-  $$TaskTableTableProcessedTableManager(super.$state);
-}
-
-class $$TaskTableTableFilterComposer
-    extends FilterComposer<_$OrganizerDriftDB, $TaskTableTable> {
-  $$TaskTableTableFilterComposer(super.$state);
-  ColumnFilters<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get subject => $state.composableBuilder(
-      column: $state.table.subject,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<DateTime> get createdDate => $state.composableBuilder(
-      column: $state.table.createdDate,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-}
-
-class $$TaskTableTableOrderingComposer
-    extends OrderingComposer<_$OrganizerDriftDB, $TaskTableTable> {
-  $$TaskTableTableOrderingComposer(super.$state);
-  ColumnOrderings<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get subject => $state.composableBuilder(
-      column: $state.table.subject,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<DateTime> get createdDate => $state.composableBuilder(
-      column: $state.table.createdDate,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-}
-
 class _$OrganizerDriftDBManager {
   final _$OrganizerDriftDB _db;
   _$OrganizerDriftDBManager(this._db);
+  $$OrganizerItemTableDriftTableTableManager get organizerItemTableDrift =>
+      $$OrganizerItemTableDriftTableTableManager(
+          _db, _db.organizerItemTableDrift);
+  $$UserTableDriftTableTableManager get userTableDrift =>
+      $$UserTableDriftTableTableManager(_db, _db.userTableDrift);
+  $$TagTableDriftTableTableManager get tagTableDrift =>
+      $$TagTableDriftTableTableManager(_db, _db.tagTableDrift);
+  $$ReminderTableDriftTableTableManager get reminderTableDrift =>
+      $$ReminderTableDriftTableTableManager(_db, _db.reminderTableDrift);
   $$TaskTableDriftTableTableManager get taskTableDrift =>
       $$TaskTableDriftTableTableManager(_db, _db.taskTableDrift);
-  $$TaskTableTableTableManager get taskTable =>
-      $$TaskTableTableTableManager(_db, _db.taskTable);
 }

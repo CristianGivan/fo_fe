@@ -1,7 +1,11 @@
 import 'package:drift/drift.dart';
-import 'package:fo_fe/features/organizer/items/organizer_item/data/drift/organizer_item_table_drift.dart';
 
 @DataClassName('ReminderTableDriftG')
-class ReminderTableDrift extends OrganizerItemTableDrift {
+class ReminderTableDrift extends Table {
+  IntColumn get id => integer().autoIncrement()();
+
   DateTimeColumn get reminderDate => dateTime().nullable()();
+
+  IntColumn get organizerItemId =>
+      integer().customConstraint('REFERENCES OrganizerItemTableDriftG(id)')();
 }

@@ -69,5 +69,5 @@ void initExternals() {
 
 void initDb() {
   sl.registerSingleton<OrganizerDriftDB>(OrganizerDriftDB());
-  sl.registerSingleton<TaskDaoDrift>(sl<OrganizerDriftDB>().taskDaoDrift);
+  sl.registerSingleton<TaskDaoDrift>(TaskDaoDrift(sl()));
 }

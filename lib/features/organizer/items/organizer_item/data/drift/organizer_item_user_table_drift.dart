@@ -8,5 +8,5 @@ class OrganizerItemUserTableDrift extends Table {
       integer().customConstraint('REFERENCES OrganizerItemTableDriftG(id)')();
 
   IntColumn get userId =>
-      integer().customConstraint('REFERENCES OrganizerItemTableDriftG(id)')();
+      integer().customConstraint('REFERENCES UserTableDriftG(id)')();
 }

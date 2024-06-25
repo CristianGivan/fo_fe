@@ -8,12 +8,10 @@ class OrganizerItemTableDrift extends Table {
 
   DateTimeColumn get createdDate => dateTime()();
 
-  TextColumn get creator => text().withLength(min: 1, max: 255)();
+  IntColumn get creatorID =>
+      integer().customConstraint('REFERENCES User(id)')();
 
-  TextColumn get userList => text()(); // Storing as JSON string
-  TextColumn get tagList => text()(); // Storing as JSON string
-  TextColumn get reminderList => text()(); // Storing as JSON string
-  IntColumn get remoteId => integer()();
+  IntColumn get remoteId => integer().nullable()();
 
   DateTimeColumn get lastUpdate => dateTime().nullable()();
 
