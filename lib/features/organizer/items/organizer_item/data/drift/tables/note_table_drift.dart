@@ -1,5 +1,5 @@
 import 'package:drift/drift.dart';
-import 'package:fo_fe/features/organizer/items/organizer_item/data/drift/organizer_item_table_drift.dart';
+import 'package:fo_fe/features/organizer/items/organizer_item/data/drift/tables/organizer_item_table_drift.dart';
 
 @DataClassName('NoteTableDriftG')
 class NoteTableDrift extends OrganizerItemTableDrift {

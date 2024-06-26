@@ -507,349 +507,464 @@ class OrganizerItemTableDriftCompanion
   }
 }
 
-class $UserTableDriftTable extends UserTableDrift
-    with TableInfo<$UserTableDriftTable, UserTableDriftG> {
+class $OrganizerItemTagTableDriftTable extends OrganizerItemTagTableDrift
+    with
+        TableInfo<$OrganizerItemTagTableDriftTable,
+            OrganizerItemTagTableDriftG> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $UserTableDriftTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  $OrganizerItemTagTableDriftTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _organizerItemTagIdMeta =
+      const VerificationMeta('organizerItemTagId');
   @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
+  late final GeneratedColumn<int> organizerItemTagId = GeneratedColumn<int>(
+      'organizer_item_tag_id', aliasedName, false,
       hasAutoIncrement: true,
       type: DriftSqlType.int,
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  static const VerificationMeta _organizerItemIdMeta =
+      const VerificationMeta('organizerItemId');
   @override
-  late final GeneratedColumn<String> name = GeneratedColumn<String>(
-      'name', aliasedName, false,
-      additionalChecks:
-          GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 255),
-      type: DriftSqlType.string,
-      requiredDuringInsert: true);
+  late final GeneratedColumn<int> organizerItemId = GeneratedColumn<int>(
+      'organizer_item_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'REFERENCES OrganizerItemTableDriftG(id)');
+  static const VerificationMeta _tagIdMeta = const VerificationMeta('tagId');
   @override
-  List<GeneratedColumn> get $columns => [id, name];
+  late final GeneratedColumn<int> tagId = GeneratedColumn<int>(
+      'tag_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'REFERENCES TagTableDriftG(id)');
+  @override
+  List<GeneratedColumn> get $columns =>
+      [organizerItemTagId, organizerItemId, tagId];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
-  static const String $name = 'user_table_drift';
+  static const String $name = 'organizer_item_tag_table_drift';
   @override
-  VerificationContext validateIntegrity(Insertable<UserTableDriftG> instance,
+  VerificationContext validateIntegrity(
+      Insertable<OrganizerItemTagTableDriftG> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('name')) {
+    if (data.containsKey('organizer_item_tag_id')) {
       context.handle(
-          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
+          _organizerItemTagIdMeta,
+          organizerItemTagId.isAcceptableOrUnknown(
+              data['organizer_item_tag_id']!, _organizerItemTagIdMeta));
+    }
+    if (data.containsKey('organizer_item_id')) {
+      context.handle(
+          _organizerItemIdMeta,
+          organizerItemId.isAcceptableOrUnknown(
+              data['organizer_item_id']!, _organizerItemIdMeta));
     } else if (isInserting) {
-      context.missing(_nameMeta);
+      context.missing(_organizerItemIdMeta);
+    }
+    if (data.containsKey('tag_id')) {
+      context.handle(
+          _tagIdMeta, tagId.isAcceptableOrUnknown(data['tag_id']!, _tagIdMeta));
+    } else if (isInserting) {
+      context.missing(_tagIdMeta);
     }
     return context;
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {id};
+  Set<GeneratedColumn> get $primaryKey => {organizerItemTagId};
   @override
-  UserTableDriftG map(Map<String, dynamic> data, {String? tablePrefix}) {
+  OrganizerItemTagTableDriftG map(Map<String, dynamic> data,
+      {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return UserTableDriftG(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      name: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+    return OrganizerItemTagTableDriftG(
+      organizerItemTagId: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}organizer_item_tag_id'])!,
+      organizerItemId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}organizer_item_id'])!,
+      tagId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}tag_id'])!,
     );
   }
 
   @override
-  $UserTableDriftTable createAlias(String alias) {
-    return $UserTableDriftTable(attachedDatabase, alias);
+  $OrganizerItemTagTableDriftTable createAlias(String alias) {
+    return $OrganizerItemTagTableDriftTable(attachedDatabase, alias);
   }
 }
 
-class UserTableDriftG extends DataClass implements Insertable<UserTableDriftG> {
-  final int id;
-  final String name;
-  const UserTableDriftG({required this.id, required this.name});
+class OrganizerItemTagTableDriftG extends DataClass
+    implements Insertable<OrganizerItemTagTableDriftG> {
+  final int organizerItemTagId;
+  final int organizerItemId;
+  final int tagId;
+  const OrganizerItemTagTableDriftG(
+      {required this.organizerItemTagId,
+      required this.organizerItemId,
+      required this.tagId});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
-    map['name'] = Variable<String>(name);
+    map['organizer_item_tag_id'] = Variable<int>(organizerItemTagId);
+    map['organizer_item_id'] = Variable<int>(organizerItemId);
+    map['tag_id'] = Variable<int>(tagId);
     return map;
   }
 
-  UserTableDriftCompanion toCompanion(bool nullToAbsent) {
-    return UserTableDriftCompanion(
-      id: Value(id),
-      name: Value(name),
+  OrganizerItemTagTableDriftCompanion toCompanion(bool nullToAbsent) {
+    return OrganizerItemTagTableDriftCompanion(
+      organizerItemTagId: Value(organizerItemTagId),
+      organizerItemId: Value(organizerItemId),
+      tagId: Value(tagId),
     );
   }
 
-  factory UserTableDriftG.fromJson(Map<String, dynamic> json,
+  factory OrganizerItemTagTableDriftG.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return UserTableDriftG(
-      id: serializer.fromJson<int>(json['id']),
-      name: serializer.fromJson<String>(json['name']),
+    return OrganizerItemTagTableDriftG(
+      organizerItemTagId: serializer.fromJson<int>(json['organizerItemTagId']),
+      organizerItemId: serializer.fromJson<int>(json['organizerItemId']),
+      tagId: serializer.fromJson<int>(json['tagId']),
     );
   }
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
-      'name': serializer.toJson<String>(name),
+      'organizerItemTagId': serializer.toJson<int>(organizerItemTagId),
+      'organizerItemId': serializer.toJson<int>(organizerItemId),
+      'tagId': serializer.toJson<int>(tagId),
     };
   }
 
-  UserTableDriftG copyWith({int? id, String? name}) => UserTableDriftG(
-        id: id ?? this.id,
-        name: name ?? this.name,
+  OrganizerItemTagTableDriftG copyWith(
+          {int? organizerItemTagId, int? organizerItemId, int? tagId}) =>
+      OrganizerItemTagTableDriftG(
+        organizerItemTagId: organizerItemTagId ?? this.organizerItemTagId,
+        organizerItemId: organizerItemId ?? this.organizerItemId,
+        tagId: tagId ?? this.tagId,
       );
   @override
   String toString() {
-    return (StringBuffer('UserTableDriftG(')
-          ..write('id: $id, ')
-          ..write('name: $name')
+    return (StringBuffer('OrganizerItemTagTableDriftG(')
+          ..write('organizerItemTagId: $organizerItemTagId, ')
+          ..write('organizerItemId: $organizerItemId, ')
+          ..write('tagId: $tagId')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, name);
+  int get hashCode => Object.hash(organizerItemTagId, organizerItemId, tagId);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is UserTableDriftG &&
-          other.id == this.id &&
-          other.name == this.name);
+      (other is OrganizerItemTagTableDriftG &&
+          other.organizerItemTagId == this.organizerItemTagId &&
+          other.organizerItemId == this.organizerItemId &&
+          other.tagId == this.tagId);
 }
 
-class UserTableDriftCompanion extends UpdateCompanion<UserTableDriftG> {
-  final Value<int> id;
-  final Value<String> name;
-  const UserTableDriftCompanion({
-    this.id = const Value.absent(),
-    this.name = const Value.absent(),
+class OrganizerItemTagTableDriftCompanion
+    extends UpdateCompanion<OrganizerItemTagTableDriftG> {
+  final Value<int> organizerItemTagId;
+  final Value<int> organizerItemId;
+  final Value<int> tagId;
+  const OrganizerItemTagTableDriftCompanion({
+    this.organizerItemTagId = const Value.absent(),
+    this.organizerItemId = const Value.absent(),
+    this.tagId = const Value.absent(),
   });
-  UserTableDriftCompanion.insert({
-    this.id = const Value.absent(),
-    required String name,
-  }) : name = Value(name);
-  static Insertable<UserTableDriftG> custom({
-    Expression<int>? id,
-    Expression<String>? name,
+  OrganizerItemTagTableDriftCompanion.insert({
+    this.organizerItemTagId = const Value.absent(),
+    required int organizerItemId,
+    required int tagId,
+  })  : organizerItemId = Value(organizerItemId),
+        tagId = Value(tagId);
+  static Insertable<OrganizerItemTagTableDriftG> custom({
+    Expression<int>? organizerItemTagId,
+    Expression<int>? organizerItemId,
+    Expression<int>? tagId,
   }) {
     return RawValuesInsertable({
-      if (id != null) 'id': id,
-      if (name != null) 'name': name,
+      if (organizerItemTagId != null)
+        'organizer_item_tag_id': organizerItemTagId,
+      if (organizerItemId != null) 'organizer_item_id': organizerItemId,
+      if (tagId != null) 'tag_id': tagId,
     });
   }
 
-  UserTableDriftCompanion copyWith({Value<int>? id, Value<String>? name}) {
-    return UserTableDriftCompanion(
-      id: id ?? this.id,
-      name: name ?? this.name,
+  OrganizerItemTagTableDriftCompanion copyWith(
+      {Value<int>? organizerItemTagId,
+      Value<int>? organizerItemId,
+      Value<int>? tagId}) {
+    return OrganizerItemTagTableDriftCompanion(
+      organizerItemTagId: organizerItemTagId ?? this.organizerItemTagId,
+      organizerItemId: organizerItemId ?? this.organizerItemId,
+      tagId: tagId ?? this.tagId,
     );
   }
 
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<int>(id.value);
+    if (organizerItemTagId.present) {
+      map['organizer_item_tag_id'] = Variable<int>(organizerItemTagId.value);
     }
-    if (name.present) {
-      map['name'] = Variable<String>(name.value);
+    if (organizerItemId.present) {
+      map['organizer_item_id'] = Variable<int>(organizerItemId.value);
+    }
+    if (tagId.present) {
+      map['tag_id'] = Variable<int>(tagId.value);
     }
     return map;
   }
 
   @override
   String toString() {
-    return (StringBuffer('UserTableDriftCompanion(')
-          ..write('id: $id, ')
-          ..write('name: $name')
+    return (StringBuffer('OrganizerItemTagTableDriftCompanion(')
+          ..write('organizerItemTagId: $organizerItemTagId, ')
+          ..write('organizerItemId: $organizerItemId, ')
+          ..write('tagId: $tagId')
           ..write(')'))
         .toString();
   }
 }
 
-class $TagTableDriftTable extends TagTableDrift
-    with TableInfo<$TagTableDriftTable, TagTableDriftG> {
+class $OrganizerItemUserTableDriftTable extends OrganizerItemUserTableDrift
+    with
+        TableInfo<$OrganizerItemUserTableDriftTable,
+            OrganizerItemUserTableDriftG> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $TagTableDriftTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  $OrganizerItemUserTableDriftTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _organizerItemUserIdMeta =
+      const VerificationMeta('organizerItemUserId');
   @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
+  late final GeneratedColumn<int> organizerItemUserId = GeneratedColumn<int>(
+      'organizer_item_user_id', aliasedName, false,
       hasAutoIncrement: true,
       type: DriftSqlType.int,
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _tagMeta = const VerificationMeta('tag');
+  static const VerificationMeta _organizerItemIdMeta =
+      const VerificationMeta('organizerItemId');
   @override
-  late final GeneratedColumn<String> tag = GeneratedColumn<String>(
-      'tag', aliasedName, false,
-      additionalChecks:
-          GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 255),
-      type: DriftSqlType.string,
-      requiredDuringInsert: true);
+  late final GeneratedColumn<int> organizerItemId = GeneratedColumn<int>(
+      'organizer_item_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'REFERENCES OrganizerItemTableDriftG(id)');
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
   @override
-  List<GeneratedColumn> get $columns => [id, tag];
+  late final GeneratedColumn<int> userId = GeneratedColumn<int>(
+      'user_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'REFERENCES UserTableDriftG(id)');
+  @override
+  List<GeneratedColumn> get $columns =>
+      [organizerItemUserId, organizerItemId, userId];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
-  static const String $name = 'tag_table_drift';
+  static const String $name = 'organizer_item_user_table_drift';
   @override
-  VerificationContext validateIntegrity(Insertable<TagTableDriftG> instance,
+  VerificationContext validateIntegrity(
+      Insertable<OrganizerItemUserTableDriftG> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('tag')) {
+    if (data.containsKey('organizer_item_user_id')) {
       context.handle(
-          _tagMeta, tag.isAcceptableOrUnknown(data['tag']!, _tagMeta));
+          _organizerItemUserIdMeta,
+          organizerItemUserId.isAcceptableOrUnknown(
+              data['organizer_item_user_id']!, _organizerItemUserIdMeta));
+    }
+    if (data.containsKey('organizer_item_id')) {
+      context.handle(
+          _organizerItemIdMeta,
+          organizerItemId.isAcceptableOrUnknown(
+              data['organizer_item_id']!, _organizerItemIdMeta));
     } else if (isInserting) {
-      context.missing(_tagMeta);
+      context.missing(_organizerItemIdMeta);
+    }
+    if (data.containsKey('user_id')) {
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
     }
     return context;
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {id};
+  Set<GeneratedColumn> get $primaryKey => {organizerItemUserId};
   @override
-  TagTableDriftG map(Map<String, dynamic> data, {String? tablePrefix}) {
+  OrganizerItemUserTableDriftG map(Map<String, dynamic> data,
+      {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return TagTableDriftG(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      tag: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}tag'])!,
+    return OrganizerItemUserTableDriftG(
+      organizerItemUserId: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}organizer_item_user_id'])!,
+      organizerItemId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}organizer_item_id'])!,
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}user_id'])!,
     );
   }
 
   @override
-  $TagTableDriftTable createAlias(String alias) {
-    return $TagTableDriftTable(attachedDatabase, alias);
+  $OrganizerItemUserTableDriftTable createAlias(String alias) {
+    return $OrganizerItemUserTableDriftTable(attachedDatabase, alias);
   }
 }
 
-class TagTableDriftG extends DataClass implements Insertable<TagTableDriftG> {
-  final int id;
-  final String tag;
-  const TagTableDriftG({required this.id, required this.tag});
+class OrganizerItemUserTableDriftG extends DataClass
+    implements Insertable<OrganizerItemUserTableDriftG> {
+  final int organizerItemUserId;
+  final int organizerItemId;
+  final int userId;
+  const OrganizerItemUserTableDriftG(
+      {required this.organizerItemUserId,
+      required this.organizerItemId,
+      required this.userId});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
-    map['tag'] = Variable<String>(tag);
+    map['organizer_item_user_id'] = Variable<int>(organizerItemUserId);
+    map['organizer_item_id'] = Variable<int>(organizerItemId);
+    map['user_id'] = Variable<int>(userId);
     return map;
   }
 
-  TagTableDriftCompanion toCompanion(bool nullToAbsent) {
-    return TagTableDriftCompanion(
-      id: Value(id),
-      tag: Value(tag),
+  OrganizerItemUserTableDriftCompanion toCompanion(bool nullToAbsent) {
+    return OrganizerItemUserTableDriftCompanion(
+      organizerItemUserId: Value(organizerItemUserId),
+      organizerItemId: Value(organizerItemId),
+      userId: Value(userId),
     );
   }
 
-  factory TagTableDriftG.fromJson(Map<String, dynamic> json,
+  factory OrganizerItemUserTableDriftG.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return TagTableDriftG(
-      id: serializer.fromJson<int>(json['id']),
-      tag: serializer.fromJson<String>(json['tag']),
+    return OrganizerItemUserTableDriftG(
+      organizerItemUserId:
+          serializer.fromJson<int>(json['organizerItemUserId']),
+      organizerItemId: serializer.fromJson<int>(json['organizerItemId']),
+      userId: serializer.fromJson<int>(json['userId']),
     );
   }
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
-      'tag': serializer.toJson<String>(tag),
+      'organizerItemUserId': serializer.toJson<int>(organizerItemUserId),
+      'organizerItemId': serializer.toJson<int>(organizerItemId),
+      'userId': serializer.toJson<int>(userId),
     };
   }
 
-  TagTableDriftG copyWith({int? id, String? tag}) => TagTableDriftG(
-        id: id ?? this.id,
-        tag: tag ?? this.tag,
+  OrganizerItemUserTableDriftG copyWith(
+          {int? organizerItemUserId, int? organizerItemId, int? userId}) =>
+      OrganizerItemUserTableDriftG(
+        organizerItemUserId: organizerItemUserId ?? this.organizerItemUserId,
+        organizerItemId: organizerItemId ?? this.organizerItemId,
+        userId: userId ?? this.userId,
       );
   @override
   String toString() {
-    return (StringBuffer('TagTableDriftG(')
-          ..write('id: $id, ')
-          ..write('tag: $tag')
+    return (StringBuffer('OrganizerItemUserTableDriftG(')
+          ..write('organizerItemUserId: $organizerItemUserId, ')
+          ..write('organizerItemId: $organizerItemId, ')
+          ..write('userId: $userId')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, tag);
+  int get hashCode => Object.hash(organizerItemUserId, organizerItemId, userId);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is TagTableDriftG && other.id == this.id && other.tag == this.tag);
+      (other is OrganizerItemUserTableDriftG &&
+          other.organizerItemUserId == this.organizerItemUserId &&
+          other.organizerItemId == this.organizerItemId &&
+          other.userId == this.userId);
 }
 
-class TagTableDriftCompanion extends UpdateCompanion<TagTableDriftG> {
-  final Value<int> id;
-  final Value<String> tag;
-  const TagTableDriftCompanion({
-    this.id = const Value.absent(),
-    this.tag = const Value.absent(),
+class OrganizerItemUserTableDriftCompanion
+    extends UpdateCompanion<OrganizerItemUserTableDriftG> {
+  final Value<int> organizerItemUserId;
+  final Value<int> organizerItemId;
+  final Value<int> userId;
+  const OrganizerItemUserTableDriftCompanion({
+    this.organizerItemUserId = const Value.absent(),
+    this.organizerItemId = const Value.absent(),
+    this.userId = const Value.absent(),
   });
-  TagTableDriftCompanion.insert({
-    this.id = const Value.absent(),
-    required String tag,
-  }) : tag = Value(tag);
-  static Insertable<TagTableDriftG> custom({
-    Expression<int>? id,
-    Expression<String>? tag,
+  OrganizerItemUserTableDriftCompanion.insert({
+    this.organizerItemUserId = const Value.absent(),
+    required int organizerItemId,
+    required int userId,
+  })  : organizerItemId = Value(organizerItemId),
+        userId = Value(userId);
+  static Insertable<OrganizerItemUserTableDriftG> custom({
+    Expression<int>? organizerItemUserId,
+    Expression<int>? organizerItemId,
+    Expression<int>? userId,
   }) {
     return RawValuesInsertable({
-      if (id != null) 'id': id,
-      if (tag != null) 'tag': tag,
+      if (organizerItemUserId != null)
+        'organizer_item_user_id': organizerItemUserId,
+      if (organizerItemId != null) 'organizer_item_id': organizerItemId,
+      if (userId != null) 'user_id': userId,
     });
   }
 
-  TagTableDriftCompanion copyWith({Value<int>? id, Value<String>? tag}) {
-    return TagTableDriftCompanion(
-      id: id ?? this.id,
-      tag: tag ?? this.tag,
+  OrganizerItemUserTableDriftCompanion copyWith(
+      {Value<int>? organizerItemUserId,
+      Value<int>? organizerItemId,
+      Value<int>? userId}) {
+    return OrganizerItemUserTableDriftCompanion(
+      organizerItemUserId: organizerItemUserId ?? this.organizerItemUserId,
+      organizerItemId: organizerItemId ?? this.organizerItemId,
+      userId: userId ?? this.userId,
     );
   }
 
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<int>(id.value);
+    if (organizerItemUserId.present) {
+      map['organizer_item_user_id'] = Variable<int>(organizerItemUserId.value);
     }
-    if (tag.present) {
-      map['tag'] = Variable<String>(tag.value);
+    if (organizerItemId.present) {
+      map['organizer_item_id'] = Variable<int>(organizerItemId.value);
+    }
+    if (userId.present) {
+      map['user_id'] = Variable<int>(userId.value);
     }
     return map;
   }
 
   @override
   String toString() {
-    return (StringBuffer('TagTableDriftCompanion(')
-          ..write('id: $id, ')
-          ..write('tag: $tag')
+    return (StringBuffer('OrganizerItemUserTableDriftCompanion(')
+          ..write('organizerItemUserId: $organizerItemUserId, ')
+          ..write('organizerItemId: $organizerItemId, ')
+          ..write('userId: $userId')
           ..write(')'))
         .toString();
   }
@@ -1074,6 +1189,179 @@ class ReminderTableDriftCompanion extends UpdateCompanion<ReminderTableDriftG> {
           ..write('id: $id, ')
           ..write('reminderDate: $reminderDate, ')
           ..write('organizerItemId: $organizerItemId')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $TagTableDriftTable extends TagTableDrift
+    with TableInfo<$TagTableDriftTable, TagTableDriftG> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $TagTableDriftTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _tagMeta = const VerificationMeta('tag');
+  @override
+  late final GeneratedColumn<String> tag = GeneratedColumn<String>(
+      'tag', aliasedName, false,
+      additionalChecks:
+          GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 255),
+      type: DriftSqlType.string,
+      requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [id, tag];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'tag_table_drift';
+  @override
+  VerificationContext validateIntegrity(Insertable<TagTableDriftG> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('tag')) {
+      context.handle(
+          _tagMeta, tag.isAcceptableOrUnknown(data['tag']!, _tagMeta));
+    } else if (isInserting) {
+      context.missing(_tagMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  TagTableDriftG map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return TagTableDriftG(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      tag: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}tag'])!,
+    );
+  }
+
+  @override
+  $TagTableDriftTable createAlias(String alias) {
+    return $TagTableDriftTable(attachedDatabase, alias);
+  }
+}
+
+class TagTableDriftG extends DataClass implements Insertable<TagTableDriftG> {
+  final int id;
+  final String tag;
+  const TagTableDriftG({required this.id, required this.tag});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['tag'] = Variable<String>(tag);
+    return map;
+  }
+
+  TagTableDriftCompanion toCompanion(bool nullToAbsent) {
+    return TagTableDriftCompanion(
+      id: Value(id),
+      tag: Value(tag),
+    );
+  }
+
+  factory TagTableDriftG.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return TagTableDriftG(
+      id: serializer.fromJson<int>(json['id']),
+      tag: serializer.fromJson<String>(json['tag']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'tag': serializer.toJson<String>(tag),
+    };
+  }
+
+  TagTableDriftG copyWith({int? id, String? tag}) => TagTableDriftG(
+        id: id ?? this.id,
+        tag: tag ?? this.tag,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('TagTableDriftG(')
+          ..write('id: $id, ')
+          ..write('tag: $tag')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, tag);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is TagTableDriftG && other.id == this.id && other.tag == this.tag);
+}
+
+class TagTableDriftCompanion extends UpdateCompanion<TagTableDriftG> {
+  final Value<int> id;
+  final Value<String> tag;
+  const TagTableDriftCompanion({
+    this.id = const Value.absent(),
+    this.tag = const Value.absent(),
+  });
+  TagTableDriftCompanion.insert({
+    this.id = const Value.absent(),
+    required String tag,
+  }) : tag = Value(tag);
+  static Insertable<TagTableDriftG> custom({
+    Expression<int>? id,
+    Expression<String>? tag,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (tag != null) 'tag': tag,
+    });
+  }
+
+  TagTableDriftCompanion copyWith({Value<int>? id, Value<String>? tag}) {
+    return TagTableDriftCompanion(
+      id: id ?? this.id,
+      tag: tag ?? this.tag,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (tag.present) {
+      map['tag'] = Variable<String>(tag.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TagTableDriftCompanion(')
+          ..write('id: $id, ')
+          ..write('tag: $tag')
           ..write(')'))
         .toString();
   }
@@ -1877,16 +2165,205 @@ class TaskTableDriftCompanion extends UpdateCompanion<TaskTableDriftG> {
   }
 }
 
+class $UserTableDriftTable extends UserTableDrift
+    with TableInfo<$UserTableDriftTable, UserTableDriftG> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $UserTableDriftTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+      'name', aliasedName, false,
+      additionalChecks:
+          GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 255),
+      type: DriftSqlType.string,
+      requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [id, name];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'user_table_drift';
+  @override
+  VerificationContext validateIntegrity(Insertable<UserTableDriftG> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  UserTableDriftG map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return UserTableDriftG(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      name: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+    );
+  }
+
+  @override
+  $UserTableDriftTable createAlias(String alias) {
+    return $UserTableDriftTable(attachedDatabase, alias);
+  }
+}
+
+class UserTableDriftG extends DataClass implements Insertable<UserTableDriftG> {
+  final int id;
+  final String name;
+  const UserTableDriftG({required this.id, required this.name});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['name'] = Variable<String>(name);
+    return map;
+  }
+
+  UserTableDriftCompanion toCompanion(bool nullToAbsent) {
+    return UserTableDriftCompanion(
+      id: Value(id),
+      name: Value(name),
+    );
+  }
+
+  factory UserTableDriftG.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return UserTableDriftG(
+      id: serializer.fromJson<int>(json['id']),
+      name: serializer.fromJson<String>(json['name']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'name': serializer.toJson<String>(name),
+    };
+  }
+
+  UserTableDriftG copyWith({int? id, String? name}) => UserTableDriftG(
+        id: id ?? this.id,
+        name: name ?? this.name,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('UserTableDriftG(')
+          ..write('id: $id, ')
+          ..write('name: $name')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, name);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is UserTableDriftG &&
+          other.id == this.id &&
+          other.name == this.name);
+}
+
+class UserTableDriftCompanion extends UpdateCompanion<UserTableDriftG> {
+  final Value<int> id;
+  final Value<String> name;
+  const UserTableDriftCompanion({
+    this.id = const Value.absent(),
+    this.name = const Value.absent(),
+  });
+  UserTableDriftCompanion.insert({
+    this.id = const Value.absent(),
+    required String name,
+  }) : name = Value(name);
+  static Insertable<UserTableDriftG> custom({
+    Expression<int>? id,
+    Expression<String>? name,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (name != null) 'name': name,
+    });
+  }
+
+  UserTableDriftCompanion copyWith({Value<int>? id, Value<String>? name}) {
+    return UserTableDriftCompanion(
+      id: id ?? this.id,
+      name: name ?? this.name,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('UserTableDriftCompanion(')
+          ..write('id: $id, ')
+          ..write('name: $name')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$OrganizerDriftDB extends GeneratedDatabase {
   _$OrganizerDriftDB(QueryExecutor e) : super(e);
   _$OrganizerDriftDBManager get managers => _$OrganizerDriftDBManager(this);
   late final $OrganizerItemTableDriftTable organizerItemTableDrift =
       $OrganizerItemTableDriftTable(this);
-  late final $UserTableDriftTable userTableDrift = $UserTableDriftTable(this);
-  late final $TagTableDriftTable tagTableDrift = $TagTableDriftTable(this);
+  late final $OrganizerItemTagTableDriftTable organizerItemTagTableDrift =
+      $OrganizerItemTagTableDriftTable(this);
+  late final $OrganizerItemUserTableDriftTable organizerItemUserTableDrift =
+      $OrganizerItemUserTableDriftTable(this);
   late final $ReminderTableDriftTable reminderTableDrift =
       $ReminderTableDriftTable(this);
+  late final $TagTableDriftTable tagTableDrift = $TagTableDriftTable(this);
   late final $TaskTableDriftTable taskTableDrift = $TaskTableDriftTable(this);
+  late final $UserTableDriftTable userTableDrift = $UserTableDriftTable(this);
+  late final OrganizerItemDaoDrift organizerItemDaoDrift =
+      OrganizerItemDaoDrift(this as OrganizerDriftDB);
+  late final OrganizerItemTagDaoDrift organizerItemTagDaoDrift =
+      OrganizerItemTagDaoDrift(this as OrganizerDriftDB);
+  late final OrganizerItemUserDaoDrift organizerItemUserDaoDrift =
+      OrganizerItemUserDaoDrift(this as OrganizerDriftDB);
+  late final ReminderDaoDrift reminderDaoDrift =
+      ReminderDaoDrift(this as OrganizerDriftDB);
+  late final TagDaoDrift tagDaoDrift = TagDaoDrift(this as OrganizerDriftDB);
+  late final UserDaoDrift userDaoDrift = UserDaoDrift(this as OrganizerDriftDB);
   late final TaskDaoDrift taskDaoDrift = TaskDaoDrift(this as OrganizerDriftDB);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
@@ -1894,10 +2371,12 @@ abstract class _$OrganizerDriftDB extends GeneratedDatabase {
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [
         organizerItemTableDrift,
-        userTableDrift,
-        tagTableDrift,
+        organizerItemTagTableDrift,
+        organizerItemUserTableDrift,
         reminderTableDrift,
-        taskTableDrift
+        tagTableDrift,
+        taskTableDrift,
+        userTableDrift
       ];
 }
 
@@ -2120,182 +2599,218 @@ class $$OrganizerItemTableDriftTableOrderingComposer extends OrderingComposer<
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
-typedef $$UserTableDriftTableInsertCompanionBuilder = UserTableDriftCompanion
-    Function({
-  Value<int> id,
-  required String name,
+typedef $$OrganizerItemTagTableDriftTableInsertCompanionBuilder
+    = OrganizerItemTagTableDriftCompanion Function({
+  Value<int> organizerItemTagId,
+  required int organizerItemId,
+  required int tagId,
 });
-typedef $$UserTableDriftTableUpdateCompanionBuilder = UserTableDriftCompanion
-    Function({
-  Value<int> id,
-  Value<String> name,
+typedef $$OrganizerItemTagTableDriftTableUpdateCompanionBuilder
+    = OrganizerItemTagTableDriftCompanion Function({
+  Value<int> organizerItemTagId,
+  Value<int> organizerItemId,
+  Value<int> tagId,
 });
 
-class $$UserTableDriftTableTableManager extends RootTableManager<
+class $$OrganizerItemTagTableDriftTableTableManager extends RootTableManager<
     _$OrganizerDriftDB,
-    $UserTableDriftTable,
-    UserTableDriftG,
-    $$UserTableDriftTableFilterComposer,
-    $$UserTableDriftTableOrderingComposer,
-    $$UserTableDriftTableProcessedTableManager,
-    $$UserTableDriftTableInsertCompanionBuilder,
-    $$UserTableDriftTableUpdateCompanionBuilder> {
-  $$UserTableDriftTableTableManager(
-      _$OrganizerDriftDB db, $UserTableDriftTable table)
+    $OrganizerItemTagTableDriftTable,
+    OrganizerItemTagTableDriftG,
+    $$OrganizerItemTagTableDriftTableFilterComposer,
+    $$OrganizerItemTagTableDriftTableOrderingComposer,
+    $$OrganizerItemTagTableDriftTableProcessedTableManager,
+    $$OrganizerItemTagTableDriftTableInsertCompanionBuilder,
+    $$OrganizerItemTagTableDriftTableUpdateCompanionBuilder> {
+  $$OrganizerItemTagTableDriftTableTableManager(
+      _$OrganizerDriftDB db, $OrganizerItemTagTableDriftTable table)
       : super(TableManagerState(
           db: db,
           table: table,
-          filteringComposer:
-              $$UserTableDriftTableFilterComposer(ComposerState(db, table)),
-          orderingComposer:
-              $$UserTableDriftTableOrderingComposer(ComposerState(db, table)),
+          filteringComposer: $$OrganizerItemTagTableDriftTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$OrganizerItemTagTableDriftTableOrderingComposer(
+              ComposerState(db, table)),
           getChildManagerBuilder: (p) =>
-              $$UserTableDriftTableProcessedTableManager(p),
+              $$OrganizerItemTagTableDriftTableProcessedTableManager(p),
           getUpdateCompanionBuilder: ({
-            Value<int> id = const Value.absent(),
-            Value<String> name = const Value.absent(),
+            Value<int> organizerItemTagId = const Value.absent(),
+            Value<int> organizerItemId = const Value.absent(),
+            Value<int> tagId = const Value.absent(),
           }) =>
-              UserTableDriftCompanion(
-            id: id,
-            name: name,
+              OrganizerItemTagTableDriftCompanion(
+            organizerItemTagId: organizerItemTagId,
+            organizerItemId: organizerItemId,
+            tagId: tagId,
           ),
           getInsertCompanionBuilder: ({
-            Value<int> id = const Value.absent(),
-            required String name,
+            Value<int> organizerItemTagId = const Value.absent(),
+            required int organizerItemId,
+            required int tagId,
           }) =>
-              UserTableDriftCompanion.insert(
-            id: id,
-            name: name,
+              OrganizerItemTagTableDriftCompanion.insert(
+            organizerItemTagId: organizerItemTagId,
+            organizerItemId: organizerItemId,
+            tagId: tagId,
           ),
         ));
 }
 
-class $$UserTableDriftTableProcessedTableManager extends ProcessedTableManager<
-    _$OrganizerDriftDB,
-    $UserTableDriftTable,
-    UserTableDriftG,
-    $$UserTableDriftTableFilterComposer,
-    $$UserTableDriftTableOrderingComposer,
-    $$UserTableDriftTableProcessedTableManager,
-    $$UserTableDriftTableInsertCompanionBuilder,
-    $$UserTableDriftTableUpdateCompanionBuilder> {
-  $$UserTableDriftTableProcessedTableManager(super.$state);
+class $$OrganizerItemTagTableDriftTableProcessedTableManager
+    extends ProcessedTableManager<
+        _$OrganizerDriftDB,
+        $OrganizerItemTagTableDriftTable,
+        OrganizerItemTagTableDriftG,
+        $$OrganizerItemTagTableDriftTableFilterComposer,
+        $$OrganizerItemTagTableDriftTableOrderingComposer,
+        $$OrganizerItemTagTableDriftTableProcessedTableManager,
+        $$OrganizerItemTagTableDriftTableInsertCompanionBuilder,
+        $$OrganizerItemTagTableDriftTableUpdateCompanionBuilder> {
+  $$OrganizerItemTagTableDriftTableProcessedTableManager(super.$state);
 }
 
-class $$UserTableDriftTableFilterComposer
-    extends FilterComposer<_$OrganizerDriftDB, $UserTableDriftTable> {
-  $$UserTableDriftTableFilterComposer(super.$state);
-  ColumnFilters<int> get id => $state.composableBuilder(
-      column: $state.table.id,
+class $$OrganizerItemTagTableDriftTableFilterComposer extends FilterComposer<
+    _$OrganizerDriftDB, $OrganizerItemTagTableDriftTable> {
+  $$OrganizerItemTagTableDriftTableFilterComposer(super.$state);
+  ColumnFilters<int> get organizerItemTagId => $state.composableBuilder(
+      column: $state.table.organizerItemTagId,
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
-  ColumnFilters<String> get name => $state.composableBuilder(
-      column: $state.table.name,
+  ColumnFilters<int> get organizerItemId => $state.composableBuilder(
+      column: $state.table.organizerItemId,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<int> get tagId => $state.composableBuilder(
+      column: $state.table.tagId,
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 }
 
-class $$UserTableDriftTableOrderingComposer
-    extends OrderingComposer<_$OrganizerDriftDB, $UserTableDriftTable> {
-  $$UserTableDriftTableOrderingComposer(super.$state);
-  ColumnOrderings<int> get id => $state.composableBuilder(
-      column: $state.table.id,
+class $$OrganizerItemTagTableDriftTableOrderingComposer
+    extends OrderingComposer<_$OrganizerDriftDB,
+        $OrganizerItemTagTableDriftTable> {
+  $$OrganizerItemTagTableDriftTableOrderingComposer(super.$state);
+  ColumnOrderings<int> get organizerItemTagId => $state.composableBuilder(
+      column: $state.table.organizerItemTagId,
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 
-  ColumnOrderings<String> get name => $state.composableBuilder(
-      column: $state.table.name,
+  ColumnOrderings<int> get organizerItemId => $state.composableBuilder(
+      column: $state.table.organizerItemId,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<int> get tagId => $state.composableBuilder(
+      column: $state.table.tagId,
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
-typedef $$TagTableDriftTableInsertCompanionBuilder = TagTableDriftCompanion
-    Function({
-  Value<int> id,
-  required String tag,
+typedef $$OrganizerItemUserTableDriftTableInsertCompanionBuilder
+    = OrganizerItemUserTableDriftCompanion Function({
+  Value<int> organizerItemUserId,
+  required int organizerItemId,
+  required int userId,
 });
-typedef $$TagTableDriftTableUpdateCompanionBuilder = TagTableDriftCompanion
-    Function({
-  Value<int> id,
-  Value<String> tag,
+typedef $$OrganizerItemUserTableDriftTableUpdateCompanionBuilder
+    = OrganizerItemUserTableDriftCompanion Function({
+  Value<int> organizerItemUserId,
+  Value<int> organizerItemId,
+  Value<int> userId,
 });
 
-class $$TagTableDriftTableTableManager extends RootTableManager<
+class $$OrganizerItemUserTableDriftTableTableManager extends RootTableManager<
     _$OrganizerDriftDB,
-    $TagTableDriftTable,
-    TagTableDriftG,
-    $$TagTableDriftTableFilterComposer,
-    $$TagTableDriftTableOrderingComposer,
-    $$TagTableDriftTableProcessedTableManager,
-    $$TagTableDriftTableInsertCompanionBuilder,
-    $$TagTableDriftTableUpdateCompanionBuilder> {
-  $$TagTableDriftTableTableManager(
-      _$OrganizerDriftDB db, $TagTableDriftTable table)
+    $OrganizerItemUserTableDriftTable,
+    OrganizerItemUserTableDriftG,
+    $$OrganizerItemUserTableDriftTableFilterComposer,
+    $$OrganizerItemUserTableDriftTableOrderingComposer,
+    $$OrganizerItemUserTableDriftTableProcessedTableManager,
+    $$OrganizerItemUserTableDriftTableInsertCompanionBuilder,
+    $$OrganizerItemUserTableDriftTableUpdateCompanionBuilder> {
+  $$OrganizerItemUserTableDriftTableTableManager(
+      _$OrganizerDriftDB db, $OrganizerItemUserTableDriftTable table)
       : super(TableManagerState(
           db: db,
           table: table,
-          filteringComposer:
-              $$TagTableDriftTableFilterComposer(ComposerState(db, table)),
-          orderingComposer:
-              $$TagTableDriftTableOrderingComposer(ComposerState(db, table)),
+          filteringComposer: $$OrganizerItemUserTableDriftTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$OrganizerItemUserTableDriftTableOrderingComposer(
+              ComposerState(db, table)),
           getChildManagerBuilder: (p) =>
-              $$TagTableDriftTableProcessedTableManager(p),
+              $$OrganizerItemUserTableDriftTableProcessedTableManager(p),
           getUpdateCompanionBuilder: ({
-            Value<int> id = const Value.absent(),
-            Value<String> tag = const Value.absent(),
+            Value<int> organizerItemUserId = const Value.absent(),
+            Value<int> organizerItemId = const Value.absent(),
+            Value<int> userId = const Value.absent(),
           }) =>
-              TagTableDriftCompanion(
-            id: id,
-            tag: tag,
+              OrganizerItemUserTableDriftCompanion(
+            organizerItemUserId: organizerItemUserId,
+            organizerItemId: organizerItemId,
+            userId: userId,
           ),
           getInsertCompanionBuilder: ({
-            Value<int> id = const Value.absent(),
-            required String tag,
+            Value<int> organizerItemUserId = const Value.absent(),
+            required int organizerItemId,
+            required int userId,
           }) =>
-              TagTableDriftCompanion.insert(
-            id: id,
-            tag: tag,
+              OrganizerItemUserTableDriftCompanion.insert(
+            organizerItemUserId: organizerItemUserId,
+            organizerItemId: organizerItemId,
+            userId: userId,
           ),
         ));
 }
 
-class $$TagTableDriftTableProcessedTableManager extends ProcessedTableManager<
-    _$OrganizerDriftDB,
-    $TagTableDriftTable,
-    TagTableDriftG,
-    $$TagTableDriftTableFilterComposer,
-    $$TagTableDriftTableOrderingComposer,
-    $$TagTableDriftTableProcessedTableManager,
-    $$TagTableDriftTableInsertCompanionBuilder,
-    $$TagTableDriftTableUpdateCompanionBuilder> {
-  $$TagTableDriftTableProcessedTableManager(super.$state);
+class $$OrganizerItemUserTableDriftTableProcessedTableManager
+    extends ProcessedTableManager<
+        _$OrganizerDriftDB,
+        $OrganizerItemUserTableDriftTable,
+        OrganizerItemUserTableDriftG,
+        $$OrganizerItemUserTableDriftTableFilterComposer,
+        $$OrganizerItemUserTableDriftTableOrderingComposer,
+        $$OrganizerItemUserTableDriftTableProcessedTableManager,
+        $$OrganizerItemUserTableDriftTableInsertCompanionBuilder,
+        $$OrganizerItemUserTableDriftTableUpdateCompanionBuilder> {
+  $$OrganizerItemUserTableDriftTableProcessedTableManager(super.$state);
 }
 
-class $$TagTableDriftTableFilterComposer
-    extends FilterComposer<_$OrganizerDriftDB, $TagTableDriftTable> {
-  $$TagTableDriftTableFilterComposer(super.$state);
-  ColumnFilters<int> get id => $state.composableBuilder(
-      column: $state.table.id,
+class $$OrganizerItemUserTableDriftTableFilterComposer extends FilterComposer<
+    _$OrganizerDriftDB, $OrganizerItemUserTableDriftTable> {
+  $$OrganizerItemUserTableDriftTableFilterComposer(super.$state);
+  ColumnFilters<int> get organizerItemUserId => $state.composableBuilder(
+      column: $state.table.organizerItemUserId,
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
-  ColumnFilters<String> get tag => $state.composableBuilder(
-      column: $state.table.tag,
+  ColumnFilters<int> get organizerItemId => $state.composableBuilder(
+      column: $state.table.organizerItemId,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<int> get userId => $state.composableBuilder(
+      column: $state.table.userId,
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 }
 
-class $$TagTableDriftTableOrderingComposer
-    extends OrderingComposer<_$OrganizerDriftDB, $TagTableDriftTable> {
-  $$TagTableDriftTableOrderingComposer(super.$state);
-  ColumnOrderings<int> get id => $state.composableBuilder(
-      column: $state.table.id,
+class $$OrganizerItemUserTableDriftTableOrderingComposer
+    extends OrderingComposer<_$OrganizerDriftDB,
+        $OrganizerItemUserTableDriftTable> {
+  $$OrganizerItemUserTableDriftTableOrderingComposer(super.$state);
+  ColumnOrderings<int> get organizerItemUserId => $state.composableBuilder(
+      column: $state.table.organizerItemUserId,
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 
-  ColumnOrderings<String> get tag => $state.composableBuilder(
-      column: $state.table.tag,
+  ColumnOrderings<int> get organizerItemId => $state.composableBuilder(
+      column: $state.table.organizerItemId,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<int> get userId => $state.composableBuilder(
+      column: $state.table.userId,
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
@@ -2403,6 +2918,96 @@ class $$ReminderTableDriftTableOrderingComposer
 
   ColumnOrderings<int> get organizerItemId => $state.composableBuilder(
       column: $state.table.organizerItemId,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+}
+
+typedef $$TagTableDriftTableInsertCompanionBuilder = TagTableDriftCompanion
+    Function({
+  Value<int> id,
+  required String tag,
+});
+typedef $$TagTableDriftTableUpdateCompanionBuilder = TagTableDriftCompanion
+    Function({
+  Value<int> id,
+  Value<String> tag,
+});
+
+class $$TagTableDriftTableTableManager extends RootTableManager<
+    _$OrganizerDriftDB,
+    $TagTableDriftTable,
+    TagTableDriftG,
+    $$TagTableDriftTableFilterComposer,
+    $$TagTableDriftTableOrderingComposer,
+    $$TagTableDriftTableProcessedTableManager,
+    $$TagTableDriftTableInsertCompanionBuilder,
+    $$TagTableDriftTableUpdateCompanionBuilder> {
+  $$TagTableDriftTableTableManager(
+      _$OrganizerDriftDB db, $TagTableDriftTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer:
+              $$TagTableDriftTableFilterComposer(ComposerState(db, table)),
+          orderingComposer:
+              $$TagTableDriftTableOrderingComposer(ComposerState(db, table)),
+          getChildManagerBuilder: (p) =>
+              $$TagTableDriftTableProcessedTableManager(p),
+          getUpdateCompanionBuilder: ({
+            Value<int> id = const Value.absent(),
+            Value<String> tag = const Value.absent(),
+          }) =>
+              TagTableDriftCompanion(
+            id: id,
+            tag: tag,
+          ),
+          getInsertCompanionBuilder: ({
+            Value<int> id = const Value.absent(),
+            required String tag,
+          }) =>
+              TagTableDriftCompanion.insert(
+            id: id,
+            tag: tag,
+          ),
+        ));
+}
+
+class $$TagTableDriftTableProcessedTableManager extends ProcessedTableManager<
+    _$OrganizerDriftDB,
+    $TagTableDriftTable,
+    TagTableDriftG,
+    $$TagTableDriftTableFilterComposer,
+    $$TagTableDriftTableOrderingComposer,
+    $$TagTableDriftTableProcessedTableManager,
+    $$TagTableDriftTableInsertCompanionBuilder,
+    $$TagTableDriftTableUpdateCompanionBuilder> {
+  $$TagTableDriftTableProcessedTableManager(super.$state);
+}
+
+class $$TagTableDriftTableFilterComposer
+    extends FilterComposer<_$OrganizerDriftDB, $TagTableDriftTable> {
+  $$TagTableDriftTableFilterComposer(super.$state);
+  ColumnFilters<int> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get tag => $state.composableBuilder(
+      column: $state.table.tag,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+}
+
+class $$TagTableDriftTableOrderingComposer
+    extends OrderingComposer<_$OrganizerDriftDB, $TagTableDriftTable> {
+  $$TagTableDriftTableOrderingComposer(super.$state);
+  ColumnOrderings<int> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get tag => $state.composableBuilder(
+      column: $state.table.tag,
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
@@ -2737,18 +3342,116 @@ class $$TaskTableDriftTableOrderingComposer
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
+typedef $$UserTableDriftTableInsertCompanionBuilder = UserTableDriftCompanion
+    Function({
+  Value<int> id,
+  required String name,
+});
+typedef $$UserTableDriftTableUpdateCompanionBuilder = UserTableDriftCompanion
+    Function({
+  Value<int> id,
+  Value<String> name,
+});
+
+class $$UserTableDriftTableTableManager extends RootTableManager<
+    _$OrganizerDriftDB,
+    $UserTableDriftTable,
+    UserTableDriftG,
+    $$UserTableDriftTableFilterComposer,
+    $$UserTableDriftTableOrderingComposer,
+    $$UserTableDriftTableProcessedTableManager,
+    $$UserTableDriftTableInsertCompanionBuilder,
+    $$UserTableDriftTableUpdateCompanionBuilder> {
+  $$UserTableDriftTableTableManager(
+      _$OrganizerDriftDB db, $UserTableDriftTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer:
+              $$UserTableDriftTableFilterComposer(ComposerState(db, table)),
+          orderingComposer:
+              $$UserTableDriftTableOrderingComposer(ComposerState(db, table)),
+          getChildManagerBuilder: (p) =>
+              $$UserTableDriftTableProcessedTableManager(p),
+          getUpdateCompanionBuilder: ({
+            Value<int> id = const Value.absent(),
+            Value<String> name = const Value.absent(),
+          }) =>
+              UserTableDriftCompanion(
+            id: id,
+            name: name,
+          ),
+          getInsertCompanionBuilder: ({
+            Value<int> id = const Value.absent(),
+            required String name,
+          }) =>
+              UserTableDriftCompanion.insert(
+            id: id,
+            name: name,
+          ),
+        ));
+}
+
+class $$UserTableDriftTableProcessedTableManager extends ProcessedTableManager<
+    _$OrganizerDriftDB,
+    $UserTableDriftTable,
+    UserTableDriftG,
+    $$UserTableDriftTableFilterComposer,
+    $$UserTableDriftTableOrderingComposer,
+    $$UserTableDriftTableProcessedTableManager,
+    $$UserTableDriftTableInsertCompanionBuilder,
+    $$UserTableDriftTableUpdateCompanionBuilder> {
+  $$UserTableDriftTableProcessedTableManager(super.$state);
+}
+
+class $$UserTableDriftTableFilterComposer
+    extends FilterComposer<_$OrganizerDriftDB, $UserTableDriftTable> {
+  $$UserTableDriftTableFilterComposer(super.$state);
+  ColumnFilters<int> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get name => $state.composableBuilder(
+      column: $state.table.name,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+}
+
+class $$UserTableDriftTableOrderingComposer
+    extends OrderingComposer<_$OrganizerDriftDB, $UserTableDriftTable> {
+  $$UserTableDriftTableOrderingComposer(super.$state);
+  ColumnOrderings<int> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get name => $state.composableBuilder(
+      column: $state.table.name,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+}
+
 class _$OrganizerDriftDBManager {
   final _$OrganizerDriftDB _db;
   _$OrganizerDriftDBManager(this._db);
   $$OrganizerItemTableDriftTableTableManager get organizerItemTableDrift =>
       $$OrganizerItemTableDriftTableTableManager(
           _db, _db.organizerItemTableDrift);
-  $$UserTableDriftTableTableManager get userTableDrift =>
-      $$UserTableDriftTableTableManager(_db, _db.userTableDrift);
-  $$TagTableDriftTableTableManager get tagTableDrift =>
-      $$TagTableDriftTableTableManager(_db, _db.tagTableDrift);
+  $$OrganizerItemTagTableDriftTableTableManager
+      get organizerItemTagTableDrift =>
+          $$OrganizerItemTagTableDriftTableTableManager(
+              _db, _db.organizerItemTagTableDrift);
+  $$OrganizerItemUserTableDriftTableTableManager
+      get organizerItemUserTableDrift =>
+          $$OrganizerItemUserTableDriftTableTableManager(
+              _db, _db.organizerItemUserTableDrift);
   $$ReminderTableDriftTableTableManager get reminderTableDrift =>
       $$ReminderTableDriftTableTableManager(_db, _db.reminderTableDrift);
+  $$TagTableDriftTableTableManager get tagTableDrift =>
+      $$TagTableDriftTableTableManager(_db, _db.tagTableDrift);
   $$TaskTableDriftTableTableManager get taskTableDrift =>
       $$TaskTableDriftTableTableManager(_db, _db.taskTableDrift);
+  $$UserTableDriftTableTableManager get userTableDrift =>
+      $$UserTableDriftTableTableManager(_db, _db.userTableDrift);
 }

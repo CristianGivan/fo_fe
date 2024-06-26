@@ -1,12 +1,19 @@
 import 'package:drift/drift.dart';
 import 'package:fo_fe/core/db/drift_db.dart';
-import 'package:fo_fe/features/organizer/items/organizer_item/data/drift/note_table_drift.dart';
-import 'package:fo_fe/features/organizer/items/organizer_item/data/drift/reminder_table_drift.dart';
-import 'package:fo_fe/features/organizer/items/organizer_item/data/drift/tag_table_drift.dart';
-import 'package:fo_fe/features/organizer/items/organizer_item/data/drift/user_table_drift.dart';
+import 'package:fo_fe/features/organizer/items/organizer_item/data/drift/DAOs/organizer_item_dao_drift.dart';
+import 'package:fo_fe/features/organizer/items/organizer_item/data/drift/DAOs/organizer_item_tag_dao_drift.dart';
+import 'package:fo_fe/features/organizer/items/organizer_item/data/drift/DAOs/organizer_item_user_dao_drift.dart';
+import 'package:fo_fe/features/organizer/items/organizer_item/data/drift/DAOs/reminder_dao_drift.dart';
+import 'package:fo_fe/features/organizer/items/organizer_item/data/drift/DAOs/tag_dao_drift.dart';
+import 'package:fo_fe/features/organizer/items/organizer_item/data/drift/DAOs/user_dao_drift.dart';
+import 'package:fo_fe/features/organizer/items/organizer_item/data/drift/tables/organizer_item_tag_table_drift.dart';
+import 'package:fo_fe/features/organizer/items/organizer_item/data/drift/tables/organizer_item_user_table_drift.dart';
+import 'package:fo_fe/features/organizer/items/organizer_item/data/drift/tables/reminder_table_drift.dart';
+import 'package:fo_fe/features/organizer/items/organizer_item/data/drift/tables/tag_table_drift.dart';
+import 'package:fo_fe/features/organizer/items/organizer_item/data/drift/tables/user_table_drift.dart';
 import 'package:fo_fe/features/organizer/items/task/data/drift/datasourece/task_table_drift.dart';
 
-import '../../../features/organizer/items/organizer_item/data/drift/organizer_item_table_drift.dart';
+import '../../../features/organizer/items/organizer_item/data/drift/tables/organizer_item_table_drift.dart';
 import '../../../features/organizer/items/task/data/drift/datasourece/task_dao_drift.dart';
 import 'connection/db_dev.dart' as db_dev;
 
@@ -14,12 +21,19 @@ part 'organizer_drift_db.g.dart';
 
 @DriftDatabase(tables: [
   OrganizerItemTableDrift,
-  UserTableDrift,
-  TagTableDrift,
+  OrganizerItemTagTableDrift,
+  OrganizerItemUserTableDrift,
   ReminderTableDrift,
+  TagTableDrift,
   TaskTableDrift,
-  NoteTableDrift,
+  UserTableDrift,
 ], daos: [
+  OrganizerItemDaoDrift,
+  OrganizerItemTagDaoDrift,
+  OrganizerItemUserDaoDrift,
+  ReminderDaoDrift,
+  TagDaoDrift,
+  UserDaoDrift,
   TaskDaoDrift,
 ])
 class OrganizerDriftDB extends _$OrganizerDriftDB implements DriftDB {
