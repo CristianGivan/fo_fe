@@ -7,7 +7,7 @@ part 'user_dao_drift.g.dart';
 
 @DriftAccessor(tables: [UserTableDrift])
 class UserDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
-    with _$UserDaoMixin {
+    with _$UserDaoDriftMixin {
   final OrganizerDriftDB db;
 
   UserDaoDrift(this.db) : super(db);

@@ -7,7 +7,7 @@ part 'reminder_dao_drift.g.dart';
 
 @DriftAccessor(tables: [ReminderTableDrift])
 class ReminderDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
-    with _$ReminderDaoMixin {
+    with _$ReminderDaoDriftMixin {
   final OrganizerDriftDB db;
 
   ReminderDaoDrift(this.db) : super(db);
