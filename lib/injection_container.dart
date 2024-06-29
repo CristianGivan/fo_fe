@@ -1,19 +1,20 @@
 import 'package:data_connection_checker_nulls/data_connection_checker_nulls.dart';
+import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
 import 'package:fo_fe/core/network/network_info.dart';
 import 'package:fo_fe/core/util/input_converter.dart';
+import 'package:fo_fe/features/organizer/items/task/data/repositories/task_repository_impl.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/usecases/get_task_by_id.dart';
 import 'package:fo_fe/features/organizer/items/task/task_lib.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 
-import 'core/db/drift_sqlite/organizer_drift_db.dart';
-import 'features/organizer/items/task/data/drift/datasourece/task_dao_drift.dart';
-import 'features/organizer/items/task/data/drift/repositories/task_repositories_drift.dart';
-import 'features/organizer/items/task/data/other/datasources/task_local_data_source.dart';
-import 'features/organizer/items/task/data/other/datasources/task_remote_data_source.dart';
+import 'features/organizer/items/task/data/datasources/task_local_data_source.dart';
+import 'features/organizer/items/task/data/datasources/task_local_data_source_drift.dart';
+import 'features/organizer/items/task/data/datasources/task_remote_data_source.dart';
+import 'features/organizer/items/task/data/datasources/task_remote_data_source_impl.dart';
 import 'features/organizer/items/task/data/other/datasources/task_sync_data_source.dart';
-import 'features/organizer/items/task/data/other/repositories/task_repositories_impl.dart';
 import 'features/organizer/items/task/domain/repositories/task_repository.dart';
+import 'features/organizer/items/task/domain/usecases/load_task_items_all.dart';
 
 final sl = GetIt.instance; //service locator
 
@@ -27,31 +28,45 @@ void init() {
 void initFeature() {
   // Bloc
   sl.registerFactory(() => TaskBloc(
-        getTaskById: sl(),
-        inputConverter: sl(),
+        loadTaskItemsAll: sl(),
+        loadTaskItemsByIdSet: sl(),
+        addTask: sl(),
+        updateTask: sl(),
+        deleteTask: sl(),
+        addUserToTask: sl(),
+        addTagToTask: sl(),
+        addReminderToTask: sl(),
       ));
 
   // Use cases
   sl.registerLazySingleton(() => GetTaskById(sl()));
+  sl.registerLazySingleton(() => LoadTaskItemsAll(sl()));
 
   // Repositories
+  // sl.registerLazySingleton<TaskRepository>(() => TaskRepositoryImpl(
+  //       networkInfo: sl(),
+  //       taskLocalDataSource: sl(),
+  //       taskSyncDataSource: sl(),
+  //     ));
+  //
   sl.registerLazySingleton<TaskRepository>(() => TaskRepositoryImpl(
-        networkInfo: sl(),
-        taskLocalDataSource: sl(),
-        taskSyncDataSource: sl(),
+        localDataSource: sl(),
+        remoteDataSource: sl(),
       ));
-  sl.registerLazySingleton<TaskRepositoriesDrift>(
-      () => TaskRepositoriesDrift(sl()));
 
-  //Data source
-  sl.registerLazySingleton<TaskLocalDataSource>(
-      () => TaskLocalDataSourceImpl());
+  //Data Source
   sl.registerLazySingleton<TaskRemoteDataSource>(() => TaskRemoteDataSourceImpl(
         httpClient: sl(),
       ));
   sl.registerLazySingleton<TaskSyncDataSource>(() => TaskSyncDataSourceImpl(
         taskLocalDataSource: sl(),
         taskRemoteDataSource: sl(),
+      ));
+  sl.registerLazySingleton<TaskLocalDataSource>(() => TaskLocalDataSourceDrift(
+        taskDao: sl(),
+        userDao: sl(),
+        tagDao: sl(),
+        reminderDao: sl(),
       ));
   sl.registerLazySingleton<NetworkInfo>(
       () => NetworkInfoImpl(connectionChecker: sl()));
@@ -68,6 +83,10 @@ void initExternals() {
 }
 
 void initDb() {
-  sl.registerSingleton<OrganizerDriftDB>(OrganizerDriftDB());
-  sl.registerSingleton<TaskDaoDrift>(TaskDaoDrift(sl()));
+  final db = OrganizerDriftDB();
+  sl.registerSingleton<OrganizerDriftDB>(db);
+  sl.registerSingleton<TaskDaoDrift>(TaskDaoDrift(db));
+  sl.registerSingleton<UserDaoDrift>(UserDaoDrift(db));
+  sl.registerSingleton<TagDaoDrift>(TagDaoDrift(db));
+  sl.registerSingleton<ReminderDaoDrift>(ReminderDaoDrift(db));
 }

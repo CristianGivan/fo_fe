@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:fo_fe/core/const/failures_message.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/util/organizer/core_util_organizer.dart';
-import 'package:fo_fe/features/organizer/items/task/domain/usecases/get_task_list_by_id_set.dart';
+import 'package:fo_fe/features/organizer/items/task/domain/usecases/load_task_items_by_id_set.dart';
 import 'package:fo_fe/features/organizer/items/task/task_lib.dart';
 import 'package:mockito/mockito.dart';
 
@@ -11,11 +11,11 @@ import '../../../../../../helpers/fixtures/elements/organizer_items_getters.dart
 import '../../../../../../helpers/test_helper.mocks.dart';
 
 void main() {
-  late GetTaskListByIdSet usecase;
+  late LoadTaskItemsByIdSet usecase;
   late MockTaskRepository mockTaskRepository;
   setUp(() {
     mockTaskRepository = MockTaskRepository();
-    usecase = GetTaskListByIdSet(mockTaskRepository);
+    usecase = LoadTaskItemsByIdSet(mockTaskRepository);
   });
 
   final tIdSet = IdSet.of([1, 2, 3]);
@@ -24,7 +24,7 @@ void main() {
 
   test('should get a list of tasks from the repository', () async {
     // Arrange
-    when(mockTaskRepository.getTaskListByIdSet(tIdSet))
+    when(mockTaskRepository.getTaskItemsByIdSet(tIdSet))
         .thenAnswer((_) async => Right(tTaskEntityList));
 
     // Act
@@ -32,14 +32,14 @@ void main() {
 
     // Assert
     expect(result, Right(tTaskEntityList));
-    verify(mockTaskRepository.getTaskListByIdSet(tIdSet));
+    verify(mockTaskRepository.getTaskItemsByIdSet(tIdSet));
     verifyNoMoreInteractions(mockTaskRepository);
   });
 
   test('should return a Failure when the repository call fails', () async {
     // Arrange
     const failure = ServerFailure(serverFailureMessage);
-    when(mockTaskRepository.getTaskListByIdSet(tIdSet))
+    when(mockTaskRepository.getTaskItemsByIdSet(tIdSet))
         .thenAnswer((_) async => Left(failure));
 
     // Act
@@ -47,7 +47,7 @@ void main() {
 
     // Assert
     expect(result, Left(failure));
-    verify(mockTaskRepository.getTaskListByIdSet(tIdSet));
+    verify(mockTaskRepository.getTaskItemsByIdSet(tIdSet));
     verifyNoMoreInteractions(mockTaskRepository);
   });
 }

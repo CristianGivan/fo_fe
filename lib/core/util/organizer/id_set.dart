@@ -5,7 +5,7 @@ class IdSet extends Equatable {
 
   IdSet._(this._ids);
 
-  factory IdSet.empty() => IdSet._({});
+  const IdSet.empty() : _ids = const {};
 
   factory IdSet.of(Iterable<int?> ids) => IdSet._(ids.whereType<int>().toSet());
 

@@ -3,13 +3,15 @@ part of 'core_util_organizer.dart';
 class Params extends Equatable {
   //both id and idSet are non-nullable because it should checked in repository
   final int id;
+  final int id2;
   final IdSet idSet;
   final FilterCriteria filterCriteria;
   final SortingCriteria sortingCriteria;
 
   const Params({
-    required this.id,
-    required this.idSet,
+    this.id = 0,
+    this.id2 = 0,
+    this.idSet = const IdSet.empty(),
     this.filterCriteria = const NoFilter(),
     this.sortingCriteria = SortingCriteria.none,
   });
@@ -31,4 +33,10 @@ class Params extends Equatable {
         id: ids.first ?? 0, //todo should be first or null?
         idSet: ids);
   }
+}
+
+class NoParams extends Equatable {
+  @override
+  // TODO: implement props
+  List<Object?> get props => [];
 }

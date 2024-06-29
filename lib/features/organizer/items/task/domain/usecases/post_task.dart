@@ -1,18 +1,13 @@
-import 'package:dartz/dartz.dart';
-import 'package:fo_fe/core/error/failures.dart';
-import 'package:fo_fe/core/usecase/usecase.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/repositories/task_repository.dart';
-import 'package:fo_fe/features/organizer/items/task/task_lib.dart';
 
-class PostTask implements UseCase<TaskEntity, TaskEntity> {
+class PostTask {
   TaskRepository taskRepository;
 
   PostTask(
     this.taskRepository,
   );
 
-  @override
-  Future<Either<Failure, TaskEntity>> call(TaskEntity taskEntity) async {
-    return await taskRepository.postTask(taskEntity);
-  }
+// Future<Either<Failure, TaskEntity>> call(TaskEntity taskEntity) async {
+//   return await taskRepository.postTask(taskEntity);
+// }
 }

@@ -13,15 +13,15 @@ import '../../../../../../helpers/test_helper.mocks.dart';
 
 void main() {
   late MockTaskLocalDataSource mockTaskLocalDataSource;
-  late MockTaskRemoteDataSource mockTaskRemoteDataSource;
+  late MockTaskRemoteDataSourceImpl mockTaskRemoteDataSourceImpl;
   late TaskSyncDataSourceImpl syncTaskImpl;
 
   setUp(() {
     mockTaskLocalDataSource = MockTaskLocalDataSource();
-    mockTaskRemoteDataSource = MockTaskRemoteDataSource();
+    mockTaskRemoteDataSourceImpl = MockTaskRemoteDataSourceImpl();
     syncTaskImpl = TaskSyncDataSourceImpl(
       taskLocalDataSource: mockTaskLocalDataSource,
-      taskRemoteDataSource: mockTaskRemoteDataSource,
+      taskRemoteDataSource: mockTaskRemoteDataSourceImpl,
     );
   });
 
@@ -73,7 +73,7 @@ void main() {
       when(mockTaskLocalDataSource.getTaskById(any))
           .thenAnswer((_) => Future.value(getTaskModelTestOffline()));
 
-      when(mockTaskRemoteDataSource.getUpdatedTaskIfDifferent(any))
+      when(mockTaskRemoteDataSourceImpl.getUpdatedTaskIfDifferent(any))
           .thenAnswer((_) => Future.value(tJsonReceived));
 
       final expected = tTaskModelOffline;
@@ -83,7 +83,7 @@ void main() {
 
       // Assert
       verify(mockTaskLocalDataSource.getTaskById(tId));
-      verify(mockTaskRemoteDataSource.getUpdatedTaskIfDifferent(any));
+      verify(mockTaskRemoteDataSourceImpl.getUpdatedTaskIfDifferent(any));
       expect(result, expected);
     });
     test('should returns updated task when checksums are different', () async {
@@ -95,7 +95,7 @@ void main() {
       when(mockTaskLocalDataSource.getTaskById(any))
           .thenAnswer((_) => Future.value(getTaskModelTestOffline()));
 
-      when(mockTaskRemoteDataSource.getUpdatedTaskIfDifferent(any))
+      when(mockTaskRemoteDataSourceImpl.getUpdatedTaskIfDifferent(any))
           .thenAnswer((_) => Future.value(tJsonReceived));
 
       final tSendJson = getTaskModelTestOffline().jsonToCheckForUpdates();
@@ -108,7 +108,7 @@ void main() {
 
       // Assert
       verify(mockTaskLocalDataSource.getTaskById(tId));
-      verify(mockTaskRemoteDataSource.getUpdatedTaskIfDifferent(tSendJson));
+      verify(mockTaskRemoteDataSourceImpl.getUpdatedTaskIfDifferent(tSendJson));
       verify(mockTaskLocalDataSource.postTask(tReceivedTask));
       expect(result, expected);
     });
@@ -122,7 +122,7 @@ void main() {
       when(mockTaskLocalDataSource.getTaskById(any))
           .thenAnswer((_) => Future.value(getTaskModelTestOffline()));
 
-      when(mockTaskRemoteDataSource.getUpdatedTaskIfDifferent(any))
+      when(mockTaskRemoteDataSourceImpl.getUpdatedTaskIfDifferent(any))
           .thenAnswer((_) => Future.value(tJsonReceived));
 
       final tSendJson = getTaskModelTestOffline().jsonToCheckForUpdates();
@@ -133,7 +133,7 @@ void main() {
 
       // Assert
       verify(mockTaskLocalDataSource.getTaskById(tId));
-      verify(mockTaskRemoteDataSource.getUpdatedTaskIfDifferent(tSendJson));
+      verify(mockTaskRemoteDataSourceImpl.getUpdatedTaskIfDifferent(tSendJson));
       verify(mockTaskLocalDataSource.postTask(tReceivedTask));
       verifyNever(mockTaskLocalDataSource.postTask(getTaskModelTestOffline()));
     });
@@ -179,7 +179,7 @@ void main() {
       when(mockTaskLocalDataSource.getTaskListByIdSet(any))
           .thenAnswer((_) => Future.value(getOrganizerItems5TaskModel()));
 
-      when(mockTaskRemoteDataSource.getUpdatedItems(any))
+      when(mockTaskRemoteDataSourceImpl.getUpdatedItems(any))
           .thenAnswer((_) => Future.value(OrganizerItems.empty()));
 
       final expected = getOrganizerItems5TaskModel();
@@ -199,7 +199,7 @@ void main() {
       when(mockTaskLocalDataSource.getTaskListByIdSet(any))
           .thenAnswer((_) => Future.value(getOrganizerItems5TaskModel()));
 
-      when(mockTaskRemoteDataSource.getUpdatedItems(any))
+      when(mockTaskRemoteDataSourceImpl.getUpdatedItems(any))
           .thenAnswer((_) => Future.value(getOrganizerItems3TaskModelUpdate()));
 
       final expected = getOrganizerItems5TaskModel3Updated();

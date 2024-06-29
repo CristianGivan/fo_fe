@@ -24,3 +24,7 @@ class NoDataFailure extends Failure {
 class InvalidInputFailure extends Failure {
   const InvalidInputFailure(String super.message);
 }
+
+class CacheFailure extends Failure {
+  const CacheFailure(String super.message);
+}

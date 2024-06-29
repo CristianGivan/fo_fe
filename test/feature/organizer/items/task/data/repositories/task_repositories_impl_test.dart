@@ -4,7 +4,7 @@ import 'package:fo_fe/core/const/failures_message.dart';
 import 'package:fo_fe/core/error/exceptions.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/util/organizer/core_util_organizer.dart';
-import 'package:fo_fe/features/organizer/items/task/data/other/repositories/task_repositories_impl.dart';
+import 'package:fo_fe/features/organizer/items/task/data/other/repositories/task_repositories_old.dart';
 import 'package:fo_fe/features/organizer/items/task/task_lib.dart';
 import 'package:mockito/mockito.dart';
 
@@ -17,7 +17,7 @@ void main() {
   late MockOrganizerItemSyncDataSource organizerItemSyncDataSource;
   late MockTaskLocalDataSource mockTaskLocalDataSource;
   late MockTaskSyncDataSource mockTaskSyncDataSource;
-  late TaskRepositoryImpl repositoryImpl;
+  late TaskRepositoryOld repositoryImpl;
 
   setUp(() {
     mockNetworkInfo = MockNetworkInfo();
@@ -26,7 +26,7 @@ void main() {
     mockTaskLocalDataSource = MockTaskLocalDataSource();
     mockTaskSyncDataSource = MockTaskSyncDataSource();
 
-    repositoryImpl = TaskRepositoryImpl(
+    repositoryImpl = TaskRepositoryOld(
         networkInfo: mockNetworkInfo,
         taskLocalDataSource: mockTaskLocalDataSource,
         taskSyncDataSource: mockTaskSyncDataSource);
@@ -146,7 +146,7 @@ void main() {
             .thenAnswer((_) => Future.value(tOrganizerItemsModel));
 
         // Act
-        final result = await repositoryImpl.getTaskListByIdSet(tIdSet);
+        final result = await repositoryImpl.getTaskItemsByIdSet(tIdSet);
 
         // Assert
         expect(result, Right(tOrganizerItems));

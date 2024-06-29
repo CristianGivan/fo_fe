@@ -1,6 +1,6 @@
 import 'package:fo_fe/core/util/organizer/core_util_organizer.dart';
+import 'package:fo_fe/features/organizer/items/task/data/datasources/task_remote_data_source_impl.dart';
 import 'package:fo_fe/features/organizer/items/task/data/other/datasources/task_local_data_source.dart';
-import 'package:fo_fe/features/organizer/items/task/data/other/datasources/task_remote_data_source.dart';
 import 'package:fo_fe/features/organizer/items/task/task_lib.dart';
 
 abstract class TaskSyncDataSource {
@@ -11,7 +11,7 @@ abstract class TaskSyncDataSource {
 
 class TaskSyncDataSourceImpl implements TaskSyncDataSource {
   TaskLocalDataSource taskLocalDataSource;
-  TaskRemoteDataSource taskRemoteDataSource;
+  TaskRemoteDataSourceImpl taskRemoteDataSource;
 
   TaskSyncDataSourceImpl({
     required this.taskLocalDataSource,

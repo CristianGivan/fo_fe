@@ -23,23 +23,23 @@ class OrganizerAppBranch {
             path: OrganizerRouterNames.topicRouteName,
             builder: (context, state) => const Topics(),
           ),
-          GoRoute(
-              name: OrganizerRouterNames.organizerTasksRoute,
-              path: OrganizerRouterNames.tasksRouteName,
-              builder: (context, state) => const TasksView(),
-              //todo cg: TasksHome(),
-              routes: [
-                GoRoute(
-                  name: OrganizerRouterNames.organizerTasksAddTasksRoute,
-                  path: OrganizerRouterNames.tasksAddTasksRouteName,
-                  builder: (context, state) => const AddTasks(),
-                ),
-                GoRoute(
-                  name: OrganizerRouterNames.organizerTasksPageTasksRoute,
-                  path: OrganizerRouterNames.tasksPageTasksRouteName,
-                  builder: (context, state) => const TasksPage(),
-                ),
-              ]),
+          // GoRoute(
+          //     name: OrganizerRouterNames.organizerTasksRoute,
+          //     path: OrganizerRouterNames.tasksRouteName,
+          //     builder: (context, state) => const TasksView(),
+          //     //todo cg: TasksHome(),
+          //     routes: [
+          //       GoRoute(
+          //         name: OrganizerRouterNames.organizerTasksAddTasksRoute,
+          //         path: OrganizerRouterNames.tasksAddTasksRouteName,
+          //         builder: (context, state) => const AddTasks(),
+          //       ),
+          //       GoRoute(
+          //         name: OrganizerRouterNames.organizerTasksPageTasksRoute,
+          //         path: OrganizerRouterNames.tasksPageTasksRouteName,
+          //         builder: (context, state) => const TasksPage(),
+          //       ),
+          //     ]),
           GoRoute(
             name: OrganizerRouterNames.organizerReminderRoute,
             path: OrganizerRouterNames.reminderRouteName,

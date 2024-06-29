@@ -17,8 +17,8 @@ class _TasksCardState extends State<TasksCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => TasksPage(tasks: widget.tasks)));
+        // Navigator.of(context).push(MaterialPageRoute(
+        //     builder: (context) => TasksPage(tasks: widget.tasks)));
       },
       child: Container(
         margin: const EdgeInsets.all(5),
