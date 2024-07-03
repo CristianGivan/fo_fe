@@ -75,84 +75,84 @@ OrganizerItems<OrganizerItemEntity> getFiveOrganizerItemEntityFiveUpdated() {
     organizerItemEntity7
   ]);
 }
-
-OrganizerItems<TaskModel> getOrganizerItems5TaskModel() {
-  final TaskModel taskModel1 =
-      TaskModel(id: 1, subject: "TaskModel1", remoteId: 1);
-  final TaskModel taskModel2 =
-      TaskModel(id: 2, subject: "TaskModel2", remoteId: 2);
-  final TaskModel taskModel3 =
-      TaskModel(id: 3, subject: "TaskModel3", remoteId: 3);
-  final TaskModel taskModel4 =
-      TaskModel(id: 4, subject: "TaskModel4", remoteId: 4);
-  final TaskModel taskModel5 =
-      TaskModel(id: 5, subject: "TaskModel5", remoteId: 5);
-  return OrganizerItems.of(
-      [taskModel1, taskModel2, taskModel3, taskModel4, taskModel5]);
-}
-
-OrganizerItems<TaskModel> getOrganizerItems3TaskModelUpdate() {
-  final TaskModel taskModel1 =
-      TaskModel(id: 1, subject: "TaskModelUpdated1", remoteId: 1);
-  final TaskModel taskModel3 =
-      TaskModel(id: 3, subject: "TaskModelUpdated3", remoteId: 3);
-  final TaskModel taskModel5 =
-      TaskModel(id: 5, subject: "TaskModelUpdated5", remoteId: 5);
-  return OrganizerItems.of([taskModel1, taskModel3, taskModel5]);
-}
-
-OrganizerItems<TaskModel> getOrganizerItems5TaskModelUpdate() {
-  final TaskModel taskModel1 =
-      TaskModel(id: 1, subject: "TaskModelUpdated1", remoteId: 1);
-  final TaskModel taskModel3 =
-      TaskModel(id: 3, subject: "TaskModelUpdated3", remoteId: 3);
-  final TaskModel taskModel5 =
-      TaskModel(id: 5, subject: "TaskModelUpdated5", remoteId: 5);
-  final TaskModel taskModel6 =
-      TaskModel(id: 0, subject: "TaskModelUpdated6", remoteId: 6);
-  final TaskModel taskModel7 =
-      TaskModel(id: 0, subject: "TaskModelUpdated7", remoteId: 7);
-  return OrganizerItems.of(
-      [taskModel1, taskModel3, taskModel5, taskModel6, taskModel7]);
-}
-
-OrganizerItems<TaskModel> getOrganizerItems5TaskModel3Updated() {
-  final TaskModel taskModel1 =
-      TaskModel(id: 1, subject: "TaskModelUpdated1", remoteId: 1);
-  final TaskModel taskModel2 =
-      TaskModel(id: 2, subject: "TaskModel2", remoteId: 2);
-  final TaskModel taskModel3 =
-      TaskModel(id: 3, subject: "TaskModelUpdated3", remoteId: 3);
-  final TaskModel taskModel4 =
-      TaskModel(id: 4, subject: "TaskModel4", remoteId: 4);
-  final TaskModel taskModel5 =
-      TaskModel(id: 5, subject: "TaskModelUpdated5", remoteId: 5);
-  return OrganizerItems.of(
-      [taskModel1, taskModel2, taskModel3, taskModel4, taskModel5]);
-}
-
-OrganizerItems<TaskModel> getOrganizerItems5TaskModel5Updated() {
-  final TaskModel taskModel1 =
-      TaskModel(id: 1, subject: "TaskModelUpdated1", remoteId: 1);
-  final TaskModel taskModel2 =
-      TaskModel(id: 2, subject: "TaskModel2", remoteId: 2);
-  final TaskModel taskModel3 =
-      TaskModel(id: 3, subject: "TaskModelUpdated3", remoteId: 3);
-  final TaskModel taskModel4 =
-      TaskModel(id: 4, subject: "TaskModel4", remoteId: 4);
-  final TaskModel taskModel5 =
-      TaskModel(id: 5, subject: "TaskModelUpdated5", remoteId: 5);
-  final TaskModel taskModel6 =
-      TaskModel(id: 6, subject: "TaskModel4", remoteId: 6);
-  final TaskModel taskModel7 =
-      TaskModel(id: 7, subject: "TaskModelUpdated5", remoteId: 7);
-  return OrganizerItems.of([
-    taskModel1,
-    taskModel2,
-    taskModel3,
-    taskModel4,
-    taskModel5,
-    taskModel6,
-    taskModel7
-  ]);
-}
+//
+// OrganizerItems<TaskModelDel> getOrganizerItems5TaskModel() {
+//   final TaskModelDel taskModel1 =
+//       TaskModelDel(id: 1, subject: "TaskModel1", remoteId: 1);
+//   final TaskModelDel taskModel2 =
+//       TaskModelDel(id: 2, subject: "TaskModel2", remoteId: 2);
+//   final TaskModelDel taskModel3 =
+//       TaskModelDel(id: 3, subject: "TaskModel3", remoteId: 3);
+//   final TaskModelDel taskModel4 =
+//       TaskModelDel(id: 4, subject: "TaskModel4", remoteId: 4);
+//   final TaskModelDel taskModel5 =
+//       TaskModelDel(id: 5, subject: "TaskModel5", remoteId: 5);
+//   return OrganizerItems.of(
+//       [taskModel1, taskModel2, taskModel3, taskModel4, taskModel5]);
+// }
+//
+// OrganizerItems<TaskModelDel> getOrganizerItems3TaskModelUpdate() {
+//   final TaskModelDel taskModel1 =
+//       TaskModelDel(id: 1, subject: "TaskModelUpdated1", remoteId: 1);
+//   final TaskModelDel taskModel3 =
+//       TaskModelDel(id: 3, subject: "TaskModelUpdated3", remoteId: 3);
+//   final TaskModelDel taskModel5 =
+//       TaskModelDel(id: 5, subject: "TaskModelUpdated5", remoteId: 5);
+//   return OrganizerItems.of([taskModel1, taskModel3, taskModel5]);
+// }
+//
+// OrganizerItems<TaskModelDel> getOrganizerItems5TaskModelUpdate() {
+//   final TaskModelDel taskModel1 =
+//       TaskModelDel(id: 1, subject: "TaskModelUpdated1", remoteId: 1);
+//   final TaskModelDel taskModel3 =
+//       TaskModelDel(id: 3, subject: "TaskModelUpdated3", remoteId: 3);
+//   final TaskModelDel taskModel5 =
+//       TaskModelDel(id: 5, subject: "TaskModelUpdated5", remoteId: 5);
+//   final TaskModelDel taskModel6 =
+//       TaskModelDel(id: 0, subject: "TaskModelUpdated6", remoteId: 6);
+//   final TaskModelDel taskModel7 =
+//       TaskModelDel(id: 0, subject: "TaskModelUpdated7", remoteId: 7);
+//   return OrganizerItems.of(
+//       [taskModel1, taskModel3, taskModel5, taskModel6, taskModel7]);
+// }
+//
+// OrganizerItems<TaskModelDel> getOrganizerItems5TaskModel3Updated() {
+//   final TaskModelDel taskModel1 =
+//       TaskModelDel(id: 1, subject: "TaskModelUpdated1", remoteId: 1);
+//   final TaskModelDel taskModel2 =
+//       TaskModelDel(id: 2, subject: "TaskModel2", remoteId: 2);
+//   final TaskModelDel taskModel3 =
+//       TaskModelDel(id: 3, subject: "TaskModelUpdated3", remoteId: 3);
+//   final TaskModelDel taskModel4 =
+//       TaskModelDel(id: 4, subject: "TaskModel4", remoteId: 4);
+//   final TaskModelDel taskModel5 =
+//       TaskModelDel(id: 5, subject: "TaskModelUpdated5", remoteId: 5);
+//   return OrganizerItems.of(
+//       [taskModel1, taskModel2, taskModel3, taskModel4, taskModel5]);
+// }
+//
+// OrganizerItems<TaskModelDel> getOrganizerItems5TaskModel5Updated() {
+//   final TaskModelDel taskModel1 =
+//       TaskModelDel(id: 1, subject: "TaskModelUpdated1", remoteId: 1);
+//   final TaskModelDel taskModel2 =
+//       TaskModelDel(id: 2, subject: "TaskModel2", remoteId: 2);
+//   final TaskModelDel taskModel3 =
+//       TaskModelDel(id: 3, subject: "TaskModelUpdated3", remoteId: 3);
+//   final TaskModelDel taskModel4 =
+//       TaskModelDel(id: 4, subject: "TaskModel4", remoteId: 4);
+//   final TaskModelDel taskModel5 =
+//       TaskModelDel(id: 5, subject: "TaskModelUpdated5", remoteId: 5);
+//   final TaskModelDel taskModel6 =
+//       TaskModelDel(id: 6, subject: "TaskModel4", remoteId: 6);
+//   final TaskModelDel taskModel7 =
+//       TaskModelDel(id: 7, subject: "TaskModelUpdated5", remoteId: 7);
+//   return OrganizerItems.of([
+//     taskModel1,
+//     taskModel2,
+//     taskModel3,
+//     taskModel4,
+//     taskModel5,
+//     taskModel6,
+//     taskModel7
+//   ]);
+// }

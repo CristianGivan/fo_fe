@@ -11,6 +11,10 @@ class UserDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
 
   UserDaoDrift(this.db) : super(db);
 
+  Future<UserTableDriftG?> getUserById(int id) =>
+      (select(userTableDrift)..where((tbl) => tbl.id.equals(id)))
+          .getSingleOrNull();
+
   Future<List<UserTableDriftG>> getAllUsers() => select(userTableDrift).get();
 
   Stream<List<UserTableDriftG>> watchAllUsers() =>
@@ -24,4 +28,9 @@ class UserDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
 
   Future<int> deleteUser(Insertable<UserTableDriftG> user) =>
       delete(userTableDrift).delete(user);
+
+  Future<List<UserTableDriftG>> getUserListByTaskId(int taskId) async {
+    final userIds = await db.taskUserDaoDrift.getUserIdsByTaskId(taskId);
+    return (select(userTableDrift)..where((tbl) => tbl.id.isIn(userIds))).get();
+  }
 }

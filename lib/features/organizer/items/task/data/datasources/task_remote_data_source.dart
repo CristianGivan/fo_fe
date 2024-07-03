@@ -2,6 +2,7 @@ import 'package:fo_fe/features/organizer/items/organizer_item/domain/entities/re
 
 import '../../../../../../core/util/organizer/core_util_organizer.dart';
 import '../../task_lib.dart';
+import '../models/task_model.dart';
 
 abstract class TaskRemoteDataSource {
   Future<void> addTask(TaskEntity task);

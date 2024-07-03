@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart';
+import 'package:fo_fe/core/util/organizer/core_util_organizer.dart';
 
 import '../../organizer_drift_exports.dart';
 
@@ -11,17 +12,26 @@ class TaskDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
 
   TaskDaoDrift(this.db) : super(db);
 
-  // Example: Query to get all tasks
-  Future<List<TaskTableDriftG>> getAllTasks() => select(taskTableDrift).get();
+  Future<TaskTableDriftG?> getTaskById(int id) =>
+      (select(taskTableDrift)..where((tbl) => tbl.id.equals(id)))
+          .getSingleOrNull();
 
-  // Example: Insert a new task
-  Future<int> insertTask(TaskTableDriftCompanion task) {
-    return into(taskTableDrift).insert(task);
-  }
+  Future<List<TaskTableDriftG>> getTaskItemsAll() =>
+      select(taskTableDrift).get();
 
-  Future<void> updateTask(TaskTableDriftCompanion task) =>
+  Future<List<TaskTableDriftG>> getTaskItemsByIdSet(IdSet idSet) =>
+      (select(taskTableDrift)..where((tbl) => tbl.id.isIn(idSet.toSet())))
+          .get();
+
+  Future<int> insertTask(Insertable<TaskTableDriftG> task) =>
+      into(taskTableDrift).insert(task);
+
+  Future<bool> updateTask(Insertable<TaskTableDriftG> task) =>
       update(taskTableDrift).replace(task);
 
-  Future<void> deleteTask(int taskId) =>
-      (delete(taskTableDrift)..where((t) => t.id.equals(taskId))).go();
+  Future<int> deleteTask(Insertable<TaskTableDriftG> task) =>
+      delete(taskTableDrift).delete(task);
+
+  Stream<List<TaskTableDriftG>> watchAllTasks() =>
+      select(taskTableDrift).watch();
 }

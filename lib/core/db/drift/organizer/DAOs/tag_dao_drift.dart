@@ -23,4 +23,9 @@ class TagDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
 
   Future<int> deleteTag(Insertable<TagTableDriftG> tag) =>
       delete(tagTableDrift).delete(tag);
+
+  Future<List<TagTableDriftG>> getTagsByTaskId(int taskId) async {
+    final tagIds = await db.taskTagDaoDrift.getTagIdsByTaskId(taskId);
+    return (select(tagTableDrift)..where((tbl) => tbl.id.isIn(tagIds))).get();
+  }
 }

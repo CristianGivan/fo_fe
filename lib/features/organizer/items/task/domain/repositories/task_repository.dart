@@ -8,12 +8,12 @@ import '../../../../../../core/error/failures.dart';
 abstract class TaskRepository {
   Future<Either<Failure, TaskEntity>> getTaskById(int id);
 
+  Future<Either<Failure, OrganizerItems<TaskEntity>>> getTaskItemsAll();
+
   Future<Either<Failure, OrganizerItems<TaskEntity>>> getTaskItemsByIdSet(
       IdSet idSet);
 
   Future<Either<Failure, void>> addTask(TaskEntity task);
-
-  Future<Either<Failure, OrganizerItems<TaskEntity>>> getTaskItemsAll();
 
   Future<Either<Failure, void>> addUserToTask(int taskId, int userId);
 

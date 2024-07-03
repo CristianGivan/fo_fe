@@ -8,8 +8,7 @@ class OrganizerItemTableDrift extends Table {
 
   DateTimeColumn get createdDate => dateTime()();
 
-  IntColumn get creatorID =>
-      integer().customConstraint('REFERENCES User(id)')();
+  IntColumn get creatorId => integer()();
 
   IntColumn get remoteId => integer().nullable()();
 

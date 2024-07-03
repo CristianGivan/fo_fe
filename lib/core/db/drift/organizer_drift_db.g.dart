@@ -33,14 +33,12 @@ class $OrganizerItemTableDriftTable extends OrganizerItemTableDrift
   late final GeneratedColumn<DateTime> createdDate = GeneratedColumn<DateTime>(
       'created_date', aliasedName, false,
       type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  static const VerificationMeta _creatorIDMeta =
-      const VerificationMeta('creatorID');
+  static const VerificationMeta _creatorIdMeta =
+      const VerificationMeta('creatorId');
   @override
-  late final GeneratedColumn<int> creatorID = GeneratedColumn<int>(
-      'creator_i_d', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      $customConstraints: 'REFERENCES User(id)');
+  late final GeneratedColumn<int> creatorId = GeneratedColumn<int>(
+      'creator_id', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
   static const VerificationMeta _remoteIdMeta =
       const VerificationMeta('remoteId');
   @override
@@ -81,7 +79,7 @@ class $OrganizerItemTableDriftTable extends OrganizerItemTableDrift
         id,
         subject,
         createdDate,
-        creatorID,
+        creatorId,
         remoteId,
         lastUpdate,
         lastViewDate,
@@ -117,13 +115,11 @@ class $OrganizerItemTableDriftTable extends OrganizerItemTableDrift
     } else if (isInserting) {
       context.missing(_createdDateMeta);
     }
-    if (data.containsKey('creator_i_d')) {
-      context.handle(
-          _creatorIDMeta,
-          creatorID.isAcceptableOrUnknown(
-              data['creator_i_d']!, _creatorIDMeta));
+    if (data.containsKey('creator_id')) {
+      context.handle(_creatorIdMeta,
+          creatorId.isAcceptableOrUnknown(data['creator_id']!, _creatorIdMeta));
     } else if (isInserting) {
-      context.missing(_creatorIDMeta);
+      context.missing(_creatorIdMeta);
     }
     if (data.containsKey('remote_id')) {
       context.handle(_remoteIdMeta,
@@ -171,8 +167,8 @@ class $OrganizerItemTableDriftTable extends OrganizerItemTableDrift
           .read(DriftSqlType.string, data['${effectivePrefix}subject'])!,
       createdDate: attachedDatabase.typeMapping
           .read(DriftSqlType.dateTime, data['${effectivePrefix}created_date'])!,
-      creatorID: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}creator_i_d'])!,
+      creatorId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}creator_id'])!,
       remoteId: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}remote_id']),
       lastUpdate: attachedDatabase.typeMapping
@@ -199,7 +195,7 @@ class OrganizerItemTableDriftG extends DataClass
   final int id;
   final String subject;
   final DateTime createdDate;
-  final int creatorID;
+  final int creatorId;
   final int? remoteId;
   final DateTime? lastUpdate;
   final DateTime? lastViewDate;
@@ -210,7 +206,7 @@ class OrganizerItemTableDriftG extends DataClass
       {required this.id,
       required this.subject,
       required this.createdDate,
-      required this.creatorID,
+      required this.creatorId,
       this.remoteId,
       this.lastUpdate,
       this.lastViewDate,
@@ -223,7 +219,7 @@ class OrganizerItemTableDriftG extends DataClass
     map['id'] = Variable<int>(id);
     map['subject'] = Variable<String>(subject);
     map['created_date'] = Variable<DateTime>(createdDate);
-    map['creator_i_d'] = Variable<int>(creatorID);
+    map['creator_id'] = Variable<int>(creatorId);
     if (!nullToAbsent || remoteId != null) {
       map['remote_id'] = Variable<int>(remoteId);
     }
@@ -250,7 +246,7 @@ class OrganizerItemTableDriftG extends DataClass
       id: Value(id),
       subject: Value(subject),
       createdDate: Value(createdDate),
-      creatorID: Value(creatorID),
+      creatorId: Value(creatorId),
       remoteId: remoteId == null && nullToAbsent
           ? const Value.absent()
           : Value(remoteId),
@@ -278,7 +274,7 @@ class OrganizerItemTableDriftG extends DataClass
       id: serializer.fromJson<int>(json['id']),
       subject: serializer.fromJson<String>(json['subject']),
       createdDate: serializer.fromJson<DateTime>(json['createdDate']),
-      creatorID: serializer.fromJson<int>(json['creatorID']),
+      creatorId: serializer.fromJson<int>(json['creatorId']),
       remoteId: serializer.fromJson<int?>(json['remoteId']),
       lastUpdate: serializer.fromJson<DateTime?>(json['lastUpdate']),
       lastViewDate: serializer.fromJson<DateTime?>(json['lastViewDate']),
@@ -294,7 +290,7 @@ class OrganizerItemTableDriftG extends DataClass
       'id': serializer.toJson<int>(id),
       'subject': serializer.toJson<String>(subject),
       'createdDate': serializer.toJson<DateTime>(createdDate),
-      'creatorID': serializer.toJson<int>(creatorID),
+      'creatorId': serializer.toJson<int>(creatorId),
       'remoteId': serializer.toJson<int?>(remoteId),
       'lastUpdate': serializer.toJson<DateTime?>(lastUpdate),
       'lastViewDate': serializer.toJson<DateTime?>(lastViewDate),
@@ -308,7 +304,7 @@ class OrganizerItemTableDriftG extends DataClass
           {int? id,
           String? subject,
           DateTime? createdDate,
-          int? creatorID,
+          int? creatorId,
           Value<int?> remoteId = const Value.absent(),
           Value<DateTime?> lastUpdate = const Value.absent(),
           Value<DateTime?> lastViewDate = const Value.absent(),
@@ -319,7 +315,7 @@ class OrganizerItemTableDriftG extends DataClass
         id: id ?? this.id,
         subject: subject ?? this.subject,
         createdDate: createdDate ?? this.createdDate,
-        creatorID: creatorID ?? this.creatorID,
+        creatorId: creatorId ?? this.creatorId,
         remoteId: remoteId.present ? remoteId.value : this.remoteId,
         lastUpdate: lastUpdate.present ? lastUpdate.value : this.lastUpdate,
         lastViewDate:
@@ -334,7 +330,7 @@ class OrganizerItemTableDriftG extends DataClass
           ..write('id: $id, ')
           ..write('subject: $subject, ')
           ..write('createdDate: $createdDate, ')
-          ..write('creatorID: $creatorID, ')
+          ..write('creatorId: $creatorId, ')
           ..write('remoteId: $remoteId, ')
           ..write('lastUpdate: $lastUpdate, ')
           ..write('lastViewDate: $lastViewDate, ')
@@ -346,7 +342,7 @@ class OrganizerItemTableDriftG extends DataClass
   }
 
   @override
-  int get hashCode => Object.hash(id, subject, createdDate, creatorID, remoteId,
+  int get hashCode => Object.hash(id, subject, createdDate, creatorId, remoteId,
       lastUpdate, lastViewDate, remoteViews, views, checksum);
   @override
   bool operator ==(Object other) =>
@@ -355,7 +351,7 @@ class OrganizerItemTableDriftG extends DataClass
           other.id == this.id &&
           other.subject == this.subject &&
           other.createdDate == this.createdDate &&
-          other.creatorID == this.creatorID &&
+          other.creatorId == this.creatorId &&
           other.remoteId == this.remoteId &&
           other.lastUpdate == this.lastUpdate &&
           other.lastViewDate == this.lastViewDate &&
@@ -369,7 +365,7 @@ class OrganizerItemTableDriftCompanion
   final Value<int> id;
   final Value<String> subject;
   final Value<DateTime> createdDate;
-  final Value<int> creatorID;
+  final Value<int> creatorId;
   final Value<int?> remoteId;
   final Value<DateTime?> lastUpdate;
   final Value<DateTime?> lastViewDate;
@@ -380,7 +376,7 @@ class OrganizerItemTableDriftCompanion
     this.id = const Value.absent(),
     this.subject = const Value.absent(),
     this.createdDate = const Value.absent(),
-    this.creatorID = const Value.absent(),
+    this.creatorId = const Value.absent(),
     this.remoteId = const Value.absent(),
     this.lastUpdate = const Value.absent(),
     this.lastViewDate = const Value.absent(),
@@ -392,7 +388,7 @@ class OrganizerItemTableDriftCompanion
     this.id = const Value.absent(),
     required String subject,
     required DateTime createdDate,
-    required int creatorID,
+    required int creatorId,
     this.remoteId = const Value.absent(),
     this.lastUpdate = const Value.absent(),
     this.lastViewDate = const Value.absent(),
@@ -401,12 +397,12 @@ class OrganizerItemTableDriftCompanion
     this.checksum = const Value.absent(),
   })  : subject = Value(subject),
         createdDate = Value(createdDate),
-        creatorID = Value(creatorID);
+        creatorId = Value(creatorId);
   static Insertable<OrganizerItemTableDriftG> custom({
     Expression<int>? id,
     Expression<String>? subject,
     Expression<DateTime>? createdDate,
-    Expression<int>? creatorID,
+    Expression<int>? creatorId,
     Expression<int>? remoteId,
     Expression<DateTime>? lastUpdate,
     Expression<DateTime>? lastViewDate,
@@ -418,7 +414,7 @@ class OrganizerItemTableDriftCompanion
       if (id != null) 'id': id,
       if (subject != null) 'subject': subject,
       if (createdDate != null) 'created_date': createdDate,
-      if (creatorID != null) 'creator_i_d': creatorID,
+      if (creatorId != null) 'creator_id': creatorId,
       if (remoteId != null) 'remote_id': remoteId,
       if (lastUpdate != null) 'last_update': lastUpdate,
       if (lastViewDate != null) 'last_view_date': lastViewDate,
@@ -432,7 +428,7 @@ class OrganizerItemTableDriftCompanion
       {Value<int>? id,
       Value<String>? subject,
       Value<DateTime>? createdDate,
-      Value<int>? creatorID,
+      Value<int>? creatorId,
       Value<int?>? remoteId,
       Value<DateTime?>? lastUpdate,
       Value<DateTime?>? lastViewDate,
@@ -443,7 +439,7 @@ class OrganizerItemTableDriftCompanion
       id: id ?? this.id,
       subject: subject ?? this.subject,
       createdDate: createdDate ?? this.createdDate,
-      creatorID: creatorID ?? this.creatorID,
+      creatorId: creatorId ?? this.creatorId,
       remoteId: remoteId ?? this.remoteId,
       lastUpdate: lastUpdate ?? this.lastUpdate,
       lastViewDate: lastViewDate ?? this.lastViewDate,
@@ -465,8 +461,8 @@ class OrganizerItemTableDriftCompanion
     if (createdDate.present) {
       map['created_date'] = Variable<DateTime>(createdDate.value);
     }
-    if (creatorID.present) {
-      map['creator_i_d'] = Variable<int>(creatorID.value);
+    if (creatorId.present) {
+      map['creator_id'] = Variable<int>(creatorId.value);
     }
     if (remoteId.present) {
       map['remote_id'] = Variable<int>(remoteId.value);
@@ -495,7 +491,7 @@ class OrganizerItemTableDriftCompanion
           ..write('id: $id, ')
           ..write('subject: $subject, ')
           ..write('createdDate: $createdDate, ')
-          ..write('creatorID: $creatorID, ')
+          ..write('creatorId: $creatorId, ')
           ..write('remoteId: $remoteId, ')
           ..write('lastUpdate: $lastUpdate, ')
           ..write('lastViewDate: $lastViewDate, ')
@@ -507,66 +503,43 @@ class OrganizerItemTableDriftCompanion
   }
 }
 
-class $OrganizerItemTagTableDriftTable extends OrganizerItemTagTableDrift
-    with
-        TableInfo<$OrganizerItemTagTableDriftTable,
-            OrganizerItemTagTableDriftG> {
+class $TaskTagTableDriftTable extends TaskTagTableDrift
+    with TableInfo<$TaskTagTableDriftTable, TaskTagTableDriftG> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $OrganizerItemTagTableDriftTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _organizerItemTagIdMeta =
-      const VerificationMeta('organizerItemTagId');
+  $TaskTagTableDriftTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _taskIdMeta = const VerificationMeta('taskId');
   @override
-  late final GeneratedColumn<int> organizerItemTagId = GeneratedColumn<int>(
-      'organizer_item_tag_id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _organizerItemIdMeta =
-      const VerificationMeta('organizerItemId');
-  @override
-  late final GeneratedColumn<int> organizerItemId = GeneratedColumn<int>(
-      'organizer_item_id', aliasedName, false,
+  late final GeneratedColumn<int> taskId = GeneratedColumn<int>(
+      'task_id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
-      $customConstraints: 'REFERENCES OrganizerItemTableDriftG(id)');
+      $customConstraints: 'REFERENCES TaskTableDrift(id)');
   static const VerificationMeta _tagIdMeta = const VerificationMeta('tagId');
   @override
   late final GeneratedColumn<int> tagId = GeneratedColumn<int>(
       'tag_id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
-      $customConstraints: 'REFERENCES TagTableDriftG(id)');
+      $customConstraints: 'REFERENCES TagTableDrift(id)');
   @override
-  List<GeneratedColumn> get $columns =>
-      [organizerItemTagId, organizerItemId, tagId];
+  List<GeneratedColumn> get $columns => [taskId, tagId];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
-  static const String $name = 'organizer_item_tag_table_drift';
+  static const String $name = 'task_tag_table_drift';
   @override
-  VerificationContext validateIntegrity(
-      Insertable<OrganizerItemTagTableDriftG> instance,
+  VerificationContext validateIntegrity(Insertable<TaskTagTableDriftG> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
-    if (data.containsKey('organizer_item_tag_id')) {
-      context.handle(
-          _organizerItemTagIdMeta,
-          organizerItemTagId.isAcceptableOrUnknown(
-              data['organizer_item_tag_id']!, _organizerItemTagIdMeta));
-    }
-    if (data.containsKey('organizer_item_id')) {
-      context.handle(
-          _organizerItemIdMeta,
-          organizerItemId.isAcceptableOrUnknown(
-              data['organizer_item_id']!, _organizerItemIdMeta));
+    if (data.containsKey('task_id')) {
+      context.handle(_taskIdMeta,
+          taskId.isAcceptableOrUnknown(data['task_id']!, _taskIdMeta));
     } else if (isInserting) {
-      context.missing(_organizerItemIdMeta);
+      context.missing(_taskIdMeta);
     }
     if (data.containsKey('tag_id')) {
       context.handle(
@@ -578,59 +551,49 @@ class $OrganizerItemTagTableDriftTable extends OrganizerItemTagTableDrift
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {organizerItemTagId};
+  Set<GeneratedColumn> get $primaryKey => const {};
   @override
-  OrganizerItemTagTableDriftG map(Map<String, dynamic> data,
-      {String? tablePrefix}) {
+  TaskTagTableDriftG map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return OrganizerItemTagTableDriftG(
-      organizerItemTagId: attachedDatabase.typeMapping.read(
-          DriftSqlType.int, data['${effectivePrefix}organizer_item_tag_id'])!,
-      organizerItemId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}organizer_item_id'])!,
+    return TaskTagTableDriftG(
+      taskId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}task_id'])!,
       tagId: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}tag_id'])!,
     );
   }
 
   @override
-  $OrganizerItemTagTableDriftTable createAlias(String alias) {
-    return $OrganizerItemTagTableDriftTable(attachedDatabase, alias);
+  $TaskTagTableDriftTable createAlias(String alias) {
+    return $TaskTagTableDriftTable(attachedDatabase, alias);
   }
 }
 
-class OrganizerItemTagTableDriftG extends DataClass
-    implements Insertable<OrganizerItemTagTableDriftG> {
-  final int organizerItemTagId;
-  final int organizerItemId;
+class TaskTagTableDriftG extends DataClass
+    implements Insertable<TaskTagTableDriftG> {
+  final int taskId;
   final int tagId;
-  const OrganizerItemTagTableDriftG(
-      {required this.organizerItemTagId,
-      required this.organizerItemId,
-      required this.tagId});
+  const TaskTagTableDriftG({required this.taskId, required this.tagId});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    map['organizer_item_tag_id'] = Variable<int>(organizerItemTagId);
-    map['organizer_item_id'] = Variable<int>(organizerItemId);
+    map['task_id'] = Variable<int>(taskId);
     map['tag_id'] = Variable<int>(tagId);
     return map;
   }
 
-  OrganizerItemTagTableDriftCompanion toCompanion(bool nullToAbsent) {
-    return OrganizerItemTagTableDriftCompanion(
-      organizerItemTagId: Value(organizerItemTagId),
-      organizerItemId: Value(organizerItemId),
+  TaskTagTableDriftCompanion toCompanion(bool nullToAbsent) {
+    return TaskTagTableDriftCompanion(
+      taskId: Value(taskId),
       tagId: Value(tagId),
     );
   }
 
-  factory OrganizerItemTagTableDriftG.fromJson(Map<String, dynamic> json,
+  factory TaskTagTableDriftG.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return OrganizerItemTagTableDriftG(
-      organizerItemTagId: serializer.fromJson<int>(json['organizerItemTagId']),
-      organizerItemId: serializer.fromJson<int>(json['organizerItemId']),
+    return TaskTagTableDriftG(
+      taskId: serializer.fromJson<int>(json['taskId']),
       tagId: serializer.fromJson<int>(json['tagId']),
     );
   }
@@ -638,166 +601,134 @@ class OrganizerItemTagTableDriftG extends DataClass
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'organizerItemTagId': serializer.toJson<int>(organizerItemTagId),
-      'organizerItemId': serializer.toJson<int>(organizerItemId),
+      'taskId': serializer.toJson<int>(taskId),
       'tagId': serializer.toJson<int>(tagId),
     };
   }
 
-  OrganizerItemTagTableDriftG copyWith(
-          {int? organizerItemTagId, int? organizerItemId, int? tagId}) =>
-      OrganizerItemTagTableDriftG(
-        organizerItemTagId: organizerItemTagId ?? this.organizerItemTagId,
-        organizerItemId: organizerItemId ?? this.organizerItemId,
+  TaskTagTableDriftG copyWith({int? taskId, int? tagId}) => TaskTagTableDriftG(
+        taskId: taskId ?? this.taskId,
         tagId: tagId ?? this.tagId,
       );
   @override
   String toString() {
-    return (StringBuffer('OrganizerItemTagTableDriftG(')
-          ..write('organizerItemTagId: $organizerItemTagId, ')
-          ..write('organizerItemId: $organizerItemId, ')
+    return (StringBuffer('TaskTagTableDriftG(')
+          ..write('taskId: $taskId, ')
           ..write('tagId: $tagId')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(organizerItemTagId, organizerItemId, tagId);
+  int get hashCode => Object.hash(taskId, tagId);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is OrganizerItemTagTableDriftG &&
-          other.organizerItemTagId == this.organizerItemTagId &&
-          other.organizerItemId == this.organizerItemId &&
+      (other is TaskTagTableDriftG &&
+          other.taskId == this.taskId &&
           other.tagId == this.tagId);
 }
 
-class OrganizerItemTagTableDriftCompanion
-    extends UpdateCompanion<OrganizerItemTagTableDriftG> {
-  final Value<int> organizerItemTagId;
-  final Value<int> organizerItemId;
+class TaskTagTableDriftCompanion extends UpdateCompanion<TaskTagTableDriftG> {
+  final Value<int> taskId;
   final Value<int> tagId;
-  const OrganizerItemTagTableDriftCompanion({
-    this.organizerItemTagId = const Value.absent(),
-    this.organizerItemId = const Value.absent(),
+  final Value<int> rowid;
+  const TaskTagTableDriftCompanion({
+    this.taskId = const Value.absent(),
     this.tagId = const Value.absent(),
+    this.rowid = const Value.absent(),
   });
-  OrganizerItemTagTableDriftCompanion.insert({
-    this.organizerItemTagId = const Value.absent(),
-    required int organizerItemId,
+  TaskTagTableDriftCompanion.insert({
+    required int taskId,
     required int tagId,
-  })  : organizerItemId = Value(organizerItemId),
+    this.rowid = const Value.absent(),
+  })  : taskId = Value(taskId),
         tagId = Value(tagId);
-  static Insertable<OrganizerItemTagTableDriftG> custom({
-    Expression<int>? organizerItemTagId,
-    Expression<int>? organizerItemId,
+  static Insertable<TaskTagTableDriftG> custom({
+    Expression<int>? taskId,
     Expression<int>? tagId,
+    Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
-      if (organizerItemTagId != null)
-        'organizer_item_tag_id': organizerItemTagId,
-      if (organizerItemId != null) 'organizer_item_id': organizerItemId,
+      if (taskId != null) 'task_id': taskId,
       if (tagId != null) 'tag_id': tagId,
+      if (rowid != null) 'rowid': rowid,
     });
   }
 
-  OrganizerItemTagTableDriftCompanion copyWith(
-      {Value<int>? organizerItemTagId,
-      Value<int>? organizerItemId,
-      Value<int>? tagId}) {
-    return OrganizerItemTagTableDriftCompanion(
-      organizerItemTagId: organizerItemTagId ?? this.organizerItemTagId,
-      organizerItemId: organizerItemId ?? this.organizerItemId,
+  TaskTagTableDriftCompanion copyWith(
+      {Value<int>? taskId, Value<int>? tagId, Value<int>? rowid}) {
+    return TaskTagTableDriftCompanion(
+      taskId: taskId ?? this.taskId,
       tagId: tagId ?? this.tagId,
+      rowid: rowid ?? this.rowid,
     );
   }
 
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    if (organizerItemTagId.present) {
-      map['organizer_item_tag_id'] = Variable<int>(organizerItemTagId.value);
-    }
-    if (organizerItemId.present) {
-      map['organizer_item_id'] = Variable<int>(organizerItemId.value);
+    if (taskId.present) {
+      map['task_id'] = Variable<int>(taskId.value);
     }
     if (tagId.present) {
       map['tag_id'] = Variable<int>(tagId.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
     }
     return map;
   }
 
   @override
   String toString() {
-    return (StringBuffer('OrganizerItemTagTableDriftCompanion(')
-          ..write('organizerItemTagId: $organizerItemTagId, ')
-          ..write('organizerItemId: $organizerItemId, ')
-          ..write('tagId: $tagId')
+    return (StringBuffer('TaskTagTableDriftCompanion(')
+          ..write('taskId: $taskId, ')
+          ..write('tagId: $tagId, ')
+          ..write('rowid: $rowid')
           ..write(')'))
         .toString();
   }
 }
 
-class $OrganizerItemUserTableDriftTable extends OrganizerItemUserTableDrift
-    with
-        TableInfo<$OrganizerItemUserTableDriftTable,
-            OrganizerItemUserTableDriftG> {
+class $TaskUserTableDriftTable extends TaskUserTableDrift
+    with TableInfo<$TaskUserTableDriftTable, TaskUserTableDriftG> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $OrganizerItemUserTableDriftTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _organizerItemUserIdMeta =
-      const VerificationMeta('organizerItemUserId');
+  $TaskUserTableDriftTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _taskIdMeta = const VerificationMeta('taskId');
   @override
-  late final GeneratedColumn<int> organizerItemUserId = GeneratedColumn<int>(
-      'organizer_item_user_id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _organizerItemIdMeta =
-      const VerificationMeta('organizerItemId');
-  @override
-  late final GeneratedColumn<int> organizerItemId = GeneratedColumn<int>(
-      'organizer_item_id', aliasedName, false,
+  late final GeneratedColumn<int> taskId = GeneratedColumn<int>(
+      'task_id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
-      $customConstraints: 'REFERENCES OrganizerItemTableDriftG(id)');
+      $customConstraints: 'REFERENCES TaskTableDrift(id)');
   static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
   @override
   late final GeneratedColumn<int> userId = GeneratedColumn<int>(
       'user_id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
-      $customConstraints: 'REFERENCES UserTableDriftG(id)');
+      $customConstraints: 'REFERENCES UserTableDrift(id)');
   @override
-  List<GeneratedColumn> get $columns =>
-      [organizerItemUserId, organizerItemId, userId];
+  List<GeneratedColumn> get $columns => [taskId, userId];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
-  static const String $name = 'organizer_item_user_table_drift';
+  static const String $name = 'task_user_table_drift';
   @override
   VerificationContext validateIntegrity(
-      Insertable<OrganizerItemUserTableDriftG> instance,
+      Insertable<TaskUserTableDriftG> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
-    if (data.containsKey('organizer_item_user_id')) {
-      context.handle(
-          _organizerItemUserIdMeta,
-          organizerItemUserId.isAcceptableOrUnknown(
-              data['organizer_item_user_id']!, _organizerItemUserIdMeta));
-    }
-    if (data.containsKey('organizer_item_id')) {
-      context.handle(
-          _organizerItemIdMeta,
-          organizerItemId.isAcceptableOrUnknown(
-              data['organizer_item_id']!, _organizerItemIdMeta));
+    if (data.containsKey('task_id')) {
+      context.handle(_taskIdMeta,
+          taskId.isAcceptableOrUnknown(data['task_id']!, _taskIdMeta));
     } else if (isInserting) {
-      context.missing(_organizerItemIdMeta);
+      context.missing(_taskIdMeta);
     }
     if (data.containsKey('user_id')) {
       context.handle(_userIdMeta,
@@ -809,60 +740,49 @@ class $OrganizerItemUserTableDriftTable extends OrganizerItemUserTableDrift
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {organizerItemUserId};
+  Set<GeneratedColumn> get $primaryKey => const {};
   @override
-  OrganizerItemUserTableDriftG map(Map<String, dynamic> data,
-      {String? tablePrefix}) {
+  TaskUserTableDriftG map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return OrganizerItemUserTableDriftG(
-      organizerItemUserId: attachedDatabase.typeMapping.read(
-          DriftSqlType.int, data['${effectivePrefix}organizer_item_user_id'])!,
-      organizerItemId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}organizer_item_id'])!,
+    return TaskUserTableDriftG(
+      taskId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}task_id'])!,
       userId: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}user_id'])!,
     );
   }
 
   @override
-  $OrganizerItemUserTableDriftTable createAlias(String alias) {
-    return $OrganizerItemUserTableDriftTable(attachedDatabase, alias);
+  $TaskUserTableDriftTable createAlias(String alias) {
+    return $TaskUserTableDriftTable(attachedDatabase, alias);
   }
 }
 
-class OrganizerItemUserTableDriftG extends DataClass
-    implements Insertable<OrganizerItemUserTableDriftG> {
-  final int organizerItemUserId;
-  final int organizerItemId;
+class TaskUserTableDriftG extends DataClass
+    implements Insertable<TaskUserTableDriftG> {
+  final int taskId;
   final int userId;
-  const OrganizerItemUserTableDriftG(
-      {required this.organizerItemUserId,
-      required this.organizerItemId,
-      required this.userId});
+  const TaskUserTableDriftG({required this.taskId, required this.userId});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    map['organizer_item_user_id'] = Variable<int>(organizerItemUserId);
-    map['organizer_item_id'] = Variable<int>(organizerItemId);
+    map['task_id'] = Variable<int>(taskId);
     map['user_id'] = Variable<int>(userId);
     return map;
   }
 
-  OrganizerItemUserTableDriftCompanion toCompanion(bool nullToAbsent) {
-    return OrganizerItemUserTableDriftCompanion(
-      organizerItemUserId: Value(organizerItemUserId),
-      organizerItemId: Value(organizerItemId),
+  TaskUserTableDriftCompanion toCompanion(bool nullToAbsent) {
+    return TaskUserTableDriftCompanion(
+      taskId: Value(taskId),
       userId: Value(userId),
     );
   }
 
-  factory OrganizerItemUserTableDriftG.fromJson(Map<String, dynamic> json,
+  factory TaskUserTableDriftG.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return OrganizerItemUserTableDriftG(
-      organizerItemUserId:
-          serializer.fromJson<int>(json['organizerItemUserId']),
-      organizerItemId: serializer.fromJson<int>(json['organizerItemId']),
+    return TaskUserTableDriftG(
+      taskId: serializer.fromJson<int>(json['taskId']),
       userId: serializer.fromJson<int>(json['userId']),
     );
   }
@@ -870,101 +790,92 @@ class OrganizerItemUserTableDriftG extends DataClass
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'organizerItemUserId': serializer.toJson<int>(organizerItemUserId),
-      'organizerItemId': serializer.toJson<int>(organizerItemId),
+      'taskId': serializer.toJson<int>(taskId),
       'userId': serializer.toJson<int>(userId),
     };
   }
 
-  OrganizerItemUserTableDriftG copyWith(
-          {int? organizerItemUserId, int? organizerItemId, int? userId}) =>
-      OrganizerItemUserTableDriftG(
-        organizerItemUserId: organizerItemUserId ?? this.organizerItemUserId,
-        organizerItemId: organizerItemId ?? this.organizerItemId,
+  TaskUserTableDriftG copyWith({int? taskId, int? userId}) =>
+      TaskUserTableDriftG(
+        taskId: taskId ?? this.taskId,
         userId: userId ?? this.userId,
       );
   @override
   String toString() {
-    return (StringBuffer('OrganizerItemUserTableDriftG(')
-          ..write('organizerItemUserId: $organizerItemUserId, ')
-          ..write('organizerItemId: $organizerItemId, ')
+    return (StringBuffer('TaskUserTableDriftG(')
+          ..write('taskId: $taskId, ')
           ..write('userId: $userId')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(organizerItemUserId, organizerItemId, userId);
+  int get hashCode => Object.hash(taskId, userId);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is OrganizerItemUserTableDriftG &&
-          other.organizerItemUserId == this.organizerItemUserId &&
-          other.organizerItemId == this.organizerItemId &&
+      (other is TaskUserTableDriftG &&
+          other.taskId == this.taskId &&
           other.userId == this.userId);
 }
 
-class OrganizerItemUserTableDriftCompanion
-    extends UpdateCompanion<OrganizerItemUserTableDriftG> {
-  final Value<int> organizerItemUserId;
-  final Value<int> organizerItemId;
+class TaskUserTableDriftCompanion extends UpdateCompanion<TaskUserTableDriftG> {
+  final Value<int> taskId;
   final Value<int> userId;
-  const OrganizerItemUserTableDriftCompanion({
-    this.organizerItemUserId = const Value.absent(),
-    this.organizerItemId = const Value.absent(),
+  final Value<int> rowid;
+  const TaskUserTableDriftCompanion({
+    this.taskId = const Value.absent(),
     this.userId = const Value.absent(),
+    this.rowid = const Value.absent(),
   });
-  OrganizerItemUserTableDriftCompanion.insert({
-    this.organizerItemUserId = const Value.absent(),
-    required int organizerItemId,
+  TaskUserTableDriftCompanion.insert({
+    required int taskId,
     required int userId,
-  })  : organizerItemId = Value(organizerItemId),
+    this.rowid = const Value.absent(),
+  })  : taskId = Value(taskId),
         userId = Value(userId);
-  static Insertable<OrganizerItemUserTableDriftG> custom({
-    Expression<int>? organizerItemUserId,
-    Expression<int>? organizerItemId,
+  static Insertable<TaskUserTableDriftG> custom({
+    Expression<int>? taskId,
     Expression<int>? userId,
+    Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
-      if (organizerItemUserId != null)
-        'organizer_item_user_id': organizerItemUserId,
-      if (organizerItemId != null) 'organizer_item_id': organizerItemId,
+      if (taskId != null) 'task_id': taskId,
       if (userId != null) 'user_id': userId,
+      if (rowid != null) 'rowid': rowid,
     });
   }
 
-  OrganizerItemUserTableDriftCompanion copyWith(
-      {Value<int>? organizerItemUserId,
-      Value<int>? organizerItemId,
-      Value<int>? userId}) {
-    return OrganizerItemUserTableDriftCompanion(
-      organizerItemUserId: organizerItemUserId ?? this.organizerItemUserId,
-      organizerItemId: organizerItemId ?? this.organizerItemId,
+  TaskUserTableDriftCompanion copyWith(
+      {Value<int>? taskId, Value<int>? userId, Value<int>? rowid}) {
+    return TaskUserTableDriftCompanion(
+      taskId: taskId ?? this.taskId,
       userId: userId ?? this.userId,
+      rowid: rowid ?? this.rowid,
     );
   }
 
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    if (organizerItemUserId.present) {
-      map['organizer_item_user_id'] = Variable<int>(organizerItemUserId.value);
-    }
-    if (organizerItemId.present) {
-      map['organizer_item_id'] = Variable<int>(organizerItemId.value);
+    if (taskId.present) {
+      map['task_id'] = Variable<int>(taskId.value);
     }
     if (userId.present) {
       map['user_id'] = Variable<int>(userId.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
     }
     return map;
   }
 
   @override
   String toString() {
-    return (StringBuffer('OrganizerItemUserTableDriftCompanion(')
-          ..write('organizerItemUserId: $organizerItemUserId, ')
-          ..write('organizerItemId: $organizerItemId, ')
-          ..write('userId: $userId')
+    return (StringBuffer('TaskUserTableDriftCompanion(')
+          ..write('taskId: $taskId, ')
+          ..write('userId: $userId, ')
+          ..write('rowid: $rowid')
           ..write(')'))
         .toString();
   }
@@ -991,16 +902,15 @@ class $ReminderTableDriftTable extends ReminderTableDrift
   late final GeneratedColumn<DateTime> reminderDate = GeneratedColumn<DateTime>(
       'reminder_date', aliasedName, true,
       type: DriftSqlType.dateTime, requiredDuringInsert: false);
-  static const VerificationMeta _organizerItemIdMeta =
-      const VerificationMeta('organizerItemId');
+  static const VerificationMeta _taskIdMeta = const VerificationMeta('taskId');
   @override
-  late final GeneratedColumn<int> organizerItemId = GeneratedColumn<int>(
-      'organizer_item_id', aliasedName, false,
+  late final GeneratedColumn<int> taskId = GeneratedColumn<int>(
+      'task_id', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
-      $customConstraints: 'REFERENCES OrganizerItemTableDriftG(id)');
+      $customConstraints: 'REFERENCES TaskTableDrift(id) NOT NULL');
   @override
-  List<GeneratedColumn> get $columns => [id, reminderDate, organizerItemId];
+  List<GeneratedColumn> get $columns => [id, reminderDate, taskId];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -1021,13 +931,11 @@ class $ReminderTableDriftTable extends ReminderTableDrift
           reminderDate.isAcceptableOrUnknown(
               data['reminder_date']!, _reminderDateMeta));
     }
-    if (data.containsKey('organizer_item_id')) {
-      context.handle(
-          _organizerItemIdMeta,
-          organizerItemId.isAcceptableOrUnknown(
-              data['organizer_item_id']!, _organizerItemIdMeta));
+    if (data.containsKey('task_id')) {
+      context.handle(_taskIdMeta,
+          taskId.isAcceptableOrUnknown(data['task_id']!, _taskIdMeta));
     } else if (isInserting) {
-      context.missing(_organizerItemIdMeta);
+      context.missing(_taskIdMeta);
     }
     return context;
   }
@@ -1042,8 +950,8 @@ class $ReminderTableDriftTable extends ReminderTableDrift
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       reminderDate: attachedDatabase.typeMapping
           .read(DriftSqlType.dateTime, data['${effectivePrefix}reminder_date']),
-      organizerItemId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}organizer_item_id'])!,
+      taskId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}task_id'])!,
     );
   }
 
@@ -1057,9 +965,9 @@ class ReminderTableDriftG extends DataClass
     implements Insertable<ReminderTableDriftG> {
   final int id;
   final DateTime? reminderDate;
-  final int organizerItemId;
+  final int taskId;
   const ReminderTableDriftG(
-      {required this.id, this.reminderDate, required this.organizerItemId});
+      {required this.id, this.reminderDate, required this.taskId});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -1067,7 +975,7 @@ class ReminderTableDriftG extends DataClass
     if (!nullToAbsent || reminderDate != null) {
       map['reminder_date'] = Variable<DateTime>(reminderDate);
     }
-    map['organizer_item_id'] = Variable<int>(organizerItemId);
+    map['task_id'] = Variable<int>(taskId);
     return map;
   }
 
@@ -1077,7 +985,7 @@ class ReminderTableDriftG extends DataClass
       reminderDate: reminderDate == null && nullToAbsent
           ? const Value.absent()
           : Value(reminderDate),
-      organizerItemId: Value(organizerItemId),
+      taskId: Value(taskId),
     );
   }
 
@@ -1087,7 +995,7 @@ class ReminderTableDriftG extends DataClass
     return ReminderTableDriftG(
       id: serializer.fromJson<int>(json['id']),
       reminderDate: serializer.fromJson<DateTime?>(json['reminderDate']),
-      organizerItemId: serializer.fromJson<int>(json['organizerItemId']),
+      taskId: serializer.fromJson<int>(json['taskId']),
     );
   }
   @override
@@ -1096,75 +1004,73 @@ class ReminderTableDriftG extends DataClass
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'reminderDate': serializer.toJson<DateTime?>(reminderDate),
-      'organizerItemId': serializer.toJson<int>(organizerItemId),
+      'taskId': serializer.toJson<int>(taskId),
     };
   }
 
   ReminderTableDriftG copyWith(
           {int? id,
           Value<DateTime?> reminderDate = const Value.absent(),
-          int? organizerItemId}) =>
+          int? taskId}) =>
       ReminderTableDriftG(
         id: id ?? this.id,
         reminderDate:
             reminderDate.present ? reminderDate.value : this.reminderDate,
-        organizerItemId: organizerItemId ?? this.organizerItemId,
+        taskId: taskId ?? this.taskId,
       );
   @override
   String toString() {
     return (StringBuffer('ReminderTableDriftG(')
           ..write('id: $id, ')
           ..write('reminderDate: $reminderDate, ')
-          ..write('organizerItemId: $organizerItemId')
+          ..write('taskId: $taskId')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, reminderDate, organizerItemId);
+  int get hashCode => Object.hash(id, reminderDate, taskId);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is ReminderTableDriftG &&
           other.id == this.id &&
           other.reminderDate == this.reminderDate &&
-          other.organizerItemId == this.organizerItemId);
+          other.taskId == this.taskId);
 }
 
 class ReminderTableDriftCompanion extends UpdateCompanion<ReminderTableDriftG> {
   final Value<int> id;
   final Value<DateTime?> reminderDate;
-  final Value<int> organizerItemId;
+  final Value<int> taskId;
   const ReminderTableDriftCompanion({
     this.id = const Value.absent(),
     this.reminderDate = const Value.absent(),
-    this.organizerItemId = const Value.absent(),
+    this.taskId = const Value.absent(),
   });
   ReminderTableDriftCompanion.insert({
     this.id = const Value.absent(),
     this.reminderDate = const Value.absent(),
-    required int organizerItemId,
-  }) : organizerItemId = Value(organizerItemId);
+    required int taskId,
+  }) : taskId = Value(taskId);
   static Insertable<ReminderTableDriftG> custom({
     Expression<int>? id,
     Expression<DateTime>? reminderDate,
-    Expression<int>? organizerItemId,
+    Expression<int>? taskId,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (reminderDate != null) 'reminder_date': reminderDate,
-      if (organizerItemId != null) 'organizer_item_id': organizerItemId,
+      if (taskId != null) 'task_id': taskId,
     });
   }
 
   ReminderTableDriftCompanion copyWith(
-      {Value<int>? id,
-      Value<DateTime?>? reminderDate,
-      Value<int>? organizerItemId}) {
+      {Value<int>? id, Value<DateTime?>? reminderDate, Value<int>? taskId}) {
     return ReminderTableDriftCompanion(
       id: id ?? this.id,
       reminderDate: reminderDate ?? this.reminderDate,
-      organizerItemId: organizerItemId ?? this.organizerItemId,
+      taskId: taskId ?? this.taskId,
     );
   }
 
@@ -1177,8 +1083,8 @@ class ReminderTableDriftCompanion extends UpdateCompanion<ReminderTableDriftG> {
     if (reminderDate.present) {
       map['reminder_date'] = Variable<DateTime>(reminderDate.value);
     }
-    if (organizerItemId.present) {
-      map['organizer_item_id'] = Variable<int>(organizerItemId.value);
+    if (taskId.present) {
+      map['task_id'] = Variable<int>(taskId.value);
     }
     return map;
   }
@@ -1188,7 +1094,7 @@ class ReminderTableDriftCompanion extends UpdateCompanion<ReminderTableDriftG> {
     return (StringBuffer('ReminderTableDriftCompanion(')
           ..write('id: $id, ')
           ..write('reminderDate: $reminderDate, ')
-          ..write('organizerItemId: $organizerItemId')
+          ..write('taskId: $taskId')
           ..write(')'))
         .toString();
   }
@@ -1209,16 +1115,13 @@ class $TagTableDriftTable extends TagTableDrift
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _tagMeta = const VerificationMeta('tag');
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
-  late final GeneratedColumn<String> tag = GeneratedColumn<String>(
-      'tag', aliasedName, false,
-      additionalChecks:
-          GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 255),
-      type: DriftSqlType.string,
-      requiredDuringInsert: true);
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+      'name', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   @override
-  List<GeneratedColumn> get $columns => [id, tag];
+  List<GeneratedColumn> get $columns => [id, name];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -1232,11 +1135,11 @@ class $TagTableDriftTable extends TagTableDrift
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
-    if (data.containsKey('tag')) {
+    if (data.containsKey('name')) {
       context.handle(
-          _tagMeta, tag.isAcceptableOrUnknown(data['tag']!, _tagMeta));
+          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
     } else if (isInserting) {
-      context.missing(_tagMeta);
+      context.missing(_nameMeta);
     }
     return context;
   }
@@ -1249,8 +1152,8 @@ class $TagTableDriftTable extends TagTableDrift
     return TagTableDriftG(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      tag: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}tag'])!,
+      name: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
     );
   }
 
@@ -1262,20 +1165,20 @@ class $TagTableDriftTable extends TagTableDrift
 
 class TagTableDriftG extends DataClass implements Insertable<TagTableDriftG> {
   final int id;
-  final String tag;
-  const TagTableDriftG({required this.id, required this.tag});
+  final String name;
+  const TagTableDriftG({required this.id, required this.name});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
-    map['tag'] = Variable<String>(tag);
+    map['name'] = Variable<String>(name);
     return map;
   }
 
   TagTableDriftCompanion toCompanion(bool nullToAbsent) {
     return TagTableDriftCompanion(
       id: Value(id),
-      tag: Value(tag),
+      name: Value(name),
     );
   }
 
@@ -1284,7 +1187,7 @@ class TagTableDriftG extends DataClass implements Insertable<TagTableDriftG> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return TagTableDriftG(
       id: serializer.fromJson<int>(json['id']),
-      tag: serializer.fromJson<String>(json['tag']),
+      name: serializer.fromJson<String>(json['name']),
     );
   }
   @override
@@ -1292,56 +1195,58 @@ class TagTableDriftG extends DataClass implements Insertable<TagTableDriftG> {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
-      'tag': serializer.toJson<String>(tag),
+      'name': serializer.toJson<String>(name),
     };
   }
 
-  TagTableDriftG copyWith({int? id, String? tag}) => TagTableDriftG(
+  TagTableDriftG copyWith({int? id, String? name}) => TagTableDriftG(
         id: id ?? this.id,
-        tag: tag ?? this.tag,
+        name: name ?? this.name,
       );
   @override
   String toString() {
     return (StringBuffer('TagTableDriftG(')
           ..write('id: $id, ')
-          ..write('tag: $tag')
+          ..write('name: $name')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, tag);
+  int get hashCode => Object.hash(id, name);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is TagTableDriftG && other.id == this.id && other.tag == this.tag);
+      (other is TagTableDriftG &&
+          other.id == this.id &&
+          other.name == this.name);
 }
 
 class TagTableDriftCompanion extends UpdateCompanion<TagTableDriftG> {
   final Value<int> id;
-  final Value<String> tag;
+  final Value<String> name;
   const TagTableDriftCompanion({
     this.id = const Value.absent(),
-    this.tag = const Value.absent(),
+    this.name = const Value.absent(),
   });
   TagTableDriftCompanion.insert({
     this.id = const Value.absent(),
-    required String tag,
-  }) : tag = Value(tag);
+    required String name,
+  }) : name = Value(name);
   static Insertable<TagTableDriftG> custom({
     Expression<int>? id,
-    Expression<String>? tag,
+    Expression<String>? name,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
-      if (tag != null) 'tag': tag,
+      if (name != null) 'name': name,
     });
   }
 
-  TagTableDriftCompanion copyWith({Value<int>? id, Value<String>? tag}) {
+  TagTableDriftCompanion copyWith({Value<int>? id, Value<String>? name}) {
     return TagTableDriftCompanion(
       id: id ?? this.id,
-      tag: tag ?? this.tag,
+      name: name ?? this.name,
     );
   }
 
@@ -1351,8 +1256,8 @@ class TagTableDriftCompanion extends UpdateCompanion<TagTableDriftG> {
     if (id.present) {
       map['id'] = Variable<int>(id.value);
     }
-    if (tag.present) {
-      map['tag'] = Variable<String>(tag.value);
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
     }
     return map;
   }
@@ -1361,7 +1266,7 @@ class TagTableDriftCompanion extends UpdateCompanion<TagTableDriftG> {
   String toString() {
     return (StringBuffer('TagTableDriftCompanion(')
           ..write('id: $id, ')
-          ..write('tag: $tag')
+          ..write('name: $name')
           ..write(')'))
         .toString();
   }
@@ -1397,14 +1302,12 @@ class $TaskTableDriftTable extends TaskTableDrift
   late final GeneratedColumn<DateTime> createdDate = GeneratedColumn<DateTime>(
       'created_date', aliasedName, false,
       type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  static const VerificationMeta _creatorIDMeta =
-      const VerificationMeta('creatorID');
+  static const VerificationMeta _creatorIdMeta =
+      const VerificationMeta('creatorId');
   @override
-  late final GeneratedColumn<int> creatorID = GeneratedColumn<int>(
-      'creator_i_d', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      $customConstraints: 'REFERENCES User(id)');
+  late final GeneratedColumn<int> creatorId = GeneratedColumn<int>(
+      'creator_id', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
   static const VerificationMeta _remoteIdMeta =
       const VerificationMeta('remoteId');
   @override
@@ -1487,7 +1390,7 @@ class $TaskTableDriftTable extends TaskTableDrift
         id,
         subject,
         createdDate,
-        creatorID,
+        creatorId,
         remoteId,
         lastUpdate,
         lastViewDate,
@@ -1529,13 +1432,11 @@ class $TaskTableDriftTable extends TaskTableDrift
     } else if (isInserting) {
       context.missing(_createdDateMeta);
     }
-    if (data.containsKey('creator_i_d')) {
-      context.handle(
-          _creatorIDMeta,
-          creatorID.isAcceptableOrUnknown(
-              data['creator_i_d']!, _creatorIDMeta));
+    if (data.containsKey('creator_id')) {
+      context.handle(_creatorIdMeta,
+          creatorId.isAcceptableOrUnknown(data['creator_id']!, _creatorIdMeta));
     } else if (isInserting) {
-      context.missing(_creatorIDMeta);
+      context.missing(_creatorIdMeta);
     }
     if (data.containsKey('remote_id')) {
       context.handle(_remoteIdMeta,
@@ -1620,8 +1521,8 @@ class $TaskTableDriftTable extends TaskTableDrift
           .read(DriftSqlType.string, data['${effectivePrefix}subject'])!,
       createdDate: attachedDatabase.typeMapping
           .read(DriftSqlType.dateTime, data['${effectivePrefix}created_date'])!,
-      creatorID: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}creator_i_d'])!,
+      creatorId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}creator_id'])!,
       remoteId: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}remote_id']),
       lastUpdate: attachedDatabase.typeMapping
@@ -1661,7 +1562,7 @@ class TaskTableDriftG extends DataClass implements Insertable<TaskTableDriftG> {
   final int id;
   final String subject;
   final DateTime createdDate;
-  final int creatorID;
+  final int creatorId;
   final int? remoteId;
   final DateTime? lastUpdate;
   final DateTime? lastViewDate;
@@ -1679,7 +1580,7 @@ class TaskTableDriftG extends DataClass implements Insertable<TaskTableDriftG> {
       {required this.id,
       required this.subject,
       required this.createdDate,
-      required this.creatorID,
+      required this.creatorId,
       this.remoteId,
       this.lastUpdate,
       this.lastViewDate,
@@ -1699,7 +1600,7 @@ class TaskTableDriftG extends DataClass implements Insertable<TaskTableDriftG> {
     map['id'] = Variable<int>(id);
     map['subject'] = Variable<String>(subject);
     map['created_date'] = Variable<DateTime>(createdDate);
-    map['creator_i_d'] = Variable<int>(creatorID);
+    map['creator_id'] = Variable<int>(creatorId);
     if (!nullToAbsent || remoteId != null) {
       map['remote_id'] = Variable<int>(remoteId);
     }
@@ -1747,7 +1648,7 @@ class TaskTableDriftG extends DataClass implements Insertable<TaskTableDriftG> {
       id: Value(id),
       subject: Value(subject),
       createdDate: Value(createdDate),
-      creatorID: Value(creatorID),
+      creatorId: Value(creatorId),
       remoteId: remoteId == null && nullToAbsent
           ? const Value.absent()
           : Value(remoteId),
@@ -1796,7 +1697,7 @@ class TaskTableDriftG extends DataClass implements Insertable<TaskTableDriftG> {
       id: serializer.fromJson<int>(json['id']),
       subject: serializer.fromJson<String>(json['subject']),
       createdDate: serializer.fromJson<DateTime>(json['createdDate']),
-      creatorID: serializer.fromJson<int>(json['creatorID']),
+      creatorId: serializer.fromJson<int>(json['creatorId']),
       remoteId: serializer.fromJson<int?>(json['remoteId']),
       lastUpdate: serializer.fromJson<DateTime?>(json['lastUpdate']),
       lastViewDate: serializer.fromJson<DateTime?>(json['lastViewDate']),
@@ -1820,7 +1721,7 @@ class TaskTableDriftG extends DataClass implements Insertable<TaskTableDriftG> {
       'id': serializer.toJson<int>(id),
       'subject': serializer.toJson<String>(subject),
       'createdDate': serializer.toJson<DateTime>(createdDate),
-      'creatorID': serializer.toJson<int>(creatorID),
+      'creatorId': serializer.toJson<int>(creatorId),
       'remoteId': serializer.toJson<int?>(remoteId),
       'lastUpdate': serializer.toJson<DateTime?>(lastUpdate),
       'lastViewDate': serializer.toJson<DateTime?>(lastViewDate),
@@ -1841,7 +1742,7 @@ class TaskTableDriftG extends DataClass implements Insertable<TaskTableDriftG> {
           {int? id,
           String? subject,
           DateTime? createdDate,
-          int? creatorID,
+          int? creatorId,
           Value<int?> remoteId = const Value.absent(),
           Value<DateTime?> lastUpdate = const Value.absent(),
           Value<DateTime?> lastViewDate = const Value.absent(),
@@ -1859,7 +1760,7 @@ class TaskTableDriftG extends DataClass implements Insertable<TaskTableDriftG> {
         id: id ?? this.id,
         subject: subject ?? this.subject,
         createdDate: createdDate ?? this.createdDate,
-        creatorID: creatorID ?? this.creatorID,
+        creatorId: creatorId ?? this.creatorId,
         remoteId: remoteId.present ? remoteId.value : this.remoteId,
         lastUpdate: lastUpdate.present ? lastUpdate.value : this.lastUpdate,
         lastViewDate:
@@ -1886,7 +1787,7 @@ class TaskTableDriftG extends DataClass implements Insertable<TaskTableDriftG> {
           ..write('id: $id, ')
           ..write('subject: $subject, ')
           ..write('createdDate: $createdDate, ')
-          ..write('creatorID: $creatorID, ')
+          ..write('creatorId: $creatorId, ')
           ..write('remoteId: $remoteId, ')
           ..write('lastUpdate: $lastUpdate, ')
           ..write('lastViewDate: $lastViewDate, ')
@@ -1909,7 +1810,7 @@ class TaskTableDriftG extends DataClass implements Insertable<TaskTableDriftG> {
       id,
       subject,
       createdDate,
-      creatorID,
+      creatorId,
       remoteId,
       lastUpdate,
       lastViewDate,
@@ -1930,7 +1831,7 @@ class TaskTableDriftG extends DataClass implements Insertable<TaskTableDriftG> {
           other.id == this.id &&
           other.subject == this.subject &&
           other.createdDate == this.createdDate &&
-          other.creatorID == this.creatorID &&
+          other.creatorId == this.creatorId &&
           other.remoteId == this.remoteId &&
           other.lastUpdate == this.lastUpdate &&
           other.lastViewDate == this.lastViewDate &&
@@ -1950,7 +1851,7 @@ class TaskTableDriftCompanion extends UpdateCompanion<TaskTableDriftG> {
   final Value<int> id;
   final Value<String> subject;
   final Value<DateTime> createdDate;
-  final Value<int> creatorID;
+  final Value<int> creatorId;
   final Value<int?> remoteId;
   final Value<DateTime?> lastUpdate;
   final Value<DateTime?> lastViewDate;
@@ -1968,7 +1869,7 @@ class TaskTableDriftCompanion extends UpdateCompanion<TaskTableDriftG> {
     this.id = const Value.absent(),
     this.subject = const Value.absent(),
     this.createdDate = const Value.absent(),
-    this.creatorID = const Value.absent(),
+    this.creatorId = const Value.absent(),
     this.remoteId = const Value.absent(),
     this.lastUpdate = const Value.absent(),
     this.lastViewDate = const Value.absent(),
@@ -1987,7 +1888,7 @@ class TaskTableDriftCompanion extends UpdateCompanion<TaskTableDriftG> {
     this.id = const Value.absent(),
     required String subject,
     required DateTime createdDate,
-    required int creatorID,
+    required int creatorId,
     this.remoteId = const Value.absent(),
     this.lastUpdate = const Value.absent(),
     this.lastViewDate = const Value.absent(),
@@ -2003,12 +1904,12 @@ class TaskTableDriftCompanion extends UpdateCompanion<TaskTableDriftG> {
     this.taskStatus = const Value.absent(),
   })  : subject = Value(subject),
         createdDate = Value(createdDate),
-        creatorID = Value(creatorID);
+        creatorId = Value(creatorId);
   static Insertable<TaskTableDriftG> custom({
     Expression<int>? id,
     Expression<String>? subject,
     Expression<DateTime>? createdDate,
-    Expression<int>? creatorID,
+    Expression<int>? creatorId,
     Expression<int>? remoteId,
     Expression<DateTime>? lastUpdate,
     Expression<DateTime>? lastViewDate,
@@ -2027,7 +1928,7 @@ class TaskTableDriftCompanion extends UpdateCompanion<TaskTableDriftG> {
       if (id != null) 'id': id,
       if (subject != null) 'subject': subject,
       if (createdDate != null) 'created_date': createdDate,
-      if (creatorID != null) 'creator_i_d': creatorID,
+      if (creatorId != null) 'creator_id': creatorId,
       if (remoteId != null) 'remote_id': remoteId,
       if (lastUpdate != null) 'last_update': lastUpdate,
       if (lastViewDate != null) 'last_view_date': lastViewDate,
@@ -2048,7 +1949,7 @@ class TaskTableDriftCompanion extends UpdateCompanion<TaskTableDriftG> {
       {Value<int>? id,
       Value<String>? subject,
       Value<DateTime>? createdDate,
-      Value<int>? creatorID,
+      Value<int>? creatorId,
       Value<int?>? remoteId,
       Value<DateTime?>? lastUpdate,
       Value<DateTime?>? lastViewDate,
@@ -2066,7 +1967,7 @@ class TaskTableDriftCompanion extends UpdateCompanion<TaskTableDriftG> {
       id: id ?? this.id,
       subject: subject ?? this.subject,
       createdDate: createdDate ?? this.createdDate,
-      creatorID: creatorID ?? this.creatorID,
+      creatorId: creatorId ?? this.creatorId,
       remoteId: remoteId ?? this.remoteId,
       lastUpdate: lastUpdate ?? this.lastUpdate,
       lastViewDate: lastViewDate ?? this.lastViewDate,
@@ -2095,8 +1996,8 @@ class TaskTableDriftCompanion extends UpdateCompanion<TaskTableDriftG> {
     if (createdDate.present) {
       map['created_date'] = Variable<DateTime>(createdDate.value);
     }
-    if (creatorID.present) {
-      map['creator_i_d'] = Variable<int>(creatorID.value);
+    if (creatorId.present) {
+      map['creator_id'] = Variable<int>(creatorId.value);
     }
     if (remoteId.present) {
       map['remote_id'] = Variable<int>(remoteId.value);
@@ -2146,7 +2047,7 @@ class TaskTableDriftCompanion extends UpdateCompanion<TaskTableDriftG> {
           ..write('id: $id, ')
           ..write('subject: $subject, ')
           ..write('createdDate: $createdDate, ')
-          ..write('creatorID: $creatorID, ')
+          ..write('creatorId: $creatorId, ')
           ..write('remoteId: $remoteId, ')
           ..write('lastUpdate: $lastUpdate, ')
           ..write('lastViewDate: $lastViewDate, ')
@@ -2184,10 +2085,7 @@ class $UserTableDriftTable extends UserTableDrift
   @override
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
       'name', aliasedName, false,
-      additionalChecks:
-          GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 255),
-      type: DriftSqlType.string,
-      requiredDuringInsert: true);
+      type: DriftSqlType.string, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns => [id, name];
   @override
@@ -2345,10 +2243,10 @@ abstract class _$OrganizerDriftDB extends GeneratedDatabase {
   _$OrganizerDriftDBManager get managers => _$OrganizerDriftDBManager(this);
   late final $OrganizerItemTableDriftTable organizerItemTableDrift =
       $OrganizerItemTableDriftTable(this);
-  late final $OrganizerItemTagTableDriftTable organizerItemTagTableDrift =
-      $OrganizerItemTagTableDriftTable(this);
-  late final $OrganizerItemUserTableDriftTable organizerItemUserTableDrift =
-      $OrganizerItemUserTableDriftTable(this);
+  late final $TaskTagTableDriftTable taskTagTableDrift =
+      $TaskTagTableDriftTable(this);
+  late final $TaskUserTableDriftTable taskUserTableDrift =
+      $TaskUserTableDriftTable(this);
   late final $ReminderTableDriftTable reminderTableDrift =
       $ReminderTableDriftTable(this);
   late final $TagTableDriftTable tagTableDrift = $TagTableDriftTable(this);
@@ -2356,10 +2254,10 @@ abstract class _$OrganizerDriftDB extends GeneratedDatabase {
   late final $UserTableDriftTable userTableDrift = $UserTableDriftTable(this);
   late final OrganizerItemDaoDrift organizerItemDaoDrift =
       OrganizerItemDaoDrift(this as OrganizerDriftDB);
-  late final OrganizerItemTagDaoDrift organizerItemTagDaoDrift =
-      OrganizerItemTagDaoDrift(this as OrganizerDriftDB);
-  late final OrganizerItemUserDaoDrift organizerItemUserDaoDrift =
-      OrganizerItemUserDaoDrift(this as OrganizerDriftDB);
+  late final TaskTagDaoDrift taskTagDaoDrift =
+      TaskTagDaoDrift(this as OrganizerDriftDB);
+  late final TaskUserDaoDrift taskUserDaoDrift =
+      TaskUserDaoDrift(this as OrganizerDriftDB);
   late final ReminderDaoDrift reminderDaoDrift =
       ReminderDaoDrift(this as OrganizerDriftDB);
   late final TagDaoDrift tagDaoDrift = TagDaoDrift(this as OrganizerDriftDB);
@@ -2371,8 +2269,8 @@ abstract class _$OrganizerDriftDB extends GeneratedDatabase {
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [
         organizerItemTableDrift,
-        organizerItemTagTableDrift,
-        organizerItemUserTableDrift,
+        taskTagTableDrift,
+        taskUserTableDrift,
         reminderTableDrift,
         tagTableDrift,
         taskTableDrift,
@@ -2385,7 +2283,7 @@ typedef $$OrganizerItemTableDriftTableInsertCompanionBuilder
   Value<int> id,
   required String subject,
   required DateTime createdDate,
-  required int creatorID,
+  required int creatorId,
   Value<int?> remoteId,
   Value<DateTime?> lastUpdate,
   Value<DateTime?> lastViewDate,
@@ -2398,7 +2296,7 @@ typedef $$OrganizerItemTableDriftTableUpdateCompanionBuilder
   Value<int> id,
   Value<String> subject,
   Value<DateTime> createdDate,
-  Value<int> creatorID,
+  Value<int> creatorId,
   Value<int?> remoteId,
   Value<DateTime?> lastUpdate,
   Value<DateTime?> lastViewDate,
@@ -2431,7 +2329,7 @@ class $$OrganizerItemTableDriftTableTableManager extends RootTableManager<
             Value<int> id = const Value.absent(),
             Value<String> subject = const Value.absent(),
             Value<DateTime> createdDate = const Value.absent(),
-            Value<int> creatorID = const Value.absent(),
+            Value<int> creatorId = const Value.absent(),
             Value<int?> remoteId = const Value.absent(),
             Value<DateTime?> lastUpdate = const Value.absent(),
             Value<DateTime?> lastViewDate = const Value.absent(),
@@ -2443,7 +2341,7 @@ class $$OrganizerItemTableDriftTableTableManager extends RootTableManager<
             id: id,
             subject: subject,
             createdDate: createdDate,
-            creatorID: creatorID,
+            creatorId: creatorId,
             remoteId: remoteId,
             lastUpdate: lastUpdate,
             lastViewDate: lastViewDate,
@@ -2455,7 +2353,7 @@ class $$OrganizerItemTableDriftTableTableManager extends RootTableManager<
             Value<int> id = const Value.absent(),
             required String subject,
             required DateTime createdDate,
-            required int creatorID,
+            required int creatorId,
             Value<int?> remoteId = const Value.absent(),
             Value<DateTime?> lastUpdate = const Value.absent(),
             Value<DateTime?> lastViewDate = const Value.absent(),
@@ -2467,7 +2365,7 @@ class $$OrganizerItemTableDriftTableTableManager extends RootTableManager<
             id: id,
             subject: subject,
             createdDate: createdDate,
-            creatorID: creatorID,
+            creatorId: creatorId,
             remoteId: remoteId,
             lastUpdate: lastUpdate,
             lastViewDate: lastViewDate,
@@ -2509,8 +2407,8 @@ class $$OrganizerItemTableDriftTableFilterComposer
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
-  ColumnFilters<int> get creatorID => $state.composableBuilder(
-      column: $state.table.creatorID,
+  ColumnFilters<int> get creatorId => $state.composableBuilder(
+      column: $state.table.creatorId,
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
@@ -2563,8 +2461,8 @@ class $$OrganizerItemTableDriftTableOrderingComposer extends OrderingComposer<
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 
-  ColumnOrderings<int> get creatorID => $state.composableBuilder(
-      column: $state.table.creatorID,
+  ColumnOrderings<int> get creatorId => $state.composableBuilder(
+      column: $state.table.creatorId,
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 
@@ -2599,85 +2497,80 @@ class $$OrganizerItemTableDriftTableOrderingComposer extends OrderingComposer<
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
-typedef $$OrganizerItemTagTableDriftTableInsertCompanionBuilder
-    = OrganizerItemTagTableDriftCompanion Function({
-  Value<int> organizerItemTagId,
-  required int organizerItemId,
+typedef $$TaskTagTableDriftTableInsertCompanionBuilder
+    = TaskTagTableDriftCompanion Function({
+  required int taskId,
   required int tagId,
+  Value<int> rowid,
 });
-typedef $$OrganizerItemTagTableDriftTableUpdateCompanionBuilder
-    = OrganizerItemTagTableDriftCompanion Function({
-  Value<int> organizerItemTagId,
-  Value<int> organizerItemId,
+typedef $$TaskTagTableDriftTableUpdateCompanionBuilder
+    = TaskTagTableDriftCompanion Function({
+  Value<int> taskId,
   Value<int> tagId,
+  Value<int> rowid,
 });
 
-class $$OrganizerItemTagTableDriftTableTableManager extends RootTableManager<
+class $$TaskTagTableDriftTableTableManager extends RootTableManager<
     _$OrganizerDriftDB,
-    $OrganizerItemTagTableDriftTable,
-    OrganizerItemTagTableDriftG,
-    $$OrganizerItemTagTableDriftTableFilterComposer,
-    $$OrganizerItemTagTableDriftTableOrderingComposer,
-    $$OrganizerItemTagTableDriftTableProcessedTableManager,
-    $$OrganizerItemTagTableDriftTableInsertCompanionBuilder,
-    $$OrganizerItemTagTableDriftTableUpdateCompanionBuilder> {
-  $$OrganizerItemTagTableDriftTableTableManager(
-      _$OrganizerDriftDB db, $OrganizerItemTagTableDriftTable table)
+    $TaskTagTableDriftTable,
+    TaskTagTableDriftG,
+    $$TaskTagTableDriftTableFilterComposer,
+    $$TaskTagTableDriftTableOrderingComposer,
+    $$TaskTagTableDriftTableProcessedTableManager,
+    $$TaskTagTableDriftTableInsertCompanionBuilder,
+    $$TaskTagTableDriftTableUpdateCompanionBuilder> {
+  $$TaskTagTableDriftTableTableManager(
+      _$OrganizerDriftDB db, $TaskTagTableDriftTable table)
       : super(TableManagerState(
           db: db,
           table: table,
-          filteringComposer: $$OrganizerItemTagTableDriftTableFilterComposer(
-              ComposerState(db, table)),
-          orderingComposer: $$OrganizerItemTagTableDriftTableOrderingComposer(
+          filteringComposer:
+              $$TaskTagTableDriftTableFilterComposer(ComposerState(db, table)),
+          orderingComposer: $$TaskTagTableDriftTableOrderingComposer(
               ComposerState(db, table)),
           getChildManagerBuilder: (p) =>
-              $$OrganizerItemTagTableDriftTableProcessedTableManager(p),
+              $$TaskTagTableDriftTableProcessedTableManager(p),
           getUpdateCompanionBuilder: ({
-            Value<int> organizerItemTagId = const Value.absent(),
-            Value<int> organizerItemId = const Value.absent(),
+            Value<int> taskId = const Value.absent(),
             Value<int> tagId = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
           }) =>
-              OrganizerItemTagTableDriftCompanion(
-            organizerItemTagId: organizerItemTagId,
-            organizerItemId: organizerItemId,
+              TaskTagTableDriftCompanion(
+            taskId: taskId,
             tagId: tagId,
+            rowid: rowid,
           ),
           getInsertCompanionBuilder: ({
-            Value<int> organizerItemTagId = const Value.absent(),
-            required int organizerItemId,
+            required int taskId,
             required int tagId,
+            Value<int> rowid = const Value.absent(),
           }) =>
-              OrganizerItemTagTableDriftCompanion.insert(
-            organizerItemTagId: organizerItemTagId,
-            organizerItemId: organizerItemId,
+              TaskTagTableDriftCompanion.insert(
+            taskId: taskId,
             tagId: tagId,
+            rowid: rowid,
           ),
         ));
 }
 
-class $$OrganizerItemTagTableDriftTableProcessedTableManager
+class $$TaskTagTableDriftTableProcessedTableManager
     extends ProcessedTableManager<
         _$OrganizerDriftDB,
-        $OrganizerItemTagTableDriftTable,
-        OrganizerItemTagTableDriftG,
-        $$OrganizerItemTagTableDriftTableFilterComposer,
-        $$OrganizerItemTagTableDriftTableOrderingComposer,
-        $$OrganizerItemTagTableDriftTableProcessedTableManager,
-        $$OrganizerItemTagTableDriftTableInsertCompanionBuilder,
-        $$OrganizerItemTagTableDriftTableUpdateCompanionBuilder> {
-  $$OrganizerItemTagTableDriftTableProcessedTableManager(super.$state);
+        $TaskTagTableDriftTable,
+        TaskTagTableDriftG,
+        $$TaskTagTableDriftTableFilterComposer,
+        $$TaskTagTableDriftTableOrderingComposer,
+        $$TaskTagTableDriftTableProcessedTableManager,
+        $$TaskTagTableDriftTableInsertCompanionBuilder,
+        $$TaskTagTableDriftTableUpdateCompanionBuilder> {
+  $$TaskTagTableDriftTableProcessedTableManager(super.$state);
 }
 
-class $$OrganizerItemTagTableDriftTableFilterComposer extends FilterComposer<
-    _$OrganizerDriftDB, $OrganizerItemTagTableDriftTable> {
-  $$OrganizerItemTagTableDriftTableFilterComposer(super.$state);
-  ColumnFilters<int> get organizerItemTagId => $state.composableBuilder(
-      column: $state.table.organizerItemTagId,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get organizerItemId => $state.composableBuilder(
-      column: $state.table.organizerItemId,
+class $$TaskTagTableDriftTableFilterComposer
+    extends FilterComposer<_$OrganizerDriftDB, $TaskTagTableDriftTable> {
+  $$TaskTagTableDriftTableFilterComposer(super.$state);
+  ColumnFilters<int> get taskId => $state.composableBuilder(
+      column: $state.table.taskId,
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
@@ -2687,17 +2580,11 @@ class $$OrganizerItemTagTableDriftTableFilterComposer extends FilterComposer<
           ColumnFilters(column, joinBuilders: joinBuilders));
 }
 
-class $$OrganizerItemTagTableDriftTableOrderingComposer
-    extends OrderingComposer<_$OrganizerDriftDB,
-        $OrganizerItemTagTableDriftTable> {
-  $$OrganizerItemTagTableDriftTableOrderingComposer(super.$state);
-  ColumnOrderings<int> get organizerItemTagId => $state.composableBuilder(
-      column: $state.table.organizerItemTagId,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get organizerItemId => $state.composableBuilder(
-      column: $state.table.organizerItemId,
+class $$TaskTagTableDriftTableOrderingComposer
+    extends OrderingComposer<_$OrganizerDriftDB, $TaskTagTableDriftTable> {
+  $$TaskTagTableDriftTableOrderingComposer(super.$state);
+  ColumnOrderings<int> get taskId => $state.composableBuilder(
+      column: $state.table.taskId,
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 
@@ -2707,85 +2594,80 @@ class $$OrganizerItemTagTableDriftTableOrderingComposer
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
-typedef $$OrganizerItemUserTableDriftTableInsertCompanionBuilder
-    = OrganizerItemUserTableDriftCompanion Function({
-  Value<int> organizerItemUserId,
-  required int organizerItemId,
+typedef $$TaskUserTableDriftTableInsertCompanionBuilder
+    = TaskUserTableDriftCompanion Function({
+  required int taskId,
   required int userId,
+  Value<int> rowid,
 });
-typedef $$OrganizerItemUserTableDriftTableUpdateCompanionBuilder
-    = OrganizerItemUserTableDriftCompanion Function({
-  Value<int> organizerItemUserId,
-  Value<int> organizerItemId,
+typedef $$TaskUserTableDriftTableUpdateCompanionBuilder
+    = TaskUserTableDriftCompanion Function({
+  Value<int> taskId,
   Value<int> userId,
+  Value<int> rowid,
 });
 
-class $$OrganizerItemUserTableDriftTableTableManager extends RootTableManager<
+class $$TaskUserTableDriftTableTableManager extends RootTableManager<
     _$OrganizerDriftDB,
-    $OrganizerItemUserTableDriftTable,
-    OrganizerItemUserTableDriftG,
-    $$OrganizerItemUserTableDriftTableFilterComposer,
-    $$OrganizerItemUserTableDriftTableOrderingComposer,
-    $$OrganizerItemUserTableDriftTableProcessedTableManager,
-    $$OrganizerItemUserTableDriftTableInsertCompanionBuilder,
-    $$OrganizerItemUserTableDriftTableUpdateCompanionBuilder> {
-  $$OrganizerItemUserTableDriftTableTableManager(
-      _$OrganizerDriftDB db, $OrganizerItemUserTableDriftTable table)
+    $TaskUserTableDriftTable,
+    TaskUserTableDriftG,
+    $$TaskUserTableDriftTableFilterComposer,
+    $$TaskUserTableDriftTableOrderingComposer,
+    $$TaskUserTableDriftTableProcessedTableManager,
+    $$TaskUserTableDriftTableInsertCompanionBuilder,
+    $$TaskUserTableDriftTableUpdateCompanionBuilder> {
+  $$TaskUserTableDriftTableTableManager(
+      _$OrganizerDriftDB db, $TaskUserTableDriftTable table)
       : super(TableManagerState(
           db: db,
           table: table,
-          filteringComposer: $$OrganizerItemUserTableDriftTableFilterComposer(
-              ComposerState(db, table)),
-          orderingComposer: $$OrganizerItemUserTableDriftTableOrderingComposer(
+          filteringComposer:
+              $$TaskUserTableDriftTableFilterComposer(ComposerState(db, table)),
+          orderingComposer: $$TaskUserTableDriftTableOrderingComposer(
               ComposerState(db, table)),
           getChildManagerBuilder: (p) =>
-              $$OrganizerItemUserTableDriftTableProcessedTableManager(p),
+              $$TaskUserTableDriftTableProcessedTableManager(p),
           getUpdateCompanionBuilder: ({
-            Value<int> organizerItemUserId = const Value.absent(),
-            Value<int> organizerItemId = const Value.absent(),
+            Value<int> taskId = const Value.absent(),
             Value<int> userId = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
           }) =>
-              OrganizerItemUserTableDriftCompanion(
-            organizerItemUserId: organizerItemUserId,
-            organizerItemId: organizerItemId,
+              TaskUserTableDriftCompanion(
+            taskId: taskId,
             userId: userId,
+            rowid: rowid,
           ),
           getInsertCompanionBuilder: ({
-            Value<int> organizerItemUserId = const Value.absent(),
-            required int organizerItemId,
+            required int taskId,
             required int userId,
+            Value<int> rowid = const Value.absent(),
           }) =>
-              OrganizerItemUserTableDriftCompanion.insert(
-            organizerItemUserId: organizerItemUserId,
-            organizerItemId: organizerItemId,
+              TaskUserTableDriftCompanion.insert(
+            taskId: taskId,
             userId: userId,
+            rowid: rowid,
           ),
         ));
 }
 
-class $$OrganizerItemUserTableDriftTableProcessedTableManager
+class $$TaskUserTableDriftTableProcessedTableManager
     extends ProcessedTableManager<
         _$OrganizerDriftDB,
-        $OrganizerItemUserTableDriftTable,
-        OrganizerItemUserTableDriftG,
-        $$OrganizerItemUserTableDriftTableFilterComposer,
-        $$OrganizerItemUserTableDriftTableOrderingComposer,
-        $$OrganizerItemUserTableDriftTableProcessedTableManager,
-        $$OrganizerItemUserTableDriftTableInsertCompanionBuilder,
-        $$OrganizerItemUserTableDriftTableUpdateCompanionBuilder> {
-  $$OrganizerItemUserTableDriftTableProcessedTableManager(super.$state);
+        $TaskUserTableDriftTable,
+        TaskUserTableDriftG,
+        $$TaskUserTableDriftTableFilterComposer,
+        $$TaskUserTableDriftTableOrderingComposer,
+        $$TaskUserTableDriftTableProcessedTableManager,
+        $$TaskUserTableDriftTableInsertCompanionBuilder,
+        $$TaskUserTableDriftTableUpdateCompanionBuilder> {
+  $$TaskUserTableDriftTableProcessedTableManager(super.$state);
 }
 
-class $$OrganizerItemUserTableDriftTableFilterComposer extends FilterComposer<
-    _$OrganizerDriftDB, $OrganizerItemUserTableDriftTable> {
-  $$OrganizerItemUserTableDriftTableFilterComposer(super.$state);
-  ColumnFilters<int> get organizerItemUserId => $state.composableBuilder(
-      column: $state.table.organizerItemUserId,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get organizerItemId => $state.composableBuilder(
-      column: $state.table.organizerItemId,
+class $$TaskUserTableDriftTableFilterComposer
+    extends FilterComposer<_$OrganizerDriftDB, $TaskUserTableDriftTable> {
+  $$TaskUserTableDriftTableFilterComposer(super.$state);
+  ColumnFilters<int> get taskId => $state.composableBuilder(
+      column: $state.table.taskId,
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
@@ -2795,17 +2677,11 @@ class $$OrganizerItemUserTableDriftTableFilterComposer extends FilterComposer<
           ColumnFilters(column, joinBuilders: joinBuilders));
 }
 
-class $$OrganizerItemUserTableDriftTableOrderingComposer
-    extends OrderingComposer<_$OrganizerDriftDB,
-        $OrganizerItemUserTableDriftTable> {
-  $$OrganizerItemUserTableDriftTableOrderingComposer(super.$state);
-  ColumnOrderings<int> get organizerItemUserId => $state.composableBuilder(
-      column: $state.table.organizerItemUserId,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get organizerItemId => $state.composableBuilder(
-      column: $state.table.organizerItemId,
+class $$TaskUserTableDriftTableOrderingComposer
+    extends OrderingComposer<_$OrganizerDriftDB, $TaskUserTableDriftTable> {
+  $$TaskUserTableDriftTableOrderingComposer(super.$state);
+  ColumnOrderings<int> get taskId => $state.composableBuilder(
+      column: $state.table.taskId,
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 
@@ -2819,13 +2695,13 @@ typedef $$ReminderTableDriftTableInsertCompanionBuilder
     = ReminderTableDriftCompanion Function({
   Value<int> id,
   Value<DateTime?> reminderDate,
-  required int organizerItemId,
+  required int taskId,
 });
 typedef $$ReminderTableDriftTableUpdateCompanionBuilder
     = ReminderTableDriftCompanion Function({
   Value<int> id,
   Value<DateTime?> reminderDate,
-  Value<int> organizerItemId,
+  Value<int> taskId,
 });
 
 class $$ReminderTableDriftTableTableManager extends RootTableManager<
@@ -2851,22 +2727,22 @@ class $$ReminderTableDriftTableTableManager extends RootTableManager<
           getUpdateCompanionBuilder: ({
             Value<int> id = const Value.absent(),
             Value<DateTime?> reminderDate = const Value.absent(),
-            Value<int> organizerItemId = const Value.absent(),
+            Value<int> taskId = const Value.absent(),
           }) =>
               ReminderTableDriftCompanion(
             id: id,
             reminderDate: reminderDate,
-            organizerItemId: organizerItemId,
+            taskId: taskId,
           ),
           getInsertCompanionBuilder: ({
             Value<int> id = const Value.absent(),
             Value<DateTime?> reminderDate = const Value.absent(),
-            required int organizerItemId,
+            required int taskId,
           }) =>
               ReminderTableDriftCompanion.insert(
             id: id,
             reminderDate: reminderDate,
-            organizerItemId: organizerItemId,
+            taskId: taskId,
           ),
         ));
 }
@@ -2897,8 +2773,8 @@ class $$ReminderTableDriftTableFilterComposer
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
-  ColumnFilters<int> get organizerItemId => $state.composableBuilder(
-      column: $state.table.organizerItemId,
+  ColumnFilters<int> get taskId => $state.composableBuilder(
+      column: $state.table.taskId,
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 }
@@ -2916,8 +2792,8 @@ class $$ReminderTableDriftTableOrderingComposer
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 
-  ColumnOrderings<int> get organizerItemId => $state.composableBuilder(
-      column: $state.table.organizerItemId,
+  ColumnOrderings<int> get taskId => $state.composableBuilder(
+      column: $state.table.taskId,
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
@@ -2925,12 +2801,12 @@ class $$ReminderTableDriftTableOrderingComposer
 typedef $$TagTableDriftTableInsertCompanionBuilder = TagTableDriftCompanion
     Function({
   Value<int> id,
-  required String tag,
+  required String name,
 });
 typedef $$TagTableDriftTableUpdateCompanionBuilder = TagTableDriftCompanion
     Function({
   Value<int> id,
-  Value<String> tag,
+  Value<String> name,
 });
 
 class $$TagTableDriftTableTableManager extends RootTableManager<
@@ -2955,19 +2831,19 @@ class $$TagTableDriftTableTableManager extends RootTableManager<
               $$TagTableDriftTableProcessedTableManager(p),
           getUpdateCompanionBuilder: ({
             Value<int> id = const Value.absent(),
-            Value<String> tag = const Value.absent(),
+            Value<String> name = const Value.absent(),
           }) =>
               TagTableDriftCompanion(
             id: id,
-            tag: tag,
+            name: name,
           ),
           getInsertCompanionBuilder: ({
             Value<int> id = const Value.absent(),
-            required String tag,
+            required String name,
           }) =>
               TagTableDriftCompanion.insert(
             id: id,
-            tag: tag,
+            name: name,
           ),
         ));
 }
@@ -2992,8 +2868,8 @@ class $$TagTableDriftTableFilterComposer
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
-  ColumnFilters<String> get tag => $state.composableBuilder(
-      column: $state.table.tag,
+  ColumnFilters<String> get name => $state.composableBuilder(
+      column: $state.table.name,
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 }
@@ -3006,8 +2882,8 @@ class $$TagTableDriftTableOrderingComposer
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 
-  ColumnOrderings<String> get tag => $state.composableBuilder(
-      column: $state.table.tag,
+  ColumnOrderings<String> get name => $state.composableBuilder(
+      column: $state.table.name,
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
@@ -3017,7 +2893,7 @@ typedef $$TaskTableDriftTableInsertCompanionBuilder = TaskTableDriftCompanion
   Value<int> id,
   required String subject,
   required DateTime createdDate,
-  required int creatorID,
+  required int creatorId,
   Value<int?> remoteId,
   Value<DateTime?> lastUpdate,
   Value<DateTime?> lastViewDate,
@@ -3037,7 +2913,7 @@ typedef $$TaskTableDriftTableUpdateCompanionBuilder = TaskTableDriftCompanion
   Value<int> id,
   Value<String> subject,
   Value<DateTime> createdDate,
-  Value<int> creatorID,
+  Value<int> creatorId,
   Value<int?> remoteId,
   Value<DateTime?> lastUpdate,
   Value<DateTime?> lastViewDate,
@@ -3077,7 +2953,7 @@ class $$TaskTableDriftTableTableManager extends RootTableManager<
             Value<int> id = const Value.absent(),
             Value<String> subject = const Value.absent(),
             Value<DateTime> createdDate = const Value.absent(),
-            Value<int> creatorID = const Value.absent(),
+            Value<int> creatorId = const Value.absent(),
             Value<int?> remoteId = const Value.absent(),
             Value<DateTime?> lastUpdate = const Value.absent(),
             Value<DateTime?> lastViewDate = const Value.absent(),
@@ -3096,7 +2972,7 @@ class $$TaskTableDriftTableTableManager extends RootTableManager<
             id: id,
             subject: subject,
             createdDate: createdDate,
-            creatorID: creatorID,
+            creatorId: creatorId,
             remoteId: remoteId,
             lastUpdate: lastUpdate,
             lastViewDate: lastViewDate,
@@ -3115,7 +2991,7 @@ class $$TaskTableDriftTableTableManager extends RootTableManager<
             Value<int> id = const Value.absent(),
             required String subject,
             required DateTime createdDate,
-            required int creatorID,
+            required int creatorId,
             Value<int?> remoteId = const Value.absent(),
             Value<DateTime?> lastUpdate = const Value.absent(),
             Value<DateTime?> lastViewDate = const Value.absent(),
@@ -3134,7 +3010,7 @@ class $$TaskTableDriftTableTableManager extends RootTableManager<
             id: id,
             subject: subject,
             createdDate: createdDate,
-            creatorID: creatorID,
+            creatorId: creatorId,
             remoteId: remoteId,
             lastUpdate: lastUpdate,
             lastViewDate: lastViewDate,
@@ -3182,8 +3058,8 @@ class $$TaskTableDriftTableFilterComposer
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
-  ColumnFilters<int> get creatorID => $state.composableBuilder(
-      column: $state.table.creatorID,
+  ColumnFilters<int> get creatorId => $state.composableBuilder(
+      column: $state.table.creatorId,
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
@@ -3271,8 +3147,8 @@ class $$TaskTableDriftTableOrderingComposer
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 
-  ColumnOrderings<int> get creatorID => $state.composableBuilder(
-      column: $state.table.creatorID,
+  ColumnOrderings<int> get creatorId => $state.composableBuilder(
+      column: $state.table.creatorId,
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 
@@ -3438,14 +3314,10 @@ class _$OrganizerDriftDBManager {
   $$OrganizerItemTableDriftTableTableManager get organizerItemTableDrift =>
       $$OrganizerItemTableDriftTableTableManager(
           _db, _db.organizerItemTableDrift);
-  $$OrganizerItemTagTableDriftTableTableManager
-      get organizerItemTagTableDrift =>
-          $$OrganizerItemTagTableDriftTableTableManager(
-              _db, _db.organizerItemTagTableDrift);
-  $$OrganizerItemUserTableDriftTableTableManager
-      get organizerItemUserTableDrift =>
-          $$OrganizerItemUserTableDriftTableTableManager(
-              _db, _db.organizerItemUserTableDrift);
+  $$TaskTagTableDriftTableTableManager get taskTagTableDrift =>
+      $$TaskTagTableDriftTableTableManager(_db, _db.taskTagTableDrift);
+  $$TaskUserTableDriftTableTableManager get taskUserTableDrift =>
+      $$TaskUserTableDriftTableTableManager(_db, _db.taskUserTableDrift);
   $$ReminderTableDriftTableTableManager get reminderTableDrift =>
       $$ReminderTableDriftTableTableManager(_db, _db.reminderTableDrift);
   $$TagTableDriftTableTableManager get tagTableDrift =>

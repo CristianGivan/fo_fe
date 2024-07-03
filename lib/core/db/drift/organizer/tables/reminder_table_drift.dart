@@ -6,6 +6,6 @@ class ReminderTableDrift extends Table {
 
   DateTimeColumn get reminderDate => dateTime().nullable()();
 
-  IntColumn get organizerItemId =>
-      integer().customConstraint('REFERENCES OrganizerItemTableDriftG(id)')();
+  IntColumn get taskId =>
+      integer().customConstraint('REFERENCES TaskTableDrift(id) NOT NULL')();
 }

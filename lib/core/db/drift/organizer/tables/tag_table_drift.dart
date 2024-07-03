@@ -4,5 +4,5 @@ import 'package:drift/drift.dart';
 class TagTableDrift extends Table {
   IntColumn get id => integer().autoIncrement()();
 
-  TextColumn get tag => text().withLength(min: 1, max: 255)();
+  TextColumn get name => text()();
 }

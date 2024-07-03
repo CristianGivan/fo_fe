@@ -8,16 +8,16 @@ part 'organizer_drift_db.g.dart';
 
 @DriftDatabase(tables: [
   OrganizerItemTableDrift,
-  OrganizerItemTagTableDrift,
-  OrganizerItemUserTableDrift,
+  TaskTagTableDrift,
+  TaskUserTableDrift,
   ReminderTableDrift,
   TagTableDrift,
   TaskTableDrift,
   UserTableDrift,
 ], daos: [
   OrganizerItemDaoDrift,
-  OrganizerItemTagDaoDrift,
-  OrganizerItemUserDaoDrift,
+  TaskTagDaoDrift,
+  TaskUserDaoDrift,
   ReminderDaoDrift,
   TagDaoDrift,
   UserDaoDrift,

@@ -10,14 +10,9 @@ import 'package:fo_fe/features/organizer/items/organizer_item/domain/entities/re
 import 'package:fo_fe/features/organizer/items/organizer_item/domain/entities/tag_entity.dart';
 import 'package:fo_fe/features/organizer/items/organizer_item/domain/entities/user_entity.dart';
 import 'package:fo_fe/features/organizer/items/organizer_item/organizer_item.dart';
-import 'package:fo_fe/features/organizer/items/task/domain/entities/user.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/usecases/load_task_items_all.dart';
-import 'package:objectbox/objectbox.dart';
 
-import '../../organizer.dart';
 import '../../util/organizer_enums.dart';
-import '../tag/tag_lib.dart';
-import '../tasks/tasks_lib.dart';
 import 'domain/entities/topic.dart';
 import 'domain/entities/work.dart';
 import 'domain/usecases/add_reminder_to_task.dart';
@@ -28,8 +23,10 @@ import 'domain/usecases/delete_task.dart';
 import 'domain/usecases/load_task_items_by_id_set.dart';
 import 'domain/usecases/update_task.dart';
 
-part 'data/other/models/task_model.dart';
-part 'data/other/models/task_model_objectbox.dart';
+// part 'data/other/models/task_model_del.dart';
+//
+// part 'data/other/models/task_model_objectbox.dart';
+
 part 'domain/entities/task_entity.dart';
 part 'presentation/logic/task_bloc/task_bloc.dart';
 part 'presentation/logic/task_bloc/task_event.dart';

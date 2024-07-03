@@ -17,7 +17,23 @@ class TaskRepositoryImpl implements TaskRepository {
   });
 
   @override
-  Future<Either<Failure, OrganizerItems<TaskEntity>>> getTaskListByIdSet(
+  Future<Either<Failure, TaskEntity>> getTaskById(int id) {
+    // TODO: implement getTaskById
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, OrganizerItems<TaskEntity>>> getTaskItemsAll() async {
+    try {
+      final localTasks = await localDataSource.getAllTasks();
+      return Right(localTasks);
+    } catch (e) {
+      return Left(LocalFailure('Failed to load all tasks'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, OrganizerItems<TaskEntity>>> getTaskItemsByIdSet(
       IdSet idSet) async {
     try {
       final localTasks = await localDataSource.getTasksByIdSet(idSet);
@@ -35,16 +51,6 @@ class TaskRepositoryImpl implements TaskRepository {
       return Right(null);
     } catch (e) {
       return const Left(LocalFailure('Failed to add task'));
-    }
-  }
-
-  @override
-  Future<Either<Failure, OrganizerItems<TaskEntity>>> getAllTasks() async {
-    try {
-      final localTasks = await localDataSource.getAllTasks();
-      return Right(localTasks);
-    } catch (e) {
-      return Left(LocalFailure('Failed to load all tasks'));
     }
   }
 
@@ -83,27 +89,8 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<Either<Failure, TaskEntity>> getTaskById(int id) {
-    // TODO: implement getTaskById
-    throw UnimplementedError();
-  }
-
-  @override
   Future<Either<Failure, void>> deleteTask(int taskId) {
     // TODO: implement deleteTask
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<Either<Failure, OrganizerItems<TaskEntity>>> getTaskItemsAll() {
-    // TODO: implement getTaskItemsAll
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<Either<Failure, OrganizerItems<TaskEntity>>> getTaskItemsByIdSet(
-      IdSet idSet) {
-    // TODO: implement getTaskItemsByIdSet
     throw UnimplementedError();
   }
 }
