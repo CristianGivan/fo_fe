@@ -18,9 +18,6 @@ class OrganizerItemEntity extends Equatable {
     String? subject,
     DateTime? createdDate,
     int? creatorId,
-    List<User>? userList,
-    List<Tag>? tagList,
-    List<Reminder>? reminderList,
     int? remoteId,
     DateTime? lastUpdate,
     DateTime? lastViewDate,
@@ -102,13 +99,13 @@ class OrganizerItemEntity extends Equatable {
 //   }
 //
 // // todo tests
-//   Map<String, dynamic> jsonToCheckForUpdates() {
-//     return {
-//       "remoteId": remoteId,
-//       "checksum": checksum,
-//       "lastUpdate": lastUpdate?.toIso8601String(),
-//     };
-//   }
+  Map<String, dynamic> jsonToCheckForUpdates() {
+    return {
+      "remoteId": remoteId,
+      "checksum": checksum,
+      "lastUpdate": lastUpdate?.toIso8601String(),
+    };
+  }
 //
 //   Map<String, dynamic> toJson() {
 //     return {

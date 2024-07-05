@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/error/failures.dart';
-import 'package:fo_fe/features/organizer/items/organizer_item/domain/entities/user_entity.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/repositories/task_repository.dart';
+import 'package:fo_fe/features/organizer/items/user/domain/entities/user_entity.dart';
 
 class AddUserToTask {
   final TaskRepository taskRepository;

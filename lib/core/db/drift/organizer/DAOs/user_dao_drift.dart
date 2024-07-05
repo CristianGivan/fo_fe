@@ -29,8 +29,7 @@ class UserDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
   Future<int> deleteUser(Insertable<UserTableDriftG> user) =>
       delete(userTableDrift).delete(user);
 
-  Future<List<UserTableDriftG>> getUserListByTaskId(int taskId) async {
-    final userIds = await db.taskUserDaoDrift.getUserIdsByTaskId(taskId);
+  Future<List<UserTableDriftG>> getUserListByUserIds(List<int> userIds) async {
     return (select(userTableDrift)..where((tbl) => tbl.id.isIn(userIds))).get();
   }
 }

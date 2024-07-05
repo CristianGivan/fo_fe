@@ -1,7 +1,7 @@
 // todo
 enum TaskStatus { undefined, started, working, pending, completed }
 
-const Map<String, TaskStatus> statusMap = {
+const Map<String, TaskStatus> taskStatusMap = {
   'UNDEFINE': TaskStatus.undefined,
   'STARTED': TaskStatus.started,
   'WORKING': TaskStatus.working,

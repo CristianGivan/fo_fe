@@ -1,5 +1,5 @@
 import '../../../../../../core/util/organizer/core_util_organizer.dart';
-import '../../../organizer_item/domain/entities/reminder_entity.dart';
+import '../../../reminder/domain/entities/reminder_entity.dart';
 import '../../task_lib.dart';
 
 abstract class TaskLocalDataSource {

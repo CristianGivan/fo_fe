@@ -8,7 +8,6 @@ import 'package:fo_fe/core/util/organizer/core_util_organizer.dart';
 import '../../../../core/const/constants.dart';
 import '../../../../core/error/failures.dart';
 import '../../organizer.dart';
-import '../tag/tag_lib.dart';
 import '../task/domain/entities/user.dart';
 
 part 'data/datasources/organizer_item_local_data_source.dart';

@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/error/failures.dart';
-import 'package:fo_fe/features/organizer/items/organizer_item/domain/entities/tag_entity.dart';
+import 'package:fo_fe/features/organizer/items/tag/domain/entities/tag_entity.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/repositories/task_repository.dart';
 
 class AddTagToTask {

@@ -6,11 +6,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fo_fe/core/const/constants.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/util/organizer/core_util_organizer.dart';
-import 'package:fo_fe/features/organizer/items/organizer_item/domain/entities/reminder_entity.dart';
-import 'package:fo_fe/features/organizer/items/organizer_item/domain/entities/tag_entity.dart';
-import 'package:fo_fe/features/organizer/items/organizer_item/domain/entities/user_entity.dart';
 import 'package:fo_fe/features/organizer/items/organizer_item/organizer_item.dart';
+import 'package:fo_fe/features/organizer/items/reminder/domain/entities/reminder_entity.dart';
+import 'package:fo_fe/features/organizer/items/tag/domain/entities/tag_entity.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/usecases/load_task_items_all.dart';
+import 'package:fo_fe/features/organizer/items/user/domain/entities/user_entity.dart';
 
 import '../../util/organizer_enums.dart';
 import 'domain/entities/topic.dart';

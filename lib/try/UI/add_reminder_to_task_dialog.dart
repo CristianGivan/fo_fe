@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fo_fe/features/organizer/items/organizer_item/domain/entities/reminder_entity.dart';
+import 'package:fo_fe/features/organizer/items/reminder/domain/entities/reminder_entity.dart';
 import 'package:fo_fe/features/organizer/items/task/task_lib.dart';
 
 class AddReminderToTaskDialog extends StatefulWidget {

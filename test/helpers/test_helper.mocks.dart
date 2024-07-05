@@ -14,10 +14,10 @@ import 'package:fo_fe/core/error/failures.dart' as _i15;
 import 'package:fo_fe/core/network/network_info.dart' as _i9;
 import 'package:fo_fe/core/util/input_converter.dart' as _i18;
 import 'package:fo_fe/core/util/organizer/core_util_organizer.dart' as _i5;
-import 'package:fo_fe/features/organizer/items/organizer_item/domain/entities/reminder_entity.dart'
-    as _i13;
 import 'package:fo_fe/features/organizer/items/organizer_item/organizer_item.dart'
     as _i4;
+import 'package:fo_fe/features/organizer/items/reminder/domain/entities/reminder_entity.dart'
+    as _i13;
 import 'package:fo_fe/features/organizer/items/task/data/datasources/task_remote_data_source_impl.dart'
     as _i11;
 import 'package:fo_fe/features/organizer/items/task/data/models/task_model.dart'

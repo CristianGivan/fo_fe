@@ -97,8 +97,6 @@ class TaskEntity extends OrganizerItemEntity with EquatableMixin {
     double? estimatedLeftTime,
     double? workingProgress,
     TaskStatus? taskStatus,
-    List<Work>? workList,
-    List<Topic>? topicList,
   }) {
     return TaskEntity(
       id: id ?? this.id,

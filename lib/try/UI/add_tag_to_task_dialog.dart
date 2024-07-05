@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fo_fe/features/organizer/items/organizer_item/domain/entities/tag_entity.dart';
+import 'package:fo_fe/features/organizer/items/tag/domain/entities/tag_entity.dart';
 import 'package:fo_fe/features/organizer/items/task/task_lib.dart';
 
 class AddTagToTaskDialog extends StatefulWidget {
@@ -41,7 +41,7 @@ class _AddTagToTaskDialogState extends State<AddTagToTaskDialog> {
                 if (_formKey.currentState!.validate()) {
                   final tag = TagEntity(
                     id: 0, // This will be replaced by the database
-                    tag: _tagNameController.text,
+                    name: _tagNameController.text,
                   );
                   BlocProvider.of<TaskBloc>(context)
                       .add(AddTagToTaskBlocEvent(widget.taskId, tag));

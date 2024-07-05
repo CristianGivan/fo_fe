@@ -1,17 +1,16 @@
 import 'package:fo_fe/features/organizer/items/reminder/reminder_exports.dart';
 import 'package:fo_fe/features/organizer/items/tag/tag_exports.dart';
+import 'package:fo_fe/features/organizer/items/task/data/models/task_model.dart';
 import 'package:fo_fe/features/organizer/items/user/user_exports.dart';
+import 'package:fo_fe/features/organizer/util/organizer_enums.dart';
 
-import '../../../../util/organizer_enums.dart';
-import '../../task_lib.dart';
+class TaskModelLazyLoaded extends TaskModel {
+  final UserModel? creator;
+  final List<UserModel>? userList;
+  final List<TagModel>? tagList;
+  final List<ReminderModel>? reminderList;
 
-class TaskEntityLazyLoaded extends TaskEntity {
-  UserEntity? creator;
-  List<UserEntity>? userList;
-  List<TagEntity>? tagList;
-  List<ReminderEntity>? reminderList;
-
-  TaskEntityLazyLoaded({
+  TaskModelLazyLoaded({
     required int id,
     required String subject,
     required DateTime createdDate,
@@ -55,5 +54,5 @@ class TaskEntityLazyLoaded extends TaskEntity {
 
   @override
   List<Object?> get props =>
-      super.props..addAll([creator, userList, tagList, reminderList]);
+      super.props + [creator, userList, tagList, reminderList];
 }

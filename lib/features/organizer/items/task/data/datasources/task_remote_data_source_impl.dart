@@ -5,7 +5,8 @@ import 'dart:io';
 
 import 'package:fo_fe/core/error/exceptions.dart';
 import 'package:fo_fe/core/util/organizer/core_util_organizer.dart';
-import 'package:fo_fe/features/organizer/items/organizer_item/domain/entities/reminder_entity.dart';
+import 'package:fo_fe/features/organizer/items/reminder/domain/entities/reminder_entity.dart';
+import 'package:fo_fe/features/organizer/items/task/data/models/task_mapper.dart';
 import 'package:http/http.dart' as http;
 
 import '../../task_lib.dart';
@@ -35,7 +36,7 @@ class TaskRemoteDataSourceImpl implements TaskRemoteDataSource {
 
     final response = await httpClient.get(url, headers: headers);
     if (response.statusCode == 200) {
-      return TaskModel.fromJson(json.decode(response.body));
+      return TaskMapper.jsonFoApiToModel(json.decode(response.body));
     } else {
       throw ServerException("Server exception");
     }
@@ -101,9 +102,9 @@ class TaskRemoteDataSourceImpl implements TaskRemoteDataSource {
     Map<String, dynamic> jsonResponse,
   ) async {
     final updatedTasks = (jsonResponse['Updated'] as List)
-        .map((dynamic item) => TaskModel.fromJson(item))
+        .map((dynamic item) => TaskMapper.jsonFoApiToModel(item))
         .toList();
-    return OrganizerItems.of(updatedTasks);
+    return OrganizerItems.of(updatedTasks as Iterable<TaskModel>);
   }
 
   @override
