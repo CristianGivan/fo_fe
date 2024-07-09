@@ -34,6 +34,20 @@ class TagMapper {
     return tagEntityList.map(entityToModel).toList();
   }
 
+  static TagEntity modelToEntity(TagModel model) {
+    return TagEntity(
+      id: model.id,
+      name: model.name,
+    );
+  }
+
+  static List<TagEntity> modelListToEntityList(List<TagModel>? tagModelList) {
+    if (tagModelList == null) {
+      return [];
+    }
+    return tagModelList.map(modelToEntity).toList();
+  }
+
   static TagTableDriftCompanion toCompanion(TagModel tag) {
     return TagTableDriftCompanion(
       id: Value(tag.id),

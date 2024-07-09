@@ -15,7 +15,7 @@ class AddReminderToTaskDialog extends StatefulWidget {
 
 class _AddReminderToTaskDialogState extends State<AddReminderToTaskDialog> {
   final _formKey = GlobalKey<FormState>();
-  DateTime _reminderDate = DateTime.now();
+  DateTime _remindAt = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +32,13 @@ class _AddReminderToTaskDialogState extends State<AddReminderToTaskDialog> {
                 FocusScope.of(context).requestFocus(new FocusNode());
                 final DateTime? picked = await showDatePicker(
                   context: context,
-                  initialDate: _reminderDate,
+                  initialDate: _remindAt,
                   firstDate: DateTime(2000),
                   lastDate: DateTime(2101),
                 );
-                if (picked != null && picked != _reminderDate)
+                if (picked != null && picked != _remindAt)
                   setState(() {
-                    _reminderDate = picked;
+                    _remindAt = picked;
                   });
               },
             ),
@@ -48,7 +48,7 @@ class _AddReminderToTaskDialogState extends State<AddReminderToTaskDialog> {
                 if (_formKey.currentState!.validate()) {
                   final reminder = ReminderEntity(
                     id: 0, // This will be replaced by the database
-                    reminderDate: _reminderDate,
+                    remindAt: _remindAt,
                   );
                   BlocProvider.of<TaskBloc>(context)
                       .add(AddReminderToTaskBlocEvent(widget.taskId, reminder));

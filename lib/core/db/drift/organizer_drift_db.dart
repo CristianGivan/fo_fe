@@ -1,4 +1,6 @@
 import 'package:drift/drift.dart';
+import 'package:fo_fe/core/db/drift/organizer/task/task_reminder_dao_drift.dart';
+import 'package:fo_fe/core/db/drift/organizer/task/task_reminder_table_drift.dart';
 import 'package:fo_fe/core/db/drift_db.dart';
 
 import 'connection/db_dev.dart' as db_dev;
@@ -9,6 +11,7 @@ part 'organizer_drift_db.g.dart';
 @DriftDatabase(tables: [
   OrganizerItemTableDrift,
   TaskTagTableDrift,
+  TaskReminderTableDrift,
   TaskUserTableDrift,
   ReminderTableDrift,
   TagTableDrift,
@@ -17,6 +20,7 @@ part 'organizer_drift_db.g.dart';
 ], daos: [
   OrganizerItemDaoDrift,
   TaskTagDaoDrift,
+  TaskReminderDaoDrift,
   TaskUserDaoDrift,
   ReminderDaoDrift,
   TagDaoDrift,

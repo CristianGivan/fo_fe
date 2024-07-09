@@ -10,5 +10,5 @@ class AddTask {
   AddTask(this.taskRepository);
 
   Future<Either<Failure, void>> call(TaskEntity task) async =>
-      await taskRepository.addTask(task);
+      await taskRepository.insertTask(task);
 }

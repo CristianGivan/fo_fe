@@ -28,3 +28,7 @@ class InvalidInputFailure extends Failure {
 class CacheFailure extends Failure {
   const CacheFailure(String super.message);
 }
+
+class TaskNotFoundFailure extends Failure {
+  TaskNotFoundFailure() : super('Task not found');
+}

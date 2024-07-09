@@ -691,6 +691,202 @@ class TaskTagTableDriftCompanion extends UpdateCompanion<TaskTagTableDriftG> {
   }
 }
 
+class $TaskReminderTableDriftTable extends TaskReminderTableDrift
+    with TableInfo<$TaskReminderTableDriftTable, TaskReminderTableDriftG> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $TaskReminderTableDriftTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _taskIdMeta = const VerificationMeta('taskId');
+  @override
+  late final GeneratedColumn<int> taskId = GeneratedColumn<int>(
+      'task_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'REFERENCES TaskTableDrift(id)');
+  static const VerificationMeta _reminderIdMeta =
+      const VerificationMeta('reminderId');
+  @override
+  late final GeneratedColumn<int> reminderId = GeneratedColumn<int>(
+      'reminder_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'REFERENCES ReminderTableDrift(id)');
+  @override
+  List<GeneratedColumn> get $columns => [taskId, reminderId];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'task_reminder_table_drift';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<TaskReminderTableDriftG> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('task_id')) {
+      context.handle(_taskIdMeta,
+          taskId.isAcceptableOrUnknown(data['task_id']!, _taskIdMeta));
+    } else if (isInserting) {
+      context.missing(_taskIdMeta);
+    }
+    if (data.containsKey('reminder_id')) {
+      context.handle(
+          _reminderIdMeta,
+          reminderId.isAcceptableOrUnknown(
+              data['reminder_id']!, _reminderIdMeta));
+    } else if (isInserting) {
+      context.missing(_reminderIdMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => const {};
+  @override
+  TaskReminderTableDriftG map(Map<String, dynamic> data,
+      {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return TaskReminderTableDriftG(
+      taskId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}task_id'])!,
+      reminderId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}reminder_id'])!,
+    );
+  }
+
+  @override
+  $TaskReminderTableDriftTable createAlias(String alias) {
+    return $TaskReminderTableDriftTable(attachedDatabase, alias);
+  }
+}
+
+class TaskReminderTableDriftG extends DataClass
+    implements Insertable<TaskReminderTableDriftG> {
+  final int taskId;
+  final int reminderId;
+  const TaskReminderTableDriftG(
+      {required this.taskId, required this.reminderId});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['task_id'] = Variable<int>(taskId);
+    map['reminder_id'] = Variable<int>(reminderId);
+    return map;
+  }
+
+  TaskReminderTableDriftCompanion toCompanion(bool nullToAbsent) {
+    return TaskReminderTableDriftCompanion(
+      taskId: Value(taskId),
+      reminderId: Value(reminderId),
+    );
+  }
+
+  factory TaskReminderTableDriftG.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return TaskReminderTableDriftG(
+      taskId: serializer.fromJson<int>(json['taskId']),
+      reminderId: serializer.fromJson<int>(json['reminderId']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'taskId': serializer.toJson<int>(taskId),
+      'reminderId': serializer.toJson<int>(reminderId),
+    };
+  }
+
+  TaskReminderTableDriftG copyWith({int? taskId, int? reminderId}) =>
+      TaskReminderTableDriftG(
+        taskId: taskId ?? this.taskId,
+        reminderId: reminderId ?? this.reminderId,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('TaskReminderTableDriftG(')
+          ..write('taskId: $taskId, ')
+          ..write('reminderId: $reminderId')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(taskId, reminderId);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is TaskReminderTableDriftG &&
+          other.taskId == this.taskId &&
+          other.reminderId == this.reminderId);
+}
+
+class TaskReminderTableDriftCompanion
+    extends UpdateCompanion<TaskReminderTableDriftG> {
+  final Value<int> taskId;
+  final Value<int> reminderId;
+  final Value<int> rowid;
+  const TaskReminderTableDriftCompanion({
+    this.taskId = const Value.absent(),
+    this.reminderId = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  TaskReminderTableDriftCompanion.insert({
+    required int taskId,
+    required int reminderId,
+    this.rowid = const Value.absent(),
+  })  : taskId = Value(taskId),
+        reminderId = Value(reminderId);
+  static Insertable<TaskReminderTableDriftG> custom({
+    Expression<int>? taskId,
+    Expression<int>? reminderId,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (taskId != null) 'task_id': taskId,
+      if (reminderId != null) 'reminder_id': reminderId,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  TaskReminderTableDriftCompanion copyWith(
+      {Value<int>? taskId, Value<int>? reminderId, Value<int>? rowid}) {
+    return TaskReminderTableDriftCompanion(
+      taskId: taskId ?? this.taskId,
+      reminderId: reminderId ?? this.reminderId,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (taskId.present) {
+      map['task_id'] = Variable<int>(taskId.value);
+    }
+    if (reminderId.present) {
+      map['reminder_id'] = Variable<int>(reminderId.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TaskReminderTableDriftCompanion(')
+          ..write('taskId: $taskId, ')
+          ..write('reminderId: $reminderId, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class $TaskUserTableDriftTable extends TaskUserTableDrift
     with TableInfo<$TaskUserTableDriftTable, TaskUserTableDriftG> {
   @override
@@ -902,15 +1098,8 @@ class $ReminderTableDriftTable extends ReminderTableDrift
   late final GeneratedColumn<DateTime> remindAt = GeneratedColumn<DateTime>(
       'remind_at', aliasedName, false,
       type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  static const VerificationMeta _taskIdMeta = const VerificationMeta('taskId');
   @override
-  late final GeneratedColumn<int> taskId = GeneratedColumn<int>(
-      'task_id', aliasedName, false,
-      type: DriftSqlType.int,
-      requiredDuringInsert: true,
-      $customConstraints: 'REFERENCES TaskTableDrift(id) NOT NULL');
-  @override
-  List<GeneratedColumn> get $columns => [id, remindAt, taskId];
+  List<GeneratedColumn> get $columns => [id, remindAt];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -931,12 +1120,6 @@ class $ReminderTableDriftTable extends ReminderTableDrift
     } else if (isInserting) {
       context.missing(_remindAtMeta);
     }
-    if (data.containsKey('task_id')) {
-      context.handle(_taskIdMeta,
-          taskId.isAcceptableOrUnknown(data['task_id']!, _taskIdMeta));
-    } else if (isInserting) {
-      context.missing(_taskIdMeta);
-    }
     return context;
   }
 
@@ -950,8 +1133,6 @@ class $ReminderTableDriftTable extends ReminderTableDrift
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       remindAt: attachedDatabase.typeMapping
           .read(DriftSqlType.dateTime, data['${effectivePrefix}remind_at'])!,
-      taskId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}task_id'])!,
     );
   }
 
@@ -965,15 +1146,12 @@ class ReminderTableDriftG extends DataClass
     implements Insertable<ReminderTableDriftG> {
   final int id;
   final DateTime remindAt;
-  final int taskId;
-  const ReminderTableDriftG(
-      {required this.id, required this.remindAt, required this.taskId});
+  const ReminderTableDriftG({required this.id, required this.remindAt});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
     map['remind_at'] = Variable<DateTime>(remindAt);
-    map['task_id'] = Variable<int>(taskId);
     return map;
   }
 
@@ -981,7 +1159,6 @@ class ReminderTableDriftG extends DataClass
     return ReminderTableDriftCompanion(
       id: Value(id),
       remindAt: Value(remindAt),
-      taskId: Value(taskId),
     );
   }
 
@@ -991,7 +1168,6 @@ class ReminderTableDriftG extends DataClass
     return ReminderTableDriftG(
       id: serializer.fromJson<int>(json['id']),
       remindAt: serializer.fromJson<DateTime>(json['remindAt']),
-      taskId: serializer.fromJson<int>(json['taskId']),
     );
   }
   @override
@@ -1000,70 +1176,59 @@ class ReminderTableDriftG extends DataClass
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'remindAt': serializer.toJson<DateTime>(remindAt),
-      'taskId': serializer.toJson<int>(taskId),
     };
   }
 
-  ReminderTableDriftG copyWith({int? id, DateTime? remindAt, int? taskId}) =>
+  ReminderTableDriftG copyWith({int? id, DateTime? remindAt}) =>
       ReminderTableDriftG(
         id: id ?? this.id,
         remindAt: remindAt ?? this.remindAt,
-        taskId: taskId ?? this.taskId,
       );
   @override
   String toString() {
     return (StringBuffer('ReminderTableDriftG(')
           ..write('id: $id, ')
-          ..write('remindAt: $remindAt, ')
-          ..write('taskId: $taskId')
+          ..write('remindAt: $remindAt')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, remindAt, taskId);
+  int get hashCode => Object.hash(id, remindAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is ReminderTableDriftG &&
           other.id == this.id &&
-          other.remindAt == this.remindAt &&
-          other.taskId == this.taskId);
+          other.remindAt == this.remindAt);
 }
 
 class ReminderTableDriftCompanion extends UpdateCompanion<ReminderTableDriftG> {
   final Value<int> id;
   final Value<DateTime> remindAt;
-  final Value<int> taskId;
   const ReminderTableDriftCompanion({
     this.id = const Value.absent(),
     this.remindAt = const Value.absent(),
-    this.taskId = const Value.absent(),
   });
   ReminderTableDriftCompanion.insert({
     this.id = const Value.absent(),
     required DateTime remindAt,
-    required int taskId,
-  })  : remindAt = Value(remindAt),
-        taskId = Value(taskId);
+  }) : remindAt = Value(remindAt);
   static Insertable<ReminderTableDriftG> custom({
     Expression<int>? id,
     Expression<DateTime>? remindAt,
-    Expression<int>? taskId,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (remindAt != null) 'remind_at': remindAt,
-      if (taskId != null) 'task_id': taskId,
     });
   }
 
   ReminderTableDriftCompanion copyWith(
-      {Value<int>? id, Value<DateTime>? remindAt, Value<int>? taskId}) {
+      {Value<int>? id, Value<DateTime>? remindAt}) {
     return ReminderTableDriftCompanion(
       id: id ?? this.id,
       remindAt: remindAt ?? this.remindAt,
-      taskId: taskId ?? this.taskId,
     );
   }
 
@@ -1076,9 +1241,6 @@ class ReminderTableDriftCompanion extends UpdateCompanion<ReminderTableDriftG> {
     if (remindAt.present) {
       map['remind_at'] = Variable<DateTime>(remindAt.value);
     }
-    if (taskId.present) {
-      map['task_id'] = Variable<int>(taskId.value);
-    }
     return map;
   }
 
@@ -1086,8 +1248,7 @@ class ReminderTableDriftCompanion extends UpdateCompanion<ReminderTableDriftG> {
   String toString() {
     return (StringBuffer('ReminderTableDriftCompanion(')
           ..write('id: $id, ')
-          ..write('remindAt: $remindAt, ')
-          ..write('taskId: $taskId')
+          ..write('remindAt: $remindAt')
           ..write(')'))
         .toString();
   }
@@ -2275,6 +2436,8 @@ abstract class _$OrganizerDriftDB extends GeneratedDatabase {
       $OrganizerItemTableDriftTable(this);
   late final $TaskTagTableDriftTable taskTagTableDrift =
       $TaskTagTableDriftTable(this);
+  late final $TaskReminderTableDriftTable taskReminderTableDrift =
+      $TaskReminderTableDriftTable(this);
   late final $TaskUserTableDriftTable taskUserTableDrift =
       $TaskUserTableDriftTable(this);
   late final $ReminderTableDriftTable reminderTableDrift =
@@ -2286,6 +2449,8 @@ abstract class _$OrganizerDriftDB extends GeneratedDatabase {
       OrganizerItemDaoDrift(this as OrganizerDriftDB);
   late final TaskTagDaoDrift taskTagDaoDrift =
       TaskTagDaoDrift(this as OrganizerDriftDB);
+  late final TaskReminderDaoDrift taskReminderDaoDrift =
+      TaskReminderDaoDrift(this as OrganizerDriftDB);
   late final TaskUserDaoDrift taskUserDaoDrift =
       TaskUserDaoDrift(this as OrganizerDriftDB);
   late final ReminderDaoDrift reminderDaoDrift =
@@ -2300,6 +2465,7 @@ abstract class _$OrganizerDriftDB extends GeneratedDatabase {
   List<DatabaseSchemaEntity> get allSchemaEntities => [
         organizerItemTableDrift,
         taskTagTableDrift,
+        taskReminderTableDrift,
         taskUserTableDrift,
         reminderTableDrift,
         tagTableDrift,
@@ -2624,6 +2790,103 @@ class $$TaskTagTableDriftTableOrderingComposer
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
+typedef $$TaskReminderTableDriftTableInsertCompanionBuilder
+    = TaskReminderTableDriftCompanion Function({
+  required int taskId,
+  required int reminderId,
+  Value<int> rowid,
+});
+typedef $$TaskReminderTableDriftTableUpdateCompanionBuilder
+    = TaskReminderTableDriftCompanion Function({
+  Value<int> taskId,
+  Value<int> reminderId,
+  Value<int> rowid,
+});
+
+class $$TaskReminderTableDriftTableTableManager extends RootTableManager<
+    _$OrganizerDriftDB,
+    $TaskReminderTableDriftTable,
+    TaskReminderTableDriftG,
+    $$TaskReminderTableDriftTableFilterComposer,
+    $$TaskReminderTableDriftTableOrderingComposer,
+    $$TaskReminderTableDriftTableProcessedTableManager,
+    $$TaskReminderTableDriftTableInsertCompanionBuilder,
+    $$TaskReminderTableDriftTableUpdateCompanionBuilder> {
+  $$TaskReminderTableDriftTableTableManager(
+      _$OrganizerDriftDB db, $TaskReminderTableDriftTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer: $$TaskReminderTableDriftTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$TaskReminderTableDriftTableOrderingComposer(
+              ComposerState(db, table)),
+          getChildManagerBuilder: (p) =>
+              $$TaskReminderTableDriftTableProcessedTableManager(p),
+          getUpdateCompanionBuilder: ({
+            Value<int> taskId = const Value.absent(),
+            Value<int> reminderId = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              TaskReminderTableDriftCompanion(
+            taskId: taskId,
+            reminderId: reminderId,
+            rowid: rowid,
+          ),
+          getInsertCompanionBuilder: ({
+            required int taskId,
+            required int reminderId,
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              TaskReminderTableDriftCompanion.insert(
+            taskId: taskId,
+            reminderId: reminderId,
+            rowid: rowid,
+          ),
+        ));
+}
+
+class $$TaskReminderTableDriftTableProcessedTableManager
+    extends ProcessedTableManager<
+        _$OrganizerDriftDB,
+        $TaskReminderTableDriftTable,
+        TaskReminderTableDriftG,
+        $$TaskReminderTableDriftTableFilterComposer,
+        $$TaskReminderTableDriftTableOrderingComposer,
+        $$TaskReminderTableDriftTableProcessedTableManager,
+        $$TaskReminderTableDriftTableInsertCompanionBuilder,
+        $$TaskReminderTableDriftTableUpdateCompanionBuilder> {
+  $$TaskReminderTableDriftTableProcessedTableManager(super.$state);
+}
+
+class $$TaskReminderTableDriftTableFilterComposer
+    extends FilterComposer<_$OrganizerDriftDB, $TaskReminderTableDriftTable> {
+  $$TaskReminderTableDriftTableFilterComposer(super.$state);
+  ColumnFilters<int> get taskId => $state.composableBuilder(
+      column: $state.table.taskId,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<int> get reminderId => $state.composableBuilder(
+      column: $state.table.reminderId,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+}
+
+class $$TaskReminderTableDriftTableOrderingComposer
+    extends OrderingComposer<_$OrganizerDriftDB, $TaskReminderTableDriftTable> {
+  $$TaskReminderTableDriftTableOrderingComposer(super.$state);
+  ColumnOrderings<int> get taskId => $state.composableBuilder(
+      column: $state.table.taskId,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<int> get reminderId => $state.composableBuilder(
+      column: $state.table.reminderId,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+}
+
 typedef $$TaskUserTableDriftTableInsertCompanionBuilder
     = TaskUserTableDriftCompanion Function({
   required int taskId,
@@ -2725,13 +2988,11 @@ typedef $$ReminderTableDriftTableInsertCompanionBuilder
     = ReminderTableDriftCompanion Function({
   Value<int> id,
   required DateTime remindAt,
-  required int taskId,
 });
 typedef $$ReminderTableDriftTableUpdateCompanionBuilder
     = ReminderTableDriftCompanion Function({
   Value<int> id,
   Value<DateTime> remindAt,
-  Value<int> taskId,
 });
 
 class $$ReminderTableDriftTableTableManager extends RootTableManager<
@@ -2757,22 +3018,18 @@ class $$ReminderTableDriftTableTableManager extends RootTableManager<
           getUpdateCompanionBuilder: ({
             Value<int> id = const Value.absent(),
             Value<DateTime> remindAt = const Value.absent(),
-            Value<int> taskId = const Value.absent(),
           }) =>
               ReminderTableDriftCompanion(
             id: id,
             remindAt: remindAt,
-            taskId: taskId,
           ),
           getInsertCompanionBuilder: ({
             Value<int> id = const Value.absent(),
             required DateTime remindAt,
-            required int taskId,
           }) =>
               ReminderTableDriftCompanion.insert(
             id: id,
             remindAt: remindAt,
-            taskId: taskId,
           ),
         ));
 }
@@ -2802,11 +3059,6 @@ class $$ReminderTableDriftTableFilterComposer
       column: $state.table.remindAt,
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get taskId => $state.composableBuilder(
-      column: $state.table.taskId,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
 }
 
 class $$ReminderTableDriftTableOrderingComposer
@@ -2819,11 +3071,6 @@ class $$ReminderTableDriftTableOrderingComposer
 
   ColumnOrderings<DateTime> get remindAt => $state.composableBuilder(
       column: $state.table.remindAt,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get taskId => $state.composableBuilder(
-      column: $state.table.taskId,
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
@@ -3362,6 +3609,9 @@ class _$OrganizerDriftDBManager {
           _db, _db.organizerItemTableDrift);
   $$TaskTagTableDriftTableTableManager get taskTagTableDrift =>
       $$TaskTagTableDriftTableTableManager(_db, _db.taskTagTableDrift);
+  $$TaskReminderTableDriftTableTableManager get taskReminderTableDrift =>
+      $$TaskReminderTableDriftTableTableManager(
+          _db, _db.taskReminderTableDrift);
   $$TaskUserTableDriftTableTableManager get taskUserTableDrift =>
       $$TaskUserTableDriftTableTableManager(_db, _db.taskUserTableDrift);
   $$ReminderTableDriftTableTableManager get reminderTableDrift =>

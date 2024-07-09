@@ -5,7 +5,4 @@ class ReminderTableDrift extends Table {
   IntColumn get id => integer().autoIncrement()();
 
   DateTimeColumn get remindAt => dateTime()();
-
-  IntColumn get taskId =>
-      integer().customConstraint('REFERENCES TaskTableDrift(id) NOT NULL')();
 }

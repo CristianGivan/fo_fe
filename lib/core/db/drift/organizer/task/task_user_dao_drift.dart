@@ -22,8 +22,18 @@ class TaskUserDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
   Future<bool> updateTaskUser(Insertable<TaskUserTableDriftG> taskUser) =>
       update(taskUserTableDrift).replace(taskUser);
 
-  Future<int> deleteTaskUser(Insertable<TaskUserTableDriftG> taskUser) =>
-      delete(taskUserTableDrift).delete(taskUser);
+  Future<int> deleteTaskUserByTaskId(int taskId) async {
+    return (delete(taskUserTableDrift)
+          ..where((tbl) => tbl.taskId.equals(taskId)))
+        .go();
+  }
+
+  Future<int> deleteTaskUser(int taskId, int userId) async {
+    return (delete(taskUserTableDrift)
+          ..where(
+              (tbl) => tbl.taskId.equals(taskId) & tbl.userId.equals(userId)))
+        .go();
+  }
 
   Future<List<int>> getUserIdsByTaskId(int taskId) async {
     final result = await (select(taskUserTableDrift)

@@ -26,7 +26,8 @@ class ReminderDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
   Future<int> deleteReminder(Insertable<ReminderTableDriftG> reminder) =>
       delete(reminderTableDrift).delete(reminder);
 
-  Future<List<ReminderTableDriftG>> getRemindersByTaskId(int taskId) =>
-      (select(reminderTableDrift)..where((tbl) => tbl.taskId.equals(taskId)))
+  Future<List<ReminderTableDriftG>> getRemindersByTaskId(
+          List<int> reminderIds) =>
+      (select(reminderTableDrift)..where((tbl) => tbl.id.isIn(reminderIds)))
           .get();
 }

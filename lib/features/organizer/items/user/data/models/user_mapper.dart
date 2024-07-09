@@ -38,6 +38,21 @@ class UserMapper {
     );
   }
 
+  static UserEntity modelToEntity(UserModel model) {
+    return UserEntity(
+      id: model.id,
+      name: model.name,
+      email: model.email,
+    );
+  }
+
+  static List<UserEntity> modelListToEntityList(List<UserModel>? models) {
+    if (models == null) {
+      return [];
+    }
+    return models.map(modelToEntity).toList();
+  }
+
   static UserTableDriftCompanion toCompanion(UserModel user) {
     return UserTableDriftCompanion(
       id: Value(user.id),

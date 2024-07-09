@@ -33,6 +33,28 @@ class TaskMapper {
     );
   }
 
+  static TaskTableDriftCompanion entityToCompanion(TaskEntity entity) {
+    return TaskTableDriftCompanion(
+      id: Value(entity.id),
+      subject: Value(entity.subject),
+      createdDate: Value(entity.createdDate),
+      creatorId: Value(entity.creatorId),
+      remoteId: Value(entity.remoteId),
+      lastUpdate: Value(entity.lastUpdate),
+      lastViewDate: Value(entity.lastViewDate),
+      remoteViews: Value(entity.remoteViews),
+      views: Value(entity.views),
+      checksum: Value(entity.checksum),
+      startDate: Value(entity.startDate),
+      endDate: Value(entity.endDate),
+      workingTime: Value(entity.workingTime),
+      estimatedTime: Value(entity.estimatedTime),
+      estimatedLeftTime: Value(entity.estimatedLeftTime),
+      workingProgress: Value(entity.workingProgress),
+      taskStatus: Value(entity.taskStatus.toString()),
+    );
+  }
+
   static TaskTableDriftCompanion modelToCompanion(TaskModel model) {
     return TaskTableDriftCompanion(
       id: Value(model.id),
@@ -78,6 +100,28 @@ class TaskMapper {
     );
   }
 
+  static TaskEntity modelToEntity(TaskModel model) {
+    return TaskEntity(
+      id: model.id,
+      subject: model.subject,
+      createdDate: model.createdDate,
+      creatorId: model.creatorId,
+      remoteId: model.remoteId,
+      lastUpdate: model.lastUpdate,
+      lastViewDate: model.lastViewDate,
+      remoteViews: model.remoteViews,
+      views: model.views,
+      checksum: model.checksum,
+      startDate: model.startDate,
+      endDate: model.endDate,
+      workingTime: model.workingTime,
+      estimatedTime: model.estimatedTime,
+      estimatedLeftTime: model.estimatedLeftTime,
+      workingProgress: model.workingProgress,
+      taskStatus: model.taskStatus,
+    );
+  }
+
   static TaskModelLazyLoaded entityLazyLoadedToModelLazyLoaded(
       TaskEntityLazyLoaded entity) {
     return TaskModelLazyLoaded(
@@ -104,6 +148,35 @@ class TaskMapper {
       //todo cg to be check nullable topic
       tagList: TagMapper.entityListToModelList(entity.tagList),
       reminderList: ReminderMapper.entityListToModelList(entity.reminderList),
+    );
+  }
+
+  static TaskEntityLazyLoaded modelLazyLoadedToEntityLazyLoaded(
+      TaskModelLazyLoaded model) {
+    return TaskEntityLazyLoaded(
+      id: model.id,
+      subject: model.subject,
+      createdDate: model.createdDate,
+      creatorId: model.creatorId,
+      remoteId: model.remoteId,
+      lastUpdate: model.lastUpdate,
+      lastViewDate: model.lastViewDate,
+      remoteViews: model.remoteViews,
+      views: model.views,
+      checksum: model.checksum,
+      startDate: model.startDate,
+      endDate: model.endDate,
+      workingTime: model.workingTime,
+      estimatedTime: model.estimatedTime,
+      estimatedLeftTime: model.estimatedLeftTime,
+      workingProgress: model.workingProgress,
+      taskStatus: model.taskStatus,
+      creator: model.creator != null
+          ? UserMapper.modelToEntity(model.creator!)
+          : null,
+      userList: UserMapper.modelListToEntityList(model.userList),
+      tagList: TagMapper.modelListToEntityList(model.tagList),
+      reminderList: ReminderMapper.modelListToEntityList(model.reminderList),
     );
   }
 

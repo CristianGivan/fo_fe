@@ -1,9 +1,11 @@
 // task_data_source.dart
 
 import 'package:drift/drift.dart';
+import 'package:fo_fe/core/db/drift/organizer/task/task_reminder_dao_drift.dart';
 import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
 import 'package:fo_fe/features/organizer/items/reminder/reminder_exports.dart';
 import 'package:fo_fe/features/organizer/items/tag/tag_exports.dart';
+import 'package:fo_fe/features/organizer/items/task/data/datasources/task_local_data_source.dart';
 import 'package:fo_fe/features/organizer/items/task/data/models/task_model.dart';
 import 'package:fo_fe/features/organizer/items/task/task_exports.dart';
 import 'package:fo_fe/features/organizer/items/user/user_exports.dart';
@@ -11,21 +13,23 @@ import 'package:fo_fe/features/organizer/items/user/user_exports.dart';
 import '../../../../../../core/util/organizer/core_util_organizer.dart';
 import '../models/task_mapper.dart';
 
-class TaskDataSource {
+class TaskLocalDataSourceDrift implements TaskLocalDataSource {
   final TaskDaoDrift taskDao;
   final TagDaoDrift tagDao;
-  final UserDaoDrift userDao;
-  final TaskUserDaoDrift taskUserDao;
-  final TaskTagDaoDrift taskTagDao;
   final ReminderDaoDrift reminderDao;
+  final UserDaoDrift userDao;
+  final TaskTagDaoDrift taskTagDao;
+  final TaskReminderDaoDrift taskReminderDao;
+  final TaskUserDaoDrift taskUserDao;
 
-  TaskDataSource({
+  TaskLocalDataSourceDrift({
     required this.taskDao,
     required this.tagDao,
-    required this.userDao,
-    required this.taskUserDao,
-    required this.taskTagDao,
     required this.reminderDao,
+    required this.userDao,
+    required this.taskTagDao,
+    required this.taskReminderDao,
+    required this.taskUserDao,
   });
 
   // CRUD operations
@@ -37,8 +41,8 @@ class TaskDataSource {
     return taskDao.updateTask(task);
   }
 
-  Future<int> deleteTask(TaskTableDriftCompanion task) {
-    return taskDao.deleteTask(task);
+  Future<int> deleteTask(int taskId) {
+    return taskDao.deleteTask(taskId);
   }
 
   // Get task by ID without related entities
@@ -64,7 +68,8 @@ class TaskDataSource {
     final tagTables = await tagDao.getTagItemsByTagIds(tagIds);
     final tags = tagTables.map(TagMapper.fromTableDrift).toList();
 
-    final reminderTables = await reminderDao.getRemindersByTaskId(id);
+    final reminderIds = await taskReminderDao.getReminderIdsByTaskId(id);
+    final reminderTables = await reminderDao.getRemindersByTaskId(reminderIds);
     final reminders =
         reminderTables.map(ReminderMapper.fromTableDrift).toList();
 
@@ -105,7 +110,8 @@ class TaskDataSource {
 
   // Method to get reminders by task ID
   Future<List<ReminderModel>> getRemindersByTaskId(int taskId) async {
-    final reminderTables = await reminderDao.getRemindersByTaskId(taskId);
+    final reminderIds = await taskReminderDao.getReminderIdsByTaskId(taskId);
+    final reminderTables = await reminderDao.getRemindersByTaskId(reminderIds);
     return reminderTables.map(ReminderMapper.fromTableDrift).toList();
   }
 
@@ -126,32 +132,38 @@ class TaskDataSource {
   }
 
   // Add reminder to task
-  Future<int> addReminderToTask(ReminderTableDriftCompanion reminder) async {
-    return reminderDao.insertReminder(reminder);
+  Future<int> addReminderToTask(int taskId, int reminderId) async {
+    return taskReminderDao
+        .insertTaskReminder(_createTaskReminderCompanion(taskId, reminderId));
   }
 
 // Delete user from task
   Future<int> deleteUserFromTask(int taskId, int userId) async {
-    return taskUserDao.deleteTaskUser(_createTaskUserCompanion(taskId, userId));
+    return taskUserDao.deleteTaskUser(taskId, userId);
   }
 
   // Delete tag from task
   Future<int> deleteTagFromTask(int taskId, int tagId) async {
-    return taskTagDao.deleteTaskTag(_createTaskTagCompanion(taskId, tagId));
+    return taskTagDao.deleteTaskTag(taskId, tagId);
   }
 
   // Delete reminder from task
-  Future<int> deleteReminderFromTask(int reminderId) async {
-    final reminder = ReminderTableDriftCompanion(
-      id: Value(reminderId),
-    );
-    return reminderDao.deleteReminder(reminder);
+  Future<int> deleteReminderFromTask(taskId, reminderId) async {
+    return taskReminderDao.deleteTaskReminder(taskId, reminderId);
   }
 
   TaskTagTableDriftCompanion _createTaskTagCompanion(int taskId, int tagId) {
     return TaskTagTableDriftCompanion(
       taskId: Value(taskId),
       tagId: Value(tagId),
+    );
+  }
+
+  TaskReminderTableDriftCompanion _createTaskReminderCompanion(
+      int taskId, int reminderId) {
+    return TaskReminderTableDriftCompanion(
+      taskId: Value(taskId),
+      reminderId: Value(reminderId),
     );
   }
 

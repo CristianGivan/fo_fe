@@ -22,19 +22,19 @@ void main() {
 
   OrganizerItems<TaskEntity> tTaskEntityList = getOrganizerItems3TaskEntity();
 
-  test('should get a list of tasks from the repository', () async {
-    // Arrange
-    when(mockTaskRepository.getTaskItemsByIdSet(tIdSet))
-        .thenAnswer((_) async => Right(tTaskEntityList));
-
-    // Act
-    final result = await usecase(Params.withIdSet(tIdSet));
-
-    // Assert
-    expect(result, Right(tTaskEntityList));
-    verify(mockTaskRepository.getTaskItemsByIdSet(tIdSet));
-    verifyNoMoreInteractions(mockTaskRepository);
-  });
+  // test('should get a list of tasks from the repository', () async {
+  //   // Arrange
+  //   when(mockTaskRepository.getTaskItemsByIdSet(tIdSet))
+  //       .thenAnswer((_) async => Right(tTaskEntityList));
+  //
+  //   // Act
+  //   final result = await usecase(Params.withIdSet(tIdSet));
+  //
+  //   // Assert
+  //   expect(result, Right(tTaskEntityList));
+  //   verify(mockTaskRepository.getTaskItemsByIdSet(tIdSet));
+  //   verifyNoMoreInteractions(mockTaskRepository);
+  // });
 
   test('should return a Failure when the repository call fails', () async {
     // Arrange

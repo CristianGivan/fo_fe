@@ -10,6 +10,6 @@ class AddReminderToTask {
 
   Future<Either<Failure, void>> call(
       int taskId, ReminderEntity reminder) async {
-    return await taskRepository.addReminderToTask(taskId, reminder);
+    return await taskRepository.addReminderToTask(taskId, reminder.id);
   }
 }

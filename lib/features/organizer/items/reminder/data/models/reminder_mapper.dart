@@ -6,7 +6,6 @@ class ReminderMapper {
   static ReminderModel toModel(ReminderTableDriftG reminderTable) {
     return ReminderModel(
       id: reminderTable.id,
-      taskId: reminderTable.taskId,
       remindAt: reminderTable.remindAt,
     );
   }
@@ -17,7 +16,6 @@ class ReminderMapper {
     }
     return ReminderModel(
       id: reminderEntity.id,
-      taskId: reminderEntity.taskId,
       remindAt: reminderEntity.remindAt,
     );
   }
@@ -30,20 +28,41 @@ class ReminderMapper {
     return reminderEntityList.map(entityToModel).toList();
   }
 
+  static ReminderEntity modelToEntity(ReminderModel model) {
+    return ReminderEntity(
+      id: model.id,
+      taskId: model.taskId,
+      remindAt: model.remindAt,
+    );
+  }
+
+  static List<ReminderEntity> modelListToEntityList(
+      List<ReminderModel>? reminderModelList) {
+    if (reminderModelList == null) {
+      return [];
+    }
+    return reminderModelList.map(modelToEntity).toList();
+  }
+
   static ReminderModel fromTableDrift(ReminderTableDriftG reminder) {
     return ReminderModel(
       id: reminder.id,
-      taskId: reminder.taskId,
       remindAt: reminder.remindAt,
       // Add other fields
     );
   }
 
-  static ReminderTableDriftCompanion toCompanion(ReminderModel reminder) {
+  static ReminderTableDriftCompanion modelToCompanion(ReminderModel reminder) {
     return ReminderTableDriftCompanion(
       id: Value(reminder.id),
-      taskId: Value(reminder.taskId),
       remindAt: Value(reminder.remindAt),
+    );
+  }
+
+  static ReminderTableDriftCompanion entityToCompanion(ReminderEntity entity) {
+    return ReminderTableDriftCompanion(
+      id: Value(entity.id),
+      remindAt: Value(entity.remindAt),
     );
   }
 }

@@ -12,6 +12,6 @@ class GetTaskById implements UseCase<TaskEntity, Params> {
 
   @override
   Future<Either<Failure, TaskEntity>> call(Params params) async {
-    return await taskRepository.getTaskById(params.id);
+    return taskRepository.getTaskById(params.id);
   }
 }
