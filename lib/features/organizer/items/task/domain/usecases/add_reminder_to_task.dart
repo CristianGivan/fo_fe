@@ -1,15 +1,27 @@
 import 'package:dartz/dartz.dart';
+import 'package:equatable/equatable.dart';
 import 'package:fo_fe/core/error/failures.dart';
-import 'package:fo_fe/features/organizer/items/reminder/domain/entities/reminder_entity.dart';
-import 'package:fo_fe/features/organizer/items/task/domain/repositories/task_repository.dart';
+import 'package:fo_fe/core/usecase/usecase.dart';
 
-class AddReminderToTask {
-  final TaskRepository taskRepository;
+import '../repositories/task_repository.dart';
 
-  AddReminderToTask(this.taskRepository);
+class AddReminderToTask extends UseCase<int, AddReminderToTaskParams> {
+  final TaskRepository repository;
 
-  Future<Either<Failure, void>> call(
-      int taskId, ReminderEntity reminder) async {
-    return await taskRepository.addReminderToTask(taskId, reminder.id);
+  AddReminderToTask(this.repository);
+
+  @override
+  Future<Either<Failure, int>> call(AddReminderToTaskParams params) {
+    return repository.addReminderToTask(params.taskId, params.reminderId);
   }
+}
+
+class AddReminderToTaskParams extends Equatable {
+  final int taskId;
+  final int reminderId;
+
+  AddReminderToTaskParams({required this.taskId, required this.reminderId});
+
+  @override
+  List<Object> get props => [taskId, reminderId];
 }

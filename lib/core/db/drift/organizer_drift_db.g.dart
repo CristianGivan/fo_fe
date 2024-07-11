@@ -1092,6 +1092,12 @@ class $ReminderTableDriftTable extends ReminderTableDrift
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _subjectMeta =
+      const VerificationMeta('subject');
+  @override
+  late final GeneratedColumn<String> subject = GeneratedColumn<String>(
+      'subject', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _remindAtMeta =
       const VerificationMeta('remindAt');
   @override
@@ -1099,7 +1105,7 @@ class $ReminderTableDriftTable extends ReminderTableDrift
       'remind_at', aliasedName, false,
       type: DriftSqlType.dateTime, requiredDuringInsert: true);
   @override
-  List<GeneratedColumn> get $columns => [id, remindAt];
+  List<GeneratedColumn> get $columns => [id, subject, remindAt];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -1113,6 +1119,12 @@ class $ReminderTableDriftTable extends ReminderTableDrift
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('subject')) {
+      context.handle(_subjectMeta,
+          subject.isAcceptableOrUnknown(data['subject']!, _subjectMeta));
+    } else if (isInserting) {
+      context.missing(_subjectMeta);
     }
     if (data.containsKey('remind_at')) {
       context.handle(_remindAtMeta,
@@ -1131,6 +1143,8 @@ class $ReminderTableDriftTable extends ReminderTableDrift
     return ReminderTableDriftG(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      subject: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}subject'])!,
       remindAt: attachedDatabase.typeMapping
           .read(DriftSqlType.dateTime, data['${effectivePrefix}remind_at'])!,
     );
@@ -1145,12 +1159,15 @@ class $ReminderTableDriftTable extends ReminderTableDrift
 class ReminderTableDriftG extends DataClass
     implements Insertable<ReminderTableDriftG> {
   final int id;
+  final String subject;
   final DateTime remindAt;
-  const ReminderTableDriftG({required this.id, required this.remindAt});
+  const ReminderTableDriftG(
+      {required this.id, required this.subject, required this.remindAt});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
+    map['subject'] = Variable<String>(subject);
     map['remind_at'] = Variable<DateTime>(remindAt);
     return map;
   }
@@ -1158,6 +1175,7 @@ class ReminderTableDriftG extends DataClass
   ReminderTableDriftCompanion toCompanion(bool nullToAbsent) {
     return ReminderTableDriftCompanion(
       id: Value(id),
+      subject: Value(subject),
       remindAt: Value(remindAt),
     );
   }
@@ -1167,6 +1185,7 @@ class ReminderTableDriftG extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return ReminderTableDriftG(
       id: serializer.fromJson<int>(json['id']),
+      subject: serializer.fromJson<String>(json['subject']),
       remindAt: serializer.fromJson<DateTime>(json['remindAt']),
     );
   }
@@ -1175,59 +1194,71 @@ class ReminderTableDriftG extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
+      'subject': serializer.toJson<String>(subject),
       'remindAt': serializer.toJson<DateTime>(remindAt),
     };
   }
 
-  ReminderTableDriftG copyWith({int? id, DateTime? remindAt}) =>
+  ReminderTableDriftG copyWith(
+          {int? id, String? subject, DateTime? remindAt}) =>
       ReminderTableDriftG(
         id: id ?? this.id,
+        subject: subject ?? this.subject,
         remindAt: remindAt ?? this.remindAt,
       );
   @override
   String toString() {
     return (StringBuffer('ReminderTableDriftG(')
           ..write('id: $id, ')
+          ..write('subject: $subject, ')
           ..write('remindAt: $remindAt')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, remindAt);
+  int get hashCode => Object.hash(id, subject, remindAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is ReminderTableDriftG &&
           other.id == this.id &&
+          other.subject == this.subject &&
           other.remindAt == this.remindAt);
 }
 
 class ReminderTableDriftCompanion extends UpdateCompanion<ReminderTableDriftG> {
   final Value<int> id;
+  final Value<String> subject;
   final Value<DateTime> remindAt;
   const ReminderTableDriftCompanion({
     this.id = const Value.absent(),
+    this.subject = const Value.absent(),
     this.remindAt = const Value.absent(),
   });
   ReminderTableDriftCompanion.insert({
     this.id = const Value.absent(),
+    required String subject,
     required DateTime remindAt,
-  }) : remindAt = Value(remindAt);
+  })  : subject = Value(subject),
+        remindAt = Value(remindAt);
   static Insertable<ReminderTableDriftG> custom({
     Expression<int>? id,
+    Expression<String>? subject,
     Expression<DateTime>? remindAt,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
+      if (subject != null) 'subject': subject,
       if (remindAt != null) 'remind_at': remindAt,
     });
   }
 
   ReminderTableDriftCompanion copyWith(
-      {Value<int>? id, Value<DateTime>? remindAt}) {
+      {Value<int>? id, Value<String>? subject, Value<DateTime>? remindAt}) {
     return ReminderTableDriftCompanion(
       id: id ?? this.id,
+      subject: subject ?? this.subject,
       remindAt: remindAt ?? this.remindAt,
     );
   }
@@ -1237,6 +1268,9 @@ class ReminderTableDriftCompanion extends UpdateCompanion<ReminderTableDriftG> {
     final map = <String, Expression>{};
     if (id.present) {
       map['id'] = Variable<int>(id.value);
+    }
+    if (subject.present) {
+      map['subject'] = Variable<String>(subject.value);
     }
     if (remindAt.present) {
       map['remind_at'] = Variable<DateTime>(remindAt.value);
@@ -1248,6 +1282,7 @@ class ReminderTableDriftCompanion extends UpdateCompanion<ReminderTableDriftG> {
   String toString() {
     return (StringBuffer('ReminderTableDriftCompanion(')
           ..write('id: $id, ')
+          ..write('subject: $subject, ')
           ..write('remindAt: $remindAt')
           ..write(')'))
         .toString();
@@ -2987,11 +3022,13 @@ class $$TaskUserTableDriftTableOrderingComposer
 typedef $$ReminderTableDriftTableInsertCompanionBuilder
     = ReminderTableDriftCompanion Function({
   Value<int> id,
+  required String subject,
   required DateTime remindAt,
 });
 typedef $$ReminderTableDriftTableUpdateCompanionBuilder
     = ReminderTableDriftCompanion Function({
   Value<int> id,
+  Value<String> subject,
   Value<DateTime> remindAt,
 });
 
@@ -3017,18 +3054,22 @@ class $$ReminderTableDriftTableTableManager extends RootTableManager<
               $$ReminderTableDriftTableProcessedTableManager(p),
           getUpdateCompanionBuilder: ({
             Value<int> id = const Value.absent(),
+            Value<String> subject = const Value.absent(),
             Value<DateTime> remindAt = const Value.absent(),
           }) =>
               ReminderTableDriftCompanion(
             id: id,
+            subject: subject,
             remindAt: remindAt,
           ),
           getInsertCompanionBuilder: ({
             Value<int> id = const Value.absent(),
+            required String subject,
             required DateTime remindAt,
           }) =>
               ReminderTableDriftCompanion.insert(
             id: id,
+            subject: subject,
             remindAt: remindAt,
           ),
         ));
@@ -3055,6 +3096,11 @@ class $$ReminderTableDriftTableFilterComposer
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
+  ColumnFilters<String> get subject => $state.composableBuilder(
+      column: $state.table.subject,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
   ColumnFilters<DateTime> get remindAt => $state.composableBuilder(
       column: $state.table.remindAt,
       builder: (column, joinBuilders) =>
@@ -3066,6 +3112,11 @@ class $$ReminderTableDriftTableOrderingComposer
   $$ReminderTableDriftTableOrderingComposer(super.$state);
   ColumnOrderings<int> get id => $state.composableBuilder(
       column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get subject => $state.composableBuilder(
+      column: $state.table.subject,
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 

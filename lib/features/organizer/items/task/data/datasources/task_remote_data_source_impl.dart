@@ -7,9 +7,9 @@ import 'package:fo_fe/core/error/exceptions.dart';
 import 'package:fo_fe/core/util/organizer/core_util_organizer.dart';
 import 'package:fo_fe/features/organizer/items/reminder/domain/entities/reminder_entity.dart';
 import 'package:fo_fe/features/organizer/items/task/data/models/task_mapper.dart';
+import 'package:fo_fe/features/organizer/items/task/task_exports.dart';
 import 'package:http/http.dart' as http;
 
-import '../../task_lib.dart';
 import '../models/task_model.dart';
 import 'task_remote_data_source.dart';
 

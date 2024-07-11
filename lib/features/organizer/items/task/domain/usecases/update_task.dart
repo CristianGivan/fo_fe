@@ -1,11 +1,27 @@
-import 'package:fo_fe/features/organizer/items/task/domain/repositories/task_repository.dart';
+import 'package:dartz/dartz.dart';
+import 'package:equatable/equatable.dart';
+import 'package:fo_fe/core/error/failures.dart';
+import 'package:fo_fe/core/usecase/usecase.dart';
+import 'package:fo_fe/features/organizer/items/task/task_exports.dart';
 
-class UpdateTask {
-  final TaskRepository taskRepository;
+import '../repositories/task_repository.dart';
 
-  UpdateTask(this.taskRepository);
+class UpdateTask extends UseCase<bool, UpdateTaskParams> {
+  final TaskRepository repository;
 
-// Future<Either<Failure, void>> call(TaskEntity task) async {
-//   return await taskRepository.updateTask(task);
-// }
+  UpdateTask(this.repository);
+
+  @override
+  Future<Either<Failure, bool>> call(UpdateTaskParams params) {
+    return repository.updateTask(params.task);
+  }
+}
+
+class UpdateTaskParams extends Equatable {
+  final TaskEntity task;
+
+  UpdateTaskParams({required this.task});
+
+  @override
+  List<Object> get props => [task];
 }

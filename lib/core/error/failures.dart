@@ -29,6 +29,10 @@ class CacheFailure extends Failure {
   const CacheFailure(String super.message);
 }
 
+class NetworkFailure extends Failure {
+  const NetworkFailure(String super.message);
+}
+
 class TaskNotFoundFailure extends Failure {
   TaskNotFoundFailure() : super('Task not found');
 }

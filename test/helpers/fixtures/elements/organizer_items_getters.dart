@@ -1,6 +1,6 @@
 import 'package:fo_fe/core/util/organizer/core_util_organizer.dart';
 import 'package:fo_fe/features/organizer/items/organizer_item/organizer_item.dart';
-import 'package:fo_fe/features/organizer/items/task/task_lib.dart';
+import 'package:fo_fe/features/organizer/items/task/task_exports.dart';
 
 OrganizerItems<TaskEntity> getOrganizerItems3TaskEntity() {
   final TaskEntity taskEntity1 = TaskEntity(id: 1, subject: "Task1");

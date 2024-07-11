@@ -1,4 +1,7 @@
-part of '../../task_lib.dart';
+import 'package:equatable/equatable.dart';
+import 'package:fo_fe/core/const/constants.dart';
+import 'package:fo_fe/features/organizer/items/organizer_item/organizer_item.dart';
+import 'package:fo_fe/features/organizer/util/organizer_enums.dart';
 
 class TaskEntity extends OrganizerItemEntity with EquatableMixin {
   final DateTime? _startDate;

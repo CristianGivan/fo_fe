@@ -1,13 +1,26 @@
 import 'package:dartz/dartz.dart';
+import 'package:equatable/equatable.dart';
 import 'package:fo_fe/core/error/failures.dart';
-import 'package:fo_fe/features/organizer/items/task/domain/repositories/task_repository.dart';
+import 'package:fo_fe/core/usecase/usecase.dart';
 
-class DeleteTask {
-  final TaskRepository taskRepository;
+import '../repositories/task_repository.dart';
 
-  DeleteTask(this.taskRepository);
+class DeleteTask extends UseCase<int, DeleteTaskParams> {
+  final TaskRepository repository;
 
-  Future<Either<Failure, void>> call(int taskId) async {
-    return await taskRepository.deleteTask(taskId);
+  DeleteTask(this.repository);
+
+  @override
+  Future<Either<Failure, int>> call(DeleteTaskParams params) {
+    return repository.deleteTask(params.taskId);
   }
+}
+
+class DeleteTaskParams extends Equatable {
+  final int taskId;
+
+  DeleteTaskParams({required this.taskId});
+
+  @override
+  List<Object> get props => [taskId];
 }

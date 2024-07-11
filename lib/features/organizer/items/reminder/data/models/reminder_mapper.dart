@@ -6,6 +6,7 @@ class ReminderMapper {
   static ReminderModel toModel(ReminderTableDriftG reminderTable) {
     return ReminderModel(
       id: reminderTable.id,
+      subject: reminderTable.subject,
       remindAt: reminderTable.remindAt,
     );
   }
@@ -16,6 +17,7 @@ class ReminderMapper {
     }
     return ReminderModel(
       id: reminderEntity.id,
+      subject: reminderEntity.subject,
       remindAt: reminderEntity.remindAt,
     );
   }
@@ -31,7 +33,7 @@ class ReminderMapper {
   static ReminderEntity modelToEntity(ReminderModel model) {
     return ReminderEntity(
       id: model.id,
-      taskId: model.taskId,
+      subject: model.subject,
       remindAt: model.remindAt,
     );
   }
@@ -47,6 +49,7 @@ class ReminderMapper {
   static ReminderModel fromTableDrift(ReminderTableDriftG reminder) {
     return ReminderModel(
       id: reminder.id,
+      subject: reminder.subject,
       remindAt: reminder.remindAt,
       // Add other fields
     );

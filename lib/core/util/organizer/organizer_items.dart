@@ -54,6 +54,10 @@ class OrganizerItems<T extends OrganizerItemEntity> extends Equatable {
   //
   // }
 
+  T firstWhere(bool Function(T) test, {T Function()? orElse}) {
+    return _organizerItems.firstWhere(test, orElse: orElse);
+  }
+
 //todo tests
   Iterable<Map<String, dynamic>> createJsonToCheckForUpdates() {
     return _organizerItems.map((e) => e.jsonToCheckForUpdates());

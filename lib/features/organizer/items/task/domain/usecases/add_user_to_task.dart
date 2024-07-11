@@ -1,14 +1,27 @@
 import 'package:dartz/dartz.dart';
+import 'package:equatable/equatable.dart';
 import 'package:fo_fe/core/error/failures.dart';
-import 'package:fo_fe/features/organizer/items/task/domain/repositories/task_repository.dart';
-import 'package:fo_fe/features/organizer/items/user/domain/entities/user_entity.dart';
+import 'package:fo_fe/core/usecase/usecase.dart';
 
-class AddUserToTask {
-  final TaskRepository taskRepository;
+import '../repositories/task_repository.dart';
 
-  AddUserToTask(this.taskRepository);
+class AddUserToTask extends UseCase<int, AddUserToTaskParams> {
+  final TaskRepository repository;
 
-  Future<Either<Failure, void>> call(int taskId, UserEntity user) async {
-    return await taskRepository.addUserToTask(taskId, user.id);
+  AddUserToTask(this.repository);
+
+  @override
+  Future<Either<Failure, int>> call(AddUserToTaskParams params) {
+    return repository.addUserToTask(params.taskId, params.userId);
   }
+}
+
+class AddUserToTaskParams extends Equatable {
+  final int taskId;
+  final int userId;
+
+  AddUserToTaskParams({required this.taskId, required this.userId});
+
+  @override
+  List<Object> get props => [taskId, userId];
 }

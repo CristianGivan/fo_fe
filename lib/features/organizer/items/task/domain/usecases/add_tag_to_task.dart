@@ -1,18 +1,27 @@
 import 'package:dartz/dartz.dart';
+import 'package:equatable/equatable.dart';
 import 'package:fo_fe/core/error/failures.dart';
-import 'package:fo_fe/features/organizer/items/tag/domain/entities/tag_entity.dart';
-import 'package:fo_fe/features/organizer/items/task/domain/repositories/task_repository.dart';
+import 'package:fo_fe/core/usecase/usecase.dart';
 
-class AddTagToTask {
-  final TaskRepository taskRepository;
+import '../repositories/task_repository.dart';
 
-  AddTagToTask(this.taskRepository);
+class AddTagToTask extends UseCase<int, AddTagToTaskParams> {
+  final TaskRepository repository;
 
-  Future<Either<Failure, void>> call(int taskId, TagEntity tag) async {
-    return await taskRepository.addTagToTask(taskId, tag.id);
+  AddTagToTask(this.repository);
+
+  @override
+  Future<Either<Failure, int>> call(AddTagToTaskParams params) {
+    return repository.addTagToTask(params.taskId, params.tagId);
   }
-// @override
-// Future<Either<Failure, void>> call(Params params) async {
-//   return await taskRepository.addTagToTask(params.id, params.id2);
-// }
+}
+
+class AddTagToTaskParams extends Equatable {
+  final int taskId;
+  final int tagId;
+
+  AddTagToTaskParams({required this.taskId, required this.tagId});
+
+  @override
+  List<Object> get props => [taskId, tagId];
 }

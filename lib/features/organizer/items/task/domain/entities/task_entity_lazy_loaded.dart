@@ -1,9 +1,9 @@
 import 'package:fo_fe/features/organizer/items/reminder/reminder_exports.dart';
 import 'package:fo_fe/features/organizer/items/tag/tag_exports.dart';
+import 'package:fo_fe/features/organizer/items/task/task_exports.dart';
 import 'package:fo_fe/features/organizer/items/user/user_exports.dart';
 
 import '../../../../util/organizer_enums.dart';
-import '../../task_lib.dart';
 
 class TaskEntityLazyLoaded extends TaskEntity {
   UserEntity? creator;

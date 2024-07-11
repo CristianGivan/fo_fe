@@ -5,11 +5,12 @@ import 'package:fo_fe/features/organizer/items/reminder/reminder_exports.dart';
 class ReminderModel extends ReminderEntity with EquatableMixin {
   ReminderModel({
     required int id,
+    required String subject,
     required DateTime remindAt,
   }) : super(id: id, remindAt: remindAt);
 
   factory ReminderModel.empty() =>
-      ReminderModel(id: 0, remindAt: INITIAL_EPOCH_DATE);
+      ReminderModel(id: 0, subject: "", remindAt: INITIAL_EPOCH_DATE);
 
   @override
   // TODO: implement props
