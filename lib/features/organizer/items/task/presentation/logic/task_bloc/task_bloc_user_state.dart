@@ -1,15 +1,15 @@
 part of 'task_bloc.dart';
 
-abstract class TaskBlocUserState extends Equatable {
-  const TaskBlocUserState();
+abstract class TaskUserBlocState extends Equatable {
+  const TaskUserBlocState();
 
   @override
   List<Object> get props => [];
 }
 
-class UserLoadingBlocState extends TaskBlocUserState {}
+class UserLoadingBlocState extends TaskUserBlocState {}
 
-class UserLoadedBlocState extends TaskBlocUserState {
+class UserLoadedBlocState extends TaskUserBlocState {
   final List<UserEntity> users;
 
   UserLoadedBlocState(this.users);
@@ -18,11 +18,11 @@ class UserLoadedBlocState extends TaskBlocUserState {
   List<Object> get props => [users];
 }
 
-class UserAddedToTaskBlocState extends TaskBlocUserState {}
+class UserAddedToTaskBlocState extends TaskUserBlocState {}
 
-class UserDeletedFromTaskBlocState extends TaskBlocUserState {}
+class UserDeletedFromTaskBlocState extends TaskUserBlocState {}
 
-class UserErrorBlocState extends TaskBlocUserState {
+class UserErrorBlocState extends TaskUserBlocState {
   final String message;
 
   UserErrorBlocState(this.message);

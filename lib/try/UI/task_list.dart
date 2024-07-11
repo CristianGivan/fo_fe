@@ -5,7 +5,7 @@ import 'package:fo_fe/features/organizer/items/task/presentation/logic/task_bloc
 class TaskList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TaskBlocTask, TaskBlocTaskState>(
+    return BlocBuilder<TaskBlocTask, TaskBlocState>(
       builder: (context, state) {
         if (state is TaskLoadingBlocState) {
           return Center(child: CircularProgressIndicator());

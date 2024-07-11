@@ -1,6 +1,6 @@
 part of 'task_bloc.dart';
 
-class TaskBlocUser extends Bloc<TaskBlocUserEvent, TaskBlocUserState> {
+class TaskBlocUser extends Bloc<TaskBlocUserEvent, TaskUserBlocState> {
   final GetUsersByTaskId getUsersByTaskId;
   final AddUserToTask addUserToTask;
   final DeleteUserFromTask deleteUserFromTask;
@@ -12,7 +12,7 @@ class TaskBlocUser extends Bloc<TaskBlocUserEvent, TaskBlocUserState> {
   }) : super(UserLoadingBlocState());
 
   @override
-  Stream<TaskBlocUserState> mapEventToState(TaskBlocUserEvent event) async* {
+  Stream<TaskUserBlocState> mapEventToState(TaskBlocUserEvent event) async* {
     if (event is GetUsersByTaskIdBlocEvent) {
       yield UserLoadingBlocState();
       final failureOrUsers =

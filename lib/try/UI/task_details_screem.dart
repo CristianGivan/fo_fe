@@ -52,7 +52,7 @@ class TaskDetails extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          BlocBuilder<TaskBlocTask, TaskBlocTaskState>(
+          BlocBuilder<TaskBlocTask, TaskBlocState>(
             builder: (context, state) {
               if (state is TaskLoadingBlocState) {
                 return Center(child: CircularProgressIndicator());
@@ -77,7 +77,7 @@ class TaskDetails extends StatelessWidget {
           ),
           Divider(),
           Text('Users:', style: TextStyle(fontSize: 18)),
-          BlocBuilder<TaskBlocUser, TaskBlocUserState>(
+          BlocBuilder<TaskBlocUser, TaskUserBlocState>(
             builder: (context, state) {
               if (state is TaskLoadingBlocState) {
                 return Center(child: CircularProgressIndicator());
@@ -115,7 +115,7 @@ class TaskDetails extends StatelessWidget {
           ),
           Divider(),
           Text('Tags:', style: TextStyle(fontSize: 18)),
-          BlocBuilder<TaskBlocTag, TaskBlocTagState>(
+          BlocBuilder<TaskBlocTag, TaskTagBlocState>(
             builder: (context, state) {
               if (state is TaskLoadingBlocState) {
                 return Center(child: CircularProgressIndicator());
@@ -153,7 +153,7 @@ class TaskDetails extends StatelessWidget {
           ),
           Divider(),
           Text('Reminders:', style: TextStyle(fontSize: 18)),
-          BlocBuilder<TaskBlocReminder, TaskBlocReminderState>(
+          BlocBuilder<TaskBlocReminder, TaskReminderBlocState>(
             builder: (context, state) {
               if (state is TaskLoadingBlocState) {
                 return Center(child: CircularProgressIndicator());

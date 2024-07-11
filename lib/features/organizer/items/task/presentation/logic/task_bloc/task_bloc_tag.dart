@@ -1,6 +1,6 @@
 part of 'task_bloc.dart';
 
-class TaskBlocTag extends Bloc<TaskBlocTagEvent, TaskBlocTagState> {
+class TaskBlocTag extends Bloc<TaskBlocTagEvent, TaskTagBlocState> {
   final GetTagsByTaskId getTagsByTaskId;
   final AddTagToTask addTagToTask;
   final DeleteTagFromTask deleteTagFromTask;
@@ -12,7 +12,7 @@ class TaskBlocTag extends Bloc<TaskBlocTagEvent, TaskBlocTagState> {
   }) : super(TagLoadingBlocState());
 
   @override
-  Stream<TaskBlocTagState> mapEventToState(TaskBlocTagEvent event) async* {
+  Stream<TaskTagBlocState> mapEventToState(TaskBlocTagEvent event) async* {
     if (event is GetTagsByTaskIdBlocEvent) {
       yield TagLoadingBlocState();
       final failureOrTags =

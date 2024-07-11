@@ -1,15 +1,15 @@
 part of 'task_bloc.dart';
 
-abstract class TaskBlocTagState extends Equatable {
-  const TaskBlocTagState();
+abstract class TaskTagBlocState extends Equatable {
+  const TaskTagBlocState();
 
   @override
   List<Object> get props => [];
 }
 
-class TagLoadingBlocState extends TaskBlocTagState {}
+class TagLoadingBlocState extends TaskTagBlocState {}
 
-class TagLoadedBlocState extends TaskBlocTagState {
+class TagLoadedBlocState extends TaskTagBlocState {
   final List<TagEntity> tags;
 
   TagLoadedBlocState(this.tags);
@@ -18,11 +18,11 @@ class TagLoadedBlocState extends TaskBlocTagState {
   List<Object> get props => [tags];
 }
 
-class TagAddedToTaskBlocState extends TaskBlocTagState {}
+class TagAddedToTaskBlocState extends TaskTagBlocState {}
 
-class TagDeletedFromTaskBlocState extends TaskBlocTagState {}
+class TagDeletedFromTaskBlocState extends TaskTagBlocState {}
 
-class TagErrorBlocState extends TaskBlocTagState {
+class TagErrorBlocState extends TaskTagBlocState {
   final String message;
 
   TagErrorBlocState(this.message);

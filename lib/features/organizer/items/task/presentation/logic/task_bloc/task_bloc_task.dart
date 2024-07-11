@@ -1,6 +1,6 @@
 part of 'task_bloc.dart';
 
-class TaskBlocTask extends Bloc<TaskBlocTaskEvent, TaskBlocTaskState> {
+class TaskBlocTask extends Bloc<TaskBlocTaskEvent, TaskBlocState> {
   final GetTaskById getTaskById;
   final GetTaskItemsAll getTaskItemsAll;
   final GetTaskItemsByIdSet getTaskItemsByIdSet;
@@ -18,7 +18,7 @@ class TaskBlocTask extends Bloc<TaskBlocTaskEvent, TaskBlocTaskState> {
   }) : super(TaskInitialBlocState());
 
   @override
-  Stream<TaskBlocTaskState> mapEventToState(TaskBlocTaskEvent event) async* {
+  Stream<TaskBlocState> mapEventToState(TaskBlocTaskEvent event) async* {
     if (event is LoadTaskItemsAllBlocEvent) {
       yield TaskLoadingBlocState();
       final failureOrTasks = await getTaskItemsAll(NoParams());

@@ -1,15 +1,15 @@
 part of 'task_bloc.dart';
 
-abstract class TaskBlocReminderState extends Equatable {
-  const TaskBlocReminderState();
+abstract class TaskReminderBlocState extends Equatable {
+  const TaskReminderBlocState();
 
   @override
   List<Object> get props => [];
 }
 
-class ReminderLoadingBlocState extends TaskBlocReminderState {}
+class ReminderLoadingBlocState extends TaskReminderBlocState {}
 
-class ReminderLoadedBlocState extends TaskBlocReminderState {
+class ReminderLoadedBlocState extends TaskReminderBlocState {
   final List<ReminderEntity> reminders;
 
   ReminderLoadedBlocState(this.reminders);
@@ -18,11 +18,11 @@ class ReminderLoadedBlocState extends TaskBlocReminderState {
   List<Object> get props => [reminders];
 }
 
-class ReminderAddedToTaskBlocState extends TaskBlocReminderState {}
+class ReminderAddedToTaskBlocState extends TaskReminderBlocState {}
 
-class ReminderDeletedFromTaskBlocState extends TaskBlocReminderState {}
+class ReminderDeletedFromTaskBlocState extends TaskReminderBlocState {}
 
-class ReminderErrorBlocState extends TaskBlocReminderState {
+class ReminderErrorBlocState extends TaskReminderBlocState {
   final String message;
 
   ReminderErrorBlocState(this.message);

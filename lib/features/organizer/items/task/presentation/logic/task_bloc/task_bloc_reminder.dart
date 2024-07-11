@@ -1,7 +1,7 @@
 part of 'task_bloc.dart';
 
 class TaskBlocReminder
-    extends Bloc<TaskBlocReminderEvent, TaskBlocReminderState> {
+    extends Bloc<TaskBlocReminderEvent, TaskReminderBlocState> {
   final GetRemindersByTaskId getRemindersByTaskId;
   final AddReminderToTask addReminderToTask;
   final DeleteReminderFromTask deleteReminderFromTask;
@@ -13,7 +13,7 @@ class TaskBlocReminder
   }) : super(ReminderLoadingBlocState());
 
   @override
-  Stream<TaskBlocReminderState> mapEventToState(
+  Stream<TaskReminderBlocState> mapEventToState(
       TaskBlocReminderEvent event) async* {
     if (event is GetRemindersByTaskIdBlocEvent) {
       yield ReminderLoadingBlocState();
