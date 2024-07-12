@@ -29,7 +29,7 @@ class TaskDeletedBlocState extends TaskBlocState {}
 class TaskErrorBlocState extends TaskBlocState {
   final String message;
 
-  TaskErrorBlocState(this.message);
+  TaskErrorBlocState({this.message = "default error message"});
 
   @override
   List<Object> get props => [message];

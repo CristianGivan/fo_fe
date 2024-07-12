@@ -4,7 +4,6 @@ import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
 import 'package:fo_fe/features/organizer/items/reminder/reminder_exports.dart';
 import 'package:fo_fe/features/organizer/items/tag/tag_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/task_exports.dart';
-import 'package:fo_fe/features/organizer/items/task/task_lib.dart';
 import 'package:fo_fe/features/organizer/items/user/user_exports.dart';
 
 import '../../../../util/organizer_enums.dart';
@@ -35,7 +34,7 @@ class TaskMapper {
 
   static TaskTableDriftCompanion entityToCompanion(TaskEntity entity) {
     return TaskTableDriftCompanion(
-      id: Value(entity.id),
+      // id: Value(entity.id),
       subject: Value(entity.subject),
       createdDate: Value(entity.createdDate),
       creatorId: Value(entity.creatorId),
