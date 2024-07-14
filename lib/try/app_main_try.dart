@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../app_view.dart';
+import '../../app_view.dart';
 
-class AppMain extends StatelessWidget {
-  const AppMain({super.key});
+class AppMainTry extends StatelessWidget {
+  const AppMainTry({super.key});
 
   @override
   Widget build(BuildContext context) {

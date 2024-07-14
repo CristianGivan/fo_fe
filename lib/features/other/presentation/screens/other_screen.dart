@@ -3,8 +3,8 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/router/routes/app_route_constants.dart';
 
-class Other extends StatelessWidget {
-  const Other({super.key});
+class OtherScreen extends StatelessWidget {
+  const OtherScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

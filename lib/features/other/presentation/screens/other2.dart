@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class Other2 extends StatelessWidget {
-  const Other2({super.key});
+class Other2Screen extends StatelessWidget {
+  const Other2Screen({super.key});
 
   @override
   Widget build(BuildContext context) {

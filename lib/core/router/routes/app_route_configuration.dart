@@ -1,7 +1,5 @@
 import 'package:authentication/authentication.dart';
 import 'package:flutter/material.dart';
-import '../../home/presentation/screens/home_screen.dart';
-import 'stateful_shell_route.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../features/organizer/organizer.dart';
@@ -13,7 +11,9 @@ import '../../../features/practice/presentation/screens/practice_screen.dart';
 import '../../../features/practice/presentation/screens/review_screen.dart';
 import '../../../features/settings/presentation/screens/display.dart';
 import '../../../features/settings/presentation/screens/settings_screen.dart';
+import '../../home/presentation/screens/home_screen.dart';
 import 'app_route_constants.dart';
+import 'stateful_shell_route.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorAKey = GlobalKey<NavigatorState>(debugLabel: 'shellA');
@@ -23,7 +23,6 @@ final _settingsShellNavigatorKey =
 final _shellNavigatorCKey = GlobalKey<NavigatorState>(debugLabel: 'shellC');
 final _shellNavigatorDKey = GlobalKey<NavigatorState>(debugLabel: 'shellD');
 
-// https://github.com/flutter/packages/blob/main/packages/go_router/example/lib/stateful_shell_route.dart
 class AppRouter {
   static GoRouter returnRouter() {
     GoRouter router = GoRouter(
@@ -86,7 +85,7 @@ class AppRouter {
       name: RouteCoreConstants.settingsRoute,
       path: RouteCoreConstants.settingsRoute,
       pageBuilder: (context, state) =>
-          const NoTransitionPage(child: Settings()),
+          const NoTransitionPage(child: SettingsScreenm()),
       routes: [
         GoRoute(
           name: RouteCoreConstants.settingsDisplayRoute,
@@ -112,19 +111,19 @@ class AppRouter {
       name: RouteCoreConstants.practiceRoute,
       path: RouteCoreConstants.practiceRoute,
       pageBuilder: (context, state) => const NoTransitionPage(
-        child: Practice(),
+        child: PracticeScreen(),
       ),
       routes: [
         GoRoute(
           name: RouteCoreConstants.practiceGamesRoute,
           path: RouteCoreConstants.gamesRouteName,
-          builder: (context, state) => const Games(),
+          builder: (context, state) => const GamesScreen(),
         ),
         GoRoute(
           name: RouteCoreConstants.practiceReviewRoute,
           path: RouteCoreConstants.reviewRouteName,
           builder: (context, state) {
-            return const Review();
+            return const ReviewScreen();
           },
         ),
       ],
@@ -146,19 +145,19 @@ class AppRouter {
       name: RouteCoreConstants.otherRoute,
       path: RouteCoreConstants.otherRoute,
       pageBuilder: (context, state) => const NoTransitionPage(
-        child: Other(),
+        child: OtherScreen(),
       ),
       routes: [
         GoRoute(
           name: RouteCoreConstants.otherOther1Route,
           path: RouteCoreConstants.other1RouteName,
-          builder: (context, state) => const Other1(),
+          builder: (context, state) => const Other1Screen(),
         ),
         GoRoute(
           name: RouteCoreConstants.otherOther2Route,
           path: RouteCoreConstants.other2RouteName,
           builder: (BuildContext context, GoRouterState state) {
-            return const Other2();
+            return const Other2Screen();
           },
         ),
       ],

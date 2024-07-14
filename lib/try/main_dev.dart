@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:fo_fe/injection_container.dart' as di;
+import 'package:fo_fe/service_locator.dart' as sl;
 
 import 'app_dev.dart';
 
 void main() async {
-  di.init();
+  sl.init();
   WidgetsFlutterBinding.ensureInitialized();
 
   runApp(MyApp());

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class Review extends StatelessWidget {
-  const Review({super.key});
+class ReviewScreen extends StatelessWidget {
+  const ReviewScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

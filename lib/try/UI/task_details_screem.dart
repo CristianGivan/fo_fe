@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fo_fe/features/organizer/items/task/presentation/logic/task_bloc/task_bloc.dart';
-import 'package:fo_fe/injection_container.dart';
+import 'package:fo_fe/service_locator.dart';
 import 'package:fo_fe/try/UI/reminder_form.dart';
 import 'package:fo_fe/try/UI/tag_form.dart';
 import 'package:fo_fe/try/UI/user_form.dart';

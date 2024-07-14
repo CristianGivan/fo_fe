@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class Practice extends StatelessWidget {
-  const Practice({super.key});
+class PracticeScreen extends StatelessWidget {
+  const PracticeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
