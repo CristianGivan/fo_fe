@@ -9,18 +9,20 @@ class OrganizerHome extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Organizer'),
         ),
-        body: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-            builder: (context, state) {
-          if (state.status == AuthenticationStatus.authenticated) {
-            return BlocProvider(
-              create: (context) => SignInBloc(
-                  userRepository:
-                      context.read<AuthenticationBloc>().userRepository),
-              child: const Organizer(),
-            );
-          } else {
-            return const AuthenticationScreen();
-          }
-        }));
+        body: Organizer()
+        // BlocBuilder<AuthenticationBloc, AuthenticationState>(
+        //     builder: (context, state) {
+        //   if (state.status == AuthenticationStatus.authenticated) {
+        //     return BlocProvider(
+        //       create: (context) => SignInBloc(
+        //           userRepository:
+        //               context.read<AuthenticationBloc>().userRepository),
+        //       child: const Organizer(),
+        //     );
+        //   } else {
+        //     return const AuthenticationScreen();
+        //   }
+        // })
+        );
   }
 }

@@ -8,7 +8,6 @@ import 'package:fo_fe/features/organizer/items/task/data/datasources/task_local_
 import 'package:fo_fe/features/organizer/items/task/data/models/task_mapper.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/repositories/task_repository.dart';
 import 'package:fo_fe/features/organizer/items/task/task_exports.dart';
-import 'package:fo_fe/features/organizer/items/task/task_lib.dart';
 import 'package:fo_fe/features/organizer/items/user/user_exports.dart';
 
 class TaskRepositoryDrift implements TaskRepository {
@@ -98,7 +97,7 @@ class TaskRepositoryDrift implements TaskRepository {
   Future<Either<Failure, List<UserEntity>>> getUsersByTaskId(int taskId) {
     return _handleDatabaseOperation(() async {
       final userModels = await localDataSource.getUsersByTaskId(taskId);
-      return UserMapper.modelListToEntityList(userModels);
+      return UserMapper.modelItemsToEntityItems(userModels);
     });
   }
 

@@ -12,48 +12,30 @@ class OrganizerAppBranch {
 
   static GoRoute route() {
     return GoRoute(
-        name: OrganizerRouterNames.organizerRoute,
-        path: OrganizerRouterNames.organizerRoute,
-        pageBuilder: (context, state) => const NoTransitionPage(
-              child: OrganizerHome(),
+      name: OrganizerRouterNames.organizerRoute,
+      path: '/organizer',
+      pageBuilder: (context, state) => NoTransitionPage(
+        child: OrganizerHome(),
+        // This is the root screen for the organizer
+      ),
+      routes: [
+        GoRoute(
+          name: OrganizerRouterNames.organizerTaskRoute,
+          path: 'task', // Relative path for nesting
+          pageBuilder: (context, state) => NoTransitionPage(
+            child: TaskScreen(),
+          ),
+          routes: [
+            GoRoute(
+              name: OrganizerRouterNames.organizerTaskAddTaskRoute,
+              path: OrganizerRouterNames.organizerTaskAddTaskName,
+              pageBuilder: (context, state) => NoTransitionPage(
+                child: AddTaskScreen(),
+              ),
             ),
-        routes: [
-          GoRoute(
-            name: OrganizerRouterNames.organizerTopicsRoute,
-            path: OrganizerRouterNames.topicRouteName,
-            builder: (context, state) => const Topics(),
-          ),
-          // GoRoute(
-          //     name: OrganizerRouterNames.organizerTasksRoute,
-          //     path: OrganizerRouterNames.tasksRouteName,
-          //     builder: (context, state) => const TasksView(),
-          //     //todo cg: TasksHome(),
-          //     routes: [
-          //       GoRoute(
-          //         name: OrganizerRouterNames.organizerTasksAddTasksRoute,
-          //         path: OrganizerRouterNames.tasksAddTasksRouteName,
-          //         builder: (context, state) => const AddTasks(),
-          //       ),
-          //       GoRoute(
-          //         name: OrganizerRouterNames.organizerTasksPageTasksRoute,
-          //         path: OrganizerRouterNames.tasksPageTasksRouteName,
-          //         builder: (context, state) => const TasksPage(),
-          //       ),
-          //     ]),
-          GoRoute(
-            name: OrganizerRouterNames.organizerReminderRoute,
-            path: OrganizerRouterNames.reminderRouteName,
-            builder: (context, state) => const Reminder(),
-          ),
-        ],
-        redirect: (context, state) {
-          //todo
-          if (true) {
-            return null;
-            // } else {
-            //   // todo shall be other screen
-            //   return context.push(OrganizerRouterNames.organizerRoute);
-          }
-        });
+          ],
+        ),
+      ],
+    );
   }
 }

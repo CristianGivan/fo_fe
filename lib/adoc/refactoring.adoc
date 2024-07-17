@@ -1,0 +1,8 @@
+== Dry
+
+Dry for
+
+static OrganizerItems<TaskModel> modelItemsFromTableDriftItems(
+List<TaskTableDriftG> items) {
+return OrganizerItems.of(items.map(modelFromTableDrift).toList());
+}

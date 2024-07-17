@@ -12,7 +12,7 @@ class Organizer extends StatelessWidget {
           Center(
             child: ElevatedButton(
               onPressed: () =>
-                  context.push(OrganizerRouterNames.organizerTopicsRoute),
+                  context.push(OrganizerRouterNames.organizerTaskRoute),
               child: const Text('Go to the topics screen'),
             ),
           ),
@@ -20,7 +20,7 @@ class Organizer extends StatelessWidget {
           Center(
             child: ElevatedButton(
               onPressed: () =>
-                  context.push(OrganizerRouterNames.organizerTasksRoute),
+                  context.push(OrganizerRouterNames.organizerTaskRoute),
               // context.push(OrganizerRouterNames.organizerTasksRoute),
               child: const Text('Go to the tasks screen'),
             ),
@@ -29,7 +29,7 @@ class Organizer extends StatelessWidget {
           Center(
             child: ElevatedButton(
               onPressed: () =>
-                  context.push(OrganizerRouterNames.organizerReminderRoute),
+                  context.push(OrganizerRouterNames.organizerTaskRoute),
               child: const Text('Go to the reminder screen'),
             ),
           ),

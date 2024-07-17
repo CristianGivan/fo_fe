@@ -19,12 +19,12 @@ abstract class TaskLocalDataSource {
 
   Future<TaskModelLazyLoaded?> getTaskByIdLazyLoaded(int id);
 
-  Future<List<TaskModel>> getTaskItemsAll();
+  Future<OrganizerItems<TaskModel>> getTaskItemsAll();
 
-  Future<List<TaskModel>> getTaskItemsByIdSet(IdSet idSet);
+  Future<OrganizerItems<TaskModel>> getTaskItemsByIdSet(IdSet idSet);
 
   // User operations related to tasks
-  Future<List<UserModel>> getUsersByTaskId(int taskId);
+  Future<OrganizerItems<UserModel>> getUsersByTaskId(int taskId);
 
   Future<UserModel?> getCreatorById(int creatorId);
 
@@ -33,14 +33,14 @@ abstract class TaskLocalDataSource {
   Future<int> deleteUserFromTask(int taskId, int userId);
 
   // Tag operations related to tasks
-  Future<List<TagModel>> getTagsByTaskId(int taskId);
+  Future<OrganizerItems<TagModel>> getTagsByTaskId(int taskId);
 
   Future<int> addTagToTask(int taskId, int tagId);
 
   Future<int> deleteTagFromTask(int taskId, int tagId);
 
   // Reminder operations related to tasks
-  Future<List<ReminderModel>> getRemindersByTaskId(int taskId);
+  Future<OrganizerItems<ReminderModel>> getRemindersByTaskId(int taskId);
 
   Future<int> addReminderToTask(int taskId, int reminderId);
 

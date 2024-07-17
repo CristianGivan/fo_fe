@@ -48,7 +48,7 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
   // Get task by ID without related entities
   Future<TaskModel?> getTaskById(int id) async {
     final taskTable = await taskDao.getTaskById(id);
-    return taskTable != null ? TaskMapper.fromTableDrift(taskTable) : null;
+    return taskTable != null ? TaskMapper.modelFromTableDrift(taskTable) : null;
   }
 
   // Get full lazy-loaded task by ID with all related entities
@@ -61,12 +61,12 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
         : null;
 
     final userIds = await taskUserDao.getUserIdsByTaskId(id);
-    final userTables = await userDao.getUserListByUserIds(userIds);
-    final users = userTables.map(UserMapper.fromTableDrift).toList();
+    final userTables = await userDao.getUserItemsByIdSet(userIds);
+    final users = userTables.map(UserMapper.modelFromTableDrift).toList();
 
     final tagIds = await taskTagDao.getTagIdsByTaskId(id);
     final tagTables = await tagDao.getTagItemsByTagIds(tagIds);
-    final tags = tagTables.map(TagMapper.fromTableDrift).toList();
+    final tags = tagTables.map(TagMapper.modelFromTableDrift).toList();
 
     final reminderIds = await taskReminderDao.getReminderIdsByTaskId(id);
     final reminderTables = await reminderDao.getRemindersByTaskId(reminderIds);
@@ -75,7 +75,7 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
 
     return TaskMapper.toLazyLoadedModel(
       taskTable,
-      creator != null ? UserMapper.fromTableDrift(creator) : null,
+      creator != null ? UserMapper.modelFromTableDrift(creator) : null,
       users,
       tags,
       reminders,
@@ -83,33 +83,33 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
   }
 
   // Get all task items
-  Future<List<TaskModel>> getTaskItemsAll() async {
+  Future<OrganizerItems<TaskModel>> getTaskItemsAll() async {
     final taskTables = await taskDao.getTaskItemsAll();
-    return taskTables.map(TaskMapper.fromTableDrift).toList();
+    return TaskMapper.modelItemsFromTableDriftItems(taskTables);
   }
 
   // Get task items by ID set
-  Future<List<TaskModel>> getTaskItemsByIdSet(IdSet idSet) async {
-    final taskTables = await taskDao.getTaskItemsByIdSet(idSet);
-    return taskTables.map(TaskMapper.fromTableDrift).toList();
+  Future<OrganizerItems<TaskModel>> getTaskItemsByIdSet(IdSet idSet) async {
+    final taskTables = await taskDao.getTaskItemsByIdSet(idSet.toSet());
+    return TaskMapper.modelItemsFromTableDriftItems(taskTables);
   }
 
   // Method to get users by task ID
-  Future<List<UserModel>> getUsersByTaskId(int taskId) async {
+  Future<OrganizerItems<UserModel>> getUsersByTaskId(int taskId) async {
     final userIds = await taskUserDao.getUserIdsByTaskId(taskId);
-    final userTables = await userDao.getUserListByUserIds(userIds);
-    return userTables.map(UserMapper.fromTableDrift).toList();
+    final userTables = await userDao.getUserItemsByIdSet(userIds);
+    return UserMapper.modelItemsFromTableDriftItems(userTables);
   }
 
   // Method to get tags by task ID
-  Future<List<TagModel>> getTagsByTaskId(int taskId) async {
+  Future<OrganizerItems<TagModel>> getTagsByTaskId(int taskId) async {
     final tagIds = await taskTagDao.getTagIdsByTaskId(taskId);
     final tagTables = await tagDao.getTagItemsByTagIds(tagIds);
-    return tagTables.map(TagMapper.fromTableDrift).toList();
+    return tagTables.map(TagMapper.modelFromTableDrift).toList();
   }
 
   // Method to get reminders by task ID
-  Future<List<ReminderModel>> getRemindersByTaskId(int taskId) async {
+  Future<OrganizerItems<ReminderModel>> getRemindersByTaskId(int taskId) async {
     final reminderIds = await taskReminderDao.getReminderIdsByTaskId(taskId);
     final reminderTables = await reminderDao.getRemindersByTaskId(reminderIds);
     return reminderTables.map(ReminderMapper.fromTableDrift).toList();
@@ -118,7 +118,7 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
   // Method to get creator by ID
   Future<UserModel?> getCreatorById(int creatorId) async {
     final creator = await userDao.getUserById(creatorId);
-    return creator != null ? UserMapper.fromTableDrift(creator) : null;
+    return creator != null ? UserMapper.modelFromTableDrift(creator) : null;
   }
 
   // Add user to task

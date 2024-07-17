@@ -4,6 +4,7 @@ import 'package:fo_fe/features/organizer/items/organizer_item/organizer_item.dar
 import 'package:fo_fe/features/organizer/util/organizer_enums.dart';
 
 class TaskEntity extends OrganizerItemEntity with EquatableMixin {
+  final String _subject;
   final DateTime? _startDate;
   final DateTime? _endDate;
   final double? _workingTime;
@@ -30,7 +31,8 @@ class TaskEntity extends OrganizerItemEntity with EquatableMixin {
     double? estimatedLeftTime,
     double? workingProgress,
     TaskStatus? taskStatus,
-  })  : _startDate = startDate ?? INITIAL_EPOCH_DATE,
+  })  : _subject = subject ?? "",
+        _startDate = startDate ?? INITIAL_EPOCH_DATE,
         _endDate = endDate ?? INITIAL_EPOCH_DATE,
         _workingTime = workingTime ?? 0,
         _estimatedTime = estimatedTime ?? 0,
@@ -44,9 +46,9 @@ class TaskEntity extends OrganizerItemEntity with EquatableMixin {
           creatorId: creatorId ?? 0,
           remoteId: remoteId ?? 0,
           lastUpdate: lastUpdate ?? INITIAL_EPOCH_DATE,
-          lastViewDate: lastViewDate ?? INITIAL_EPOCH_DATE,
-          remoteViews: remoteViews ?? 0,
-          views: views ?? 0,
+          lastAccessedDate: lastViewDate ?? INITIAL_EPOCH_DATE,
+          remoteAccesses: remoteViews ?? 0,
+          accesses: views ?? 0,
           checksum: checksum ?? '',
         );
 
@@ -57,6 +59,7 @@ class TaskEntity extends OrganizerItemEntity with EquatableMixin {
   @override
   List<Object?> get props => [
         ...super.props,
+        _subject,
         _startDate,
         _endDate,
         _workingTime,
@@ -67,6 +70,7 @@ class TaskEntity extends OrganizerItemEntity with EquatableMixin {
       ];
 
   // Getters for all fields
+  String get subject => _subject;
 
   DateTime? get startDate => _startDate;
 
@@ -108,9 +112,9 @@ class TaskEntity extends OrganizerItemEntity with EquatableMixin {
       creatorId: creatorId ?? this.creatorId,
       remoteId: remoteId ?? this.remoteId,
       lastUpdate: lastUpdate ?? this.lastUpdate,
-      lastViewDate: lastViewDate ?? this.lastViewDate,
-      remoteViews: remoteViews ?? this.remoteViews,
-      views: views ?? this.views,
+      lastViewDate: lastViewDate ?? this.lastAccessedDate,
+      remoteViews: remoteViews ?? this.remoteAccesses,
+      views: views ?? this.accesses,
       checksum: checksum ?? this.checksum,
       startDate: startDate ?? _startDate,
       endDate: endDate ?? _endDate,

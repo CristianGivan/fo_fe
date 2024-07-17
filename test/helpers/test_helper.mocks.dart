@@ -993,19 +993,6 @@ class MockOrganizerItemEntity extends _i1.Mock
       ) as int);
 
   @override
-  String get subject => (super.noSuchMethod(
-        Invocation.getter(#subject),
-        returnValue: _i12.dummyValue<String>(
-          this,
-          Invocation.getter(#subject),
-        ),
-        returnValueForMissingStub: _i12.dummyValue<String>(
-          this,
-          Invocation.getter(#subject),
-        ),
-      ) as String);
-
-  @override
   DateTime get createdDate => (super.noSuchMethod(
         Invocation.getter(#createdDate),
         returnValue: _FakeDateTime_4(

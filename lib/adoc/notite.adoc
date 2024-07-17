@@ -6,3 +6,8 @@
 * the error handler and update the local cash shall be don in lower level methods
 
 List<TaskEntity> sau TaskEntities as a list
+
+=== User
+
+A user shall have a name, email, password,created date.
+A User can have a user list, when a user want to pick a to be added to a task reminder or other then shall be chose from this list. If it is not in the list it can be added

@@ -46,11 +46,6 @@ void main() {
       expect(organizerItems.every((item) => item.id! >= 1), isTrue);
     });
 
-    test('map should return a list of mapped items', () {
-      final mappedList = organizerItems.map<String>((item) => item.subject);
-      expect(mappedList, ['Task 1', 'Task 2']);
-    });
-
     test('indexOf should return the index of the specified item', () {
       expect(organizerItems.indexOf(organizerItem2), equals(1));
     });

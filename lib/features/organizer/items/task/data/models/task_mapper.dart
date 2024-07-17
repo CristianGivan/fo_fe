@@ -1,6 +1,7 @@
 // Mapper for converting TaskModel to TaskTableDrift and vice versa
 import 'package:drift/drift.dart';
 import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
+import 'package:fo_fe/core/util/organizer/core_util_organizer.dart';
 import 'package:fo_fe/features/organizer/items/reminder/reminder_exports.dart';
 import 'package:fo_fe/features/organizer/items/tag/tag_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/task_exports.dart';
@@ -10,7 +11,7 @@ import '../../../../util/organizer_enums.dart';
 import 'task_model.dart';
 
 class TaskMapper {
-  static TaskModel fromTableDrift(TaskTableDriftG task) {
+  static TaskModel modelFromTableDrift(TaskTableDriftG task) {
     return TaskModel(
       id: task.id,
       subject: task.subject,
@@ -18,9 +19,9 @@ class TaskMapper {
       creatorId: task.creatorId,
       remoteId: task.remoteId,
       lastUpdate: task.lastUpdate,
-      lastViewDate: task.lastViewDate,
-      remoteViews: task.remoteViews,
-      views: task.views,
+      lastAccessedDate: task.lastAccessedDate,
+      remoteAccesses: task.remoteAccesses,
+      accesses: task.accesses,
       checksum: task.checksum,
       startDate: task.startDate,
       endDate: task.endDate,
@@ -32,6 +33,14 @@ class TaskMapper {
     );
   }
 
+  static OrganizerItems<TaskModel> modelItemsFromTableDriftItems(
+      List<TaskTableDriftG>? items) {
+    if (items == null) {
+      return OrganizerItems.empty();
+    }
+    return OrganizerItems.of(items.map(modelFromTableDrift).toList());
+  }
+
   static TaskTableDriftCompanion entityToCompanion(TaskEntity entity) {
     return TaskTableDriftCompanion(
       // id: Value(entity.id),
@@ -40,9 +49,9 @@ class TaskMapper {
       creatorId: Value(entity.creatorId),
       remoteId: Value(entity.remoteId),
       lastUpdate: Value(entity.lastUpdate),
-      lastViewDate: Value(entity.lastViewDate),
-      remoteViews: Value(entity.remoteViews),
-      views: Value(entity.views),
+      lastAccessedDate: Value(entity.lastAccessedDate),
+      remoteAccesses: Value(entity.remoteAccesses),
+      accesses: Value(entity.accesses),
       checksum: Value(entity.checksum),
       startDate: Value(entity.startDate),
       endDate: Value(entity.endDate),
@@ -66,13 +75,15 @@ class TaskMapper {
       lastUpdate: model.lastUpdate != null
           ? Value(model.lastUpdate!)
           : const Value.absent(),
-      lastViewDate: model.lastViewDate != null
-          ? Value(model.lastViewDate!)
+      lastAccessedDate: model.lastAccessedDate != null
+          ? Value(model.lastAccessedDate!)
           : const Value.absent(),
-      remoteViews: model.remoteViews != null
-          ? Value(model.remoteViews!)
+      remoteAccesses: model.remoteAccesses != null
+          ? Value(model.remoteAccesses!)
           : const Value.absent(),
-      views: model.views != null ? Value(model.views!) : const Value.absent(),
+      accesses: model.accesses != null
+          ? Value(model.accesses!)
+          : const Value.absent(),
       checksum: model.checksum != null
           ? Value(model.checksum!)
           : const Value.absent(),
@@ -107,9 +118,9 @@ class TaskMapper {
       creatorId: model.creatorId,
       remoteId: model.remoteId,
       lastUpdate: model.lastUpdate,
-      lastViewDate: model.lastViewDate,
-      remoteViews: model.remoteViews,
-      views: model.views,
+      lastViewDate: model.lastAccessedDate,
+      remoteViews: model.remoteAccesses,
+      views: model.accesses,
       checksum: model.checksum,
       startDate: model.startDate,
       endDate: model.endDate,
@@ -130,9 +141,9 @@ class TaskMapper {
       creatorId: entity.creatorId,
       remoteId: entity.remoteId,
       lastUpdate: entity.lastUpdate,
-      lastViewDate: entity.lastViewDate,
-      remoteViews: entity.remoteViews,
-      views: entity.views,
+      lastViewDate: entity.lastAccessedDate,
+      remoteViews: entity.remoteAccesses,
+      views: entity.accesses,
       checksum: entity.checksum,
       startDate: entity.startDate,
       endDate: entity.endDate,
@@ -143,7 +154,7 @@ class TaskMapper {
       taskStatus: entity.taskStatus,
       creator: UserMapper.entityToModel(entity.creator),
       //todo cg to be check nullable topic
-      userList: UserMapper.entityListToModelList(entity.userList),
+      userList: UserMapper.entityItemsToModelItems(entity.userList),
       //todo cg to be check nullable topic
       tagList: TagMapper.entityListToModelList(entity.tagList),
       reminderList: ReminderMapper.entityListToModelList(entity.reminderList),
@@ -159,9 +170,9 @@ class TaskMapper {
       creatorId: model.creatorId,
       remoteId: model.remoteId,
       lastUpdate: model.lastUpdate,
-      lastViewDate: model.lastViewDate,
-      remoteViews: model.remoteViews,
-      views: model.views,
+      lastViewDate: model.lastAccessedDate,
+      remoteViews: model.remoteAccesses,
+      views: model.accesses,
       checksum: model.checksum,
       startDate: model.startDate,
       endDate: model.endDate,
@@ -173,7 +184,7 @@ class TaskMapper {
       creator: model.creator != null
           ? UserMapper.modelToEntity(model.creator!)
           : null,
-      userList: UserMapper.modelListToEntityList(model.userList),
+      userList: UserMapper.modelItemsToEntityItems(model.userList),
       tagList: TagMapper.modelListToEntityList(model.tagList),
       reminderList: ReminderMapper.modelListToEntityList(model.reminderList),
     );
@@ -192,9 +203,9 @@ class TaskMapper {
       creatorId: task.creatorId,
       remoteId: task.remoteId,
       lastUpdate: task.lastUpdate,
-      lastViewDate: task.lastViewDate,
-      remoteViews: task.remoteViews,
-      views: task.views,
+      lastViewDate: task.lastAccessedDate,
+      remoteViews: task.remoteAccesses,
+      views: task.accesses,
       checksum: task.checksum,
       startDate: task.startDate,
       endDate: task.endDate,
@@ -218,9 +229,9 @@ class TaskMapper {
       creatorId: entity.creatorId,
       remoteId: entity.remoteId,
       lastUpdate: entity.lastUpdate,
-      lastViewDate: entity.lastViewDate,
-      remoteViews: entity.remoteViews,
-      views: entity.views,
+      lastAccessedDate: entity.lastAccessedDate,
+      remoteAccesses: entity.remoteAccesses,
+      accesses: entity.accesses,
       checksum: entity.checksum,
       startDate: entity.startDate,
       endDate: entity.endDate,
@@ -258,11 +269,11 @@ class TaskMapper {
       lastUpdate: json['lastUpdate'] != null
           ? DateTime.parse(json['lastUpdate'])
           : null,
-      lastViewDate: json['lastViewDate'] != null
+      lastAccessedDate: json['lastViewDate'] != null
           ? DateTime.parse(json['lastViewDate'])
           : null,
-      remoteViews: json['remoteViews'],
-      views: json['views'],
+      remoteAccesses: json['remoteViews'],
+      accesses: json['views'],
       checksum: json['checksum'],
     );
   }
@@ -279,9 +290,9 @@ class TaskMapper {
           'UNDEFINED',
       "remoteId": model.remoteId,
       "lastUpdate": model.lastUpdate?.toIso8601String(),
-      "lastViewDate": model.lastViewDate?.toIso8601String(),
-      "remoteViews": model.remoteViews,
-      "views": model.views,
+      "lastViewDate": model.lastAccessedDate?.toIso8601String(),
+      "remoteViews": model.remoteAccesses,
+      "views": model.accesses,
       "checksum": model.checksum,
     };
   }

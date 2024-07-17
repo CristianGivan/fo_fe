@@ -1,12 +1,13 @@
 import 'package:drift/drift.dart';
 import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
+import 'package:fo_fe/core/util/organizer/core_util_organizer.dart';
 import 'package:fo_fe/features/organizer/items/tag/tag_exports.dart';
 
 class TagMapper {
-  static TagModel toModel(TagTableDriftG tagTable) {
+  static TagModel modelFromTableDrift(TagTableDriftG tag) {
     return TagModel(
-      id: tagTable.id,
-      name: tagTable.name,
+      id: tag.id,
+      name: tag.name,
     );
   }
 
@@ -20,18 +21,12 @@ class TagMapper {
     );
   }
 
-  static TagModel fromTableDrift(TagTableDriftG tag) {
-    return TagModel(
-      id: tag.id,
-      name: tag.name,
-    );
-  }
-
-  static List<TagModel> entityListToModelList(List<TagEntity>? tagEntityList) {
-    if (tagEntityList == null) {
-      return [];
+  static OrganizerItems<TagModel> entityListToModelList(
+      List<TagEntity>? items) {
+    if (items == null) {
+      return OrganizerItems.empty();
     }
-    return tagEntityList.map(entityToModel).toList();
+    return OrganizerItems.of(items.map(entityToModel).toList());
   }
 
   static TagEntity modelToEntity(TagModel model) {

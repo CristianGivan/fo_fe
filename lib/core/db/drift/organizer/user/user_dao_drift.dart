@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart';
+import 'package:fo_fe/core/util/organizer/core_util_organizer.dart';
 
 import '../../organizer_drift_exports.dart';
 
@@ -15,7 +16,13 @@ class UserDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
       (select(userTableDrift)..where((tbl) => tbl.id.equals(id)))
           .getSingleOrNull();
 
-  Future<List<UserTableDriftG>> getAllUsers() => select(userTableDrift).get();
+  Future<List<UserTableDriftG>> getUserItemsAll() =>
+      select(userTableDrift).get();
+
+  Future<List<UserTableDriftG>> getUserItemsByIdSet(IdSet idSet) async {
+    return (select(userTableDrift)..where((tbl) => tbl.id.isIn(idSet.toSet())))
+        .get();
+  }
 
   Stream<List<UserTableDriftG>> watchAllUsers() =>
       select(userTableDrift).watch();
@@ -28,8 +35,4 @@ class UserDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
 
   Future<int> deleteUser(Insertable<UserTableDriftG> user) =>
       delete(userTableDrift).delete(user);
-
-  Future<List<UserTableDriftG>> getUserListByUserIds(List<int> userIds) async {
-    return (select(userTableDrift)..where((tbl) => tbl.id.isIn(userIds))).get();
-  }
 }

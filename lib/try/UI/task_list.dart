@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fo_fe/features/organizer/items/task/presentation/logic/task_bloc/task_bloc.dart';
+import 'package:fo_fe/try/UI/update_task_screen.dart';
 
 class TaskList extends StatelessWidget {
   @override
@@ -16,9 +17,12 @@ class TaskList extends StatelessWidget {
               final task = state.tasks.getAt(index);
               return ListTile(
                 title: Text(task.subject),
-                subtitle: Text(task.subject),
+                // subtitle: Text(task.subject),
                 onTap: () {
-                  // Implement task tap action
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => UpdateTaskScreen()),
+                  );
                 },
               );
             },

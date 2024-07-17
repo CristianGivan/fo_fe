@@ -4,6 +4,8 @@ import '../tables/organizer_item_table_drift.dart';
 
 @DataClassName('TaskTableDriftG')
 class TaskTableDrift extends OrganizerItemTableDrift {
+  TextColumn get subject => text().withLength(min: 1, max: 255)();
+
   DateTimeColumn get startDate => dateTime().nullable()();
 
   DateTimeColumn get endDate => dateTime().nullable()();

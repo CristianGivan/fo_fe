@@ -1,63 +1,83 @@
 import 'package:drift/drift.dart';
 import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
+import 'package:fo_fe/core/util/organizer/core_util_organizer.dart';
 import 'package:fo_fe/features/organizer/items/user/user_exports.dart';
 
 class UserMapper {
-  static UserModel toModel(UserTableDriftG userTable) {
-    return UserModel(
-      id: userTable.id,
-      name: userTable.name,
-      email: userTable.email,
-    );
-  }
-
-  static UserModel entityToModel(UserEntity? userEntity) {
-    if (userEntity == null) {
-      return UserModel.empty();
-    }
-    return UserModel(
-      id: userEntity.id,
-      name: userEntity.name,
-      email: userEntity.email,
-    );
-  }
-
-  static List<UserModel> entityListToModelList(
-      List<UserEntity>? userEntityList) {
-    if (userEntityList == null) {
-      return [];
-    }
-    return userEntityList.map(entityToModel).toList();
-  }
-
-  static UserModel fromTableDrift(UserTableDriftG user) {
+  static UserModel modelFromTableDrift(UserTableDriftG user) {
     return UserModel(
       id: user.id,
       name: user.name,
+      hashedPassword: user.hashedPassword,
       email: user.email,
+      createdDate: user.createdDate,
     );
   }
 
-  static UserEntity modelToEntity(UserModel model) {
-    return UserEntity(
-      id: model.id,
-      name: model.name,
-      email: model.email,
-    );
-  }
-
-  static List<UserEntity> modelListToEntityList(List<UserModel>? models) {
-    if (models == null) {
-      return [];
+  static OrganizerItems<UserModel> modelItemsFromTableDriftItems(
+      List<UserTableDriftG>? items) {
+    if (items == null) {
+      return OrganizerItems.empty();
     }
-    return models.map(modelToEntity).toList();
+    return OrganizerItems.of(items.map(modelFromTableDrift).toList());
   }
 
-  static UserTableDriftCompanion toCompanion(UserModel user) {
+  static UserModel entityToModel(UserEntity? user) {
+    if (user == null) {
+      return UserModel.empty();
+    }
+    return UserModel(
+      id: user.id,
+      name: user.name,
+      hashedPassword: user.hashedPassword,
+      email: user.email,
+      createdDate: user.createdDate,
+    );
+  }
+
+  static OrganizerItems<UserModel> entityItemsToModelItems(
+      List<UserEntity>? items) {
+    if (items == null) {
+      return OrganizerItems.empty();
+    }
+    return OrganizerItems.of(items.map(entityToModel).toList());
+  }
+
+  static UserEntity modelToEntity(UserModel user) {
+    return UserEntity(
+      id: user.id,
+      name: user.name,
+      hashedPassword: user.hashedPassword,
+      email: user.email,
+      createdDate: user.createdDate,
+    );
+  }
+
+  static OrganizerItems<UserEntity> modelItemsToEntityItems(
+      List<UserModel>? models) {
+    if (models == null) {
+      return OrganizerItems.empty();
+    }
+    return OrganizerItems.of(models.map(modelToEntity).toList());
+  }
+
+  static UserTableDriftCompanion modelToCompanion(UserModel user) {
     return UserTableDriftCompanion(
       id: Value(user.id),
       name: Value(user.name),
+      hashedPassword: Value(user.hashedPassword),
       email: Value(user.email),
+      createdDate: Value(user.createdDate),
+    );
+  }
+
+  static UserTableDriftCompanion entityToCompanion(UserEntity user) {
+    return UserTableDriftCompanion(
+      // id: Value(user.id),
+      name: Value(user.name),
+      hashedPassword: Value(user.hashedPassword),
+      email: Value(user.email),
+      createdDate: Value(user.createdDate),
     );
   }
 }

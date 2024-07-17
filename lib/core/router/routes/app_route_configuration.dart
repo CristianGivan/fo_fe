@@ -1,5 +1,6 @@
 import 'package:authentication/authentication.dart';
 import 'package:flutter/material.dart';
+import 'package:fo_fe/core/router/routes/home_router.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../features/organizer/organizer.dart';
@@ -11,13 +12,13 @@ import '../../../features/practice/presentation/screens/practice_screen.dart';
 import '../../../features/practice/presentation/screens/review_screen.dart';
 import '../../../features/settings/presentation/screens/display.dart';
 import '../../../features/settings/presentation/screens/settings_screen.dart';
-import '../../home/presentation/screens/home_screen.dart';
 import 'app_route_constants.dart';
 import 'stateful_shell_route.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorAKey = GlobalKey<NavigatorState>(debugLabel: 'shellA');
-final _shellNavigatorBKey = GlobalKey<NavigatorState>(debugLabel: 'shellB');
+final _organizerShellNavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'organizer');
 final _settingsShellNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'settings');
 final _shellNavigatorCKey = GlobalKey<NavigatorState>(debugLabel: 'shellC');
@@ -35,10 +36,10 @@ class AppRouter {
                 navigationShell: navigationShell);
           },
           branches: [
-            homeBranch(_rootNavigatorKey),
+            HomeAppBranch.branch(_rootNavigatorKey),
             settingsBranch(_settingsShellNavigatorKey),
             AuthenticationAppBranch.branch(_shellNavigatorAKey),
-            OrganizerAppBranch.branch(_shellNavigatorBKey),
+            OrganizerAppBranch.branch(_organizerShellNavigatorKey),
             practiceBranch(_shellNavigatorCKey),
             otherBranch(_shellNavigatorDKey),
           ],
@@ -46,27 +47,6 @@ class AppRouter {
       ],
     );
     return router;
-  }
-
-  static StatefulShellBranch homeBranch(
-    GlobalKey<NavigatorState> navigatorKey,
-  ) {
-    return StatefulShellBranch(
-      navigatorKey: navigatorKey,
-      routes: [
-        homeRoute(),
-      ],
-    );
-  }
-
-  static GoRoute homeRoute() {
-    return GoRoute(
-      name: RouteCoreConstants.homeRouteName,
-      path: '/',
-      builder: (BuildContext context, GoRouterState state) {
-        return const HomeScreen();
-      },
-    );
   }
 
   static StatefulShellBranch settingsBranch(

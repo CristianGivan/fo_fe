@@ -1,5 +1,4 @@
 import 'package:drift/drift.dart';
-import 'package:fo_fe/core/util/organizer/core_util_organizer.dart';
 
 import '../../organizer_drift_exports.dart';
 
@@ -19,9 +18,11 @@ class TaskDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
   Future<List<TaskTableDriftG>> getTaskItemsAll() =>
       select(taskTableDrift).get();
 
-  Future<List<TaskTableDriftG>> getTaskItemsByIdSet(IdSet idSet) =>
-      (select(taskTableDrift)..where((tbl) => tbl.id.isIn(idSet.toSet())))
-          .get();
+  Future<List<TaskTableDriftG>> getTaskItemsByIdSet(Set<int> ids) =>
+      (select(taskTableDrift)..where((tbl) => tbl.id.isIn(ids))).get();
+
+  Stream<List<TaskTableDriftG>> watchTaskItemsAll() =>
+      select(taskTableDrift).watch();
 
   Future<int> insertTask(Insertable<TaskTableDriftG> task) =>
       into(taskTableDrift).insert(task);
@@ -31,7 +32,4 @@ class TaskDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
 
   Future<int> deleteTask(int taskId) =>
       (delete(taskTableDrift)..where((tbl) => tbl.id.equals(taskId))).go();
-
-  Stream<List<TaskTableDriftG>> watchAllTasks() =>
-      select(taskTableDrift).watch();
 }
