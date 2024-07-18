@@ -1,5 +1,4 @@
 import 'package:drift/drift.dart';
-import 'package:fo_fe/core/db/drift/organizer/user/user_user_table_drift.dart';
 import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
 
 part 'user_user_dao_drift.g.dart';
@@ -36,10 +35,10 @@ class UserUserDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
         .go();
   }
 
-  Future<List<int>> getUserIdsByUserId(int userId) async {
+  Future<Set<int>> getUserIdsByUserId(int userId) async {
     final result = await (select(userUserTableDrift)
           ..where((tbl) => tbl.userId.equals(userId)))
         .get();
-    return result.map((row) => row.userId).toList();
+    return result.map((row) => row.userId).toSet();
   }
 }

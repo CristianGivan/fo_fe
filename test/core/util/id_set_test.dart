@@ -87,15 +87,12 @@ void main() {
     test('IdSet.fromOrganizerItems creates a set from OrganizerItems', () {
       OrganizerItemEntity organizerItem1 = OrganizerItemEntity(
         id: 1,
-        subject: 'Task 1',
       );
       OrganizerItemEntity organizerItem2 = OrganizerItemEntity(
         id: 2,
-        subject: 'Task 2',
       );
       OrganizerItemEntity organizerItem3 = OrganizerItemEntity(
         id: 3,
-        subject: 'Task 3',
       );
       OrganizerItems organizerItems =
           OrganizerItems.of([organizerItem1, organizerItem2, organizerItem3]);

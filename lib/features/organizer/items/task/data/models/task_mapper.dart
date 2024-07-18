@@ -154,10 +154,10 @@ class TaskMapper {
       taskStatus: entity.taskStatus,
       creator: UserMapper.entityToModel(entity.creator),
       //todo cg to be check nullable topic
-      userList: UserMapper.entityItemsToModelItems(entity.userList),
+      userItems: UserMapper.entityItemsToModelItems(entity.userItems),
       //todo cg to be check nullable topic
-      tagList: TagMapper.entityListToModelList(entity.tagList),
-      reminderList: ReminderMapper.entityListToModelList(entity.reminderList),
+      tagItems: TagMapper.modelItemsFromEntityItems(entity.tagItems),
+      reminderItems: ReminderMapper.entityListToModelList(entity.reminderItems),
     );
   }
 
@@ -184,18 +184,19 @@ class TaskMapper {
       creator: model.creator != null
           ? UserMapper.modelToEntity(model.creator!)
           : null,
-      userList: UserMapper.modelItemsToEntityItems(model.userList),
-      tagList: TagMapper.modelListToEntityList(model.tagList),
-      reminderList: ReminderMapper.modelListToEntityList(model.reminderList),
+      userItems: UserMapper.modelItemsToEntityItems(model.userItems),
+      tagItems: TagMapper.entityItemsFromModelItems(model.tagItems),
+      reminderItems:
+          ReminderMapper.entityItemsFromModelItems(model.reminderItems),
     );
   }
 
   static TaskModelLazyLoaded toLazyLoadedModel(
       TaskTableDriftG task,
       UserModel? creator,
-      List<UserModel> userList,
-      List<TagModel> tagList,
-      List<ReminderModel> reminderList) {
+      OrganizerItems<UserModel> userItems,
+      OrganizerItems<TagModel> tagItems,
+      OrganizerItems<ReminderModel> reminderItems) {
     return TaskModelLazyLoaded(
       id: task.id,
       subject: task.subject,
@@ -215,9 +216,9 @@ class TaskMapper {
       workingProgress: task.workingProgress,
       taskStatus: taskStatusMap[task.taskStatus],
       creator: creator,
-      userList: userList,
-      tagList: tagList,
-      reminderList: reminderList,
+      userItems: userItems,
+      tagItems: tagItems,
+      reminderItems: reminderItems,
     );
   }
 

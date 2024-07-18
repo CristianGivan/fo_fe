@@ -15,7 +15,6 @@ class TaskEntity extends OrganizerItemEntity with EquatableMixin {
 
   TaskEntity({
     int? id,
-    String? subject,
     DateTime? createdDate,
     int? creatorId,
     int? remoteId,
@@ -24,6 +23,7 @@ class TaskEntity extends OrganizerItemEntity with EquatableMixin {
     int? remoteViews,
     int? views,
     String? checksum,
+    String? subject,
     DateTime? startDate,
     DateTime? endDate,
     double? workingTime,
@@ -41,7 +41,6 @@ class TaskEntity extends OrganizerItemEntity with EquatableMixin {
         _taskStatus = taskStatus ?? TaskStatus.undefined,
         super(
           id: id ?? 0,
-          subject: subject ?? '',
           createdDate: createdDate ?? INITIAL_EPOCH_DATE,
           creatorId: creatorId ?? 0,
           remoteId: remoteId ?? 0,

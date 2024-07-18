@@ -10,7 +10,7 @@ abstract class TaskUserBlocState extends Equatable {
 class UserLoadingBlocState extends TaskUserBlocState {}
 
 class UserLoadedBlocState extends TaskUserBlocState {
-  final List<UserEntity> users;
+  final OrganizerItems<UserEntity> users;
 
   UserLoadedBlocState(this.users);
 

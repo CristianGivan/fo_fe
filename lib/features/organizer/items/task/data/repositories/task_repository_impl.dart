@@ -68,14 +68,15 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<Either<Failure, List<ReminderEntity>>> getRemindersByTaskId(
+  Future<Either<Failure, OrganizerItems<ReminderEntity>>> getRemindersByTaskId(
       int taskId) {
     // TODO: implement getRemindersByTaskId
     throw UnimplementedError();
   }
 
   @override
-  Future<Either<Failure, List<TagEntity>>> getTagsByTaskId(int taskId) {
+  Future<Either<Failure, OrganizerItems<TagEntity>>> getTagsByTaskId(
+      int taskId) {
     // TODO: implement getTagsByTaskId
     throw UnimplementedError();
   }
@@ -106,7 +107,8 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<Either<Failure, List<UserEntity>>> getUsersByTaskId(int taskId) {
+  Future<Either<Failure, OrganizerItems<UserEntity>>> getUsersByTaskId(
+      int taskId) {
     // TODO: implement getUsersByTaskId
     throw UnimplementedError();
   }

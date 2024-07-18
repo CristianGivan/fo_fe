@@ -7,46 +7,55 @@ class TagMapper {
   static TagModel modelFromTableDrift(TagTableDriftG tag) {
     return TagModel(
       id: tag.id,
-      name: tag.name,
+      subject: tag.subject,
     );
   }
 
-  static TagModel entityToModel(TagEntity? tagEntity) {
+  static OrganizerItems<TagModel> modelItemsFromTableDriftItems(
+      List<TagTableDriftG>? items) {
+    if (items == null) {
+      return OrganizerItems.empty();
+    }
+    return OrganizerItems.of(items.map(modelFromTableDrift).toList());
+  }
+
+  static TagModel modelFromEntity(TagEntity? tagEntity) {
     if (tagEntity == null) {
       return TagModel.empty();
     }
     return TagModel(
       id: tagEntity.id,
-      name: tagEntity.name,
+      subject: tagEntity.subject,
     );
   }
 
-  static OrganizerItems<TagModel> entityListToModelList(
-      List<TagEntity>? items) {
+  static OrganizerItems<TagModel> modelItemsFromEntityItems(
+      OrganizerItems<TagEntity>? items) {
     if (items == null) {
       return OrganizerItems.empty();
     }
-    return OrganizerItems.of(items.map(entityToModel).toList());
+    return OrganizerItems.of(items.map(modelFromEntity).toList());
   }
 
-  static TagEntity modelToEntity(TagModel model) {
+  static TagEntity entityFromModel(TagModel model) {
     return TagEntity(
       id: model.id,
-      name: model.name,
+      subject: model.subject,
     );
   }
 
-  static List<TagEntity> modelListToEntityList(List<TagModel>? tagModelList) {
-    if (tagModelList == null) {
-      return [];
+  static OrganizerItems<TagEntity> entityItemsFromModelItems(
+      OrganizerItems<TagModel>? items) {
+    if (items == null) {
+      return OrganizerItems.empty();
     }
-    return tagModelList.map(modelToEntity).toList();
+    return OrganizerItems.of(items.map(entityFromModel).toList());
   }
 
-  static TagTableDriftCompanion toCompanion(TagModel tag) {
+  static TagTableDriftCompanion tableDriftCompanionFromModel(TagModel tag) {
     return TagTableDriftCompanion(
       id: Value(tag.id),
-      name: Value(tag.name),
+      subject: Value(tag.subject),
     );
   }
 }

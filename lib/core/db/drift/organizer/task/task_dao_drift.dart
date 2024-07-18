@@ -30,6 +30,6 @@ class TaskDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
   Future<bool> updateTask(Insertable<TaskTableDriftG> task) =>
       update(taskTableDrift).replace(task);
 
-  Future<int> deleteTask(int taskId) =>
-      (delete(taskTableDrift)..where((tbl) => tbl.id.equals(taskId))).go();
+  Future<int> deleteTask(int id) =>
+      (delete(taskTableDrift)..where((tbl) => tbl.id.equals(id))).go();
 }

@@ -123,7 +123,7 @@ class TaskDetails extends StatelessWidget {
                 return Column(
                   children: state.tags.map((tag) {
                     return ListTile(
-                      title: Text(tag.name),
+                      title: Text(tag.subject),
                       trailing: IconButton(
                         icon: Icon(Icons.delete),
                         onPressed: () {

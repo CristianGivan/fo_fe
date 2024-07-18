@@ -10,7 +10,7 @@ abstract class TaskTagBlocState extends Equatable {
 class TagLoadingBlocState extends TaskTagBlocState {}
 
 class TagLoadedBlocState extends TaskTagBlocState {
-  final List<TagEntity> tags;
+  final OrganizerItems<TagEntity> tags;
 
   TagLoadedBlocState(this.tags);
 

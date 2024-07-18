@@ -12,15 +12,15 @@ OrganizerItems<TaskEntity> getOrganizerItems3TaskEntity() {
 
 OrganizerItems<OrganizerItemEntity> getFiveOrganizerItemEntity() {
   final OrganizerItemEntity organizerItemEntity1 =
-      OrganizerItemEntity(id: 1, subject: "OrganizerItemEntity1", remoteId: 1);
+      OrganizerItemEntity(id: 1, remoteId: 1);
   final OrganizerItemEntity organizerItemEntity2 =
-      OrganizerItemEntity(id: 2, subject: "OrganizerItemEntity2", remoteId: 2);
+      OrganizerItemEntity(id: 2, remoteId: 2);
   final OrganizerItemEntity organizerItemEntity3 =
-      OrganizerItemEntity(id: 3, subject: "OrganizerItemEntity3", remoteId: 3);
+      OrganizerItemEntity(id: 3, remoteId: 3);
   final OrganizerItemEntity organizerItemEntity4 =
-      OrganizerItemEntity(id: 4, subject: "OrganizerItemEntity4", remoteId: 4);
+      OrganizerItemEntity(id: 4, remoteId: 4);
   final OrganizerItemEntity organizerItemEntity5 =
-      OrganizerItemEntity(id: 5, subject: "OrganizerItemEntity5", remoteId: 5);
+      OrganizerItemEntity(id: 5, remoteId: 5);
   return OrganizerItems.of([
     organizerItemEntity1,
     organizerItemEntity2,
@@ -31,16 +31,16 @@ OrganizerItems<OrganizerItemEntity> getFiveOrganizerItemEntity() {
 }
 
 OrganizerItems<OrganizerItemEntity> getFiveOrganizerItemEntityUpdate() {
-  final OrganizerItemEntity organizerItemEntity1 = OrganizerItemEntity(
-      id: 1, subject: "OrganizerItemEntityUpdated1", remoteId: 1);
-  final OrganizerItemEntity organizerItemEntity3 = OrganizerItemEntity(
-      id: 3, subject: "OrganizerItemEntityUpdated3", remoteId: 3);
-  final OrganizerItemEntity organizerItemEntity5 = OrganizerItemEntity(
-      id: 5, subject: "OrganizerItemEntityUpdated5", remoteId: 5);
-  final OrganizerItemEntity organizerItemEntity6 = OrganizerItemEntity(
-      id: 6, subject: "OrganizerItemEntityUpdated6", remoteId: 6);
-  final OrganizerItemEntity organizerItemEntity7 = OrganizerItemEntity(
-      id: 7, subject: "OrganizerItemEntityUpdated7", remoteId: 7);
+  final OrganizerItemEntity organizerItemEntity1 =
+      OrganizerItemEntity(id: 1, remoteId: 1);
+  final OrganizerItemEntity organizerItemEntity3 =
+      OrganizerItemEntity(id: 3, remoteId: 3);
+  final OrganizerItemEntity organizerItemEntity5 =
+      OrganizerItemEntity(id: 5, remoteId: 5);
+  final OrganizerItemEntity organizerItemEntity6 =
+      OrganizerItemEntity(id: 6, remoteId: 6);
+  final OrganizerItemEntity organizerItemEntity7 =
+      OrganizerItemEntity(id: 7, remoteId: 7);
   return OrganizerItems.of([
     organizerItemEntity1,
     organizerItemEntity3,
@@ -51,20 +51,20 @@ OrganizerItems<OrganizerItemEntity> getFiveOrganizerItemEntityUpdate() {
 }
 
 OrganizerItems<OrganizerItemEntity> getFiveOrganizerItemEntityFiveUpdated() {
-  final OrganizerItemEntity organizerItemEntity1 = OrganizerItemEntity(
-      id: 1, subject: "OrganizerItemEntityUpdated1", remoteId: 1);
+  final OrganizerItemEntity organizerItemEntity1 =
+      OrganizerItemEntity(id: 1, remoteId: 1);
   final OrganizerItemEntity organizerItemEntity2 =
-      OrganizerItemEntity(id: 2, subject: "OrganizerItemEntity2", remoteId: 2);
-  final OrganizerItemEntity organizerItemEntity3 = OrganizerItemEntity(
-      id: 3, subject: "OrganizerItemEntityUpdated3", remoteId: 3);
+      OrganizerItemEntity(id: 2, remoteId: 2);
+  final OrganizerItemEntity organizerItemEntity3 =
+      OrganizerItemEntity(id: 3, remoteId: 3);
   final OrganizerItemEntity organizerItemEntity4 =
-      OrganizerItemEntity(id: 4, subject: "OrganizerItemEntity4", remoteId: 4);
-  final OrganizerItemEntity organizerItemEntity5 = OrganizerItemEntity(
-      id: 5, subject: "OrganizerItemEntityUpdated5", remoteId: 5);
-  final OrganizerItemEntity organizerItemEntity6 = OrganizerItemEntity(
-      id: 6, subject: "OrganizerItemEntityUpdated6", remoteId: 6);
-  final OrganizerItemEntity organizerItemEntity7 = OrganizerItemEntity(
-      id: 7, subject: "OrganizerItemEntityUpdated7", remoteId: 7);
+      OrganizerItemEntity(id: 4, remoteId: 4);
+  final OrganizerItemEntity organizerItemEntity5 =
+      OrganizerItemEntity(id: 5, remoteId: 5);
+  final OrganizerItemEntity organizerItemEntity6 =
+      OrganizerItemEntity(id: 6, remoteId: 6);
+  final OrganizerItemEntity organizerItemEntity7 =
+      OrganizerItemEntity(id: 7, remoteId: 7);
   return OrganizerItems.of([
     organizerItemEntity1,
     organizerItemEntity2,

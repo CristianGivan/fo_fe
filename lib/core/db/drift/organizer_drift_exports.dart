@@ -1,9 +1,9 @@
-export 'organizer/DAOs/organizer_item_dao_drift.dart';
-export 'organizer/DAOs/reminder_dao_drift.dart';
-export 'organizer/DAOs/tag_dao_drift.dart';
-export 'organizer/tables/organizer_item_table_drift.dart';
-export 'organizer/tables/reminder_table_drift.dart';
-export 'organizer/tables/tag_table_drift.dart';
+export 'organizer/organizer_item/organizer_item_dao_drift.dart';
+export 'organizer/organizer_item/organizer_item_table_drift.dart';
+export 'organizer/reminder/reminder_dao_drift.dart';
+export 'organizer/reminder/reminder_table_drift.dart';
+export 'organizer/tag/tag_dao_drift.dart';
+export 'organizer/tag/tag_table_drift.dart';
 export 'organizer/task/task_dao_drift.dart';
 export 'organizer/task/task_table_drift.dart';
 export 'organizer/task/task_tag_dao_drift.dart';

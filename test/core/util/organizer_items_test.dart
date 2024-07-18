@@ -12,11 +12,9 @@ void main() {
     setUp(() {
       organizerItem1 = OrganizerItemEntity(
         id: 1,
-        subject: 'Task 1', /* other properties */
       );
       organizerItem2 = OrganizerItemEntity(
         id: 2,
-        subject: 'Task 2', /* other properties */
       );
       organizerItems = OrganizerItems.of([organizerItem1, organizerItem2]);
       emptyOrganizerItems = OrganizerItems.empty();
@@ -33,7 +31,6 @@ void main() {
     test('contains should return false if item does not exist', () {
       final nonExistingItem = OrganizerItemEntity(
         id: 100,
-        subject: 'Non-existing Task', /* other properties */
       );
       expect(organizerItems.contains(nonExistingItem), isFalse);
     });
@@ -58,7 +55,7 @@ void main() {
 
       test('returns false for non-empty list', () {
         final organizerItems = OrganizerItems.of([
-          OrganizerItemEntity(id: 1, subject: "Task 1"),
+          OrganizerItemEntity(id: 1),
         ]);
         expect(organizerItems.isEmpty(), equals(false));
       });

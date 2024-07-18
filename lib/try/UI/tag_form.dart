@@ -50,7 +50,7 @@ class _TagFormState extends State<TagForm> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       BlocProvider.of<TaskBlocTag>(context).add(
-        AddTagToTaskBlocEvent(widget.taskId, TagEntity(name: _tagName)),
+        AddTagToTaskBlocEvent(widget.taskId, TagEntity(subject: _tagName)),
       );
       Navigator.pop(context);
     }

@@ -14,7 +14,6 @@ class OrganizerItemEntity extends Equatable {
 //todo why constructor cannot be const with INITIAL_EPOCH_DATE
   OrganizerItemEntity({
     int? id,
-    String? subject,
     DateTime? createdDate,
     int? creatorId,
     int? remoteId,

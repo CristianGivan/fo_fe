@@ -10,7 +10,7 @@ abstract class TaskReminderBlocState extends Equatable {
 class ReminderLoadingBlocState extends TaskReminderBlocState {}
 
 class ReminderLoadedBlocState extends TaskReminderBlocState {
-  final List<ReminderEntity> reminders;
+  final OrganizerItems<ReminderEntity> reminders;
 
   ReminderLoadedBlocState(this.reminders);
 

@@ -1,6 +1,5 @@
 import 'package:drift/drift.dart';
-
-import '../tables/organizer_item_table_drift.dart';
+import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
 
 @DataClassName('TaskTableDriftG')
 class TaskTableDrift extends OrganizerItemTableDrift {

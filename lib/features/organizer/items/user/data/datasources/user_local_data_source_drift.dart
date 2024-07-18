@@ -1,6 +1,7 @@
 // user_data_source.dart
 
 import 'package:drift/drift.dart';
+import 'package:fo_fe/core/util/organizer/core_util_organizer.dart';
 import 'package:fo_fe/features/organizer/items/user/data/datasources/user_local_data_source.dart';
 import 'package:fo_fe/features/organizer/items/user/user_exports.dart';
 
@@ -33,21 +34,21 @@ class UserLocalDataSourceDrift implements UserLocalDataSource {
   }
 
   // Get all user items
-  Future<List<UserModel>> getUserItemsAll() async {
-    final userTables = await userDao.getUserItemsAll();
-    return userTables.map(UserMapper.modelFromTableDrift).toList();
+  Future<OrganizerItems<UserModel>> getUserItemsAll() async {
+    final items = await userDao.getUserItemsAll();
+    return UserMapper.modelItemsFromTableDriftItems(items);
   }
 
   // Get user items by ID set
-  Future<List<UserModel>> getUserItemsByIdSet(IdSet idSet) async {
-    final userTables = await userDao.getUserItemsByIdSet(idSet);
-    return userTables.map(UserMapper.modelFromTableDrift).toList();
+  Future<OrganizerItems<UserModel>> getUserItemsByIdSet(IdSet idSet) async {
+    final userTables = await userDao.getUserItemsByIds(idSet.toSet());
+    return UserMapper.modelItemsFromTableDriftItems(userTables);
   }
 
-  Future<List<UserModel>> getUserItemsByUserId(int userId) async {
+  Future<OrganizerItems<UserModel>> getUserItemsByUserId(int userId) async {
     final userIds = await userUserDao.getUserIdsByUserId(userId);
-    final userTables = await userDao.getUserListByUserIds(userIds);
-    return userTables.map(UserMapper.modelFromTableDrift).toList();
+    final userTables = await userDao.getUserItemsByIds(userIds);
+    return UserMapper.modelItemsFromTableDriftItems(userTables);
   }
 
   Future<int> addUserToUser(int userLinkedId, int userId) async {
@@ -57,21 +58,6 @@ class UserLocalDataSourceDrift implements UserLocalDataSource {
 
   Future<int> deleteUserFromUser(int userLinkedId, int userId) async {
     return userUserDao.deleteUserUser(userLinkedId, userId);
-  }
-
-  UserTagTableDriftCompanion _createUserTagCompanion(int userId, int tagId) {
-    return UserTagTableDriftCompanion(
-      userId: Value(userId),
-      tagId: Value(tagId),
-    );
-  }
-
-  UserReminderTableDriftCompanion _createUserReminderCompanion(
-      int userId, int reminderId) {
-    return UserReminderTableDriftCompanion(
-      userId: Value(userId),
-      reminderId: Value(reminderId),
-    );
   }
 
   UserUserTableDriftCompanion _createUserUserCompanion(

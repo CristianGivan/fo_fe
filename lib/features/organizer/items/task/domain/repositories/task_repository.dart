@@ -4,7 +4,6 @@ import 'package:fo_fe/core/util/organizer/core_util_organizer.dart';
 import 'package:fo_fe/features/organizer/items/reminder/domain/entities/reminder_entity.dart';
 import 'package:fo_fe/features/organizer/items/tag/tag_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/task_exports.dart';
-import 'package:fo_fe/features/organizer/items/task/task_lib.dart';
 import 'package:fo_fe/features/organizer/items/user/user_exports.dart';
 
 abstract class TaskRepository {
@@ -25,7 +24,8 @@ abstract class TaskRepository {
       IdSet idSet);
 
   // User operations related to tasks
-  Future<Either<Failure, List<UserEntity>>> getUsersByTaskId(int taskId);
+  Future<Either<Failure, OrganizerItems<UserEntity>>> getUsersByTaskId(
+      int taskId);
 
   Future<Either<Failure, UserEntity>> getCreatorById(int creatorId);
 
@@ -34,14 +34,15 @@ abstract class TaskRepository {
   Future<Either<Failure, int>> deleteUserFromTask(int taskId, int userId);
 
   // Tag operations related to tasks
-  Future<Either<Failure, List<TagEntity>>> getTagsByTaskId(int taskId);
+  Future<Either<Failure, OrganizerItems<TagEntity>>> getTagsByTaskId(
+      int taskId);
 
   Future<Either<Failure, int>> addTagToTask(int taskId, int tagId);
 
   Future<Either<Failure, int>> deleteTagFromTask(int taskId, int tagId);
 
   // Reminder operations related to tasks
-  Future<Either<Failure, List<ReminderEntity>>> getRemindersByTaskId(
+  Future<Either<Failure, OrganizerItems<ReminderEntity>>> getRemindersByTaskId(
       int taskId);
 
   Future<Either<Failure, int>> addReminderToTask(int taskId, int reminderId);

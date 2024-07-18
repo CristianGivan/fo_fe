@@ -38,11 +38,11 @@ class TaskReminderDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
         .go();
   }
 
-  Future<List<int>> getReminderIdsByTaskId(int taskId) async {
+  Future<Set<int>> getReminderIdsByTaskId(int taskId) async {
     //todo cg
     final result = await (select(taskReminderTableDrift)
           ..where((tbl) => tbl.taskId.equals(taskId)))
         .get();
-    return result.map((row) => row.reminderId).toList();
+    return result.map((row) => row.reminderId).toSet();
   }
 }

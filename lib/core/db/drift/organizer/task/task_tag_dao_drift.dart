@@ -34,10 +34,10 @@ class TaskTagDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
         .go();
   }
 
-  Future<List<int>> getTagIdsByTaskId(int taskId) async {
+  Future<Set<int>> getTagIdsByTaskId(int taskId) async {
     final result = await (select(taskTagTableDrift)
           ..where((tbl) => tbl.taskId.equals(taskId)))
         .get();
-    return result.map((row) => row.tagId).toList();
+    return result.map((row) => row.tagId).toSet();
   }
 }

@@ -1,3 +1,4 @@
+import 'package:fo_fe/core/util/organizer/core_util_organizer.dart';
 import 'package:fo_fe/features/organizer/items/reminder/reminder_exports.dart';
 import 'package:fo_fe/features/organizer/items/tag/tag_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/data/models/task_model.dart';
@@ -6,9 +7,9 @@ import 'package:fo_fe/features/organizer/util/organizer_enums.dart';
 
 class TaskModelLazyLoaded extends TaskModel {
   final UserModel? creator;
-  final List<UserModel>? userList;
-  final List<TagModel>? tagList;
-  final List<ReminderModel>? reminderList;
+  final OrganizerItems<UserModel>? userItems;
+  final OrganizerItems<TagModel>? tagItems;
+  final OrganizerItems<ReminderModel>? reminderItems;
 
   TaskModelLazyLoaded({
     required int id,
@@ -29,9 +30,9 @@ class TaskModelLazyLoaded extends TaskModel {
     double? workingProgress,
     TaskStatus? taskStatus,
     this.creator,
-    this.userList,
-    this.tagList,
-    this.reminderList,
+    this.userItems,
+    this.tagItems,
+    this.reminderItems,
   }) : super(
           id: id,
           subject: subject,
@@ -54,5 +55,5 @@ class TaskModelLazyLoaded extends TaskModel {
 
   @override
   List<Object?> get props =>
-      super.props + [creator, userList, tagList, reminderList];
+      super.props + [creator, userItems, tagItems, reminderItems];
 }

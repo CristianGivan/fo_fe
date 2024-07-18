@@ -597,32 +597,36 @@ class MockTaskRepository extends _i1.Mock implements _i8.TaskRepository {
               _i6.Either<_i15.Failure, _i5.OrganizerItems<_i14.TaskEntity>>>);
 
   @override
-  _i10.Future<_i6.Either<_i15.Failure, List<_i16.UserEntity>>> getUsersByTaskId(
-          int? taskId) =>
+  _i10.Future<
+      _i6.Either<_i15.Failure,
+          _i5.OrganizerItems<_i16.UserEntity>>> getUsersByTaskId(int? taskId) =>
       (super.noSuchMethod(
         Invocation.method(
           #getUsersByTaskId,
           [taskId],
         ),
-        returnValue:
-            _i10.Future<_i6.Either<_i15.Failure, List<_i16.UserEntity>>>.value(
-                _FakeEither_3<_i15.Failure, List<_i16.UserEntity>>(
+        returnValue: _i10.Future<
+                _i6.Either<_i15.Failure,
+                    _i5.OrganizerItems<_i16.UserEntity>>>.value(
+            _FakeEither_3<_i15.Failure, _i5.OrganizerItems<_i16.UserEntity>>(
           this,
           Invocation.method(
             #getUsersByTaskId,
             [taskId],
           ),
         )),
-        returnValueForMissingStub:
-            _i10.Future<_i6.Either<_i15.Failure, List<_i16.UserEntity>>>.value(
-                _FakeEither_3<_i15.Failure, List<_i16.UserEntity>>(
+        returnValueForMissingStub: _i10.Future<
+                _i6.Either<_i15.Failure,
+                    _i5.OrganizerItems<_i16.UserEntity>>>.value(
+            _FakeEither_3<_i15.Failure, _i5.OrganizerItems<_i16.UserEntity>>(
           this,
           Invocation.method(
             #getUsersByTaskId,
             [taskId],
           ),
         )),
-      ) as _i10.Future<_i6.Either<_i15.Failure, List<_i16.UserEntity>>>);
+      ) as _i10.Future<
+          _i6.Either<_i15.Failure, _i5.OrganizerItems<_i16.UserEntity>>>);
 
   @override
   _i10.Future<_i6.Either<_i15.Failure, _i16.UserEntity>> getCreatorById(
@@ -729,32 +733,34 @@ class MockTaskRepository extends _i1.Mock implements _i8.TaskRepository {
       ) as _i10.Future<_i6.Either<_i15.Failure, int>>);
 
   @override
-  _i10.Future<_i6.Either<_i15.Failure, List<_i17.TagEntity>>> getTagsByTaskId(
-          int? taskId) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #getTagsByTaskId,
-          [taskId],
-        ),
-        returnValue:
-            _i10.Future<_i6.Either<_i15.Failure, List<_i17.TagEntity>>>.value(
-                _FakeEither_3<_i15.Failure, List<_i17.TagEntity>>(
-          this,
-          Invocation.method(
-            #getTagsByTaskId,
-            [taskId],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i10.Future<_i6.Either<_i15.Failure, List<_i17.TagEntity>>>.value(
-                _FakeEither_3<_i15.Failure, List<_i17.TagEntity>>(
-          this,
-          Invocation.method(
-            #getTagsByTaskId,
-            [taskId],
-          ),
-        )),
-      ) as _i10.Future<_i6.Either<_i15.Failure, List<_i17.TagEntity>>>);
+  _i10.Future<_i6.Either<_i15.Failure, _i5.OrganizerItems<_i17.TagEntity>>>
+      getTagsByTaskId(int? taskId) => (super.noSuchMethod(
+            Invocation.method(
+              #getTagsByTaskId,
+              [taskId],
+            ),
+            returnValue: _i10.Future<
+                    _i6.Either<_i15.Failure,
+                        _i5.OrganizerItems<_i17.TagEntity>>>.value(
+                _FakeEither_3<_i15.Failure, _i5.OrganizerItems<_i17.TagEntity>>(
+              this,
+              Invocation.method(
+                #getTagsByTaskId,
+                [taskId],
+              ),
+            )),
+            returnValueForMissingStub: _i10.Future<
+                    _i6.Either<_i15.Failure,
+                        _i5.OrganizerItems<_i17.TagEntity>>>.value(
+                _FakeEither_3<_i15.Failure, _i5.OrganizerItems<_i17.TagEntity>>(
+              this,
+              Invocation.method(
+                #getTagsByTaskId,
+                [taskId],
+              ),
+            )),
+          ) as _i10.Future<
+              _i6.Either<_i15.Failure, _i5.OrganizerItems<_i17.TagEntity>>>);
 
   @override
   _i10.Future<_i6.Either<_i15.Failure, int>> addTagToTask(
@@ -833,33 +839,37 @@ class MockTaskRepository extends _i1.Mock implements _i8.TaskRepository {
       ) as _i10.Future<_i6.Either<_i15.Failure, int>>);
 
   @override
-  _i10.Future<
-      _i6.Either<_i15.Failure, List<_i13.ReminderEntity>>> getRemindersByTaskId(
-          int? taskId) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #getRemindersByTaskId,
-          [taskId],
-        ),
-        returnValue: _i10
-            .Future<_i6.Either<_i15.Failure, List<_i13.ReminderEntity>>>.value(
-            _FakeEither_3<_i15.Failure, List<_i13.ReminderEntity>>(
-          this,
-          Invocation.method(
-            #getRemindersByTaskId,
-            [taskId],
-          ),
-        )),
-        returnValueForMissingStub: _i10
-            .Future<_i6.Either<_i15.Failure, List<_i13.ReminderEntity>>>.value(
-            _FakeEither_3<_i15.Failure, List<_i13.ReminderEntity>>(
-          this,
-          Invocation.method(
-            #getRemindersByTaskId,
-            [taskId],
-          ),
-        )),
-      ) as _i10.Future<_i6.Either<_i15.Failure, List<_i13.ReminderEntity>>>);
+  _i10.Future<_i6.Either<_i15.Failure, _i5.OrganizerItems<_i13.ReminderEntity>>>
+      getRemindersByTaskId(int? taskId) => (super.noSuchMethod(
+            Invocation.method(
+              #getRemindersByTaskId,
+              [taskId],
+            ),
+            returnValue: _i10.Future<
+                    _i6.Either<_i15.Failure,
+                        _i5.OrganizerItems<_i13.ReminderEntity>>>.value(
+                _FakeEither_3<_i15.Failure,
+                    _i5.OrganizerItems<_i13.ReminderEntity>>(
+              this,
+              Invocation.method(
+                #getRemindersByTaskId,
+                [taskId],
+              ),
+            )),
+            returnValueForMissingStub: _i10.Future<
+                    _i6.Either<_i15.Failure,
+                        _i5.OrganizerItems<_i13.ReminderEntity>>>.value(
+                _FakeEither_3<_i15.Failure,
+                    _i5.OrganizerItems<_i13.ReminderEntity>>(
+              this,
+              Invocation.method(
+                #getRemindersByTaskId,
+                [taskId],
+              ),
+            )),
+          ) as _i10.Future<
+              _i6
+              .Either<_i15.Failure, _i5.OrganizerItems<_i13.ReminderEntity>>>);
 
   @override
   _i10.Future<_i6.Either<_i15.Failure, int>> addReminderToTask(

@@ -61,17 +61,17 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
         : null;
 
     final userIds = await taskUserDao.getUserIdsByTaskId(id);
-    final userTables = await userDao.getUserItemsByIdSet(userIds);
-    final users = userTables.map(UserMapper.modelFromTableDrift).toList();
+    final userTables = await userDao.getUserItemsByIds(userIds);
+    final users = UserMapper.modelItemsFromTableDriftItems(userTables);
 
     final tagIds = await taskTagDao.getTagIdsByTaskId(id);
     final tagTables = await tagDao.getTagItemsByTagIds(tagIds);
-    final tags = tagTables.map(TagMapper.modelFromTableDrift).toList();
+    final tags = TagMapper.modelItemsFromTableDriftItems(tagTables);
 
     final reminderIds = await taskReminderDao.getReminderIdsByTaskId(id);
     final reminderTables = await reminderDao.getRemindersByTaskId(reminderIds);
     final reminders =
-        reminderTables.map(ReminderMapper.fromTableDrift).toList();
+        ReminderMapper.modelItemsFromTableDriftItems(reminderTables);
 
     return TaskMapper.toLazyLoadedModel(
       taskTable,
@@ -97,7 +97,7 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
   // Method to get users by task ID
   Future<OrganizerItems<UserModel>> getUsersByTaskId(int taskId) async {
     final userIds = await taskUserDao.getUserIdsByTaskId(taskId);
-    final userTables = await userDao.getUserItemsByIdSet(userIds);
+    final userTables = await userDao.getUserItemsByIds(userIds);
     return UserMapper.modelItemsFromTableDriftItems(userTables);
   }
 
@@ -105,14 +105,14 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
   Future<OrganizerItems<TagModel>> getTagsByTaskId(int taskId) async {
     final tagIds = await taskTagDao.getTagIdsByTaskId(taskId);
     final tagTables = await tagDao.getTagItemsByTagIds(tagIds);
-    return tagTables.map(TagMapper.modelFromTableDrift).toList();
+    return TagMapper.modelItemsFromTableDriftItems(tagTables);
   }
 
   // Method to get reminders by task ID
   Future<OrganizerItems<ReminderModel>> getRemindersByTaskId(int taskId) async {
     final reminderIds = await taskReminderDao.getReminderIdsByTaskId(taskId);
     final reminderTables = await reminderDao.getRemindersByTaskId(reminderIds);
-    return reminderTables.map(ReminderMapper.fromTableDrift).toList();
+    return ReminderMapper.modelItemsFromTableDriftItems(reminderTables);
   }
 
   // Method to get creator by ID

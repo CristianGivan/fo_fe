@@ -36,7 +36,7 @@ class UserMapper {
   }
 
   static OrganizerItems<UserModel> entityItemsToModelItems(
-      List<UserEntity>? items) {
+      OrganizerItems<UserEntity>? items) {
     if (items == null) {
       return OrganizerItems.empty();
     }
@@ -54,7 +54,7 @@ class UserMapper {
   }
 
   static OrganizerItems<UserEntity> modelItemsToEntityItems(
-      List<UserModel>? models) {
+      OrganizerItems<UserModel>? models) {
     if (models == null) {
       return OrganizerItems.empty();
     }

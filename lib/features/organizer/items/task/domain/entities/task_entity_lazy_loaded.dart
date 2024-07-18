@@ -1,3 +1,4 @@
+import 'package:fo_fe/core/util/organizer/core_util_organizer.dart';
 import 'package:fo_fe/features/organizer/items/reminder/reminder_exports.dart';
 import 'package:fo_fe/features/organizer/items/tag/tag_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/task_exports.dart';
@@ -7,9 +8,9 @@ import '../../../../util/organizer_enums.dart';
 
 class TaskEntityLazyLoaded extends TaskEntity {
   UserEntity? creator;
-  List<UserEntity>? userList;
-  List<TagEntity>? tagList;
-  List<ReminderEntity>? reminderList;
+  OrganizerItems<UserEntity>? userItems;
+  OrganizerItems<TagEntity>? tagItems;
+  OrganizerItems<ReminderEntity>? reminderItems;
 
   TaskEntityLazyLoaded({
     required int id,
@@ -30,9 +31,9 @@ class TaskEntityLazyLoaded extends TaskEntity {
     double? workingProgress,
     TaskStatus? taskStatus,
     this.creator,
-    this.userList,
-    this.tagList,
-    this.reminderList,
+    this.userItems,
+    this.tagItems,
+    this.reminderItems,
   }) : super(
           id: id,
           subject: subject,
@@ -55,5 +56,5 @@ class TaskEntityLazyLoaded extends TaskEntity {
 
   @override
   List<Object?> get props =>
-      super.props..addAll([creator, userList, tagList, reminderList]);
+      super.props..addAll([creator, userItems, tagItems, reminderItems]);
 }

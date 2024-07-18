@@ -11,11 +11,11 @@ abstract class UserLocalDataSource {
 
   Future<UserModel?> getUserById(int id);
 
-  Future<List<UserModel>> getUserItemsAll();
+  Future<OrganizerItems<UserModel>> getUserItemsAll();
 
-  Future<List<UserModel>> getUserItemsByIdSet(IdSet idSet);
+  Future<OrganizerItems<UserModel>> getUserItemsByIdSet(IdSet idSet);
 
-  Future<List<UserModel>> getUserItemsByUserId(int userId);
+  Future<OrganizerItems<UserModel>> getUserItemsByUserId(int userId);
 
   Future<int> addUserToUser(int userLinkedId, int userId);
 

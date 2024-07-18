@@ -3,16 +3,16 @@ import 'package:fo_fe/features/organizer/util/organizer_enums.dart';
 
 class TaskModel extends TaskEntity {
   TaskModel({
-    required int id,
-    required String subject,
-    required DateTime createdDate,
-    required int creatorId,
+    int? id,
+    DateTime? createdDate,
+    int? creatorId,
     int? remoteId,
     DateTime? lastUpdate,
     DateTime? lastAccessedDate,
     int? remoteAccesses,
     int? accesses,
     String? checksum,
+    required String subject,
     DateTime? startDate,
     DateTime? endDate,
     double? workingTime,

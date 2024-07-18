@@ -94,7 +94,8 @@ class TaskRepositoryDrift implements TaskRepository {
 
   // User operations related to tasks
   @override
-  Future<Either<Failure, List<UserEntity>>> getUsersByTaskId(int taskId) {
+  Future<Either<Failure, OrganizerItems<UserEntity>>> getUsersByTaskId(
+      int taskId) {
     return _handleDatabaseOperation(() async {
       final userModels = await localDataSource.getUsersByTaskId(taskId);
       return UserMapper.modelItemsToEntityItems(userModels);
@@ -127,10 +128,11 @@ class TaskRepositoryDrift implements TaskRepository {
 
   // Tag operations related to tasks
   @override
-  Future<Either<Failure, List<TagEntity>>> getTagsByTaskId(int taskId) {
+  Future<Either<Failure, OrganizerItems<TagEntity>>> getTagsByTaskId(
+      int taskId) {
     return _handleDatabaseOperation(() async {
       final tagModels = await localDataSource.getTagsByTaskId(taskId);
-      return TagMapper.modelListToEntityList(tagModels);
+      return TagMapper.entityItemsFromModelItems(tagModels);
     });
   }
 
@@ -148,11 +150,11 @@ class TaskRepositoryDrift implements TaskRepository {
 
   // Reminder operations related to tasks
   @override
-  Future<Either<Failure, List<ReminderEntity>>> getRemindersByTaskId(
+  Future<Either<Failure, OrganizerItems<ReminderEntity>>> getRemindersByTaskId(
       int taskId) {
     return _handleDatabaseOperation(() async {
       final reminderModels = await localDataSource.getRemindersByTaskId(taskId);
-      return ReminderMapper.modelListToEntityList(reminderModels);
+      return ReminderMapper.entityItemsFromModelItems(reminderModels);
     });
   }
 
