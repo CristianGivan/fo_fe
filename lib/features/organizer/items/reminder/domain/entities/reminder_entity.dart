@@ -40,6 +40,36 @@ class ReminderEntity extends OrganizerItemEntity with EquatableMixin {
 
   DateTime get remindAt => _remindAt;
 
+  ReminderEntity copyWith({
+    int? id,
+    DateTime? createdDate,
+    int? creatorId,
+    int? remoteId,
+    DateTime? lastUpdate,
+    DateTime? lastViewDate,
+    int? remoteViews,
+    int? views,
+    String? checksum,
+    String? subject,
+    DateTime? remindAt,
+    int? taskId,
+  }) {
+    return ReminderEntity(
+      id: id ?? this.id,
+      createdDate: createdDate ?? this.createdDate,
+      creatorId: creatorId ?? this.creatorId,
+      remoteId: remoteId ?? this.remoteId,
+      lastUpdate: lastUpdate ?? this.lastUpdate,
+      lastViewDate: lastViewDate ?? this.lastAccessedDate,
+      remoteViews: remoteViews ?? this.remoteAccesses,
+      views: views ?? this.accesses,
+      checksum: checksum ?? this.checksum,
+      subject: subject ?? this._subject,
+      remindAt: remindAt ?? this._remindAt,
+      taskId: taskId,
+    );
+  }
+
   @override
   // TODO: implement props
   List<Object?> get props => [

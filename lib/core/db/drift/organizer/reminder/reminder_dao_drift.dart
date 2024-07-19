@@ -11,10 +11,14 @@ class ReminderDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
 
   ReminderDaoDrift(this.db) : super(db);
 
-  Future<List<ReminderTableDriftG>> getAllReminders() =>
+  Future<ReminderTableDriftG?> getReminderById(int id) =>
+      (select(reminderTableDrift)..where((tbl) => tbl.id.equals(id)))
+          .getSingleOrNull();
+
+  Future<List<ReminderTableDriftG>> getReminderItemsAll() =>
       select(reminderTableDrift).get();
 
-  Stream<List<ReminderTableDriftG>> watchAllReminders() =>
+  Stream<List<ReminderTableDriftG>> watchReminderItemsAll() =>
       select(reminderTableDrift).watch();
 
   Future<int> insertReminder(Insertable<ReminderTableDriftG> reminder) =>
@@ -23,11 +27,12 @@ class ReminderDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
   Future<bool> updateReminder(Insertable<ReminderTableDriftG> reminder) =>
       update(reminderTableDrift).replace(reminder);
 
-  Future<int> deleteReminder(Insertable<ReminderTableDriftG> reminder) =>
-      delete(reminderTableDrift).delete(reminder);
+  Future<int> deleteReminder(int id) =>
+      (delete(reminderTableDrift)..where((tbl) => tbl.id.equals(id))).go();
 
-  Future<List<ReminderTableDriftG>> getRemindersByTaskId(
-          Set<int> reminderIds) =>
-      (select(reminderTableDrift)..where((tbl) => tbl.id.isIn(reminderIds)))
-          .get();
+  Future<List<ReminderTableDriftG>> getReminderItemsByReminderIdSet(
+      Set<int> idSet) async {
+    return (select(reminderTableDrift)..where((tbl) => tbl.id.isIn(idSet)))
+        .get();
+  }
 }

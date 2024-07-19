@@ -7,48 +7,48 @@ abstract class TagBlocEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class InsertTagEvent extends TagBlocEvent {
+class InsertTagBlocEvent extends TagBlocEvent {
   final TagEntity tag;
 
-  InsertTagEvent(this.tag);
+  InsertTagBlocEvent(this.tag);
 
   @override
   List<Object> get props => [tag];
 }
 
-class UpdateTagEvent extends TagBlocEvent {
+class UpdateTagBlocEvent extends TagBlocEvent {
   final TagEntity tag;
 
-  UpdateTagEvent(this.tag);
+  UpdateTagBlocEvent(this.tag);
 
   @override
   List<Object> get props => [tag];
 }
 
-class DeleteTagEvent extends TagBlocEvent {
+class DeleteTagBlocEvent extends TagBlocEvent {
   final int tagId;
 
-  DeleteTagEvent(this.tagId);
+  DeleteTagBlocEvent(this.tagId);
 
   @override
   List<Object> get props => [tagId];
 }
 
-class GetTagByIdEvent extends TagBlocEvent {
+class GetTagByIdBlocEvent extends TagBlocEvent {
   final int id;
 
-  GetTagByIdEvent(this.id);
+  GetTagByIdBlocEvent(this.id);
 
   @override
   List<Object> get props => [id];
 }
 
-class GetTagItemsAllEvent extends TagBlocEvent {}
+class GetTagItemsAllBlocEvent extends TagBlocEvent {}
 
-class GetTagItemsByIdSetEvent extends TagBlocEvent {
+class GetTagItemsByIdSetBlocEvent extends TagBlocEvent {
   final IdSet idSet;
 
-  GetTagItemsByIdSetEvent(this.idSet);
+  GetTagItemsByIdSetBlocEvent(this.idSet);
 
   @override
   List<Object> get props => [idSet];

@@ -68,7 +68,8 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
     final tags = TagMapper.modelItemsFromTableDriftItems(tagTables);
 
     final reminderIds = await taskReminderDao.getReminderIdsByTaskId(id);
-    final reminderTables = await reminderDao.getRemindersByTaskId(reminderIds);
+    final reminderTables =
+        await reminderDao.getReminderItemsByReminderIdSet(reminderIds);
     final reminders =
         ReminderMapper.modelItemsFromTableDriftItems(reminderTables);
 
@@ -110,7 +111,8 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
   // Method to get reminders by task ID
   Future<OrganizerItems<ReminderModel>> getRemindersByTaskId(int taskId) async {
     final reminderIds = await taskReminderDao.getReminderIdsByTaskId(taskId);
-    final reminderTables = await reminderDao.getRemindersByTaskId(reminderIds);
+    final reminderTables =
+        await reminderDao.getReminderItemsByReminderIdSet(reminderIds);
     return ReminderMapper.modelItemsFromTableDriftItems(reminderTables);
   }
 

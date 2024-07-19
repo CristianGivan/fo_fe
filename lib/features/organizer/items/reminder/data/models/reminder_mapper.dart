@@ -47,6 +47,14 @@ class ReminderMapper {
     );
   }
 
+  static OrganizerItems<ReminderEntity> entityItemsFromTableDriftItems(
+      List<ReminderTableDriftG>? items) {
+    if (items == null) {
+      return OrganizerItems.empty();
+    }
+    return OrganizerItems.of(items.map(modelFromTableDrift).toList());
+  }
+
   static OrganizerItems<ReminderEntity> entityItemsFromModelItems(
       OrganizerItems<ReminderModel>? items) {
     if (items == null) {
@@ -55,12 +63,12 @@ class ReminderMapper {
     return OrganizerItems.of(items.map(entityFromModel).toList());
   }
 
-  static ReminderModel fromTableDrift(ReminderTableDriftG reminder) {
-    return ReminderModel(
-      id: reminder.id,
-      subject: reminder.subject,
-      remindAt: reminder.remindAt,
-      // Add other fields
+  static ReminderEntity entityFromTableDrift(
+      ReminderTableDriftG reminderTable) {
+    return ReminderEntity(
+      id: reminderTable.id,
+      subject: reminderTable.subject,
+      remindAt: reminderTable.remindAt,
     );
   }
 
