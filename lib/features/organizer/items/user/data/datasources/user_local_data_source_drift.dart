@@ -2,7 +2,6 @@
 
 import 'package:drift/drift.dart';
 import 'package:fo_fe/core/util/organizer/core_util_organizer.dart';
-import 'package:fo_fe/features/organizer/items/user/data/datasources/user_local_data_source.dart';
 import 'package:fo_fe/features/organizer/items/user/user_exports.dart';
 
 import '../../../../../../core/db/drift/organizer_drift_exports.dart';
@@ -28,9 +27,11 @@ class UserLocalDataSourceDrift implements UserLocalDataSource {
     return userDao.deleteUser(userId);
   }
 
-  Future<UserModel?> getUserById(int id) async {
+  Future<UserModel> getUserById(int id) async {
     final userTable = await userDao.getUserById(id);
-    return userTable != null ? UserMapper.modelFromTableDrift(userTable) : null;
+    return userTable != null
+        ? UserMapper.modelFromTableDrift(userTable)
+        : UserModel.empty();
   }
 
   // Get all user items

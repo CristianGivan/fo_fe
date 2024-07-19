@@ -1,8 +1,3 @@
-import 'package:data_connection_checker_nulls/data_connection_checker_nulls.dart';
-import 'package:fo_fe/core/db/drift/organizer/task/task_reminder_dao_drift.dart';
-import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
-import 'package:fo_fe/core/network/network_info.dart';
-import 'package:fo_fe/core/util/input_converter.dart';
 import 'package:fo_fe/features/organizer/items/task/data/datasources/task_local_data_source_drift.dart';
 import 'package:fo_fe/features/organizer/items/task/data/datasources/task_remote_data_source.dart';
 import 'package:fo_fe/features/organizer/items/task/data/datasources/task_remote_data_source_impl.dart';
@@ -11,19 +6,11 @@ import 'package:fo_fe/features/organizer/items/task/domain/repositories/task_rep
 import 'package:fo_fe/features/organizer/items/task/domain/usecases/task_usecase_export.dart';
 import 'package:fo_fe/features/organizer/items/task/presentation/logic/task_bloc/task_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:http/http.dart' as http;
 
-final sl = GetIt.instance; // Service locator
+final sl = GetIt.instance;
 
-void init() {
-  initFeature();
-  initCore();
-  initExternals();
-  initDb();
-}
-
-void initFeature() {
-  // BLoCs
+void initTask() {
+  // Task BLoCs
   sl.registerFactory(() => TaskBlocTask(
         getTaskById: sl(),
         getTaskItemsAll: sl(),
@@ -48,7 +35,7 @@ void initFeature() {
         deleteReminderFromTask: sl(),
       ));
 
-  // Use cases
+  // Task Use cases
   sl.registerLazySingleton(() => GetTaskById(sl()));
   sl.registerLazySingleton(() => GetTaskItemsAll(sl()));
   sl.registerLazySingleton(() => GetTaskItemsByIdSet(sl()));
@@ -65,12 +52,12 @@ void initFeature() {
   sl.registerLazySingleton(() => DeleteReminderFromTask(sl()));
   sl.registerLazySingleton(() => GetRemindersByTaskId(sl()));
 
-  // Repositories
+  // Task Repository
   sl.registerLazySingleton<TaskRepository>(() => TaskRepositoryDrift(
         localDataSource: sl<TaskLocalDataSourceDrift>(),
       ));
 
-  // Data Sources
+  // Task Data Sources
   sl.registerLazySingleton<TaskRemoteDataSource>(() => TaskRemoteDataSourceImpl(
         httpClient: sl(),
       ));
@@ -84,32 +71,4 @@ void initFeature() {
             taskTagDao: sl(),
             taskReminderDao: sl(),
           ));
-
-  // Network Info
-  sl.registerLazySingleton<NetworkInfo>(
-      () => NetworkInfoImpl(connectionChecker: sl()));
-}
-
-void initCore() {
-  // Util
-  sl.registerLazySingleton(() => InputConverter());
-}
-
-void initExternals() {
-  // External dependencies
-  sl.registerLazySingleton(() => http.Client());
-  sl.registerLazySingleton(() => DataConnectionChecker());
-}
-
-void initDb() {
-  // Database and DAO registrations
-  final db = OrganizerDriftDB();
-  sl.registerSingleton<OrganizerDriftDB>(db);
-  sl.registerSingleton<TaskDaoDrift>(TaskDaoDrift(db));
-  sl.registerSingleton<UserDaoDrift>(UserDaoDrift(db));
-  sl.registerSingleton<TagDaoDrift>(TagDaoDrift(db));
-  sl.registerSingleton<ReminderDaoDrift>(ReminderDaoDrift(db));
-  sl.registerSingleton<TaskUserDaoDrift>(TaskUserDaoDrift(db));
-  sl.registerSingleton<TaskTagDaoDrift>(TaskTagDaoDrift(db));
-  sl.registerSingleton<TaskReminderDaoDrift>(TaskReminderDaoDrift(db));
 }

@@ -1,7 +1,6 @@
 // task_data_source.dart
 
 import 'package:drift/drift.dart';
-import 'package:fo_fe/core/db/drift/organizer/task/task_reminder_dao_drift.dart';
 import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
 import 'package:fo_fe/features/organizer/items/reminder/reminder_exports.dart';
 import 'package:fo_fe/features/organizer/items/tag/tag_exports.dart';
@@ -65,7 +64,7 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
     final users = UserMapper.modelItemsFromTableDriftItems(userTables);
 
     final tagIds = await taskTagDao.getTagIdsByTaskId(id);
-    final tagTables = await tagDao.getTagItemsByTagIds(tagIds);
+    final tagTables = await tagDao.getTagItemsByTagIdSet(tagIds);
     final tags = TagMapper.modelItemsFromTableDriftItems(tagTables);
 
     final reminderIds = await taskReminderDao.getReminderIdsByTaskId(id);
@@ -104,7 +103,7 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
   // Method to get tags by task ID
   Future<OrganizerItems<TagModel>> getTagsByTaskId(int taskId) async {
     final tagIds = await taskTagDao.getTagIdsByTaskId(taskId);
-    final tagTables = await tagDao.getTagItemsByTagIds(tagIds);
+    final tagTables = await tagDao.getTagItemsByTagIdSet(tagIds);
     return TagMapper.modelItemsFromTableDriftItems(tagTables);
   }
 

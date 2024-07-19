@@ -36,3 +36,7 @@ class NetworkFailure extends Failure {
 class TaskNotFoundFailure extends Failure {
   TaskNotFoundFailure() : super('Task not found');
 }
+
+class DatabaseFailure extends Failure {
+  DatabaseFailure() : super('Task not found');
+}

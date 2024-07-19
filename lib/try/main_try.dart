@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:fo_fe/service_locator.dart' as di;
+import 'package:fo_fe/main_init.dart' as di;
 import 'package:fo_fe/try/app_main_try.dart';
 
 import '../functions/simple_bloc_observer.dart';

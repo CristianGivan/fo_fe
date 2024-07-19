@@ -10,7 +10,7 @@ abstract class UserRepository {
 
   Future<Either<Failure, int>> deleteUser(int userId);
 
-  Future<Either<Failure, UserEntity?>> getUserById(int id);
+  Future<Either<Failure, UserEntity>> getUserById(int id);
 
   Future<Either<Failure, OrganizerItems<UserEntity>>> getUserItemsAll();
 

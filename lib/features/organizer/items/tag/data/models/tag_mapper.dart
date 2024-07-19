@@ -44,6 +44,21 @@ class TagMapper {
     );
   }
 
+  static TagModel entityFromTableDrift(TagTableDriftG tag) {
+    return TagModel(
+      id: tag.id,
+      subject: tag.subject,
+    );
+  }
+
+  static OrganizerItems<TagEntity> entityItemsFromTableDriftItems(
+      List<TagTableDriftG>? items) {
+    if (items == null) {
+      return OrganizerItems.empty();
+    }
+    return OrganizerItems.of(items.map(entityFromTableDrift).toList());
+  }
+
   static OrganizerItems<TagEntity> entityItemsFromModelItems(
       OrganizerItems<TagModel>? items) {
     if (items == null) {
@@ -53,6 +68,13 @@ class TagMapper {
   }
 
   static TagTableDriftCompanion tableDriftCompanionFromModel(TagModel tag) {
+    return TagTableDriftCompanion(
+      id: Value(tag.id),
+      subject: Value(tag.subject),
+    );
+  }
+
+  static TagTableDriftCompanion tableDriftCompanionFromEntity(TagEntity tag) {
     return TagTableDriftCompanion(
       id: Value(tag.id),
       subject: Value(tag.subject),

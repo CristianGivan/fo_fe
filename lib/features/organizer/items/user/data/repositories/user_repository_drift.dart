@@ -1,19 +1,18 @@
 import 'package:dartz/dartz.dart';
-import 'package:drift/drift.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/util/organizer/core_util_organizer.dart';
 import 'package:fo_fe/features/organizer/items/user/user_exports.dart';
 
 class UserRepositoryDrift implements UserRepository {
-  final UserLocalDataSource localDataSource;
+  final UserLocalDataSourceDrift localDataSourceDrift;
 
-  UserRepositoryDrift(this.localDataSource);
+  UserRepositoryDrift({required this.localDataSourceDrift});
 
   @override
   Future<Either<Failure, int>> insertUser(UserEntity user) async {
     try {
-      final companion = UserMapper.entityToCompanion(user);
-      final result = await localDataSource.insertUser(companion);
+      final companion = UserMapper.tableDriftCompanionFromEntity(user);
+      final result = await localDataSourceDrift.insertUser(companion);
       return Right(result);
     } catch (e) {
       return Left(DatabaseFailure());
@@ -23,8 +22,8 @@ class UserRepositoryDrift implements UserRepository {
   @override
   Future<Either<Failure, bool>> updateUser(UserEntity user) async {
     try {
-      final companion = UserMapper.entityToCompanion(user);
-      final result = await localDataSource.updateUser(companion);
+      final companion = UserMapper.tableDriftCompanionFromEntity(user);
+      final result = await localDataSourceDrift.updateUser(companion);
       return Right(result);
     } catch (e) {
       return Left(DatabaseFailure());
@@ -34,7 +33,7 @@ class UserRepositoryDrift implements UserRepository {
   @override
   Future<Either<Failure, int>> deleteUser(int userId) async {
     try {
-      final result = await localDataSource.deleteUser(userId);
+      final result = await localDataSourceDrift.deleteUser(userId);
       return Right(result);
     } catch (e) {
       return Left(DatabaseFailure());
@@ -42,10 +41,10 @@ class UserRepositoryDrift implements UserRepository {
   }
 
   @override
-  Future<Either<Failure, UserEntity?>> getUserById(int id) async {
+  Future<Either<Failure, UserEntity>> getUserById(int id) async {
     try {
-      final result = await localDataSource.getUserById(id);
-      return Right(UserMapper.modelToEntity(result));
+      final result = await localDataSourceDrift.getUserById(id);
+      return Right(UserMapper.entityFromModel(result));
     } catch (e) {
       return Left(DatabaseFailure());
     }
@@ -54,8 +53,8 @@ class UserRepositoryDrift implements UserRepository {
   @override
   Future<Either<Failure, OrganizerItems<UserEntity>>> getUserItemsAll() async {
     try {
-      final result = await localDataSource.getUserItemsAll();
-      return Right(UserMapper.entityItemsToModelItems(result));
+      final result = await localDataSourceDrift.getUserItemsAll();
+      return Right(UserMapper.modelItemsFromEntityItems(result));
     } catch (e) {
       return Left(DatabaseFailure());
     }
@@ -65,8 +64,8 @@ class UserRepositoryDrift implements UserRepository {
   Future<Either<Failure, OrganizerItems<UserEntity>>> getUserItemsByIdSet(
       IdSet idSet) async {
     try {
-      final result = await localDataSource.getUserItemsByIdSet(idSet);
-      return Right(UserMapper.entityItemsToModelItems(result));
+      final result = await localDataSourceDrift.getUserItemsByIdSet(idSet);
+      return Right(UserMapper.modelItemsFromEntityItems(result));
     } catch (e) {
       return Left(DatabaseFailure());
     }
@@ -76,8 +75,8 @@ class UserRepositoryDrift implements UserRepository {
   Future<Either<Failure, OrganizerItems<UserEntity>>> getUserItemsByUserId(
       int userId) async {
     try {
-      final result = await localDataSource.getUserItemsByUserId(userId);
-      return Right(UserMapper.entityItemsToModelItems(result));
+      final result = await localDataSourceDrift.getUserItemsByUserId(userId);
+      return Right(UserMapper.modelItemsFromEntityItems(result));
     } catch (e) {
       return Left(DatabaseFailure());
     }
@@ -87,7 +86,8 @@ class UserRepositoryDrift implements UserRepository {
   Future<Either<Failure, int>> addUserToUser(
       int userLinkedId, int userId) async {
     try {
-      final result = await localDataSource.addUserToUser(userLinkedId, userId);
+      final result =
+          await localDataSourceDrift.addUserToUser(userLinkedId, userId);
       return Right(result);
     } catch (e) {
       return Left(DatabaseFailure());
@@ -99,7 +99,7 @@ class UserRepositoryDrift implements UserRepository {
       int userLinkedId, int userId) async {
     try {
       final result =
-          await localDataSource.deleteUserFromUser(userLinkedId, userId);
+          await localDataSourceDrift.deleteUserFromUser(userLinkedId, userId);
       return Right(result);
     } catch (e) {
       return Left(DatabaseFailure());

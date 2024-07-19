@@ -9,7 +9,7 @@ abstract class UserLocalDataSource {
 
   Future<int> deleteUser(int userId);
 
-  Future<UserModel?> getUserById(int id);
+  Future<UserModel> getUserById(int id);
 
   Future<OrganizerItems<UserModel>> getUserItemsAll();
 

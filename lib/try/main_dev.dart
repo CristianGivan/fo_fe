@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fo_fe/service_locator.dart' as sl;
+import 'package:fo_fe/main_init.dart' as sl;
 
 import 'app_dev.dart';
 

@@ -152,9 +152,9 @@ class TaskMapper {
       estimatedLeftTime: entity.estimatedLeftTime,
       workingProgress: entity.workingProgress,
       taskStatus: entity.taskStatus,
-      creator: UserMapper.entityToModel(entity.creator),
+      creator: UserMapper.modelFromEntity(entity.creator),
       //todo cg to be check nullable topic
-      userItems: UserMapper.entityItemsToModelItems(entity.userItems),
+      userItems: UserMapper.modelItemsFromEntityItems(entity.userItems),
       //todo cg to be check nullable topic
       tagItems: TagMapper.modelItemsFromEntityItems(entity.tagItems),
       reminderItems: ReminderMapper.entityListToModelList(entity.reminderItems),
@@ -182,9 +182,9 @@ class TaskMapper {
       workingProgress: model.workingProgress,
       taskStatus: model.taskStatus,
       creator: model.creator != null
-          ? UserMapper.modelToEntity(model.creator!)
+          ? UserMapper.entityFromModel(model.creator!)
           : null,
-      userItems: UserMapper.modelItemsToEntityItems(model.userItems),
+      userItems: UserMapper.entityItemsFromModelItems(model.userItems),
       tagItems: TagMapper.entityItemsFromModelItems(model.tagItems),
       reminderItems:
           ReminderMapper.entityItemsFromModelItems(model.reminderItems),

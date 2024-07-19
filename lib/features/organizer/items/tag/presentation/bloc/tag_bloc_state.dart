@@ -1,0 +1,48 @@
+part of 'tag_bloc.dart';
+
+abstract class TagBlocState extends Equatable {
+  const TagBlocState();
+
+  @override
+  List<Object> get props => [];
+}
+
+class TagInitial extends TagBlocState {}
+
+class TagLoading extends TagBlocState {}
+
+class TagLoaded extends TagBlocState {
+  final OrganizerItems<TagEntity> tags;
+
+  TagLoaded(this.tags);
+
+  @override
+  List<Object> get props => [tags];
+}
+
+class TagError extends TagBlocState {
+  final String message;
+
+  TagError(this.message);
+
+  @override
+  List<Object> get props => [message];
+}
+
+class TagSuccess extends TagBlocState {
+  final int id;
+
+  TagSuccess(this.id);
+
+  @override
+  List<Object> get props => [id];
+}
+
+class SingleTagLoaded extends TagBlocState {
+  final TagEntity tag;
+
+  SingleTagLoaded(this.tag);
+
+  @override
+  List<Object> get props => [tag];
+}

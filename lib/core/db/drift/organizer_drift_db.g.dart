@@ -8,7 +8,9 @@ class $OrganizerItemTableDriftTable extends OrganizerItemTableDrift
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
+
   $OrganizerItemTableDriftTable(this.attachedDatabase, [this._alias]);
+
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
@@ -68,6 +70,7 @@ class $OrganizerItemTableDriftTable extends OrganizerItemTableDrift
   late final GeneratedColumn<String> checksum = GeneratedColumn<String>(
       'checksum', aliasedName, true,
       type: DriftSqlType.string, requiredDuringInsert: false);
+
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -80,11 +83,14 @@ class $OrganizerItemTableDriftTable extends OrganizerItemTableDrift
         accesses,
         checksum
       ];
+
   @override
   String get aliasedName => _alias ?? actualTableName;
+
   @override
   String get actualTableName => $name;
   static const String $name = 'organizer_item_table_drift';
+
   @override
   VerificationContext validateIntegrity(
       Insertable<OrganizerItemTableDriftG> instance,
@@ -141,6 +147,7 @@ class $OrganizerItemTableDriftTable extends OrganizerItemTableDrift
 
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
+
   @override
   OrganizerItemTableDriftG map(Map<String, dynamic> data,
       {String? tablePrefix}) {
@@ -184,6 +191,7 @@ class OrganizerItemTableDriftG extends DataClass
   final int? remoteAccesses;
   final int? accesses;
   final String? checksum;
+
   const OrganizerItemTableDriftG(
       {required this.id,
       required this.createdDate,
@@ -194,6 +202,7 @@ class OrganizerItemTableDriftG extends DataClass
       this.remoteAccesses,
       this.accesses,
       this.checksum});
+
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -263,6 +272,7 @@ class OrganizerItemTableDriftG extends DataClass
       checksum: serializer.fromJson<String?>(json['checksum']),
     );
   }
+
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
@@ -303,6 +313,7 @@ class OrganizerItemTableDriftG extends DataClass
         accesses: accesses.present ? accesses.value : this.accesses,
         checksum: checksum.present ? checksum.value : this.checksum,
       );
+
   @override
   String toString() {
     return (StringBuffer('OrganizerItemTableDriftG(')
@@ -322,6 +333,7 @@ class OrganizerItemTableDriftG extends DataClass
   @override
   int get hashCode => Object.hash(id, createdDate, creatorId, remoteId,
       lastUpdate, lastAccessedDate, remoteAccesses, accesses, checksum);
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -348,6 +360,7 @@ class OrganizerItemTableDriftCompanion
   final Value<int?> remoteAccesses;
   final Value<int?> accesses;
   final Value<String?> checksum;
+
   const OrganizerItemTableDriftCompanion({
     this.id = const Value.absent(),
     this.createdDate = const Value.absent(),
@@ -359,6 +372,7 @@ class OrganizerItemTableDriftCompanion
     this.accesses = const Value.absent(),
     this.checksum = const Value.absent(),
   });
+
   OrganizerItemTableDriftCompanion.insert({
     this.id = const Value.absent(),
     this.createdDate = const Value.absent(),
@@ -370,6 +384,7 @@ class OrganizerItemTableDriftCompanion
     this.accesses = const Value.absent(),
     this.checksum = const Value.absent(),
   }) : creatorId = Value(creatorId);
+
   static Insertable<OrganizerItemTableDriftG> custom({
     Expression<int>? id,
     Expression<DateTime>? createdDate,
@@ -472,7 +487,9 @@ class $TaskTableDriftTable extends TaskTableDrift
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
+
   $TaskTableDriftTable(this.attachedDatabase, [this._alias]);
+
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
@@ -583,6 +600,7 @@ class $TaskTableDriftTable extends TaskTableDrift
   late final GeneratedColumn<String> taskStatus = GeneratedColumn<String>(
       'task_status', aliasedName, true,
       type: DriftSqlType.string, requiredDuringInsert: false);
+
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -603,11 +621,14 @@ class $TaskTableDriftTable extends TaskTableDrift
         workingProgress,
         taskStatus
       ];
+
   @override
   String get aliasedName => _alias ?? actualTableName;
+
   @override
   String get actualTableName => $name;
   static const String $name = 'task_table_drift';
+
   @override
   VerificationContext validateIntegrity(Insertable<TaskTableDriftG> instance,
       {bool isInserting = false}) {
@@ -707,6 +728,7 @@ class $TaskTableDriftTable extends TaskTableDrift
 
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
+
   @override
   TaskTableDriftG map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
@@ -772,6 +794,7 @@ class TaskTableDriftG extends DataClass implements Insertable<TaskTableDriftG> {
   final double? estimatedLeftTime;
   final double? workingProgress;
   final String? taskStatus;
+
   const TaskTableDriftG(
       {required this.id,
       required this.createdDate,
@@ -790,6 +813,7 @@ class TaskTableDriftG extends DataClass implements Insertable<TaskTableDriftG> {
       this.estimatedLeftTime,
       this.workingProgress,
       this.taskStatus});
+
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -912,6 +936,7 @@ class TaskTableDriftG extends DataClass implements Insertable<TaskTableDriftG> {
       taskStatus: serializer.fromJson<String?>(json['taskStatus']),
     );
   }
+
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
@@ -981,6 +1006,7 @@ class TaskTableDriftG extends DataClass implements Insertable<TaskTableDriftG> {
             : this.workingProgress,
         taskStatus: taskStatus.present ? taskStatus.value : this.taskStatus,
       );
+
   @override
   String toString() {
     return (StringBuffer('TaskTableDriftG(')
@@ -1024,6 +1050,7 @@ class TaskTableDriftG extends DataClass implements Insertable<TaskTableDriftG> {
       estimatedLeftTime,
       workingProgress,
       taskStatus);
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -1065,6 +1092,7 @@ class TaskTableDriftCompanion extends UpdateCompanion<TaskTableDriftG> {
   final Value<double?> estimatedLeftTime;
   final Value<double?> workingProgress;
   final Value<String?> taskStatus;
+
   const TaskTableDriftCompanion({
     this.id = const Value.absent(),
     this.createdDate = const Value.absent(),
@@ -1084,6 +1112,7 @@ class TaskTableDriftCompanion extends UpdateCompanion<TaskTableDriftG> {
     this.workingProgress = const Value.absent(),
     this.taskStatus = const Value.absent(),
   });
+
   TaskTableDriftCompanion.insert({
     this.id = const Value.absent(),
     this.createdDate = const Value.absent(),
@@ -1104,6 +1133,7 @@ class TaskTableDriftCompanion extends UpdateCompanion<TaskTableDriftG> {
     this.taskStatus = const Value.absent(),
   })  : creatorId = Value(creatorId),
         subject = Value(subject);
+
   static Insertable<TaskTableDriftG> custom({
     Expression<int>? id,
     Expression<DateTime>? createdDate,
@@ -1270,7 +1300,9 @@ class $TaskTagTableDriftTable extends TaskTagTableDrift
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
+
   $TaskTagTableDriftTable(this.attachedDatabase, [this._alias]);
+
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
@@ -1302,13 +1334,17 @@ class $TaskTagTableDriftTable extends TaskTagTableDrift
       type: DriftSqlType.int,
       requiredDuringInsert: true,
       $customConstraints: 'REFERENCES TagTableDrift(id)');
+
   @override
   List<GeneratedColumn> get $columns => [id, linkingDate, taskId, tagId];
+
   @override
   String get aliasedName => _alias ?? actualTableName;
+
   @override
   String get actualTableName => $name;
   static const String $name = 'task_tag_table_drift';
+
   @override
   VerificationContext validateIntegrity(Insertable<TaskTagTableDriftG> instance,
       {bool isInserting = false}) {
@@ -1340,6 +1376,7 @@ class $TaskTagTableDriftTable extends TaskTagTableDrift
 
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
+
   @override
   TaskTagTableDriftG map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
@@ -1367,11 +1404,13 @@ class TaskTagTableDriftG extends DataClass
   final DateTime linkingDate;
   final int taskId;
   final int tagId;
+
   const TaskTagTableDriftG(
       {required this.id,
       required this.linkingDate,
       required this.taskId,
       required this.tagId});
+
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -1401,6 +1440,7 @@ class TaskTagTableDriftG extends DataClass
       tagId: serializer.fromJson<int>(json['tagId']),
     );
   }
+
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
@@ -1420,6 +1460,7 @@ class TaskTagTableDriftG extends DataClass
         taskId: taskId ?? this.taskId,
         tagId: tagId ?? this.tagId,
       );
+
   @override
   String toString() {
     return (StringBuffer('TaskTagTableDriftG(')
@@ -1433,6 +1474,7 @@ class TaskTagTableDriftG extends DataClass
 
   @override
   int get hashCode => Object.hash(id, linkingDate, taskId, tagId);
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -1448,12 +1490,14 @@ class TaskTagTableDriftCompanion extends UpdateCompanion<TaskTagTableDriftG> {
   final Value<DateTime> linkingDate;
   final Value<int> taskId;
   final Value<int> tagId;
+
   const TaskTagTableDriftCompanion({
     this.id = const Value.absent(),
     this.linkingDate = const Value.absent(),
     this.taskId = const Value.absent(),
     this.tagId = const Value.absent(),
   });
+
   TaskTagTableDriftCompanion.insert({
     this.id = const Value.absent(),
     this.linkingDate = const Value.absent(),
@@ -1461,6 +1505,7 @@ class TaskTagTableDriftCompanion extends UpdateCompanion<TaskTagTableDriftG> {
     required int tagId,
   })  : taskId = Value(taskId),
         tagId = Value(tagId);
+
   static Insertable<TaskTagTableDriftG> custom({
     Expression<int>? id,
     Expression<DateTime>? linkingDate,
@@ -1523,7 +1568,9 @@ class $TaskReminderTableDriftTable extends TaskReminderTableDrift
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
+
   $TaskReminderTableDriftTable(this.attachedDatabase, [this._alias]);
+
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
@@ -1556,13 +1603,17 @@ class $TaskReminderTableDriftTable extends TaskReminderTableDrift
       type: DriftSqlType.int,
       requiredDuringInsert: true,
       $customConstraints: 'REFERENCES ReminderTableDrift(id)');
+
   @override
   List<GeneratedColumn> get $columns => [id, linkingDate, taskId, reminderId];
+
   @override
   String get aliasedName => _alias ?? actualTableName;
+
   @override
   String get actualTableName => $name;
   static const String $name = 'task_reminder_table_drift';
+
   @override
   VerificationContext validateIntegrity(
       Insertable<TaskReminderTableDriftG> instance,
@@ -1597,6 +1648,7 @@ class $TaskReminderTableDriftTable extends TaskReminderTableDrift
 
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
+
   @override
   TaskReminderTableDriftG map(Map<String, dynamic> data,
       {String? tablePrefix}) {
@@ -1625,11 +1677,13 @@ class TaskReminderTableDriftG extends DataClass
   final DateTime linkingDate;
   final int taskId;
   final int reminderId;
+
   const TaskReminderTableDriftG(
       {required this.id,
       required this.linkingDate,
       required this.taskId,
       required this.reminderId});
+
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -1659,6 +1713,7 @@ class TaskReminderTableDriftG extends DataClass
       reminderId: serializer.fromJson<int>(json['reminderId']),
     );
   }
+
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
@@ -1678,6 +1733,7 @@ class TaskReminderTableDriftG extends DataClass
         taskId: taskId ?? this.taskId,
         reminderId: reminderId ?? this.reminderId,
       );
+
   @override
   String toString() {
     return (StringBuffer('TaskReminderTableDriftG(')
@@ -1691,6 +1747,7 @@ class TaskReminderTableDriftG extends DataClass
 
   @override
   int get hashCode => Object.hash(id, linkingDate, taskId, reminderId);
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -1707,12 +1764,14 @@ class TaskReminderTableDriftCompanion
   final Value<DateTime> linkingDate;
   final Value<int> taskId;
   final Value<int> reminderId;
+
   const TaskReminderTableDriftCompanion({
     this.id = const Value.absent(),
     this.linkingDate = const Value.absent(),
     this.taskId = const Value.absent(),
     this.reminderId = const Value.absent(),
   });
+
   TaskReminderTableDriftCompanion.insert({
     this.id = const Value.absent(),
     this.linkingDate = const Value.absent(),
@@ -1720,6 +1779,7 @@ class TaskReminderTableDriftCompanion
     required int reminderId,
   })  : taskId = Value(taskId),
         reminderId = Value(reminderId);
+
   static Insertable<TaskReminderTableDriftG> custom({
     Expression<int>? id,
     Expression<DateTime>? linkingDate,
@@ -1782,7 +1842,9 @@ class $TaskUserTableDriftTable extends TaskUserTableDrift
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
+
   $TaskUserTableDriftTable(this.attachedDatabase, [this._alias]);
+
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
@@ -1814,13 +1876,17 @@ class $TaskUserTableDriftTable extends TaskUserTableDrift
       type: DriftSqlType.int,
       requiredDuringInsert: true,
       $customConstraints: 'REFERENCES UserTableDrift(id)');
+
   @override
   List<GeneratedColumn> get $columns => [id, linkingDate, taskId, userId];
+
   @override
   String get aliasedName => _alias ?? actualTableName;
+
   @override
   String get actualTableName => $name;
   static const String $name = 'task_user_table_drift';
+
   @override
   VerificationContext validateIntegrity(
       Insertable<TaskUserTableDriftG> instance,
@@ -1853,6 +1919,7 @@ class $TaskUserTableDriftTable extends TaskUserTableDrift
 
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
+
   @override
   TaskUserTableDriftG map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
@@ -1880,11 +1947,13 @@ class TaskUserTableDriftG extends DataClass
   final DateTime linkingDate;
   final int taskId;
   final int userId;
+
   const TaskUserTableDriftG(
       {required this.id,
       required this.linkingDate,
       required this.taskId,
       required this.userId});
+
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -1914,6 +1983,7 @@ class TaskUserTableDriftG extends DataClass
       userId: serializer.fromJson<int>(json['userId']),
     );
   }
+
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
@@ -1933,6 +2003,7 @@ class TaskUserTableDriftG extends DataClass
         taskId: taskId ?? this.taskId,
         userId: userId ?? this.userId,
       );
+
   @override
   String toString() {
     return (StringBuffer('TaskUserTableDriftG(')
@@ -1946,6 +2017,7 @@ class TaskUserTableDriftG extends DataClass
 
   @override
   int get hashCode => Object.hash(id, linkingDate, taskId, userId);
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -1961,12 +2033,14 @@ class TaskUserTableDriftCompanion extends UpdateCompanion<TaskUserTableDriftG> {
   final Value<DateTime> linkingDate;
   final Value<int> taskId;
   final Value<int> userId;
+
   const TaskUserTableDriftCompanion({
     this.id = const Value.absent(),
     this.linkingDate = const Value.absent(),
     this.taskId = const Value.absent(),
     this.userId = const Value.absent(),
   });
+
   TaskUserTableDriftCompanion.insert({
     this.id = const Value.absent(),
     this.linkingDate = const Value.absent(),
@@ -1974,6 +2048,7 @@ class TaskUserTableDriftCompanion extends UpdateCompanion<TaskUserTableDriftG> {
     required int userId,
   })  : taskId = Value(taskId),
         userId = Value(userId);
+
   static Insertable<TaskUserTableDriftG> custom({
     Expression<int>? id,
     Expression<DateTime>? linkingDate,
@@ -2036,7 +2111,9 @@ class $UserTableDriftTable extends UserTableDrift
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
+
   $UserTableDriftTable(this.attachedDatabase, [this._alias]);
+
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
@@ -2112,6 +2189,7 @@ class $UserTableDriftTable extends UserTableDrift
   late final GeneratedColumn<String> email = GeneratedColumn<String>(
       'email', aliasedName, true,
       type: DriftSqlType.string, requiredDuringInsert: false);
+
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -2127,11 +2205,14 @@ class $UserTableDriftTable extends UserTableDrift
         hashedPassword,
         email
       ];
+
   @override
   String get aliasedName => _alias ?? actualTableName;
+
   @override
   String get actualTableName => $name;
   static const String $name = 'user_table_drift';
+
   @override
   VerificationContext validateIntegrity(Insertable<UserTableDriftG> instance,
       {bool isInserting = false}) {
@@ -2205,6 +2286,7 @@ class $UserTableDriftTable extends UserTableDrift
 
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
+
   @override
   UserTableDriftG map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
@@ -2255,6 +2337,7 @@ class UserTableDriftG extends DataClass implements Insertable<UserTableDriftG> {
   final String name;
   final String hashedPassword;
   final String? email;
+
   const UserTableDriftG(
       {required this.id,
       required this.createdDate,
@@ -2268,6 +2351,7 @@ class UserTableDriftG extends DataClass implements Insertable<UserTableDriftG> {
       required this.name,
       required this.hashedPassword,
       this.email});
+
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -2349,6 +2433,7 @@ class UserTableDriftG extends DataClass implements Insertable<UserTableDriftG> {
       email: serializer.fromJson<String?>(json['email']),
     );
   }
+
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
@@ -2398,6 +2483,7 @@ class UserTableDriftG extends DataClass implements Insertable<UserTableDriftG> {
         hashedPassword: hashedPassword ?? this.hashedPassword,
         email: email.present ? email.value : this.email,
       );
+
   @override
   String toString() {
     return (StringBuffer('UserTableDriftG(')
@@ -2431,6 +2517,7 @@ class UserTableDriftG extends DataClass implements Insertable<UserTableDriftG> {
       name,
       hashedPassword,
       email);
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -2462,6 +2549,7 @@ class UserTableDriftCompanion extends UpdateCompanion<UserTableDriftG> {
   final Value<String> name;
   final Value<String> hashedPassword;
   final Value<String?> email;
+
   const UserTableDriftCompanion({
     this.id = const Value.absent(),
     this.createdDate = const Value.absent(),
@@ -2476,6 +2564,7 @@ class UserTableDriftCompanion extends UpdateCompanion<UserTableDriftG> {
     this.hashedPassword = const Value.absent(),
     this.email = const Value.absent(),
   });
+
   UserTableDriftCompanion.insert({
     this.id = const Value.absent(),
     this.createdDate = const Value.absent(),
@@ -2492,6 +2581,7 @@ class UserTableDriftCompanion extends UpdateCompanion<UserTableDriftG> {
   })  : creatorId = Value(creatorId),
         name = Value(name),
         hashedPassword = Value(hashedPassword);
+
   static Insertable<UserTableDriftG> custom({
     Expression<int>? id,
     Expression<DateTime>? createdDate,
@@ -2618,7 +2708,9 @@ class $UserUserTableDriftTable extends UserUserTableDrift
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
+
   $UserUserTableDriftTable(this.attachedDatabase, [this._alias]);
+
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
@@ -2651,13 +2743,17 @@ class $UserUserTableDriftTable extends UserUserTableDrift
       type: DriftSqlType.int,
       requiredDuringInsert: true,
       $customConstraints: 'REFERENCES UserTableDrift(id)');
+
   @override
   List<GeneratedColumn> get $columns => [id, linkingDate, userId, userLinkedId];
+
   @override
   String get aliasedName => _alias ?? actualTableName;
+
   @override
   String get actualTableName => $name;
   static const String $name = 'user_user_table_drift';
+
   @override
   VerificationContext validateIntegrity(
       Insertable<UserUserTableDriftG> instance,
@@ -2692,6 +2788,7 @@ class $UserUserTableDriftTable extends UserUserTableDrift
 
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
+
   @override
   UserUserTableDriftG map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
@@ -2719,11 +2816,13 @@ class UserUserTableDriftG extends DataClass
   final DateTime linkingDate;
   final int userId;
   final int userLinkedId;
+
   const UserUserTableDriftG(
       {required this.id,
       required this.linkingDate,
       required this.userId,
       required this.userLinkedId});
+
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -2753,6 +2852,7 @@ class UserUserTableDriftG extends DataClass
       userLinkedId: serializer.fromJson<int>(json['userLinkedId']),
     );
   }
+
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
@@ -2772,6 +2872,7 @@ class UserUserTableDriftG extends DataClass
         userId: userId ?? this.userId,
         userLinkedId: userLinkedId ?? this.userLinkedId,
       );
+
   @override
   String toString() {
     return (StringBuffer('UserUserTableDriftG(')
@@ -2785,6 +2886,7 @@ class UserUserTableDriftG extends DataClass
 
   @override
   int get hashCode => Object.hash(id, linkingDate, userId, userLinkedId);
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -2800,12 +2902,14 @@ class UserUserTableDriftCompanion extends UpdateCompanion<UserUserTableDriftG> {
   final Value<DateTime> linkingDate;
   final Value<int> userId;
   final Value<int> userLinkedId;
+
   const UserUserTableDriftCompanion({
     this.id = const Value.absent(),
     this.linkingDate = const Value.absent(),
     this.userId = const Value.absent(),
     this.userLinkedId = const Value.absent(),
   });
+
   UserUserTableDriftCompanion.insert({
     this.id = const Value.absent(),
     this.linkingDate = const Value.absent(),
@@ -2813,6 +2917,7 @@ class UserUserTableDriftCompanion extends UpdateCompanion<UserUserTableDriftG> {
     required int userLinkedId,
   })  : userId = Value(userId),
         userLinkedId = Value(userLinkedId);
+
   static Insertable<UserUserTableDriftG> custom({
     Expression<int>? id,
     Expression<DateTime>? linkingDate,
@@ -2875,7 +2980,9 @@ class $ReminderTableDriftTable extends ReminderTableDrift
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
+
   $ReminderTableDriftTable(this.attachedDatabase, [this._alias]);
+
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
@@ -2947,6 +3054,7 @@ class $ReminderTableDriftTable extends ReminderTableDrift
   late final GeneratedColumn<DateTime> remindAt = GeneratedColumn<DateTime>(
       'remind_at', aliasedName, false,
       type: DriftSqlType.dateTime, requiredDuringInsert: true);
+
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -2961,11 +3069,14 @@ class $ReminderTableDriftTable extends ReminderTableDrift
         subject,
         remindAt
       ];
+
   @override
   String get aliasedName => _alias ?? actualTableName;
+
   @override
   String get actualTableName => $name;
   static const String $name = 'reminder_table_drift';
+
   @override
   VerificationContext validateIntegrity(
       Insertable<ReminderTableDriftG> instance,
@@ -3034,6 +3145,7 @@ class $ReminderTableDriftTable extends ReminderTableDrift
 
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
+
   @override
   ReminderTableDriftG map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
@@ -3082,6 +3194,7 @@ class ReminderTableDriftG extends DataClass
   final String? checksum;
   final String subject;
   final DateTime remindAt;
+
   const ReminderTableDriftG(
       {required this.id,
       required this.createdDate,
@@ -3094,6 +3207,7 @@ class ReminderTableDriftG extends DataClass
       this.checksum,
       required this.subject,
       required this.remindAt});
+
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -3169,6 +3283,7 @@ class ReminderTableDriftG extends DataClass
       remindAt: serializer.fromJson<DateTime>(json['remindAt']),
     );
   }
+
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
@@ -3215,6 +3330,7 @@ class ReminderTableDriftG extends DataClass
         subject: subject ?? this.subject,
         remindAt: remindAt ?? this.remindAt,
       );
+
   @override
   String toString() {
     return (StringBuffer('ReminderTableDriftG(')
@@ -3246,6 +3362,7 @@ class ReminderTableDriftG extends DataClass
       checksum,
       subject,
       remindAt);
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -3275,6 +3392,7 @@ class ReminderTableDriftCompanion extends UpdateCompanion<ReminderTableDriftG> {
   final Value<String?> checksum;
   final Value<String> subject;
   final Value<DateTime> remindAt;
+
   const ReminderTableDriftCompanion({
     this.id = const Value.absent(),
     this.createdDate = const Value.absent(),
@@ -3288,6 +3406,7 @@ class ReminderTableDriftCompanion extends UpdateCompanion<ReminderTableDriftG> {
     this.subject = const Value.absent(),
     this.remindAt = const Value.absent(),
   });
+
   ReminderTableDriftCompanion.insert({
     this.id = const Value.absent(),
     this.createdDate = const Value.absent(),
@@ -3303,6 +3422,7 @@ class ReminderTableDriftCompanion extends UpdateCompanion<ReminderTableDriftG> {
   })  : creatorId = Value(creatorId),
         subject = Value(subject),
         remindAt = Value(remindAt);
+
   static Insertable<ReminderTableDriftG> custom({
     Expression<int>? id,
     Expression<DateTime>? createdDate,
@@ -3421,7 +3541,9 @@ class $TagTableDriftTable extends TagTableDrift
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
+
   $TagTableDriftTable(this.attachedDatabase, [this._alias]);
+
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
@@ -3487,6 +3609,7 @@ class $TagTableDriftTable extends TagTableDrift
   late final GeneratedColumn<String> subject = GeneratedColumn<String>(
       'subject', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
+
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -3500,11 +3623,14 @@ class $TagTableDriftTable extends TagTableDrift
         checksum,
         subject
       ];
+
   @override
   String get aliasedName => _alias ?? actualTableName;
+
   @override
   String get actualTableName => $name;
   static const String $name = 'tag_table_drift';
+
   @override
   VerificationContext validateIntegrity(Insertable<TagTableDriftG> instance,
       {bool isInserting = false}) {
@@ -3566,6 +3692,7 @@ class $TagTableDriftTable extends TagTableDrift
 
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
+
   @override
   TagTableDriftG map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
@@ -3610,6 +3737,7 @@ class TagTableDriftG extends DataClass implements Insertable<TagTableDriftG> {
   final int? accesses;
   final String? checksum;
   final String subject;
+
   const TagTableDriftG(
       {required this.id,
       required this.createdDate,
@@ -3621,6 +3749,7 @@ class TagTableDriftG extends DataClass implements Insertable<TagTableDriftG> {
       this.accesses,
       this.checksum,
       required this.subject});
+
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -3693,6 +3822,7 @@ class TagTableDriftG extends DataClass implements Insertable<TagTableDriftG> {
       subject: serializer.fromJson<String>(json['subject']),
     );
   }
+
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
@@ -3736,6 +3866,7 @@ class TagTableDriftG extends DataClass implements Insertable<TagTableDriftG> {
         checksum: checksum.present ? checksum.value : this.checksum,
         subject: subject ?? this.subject,
       );
+
   @override
   String toString() {
     return (StringBuffer('TagTableDriftG(')
@@ -3765,6 +3896,7 @@ class TagTableDriftG extends DataClass implements Insertable<TagTableDriftG> {
       accesses,
       checksum,
       subject);
+
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -3792,6 +3924,7 @@ class TagTableDriftCompanion extends UpdateCompanion<TagTableDriftG> {
   final Value<int?> accesses;
   final Value<String?> checksum;
   final Value<String> subject;
+
   const TagTableDriftCompanion({
     this.id = const Value.absent(),
     this.createdDate = const Value.absent(),
@@ -3804,6 +3937,7 @@ class TagTableDriftCompanion extends UpdateCompanion<TagTableDriftG> {
     this.checksum = const Value.absent(),
     this.subject = const Value.absent(),
   });
+
   TagTableDriftCompanion.insert({
     this.id = const Value.absent(),
     this.createdDate = const Value.absent(),
@@ -3817,6 +3951,7 @@ class TagTableDriftCompanion extends UpdateCompanion<TagTableDriftG> {
     required String subject,
   })  : creatorId = Value(creatorId),
         subject = Value(subject);
+
   static Insertable<TagTableDriftG> custom({
     Expression<int>? id,
     Expression<DateTime>? createdDate,
@@ -3924,6 +4059,7 @@ class TagTableDriftCompanion extends UpdateCompanion<TagTableDriftG> {
 
 abstract class _$OrganizerDriftDB extends GeneratedDatabase {
   _$OrganizerDriftDB(QueryExecutor e) : super(e);
+
   _$OrganizerDriftDBManager get managers => _$OrganizerDriftDBManager(this);
   late final $OrganizerItemTableDriftTable organizerItemTableDrift =
       $OrganizerItemTableDriftTable(this);
@@ -3955,9 +4091,11 @@ abstract class _$OrganizerDriftDB extends GeneratedDatabase {
   late final ReminderDaoDrift reminderDaoDrift =
       ReminderDaoDrift(this as OrganizerDriftDB);
   late final TagDaoDrift tagDaoDrift = TagDaoDrift(this as OrganizerDriftDB);
+
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
+
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [
         organizerItemTableDrift,
@@ -4080,6 +4218,7 @@ class $$OrganizerItemTableDriftTableProcessedTableManager
 class $$OrganizerItemTableDriftTableFilterComposer
     extends FilterComposer<_$OrganizerDriftDB, $OrganizerItemTableDriftTable> {
   $$OrganizerItemTableDriftTableFilterComposer(super.$state);
+
   ColumnFilters<int> get id => $state.composableBuilder(
       column: $state.table.id,
       builder: (column, joinBuilders) =>
@@ -4129,6 +4268,7 @@ class $$OrganizerItemTableDriftTableFilterComposer
 class $$OrganizerItemTableDriftTableOrderingComposer extends OrderingComposer<
     _$OrganizerDriftDB, $OrganizerItemTableDriftTable> {
   $$OrganizerItemTableDriftTableOrderingComposer(super.$state);
+
   ColumnOrderings<int> get id => $state.composableBuilder(
       column: $state.table.id,
       builder: (column, joinBuilders) =>
@@ -4330,6 +4470,7 @@ class $$TaskTableDriftTableProcessedTableManager extends ProcessedTableManager<
 class $$TaskTableDriftTableFilterComposer
     extends FilterComposer<_$OrganizerDriftDB, $TaskTableDriftTable> {
   $$TaskTableDriftTableFilterComposer(super.$state);
+
   ColumnFilters<int> get id => $state.composableBuilder(
       column: $state.table.id,
       builder: (column, joinBuilders) =>
@@ -4419,6 +4560,7 @@ class $$TaskTableDriftTableFilterComposer
 class $$TaskTableDriftTableOrderingComposer
     extends OrderingComposer<_$OrganizerDriftDB, $TaskTableDriftTable> {
   $$TaskTableDriftTableOrderingComposer(super.$state);
+
   ColumnOrderings<int> get id => $state.composableBuilder(
       column: $state.table.id,
       builder: (column, joinBuilders) =>
@@ -4583,6 +4725,7 @@ class $$TaskTagTableDriftTableProcessedTableManager
 class $$TaskTagTableDriftTableFilterComposer
     extends FilterComposer<_$OrganizerDriftDB, $TaskTagTableDriftTable> {
   $$TaskTagTableDriftTableFilterComposer(super.$state);
+
   ColumnFilters<int> get id => $state.composableBuilder(
       column: $state.table.id,
       builder: (column, joinBuilders) =>
@@ -4607,6 +4750,7 @@ class $$TaskTagTableDriftTableFilterComposer
 class $$TaskTagTableDriftTableOrderingComposer
     extends OrderingComposer<_$OrganizerDriftDB, $TaskTagTableDriftTable> {
   $$TaskTagTableDriftTableOrderingComposer(super.$state);
+
   ColumnOrderings<int> get id => $state.composableBuilder(
       column: $state.table.id,
       builder: (column, joinBuilders) =>
@@ -4706,6 +4850,7 @@ class $$TaskReminderTableDriftTableProcessedTableManager
 class $$TaskReminderTableDriftTableFilterComposer
     extends FilterComposer<_$OrganizerDriftDB, $TaskReminderTableDriftTable> {
   $$TaskReminderTableDriftTableFilterComposer(super.$state);
+
   ColumnFilters<int> get id => $state.composableBuilder(
       column: $state.table.id,
       builder: (column, joinBuilders) =>
@@ -4730,6 +4875,7 @@ class $$TaskReminderTableDriftTableFilterComposer
 class $$TaskReminderTableDriftTableOrderingComposer
     extends OrderingComposer<_$OrganizerDriftDB, $TaskReminderTableDriftTable> {
   $$TaskReminderTableDriftTableOrderingComposer(super.$state);
+
   ColumnOrderings<int> get id => $state.composableBuilder(
       column: $state.table.id,
       builder: (column, joinBuilders) =>
@@ -4829,6 +4975,7 @@ class $$TaskUserTableDriftTableProcessedTableManager
 class $$TaskUserTableDriftTableFilterComposer
     extends FilterComposer<_$OrganizerDriftDB, $TaskUserTableDriftTable> {
   $$TaskUserTableDriftTableFilterComposer(super.$state);
+
   ColumnFilters<int> get id => $state.composableBuilder(
       column: $state.table.id,
       builder: (column, joinBuilders) =>
@@ -4853,6 +5000,7 @@ class $$TaskUserTableDriftTableFilterComposer
 class $$TaskUserTableDriftTableOrderingComposer
     extends OrderingComposer<_$OrganizerDriftDB, $TaskUserTableDriftTable> {
   $$TaskUserTableDriftTableOrderingComposer(super.$state);
+
   ColumnOrderings<int> get id => $state.composableBuilder(
       column: $state.table.id,
       builder: (column, joinBuilders) =>
@@ -4999,6 +5147,7 @@ class $$UserTableDriftTableProcessedTableManager extends ProcessedTableManager<
 class $$UserTableDriftTableFilterComposer
     extends FilterComposer<_$OrganizerDriftDB, $UserTableDriftTable> {
   $$UserTableDriftTableFilterComposer(super.$state);
+
   ColumnFilters<int> get id => $state.composableBuilder(
       column: $state.table.id,
       builder: (column, joinBuilders) =>
@@ -5063,6 +5212,7 @@ class $$UserTableDriftTableFilterComposer
 class $$UserTableDriftTableOrderingComposer
     extends OrderingComposer<_$OrganizerDriftDB, $UserTableDriftTable> {
   $$UserTableDriftTableOrderingComposer(super.$state);
+
   ColumnOrderings<int> get id => $state.composableBuilder(
       column: $state.table.id,
       builder: (column, joinBuilders) =>
@@ -5202,6 +5352,7 @@ class $$UserUserTableDriftTableProcessedTableManager
 class $$UserUserTableDriftTableFilterComposer
     extends FilterComposer<_$OrganizerDriftDB, $UserUserTableDriftTable> {
   $$UserUserTableDriftTableFilterComposer(super.$state);
+
   ColumnFilters<int> get id => $state.composableBuilder(
       column: $state.table.id,
       builder: (column, joinBuilders) =>
@@ -5226,6 +5377,7 @@ class $$UserUserTableDriftTableFilterComposer
 class $$UserUserTableDriftTableOrderingComposer
     extends OrderingComposer<_$OrganizerDriftDB, $UserUserTableDriftTable> {
   $$UserUserTableDriftTableOrderingComposer(super.$state);
+
   ColumnOrderings<int> get id => $state.composableBuilder(
       column: $state.table.id,
       builder: (column, joinBuilders) =>
@@ -5367,6 +5519,7 @@ class $$ReminderTableDriftTableProcessedTableManager
 class $$ReminderTableDriftTableFilterComposer
     extends FilterComposer<_$OrganizerDriftDB, $ReminderTableDriftTable> {
   $$ReminderTableDriftTableFilterComposer(super.$state);
+
   ColumnFilters<int> get id => $state.composableBuilder(
       column: $state.table.id,
       builder: (column, joinBuilders) =>
@@ -5426,6 +5579,7 @@ class $$ReminderTableDriftTableFilterComposer
 class $$ReminderTableDriftTableOrderingComposer
     extends OrderingComposer<_$OrganizerDriftDB, $ReminderTableDriftTable> {
   $$ReminderTableDriftTableOrderingComposer(super.$state);
+
   ColumnOrderings<int> get id => $state.composableBuilder(
       column: $state.table.id,
       builder: (column, joinBuilders) =>
@@ -5595,6 +5749,7 @@ class $$TagTableDriftTableProcessedTableManager extends ProcessedTableManager<
 class $$TagTableDriftTableFilterComposer
     extends FilterComposer<_$OrganizerDriftDB, $TagTableDriftTable> {
   $$TagTableDriftTableFilterComposer(super.$state);
+
   ColumnFilters<int> get id => $state.composableBuilder(
       column: $state.table.id,
       builder: (column, joinBuilders) =>
@@ -5649,6 +5804,7 @@ class $$TagTableDriftTableFilterComposer
 class $$TagTableDriftTableOrderingComposer
     extends OrderingComposer<_$OrganizerDriftDB, $TagTableDriftTable> {
   $$TagTableDriftTableOrderingComposer(super.$state);
+
   ColumnOrderings<int> get id => $state.composableBuilder(
       column: $state.table.id,
       builder: (column, joinBuilders) =>
@@ -5702,25 +5858,35 @@ class $$TagTableDriftTableOrderingComposer
 
 class _$OrganizerDriftDBManager {
   final _$OrganizerDriftDB _db;
+
   _$OrganizerDriftDBManager(this._db);
+
   $$OrganizerItemTableDriftTableTableManager get organizerItemTableDrift =>
       $$OrganizerItemTableDriftTableTableManager(
           _db, _db.organizerItemTableDrift);
+
   $$TaskTableDriftTableTableManager get taskTableDrift =>
       $$TaskTableDriftTableTableManager(_db, _db.taskTableDrift);
+
   $$TaskTagTableDriftTableTableManager get taskTagTableDrift =>
       $$TaskTagTableDriftTableTableManager(_db, _db.taskTagTableDrift);
+
   $$TaskReminderTableDriftTableTableManager get taskReminderTableDrift =>
       $$TaskReminderTableDriftTableTableManager(
           _db, _db.taskReminderTableDrift);
+
   $$TaskUserTableDriftTableTableManager get taskUserTableDrift =>
       $$TaskUserTableDriftTableTableManager(_db, _db.taskUserTableDrift);
+
   $$UserTableDriftTableTableManager get userTableDrift =>
       $$UserTableDriftTableTableManager(_db, _db.userTableDrift);
+
   $$UserUserTableDriftTableTableManager get userUserTableDrift =>
       $$UserUserTableDriftTableTableManager(_db, _db.userUserTableDrift);
+
   $$ReminderTableDriftTableTableManager get reminderTableDrift =>
       $$ReminderTableDriftTableTableManager(_db, _db.reminderTableDrift);
+
   $$TagTableDriftTableTableManager get tagTableDrift =>
       $$TagTableDriftTableTableManager(_db, _db.tagTableDrift);
 }

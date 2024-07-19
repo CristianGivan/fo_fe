@@ -11,7 +11,11 @@ class TagDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
 
   TagDaoDrift(this.db) : super(db);
 
-  Future<List<TagTableDriftG>> getAllTags() => select(tagTableDrift).get();
+  Future<TagTableDriftG?> getTagById(int id) =>
+      (select(tagTableDrift)..where((tbl) => tbl.id.equals(id)))
+          .getSingleOrNull();
+
+  Future<List<TagTableDriftG>> getTagItemsAll() => select(tagTableDrift).get();
 
   Stream<List<TagTableDriftG>> watchAllTags() => select(tagTableDrift).watch();
 
@@ -21,10 +25,10 @@ class TagDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
   Future<bool> updateTag(Insertable<TagTableDriftG> tag) =>
       update(tagTableDrift).replace(tag);
 
-  Future<int> deleteTag(Insertable<TagTableDriftG> tag) =>
-      delete(tagTableDrift).delete(tag);
+  Future<int> deleteTag(int id) =>
+      (delete(tagTableDrift)..where((tbl) => tbl.id.equals(id))).go();
 
-  Future<List<TagTableDriftG>> getTagItemsByTagIds(Set<int> tagIds) async {
+  Future<List<TagTableDriftG>> getTagItemsByTagIdSet(Set<int> tagIds) async {
     return (select(tagTableDrift)..where((tbl) => tbl.id.isIn(tagIds))).get();
   }
 }

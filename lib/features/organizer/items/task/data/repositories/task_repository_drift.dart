@@ -98,7 +98,7 @@ class TaskRepositoryDrift implements TaskRepository {
       int taskId) {
     return _handleDatabaseOperation(() async {
       final userModels = await localDataSource.getUsersByTaskId(taskId);
-      return UserMapper.modelItemsToEntityItems(userModels);
+      return UserMapper.entityItemsFromModelItems(userModels);
     });
   }
 
@@ -107,7 +107,7 @@ class TaskRepositoryDrift implements TaskRepository {
     return _handleDatabaseOperation(() async {
       final userModel = await localDataSource.getCreatorById(creatorId);
       if (userModel != null) {
-        return UserMapper.modelToEntity(userModel);
+        return UserMapper.entityFromModel(userModel);
       } else {
         throw TaskNotFoundFailure();
       }

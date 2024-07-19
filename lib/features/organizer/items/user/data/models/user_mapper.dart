@@ -22,7 +22,7 @@ class UserMapper {
     return OrganizerItems.of(items.map(modelFromTableDrift).toList());
   }
 
-  static UserModel entityToModel(UserEntity? user) {
+  static UserModel modelFromEntity(UserEntity? user) {
     if (user == null) {
       return UserModel.empty();
     }
@@ -35,15 +35,15 @@ class UserMapper {
     );
   }
 
-  static OrganizerItems<UserModel> entityItemsToModelItems(
+  static OrganizerItems<UserModel> modelItemsFromEntityItems(
       OrganizerItems<UserEntity>? items) {
     if (items == null) {
       return OrganizerItems.empty();
     }
-    return OrganizerItems.of(items.map(entityToModel).toList());
+    return OrganizerItems.of(items.map(modelFromEntity).toList());
   }
 
-  static UserEntity modelToEntity(UserModel user) {
+  static UserEntity entityFromModel(UserModel user) {
     return UserEntity(
       id: user.id,
       name: user.name,
@@ -53,15 +53,15 @@ class UserMapper {
     );
   }
 
-  static OrganizerItems<UserEntity> modelItemsToEntityItems(
+  static OrganizerItems<UserEntity> entityItemsFromModelItems(
       OrganizerItems<UserModel>? models) {
     if (models == null) {
       return OrganizerItems.empty();
     }
-    return OrganizerItems.of(models.map(modelToEntity).toList());
+    return OrganizerItems.of(models.map(entityFromModel).toList());
   }
 
-  static UserTableDriftCompanion modelToCompanion(UserModel user) {
+  static UserTableDriftCompanion tableDriftCompanionFromModel(UserModel user) {
     return UserTableDriftCompanion(
       id: Value(user.id),
       name: Value(user.name),
@@ -71,7 +71,8 @@ class UserMapper {
     );
   }
 
-  static UserTableDriftCompanion entityToCompanion(UserEntity user) {
+  static UserTableDriftCompanion tableDriftCompanionFromEntity(
+      UserEntity user) {
     return UserTableDriftCompanion(
       // id: Value(user.id),
       name: Value(user.name),
