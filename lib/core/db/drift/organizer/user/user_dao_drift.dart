@@ -18,7 +18,7 @@ class UserDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
   Future<List<UserTableDriftG>> getUserItemsAll() =>
       select(userTableDrift).get();
 
-  Future<List<UserTableDriftG>> getUserItemsByIds(Set<int> ids) async {
+  Future<List<UserTableDriftG>> getUserItemsByIdSet(Set<int> ids) async {
     return (select(userTableDrift)..where((tbl) => tbl.id.isIn(ids))).get();
   }
 

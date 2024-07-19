@@ -41,13 +41,13 @@ class UserLocalDataSourceDrift implements UserLocalDataSource {
 
   // Get user items by ID set
   Future<OrganizerItems<UserModel>> getUserItemsByIdSet(IdSet idSet) async {
-    final userTables = await userDao.getUserItemsByIds(idSet.toSet());
+    final userTables = await userDao.getUserItemsByIdSet(idSet.toSet());
     return UserMapper.modelItemsFromTableDriftItems(userTables);
   }
 
   Future<OrganizerItems<UserModel>> getUserItemsByUserId(int userId) async {
     final userIds = await userUserDao.getUserIdsByUserId(userId);
-    final userTables = await userDao.getUserItemsByIds(userIds);
+    final userTables = await userDao.getUserItemsByIdSet(userIds);
     return UserMapper.modelItemsFromTableDriftItems(userTables);
   }
 

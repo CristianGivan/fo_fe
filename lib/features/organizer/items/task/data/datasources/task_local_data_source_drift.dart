@@ -61,7 +61,7 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
         : null;
 
     final userIds = await taskUserDao.getUserIdsByTaskId(id);
-    final userTables = await userDao.getUserItemsByIds(userIds);
+    final userTables = await userDao.getUserItemsByIdSet(userIds);
     final users = UserMapper.modelItemsFromTableDriftItems(userTables);
 
     final tagIds = await taskTagDao.getTagIdsByTaskId(id);
@@ -97,7 +97,7 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
   // Method to get users by task ID
   Future<OrganizerItems<UserModel>> getUsersByTaskId(int taskId) async {
     final userIds = await taskUserDao.getUserIdsByTaskId(taskId);
-    final userTables = await userDao.getUserItemsByIds(userIds);
+    final userTables = await userDao.getUserItemsByIdSet(userIds);
     return UserMapper.modelItemsFromTableDriftItems(userTables);
   }
 
