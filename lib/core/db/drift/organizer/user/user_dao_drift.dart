@@ -33,4 +33,12 @@ class UserDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
 
   Future<int> deleteUser(int id) =>
       (delete(userTableDrift)..where((tbl) => tbl.id.equals(id))).go();
+
+  Future<UserTableDriftG?> getUserByEmailAndPassword(
+      String email, String hashedPassword) async {
+    final query = select(userTableDrift)
+      ..where((u) =>
+          u.email.equals(email) & u.hashedPassword.equals(hashedPassword));
+    return await query.getSingleOrNull();
+  }
 }

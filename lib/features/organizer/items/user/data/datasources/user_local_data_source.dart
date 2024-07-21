@@ -20,4 +20,6 @@ abstract class UserLocalDataSource {
   Future<int> addUserToUser(int userLinkedId, int userId);
 
   Future<int> deleteUserFromUser(int userLinkedId, int userId);
+
+  Future<UserModel?> getUserByEmailAndPassword(String email, String password);
 }

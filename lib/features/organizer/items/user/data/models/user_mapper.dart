@@ -47,7 +47,7 @@ class UserMapper {
     return UserEntity(
       id: user.id,
       name: user.name,
-      hashedPassword: user.hashedPassword,
+      password: user.hashedPassword,
       email: user.email,
       createdDate: user.createdDate,
     );

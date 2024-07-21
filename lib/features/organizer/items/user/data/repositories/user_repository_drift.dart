@@ -105,4 +105,16 @@ class UserRepositoryDrift implements UserRepository {
       return Left(DatabaseFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, UserEntity>> getUserByEmailAndPassword(
+      String email, String password) async {
+    try {
+      final user =
+          await localDataSourceDrift.getUserByEmailAndPassword(email, password);
+      return Right(UserMapper.entityFromModel(user));
+    } catch (e) {
+      return Left(CacheFailure("CacheFailure"));
+    }
+  }
 }

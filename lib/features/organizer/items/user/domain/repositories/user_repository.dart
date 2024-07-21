@@ -23,4 +23,7 @@ abstract class UserRepository {
   Future<Either<Failure, int>> addUserToUser(int userLinkedId, int userId);
 
   Future<Either<Failure, int>> deleteUserFromUser(int userLinkedId, int userId);
+
+  Future<Either<Failure, UserEntity>> getUserByEmailAndPassword(
+      String email, String password);
 }

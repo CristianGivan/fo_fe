@@ -1,0 +1,56 @@
+import 'package:drift/drift.dart';
+import 'package:fo_fe/core/db/drift/authentication_drift_db.dart';
+import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
+
+part 'authentication_dao_drift.g.dart';
+
+@DriftAccessor(tables: [AuthenticationTableDrift])
+class AuthenticationDaoDrift extends DatabaseAccessor<AuthenticationDriftDB>
+    with _$AuthenticationDaoDriftMixin {
+  AuthenticationDaoDrift(AuthenticationDriftDB db) : super(db);
+
+  Future<AuthenticationTableDriftG?> getAuthenticationById(int id) =>
+      (select(authenticationTableDrift)..where((tbl) => tbl.id.equals(id)))
+          .getSingleOrNull();
+
+  Future<AuthenticationTableDriftG?> getAuthenticationByUserId(int userId) =>
+      (select(authenticationTableDrift)
+            ..where((tbl) => tbl.userId.equals(userId)))
+          .getSingleOrNull();
+
+  Future<List<AuthenticationTableDriftG>> getAuthenticationItemsAll() =>
+      select(authenticationTableDrift).get();
+
+  Stream<List<AuthenticationTableDriftG>> watchAllAuthentications() =>
+      select(authenticationTableDrift).watch();
+
+  Future<int> insertAuthentication(
+          Insertable<AuthenticationTableDriftG> auth) =>
+      into(authenticationTableDrift).insert(auth);
+
+  Future<bool> updateAuthentication(
+          Insertable<AuthenticationTableDriftG> auth) =>
+      update(authenticationTableDrift).replace(auth);
+
+  Future<int> deleteAuthenticationById(int id) =>
+      (delete(authenticationTableDrift)..where((tbl) => tbl.id.equals(id)))
+          .go();
+
+  Future<int> deleteAuthenticationByUserId(int userId) =>
+      (delete(authenticationTableDrift)
+            ..where((tbl) => tbl.userId.equals(userId)))
+          .go();
+
+  Future<AuthenticationTableDriftG?> getActiveAuthenticationForDeviceInfo(
+          String deviceInfo) =>
+      (select(authenticationTableDrift)
+            ..where((tbl) =>
+                tbl.deviceInfo.equals(deviceInfo) & tbl.isActive.equals(true)))
+          .getSingleOrNull();
+
+  Future<List<AuthenticationTableDriftG>> getAuthenticationsForDeviceInfo(
+          String deviceInfo) =>
+      (select(authenticationTableDrift)
+            ..where((tbl) => tbl.deviceInfo.equals(deviceInfo)))
+          .get();
+}

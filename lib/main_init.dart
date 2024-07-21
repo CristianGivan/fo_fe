@@ -2,6 +2,7 @@ import 'package:data_connection_checker_nulls/data_connection_checker_nulls.dart
 import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
 import 'package:fo_fe/core/network/network_info.dart';
 import 'package:fo_fe/core/util/input_converter.dart';
+import 'package:fo_fe/features/authentication/authentication_exports.dart';
 import 'package:fo_fe/features/organizer/items/tag/tag_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/task_exports.dart';
 import 'package:fo_fe/features/organizer/items/user/user_exports.dart';
@@ -11,15 +12,16 @@ import 'package:http/http.dart' as http;
 final sl = GetIt.instance;
 
 void init() {
-  initCore();
-  initExternals();
-  initOrganizerDriftDb();
-  initTask();
-  initTag();
-  initUser();
+  coreInit();
+  externalsInit();
+  authenticationInit();
+  driftDbInit();
+  taskInit();
+  tagInit();
+  userInit();
 }
 
-void initCore() {
+void coreInit() {
   // Util
   sl.registerLazySingleton(() => InputConverter());
 
@@ -28,7 +30,7 @@ void initCore() {
       () => NetworkInfoImpl(connectionChecker: sl()));
 }
 
-void initExternals() {
+void externalsInit() {
   // External dependencies
   sl.registerLazySingleton(() => http.Client());
   sl.registerLazySingleton(() => DataConnectionChecker());

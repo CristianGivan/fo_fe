@@ -11,3 +11,32 @@ List<TaskEntity> sau TaskEntities as a list
 
 A user shall have a name, email, password,created date.
 A User can have a user list, when a user want to pick a to be added to a task reminder or other then shall be chose from this list. If it is not in the list it can be added
+
+=== Authentication
+
+authentication must have:
+id, userId, token, deviceInfo, createdDate, expiredDate, lastUsedDate, isActive
+
+events:
+logIn, logOut, getLogInUser, switchUser, refreshToken, autoLogIn
+
+states:
+authenticated, unauthenticated, uninitialized, runGuest, authenticating, authFailed
+
+to have the keep me log in checkbox at log in if is set then the user can be log in automatically after the application is restarted
+
+to have a page where there can be 2 tabs logIn/switchUser and register
+
+Token Encryption
+
+Handle multiple sessions gracefully, especially if the same user can log in from multiple devices.
+if for device is there are more users that are loged in
+
+ get the device user for all platforms in flutter
+
+don't generate code I would like only to understand:
+the encription and decryption shall be done in datasource or repository?
+if I have so much logic in repository what logic shall I have on usecase?
+what do you think is the difference between deviceUser and deviceInfo? should I concatenate all the info in one field?
+this refreshToken will be called by user or automathicaly ? if is authomaticaly then why I have expiration date?
+getActiveAuthenticationForDevice or better getActiveAuthenticationForUserDevice? or better deviceInfo and deviceUserr

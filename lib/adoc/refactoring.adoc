@@ -6,3 +6,11 @@ static OrganizerItems<TaskModel> modelItemsFromTableDriftItems(
 List<TaskTableDriftG> items) {
 return OrganizerItems.of(items.map(modelFromTableDrift).toList());
 }
+
+class InsertTaskParams
+
+qwhat is the advantage to use InsertTaskParams insted of just id or task?
+
+use in datasource only the db and from there to get all the DAOss
+db.taskDao
+

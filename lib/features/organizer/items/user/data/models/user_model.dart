@@ -13,7 +13,7 @@ class UserModel extends UserEntity with EquatableMixin {
   }) : super(
             id: id,
             name: name,
-            hashedPassword: hashedPassword,
+            password: hashedPassword,
             email: email,
             createdDate: createdDate);
 

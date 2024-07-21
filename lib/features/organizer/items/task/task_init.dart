@@ -9,7 +9,7 @@ import 'package:get_it/get_it.dart';
 
 final sl = GetIt.instance;
 
-void initTask() {
+void taskInit() {
   // Task BLoCs
   sl.registerFactory(() => TaskBlocTask(
         getTaskById: sl(),

@@ -1,2 +1,11 @@
+== Don't forget
+
+* app_bloc_providers
+
+== To Do
+
 - [ ] create a method sortByRemoteId
 - [ ] can I use orgenizerItems Lazy loaded insted of Task
+- [ ] userId from AuthenticationTableDriftG is not linking Table?
+- [ ] should not have a different DB for Autehtntication?
+- hassed passord is checke ok at logIn usecase

@@ -68,4 +68,13 @@ class UserLocalDataSourceDrift implements UserLocalDataSource {
       userId: Value(userId),
     );
   }
+
+  @override
+  Future<UserModel> getUserByEmailAndPassword(
+      String email, String password) async {
+    final userTable = await userDao.getUserByEmailAndPassword(email, password);
+    return userTable != null
+        ? UserMapper.modelFromTableDrift(userTable)
+        : UserModel.empty();
+  }
 }

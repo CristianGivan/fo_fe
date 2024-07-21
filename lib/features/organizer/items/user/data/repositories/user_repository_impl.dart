@@ -64,4 +64,11 @@ class UserRepositoryImpl implements UserRepository {
     // TODO: implement updateUser
     throw UnimplementedError();
   }
+
+  @override
+  Future<Either<Failure, UserEntity>> getUserByEmailAndPassword(
+      String email, String password) {
+    // TODO: implement getUserByEmailAndPassword
+    throw UnimplementedError();
+  }
 }

@@ -25,6 +25,10 @@ class InvalidInputFailure extends Failure {
   const InvalidInputFailure(String super.message);
 }
 
+class UserNotFoundFailure extends Failure {
+  const UserNotFoundFailure(String super.message);
+}
+
 class CacheFailure extends Failure {
   const CacheFailure(String super.message);
 }
@@ -39,4 +43,16 @@ class TaskNotFoundFailure extends Failure {
 
 class DatabaseFailure extends Failure {
   DatabaseFailure() : super('Task not found');
+}
+
+class ReauthenticationRequiredFailure extends Failure {
+  ReauthenticationRequiredFailure(String super.message);
+}
+
+class AuthenticationFailure extends Failure {
+  AuthenticationFailure(String super.message);
+}
+
+class NoActiveSessionFailure extends Failure {
+  NoActiveSessionFailure(String super.message);
 }

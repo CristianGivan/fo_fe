@@ -1,11 +1,7 @@
 import 'package:drift/drift.dart';
-import 'package:fo_fe/core/db/drift/organizer/task/task_reminder_dao_drift.dart';
-import 'package:fo_fe/core/db/drift/organizer/task/task_reminder_table_drift.dart';
-import 'package:fo_fe/core/db/drift/organizer/user/user_user_dao_drift.dart';
-import 'package:fo_fe/core/db/drift/organizer/user/user_user_table_drift.dart';
 import 'package:fo_fe/core/db/drift_db.dart';
 
-import 'connection/db_dev.dart' as db_dev;
+import 'connection/organizer_db_dev.dart' as organizer_db_dev;
 import 'organizer_drift_exports.dart';
 
 part 'organizer_drift_db.g.dart';
@@ -32,7 +28,7 @@ part 'organizer_drift_db.g.dart';
   TagDaoDrift,
 ])
 class OrganizerDriftDB extends _$OrganizerDriftDB implements DriftDB {
-  OrganizerDriftDB() : super(db_dev.connect());
+  OrganizerDriftDB() : super(organizer_db_dev.connect());
 
   @override
   int get schemaVersion => 1;

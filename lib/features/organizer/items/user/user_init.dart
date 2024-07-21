@@ -5,7 +5,7 @@ import 'package:get_it/get_it.dart';
 
 final sl = GetIt.instance;
 
-void initUser() {
+void userInit() {
   // User BLoCs
   sl.registerFactory(() => UserBlocUser(
         insertUser: sl(),

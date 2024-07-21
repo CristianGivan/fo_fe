@@ -5,7 +5,7 @@ import 'package:get_it/get_it.dart';
 
 final sl = GetIt.instance;
 
-void initTag() {
+void tagInit() {
   // Tag BLoCs
   sl.registerFactory(() => TagBlocTag(
         insertTag: sl(),
