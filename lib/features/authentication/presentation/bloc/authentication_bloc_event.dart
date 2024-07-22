@@ -37,6 +37,21 @@ class LoginBlocEvent extends AuthenticationBlocEvent {
   List<Object?> get props => [email, password];
 }
 
+class SignUpBlocEvent extends AuthenticationBlocEvent {
+  final String name;
+  final String email;
+  final String password;
+
+  SignUpBlocEvent({
+    required this.name,
+    required this.email,
+    required this.password,
+  });
+
+  @override
+  List<Object?> get props => [name, email, password];
+}
+
 class LogoutBlocEvent extends AuthenticationBlocEvent {
   final int authId;
 

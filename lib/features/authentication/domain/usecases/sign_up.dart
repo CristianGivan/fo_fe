@@ -6,32 +6,44 @@ import 'package:fo_fe/core/usecase/usecase.dart';
 import 'package:fo_fe/features/authentication/authentication_exports.dart';
 import 'package:fo_fe/features/organizer/items/user/user_exports.dart';
 
-class LoginUseCase extends UseCase<AuthenticationEntity, LoginParams> {
+class SignUpUseCase extends UseCase<AuthenticationEntity, SignUpParams> {
   final AuthenticationRepository authRepository;
   final UserRepository userRepository;
 
-  LoginUseCase(this.authRepository, this.userRepository);
+  SignUpUseCase(this.authRepository, this.userRepository);
 
   @override
-  Future<Either<Failure, AuthenticationEntity>> call(LoginParams params) async {
+  Future<Either<Failure, AuthenticationEntity>> call(
+      SignUpParams params) async {
     if (!isValidEmail(params.email) || !isValidPassword(params.password)) {
       return Left(InvalidInputFailure("InvalidInputFailure"));
     }
 
-    // Fetch user by email and password
-
     final hashingPassword = HashingService.hashPassword(params.password);
     final userResult = await userRepository.getUserByEmailAndPassword(
         params.email, hashingPassword);
+
     return userResult.fold(
       (failure) => Left(failure),
       (user) async {
-        if (user == null) {
-          return Left(InvalidInputFailure("Invalid email or password"));
+        if (user.id == 0) {
+          final insertResult = await userRepository.insertUser(UserEntity(
+              name: params.name,
+              email: params.email,
+              password: hashingPassword));
+
+          return insertResult.fold((failure) => Left(failure), (id) {
+            final newUser = UserEntity(
+                id: id,
+                name: params.name,
+                email: params.email,
+                password: hashingPassword);
+            return authRepository.login(newUser);
+          });
         }
 
-        // Proceed with authentication
-        return await authRepository.login(user);
+        // Proceed with authentication for existing user
+        return authRepository.login(user);
       },
     );
   }
@@ -45,15 +57,17 @@ class LoginUseCase extends UseCase<AuthenticationEntity, LoginParams> {
   }
 }
 
-class LoginParams extends Equatable {
+class SignUpParams extends Equatable {
+  final String name;
   final String email;
   final String password;
 
-  LoginParams({
+  SignUpParams({
+    required this.name,
     required this.email,
     required this.password,
   });
 
   @override
-  List<Object?> get props => [email, password];
+  List<Object?> get props => [name, email, password];
 }

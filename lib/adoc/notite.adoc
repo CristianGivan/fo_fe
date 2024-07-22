@@ -40,3 +40,12 @@ if I have so much logic in repository what logic shall I have on usecase?
 what do you think is the difference between deviceUser and deviceInfo? should I concatenate all the info in one field?
 this refreshToken will be called by user or automathicaly ? if is authomaticaly then why I have expiration date?
 getActiveAuthenticationForDevice or better getActiveAuthenticationForUserDevice? or better deviceInfo and deviceUserr
+
+usecase
+auto_log_in
+get_log_in_user_id
+log_in
+log_out
+refresh_token
+sign_up
+switch_user

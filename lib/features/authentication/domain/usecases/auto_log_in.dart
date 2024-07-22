@@ -1,19 +1,17 @@
 import 'package:dartz/dartz.dart';
-import 'package:equatable/equatable.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/usecase/usecase.dart';
+import 'package:fo_fe/core/util/organizer/core_util_organizer.dart';
 import 'package:fo_fe/features/authentication/authentication_exports.dart';
 
-class AutoLoginUseCase extends UseCase<AuthenticationEntity, AutoLoginParams> {
+class AutoLoginUseCase extends UseCase<AuthenticationEntity, NoParams> {
   final AuthenticationRepository authRepository;
 
   AutoLoginUseCase(this.authRepository);
 
   @override
-  Future<Either<Failure, AuthenticationEntity>> call(
-      AutoLoginParams params) async {
-    final result = await authRepository
-        .getActiveAuthenticationForDeviceInfo(params.deviceInfo);
+  Future<Either<Failure, AuthenticationEntity>> call(NoParams params) async {
+    final result = await authRepository.getActiveAuthenticationForDeviceInfo();
 
     return result.fold(
       (failure) => Left(failure),
@@ -29,15 +27,4 @@ class AutoLoginUseCase extends UseCase<AuthenticationEntity, AutoLoginParams> {
   bool isTokenExpired(AuthenticationEntity auth) {
     return auth.expiredDate.isBefore(DateTime.now());
   }
-}
-
-class AutoLoginParams extends Equatable {
-  final String deviceInfo;
-
-  AutoLoginParams({
-    required this.deviceInfo,
-  });
-
-  @override
-  List<Object?> get props => [deviceInfo];
 }

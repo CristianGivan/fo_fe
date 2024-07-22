@@ -1,5 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/error/failures.dart';
+import 'package:fo_fe/core/util/DeviceInfo.dart';
+import 'package:fo_fe/core/util/device_info_provider.dart';
 import 'package:fo_fe/core/util/token_manager.dart';
 import 'package:fo_fe/features/authentication/authentication_exports.dart';
 import 'package:fo_fe/features/organizer/items/user/domain/entities/user_entity.dart';
@@ -7,15 +9,16 @@ import 'package:fo_fe/features/organizer/items/user/domain/entities/user_entity.
 class AuthenticationRepositoryDrift implements AuthenticationRepository {
   final AuthenticationLocalDataSource localDataSource;
   final TokenManager tokenManager;
+  final DeviceInfo deviceInfo;
 
   AuthenticationRepositoryDrift({
     required this.localDataSource,
     required this.tokenManager,
+    required this.deviceInfo,
   });
 
   @override
-  Future<Either<Failure, AuthenticationEntity>> login(UserEntity user,
-      String deviceInfo) async {
+  Future<Either<Failure, AuthenticationEntity>> login(UserEntity user) async {
     try {
       // Simulate remote login (replace with actual remote call in the future)
       final token = TokenManager.generateToken(); // Generate token
@@ -26,7 +29,7 @@ class AuthenticationRepositoryDrift implements AuthenticationRepository {
         // Simulated user ID, replace with actual data
         token: encryptedToken,
         // Store encrypted token
-        deviceInfo: deviceInfo,
+        deviceInfo: DeviceInfoProvider.getDeviceInfo(),
         // Simulated device user ID, replace with actual data
         createdDate: DateTime.now(),
         expiredDate: DateTime.now().add(Duration(days: 30)),
@@ -87,10 +90,10 @@ class AuthenticationRepositoryDrift implements AuthenticationRepository {
 
   @override
   Future<Either<Failure, AuthenticationEntity>>
-  getActiveAuthenticationForDeviceInfo(String deviceInfo) async {
+      getActiveAuthenticationForDeviceInfo() async {
     try {
       final auth = await localDataSource
-          .getActiveAuthenticationForDeviceInfo(deviceInfo);
+          .getActiveAuthenticationForDeviceInfo(deviceInfo.getDeviceInfo());
       return auth != null
           ? Right(AuthenticationMapper.entityFromModel(auth))
           : Left(CacheFailure("CacheFailure"));
@@ -101,17 +104,17 @@ class AuthenticationRepositoryDrift implements AuthenticationRepository {
 
   @override
   Future<Either<Failure, List<AuthenticationEntity>>>
-  getAuthenticationsForDeviceInfo(String deviceInfo) async {
+      getAuthenticationsForDeviceInfo() async {
     try {
-      final auths =
-      await localDataSource.getAuthenticationsForDeviceInfo(deviceInfo);
+      final auths = await localDataSource
+          .getAuthenticationsForDeviceInfo(deviceInfo.getDeviceInfo());
       if (auths == null) {
         return Left(NoActiveSessionFailure("NoActiveSessionFailure"));
       }
       return Right(auths
           .where((auth) => auth != null)
           .map(AuthenticationMapper
-          .entityFromModel) // todo cg check if I had to put it in Mapper this
+              .entityFromModel) // todo cg check if I had to put it in Mapper this
           .toList());
     } catch (e) {
       return Left(CacheFailure("CacheFailure"));

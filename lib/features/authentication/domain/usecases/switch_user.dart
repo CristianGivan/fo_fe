@@ -14,15 +14,14 @@ class SwitchUserUseCase
   @override
   Future<Either<Failure, AuthenticationEntity>> call(
       SwitchUserParams params) async {
-    final currentAuthResult = await authRepository
-        .getActiveAuthenticationForDeviceInfo(params.deviceInfo);
+    final currentAuthResult =
+        await authRepository.getActiveAuthenticationForDeviceInfo();
 
     await currentAuthResult.fold((failure) => null, (auth) async {
       await authRepository.updateAuthentication(auth.copyWith(isActive: false));
     });
 
-    final authsResult =
-        await authRepository.getAuthenticationsForDeviceInfo(params.deviceInfo);
+    final authsResult = await authRepository.getAuthenticationsForDeviceInfo();
 
     return authsResult.fold((failure) => Left(failure), (auths) async {
       final newAuth = auths.firstWhere((auth) => auth.userId == params.userId,
@@ -38,13 +37,11 @@ class SwitchUserUseCase
 
 class SwitchUserParams extends Equatable {
   final int userId;
-  final String deviceInfo;
 
   SwitchUserParams({
     required this.userId,
-    required this.deviceInfo,
   });
 
   @override
-  List<Object> get props => [userId, deviceInfo];
+  List<Object> get props => [userId];
 }

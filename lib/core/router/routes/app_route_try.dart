@@ -1,10 +1,14 @@
+// app_route_try.dart
+
 import 'package:flutter/material.dart';
 import 'package:fo_fe/core/router/routes/stateful_shell_route.dart';
+import 'package:fo_fe/features/authentication/authentication_exports.dart';
 import 'package:fo_fe/features/organizer/organizer.dart'; // Adjust the import path as necessary
 import 'package:go_router/go_router.dart';
 
 final _organizerShellNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'organizer');
+final _authShellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'auth');
 
 class AppRouterTry {
   static GoRouter returnRouter() {
@@ -19,6 +23,8 @@ class AppRouterTry {
           },
           branches: [
             OrganizerAppBranch.branch(_organizerShellNavigatorKey),
+            AuthenticationAppBranch.branch(_authShellNavigatorKey),
+            // Add authentication branch
           ],
         ),
       ],
