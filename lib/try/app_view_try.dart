@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fo_fe/core/router/routes/app_bloc_providers.dart';
 import 'package:fo_fe/core/router/routes/app_route_try.dart';
 import 'package:fo_fe/core/themes/app_themes.dart';
 
@@ -8,12 +7,10 @@ class AppViewTry extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return appBlocProviders(
-      child: MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        theme: AppThemes.darkTheme(),
-        routerConfig: AppRouterTry.returnRouter(),
-      ),
+    return MaterialApp.router(
+      debugShowCheckedModeBanner: false,
+      theme: AppThemes.darkTheme(),
+      routerConfig: AppRouterTry.returnRouter(),
     );
   }
 }

@@ -24,17 +24,14 @@ void authenticationInit() {
   );
 
   // Register UseCases
-
   sl.registerLazySingleton(() => LoginUseCase(sl(), sl()));
   sl.registerLazySingleton(() => LogoutUseCase(sl()));
   sl.registerLazySingleton(() => RefreshTokenUseCase(sl()));
   sl.registerLazySingleton(() => AutoLoginUseCase(sl()));
   sl.registerLazySingleton(() => GetLoggedInUserIdUseCase(sl()));
   sl.registerLazySingleton(() => SwitchUserUseCase(sl()));
-  sl.registerLazySingleton(() => SignUpUseCase(sl(), sl()));
 
   // Register BLoCs
-// Register Blocs
   sl.registerFactory(() => AuthenticationBlocSession(
         autoLoginUseCase: sl<AutoLoginUseCase>(),
         getLoggedInUserIdUseCase: sl<GetLoggedInUserIdUseCase>(),

@@ -79,6 +79,7 @@ class UserMapper {
       hashedPassword: Value(user.hashedPassword),
       email: Value(user.email),
       createdDate: Value(user.createdDate),
+      creatorId: Value(user.creatorId),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:fo_fe/features/authentication/authentication_exports.dart';
 import 'package:fo_fe/main_init.dart' as di;
 import 'package:fo_fe/try/app_main_try.dart';
 
@@ -9,8 +10,31 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   di.init();
   Bloc.observer = SimpleBlocObserver();
+  // testSignUp();
   runApp(const AppMainTry());
 }
+
+void testSignUp() async {
+  // Create an instance of SignUpUseCase
+  final signUpUseCase = sl<SignUpUseCase>();
+
+  // Define the parameters for the sign-up process
+  final signUpParams = SignUpParams(
+    name: 'Test3@example.com',
+    email: 'Test3@example.com',
+    password: 'Test3@example.com',
+  );
+
+  // Call the use case
+  final result = await signUpUseCase(signUpParams);
+
+  // Print the result
+  result.fold(
+    (failure) => print('Sign Up Failed: $failure'),
+    (authEntity) => print('Sign Up Successful: $authEntity'),
+  );
+}
+
 //   case "android":
 //     {
 //       database = await ObjectBox.create();

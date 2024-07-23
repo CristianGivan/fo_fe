@@ -7,7 +7,7 @@ class OrganizerItemTableDrift extends Table {
   DateTimeColumn get createdDate =>
       dateTime().withDefault(currentDateAndTime)();
 
-  IntColumn get creatorId => integer()();
+  IntColumn get creatorId => integer().nullable()();
 
   IntColumn get remoteId => integer().nullable()();
 

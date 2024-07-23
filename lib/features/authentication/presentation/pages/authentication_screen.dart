@@ -95,7 +95,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen>
                         create: (context) => AuthenticationBlocSignUp(
                           signUpUseCase: context.read<SignUpUseCase>(),
                         ),
-                        child: const SignUpScreen(),
+                        child: SignUpScreen(),
                       ),
                     ],
                   ),
