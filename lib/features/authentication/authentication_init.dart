@@ -1,21 +1,13 @@
 import 'package:fo_fe/core/db/drift/authentication_drift_db.dart';
-import 'package:fo_fe/core/db/encrypt/encryption_service.dart';
 import 'package:fo_fe/core/util/DeviceInfo.dart';
 import 'package:fo_fe/core/util/token_manager.dart';
 import 'package:fo_fe/features/authentication/authentication_exports.dart';
 import 'package:fo_fe/features/authentication/data/repositories/authentication_repository_drift.dart';
-import 'package:fo_fe/features/authentication/domain/usecases/sign_up.dart';
 import 'package:get_it/get_it.dart';
 
 final sl = GetIt.instance;
 
 void authenticationInit() {
-  // Register EncryptionService
-  sl.registerLazySingleton<EncryptionService>(() => Base64EncryptionService());
-
-  // Register TokenManager with EncryptionService as a dependency
-  sl.registerLazySingleton(() => TokenManager(sl<EncryptionService>()));
-
   // Register AuthenticationLocalDataSource
   sl.registerLazySingleton<AuthenticationLocalDataSource>(
     () => AuthenticationLocalDataSourceDrift(
@@ -54,5 +46,8 @@ void authenticationInit() {
       ));
   sl.registerFactory(() => AuthenticationBlocSignUp(
         signUpUseCase: sl<SignUpUseCase>(),
+      ));
+  sl.registerFactory(() => AuthenticationBlocSignIn(
+        loginUseCase: sl<LoginUseCase>(),
       ));
 }

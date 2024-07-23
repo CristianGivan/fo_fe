@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:fo_fe/core/router/routes/stateful_shell_route.dart';
 import 'package:fo_fe/features/authentication/authentication_exports.dart';
+import 'package:fo_fe/features/authentication/util/router/authentication_router_names.dart';
 import 'package:fo_fe/features/organizer/organizer.dart'; // Adjust the import path as necessary
 import 'package:go_router/go_router.dart';
 
@@ -13,7 +14,7 @@ final _authShellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'auth');
 class AppRouterTry {
   static GoRouter returnRouter() {
     GoRouter router = GoRouter(
-      initialLocation: OrganizerRouterNames.organizerRoute,
+      initialLocation: AuthenticationRouterNames.authenticationRoute,
       debugLogDiagnostics: true,
       routes: [
         StatefulShellRoute.indexedStack(

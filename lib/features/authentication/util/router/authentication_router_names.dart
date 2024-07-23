@@ -1,7 +1,7 @@
 class AuthenticationRouterNames {
-  static const String authenticationRoute = 'authentication';
-  static const String signInRoute = 'sign-in';
-  static const String signUpRoute = 'sign-up';
+  static const String authenticationRoute = '/authentication';
+  static const String signInRoute = '/authentication/sign-in';
+  static const String signUpRoute = '/authentication/sign-up';
 }
 
 // static const String organizerRoute = '/organizer';

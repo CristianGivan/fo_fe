@@ -13,5 +13,8 @@ List<BlocProvider> getAuthenticationBlocProviders() {
     BlocProvider<AuthenticationBlocSignUp>(
       create: (_) => GetIt.instance<AuthenticationBlocSignUp>(),
     ),
+    BlocProvider<AuthenticationBlocSignIn>(
+      create: (_) => GetIt.instance<AuthenticationBlocSignIn>(),
+    ),
   ];
 }
