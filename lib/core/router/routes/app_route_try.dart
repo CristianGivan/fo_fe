@@ -14,7 +14,8 @@ final _authShellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'auth');
 class AppRouterTry {
   static GoRouter returnRouter() {
     GoRouter router = GoRouter(
-      initialLocation: AuthenticationRouterNames.authenticationRoute,
+      initialLocation:
+          AuthenticationRouterNames.authenticationWithAutoLogInRoute,
       debugLogDiagnostics: true,
       routes: [
         StatefulShellRoute.indexedStack(

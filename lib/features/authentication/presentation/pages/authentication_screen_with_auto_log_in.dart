@@ -1,15 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fo_fe/features/authentication/authentication_exports.dart';
 import 'package:fo_fe/features/authentication/util/router/authentication_router_names.dart';
 import 'package:fo_fe/features/organizer/organizer.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart'; // Import Provider package if not already imported
 
-class AuthenticationScreen extends StatelessWidget {
-  const AuthenticationScreen({super.key});
+class AuthenticationScreenWithAutoLogIn extends StatefulWidget {
+  const AuthenticationScreenWithAutoLogIn({Key? key}) : super(key: key);
 
-  void _checkAutoLogin(BuildContext context) async {
-    // Check auto-login when the button is pressed
+  @override
+  _AuthenticationScreenWithAutoLogInState createState() =>
+      _AuthenticationScreenWithAutoLogInState();
+}
+
+class _AuthenticationScreenWithAutoLogInState
+    extends State<AuthenticationScreenWithAutoLogIn> {
+  @override
+  void initState() {
+    super.initState();
+    _checkAutoLogin();
+  }
+
+  void _checkAutoLogin() async {
+    // Check auto-login when the screen is initialized
     final authBloc = context.read<AuthenticationBlocSession>();
     authBloc.add(AutoLoginBlocEvent());
 
@@ -53,13 +66,6 @@ class AuthenticationScreen extends StatelessWidget {
                 context.goNamed(AuthenticationRouterNames.signUpRoute);
               },
               child: const Text('Sign Up'),
-            ),
-            const SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () {
-                _checkAutoLogin(context);
-              },
-              child: const Text('Reactivation'),
             ),
           ],
         ),

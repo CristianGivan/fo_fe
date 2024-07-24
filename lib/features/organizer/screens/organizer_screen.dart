@@ -38,7 +38,7 @@ class Organizer extends StatelessWidget {
             child: ElevatedButton(
               onPressed: () =>
                   context.push(AuthenticationRouterNames.authenticationRoute),
-              child: const Text('SignIn/SignUp'),
+              child: const Text('Authentication'),
             ),
           ),
           const Center(
