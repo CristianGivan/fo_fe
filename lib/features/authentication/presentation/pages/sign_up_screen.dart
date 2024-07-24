@@ -1,16 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fo_fe/core/util/regexp.dart';
 import 'package:fo_fe/features/authentication/authentication_exports.dart';
 import 'package:fo_fe/features/authentication/presentation/pages/my_text_field.dart';
-import 'package:fo_fe/features/organizer/items/user/domain/entities/user_entity.dart';
 
 class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
-
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  _SignUpScreenState createState() => _SignUpScreenState();
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
@@ -20,226 +16,230 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final nameController = TextEditingController();
   bool obscurePassword = true;
   IconData iconPassword = CupertinoIcons.eye_fill;
-  bool signUpRequired = false;
 
-  bool containsUpperCase = false;
-  bool containsLowerCase = false;
-  bool containsNumber = false;
-  bool containsSpecialChar = false;
-  bool contains8Length = false;
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    nameController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthenticationBlocSignUp,
-        AuthenticationBlocSignUpState>(
-      listener: (context, state) {
-        if (state is AuthenticationSignUpSuccess) {
-          setState(() {
-            signUpRequired = false;
-          });
-          // Navigate to the next screen or show success message
-        } else if (state is AuthenticationSignUpLoading) {
-          setState(() {
-            signUpRequired = true;
-          });
-        } else if (state is AuthenticationSignUpError) {
-          setState(() {
-            signUpRequired = false;
-          });
-          // Show error message
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.message)),
-          );
-        }
-      },
-      child: Form(
-        key: _formKey,
-        child: Center(
-          child: Column(
-            children: [
-              const SizedBox(height: 20),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.9,
-                child: MyTextField(
-                  controller: emailController,
-                  hintText: 'Email',
-                  obscureText: false,
-                  keyboardType: TextInputType.emailAddress,
-                  prefixIcon: const Icon(CupertinoIcons.mail_solid),
-                  validator: (val) {
-                    if (val!.isEmpty) {
-                      return 'Please fill in this field';
-                    } else if (!emailRexExp.hasMatch(val)) {
-                      return 'Please enter a valid email';
-                    }
-                    return null;
-                  },
-                ),
-              ),
-              const SizedBox(height: 10),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.9,
-                child: MyTextField(
-                  controller: passwordController,
-                  hintText: 'Password',
-                  obscureText: obscurePassword,
-                  keyboardType: TextInputType.visiblePassword,
-                  prefixIcon: const Icon(CupertinoIcons.lock_fill),
-                  onChanged: (val) {
-                    setState(() {
-                      containsUpperCase = val.contains(RegExp(r'[A-Z]'));
-                      containsLowerCase = val.contains(RegExp(r'[a-z]'));
-                      containsNumber = val.contains(RegExp(r'[0-9]'));
-                      containsSpecialChar = val.contains(specialCharRexExp);
-                      contains8Length = val.length >= 8;
-                    });
-                  },
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        obscurePassword = !obscurePassword;
-                        iconPassword = obscurePassword
-                            ? CupertinoIcons.eye_fill
-                            : CupertinoIcons.eye_slash_fill;
-                      });
-                    },
-                    icon: Icon(iconPassword),
-                  ),
-                  validator: (val) {
-                    if (val!.isEmpty) {
-                      return 'Please fill in this field';
-                    } else if (!passwordRexExp.hasMatch(val)) {
-                      return 'Please enter a valid password';
-                    }
-                    return null;
-                  },
-                ),
-              ),
-              const SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.start,
+    return Scaffold(
+      appBar: AppBar(title: Text('Sign Up')),
+      body:
+          BlocListener<AuthenticationBlocSignUp, AuthenticationBlocSignUpState>(
+        listener: (context, state) {
+          if (state is AuthenticationSignUpSuccess) {
+            // Navigate to the next screen or show success message
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Sign up successful!')),
+            );
+            // Navigate to next screen or perform other actions
+          } else if (state is AuthenticationSignUpError) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(state.message)),
+            );
+          }
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _formKey,
+            child: SingleChildScrollView(
+              child: Column(
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "⚈  1 uppercase",
-                        style: TextStyle(
-                          color: containsUpperCase
-                              ? Colors.green
-                              : Theme.of(context).colorScheme.onBackground,
-                        ),
-                      ),
-                      Text(
-                        "⚈  1 lowercase",
-                        style: TextStyle(
-                          color: containsLowerCase
-                              ? Colors.green
-                              : Theme.of(context).colorScheme.onBackground,
-                        ),
-                      ),
-                      Text(
-                        "⚈  1 number",
-                        style: TextStyle(
-                          color: containsNumber
-                              ? Colors.green
-                              : Theme.of(context).colorScheme.onBackground,
-                        ),
-                      ),
-                    ],
+                  const SizedBox(height: 20),
+                  MyTextField(
+                    controller: nameController,
+                    hintText: 'Name',
+                    obscureText: false,
+                    keyboardType: TextInputType.name,
+                    prefixIcon: const Icon(CupertinoIcons.person_fill),
+                    validator: (val) {
+                      if (val!.isEmpty) {
+                        return 'Please fill in this field';
+                      } else if (val.length > 30) {
+                        return 'Name too long';
+                      }
+                      return null;
+                    },
+                    onChanged: (val) {
+                      context
+                          .read<AuthenticationBlocSignUp>()
+                          .add(NameChanged(val));
+                    },
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "⚈  1 special character",
-                        style: TextStyle(
-                          color: containsSpecialChar
-                              ? Colors.green
-                              : Theme.of(context).colorScheme.onBackground,
+                  const SizedBox(height: 10),
+                  BlocBuilder<AuthenticationBlocSignUp,
+                      AuthenticationBlocSignUpState>(
+                    buildWhen: (previous, current) =>
+                        current is EmailValidationState,
+                    builder: (context, state) {
+                      return MyTextField(
+                        controller: emailController,
+                        hintText: 'Email',
+                        obscureText: false,
+                        keyboardType: TextInputType.emailAddress,
+                        prefixIcon: const Icon(CupertinoIcons.mail_solid),
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return 'Please fill in this field';
+                          }
+                          if (state is EmailValidationState && !state.isValid) {
+                            return 'Invalid email format';
+                          }
+                          return null;
+                        },
+                        onChanged: (val) {
+                          context
+                              .read<AuthenticationBlocSignUp>()
+                              .add(EmailChanged(val));
+                        },
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 10),
+                  MyTextField(
+                    controller: passwordController,
+                    hintText: 'Password',
+                    obscureText: obscurePassword,
+                    keyboardType: TextInputType.visiblePassword,
+                    prefixIcon: const Icon(CupertinoIcons.lock_fill),
+                    onChanged: (val) {
+                      context
+                          .read<AuthenticationBlocSignUp>()
+                          .add(PasswordChanged(val));
+                    },
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          obscurePassword = !obscurePassword;
+                          iconPassword = obscurePassword
+                              ? CupertinoIcons.eye_fill
+                              : CupertinoIcons.eye_slash_fill;
+                        });
+                      },
+                      icon: Icon(iconPassword),
+                    ),
+                    validator: (val) {
+                      if (val!.isEmpty) {
+                        return 'Please fill in this field';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 10),
+                  BlocBuilder<AuthenticationBlocSignUp,
+                      AuthenticationBlocSignUpState>(
+                    buildWhen: (previous, current) =>
+                        current is PasswordValidationState,
+                    builder: (context, state) {
+                      if (state is PasswordValidationState) {
+                        return Column(
+                          children: [
+                            _buildPasswordRequirement(
+                                "1 uppercase", state.containsUpperCase),
+                            _buildPasswordRequirement(
+                                "1 lowercase", state.containsLowerCase),
+                            _buildPasswordRequirement(
+                                "1 number", state.containsNumber),
+                            _buildPasswordRequirement("1 special character",
+                                state.containsSpecialChar),
+                            _buildPasswordRequirement(
+                                "8 minimum characters", state.contains8Length),
+                          ],
+                        );
+                      }
+                      return SizedBox.shrink();
+                    },
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                  BlocBuilder<AuthenticationBlocSignUp,
+                      AuthenticationBlocSignUpState>(
+                    buildWhen: (previous, current) =>
+                        current is FormValidationState ||
+                        current is AuthenticationSignUpLoading,
+                    builder: (context, state) {
+                      bool isFormValid =
+                          state is FormValidationState && state.isFormValid;
+                      bool isLoading = state is AuthenticationSignUpLoading;
+                      return SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        child: TextButton(
+                          onPressed: isFormValid && !isLoading
+                              ? () {
+                                  context.read<AuthenticationBlocSignUp>().add(
+                                        SignUpBlocEvent(
+                                          name: nameController.text,
+                                          email: emailController.text,
+                                          password: passwordController.text,
+                                        ),
+                                      );
+                                }
+                              : null,
+                          style: TextButton.styleFrom(
+                            elevation: 3.0,
+                            backgroundColor: isFormValid
+                                ? Theme.of(context).colorScheme.primary
+                                : Colors.grey,
+                            foregroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(60),
+                            ),
+                          ),
+                          child: isLoading
+                              ? CircularProgressIndicator(color: Colors.white)
+                              : const Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 25, vertical: 5),
+                                  child: Text(
+                                    'Sign Up',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
                         ),
-                      ),
-                      Text(
-                        "⚈  8 minimum character",
-                        style: TextStyle(
-                          color: contains8Length
-                              ? Colors.green
-                              : Theme.of(context).colorScheme.onBackground,
-                        ),
-                      ),
-                    ],
+                      );
+                    },
                   ),
                 ],
               ),
-              const SizedBox(height: 10),
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.9,
-                child: MyTextField(
-                  controller: nameController,
-                  hintText: 'Name',
-                  obscureText: false,
-                  keyboardType: TextInputType.name,
-                  prefixIcon: const Icon(CupertinoIcons.person_fill),
-                  validator: (val) {
-                    if (val!.isEmpty) {
-                      return 'Please fill in this field';
-                    } else if (val.length > 30) {
-                      return 'Name too long';
-                    }
-                    return null;
-                  },
-                ),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              !signUpRequired
-                  ? SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.5,
-                      child: TextButton(
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            UserEntity myUser = UserEntity(
-                              email: emailController.text,
-                              name: nameController.text,
-                            );
-
-                            setState(() {
-                              context.read<AuthenticationBlocSignUp>().add(
-                                  SignUpBlocEvent(
-                                      name: nameController.text,
-                                      email: emailController.text,
-                                      password: passwordController.text));
-                            });
-                          }
-                        },
-                        style: TextButton.styleFrom(
-                          elevation: 3.0,
-                          backgroundColor:
-                              Theme.of(context).colorScheme.primary,
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(60),
-                          ),
-                        ),
-                        child: const Padding(
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 25, vertical: 5),
-                          child: Text(
-                            'Sign Up',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                      ),
-                    )
-                  : const CircularProgressIndicator(),
-            ],
+            ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildPasswordRequirement(String requirement, bool isMet) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 2.0),
+      child: Row(
+        children: [
+          Icon(
+            isMet ? Icons.check_circle : Icons.circle_outlined,
+            color: isMet
+                ? Colors.green
+                : Theme.of(context).colorScheme.onBackground,
+            size: 16,
+          ),
+          SizedBox(width: 8),
+          Text(
+            requirement,
+            style: TextStyle(
+              color: isMet
+                  ? Colors.green
+                  : Theme.of(context).colorScheme.onBackground,
+            ),
+          ),
+        ],
       ),
     );
   }
