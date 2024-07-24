@@ -30,6 +30,7 @@ void authenticationInit() {
   sl.registerLazySingleton(() => AutoLoginUseCase(sl()));
   sl.registerLazySingleton(() => GetLoggedInUserIdUseCase(sl()));
   sl.registerLazySingleton(() => SwitchUserUseCase(sl()));
+  sl.registerLazySingleton(() => SignUpUseCase(sl(), sl()));
 
   // Register BLoCs
   sl.registerFactory(() => AuthenticationBlocSession(
