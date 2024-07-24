@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fo_fe/features/authentication/authentication_exports.dart';
 import 'package:fo_fe/features/authentication/presentation/pages/my_text_field.dart';
-import 'package:get_it/get_it.dart';
 
 class SignUpScreen1 extends StatefulWidget {
   @override
@@ -30,185 +29,187 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Sign Up')),
-      body: BlocProvider(
-        create: (_) => AuthenticationBlocSignUp(
-          signUpUseCase: GetIt.instance<SignUpUseCase>(),
-        ),
-        child: BlocListener<AuthenticationBlocSignUp,
-            AuthenticationBlocSignUpState>(
-          listener: (context, state) {
-            if (state is AuthenticationSignUpSuccess) {
-              // Navigate to the next screen or show success message
-              Navigator.pop(context);
-            } else if (state is AuthenticationSignUpError) {
-              // Show error message
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(state.message)),
-              );
-            }
-          },
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Form(
-              key: _formKey,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    const SizedBox(height: 20),
-                    BlocBuilder<AuthenticationBlocSignUp,
-                        AuthenticationBlocSignUpState>(
-                      builder: (context, state) {
-                        return MyTextField(
-                          controller: emailController,
-                          hintText: 'Email',
-                          obscureText: false,
-                          keyboardType: TextInputType.emailAddress,
-                          prefixIcon: const Icon(CupertinoIcons.mail_solid),
-                          validator: (val) {
-                            if (val!.isEmpty) {
-                              return 'Please fill in this field';
-                            }
-                            if (state is EmailValidationState &&
-                                !state.isValid) {
-                              return 'Invalid email format';
-                            }
-                            return null;
-                          },
-                          onChanged: (val) {
-                            context
-                                .read<AuthenticationBlocSignUp>()
-                                .add(EmailChanged(val));
-                          },
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 10),
-                    MyTextField(
-                      controller: passwordController,
-                      hintText: 'Password',
-                      obscureText: obscurePassword,
-                      keyboardType: TextInputType.visiblePassword,
-                      prefixIcon: const Icon(CupertinoIcons.lock_fill),
-                      onChanged: (val) {
-                        context
-                            .read<AuthenticationBlocSignUp>()
-                            .add(PasswordChanged(val));
-                      },
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            obscurePassword = !obscurePassword;
-                            iconPassword = obscurePassword
-                                ? CupertinoIcons.eye_fill
-                                : CupertinoIcons.eye_slash_fill;
-                          });
+      body:
+          BlocListener<AuthenticationBlocSignUp, AuthenticationBlocSignUpState>(
+        listener: (context, state) {
+          if (state is AuthenticationSignUpSuccess) {
+            // Navigate to the next screen or show success message
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Sign up successful!')),
+            );
+            // Navigate to next screen or perform other actions
+          } else if (state is AuthenticationSignUpError) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(state.message)),
+            );
+          }
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _formKey,
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SizedBox(height: 20),
+                  MyTextField(
+                    controller: nameController,
+                    hintText: 'Name',
+                    obscureText: false,
+                    keyboardType: TextInputType.name,
+                    prefixIcon: const Icon(CupertinoIcons.person_fill),
+                    validator: (val) {
+                      if (val!.isEmpty) {
+                        return 'Please fill in this field';
+                      } else if (val.length > 30) {
+                        return 'Name too long';
+                      }
+                      return null;
+                    },
+                    onChanged: (val) {
+                      context
+                          .read<AuthenticationBlocSignUp>()
+                          .add(NameChanged(val));
+                    },
+                  ),
+                  const SizedBox(height: 10),
+                  BlocBuilder<AuthenticationBlocSignUp,
+                      AuthenticationBlocSignUpState>(
+                    buildWhen: (previous, current) =>
+                        current is EmailValidationState,
+                    builder: (context, state) {
+                      return MyTextField(
+                        controller: emailController,
+                        hintText: 'Email',
+                        obscureText: false,
+                        keyboardType: TextInputType.emailAddress,
+                        prefixIcon: const Icon(CupertinoIcons.mail_solid),
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return 'Please fill in this field';
+                          }
+                          if (state is EmailValidationState && !state.isValid) {
+                            return 'Invalid email format';
+                          }
+                          return null;
                         },
-                        icon: Icon(iconPassword),
-                      ),
-                      validator: (val) {
-                        if (val!.isEmpty) {
-                          return 'Please fill in this field';
-                        }
-                        return null;
+                        onChanged: (val) {
+                          context
+                              .read<AuthenticationBlocSignUp>()
+                              .add(EmailChanged(val));
+                        },
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 10),
+                  MyTextField(
+                    controller: passwordController,
+                    hintText: 'Password',
+                    obscureText: obscurePassword,
+                    keyboardType: TextInputType.visiblePassword,
+                    prefixIcon: const Icon(CupertinoIcons.lock_fill),
+                    onChanged: (val) {
+                      context
+                          .read<AuthenticationBlocSignUp>()
+                          .add(PasswordChanged(val));
+                    },
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          obscurePassword = !obscurePassword;
+                          iconPassword = obscurePassword
+                              ? CupertinoIcons.eye_fill
+                              : CupertinoIcons.eye_slash_fill;
+                        });
                       },
+                      icon: Icon(iconPassword),
                     ),
-                    const SizedBox(height: 10),
-                    BlocBuilder<AuthenticationBlocSignUp,
-                        AuthenticationBlocSignUpState>(
-                      builder: (context, state) {
-                        if (state is PasswordValidationState) {
-                          return Column(
-                            children: [
-                              _buildPasswordRequirement(
-                                  "1 uppercase", state.containsUpperCase),
-                              _buildPasswordRequirement(
-                                  "1 lowercase", state.containsLowerCase),
-                              _buildPasswordRequirement(
-                                  "1 number", state.containsNumber),
-                              _buildPasswordRequirement("1 special character",
-                                  state.containsSpecialChar),
-                              _buildPasswordRequirement("8 minimum characters",
-                                  state.contains8Length),
-                            ],
-                          );
-                        }
-                        return SizedBox.shrink();
-                      },
-                    ),
-                    const SizedBox(height: 10),
-                    MyTextField(
-                      controller: nameController,
-                      hintText: 'Name',
-                      obscureText: false,
-                      keyboardType: TextInputType.name,
-                      prefixIcon: const Icon(CupertinoIcons.person_fill),
-                      validator: (val) {
-                        if (val!.isEmpty) {
-                          return 'Please fill in this field';
-                        } else if (val.length > 30) {
-                          return 'Name too long';
-                        }
-                        return null;
-                      },
-                      onChanged: (val) {
-                        context
-                            .read<AuthenticationBlocSignUp>()
-                            .add(NameChanged(val));
-                      },
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                    BlocBuilder<AuthenticationBlocSignUp,
-                        AuthenticationBlocSignUpState>(
-                      builder: (context, state) {
-                        bool isFormValid =
-                            state is FormValidationState && state.isFormValid;
-                        return SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.5,
-                          child: TextButton(
-                            onPressed: isFormValid
-                                ? () {
-                                    context
-                                        .read<AuthenticationBlocSignUp>()
-                                        .add(
-                                          SignUpBlocEvent(
-                                            name: nameController.text,
-                                            email: emailController.text,
-                                            password: passwordController.text,
-                                          ),
-                                        );
-                                  }
-                                : null,
-                            style: TextButton.styleFrom(
-                              elevation: 3.0,
-                              backgroundColor: isFormValid
-                                  ? Theme.of(context).colorScheme.primary
-                                  : Colors.grey,
-                              foregroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(60),
-                              ),
+                    validator: (val) {
+                      if (val!.isEmpty) {
+                        return 'Please fill in this field';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 10),
+                  BlocBuilder<AuthenticationBlocSignUp,
+                      AuthenticationBlocSignUpState>(
+                    buildWhen: (previous, current) =>
+                        current is PasswordValidationState,
+                    builder: (context, state) {
+                      if (state is PasswordValidationState) {
+                        return Column(
+                          children: [
+                            _buildPasswordRequirement(
+                                "1 uppercase", state.containsUpperCase),
+                            _buildPasswordRequirement(
+                                "1 lowercase", state.containsLowerCase),
+                            _buildPasswordRequirement(
+                                "1 number", state.containsNumber),
+                            _buildPasswordRequirement("1 special character",
+                                state.containsSpecialChar),
+                            _buildPasswordRequirement(
+                                "8 minimum characters", state.contains8Length),
+                          ],
+                        );
+                      }
+                      return SizedBox.shrink();
+                    },
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                  BlocBuilder<AuthenticationBlocSignUp,
+                      AuthenticationBlocSignUpState>(
+                    buildWhen: (previous, current) =>
+                        current is FormValidationState ||
+                        current is AuthenticationSignUpLoading,
+                    builder: (context, state) {
+                      bool isFormValid =
+                          state is FormValidationState && state.isFormValid;
+                      bool isLoading = state is AuthenticationSignUpLoading;
+                      return SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        child: TextButton(
+                          onPressed: isFormValid && !isLoading
+                              ? () {
+                                  context.read<AuthenticationBlocSignUp>().add(
+                                        SignUpBlocEvent(
+                                          name: nameController.text,
+                                          email: emailController.text,
+                                          password: passwordController.text,
+                                        ),
+                                      );
+                                }
+                              : null,
+                          style: TextButton.styleFrom(
+                            elevation: 3.0,
+                            backgroundColor: isFormValid
+                                ? Theme.of(context).colorScheme.primary
+                                : Colors.grey,
+                            foregroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(60),
                             ),
-                            child: state is AuthenticationSignUpLoading
-                                ? CircularProgressIndicator(color: Colors.white)
-                                : const Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 25, vertical: 5),
-                                    child: Text(
-                                      'Sign Up',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                      ),
+                          ),
+                          child: isLoading
+                              ? CircularProgressIndicator(color: Colors.white)
+                              : const Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 25, vertical: 5),
+                                  child: Text(
+                                    'Sign Up',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
                                     ),
                                   ),
-                          ),
-                        );
-                      },
-                    ),
-                  ],
-                ),
+                                ),
+                        ),
+                      );
+                    },
+                  ),
+                ],
               ),
             ),
           ),
