@@ -1,5 +1,6 @@
 library organizer;
 
+import 'package:authentication/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:fo_fe/try/UI/add_task_screen.dart';
 import 'package:fo_fe/try/UI/task_screen.dart';

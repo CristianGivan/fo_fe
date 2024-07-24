@@ -42,11 +42,16 @@ class AuthenticationDaoDrift extends DatabaseAccessor<AuthenticationDriftDB>
           .go();
 
   Future<AuthenticationTableDriftG?> getActiveAuthenticationForDeviceInfo(
-          String deviceInfo) =>
-      (select(authenticationTableDrift)
-            ..where((tbl) =>
-                tbl.deviceInfo.equals(deviceInfo) & tbl.isActive.equals(true)))
-          .getSingleOrNull();
+      String deviceInfo) {
+    return (select(authenticationTableDrift)
+          ..where((tbl) =>
+              tbl.deviceInfo.equals(deviceInfo) & tbl.isActive.equals(true))
+          ..orderBy([
+            (tbl) => OrderingTerm.desc(tbl.lastUsedDate),
+          ])
+          ..limit(1))
+        .getSingleOrNull();
+  }
 
   Future<List<AuthenticationTableDriftG>> getAuthenticationsForDeviceInfo(
           String deviceInfo) =>

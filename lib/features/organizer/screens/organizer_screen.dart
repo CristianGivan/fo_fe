@@ -33,6 +33,14 @@ class Organizer extends StatelessWidget {
               child: const Text('Go to the reminder screen'),
             ),
           ),
+          const SizedBox(height: 10),
+          Center(
+            child: ElevatedButton(
+              onPressed: () =>
+                  context.push(AuthenticationRouterNames.authenticationRoute),
+              child: const Text('SignIn/SignUp'),
+            ),
+          ),
           const Center(
             child: TextField(
               decoration: InputDecoration(

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fo_fe/features/authentication/authentication_exports.dart';
 import 'package:fo_fe/features/authentication/presentation/pages/my_text_field.dart';
+import 'package:fo_fe/features/organizer/organizer.dart';
+import 'package:go_router/go_router.dart';
 
 class SignUpScreen extends StatefulWidget {
   @override
@@ -33,11 +35,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
           BlocListener<AuthenticationBlocSignUp, AuthenticationBlocSignUpState>(
         listener: (context, state) {
           if (state is AuthenticationSignUpSuccess) {
-            // Navigate to the next screen or show success message
+            // Navigate to the organizer route on successful sign-up using GoRouter
+            GoRouter.of(context).go(OrganizerRouterNames.organizerRoute);
+
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text('Sign up successful!')),
             );
-            // Navigate to next screen or perform other actions
           } else if (state is AuthenticationSignUpError) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text(state.message)),

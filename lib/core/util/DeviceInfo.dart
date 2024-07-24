@@ -13,6 +13,6 @@ class DeviceInfo {
   const DeviceInfo({
     String? device,
     String? deviceUser,
-  })  : _device = device ?? "",
-        _deviceUser = deviceUser ?? "";
+  })  : _device = device ?? "device_info",
+        _deviceUser = deviceUser ?? "user";
 }
