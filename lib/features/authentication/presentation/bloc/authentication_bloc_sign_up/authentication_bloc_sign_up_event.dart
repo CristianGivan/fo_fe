@@ -21,3 +21,32 @@ class SignUpBlocEvent extends AuthenticationBlocSignUpEvent {
   @override
   List<Object> get props => [name, email, password];
 }
+
+class EmailChanged extends AuthenticationBlocSignUpEvent {
+  final String email;
+
+  const EmailChanged(this.email);
+
+  @override
+  List<Object> get props => [email];
+}
+
+class PasswordChanged extends AuthenticationBlocSignUpEvent {
+  final String password;
+
+  const PasswordChanged(this.password);
+
+  @override
+  List<Object> get props => [password];
+}
+
+class NameChanged extends AuthenticationBlocSignUpEvent {
+  final String name;
+
+  const NameChanged(this.name);
+
+  @override
+  List<Object> get props => [name];
+}
+
+class ValidateForm extends AuthenticationBlocSignUpEvent {}
