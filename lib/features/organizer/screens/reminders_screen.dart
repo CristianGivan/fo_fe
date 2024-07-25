@@ -1,4 +1,6 @@
-part of '../organizer.dart';
+import 'package:flutter/material.dart';
+import 'package:fo_fe/features/organizer/config/organizer_exports.dart';
+import 'package:go_router/go_router.dart';
 
 class Reminder extends StatelessWidget {
   const Reminder({super.key});

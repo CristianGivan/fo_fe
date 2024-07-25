@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:fo_fe/core/util/organizer/core_util_organizer.dart';
-import 'package:fo_fe/features/organizer/items/organizer_item/organizer_item.dart';
+import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
 
 void main() {
   group('IdSet Tests', () {

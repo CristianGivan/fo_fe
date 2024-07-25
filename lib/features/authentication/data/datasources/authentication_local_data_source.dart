@@ -1,4 +1,4 @@
-import 'package:fo_fe/features/authentication/authentication_exports.dart';
+import 'package:fo_fe/features/authentication/config/authentication_exports.dart';
 
 abstract class AuthenticationLocalDataSource {
   Future<AuthenticationModel?> getAuthenticationById(int id);

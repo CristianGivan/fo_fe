@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fo_fe/features/authentication/authentication_exports.dart';
-import 'package:fo_fe/features/authentication/util/router/authentication_router_names.dart';
-import 'package:fo_fe/features/organizer/organizer.dart';
+import 'package:fo_fe/features/authentication/config/authentication_exports.dart';
+import 'package:fo_fe/features/organizer/config/organizer_exports.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart'; // Import Provider package if not already imported
 

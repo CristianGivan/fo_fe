@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:fo_fe/core/const/regexp.dart';
 import 'package:fo_fe/core/error/failures.dart';
-import 'package:fo_fe/core/util/regexp.dart';
-import 'package:fo_fe/features/authentication/authentication_exports.dart';
+import 'package:fo_fe/features/authentication/config/authentication_exports.dart';
 
 part 'authentication_bloc_sign_up_event.dart';
 part 'authentication_bloc_sign_up_state.dart';

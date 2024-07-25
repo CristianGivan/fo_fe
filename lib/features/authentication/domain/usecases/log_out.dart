@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/usecase/usecase.dart';
-import 'package:fo_fe/features/authentication/authentication_exports.dart';
+import 'package:fo_fe/features/authentication/config/authentication_exports.dart';
 
 class LogoutUseCase extends UseCase<void, LogoutParams> {
   final AuthenticationRepository authRepository;

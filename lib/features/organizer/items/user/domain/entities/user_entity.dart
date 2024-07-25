@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:fo_fe/core/db/encrypt/hashing_service.dart';
-import 'package:fo_fe/features/organizer/items/organizer_item/organizer_item.dart';
+import 'package:fo_fe/core/utils/core_utils_exports.dart';
+import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
 
 import '../../../../../../core/const/constants.dart';
 

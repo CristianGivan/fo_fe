@@ -1,12 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/error/failures.dart';
-import 'package:fo_fe/core/util/organizer/core_util_organizer.dart';
+import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
 import 'package:fo_fe/features/organizer/items/reminder/domain/entities/reminder_entity.dart';
 import 'package:fo_fe/features/organizer/items/tag/domain/entities/tag_entity.dart';
+import 'package:fo_fe/features/organizer/items/task/config/task_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/data/datasources/task_local_data_source.dart';
 import 'package:fo_fe/features/organizer/items/task/data/datasources/task_remote_data_source.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/repositories/task_repository.dart';
-import 'package:fo_fe/features/organizer/items/task/task_exports.dart';
 import 'package:fo_fe/features/organizer/items/user/domain/entities/user_entity.dart';
 
 class TaskRepositoryImpl implements TaskRepository {

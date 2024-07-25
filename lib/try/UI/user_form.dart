@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fo_fe/features/organizer/items/task/presentation/logic/task_bloc/task_bloc.dart';
-import 'package:fo_fe/features/organizer/items/user/user_exports.dart';
+import 'package:fo_fe/features/organizer/items/user/config/user_exports.dart';
 
 class UserForm extends StatefulWidget {
   final int taskId;

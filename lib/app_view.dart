@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import 'core/router/routes/app_route_configuration.dart';
-import 'core/themes/app_themes.dart';
+import 'package:fo_fe/core/config/app_route.dart';
+import 'package:fo_fe/core/themes/app_themes.dart';
 
 class AppView extends StatelessWidget {
   const AppView({super.key});

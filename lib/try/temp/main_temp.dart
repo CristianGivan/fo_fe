@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fo_fe/core/router/routes/app_bloc_providers.dart';
-import 'package:fo_fe/features/authentication/authentication_exports.dart';
+import 'package:fo_fe/core/config/app_providers_bloc.dart';
+import 'package:fo_fe/features/authentication/config/authentication_exports.dart';
 import 'package:fo_fe/try/temp/app_view_temp.dart';
 import 'package:fo_fe/try/temp/getIt2.dart';
 import 'package:get_it/get_it.dart';

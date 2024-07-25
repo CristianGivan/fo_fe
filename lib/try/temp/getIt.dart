@@ -1,11 +1,9 @@
 import 'package:fo_fe/core/db/drift/authentication_drift_db.dart';
 import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
-import 'package:fo_fe/core/db/encrypt/encryption_service.dart';
-import 'package:fo_fe/core/util/DeviceInfo.dart';
-import 'package:fo_fe/core/util/token_manager.dart';
-import 'package:fo_fe/features/authentication/authentication_exports.dart';
+import 'package:fo_fe/core/utils/core_utils_exports.dart';
+import 'package:fo_fe/features/authentication/config/authentication_exports.dart';
 import 'package:fo_fe/features/authentication/data/repositories/authentication_repository_drift.dart';
-import 'package:fo_fe/features/organizer/items/user/user_exports.dart';
+import 'package:fo_fe/features/organizer/items/user/config/user_exports.dart';
 import 'package:get_it/get_it.dart';
 
 final sl = GetIt.instance;

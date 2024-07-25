@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fo_fe/features/authentication/authentication_exports.dart';
+import 'package:fo_fe/features/authentication/config/authentication_exports.dart';
 import 'package:get_it/get_it.dart';
 
 Widget multiBlocProvider({required Widget child}) {

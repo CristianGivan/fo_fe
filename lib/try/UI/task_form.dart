@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fo_fe/features/organizer/items/task/config/task_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/presentation/logic/task_bloc/task_bloc.dart';
-import 'package:fo_fe/features/organizer/items/task/task_exports.dart';
 
 class TaskForm extends StatefulWidget {
   @override

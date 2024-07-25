@@ -1,9 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/error/failures.dart';
-import 'package:fo_fe/core/util/DeviceInfo.dart';
-import 'package:fo_fe/core/util/device_info_provider.dart';
-import 'package:fo_fe/core/util/token_manager.dart';
-import 'package:fo_fe/features/authentication/authentication_exports.dart';
+import 'package:fo_fe/core/utils/core_utils_exports.dart';
+import 'package:fo_fe/features/authentication/config/authentication_exports.dart';
+import 'package:fo_fe/features/authentication/utils/token_manager.dart';
 import 'package:fo_fe/features/organizer/items/user/domain/entities/user_entity.dart';
 
 class AuthenticationRepositoryDrift implements AuthenticationRepository {
@@ -29,7 +28,7 @@ class AuthenticationRepositoryDrift implements AuthenticationRepository {
         // Simulated user ID, replace with actual data
         token: encryptedToken,
         // Store encrypted token
-        deviceInfo: DeviceInfoProvider.getDeviceInfo(),
+        deviceInfo: deviceInfo.getDeviceInfo(),
         // Simulated device user ID, replace with actual data
         createdDate: DateTime.now(),
         expiredDate: DateTime.now().add(Duration(days: 30)),

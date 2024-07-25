@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fo_fe/features/authentication/authentication_exports.dart';
-import 'package:fo_fe/features/authentication/util/router/authentication_router_names.dart';
-import 'package:fo_fe/features/organizer/organizer.dart';
+import 'package:fo_fe/features/authentication/config/authentication_exports.dart';
+import 'package:fo_fe/features/organizer/config/organizer_exports.dart';
 import 'package:go_router/go_router.dart';
 
 class AuthenticationScreenWithAutoLogIn extends StatefulWidget {

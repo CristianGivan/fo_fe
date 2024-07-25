@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/usecase/usecase.dart';
-import 'package:fo_fe/features/organizer/items/user/user_exports.dart';
+import 'package:fo_fe/features/organizer/items/user/config/user_exports.dart';
 
 class DeleteUser extends UseCase<int, DeleteUserParams> {
   final UserRepository repository;

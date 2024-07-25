@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
-import 'package:fo_fe/core/util/organizer/core_util_organizer.dart';
-import 'package:fo_fe/features/organizer/items/user/user_exports.dart';
+import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
+import 'package:fo_fe/features/organizer/items/user/config/user_exports.dart';
 
 class UserMapper {
   static UserModel modelFromTableDrift(UserTableDriftG user) {

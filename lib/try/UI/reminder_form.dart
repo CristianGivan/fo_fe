@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fo_fe/features/organizer/items/reminder/reminder_exports.dart';
+import 'package:fo_fe/features/organizer/items/reminder/config/reminder_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/presentation/logic/task_bloc/task_bloc.dart';
 
 class ReminderForm extends StatefulWidget {

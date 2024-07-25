@@ -30,10 +30,10 @@ dependencies:
   # local packages
   #  organizer:
   #    path: packages/organizer
-  user_repository:
-    path: packages/user_repository
-  authentication:
-    path: packages/authentication
+  #  user_repository:
+  #    path: packages/user_repository
+  #  authentication:
+  #    path: packages/authentication
   #  tasks:
   #     path: packages/tasks
 

@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:fo_fe/core/db/drift/authentication_drift_db.dart';
-import 'package:fo_fe/features/authentication/authentication_exports.dart';
+import 'package:fo_fe/features/authentication/config/authentication_exports.dart';
 
 class AuthenticationMapper {
   static AuthenticationModel modelFromEntity(AuthenticationEntity auth) {

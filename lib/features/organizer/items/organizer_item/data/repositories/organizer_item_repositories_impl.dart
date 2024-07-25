@@ -1,4 +1,9 @@
-part of '../../organizer_item.dart';
+import 'package:dartz/dartz.dart';
+import 'package:fo_fe/core/const/failures_message.dart';
+import 'package:fo_fe/core/error/exceptions.dart';
+import 'package:fo_fe/core/error/failures.dart';
+import 'package:fo_fe/core/utils/core_utils_exports.dart';
+import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
 
 class OrganizerItemRepositoryImpl<T extends OrganizerItemEntity>
     implements OrganizerItemRepository<T> {

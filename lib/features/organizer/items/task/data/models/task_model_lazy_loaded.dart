@@ -1,8 +1,8 @@
-import 'package:fo_fe/core/util/organizer/core_util_organizer.dart';
-import 'package:fo_fe/features/organizer/items/reminder/reminder_exports.dart';
-import 'package:fo_fe/features/organizer/items/tag/tag_exports.dart';
+import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
+import 'package:fo_fe/features/organizer/items/reminder/config/reminder_exports.dart';
+import 'package:fo_fe/features/organizer/items/tag/config/tag_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/data/models/task_model.dart';
-import 'package:fo_fe/features/organizer/items/user/user_exports.dart';
+import 'package:fo_fe/features/organizer/items/user/config/user_exports.dart';
 import 'package:fo_fe/features/organizer/util/organizer_enums.dart';
 
 class TaskModelLazyLoaded extends TaskModel {
@@ -15,7 +15,7 @@ class TaskModelLazyLoaded extends TaskModel {
     required int id,
     required String subject,
     required DateTime createdDate,
-    required int creatorId,
+    required int? creatorId,
     int? remoteId,
     DateTime? lastUpdate,
     DateTime? lastViewDate,

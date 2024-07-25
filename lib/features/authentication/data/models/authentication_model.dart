@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:fo_fe/features/authentication/authentication_exports.dart';
+import 'package:fo_fe/features/authentication/config/authentication_exports.dart';
 
 class AuthenticationModel extends AuthenticationEntity with EquatableMixin {
   AuthenticationModel({

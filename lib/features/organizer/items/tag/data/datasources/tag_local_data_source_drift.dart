@@ -1,6 +1,6 @@
 import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
-import 'package:fo_fe/core/util/organizer/core_util_organizer.dart';
-import 'package:fo_fe/features/organizer/items/tag/tag_exports.dart';
+import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
+import 'package:fo_fe/features/organizer/items/tag/config/tag_exports.dart';
 
 class TagLocalDataSourceDrift implements TagLocalDataSource {
   final TagDaoDrift tagDaoDrift;

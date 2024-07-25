@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/error/failures.dart';
+import 'package:fo_fe/core/usecase/no_params.dart';
 import 'package:fo_fe/core/usecase/usecase.dart';
-import 'package:fo_fe/core/util/organizer/core_util_organizer.dart';
-import 'package:fo_fe/features/authentication/authentication_exports.dart';
+import 'package:fo_fe/features/authentication/config/authentication_exports.dart';
 
 class AutoLoginUseCase extends UseCase<AuthenticationEntity, NoParams> {
   final AuthenticationRepository authRepository;

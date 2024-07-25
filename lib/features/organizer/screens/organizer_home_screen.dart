@@ -1,4 +1,5 @@
-part of '../organizer.dart';
+import 'package:flutter/material.dart';
+import 'package:fo_fe/features/organizer/screens/organizer_screen.dart';
 
 class OrganizerHome extends StatelessWidget {
   const OrganizerHome({super.key});

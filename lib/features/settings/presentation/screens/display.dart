@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fo_fe/core/del/app_route_constants_old.dart';
 import 'package:go_router/go_router.dart';
-
-import '../../../../core/router/routes/app_route_constants.dart';
 
 class DisplaySettings extends StatelessWidget {
   const DisplaySettings({super.key});

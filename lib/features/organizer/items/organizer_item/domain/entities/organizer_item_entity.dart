@@ -1,4 +1,5 @@
-part of '../../organizer_item.dart';
+import 'package:equatable/equatable.dart';
+import 'package:fo_fe/core/const/constants.dart';
 
 class OrganizerItemEntity extends Equatable {
   final int _id;
