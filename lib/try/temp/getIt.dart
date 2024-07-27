@@ -25,8 +25,8 @@ init1() {
   OrganizerDriftDB db = OrganizerDriftDB();
   UserDaoDrift userDaoDrift = UserDaoDrift(db);
   UserUserDaoDrift userUserDaoDrift = UserUserDaoDrift(db);
-  UserLocalDataSourceDrift userLocalDataSourceDrift = UserLocalDataSourceDrift(
-      userDao: userDaoDrift, userUserDao: userUserDaoDrift);
+  UserLocalDataSourceDrift userLocalDataSourceDrift =
+      UserLocalDataSourceDrift(db: db);
   UserRepository userRepository =
       UserRepositoryDrift(localDataSourceDrift: userLocalDataSourceDrift);
 

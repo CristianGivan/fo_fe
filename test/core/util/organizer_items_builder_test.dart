@@ -1,5 +1,4 @@
 import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
-import 'package:fo_fe/features/organizer/util/organizer_items_builder.dart';
 import 'package:test/test.dart';
 
 import '../../helpers/fixtures/elements/organizer_items_getters.dart';

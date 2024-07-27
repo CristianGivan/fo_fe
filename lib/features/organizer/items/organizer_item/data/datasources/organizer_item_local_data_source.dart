@@ -1,7 +1,4 @@
-import 'package:fo_fe/features/organizer/util/id_set.dart';
-import 'package:fo_fe/features/organizer/util/organizer_items.dart';
-
-import '../../domain/entities/organizer_item_entity.dart';
+import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
 
 abstract class OrganizerItemLocalDataSource<T extends OrganizerItemEntity> {
   Future<OrganizerItems<T>> getOrganizerItemsByIdSet(IdSet idSet);

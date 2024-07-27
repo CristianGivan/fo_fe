@@ -1,7 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:fo_fe/core/utils/core_utils_exports.dart';
 import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
-import 'package:fo_fe/features/organizer/util/organizer_sorting.dart';
 
 class OrganizerItemsBuilder<T extends OrganizerItemEntity> extends Equatable {
   // I don't know if it is a good decision but:

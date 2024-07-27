@@ -13,63 +13,52 @@ import 'package:fo_fe/features/organizer/items/user/config/user_exports.dart';
 import '../models/task_mapper.dart';
 
 class TaskLocalDataSourceDrift implements TaskLocalDataSource {
-  final TaskDaoDrift taskDao;
-  final TagDaoDrift tagDao;
-  final ReminderDaoDrift reminderDao;
-  final UserDaoDrift userDao;
-  final TaskTagDaoDrift taskTagDao;
-  final TaskReminderDaoDrift taskReminderDao;
-  final TaskUserDaoDrift taskUserDao;
+  final OrganizerDriftDB db;
 
   TaskLocalDataSourceDrift({
-    required this.taskDao,
-    required this.tagDao,
-    required this.reminderDao,
-    required this.userDao,
-    required this.taskTagDao,
-    required this.taskReminderDao,
-    required this.taskUserDao,
+    required this.db,
   });
 
   // CRUD operations
   Future<int> insertTask(TaskTableDriftCompanion task) {
-    return taskDao.insertTask(task);
+    return db.taskDaoDrift.insertTask(task);
   }
 
   Future<bool> updateTask(TaskTableDriftCompanion task) {
-    return taskDao.updateTask(task);
+    return db.taskDaoDrift.updateTask(task);
   }
 
   Future<int> deleteTask(int taskId) {
-    return taskDao.deleteTask(taskId);
+    return db.taskDaoDrift.deleteTask(taskId);
   }
 
   // Get task by ID without related entities
   Future<TaskModel?> getTaskById(int id) async {
-    final taskTable = await taskDao.getTaskById(id);
+    final taskTable = await db.taskDaoDrift.getTaskById(id);
     return taskTable != null ? TaskMapper.modelFromTableDrift(taskTable) : null;
   }
 
   // Get full lazy-loaded task by ID with all related entities
   Future<TaskModelLazyLoaded?> getTaskByIdLazyLoaded(int id) async {
-    final taskTable = await taskDao.getTaskById(id);
+    final taskTable = await db.taskDaoDrift.getTaskById(id);
     if (taskTable == null) return null;
 
     final creator = taskTable.creatorId != null
-        ? await userDao.getUserById(taskTable.creatorId!)
+        ? await db.userDaoDrift.getUserById(taskTable.creatorId!)
         : null;
 
-    final userIds = await taskUserDao.getUserIdsByTaskId(id);
-    final userTables = await userDao.getUserItemsByIdSet(userIds);
+    final userIds = await db.taskUserDaoDrift.getUserIdsByTaskId(id);
+    final userTables = await db.userDaoDrift.getUserItemsByIdSet(userIds);
     final users = UserMapper.modelItemsFromTableDriftItems(userTables);
 
-    final tagIds = await taskTagDao.getTagIdsByTaskId(id);
-    final tagTables = await tagDao.getTagItemsByTagIdSet(tagIds);
+    final tagIds = await db.taskTagDaoDrift.getTagIdsByTaskId(id);
+    final tagTables = await db.tagDaoDrift.getTagItemsByTagIdSet(tagIds);
     final tags = TagMapper.modelItemsFromTableDriftItems(tagTables);
 
-    final reminderIds = await taskReminderDao.getReminderIdsByTaskId(id);
+    final reminderIds =
+        await db.taskReminderDaoDrift.getReminderIdsByTaskId(id);
     final reminderTables =
-        await reminderDao.getReminderItemsByReminderIdSet(reminderIds);
+        await db.reminderDaoDrift.getReminderItemsByReminderIdSet(reminderIds);
     final reminders =
         ReminderMapper.modelItemsFromTableDriftItems(reminderTables);
 
@@ -84,73 +73,76 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
 
   // Get all task items
   Future<OrganizerItems<TaskModel>> getTaskItemsAll() async {
-    final taskTables = await taskDao.getTaskItemsAll();
+    final taskTables = await db.taskDaoDrift.getTaskItemsAll();
     return TaskMapper.modelItemsFromTableDriftItems(taskTables);
   }
 
   // Get task items by ID set
   Future<OrganizerItems<TaskModel>> getTaskItemsByIdSet(IdSet idSet) async {
-    final taskTables = await taskDao.getTaskItemsByIdSet(idSet.toSet());
+    final taskTables = await db.taskDaoDrift.getTaskItemsByIdSet(idSet.toSet());
     return TaskMapper.modelItemsFromTableDriftItems(taskTables);
   }
 
   // Method to get users by task ID
   Future<OrganizerItems<UserModel>> getUsersByTaskId(int taskId) async {
-    final userIds = await taskUserDao.getUserIdsByTaskId(taskId);
-    final userTables = await userDao.getUserItemsByIdSet(userIds);
+    final userIds = await db.taskUserDaoDrift.getUserIdsByTaskId(taskId);
+    final userTables = await db.userDaoDrift.getUserItemsByIdSet(userIds);
     return UserMapper.modelItemsFromTableDriftItems(userTables);
   }
 
   // Method to get tags by task ID
   Future<OrganizerItems<TagModel>> getTagsByTaskId(int taskId) async {
-    final tagIds = await taskTagDao.getTagIdsByTaskId(taskId);
-    final tagTables = await tagDao.getTagItemsByTagIdSet(tagIds);
+    final tagIds = await db.taskTagDaoDrift.getTagIdsByTaskId(taskId);
+    final tagTables = await db.tagDaoDrift.getTagItemsByTagIdSet(tagIds);
     return TagMapper.modelItemsFromTableDriftItems(tagTables);
   }
 
   // Method to get reminders by task ID
   Future<OrganizerItems<ReminderModel>> getRemindersByTaskId(int taskId) async {
-    final reminderIds = await taskReminderDao.getReminderIdsByTaskId(taskId);
+    final reminderIds =
+        await db.taskReminderDaoDrift.getReminderIdsByTaskId(taskId);
     final reminderTables =
-        await reminderDao.getReminderItemsByReminderIdSet(reminderIds);
+        await db.reminderDaoDrift.getReminderItemsByReminderIdSet(reminderIds);
     return ReminderMapper.modelItemsFromTableDriftItems(reminderTables);
   }
 
   // Method to get creator by ID
   Future<UserModel?> getCreatorById(int creatorId) async {
-    final creator = await userDao.getUserById(creatorId);
+    final creator = await db.userDaoDrift.getUserById(creatorId);
     return creator != null ? UserMapper.modelFromTableDrift(creator) : null;
   }
 
   // Add user to task
   Future<int> addUserToTask(int taskId, int userId) async {
-    return taskUserDao.insertTaskUser(_createTaskUserCompanion(taskId, userId));
+    return db.taskUserDaoDrift
+        .insertTaskUser(_createTaskUserCompanion(taskId, userId));
   }
 
   // Add tag to task
   Future<int> addTagToTask(int taskId, int tagId) async {
-    return taskTagDao.insertTaskTag(_createTaskTagCompanion(taskId, tagId));
+    return db.taskTagDaoDrift
+        .insertTaskTag(_createTaskTagCompanion(taskId, tagId));
   }
 
   // Add reminder to task
   Future<int> addReminderToTask(int taskId, int reminderId) async {
-    return taskReminderDao
+    return db.taskReminderDaoDrift
         .insertTaskReminder(_createTaskReminderCompanion(taskId, reminderId));
   }
 
 // Delete user from task
   Future<int> deleteUserFromTask(int taskId, int userId) async {
-    return taskUserDao.deleteTaskUser(taskId, userId);
+    return db.taskUserDaoDrift.deleteTaskUser(taskId, userId);
   }
 
   // Delete tag from task
   Future<int> deleteTagFromTask(int taskId, int tagId) async {
-    return taskTagDao.deleteTaskTag(taskId, tagId);
+    return db.taskTagDaoDrift.deleteTaskTag(taskId, tagId);
   }
 
   // Delete reminder from task
   Future<int> deleteReminderFromTask(taskId, reminderId) async {
-    return taskReminderDao.deleteTaskReminder(taskId, reminderId);
+    return db.taskReminderDaoDrift.deleteTaskReminder(taskId, reminderId);
   }
 
   TaskTagTableDriftCompanion _createTaskTagCompanion(int taskId, int tagId) {

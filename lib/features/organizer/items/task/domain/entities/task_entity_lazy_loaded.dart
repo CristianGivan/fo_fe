@@ -4,8 +4,6 @@ import 'package:fo_fe/features/organizer/items/tag/config/tag_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/config/task_exports.dart';
 import 'package:fo_fe/features/organizer/items/user/config/user_exports.dart';
 
-import '../../../../util/organizer_enums.dart';
-
 class TaskEntityLazyLoaded extends TaskEntity {
   UserEntity? creator;
   OrganizerItems<UserEntity>? userItems;

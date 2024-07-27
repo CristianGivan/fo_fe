@@ -1,4 +1,5 @@
 import 'package:data_connection_checker_nulls/data_connection_checker_nulls.dart';
+import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
 import 'package:fo_fe/core/utils/core_utils_exports.dart';
 import 'package:fo_fe/features/authentication/config/authentication_exports.dart';
 import 'package:fo_fe/features/organizer/config/organizer_exports.dart';
@@ -10,6 +11,7 @@ final sl = GetIt.instance;
 void appInit() {
   coreInit();
   externalsInit();
+  driftDbInit();
   authenticationInit();
   organizerInit();
 }

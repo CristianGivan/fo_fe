@@ -7,28 +7,26 @@ import 'package:fo_fe/features/organizer/items/user/config/user_exports.dart';
 import '../../../../../../core/db/drift/organizer_drift_exports.dart';
 
 class UserLocalDataSourceDrift implements UserLocalDataSource {
-  final UserDaoDrift userDao;
-  final UserUserDaoDrift userUserDao;
+  final OrganizerDriftDB db;
 
   UserLocalDataSourceDrift({
-    required this.userDao,
-    required this.userUserDao,
+    required this.db,
   });
 
   Future<int> insertUser(UserTableDriftCompanion user) {
-    return userDao.insertUser(user);
+    return db.userDaoDrift.insertUser(user);
   }
 
   Future<bool> updateUser(UserTableDriftCompanion user) {
-    return userDao.updateUser(user);
+    return db.userDaoDrift.updateUser(user);
   }
 
   Future<int> deleteUser(int userId) {
-    return userDao.deleteUser(userId);
+    return db.userDaoDrift.deleteUser(userId);
   }
 
   Future<UserModel> getUserById(int id) async {
-    final userTable = await userDao.getUserById(id);
+    final userTable = await db.userDaoDrift.getUserById(id);
     return userTable != null
         ? UserMapper.modelFromTableDrift(userTable)
         : UserModel.empty();
@@ -36,29 +34,29 @@ class UserLocalDataSourceDrift implements UserLocalDataSource {
 
   // Get all user items
   Future<OrganizerItems<UserModel>> getUserItemsAll() async {
-    final items = await userDao.getUserItemsAll();
+    final items = await db.userDaoDrift.getUserItemsAll();
     return UserMapper.modelItemsFromTableDriftItems(items);
   }
 
   // Get user items by ID set
   Future<OrganizerItems<UserModel>> getUserItemsByIdSet(IdSet idSet) async {
-    final userTables = await userDao.getUserItemsByIdSet(idSet.toSet());
+    final userTables = await db.userDaoDrift.getUserItemsByIdSet(idSet.toSet());
     return UserMapper.modelItemsFromTableDriftItems(userTables);
   }
 
   Future<OrganizerItems<UserModel>> getUserItemsByUserId(int userId) async {
-    final userIds = await userUserDao.getUserIdsByUserId(userId);
-    final userTables = await userDao.getUserItemsByIdSet(userIds);
+    final userIds = await db.userUserDaoDrift.getUserIdsByUserId(userId);
+    final userTables = await db.userDaoDrift.getUserItemsByIdSet(userIds);
     return UserMapper.modelItemsFromTableDriftItems(userTables);
   }
 
   Future<int> addUserToUser(int userLinkedId, int userId) async {
-    return userUserDao
+    return db.userUserDaoDrift
         .insertUserUser(_createUserUserCompanion(userLinkedId, userId));
   }
 
   Future<int> deleteUserFromUser(int userLinkedId, int userId) async {
-    return userUserDao.deleteUserUser(userLinkedId, userId);
+    return db.userUserDaoDrift.deleteUserUser(userLinkedId, userId);
   }
 
   UserUserTableDriftCompanion _createUserUserCompanion(
@@ -72,7 +70,8 @@ class UserLocalDataSourceDrift implements UserLocalDataSource {
   @override
   Future<UserModel> getUserByEmailAndPassword(
       String email, String password) async {
-    final userTable = await userDao.getUserByEmailAndPassword(email, password);
+    final userTable =
+        await db.userDaoDrift.getUserByEmailAndPassword(email, password);
     return userTable != null
         ? UserMapper.modelFromTableDrift(userTable)
         : UserModel.empty();

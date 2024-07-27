@@ -1,13 +1,14 @@
+import 'package:fo_fe/core/db/drift/organizer_drift_db.dart';
 import 'package:fo_fe/features/organizer/items/reminder/config/reminder_exports.dart';
 import 'package:fo_fe/features/organizer/items/reminder/domain/usecases/reminder_usecase_export.dart';
 import 'package:get_it/get_it.dart';
 
-void initReminder() {
-  final sl = GetIt.instance;
+final sl = GetIt.instance;
 
+void reminderInt() {
   // Data sources
   sl.registerLazySingleton<ReminderLocalDataSource>(
-      () => ReminderLocalDataSourceDrift(reminderDaoDrift: sl()));
+      () => ReminderLocalDataSourceDrift(db: sl<OrganizerDriftDB>()));
 
   // Repository
   sl.registerLazySingleton<ReminderRepository>(

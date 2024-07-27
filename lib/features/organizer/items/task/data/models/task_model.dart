@@ -1,5 +1,5 @@
+import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
 import 'package:fo_fe/features/organizer/items/task/config/task_exports.dart';
-import 'package:fo_fe/features/organizer/util/organizer_enums.dart';
 
 class TaskModel extends TaskEntity {
   TaskModel({

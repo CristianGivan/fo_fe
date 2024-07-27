@@ -3,7 +3,6 @@ import 'package:fo_fe/features/organizer/items/reminder/config/reminder_exports.
 import 'package:fo_fe/features/organizer/items/tag/config/tag_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/data/models/task_model.dart';
 import 'package:fo_fe/features/organizer/items/user/config/user_exports.dart';
-import 'package:fo_fe/features/organizer/util/organizer_enums.dart';
 
 class TaskModelLazyLoaded extends TaskModel {
   final UserModel? creator;

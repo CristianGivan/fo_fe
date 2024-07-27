@@ -1,4 +1,4 @@
-import 'package:fo_fe/features/organizer/util/id_set_builder.dart';
+import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
 import 'package:test/test.dart';
 
 void main() {

@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:fo_fe/core/const/constants.dart';
 import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
-import 'package:fo_fe/features/organizer/util/organizer_enums.dart';
 
 class TaskEntity extends OrganizerItemEntity with EquatableMixin {
   final String _subject;

@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
-import 'package:fo_fe/features/organizer/util/id_set_builder.dart';
 
 class IdSet extends Equatable {
   final Set<int> _ids;

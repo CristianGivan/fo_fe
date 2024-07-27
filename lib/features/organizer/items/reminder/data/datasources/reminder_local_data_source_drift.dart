@@ -3,32 +3,32 @@ import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_i
 import 'package:fo_fe/features/organizer/items/reminder/config/reminder_exports.dart';
 
 class ReminderLocalDataSourceDrift implements ReminderLocalDataSource {
-  final ReminderDaoDrift reminderDaoDrift;
+  final OrganizerDriftDB db;
 
-  ReminderLocalDataSourceDrift({required this.reminderDaoDrift});
+  ReminderLocalDataSourceDrift({required this.db});
 
   @override
   Future<int> insertReminder(ReminderEntity reminder) async {
     final reminderCompanion =
         ReminderMapper.tableDriftCompanionFromEntity(reminder);
-    return await reminderDaoDrift.insertReminder(reminderCompanion);
+    return await db.reminderDaoDrift.insertReminder(reminderCompanion);
   }
 
   @override
   Future<bool> updateReminder(ReminderEntity reminder) async {
     final reminderCompanion =
         ReminderMapper.tableDriftCompanionFromEntity(reminder);
-    return await reminderDaoDrift.updateReminder(reminderCompanion);
+    return await db.reminderDaoDrift.updateReminder(reminderCompanion);
   }
 
   @override
   Future<int> deleteReminder(int reminderId) async {
-    return await reminderDaoDrift.deleteReminder(reminderId);
+    return await db.reminderDaoDrift.deleteReminder(reminderId);
   }
 
   @override
   Future<ReminderEntity> getReminderById(int id) async {
-    final reminder = await reminderDaoDrift.getReminderById(id);
+    final reminder = await db.reminderDaoDrift.getReminderById(id);
     return reminder != null
         ? ReminderMapper.entityFromTableDrift(reminder)
         : ReminderEntity.empty();
@@ -36,15 +36,15 @@ class ReminderLocalDataSourceDrift implements ReminderLocalDataSource {
 
   @override
   Future<OrganizerItems<ReminderEntity>> getReminderItemsAll() async {
-    final reminders = await reminderDaoDrift.getReminderItemsAll();
+    final reminders = await db.reminderDaoDrift.getReminderItemsAll();
     return ReminderMapper.modelItemsFromTableDriftItems(reminders);
   }
 
   @override
   Future<OrganizerItems<ReminderEntity>> getReminderItemsByIdSet(
       IdSet idSet) async {
-    final reminders =
-        await reminderDaoDrift.getReminderItemsByReminderIdSet(idSet.toSet());
+    final reminders = await db.reminderDaoDrift
+        .getReminderItemsByReminderIdSet(idSet.toSet());
     return ReminderMapper.entityItemsFromTableDriftItems(reminders);
   }
 }
