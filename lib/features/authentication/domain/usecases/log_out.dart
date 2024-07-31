@@ -10,8 +10,13 @@ class LogoutUseCase extends UseCase<void, LogoutParams> {
   LogoutUseCase(this.authRepository);
 
   @override
+  @override
   Future<Either<Failure, void>> call(LogoutParams params) async {
-    return await authRepository.logout(params.authId);
+    final result = await authRepository.getActiveAuthenticationForDeviceInfo();
+    return await result.fold(
+      (failure) async => Left(failure),
+      (auth) async => await authRepository.logout(auth.id),
+    );
   }
 }
 

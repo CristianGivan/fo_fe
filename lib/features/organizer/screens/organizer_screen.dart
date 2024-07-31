@@ -3,8 +3,8 @@ import 'package:fo_fe/features/authentication/config/authentication_exports.dart
 import 'package:fo_fe/features/organizer/config/organizer_exports.dart';
 import 'package:go_router/go_router.dart';
 
-class Organizer extends StatelessWidget {
-  const Organizer({super.key});
+class OrganizerPage extends StatelessWidget {
+  const OrganizerPage({super.key});
 
   @override
   Widget build(BuildContext context) {

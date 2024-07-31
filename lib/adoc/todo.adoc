@@ -8,4 +8,5 @@
 - [ ] can I use orgenizerItems Lazy loaded insted of Task
 - [ ] userId from AuthenticationTableDriftG is not linking Table?
 - [ ] should not have a different DB for Autehtntication?
-- hassed passord is checke ok at logIn usecase
+- [ ] hassed passord is checke ok at logIn usecase
+- [ ] te log in is not working have a new authentication is done when log in

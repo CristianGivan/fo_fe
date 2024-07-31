@@ -38,12 +38,12 @@ class SignUpUseCase extends UseCase<AuthenticationEntity, SignUpParams> {
                 name: params.name,
                 email: params.email,
                 password: hashingPassword);
-            return authRepository.login(newUser);
+            return authRepository.insertAuthentication(newUser);
           });
         }
 
         // Proceed with authentication for existing user
-        return authRepository.login(user);
+        return authRepository.insertAuthentication(user);
       },
     );
   }

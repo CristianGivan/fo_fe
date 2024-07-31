@@ -31,7 +31,7 @@ class LoginUseCase extends UseCase<AuthenticationEntity, LoginParams> {
         }
 
         // Proceed with authentication
-        return await authRepository.login(user);
+        return await authRepository.insertAuthentication(user);
       },
     );
   }

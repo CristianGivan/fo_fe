@@ -4,6 +4,6 @@ export 'delete_user_from_user.dart';
 export 'get_user_by_id.dart';
 export 'get_user_items_all.dart';
 export 'get_user_items_by_id_set.dart';
-export 'get_user_list_by_user_id.dart';
+export 'get_user_items_by_user_id.dart';
 export 'insert_user.dart';
 export 'update_user.dart';

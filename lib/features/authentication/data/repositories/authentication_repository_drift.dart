@@ -17,7 +17,7 @@ class AuthenticationRepositoryDrift implements AuthenticationRepository {
   });
 
   @override
-  Future<Either<Failure, AuthenticationEntity>> login(UserEntity user) async {
+  Future<Either<Failure, AuthenticationEntity>> insertAuthentication(UserEntity user) async {
     try {
       // Simulate remote login (replace with actual remote call in the future)
       final token = TokenManager.generateToken(); // Generate token
