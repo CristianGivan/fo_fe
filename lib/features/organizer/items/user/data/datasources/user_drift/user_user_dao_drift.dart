@@ -1,5 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
+import 'package:fo_fe/features/organizer/items/user/config/user_exports.dart';
 
 part 'user_user_dao_drift.g.dart';
 

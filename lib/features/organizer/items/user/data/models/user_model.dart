@@ -26,6 +26,11 @@ class UserModel extends UserEntity with EquatableMixin {
       );
 
   @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [id, name, email, hashedPassword];
+
+  // You can also override toString if needed for better logging/debugging:
+  @override
+  String toString() {
+    return 'UserModel{id: $id, name: $name, email: $email, hashedPassword: $hashedPassword}';
+  }
 }

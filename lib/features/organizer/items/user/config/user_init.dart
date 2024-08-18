@@ -16,12 +16,15 @@ void userInit() {
       ));
 
   // User Use cases
-  sl.registerLazySingleton(() => InsertUser(sl()));
-  sl.registerLazySingleton(() => UpdateUser(sl()));
+  sl.registerLazySingleton(() => AddUserToUser(sl()));
   sl.registerLazySingleton(() => DeleteUser(sl()));
+  sl.registerLazySingleton(() => DeleteUserFromUser(sl()));
   sl.registerLazySingleton(() => GetUserById(sl()));
   sl.registerLazySingleton(() => GetUserItemsAll(sl()));
   sl.registerLazySingleton(() => GetUserItemsByIdSet(sl()));
+  sl.registerLazySingleton(() => GetUserItemsByUserId(sl()));
+  sl.registerLazySingleton(() => InsertUser(sl()));
+  sl.registerLazySingleton(() => UpdateUser(sl()));
 
   // User BLoCs
   sl.registerFactory(() => UserBlocUser(

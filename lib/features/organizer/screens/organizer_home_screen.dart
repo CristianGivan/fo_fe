@@ -74,6 +74,13 @@ class OrganizerHome extends StatelessWidget {
               child: const Text('Authentication'),
             ),
           ),
+          const SizedBox(height: 10),
+          Center(
+            child: ElevatedButton(
+              onPressed: () => context.push('/user'),
+              child: const Text('User'),
+            ),
+          ),
           const Center(
             child: TextField(
               decoration: InputDecoration(

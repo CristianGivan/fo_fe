@@ -32,6 +32,10 @@ class UserEntity extends OrganizerItemEntity with EquatableMixin {
   String get hashedPassword => _hashedPassword;
 
   @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [id, name, email, hashedPassword];
+
+  @override
+  String toString() {
+    return 'UserModel{id: $id, name: $name, email: $email, hashedPassword: $hashedPassword}';
+  }
 }

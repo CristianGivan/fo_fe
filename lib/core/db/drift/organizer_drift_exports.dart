@@ -1,8 +1,3 @@
-export 'package:fo_fe/features/organizer/items/user/data/datasources/user_drift/user_dao_drift.dart';
-export 'package:fo_fe/features/organizer/items/user/data/datasources/user_drift/user_table_drift.dart';
-export 'package:fo_fe/features/organizer/items/user/data/datasources/user_drift/user_user_dao_drift.dart';
-export 'package:fo_fe/features/organizer/items/user/data/datasources/user_drift/user_user_table_drift.dart';
-
 export 'authentication/authentication_dao_drift.dart';
 export 'authentication/authentication_table_drift.dart';
 export 'drift_db_init.dart';
