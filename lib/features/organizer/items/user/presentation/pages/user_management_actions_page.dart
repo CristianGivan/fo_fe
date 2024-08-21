@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fo_fe/features/organizer/items/user/config/user_exports.dart';
 import 'package:go_router/go_router.dart';
 
 class UserManagementActionsPage extends StatelessWidget {
@@ -27,7 +26,9 @@ class UserManagementActionsPage extends StatelessWidget {
           SizedBox(width: 16),
           ElevatedButton(
             onPressed: () {
-              context.push(UserRouterNames.addUsersFromAllUsersRoute);
+              context.push(
+                '/user/add-users/$userId', // Assuming `userId` is already an integer
+              );
             },
             child: Text('Add Users'),
           ),

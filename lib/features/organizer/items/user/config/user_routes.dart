@@ -22,10 +22,14 @@ class UserAppBranch {
       routes: [
         GoRoute(
           name: UserRouterNames.addUsersFromAllUsersRoute,
-          path: 'add-users',
-          pageBuilder: (context, state) => NoTransitionPage(
-            child: AddUsersFromAllUsersScreen(),
-          ),
+          path: 'add-users/:userId',
+          pageBuilder: (context, state) {
+            // Accessing 'userId' from state.pathParameters
+            final userId = int.parse(state.pathParameters['userId']!);
+            return NoTransitionPage(
+              child: AddUsersFromAllUsersScreen(userId: userId),
+            );
+          },
         ),
         // GoRoute(
         //   name: UserRouterNames.userSettingsRoute,

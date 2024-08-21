@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fo_fe/core/utils/core_utils_exports.dart';
-import 'package:fo_fe/features/authentication/config/authentication_exports.dart';
 import 'package:fo_fe/features/organizer/items/user/config/user_exports.dart';
 
 class AddUsersFromAllUsersScreen extends StatefulWidget {
+  final int userId;
+
+  const AddUsersFromAllUsersScreen({super.key, required this.userId});
+
   @override
   _AddUsersFromAllUsersScreenState createState() =>
       _AddUsersFromAllUsersScreenState();
@@ -31,33 +33,19 @@ class _AddUsersFromAllUsersScreenState
     });
   }
 
-//todo cg this logic shall be here?
+  // Accessing userId from the superclass (AddUsersFromAllUsersScreen)
   Future<void> _addSelectedUsers() async {
-    final authenticationBloc = context.read<AuthenticationBlocSession>();
-    // Create an instance of DeviceInfo
-    final deviceInfo = DeviceInfo();
+    final userId = widget.userId; // Accessing userId from the widget instance
 
-    authenticationBloc.add(GetLoggedInUserIdBlocEvent(deviceInfo: deviceInfo));
-
-    final state = await authenticationBloc.stream.firstWhere((state) =>
-        state is AuthenticationUserIdLoaded ||
-        state is AuthenticationSessionError);
-
-    if (state is AuthenticationUserIdLoaded) {
-      final loggedInUserId = state.userId;
-
-      for (var user in _selectedUsers) {
-        context.read<UserBlocUser>().add(AddUserToUserBlocEvent(
-            userLinkedId: user.id, userId: loggedInUserId));
-      }
-
-      // Navigate back to the previous screen (UserScreen)
-      Navigator.of(context).pop();
-    } else {
-      // Handle error state, show a message, etc.
-      ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to get logged-in user ID')));
+    for (var user in _selectedUsers) {
+      context.read<UserBlocUser>().add(AddUserToUserBlocEvent(
+            userLinkedId: user.id,
+            userId: userId,
+          ));
     }
+
+    // Navigate back to the previous screen (UserScreen)
+    Navigator.of(context).pop();
   }
 
   @override
@@ -76,7 +64,7 @@ class _AddUsersFromAllUsersScreenState
         builder: (context, state) {
           if (state is UserBlocLoading) {
             return Center(child: CircularProgressIndicator());
-          } else if (state is UserBlocItemsLoaded) {
+          } else if (state is UserBlocAllItemsLoadedState) {
             return ListView.builder(
               itemCount: state.users.size(),
               itemBuilder: (context, index) {
@@ -92,10 +80,10 @@ class _AddUsersFromAllUsersScreenState
                 );
               },
             );
-          } else if (state is UserBlocError) {
+          } else if (state is UserBlocErrorState) {
             return Center(child: Text('Failed to load users'));
           }
-          return Container();
+          return Center(child: Text('???'));
         },
       ),
     );

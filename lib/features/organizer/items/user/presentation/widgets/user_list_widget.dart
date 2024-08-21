@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fo_fe/features/organizer/items/user/config/user_exports.dart';
 import 'package:fo_fe/features/organizer/items/user/presentation/widgets/user_item_widget.dart';
 
 class UserListWidget extends StatelessWidget {
@@ -8,28 +10,30 @@ class UserListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        UserItemWidget(userName: 'John Doe', email: 'john@example.com'),
-        UserItemWidget(userName: 'Jane Smith', email: 'jane@example.com'),
-        UserItemWidget(userName: 'Jane Smith', email: 'jane@example.com'),
-        UserItemWidget(userName: 'Jane Smith', email: 'jane@example.com'),
-        UserItemWidget(userName: 'Jane Smith', email: 'jane@example.com'),
-        UserItemWidget(userName: 'Jane Smith', email: 'jane@example.com'),
-        UserItemWidget(userName: 'Jane Smith', email: 'jane@example.com'),
-        UserItemWidget(userName: 'Jane Smith', email: 'jane@example.com'),
-        UserItemWidget(userName: 'Jane Smith', email: 'jane@example.com'),
-        UserItemWidget(userName: 'Jane Smith', email: 'jane@example.com'),
-        UserItemWidget(userName: 'Jane Smith', email: 'jane@example.com'),
-        UserItemWidget(userName: 'Jane Smith', email: 'jane@example.com'),
-        UserItemWidget(userName: 'Jane Smith', email: 'jane@example.com'),
-        UserItemWidget(userName: 'Jane Smith', email: 'jane@example.com'),
-        UserItemWidget(userName: 'Jane Smith', email: 'jane@example.com'),
-        UserItemWidget(userName: 'Jane Smith', email: 'jane@example.com'),
-        UserItemWidget(userName: 'Jane Smith', email: 'jane@example.com'),
-        UserItemWidget(userName: 'Jane Smith', email: 'jane@example.com'),
-        UserItemWidget(userName: 'Jane Smith', email: 'jane@example.com'),
-      ],
+    // Dispatch the event to fetch users linked to userId
+    context
+        .read<UserBlocUser>()
+        .add(GetUserItemsByUserIdBlocEvent(userId: userId));
+
+    return BlocBuilder<UserBlocUser, UserBlocState>(
+      builder: (context, state) {
+        if (state is UserBlocLoading) {
+          return Center(child: CircularProgressIndicator());
+        } else if (state is UserBlocItemsLoadedState) {
+          final users = state.users;
+
+          return ListView.builder(
+            itemCount: users.size(),
+            itemBuilder: (context, index) {
+              final user = users.getAt(index);
+              return UserItemWidget(userName: user.name, email: user.email);
+            },
+          );
+        } else if (state is UserBlocErrorState) {
+          return Center(child: Text('Failed to load users'));
+        }
+        return Container(); // Fallback if state is not recognized
+      },
     );
   }
 }
