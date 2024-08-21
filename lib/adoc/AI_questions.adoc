@@ -7,3 +7,8 @@ Ca you help me to create a add_users_from_all_users_screen where I have to call 
 240815
 
 Ca you help me with,creating an UI for user that will have 3 sections at the top a short description of the log in user below a page with a list of all users that are linked with the current user,and below page where there it can be filter the list above or searched in it or can be added another user to this user list form a list with all users
+
+240821
+
+Can you help me with an screen with that will look like in the image attached
+

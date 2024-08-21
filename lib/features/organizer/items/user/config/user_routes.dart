@@ -31,13 +31,6 @@ class UserAppBranch {
             );
           },
         ),
-        // GoRoute(
-        //   name: UserRouterNames.userSettingsRoute,
-        //   path: 'settings',
-        //   pageBuilder: (context, state) => NoTransitionPage(
-        //     child: UserSettingsScreen(),
-        //   ),
-        // ),
       ],
     );
   }
