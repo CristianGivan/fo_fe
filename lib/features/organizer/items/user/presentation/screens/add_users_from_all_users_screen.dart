@@ -61,6 +61,10 @@ class _AddUsersFromAllUsersScreenState
         ],
       ),
       body: BlocBuilder<UserBlocUser, UserBlocState>(
+        buildWhen: (previous, current) {
+          // Only rebuild if the current state is UserBlocLoadedState
+          return current is UserBlocAllItemsLoadedState;
+        },
         builder: (context, state) {
           if (state is UserBlocLoading) {
             return Center(child: CircularProgressIndicator());
