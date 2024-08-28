@@ -8,3 +8,10 @@ const Map<String, TaskStatus> taskStatusMap = {
   'PENDING': TaskStatus.pending,
   'COMPLETED': TaskStatus.completed,
 };
+const Map<TaskStatus, String> taskStatusToStringMap = {
+  TaskStatus.undefined: 'UNDEFINE',
+  TaskStatus.started: 'STARTED',
+  TaskStatus.working: 'WORKING',
+  TaskStatus.pending: 'PENDING',
+  TaskStatus.completed: 'COMPLETED',
+};

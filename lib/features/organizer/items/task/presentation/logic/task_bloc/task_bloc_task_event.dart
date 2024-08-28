@@ -16,7 +16,7 @@ class GetTaskByIdBlocEvent extends TaskBlocTaskEvent {
   List<Object> get props => [taskId];
 }
 
-class LoadTaskItemsAllBlocEvent extends TaskBlocTaskEvent {}
+class GetTaskItemsAllBlocEvent extends TaskBlocTaskEvent {}
 
 class LoadTaskItemsByIdSetBlocEvent extends TaskBlocTaskEvent {
   final IdSet idSet;

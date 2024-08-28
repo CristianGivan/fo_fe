@@ -10,6 +10,9 @@ LazyDatabase connect() {
     final dbFolderPath = p.join(projectDir, 'lib', 'core', 'db', 'test_db');
     await Directory(dbFolderPath).create(recursive: true);
     final file = File(p.join(dbFolderPath, 'OrganizerDBDrift.sqlite'));
-    return NativeDatabase.createInBackground(file);
+    return NativeDatabase.createInBackground(
+      file,
+      logStatements: true, // Enable SQL logging);
+    );
   });
 }

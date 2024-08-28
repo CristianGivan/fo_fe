@@ -21,17 +21,16 @@ class TaskAppBranch {
         child: TaskScreen(),
       ),
       routes: [
-        // GoRoute(
-        //   name: TaskRouterNames.addTasksFromAllTasksRoute,
-        //   path: 'add-users/:userId',
-        //   pageBuilder: (context, state) {
-        //     // Accessing 'userId' from state.pathParameters
-        //     final userId = int.parse(state.pathParameters['userId']!);
-        //     return NoTransitionPage(
-        //       child: AddTasksFromAllTasksScreen(userId: userId),
-        //     );
-        //   },
-        // ),
+        GoRoute(
+          name: TaskRouterNames.taskAddRoute,
+          path: 'task_add',
+          pageBuilder: (context, state) {
+            // Accessing 'userId' from state.pathParameters
+            return NoTransitionPage(
+              child: TaskAddScreen(),
+            );
+          },
+        ),
       ],
     );
   }

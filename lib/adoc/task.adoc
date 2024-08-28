@@ -1,0 +1,6 @@
+- in the task view if
+.. I long press edit task
+.. on tap view the task
+.. swipe to left downgrade status
+.. swipe to right upgrade status
+
