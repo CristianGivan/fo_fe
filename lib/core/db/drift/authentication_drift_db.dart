@@ -1,7 +1,8 @@
 import 'package:drift/drift.dart';
+import 'package:flutter/foundation.dart';
 import 'package:fo_fe/core/db/drift_db.dart';
 
-import 'connection/authentication_db_dev.dart' as authentication_db_dev;
+import 'connection/db_connection1.dart';
 import 'organizer_drift_exports.dart';
 
 part 'authentication_drift_db.g.dart';
@@ -12,7 +13,11 @@ part 'authentication_drift_db.g.dart';
   AuthenticationDaoDrift,
 ])
 class AuthenticationDriftDB extends _$AuthenticationDriftDB implements DriftDB {
-  AuthenticationDriftDB() : super(authentication_db_dev.connect());
+  AuthenticationDriftDB()
+      : super(connect(
+          'AuthenticationDBDrift.sqlite',
+          logStatements: kDebugMode,
+        ));
 
   @override
   int get schemaVersion => 1;
