@@ -8,6 +8,6 @@ void driftDbInit({bool isDev = false}) {
   final organizerDb = OrganizerDriftDB(isDev: isDev);
   sl.registerSingleton<OrganizerDriftDB>(organizerDb);
 
-  final authenticationDb = AuthenticationDriftDB();
+  final authenticationDb = AuthenticationDriftDB(isDev: isDev);
   sl.registerSingleton<AuthenticationDriftDB>(authenticationDb);
 }
