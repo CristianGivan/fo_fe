@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
-import 'package:fo_fe/core/db/drift/connection/db_connection_drift_dev.dart'
-    as dev_connection;
+import 'package:flutter/foundation.dart';
+import 'package:fo_fe/core/db/drift/connection/db_connection_drift.dart';
 import 'package:fo_fe/features/organizer/items/user/config/user_exports.dart';
 
 import 'organizer_drift_exports.dart';
@@ -29,11 +29,7 @@ part 'organizer_drift_db.g.dart';
   TagDaoDrift,
 ])
 class OrganizerDriftDB extends _$OrganizerDriftDB {
-  OrganizerDriftDB({bool isDev = false})
-      : super(dev_connection.connect(
-          'OrganizerDBDrift.sqlite',
-          logStatements: true,
-        ));
+  OrganizerDriftDB({bool isDev = false}) : super(_openConnection(isDev: isDev));
 
   @override
   int get schemaVersion => 1;
@@ -45,4 +41,15 @@ class OrganizerDriftDB extends _$OrganizerDriftDB {
         },
         onUpgrade: (Migrator m, int from, int to) async {},
       );
+
+  static LazyDatabase _openConnection({bool isDev = false}) {
+    return LazyDatabase(() async {
+      final connection = await connect(
+        'OrganizerDBDrift.sqlite',
+        logStatements: kDebugMode,
+        isDev: isDev,
+      );
+      return connection.executor;
+    });
+  }
 }
