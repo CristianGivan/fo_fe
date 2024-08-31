@@ -64,8 +64,6 @@ class TaskCardPage extends StatelessWidget {
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                     ),
-                    _buildTaskStatus("Status", task.taskStatus),
-                    SizedBox(width: 8),
                     IconButton(
                       icon: Icon(Icons.delete, color: Colors.red),
                       onPressed: () => _showDeleteConfirmation(context),
@@ -73,15 +71,37 @@ class TaskCardPage extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 8.0),
-                Row(
-                  children: [
-                    _buildTaskDateRow("Start Date", task.startDate),
-                    SizedBox(width: 10),
-                    _buildTaskDateRow("End Date", task.endDate),
-                    SizedBox(width: 10),
-                    _buildTaskProgress("Progress", task.workingProgress),
-                  ],
-                ),
+                Row(children: [
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                              child:
+                                  _buildTaskStatus("Status", task.taskStatus),
+                            ),
+                            SizedBox(width: 10),
+                            Expanded(
+                              child: _buildTaskDateRow(
+                                  "Start Date", task.startDate),
+                            ),
+                            SizedBox(width: 10),
+                            Expanded(
+                              child:
+                                  _buildTaskDateRow("End Date", task.endDate),
+                            ),
+                            SizedBox(width: 10),
+                            Expanded(
+                              child: _buildTaskProgress(
+                                  "Progress", task.workingProgress),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )
+                ])
               ],
             ),
           ),
@@ -156,7 +176,7 @@ class TaskCardPage extends StatelessWidget {
   }
 
   Widget _buildTaskDateRow(String label, DateTime? date) {
-    return Row(
+    return Column(
       children: [
         Text(
           '$label: ',
@@ -164,13 +184,14 @@ class TaskCardPage extends StatelessWidget {
         ),
         Text(
           date != null ? date.toLocal().toString().split(' ')[0] : 'N/A',
+          overflow: TextOverflow.ellipsis,
         ),
       ],
     );
   }
 
   Widget _buildTaskProgress(String label, double? progress) {
-    return Row(
+    return Column(
       children: [
         Text(
           '$label: ',
@@ -178,13 +199,15 @@ class TaskCardPage extends StatelessWidget {
         ),
         Text(
           progress != null ? '${(progress * 100).toStringAsFixed(2)}%' : 'N/A',
+          overflow: TextOverflow.ellipsis,
         ),
       ],
     );
   }
 
   Widget _buildTaskStatus(String label, TaskStatus? status) {
-    return Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           '$label: ',
@@ -192,6 +215,7 @@ class TaskCardPage extends StatelessWidget {
         ),
         Text(
           status != null ? status.toString().split('.').last : 'N/A',
+          overflow: TextOverflow.ellipsis,
         ),
       ],
     );
