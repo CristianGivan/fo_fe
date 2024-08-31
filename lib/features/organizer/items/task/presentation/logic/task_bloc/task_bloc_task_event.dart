@@ -7,48 +7,48 @@ abstract class TaskBlocTaskEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GetTaskByIdBlocEvent extends TaskBlocTaskEvent {
+class TaskGetByIdBlocEvent extends TaskBlocTaskEvent {
   final int taskId;
 
-  GetTaskByIdBlocEvent(this.taskId);
+  TaskGetByIdBlocEvent(this.taskId);
 
   @override
   List<Object> get props => [taskId];
 }
 
-class GetTaskItemsAllBlocEvent extends TaskBlocTaskEvent {}
+class TaskGetItemsAllBlocEvent extends TaskBlocTaskEvent {}
 
-class LoadTaskItemsByIdSetBlocEvent extends TaskBlocTaskEvent {
+class TaskLoadItemsByIdSetBlocEvent extends TaskBlocTaskEvent {
   final IdSet idSet;
 
-  LoadTaskItemsByIdSetBlocEvent(this.idSet);
+  TaskLoadItemsByIdSetBlocEvent(this.idSet);
 
   @override
   List<Object> get props => [idSet];
 }
 
-class AddTaskBlocEvent extends TaskBlocTaskEvent {
+class TaskAddBlocEvent extends TaskBlocTaskEvent {
   final TaskEntity task;
 
-  AddTaskBlocEvent(this.task);
+  TaskAddBlocEvent(this.task);
 
   @override
   List<Object> get props => [task];
 }
 
-class UpdateTaskBlocEvent extends TaskBlocTaskEvent {
+class TaskUpdateBlocEvent extends TaskBlocTaskEvent {
   final TaskEntity task;
 
-  UpdateTaskBlocEvent(this.task);
+  TaskUpdateBlocEvent(this.task);
 
   @override
   List<Object> get props => [task];
 }
 
-class DeleteTaskBlocEvent extends TaskBlocTaskEvent {
+class TaskDeleteBlocEvent extends TaskBlocTaskEvent {
   final int taskId;
 
-  DeleteTaskBlocEvent(this.taskId);
+  TaskDeleteBlocEvent(this.taskId);
 
   @override
   List<Object> get props => [taskId];

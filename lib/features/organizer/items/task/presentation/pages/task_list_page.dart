@@ -8,7 +8,7 @@ import 'package:fo_fe/features/organizer/items/task/presentation/screens/task_ed
 class TaskListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    context.read<TaskBlocTask>().add(GetTaskItemsAllBlocEvent());
+    context.read<TaskBlocTask>().add(TaskGetItemsAllBlocEvent());
 
     return BlocBuilder<TaskBlocTask, TaskBlocState>(
       builder: (context, state) {
@@ -27,7 +27,7 @@ class TaskListPage extends StatelessWidget {
                       onUpdateTask: (updatedTask) {
                         context
                             .read<TaskBlocTask>()
-                            .add(UpdateTaskBlocEvent(updatedTask));
+                            .add(TaskUpdateBlocEvent(updatedTask));
                       },
                       onViewTask: () {
                         Navigator.push(
@@ -46,7 +46,7 @@ class TaskListPage extends StatelessWidget {
                       onDeleteTask: (task) {
                         context
                             .read<TaskBlocTask>()
-                            .add(DeleteTaskBlocEvent(task.id));
+                            .add(TaskDeleteBlocEvent(task.id));
                       },
                     );
                   },

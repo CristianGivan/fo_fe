@@ -178,7 +178,7 @@ class _AddTaskScreenState extends State<TaskAddScreen> {
                           : null,
                     );
                     BlocProvider.of<TaskBlocTask>(context)
-                        .add(AddTaskBlocEvent(task));
+                        .add(TaskAddBlocEvent(task));
                     Navigator.pop(context);
                   }
                 },

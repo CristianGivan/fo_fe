@@ -16,16 +16,16 @@ class TaskBlocTask extends Bloc<TaskBlocTaskEvent, TaskBlocState> {
     required this.updateTask,
     required this.deleteTask,
   }) : super(TaskInitialBlocState()) {
-    on<GetTaskByIdBlocEvent>(_onGetTaskByIdBlocEvent);
-    on<GetTaskItemsAllBlocEvent>(_onLoadTaskItemsAllBlocEvent);
-    on<LoadTaskItemsByIdSetBlocEvent>(_onLoadTaskItemsByIdSetBlocEvent);
-    on<AddTaskBlocEvent>(_onAddTaskBlocEvent);
-    on<UpdateTaskBlocEvent>(_onUpdateTaskBlocEvent);
-    on<DeleteTaskBlocEvent>(_onDeleteTaskBlocEvent);
+    on<TaskGetByIdBlocEvent>(_onGetTaskByIdBlocEvent);
+    on<TaskGetItemsAllBlocEvent>(_onLoadTaskItemsAllBlocEvent);
+    on<TaskLoadItemsByIdSetBlocEvent>(_onLoadTaskItemsByIdSetBlocEvent);
+    on<TaskAddBlocEvent>(_onAddTaskBlocEvent);
+    on<TaskUpdateBlocEvent>(_onUpdateTaskBlocEvent);
+    on<TaskDeleteBlocEvent>(_onDeleteTaskBlocEvent);
   }
 
   void _onGetTaskByIdBlocEvent(
-    GetTaskByIdBlocEvent event,
+    TaskGetByIdBlocEvent event,
     Emitter<TaskBlocState> emit,
   ) async {
     emit(TaskLoadingBlocState());
@@ -38,7 +38,7 @@ class TaskBlocTask extends Bloc<TaskBlocTaskEvent, TaskBlocState> {
   }
 
   void _onLoadTaskItemsAllBlocEvent(
-    GetTaskItemsAllBlocEvent event,
+    TaskGetItemsAllBlocEvent event,
     Emitter<TaskBlocState> emit,
   ) async {
     emit(TaskLoadingBlocState());
@@ -50,7 +50,7 @@ class TaskBlocTask extends Bloc<TaskBlocTaskEvent, TaskBlocState> {
   }
 
   void _onLoadTaskItemsByIdSetBlocEvent(
-    LoadTaskItemsByIdSetBlocEvent event,
+    TaskLoadItemsByIdSetBlocEvent event,
     Emitter<TaskBlocState> emit,
   ) async {
     emit(TaskLoadingBlocState());
@@ -63,7 +63,7 @@ class TaskBlocTask extends Bloc<TaskBlocTaskEvent, TaskBlocState> {
   }
 
   void _onAddTaskBlocEvent(
-    AddTaskBlocEvent event,
+    TaskAddBlocEvent event,
     Emitter<TaskBlocState> emit,
   ) async {
     emit(TaskLoadingBlocState());
@@ -73,11 +73,11 @@ class TaskBlocTask extends Bloc<TaskBlocTaskEvent, TaskBlocState> {
       (failure) => TaskErrorBlocState(message: _mapFailureToMessage(failure)),
       (success) => TaskAddedBlocState(),
     ));
-    add(GetTaskItemsAllBlocEvent()); // Refresh the task list
+    add(TaskGetItemsAllBlocEvent()); // Refresh the task list
   }
 
   void _onUpdateTaskBlocEvent(
-    UpdateTaskBlocEvent event,
+    TaskUpdateBlocEvent event,
     Emitter<TaskBlocState> emit,
   ) async {
     emit(TaskLoadingBlocState());
@@ -87,11 +87,11 @@ class TaskBlocTask extends Bloc<TaskBlocTaskEvent, TaskBlocState> {
       (failure) => TaskErrorBlocState(message: _mapFailureToMessage(failure)),
       (success) => TaskUpdatedBlocState(),
     ));
-    add(GetTaskItemsAllBlocEvent()); // Refresh the task list
+    add(TaskGetItemsAllBlocEvent()); // Refresh the task list
   }
 
   void _onDeleteTaskBlocEvent(
-    DeleteTaskBlocEvent event,
+    TaskDeleteBlocEvent event,
     Emitter<TaskBlocState> emit,
   ) async {
     emit(TaskLoadingBlocState());
@@ -101,6 +101,6 @@ class TaskBlocTask extends Bloc<TaskBlocTaskEvent, TaskBlocState> {
       (failure) => TaskErrorBlocState(message: _mapFailureToMessage(failure)),
       (success) => TaskDeletedBlocState(),
     ));
-    add(GetTaskItemsAllBlocEvent()); // Refresh the task list
+    add(TaskGetItemsAllBlocEvent()); // Refresh the task list
   }
 }
