@@ -24,23 +24,21 @@ class TaskCardPage extends StatelessWidget {
       child: Dismissible(
         key: Key(task.id.toString()),
         direction: DismissDirection.horizontal,
-        onDismissed: (direction) {
+        confirmDismiss: (direction) async {
           TaskStatus newStatus = task.taskStatus!;
           if (direction == DismissDirection.startToEnd) {
-            // Swiped right, increase status
             newStatus = _incrementStatus(task.taskStatus!);
           } else if (direction == DismissDirection.endToStart) {
-            // Swiped left, decrease status
             newStatus = _decrementStatus(task.taskStatus!);
           }
 
-          // Update the task with the new status
-          onUpdateTask(task.copyWith(taskStatus: newStatus));
+          final updatedTask = task.copyWith(taskStatus: newStatus);
+          onUpdateTask(updatedTask);
 
-          // Show a snackbar or similar to inform the user
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('Task status updated to $newStatus')),
           );
+          return false;
         },
         background:
             _buildSwipeActionBackground(Icons.arrow_forward, Colors.green),
@@ -54,7 +52,6 @@ class TaskCardPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Row to push _buildTaskStatus to the right
                 Row(
                   children: [
                     Text(
