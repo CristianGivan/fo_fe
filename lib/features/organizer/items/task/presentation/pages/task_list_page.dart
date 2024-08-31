@@ -25,7 +25,6 @@ class TaskListPage extends StatelessWidget {
                     return TaskCardPage(
                       task: task,
                       onUpdateTask: (updatedTask) {
-                        // Dispatch an event to update the task in the state
                         context
                             .read<TaskBlocTask>()
                             .add(UpdateTaskBlocEvent(updatedTask));
@@ -43,6 +42,11 @@ class TaskListPage extends StatelessWidget {
                           MaterialPageRoute(
                               builder: (context) => TaskEditScreen(task: task)),
                         );
+                      },
+                      onDeleteTask: (task) {
+                        context
+                            .read<TaskBlocTask>()
+                            .add(DeleteTaskBlocEvent(task.id));
                       },
                     );
                   },

@@ -7,6 +7,7 @@ class TaskCardPage extends StatelessWidget {
   final Function(TaskEntity) onUpdateTask;
   final Function() onViewTask;
   final Function() onEditTask;
+  final Function(TaskEntity) onDeleteTask; // Add this line
 
   const TaskCardPage({
     Key? key,
@@ -14,6 +15,7 @@ class TaskCardPage extends StatelessWidget {
     required this.onUpdateTask,
     required this.onViewTask,
     required this.onEditTask,
+    required this.onDeleteTask, // Add this line
   }) : super(key: key);
 
   @override
@@ -38,6 +40,7 @@ class TaskCardPage extends StatelessWidget {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('Task status updated to $newStatus')),
           );
+
           return false;
         },
         background:
@@ -54,13 +57,19 @@ class TaskCardPage extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Text(
-                      task.subject,
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    Expanded(
+                      child: Text(
+                        task.subject,
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
                     ),
-                    Spacer(),
                     _buildTaskStatus("Status", task.taskStatus),
+                    SizedBox(width: 8),
+                    IconButton(
+                      icon: Icon(Icons.delete, color: Colors.red),
+                      onPressed: () => _showDeleteConfirmation(context),
+                    ),
                   ],
                 ),
                 SizedBox(height: 8.0),
@@ -78,6 +87,31 @@ class TaskCardPage extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  void _showDeleteConfirmation(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Delete Task"),
+          content: Text("Are you sure you want to delete this task?"),
+          actions: <Widget>[
+            TextButton(
+              child: Text("Cancel"),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+            TextButton(
+              child: Text("Delete"),
+              onPressed: () {
+                onDeleteTask(task);
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 
