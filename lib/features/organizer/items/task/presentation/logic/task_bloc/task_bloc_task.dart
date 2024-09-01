@@ -7,6 +7,8 @@ class TaskBlocTask extends Bloc<TaskBlocTaskEvent, TaskBlocState> {
   final InsertTask insertTask;
   final UpdateTask updateTask;
   final DeleteTask deleteTask;
+  final TaskSortUseCase sortTasksUseCase;
+  final TaskFilterUseCase filterTasksUseCase;
 
   TaskBlocTask({
     required this.getTaskById,
@@ -15,9 +17,13 @@ class TaskBlocTask extends Bloc<TaskBlocTaskEvent, TaskBlocState> {
     required this.insertTask,
     required this.updateTask,
     required this.deleteTask,
+    required this.sortTasksUseCase,
+    required this.filterTasksUseCase,
   }) : super(TaskInitialBlocState()) {
     on<TaskGetByIdBlocEvent>(_onGetTaskByIdBlocEvent);
     on<TaskGetItemsAllBlocEvent>(_onLoadTaskItemsAllBlocEvent);
+    on<TaskItemsSortBlocEvent>(_onTaskItemsSortBlocEvent);
+    on<TaskItemsFilterBlocEvent>(_onTaskItemsFilterBlocEvent);
     on<TaskLoadItemsByIdSetBlocEvent>(_onLoadTaskItemsByIdSetBlocEvent);
     on<TaskAddBlocEvent>(_onAddTaskBlocEvent);
     on<TaskUpdateBlocEvent>(_onUpdateTaskBlocEvent);
@@ -33,7 +39,9 @@ class TaskBlocTask extends Bloc<TaskBlocTaskEvent, TaskBlocState> {
         await getTaskById(GetTaskByIdParams(id: event.taskId));
     emit(failureOrTask.fold(
       (failure) => TaskErrorBlocState(message: _mapFailureToMessage(failure)),
-      (task) => TaskLoadedBlocState(OrganizerItems.of([task])),
+      (task) => TaskLoadedBlocState(
+          originalTasks: OrganizerItems.of([task]),
+          displayedTasks: OrganizerItems.of([task])),
     ));
   }
 
@@ -45,8 +53,53 @@ class TaskBlocTask extends Bloc<TaskBlocTaskEvent, TaskBlocState> {
     final failureOrTasks = await getTaskItemsAll(NoParams());
     emit(failureOrTasks.fold(
       (failure) => TaskErrorBlocState(message: _mapFailureToMessage(failure)),
-      (tasks) => TaskLoadedBlocState(tasks),
+      (tasks) =>
+          TaskLoadedBlocState(originalTasks: tasks, displayedTasks: tasks),
     ));
+  }
+
+  void _onTaskItemsFilterBlocEvent(
+    TaskItemsFilterBlocEvent event,
+    Emitter<TaskBlocState> emit,
+  ) async {
+    if (state is TaskLoadedBlocState) {
+      final currentState = state as TaskLoadedBlocState;
+
+      final failureOrFilteredTasks =
+          await filterTasksUseCase(event.filterParams.copyWith(
+        displayedTasks: currentState.displayedTasks,
+      ));
+
+      emit(failureOrFilteredTasks.fold(
+        (failure) => TaskErrorBlocState(message: _mapFailureToMessage(failure)),
+        (filteredTasks) => TaskLoadedBlocState(
+          originalTasks: currentState.originalTasks,
+          displayedTasks: filteredTasks,
+        ),
+      ));
+    }
+  }
+
+  void _onTaskItemsSortBlocEvent(
+    TaskItemsSortBlocEvent event,
+    Emitter<TaskBlocState> emit,
+  ) async {
+    if (state is TaskLoadedBlocState) {
+      final currentState = state as TaskLoadedBlocState;
+      final originalTasks = currentState.originalTasks;
+      final displayedTasks = currentState.displayedTasks;
+
+      final failureOrSortedTasks = await sortTasksUseCase(
+          event.sortParams.copyWith(tasks: displayedTasks));
+
+      emit(failureOrSortedTasks.fold(
+        (failure) => TaskErrorBlocState(message: _mapFailureToMessage(failure)),
+        (sortedTasks) => TaskLoadedBlocState(
+          originalTasks: originalTasks,
+          displayedTasks: sortedTasks,
+        ),
+      ));
+    }
   }
 
   void _onLoadTaskItemsByIdSetBlocEvent(
@@ -58,7 +111,8 @@ class TaskBlocTask extends Bloc<TaskBlocTaskEvent, TaskBlocState> {
         GetTaskItemsByIdSetParams(idSet: event.idSet));
     emit(failureOrTasks.fold(
       (failure) => TaskErrorBlocState(message: _mapFailureToMessage(failure)),
-      (tasks) => TaskLoadedBlocState(tasks),
+      (tasks) =>
+          TaskLoadedBlocState(originalTasks: tasks, displayedTasks: tasks),
     ));
   }
 

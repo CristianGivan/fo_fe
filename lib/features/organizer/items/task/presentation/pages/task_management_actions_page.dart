@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fo_fe/features/organizer/items/task/presentation/pages/filter_dialog.dart';
+import 'package:fo_fe/features/organizer/items/task/presentation/pages/sort_dialog.dart';
 import 'package:go_router/go_router.dart';
+
 
 class TaskManagementActionsPage extends StatelessWidget {
   @override
@@ -12,11 +15,7 @@ class TaskManagementActionsPage extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () {
-                context.push(
-                  '/task/task_add',
-                );
-              },
+              onPressed: () => context.push('/task/task_add'),
               child: Text('Add Task'),
             ),
           ),
@@ -25,17 +24,15 @@ class TaskManagementActionsPage extends StatelessWidget {
             children: [
               Expanded(
                 child: ElevatedButton(
-                  onPressed: () {
-                    // Handle filter action
-                  },
-                  child: Text('Filter'),
+                  onPressed: () => showFilterDialog(context),
+                  child: Text('Filter Tasks'),
                 ),
               ),
               SizedBox(width: 16.0),
               Expanded(
                 child: ElevatedButton(
-                  onPressed: () => _showSortDialog(context),
-                  child: Text('Sort'),
+                  onPressed: () => showSortDialog(context),
+                  child: Text('Sort Tasks'),
                 ),
               ),
             ],
@@ -49,46 +46,6 @@ class TaskManagementActionsPage extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-
-  void _showSortDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Sort Tasks'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ListTile(
-                title: Text('By Date'),
-                onTap: () {
-                  // Handle sorting by date
-                  Navigator.of(context).pop();
-                  // TODO: Implement sorting logic
-                },
-              ),
-              ListTile(
-                title: Text('By Status'),
-                onTap: () {
-                  // Handle sorting by status
-                  Navigator.of(context).pop();
-                  // TODO: Implement sorting logic
-                },
-              ),
-              ListTile(
-                title: Text('By Priority'),
-                onTap: () {
-                  // Handle sorting by priority
-                  Navigator.of(context).pop();
-                  // TODO: Implement sorting logic
-                },
-              ),
-            ],
-          ),
-        );
-      },
     );
   }
 }

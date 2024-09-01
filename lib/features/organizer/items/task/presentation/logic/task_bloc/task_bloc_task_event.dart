@@ -27,6 +27,28 @@ class TaskLoadItemsByIdSetBlocEvent extends TaskBlocTaskEvent {
   List<Object> get props => [idSet];
 }
 
+class TaskItemsSortBlocEvent extends TaskBlocTaskEvent {
+  final SortTasksParams sortParams;
+
+  TaskItemsSortBlocEvent({
+    required this.sortParams,
+  });
+
+  @override
+  List<Object> get props => [sortParams];
+}
+
+class TaskItemsFilterBlocEvent extends TaskBlocTaskEvent {
+  final FilterTasksParams filterParams;
+
+  TaskItemsFilterBlocEvent({
+    required this.filterParams,
+  });
+
+  @override
+  List<Object> get props => [filterParams];
+}
+
 class TaskAddBlocEvent extends TaskBlocTaskEvent {
   final TaskEntity task;
 
