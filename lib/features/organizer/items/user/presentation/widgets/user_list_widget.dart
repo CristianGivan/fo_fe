@@ -17,9 +17,9 @@ class UserListWidget extends StatelessWidget {
 
     return BlocBuilder<UserBlocUser, UserBlocState>(
       builder: (context, state) {
-        if (state is UserBlocLoading) {
+        if (state is UserLoadingBlocState) {
           return Center(child: CircularProgressIndicator());
-        } else if (state is UserBlocItemsLoadedState) {
+        } else if (state is UsertemsLoadedBlocIState) {
           final users = state.users;
 
           return ListView.builder(
@@ -29,7 +29,7 @@ class UserListWidget extends StatelessWidget {
               return UserItemWidget(userName: user.name, email: user.email);
             },
           );
-        } else if (state is UserBlocErrorState) {
+        } else if (state is UserErrorBlocState) {
           return Center(child: Text('Failed to load users'));
         }
         return Container(); // Fallback if state is not recognized

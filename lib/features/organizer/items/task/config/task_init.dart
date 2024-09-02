@@ -1,11 +1,10 @@
 import 'package:fo_fe/core/db/drift/organizer_drift_db.dart';
+import 'package:fo_fe/features/organizer/items/task/config/task_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/data/datasources/task_local_data_source_drift.dart';
 import 'package:fo_fe/features/organizer/items/task/data/datasources/task_remote_data_source.dart';
 import 'package:fo_fe/features/organizer/items/task/data/datasources/task_remote_data_source_impl.dart';
 import 'package:fo_fe/features/organizer/items/task/data/repositories/task_repository_drift.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/repositories/task_repository.dart';
-import 'package:fo_fe/features/organizer/items/task/domain/usecases/task_usecase_export.dart';
-import 'package:fo_fe/features/organizer/items/task/presentation/logic/task_bloc/task_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 final sl = GetIt.instance;
@@ -41,6 +40,8 @@ void taskInit() {
   sl.registerLazySingleton(() => AddReminderToTask(sl()));
   sl.registerLazySingleton(() => DeleteReminderFromTask(sl()));
   sl.registerLazySingleton(() => GetRemindersByTaskId(sl()));
+  sl.registerLazySingleton(() => TaskFilterUseCase());
+  sl.registerLazySingleton(() => TaskSortUseCase());
 
   // Task BLoCs
   sl.registerFactory(() => TaskBlocTask(
@@ -50,6 +51,8 @@ void taskInit() {
         insertTask: sl(),
         updateTask: sl(),
         deleteTask: sl(),
+        sortTasksUseCase: sl(),
+        filterTasksUseCase: sl(),
       ));
   sl.registerFactory(() => TaskBlocUser(
         getUsersByTaskId: sl(),

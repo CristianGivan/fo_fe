@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fo_fe/features/organizer/config/organizer_exports.dart';
+import 'package:fo_fe/features/organizer/items/task/config/task_exports.dart';
 import 'package:fo_fe/try/UI/add_task_screen.dart';
 import 'package:fo_fe/try/UI/task_screen.dart';
 import 'package:go_router/go_router.dart';
@@ -30,13 +31,13 @@ class OrganizerAppBranch {
             child: TaskScreen(),
           ),
           routes: [
-            GoRoute(
-              name: OrganizerRouterNames.organizerTaskAddTaskRoute,
-              path: OrganizerRouterNames.organizerTaskAddTaskName,
-              pageBuilder: (context, state) => NoTransitionPage(
-                child: AddTaskScreen(),
-              ),
-            ),
+            // GoRoute(
+            //   name: OrganizerRouterNames.organizerTaskAddTaskRoute,
+            //   path: OrganizerRouterNames.organizerTaskAddTaskName,
+            //   pageBuilder: (context, state) => NoTransitionPage(
+            //     child: AddTaskScreen(),
+            //   ),
+            // ),
           ],
         ),
       ],

@@ -8,10 +8,10 @@ import 'package:http/http.dart' as http;
 
 final sl = GetIt.instance;
 
-void appInit() {
+void appInit({bool isDev = false}) {
   coreInit();
   externalsInit();
-  driftDbInit();
+  driftDbInit(isDev: isDev);
   authenticationInit();
   organizerInit();
 }

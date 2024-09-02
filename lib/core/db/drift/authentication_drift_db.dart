@@ -1,7 +1,8 @@
 import 'package:drift/drift.dart';
+import 'package:flutter/foundation.dart';
+import 'package:fo_fe/core/db/drift/connection/db_connection_drift.dart';
 import 'package:fo_fe/core/db/drift_db.dart';
 
-import 'connection/authentication_db_dev.dart' as authentication_db_dev;
 import 'organizer_drift_exports.dart';
 
 part 'authentication_drift_db.g.dart';
@@ -12,7 +13,8 @@ part 'authentication_drift_db.g.dart';
   AuthenticationDaoDrift,
 ])
 class AuthenticationDriftDB extends _$AuthenticationDriftDB implements DriftDB {
-  AuthenticationDriftDB() : super(authentication_db_dev.connect());
+  AuthenticationDriftDB({bool isDev = false})
+      : super(_openConnection(isDev: isDev));
 
   @override
   int get schemaVersion => 1;
@@ -24,4 +26,15 @@ class AuthenticationDriftDB extends _$AuthenticationDriftDB implements DriftDB {
         },
         onUpgrade: (Migrator m, int from, int to) async {},
       );
+
+  static LazyDatabase _openConnection({bool isDev = false}) {
+    return LazyDatabase(() async {
+      final connection = await connect(
+        'AuthenticationDBDrift.sqlite',
+        logStatements: kDebugMode,
+        isDev: isDev,
+      );
+      return connection.executor;
+    });
+  }
 }
