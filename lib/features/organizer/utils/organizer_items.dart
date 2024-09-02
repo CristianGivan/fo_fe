@@ -64,10 +64,6 @@ class OrganizerItems<T extends OrganizerItemEntity> extends Equatable {
     return _organizerItems.map((e) => e.jsonToCheckForUpdates());
   }
 
-  void sort(Comparator<T> comparator) => _organizerItems.sort(comparator);
-
-  Iterable<T> where(bool Function(T) test) => _organizerItems.where(test);
-
   @override
   List<Object> get props => [_organizerItems];
 }

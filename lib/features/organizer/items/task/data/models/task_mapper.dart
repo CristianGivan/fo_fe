@@ -42,7 +42,7 @@ class TaskMapper {
 
   static TaskTableDriftCompanion entityToCompanion(TaskEntity entity) {
     return TaskTableDriftCompanion(
-      id: entity.id == 0 ? const Value.absent() : Value(entity.id),
+      // id: Value(entity.id),
       subject: Value(entity.subject),
       createdDate: Value(entity.createdDate),
       creatorId: Value(entity.creatorId),
@@ -58,7 +58,7 @@ class TaskMapper {
       estimatedTime: Value(entity.estimatedTime),
       estimatedLeftTime: Value(entity.estimatedLeftTime),
       workingProgress: Value(entity.workingProgress),
-      taskStatus: Value(taskStatusToStringMap[entity.taskStatus]),
+      taskStatus: Value(entity.taskStatus.toString()),
     );
   }
 
@@ -104,7 +104,7 @@ class TaskMapper {
           ? Value(model.workingProgress!)
           : const Value.absent(),
       taskStatus: model.taskStatus != null
-          ? Value(taskStatusToStringMap[model.taskStatus])
+          ? Value(model.taskStatus as String?)
           : const Value.absent(),
     );
   }
@@ -286,7 +286,8 @@ class TaskMapper {
       "createdDate": model.createdDate.toIso8601String(),
       "startDate": model.startDate?.toIso8601String(),
       "endDate": model.endDate?.toIso8601String(),
-      "taskStatus": taskStatusToStringMap[model.taskStatus] ?? 'UNDEFINED',
+      "taskStatus": model.taskStatus.toString().split('.').last.toUpperCase() ??
+          'UNDEFINED',
       "remoteId": model.remoteId,
       "lastUpdate": model.lastUpdate?.toIso8601String(),
       "lastViewDate": model.lastAccessedDate?.toIso8601String(),

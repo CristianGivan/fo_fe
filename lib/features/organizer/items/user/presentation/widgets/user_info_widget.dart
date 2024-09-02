@@ -15,12 +15,12 @@ class UserInfoWidget extends StatelessWidget {
     return BlocBuilder<UserBlocUser, UserBlocState>(
       buildWhen: (previous, current) {
         // Only rebuild if the current state is UserBlocLoadedState
-        return current is UserLoadedBlocState;
+        return current is UserBlocLoadedState;
       },
       builder: (context, state) {
-        if (state is UserLoadingBlocState) {
+        if (state is UserBlocLoading) {
           return Center(child: CircularProgressIndicator());
-        } else if (state is UserLoadedBlocState) {
+        } else if (state is UserBlocLoadedState) {
           final user = state.user;
 
           // Display the user details
@@ -33,7 +33,7 @@ class UserInfoWidget extends StatelessWidget {
               ],
             ),
           );
-        } else if (state is UserErrorBlocState) {
+        } else if (state is UserBlocErrorState) {
           return Center(child: Text('Failed to load user'));
         }
         return Container(); // Empty container for irrelevant states

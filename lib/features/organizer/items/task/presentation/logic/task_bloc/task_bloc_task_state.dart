@@ -12,16 +12,12 @@ class TaskInitialBlocState extends TaskBlocState {}
 class TaskLoadingBlocState extends TaskBlocState {}
 
 class TaskLoadedBlocState extends TaskBlocState {
-  final OrganizerItems<TaskEntity> originalTasks;
-  final OrganizerItems<TaskEntity> displayedTasks;
+  final OrganizerItems<TaskEntity> tasks;
 
-  TaskLoadedBlocState({
-    required this.originalTasks,
-    required this.displayedTasks,
-  });
+  TaskLoadedBlocState(this.tasks);
 
   @override
-  List<Object> get props => [originalTasks, displayedTasks];
+  List<Object> get props => [tasks];
 }
 
 class TaskAddedBlocState extends TaskBlocState {}

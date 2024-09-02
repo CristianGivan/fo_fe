@@ -63,12 +63,12 @@ class _AddUsersFromAllUsersScreenState
       body: BlocBuilder<UserBlocUser, UserBlocState>(
         buildWhen: (previous, current) {
           // Only rebuild if the current state is UserBlocLoadedState
-          return current is UserAllItemsLoadedBlocState;
+          return current is UserBlocAllItemsLoadedState;
         },
         builder: (context, state) {
-          if (state is UserLoadingBlocState) {
+          if (state is UserBlocLoading) {
             return Center(child: CircularProgressIndicator());
-          } else if (state is UserAllItemsLoadedBlocState) {
+          } else if (state is UserBlocAllItemsLoadedState) {
             return ListView.builder(
               itemCount: state.users.size(),
               itemBuilder: (context, index) {
@@ -84,7 +84,7 @@ class _AddUsersFromAllUsersScreenState
                 );
               },
             );
-          } else if (state is UserErrorBlocState) {
+          } else if (state is UserBlocErrorState) {
             return Center(child: Text('Failed to load users'));
           }
           return Center(child: Text('???'));

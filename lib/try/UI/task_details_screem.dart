@@ -21,7 +21,7 @@ class TaskDetailsScreen extends StatelessWidget {
         providers: [
           BlocProvider(
             create: (context) =>
-                sl<TaskBlocTask>()..add(TaskGetByIdBlocEvent(taskId)),
+                sl<TaskBlocTask>()..add(GetTaskByIdBlocEvent(taskId)),
           ),
           BlocProvider(
             create: (context) =>

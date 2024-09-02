@@ -6,9 +6,8 @@ import 'package:fo_fe/core/config/app_init.dart';
 import '../functions/simple_bloc_observer.dart';
 
 Future<void> main() async {
-  bool isDev = false;
   WidgetsFlutterBinding.ensureInitialized();
-  appInit(isDev: isDev);
+  appInit();
   Bloc.observer = SimpleBlocObserver();
   runApp(const AppMain());
 }

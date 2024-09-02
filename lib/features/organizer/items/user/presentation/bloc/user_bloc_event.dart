@@ -7,28 +7,28 @@ abstract class UserBlocEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class UserInsertBlocEvent extends UserBlocEvent {
+class InsertUserBlocEvent extends UserBlocEvent {
   final UserEntity user;
 
-  const UserInsertBlocEvent({required this.user});
+  const InsertUserBlocEvent({required this.user});
 
   @override
   List<Object?> get props => [user];
 }
 
-class UserUpdateBlocEvent extends UserBlocEvent {
+class UpdateUserBlocEvent extends UserBlocEvent {
   final UserEntity user;
 
-  const UserUpdateBlocEvent({required this.user});
+  const UpdateUserBlocEvent({required this.user});
 
   @override
   List<Object?> get props => [user];
 }
 
-class UserDeleteBlocEvent extends UserBlocEvent {
+class DeleteUserBlocEvent extends UserBlocEvent {
   final int userId;
 
-  const UserDeleteBlocEvent({required this.userId});
+  const DeleteUserBlocEvent({required this.userId});
 
   @override
   List<Object?> get props => [userId];

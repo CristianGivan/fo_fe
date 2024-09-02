@@ -21,10 +21,10 @@ class UserBlocUser extends Bloc<UserBlocEvent, UserBlocState> {
     required this.getUserItemsByUserId,
     required this.addUserToUser,
     required this.deleteUserFromUser,
-  }) : super(UserInitialBlocState()) {
-    on<UserInsertBlocEvent>(_onInsertUser);
-    on<UserUpdateBlocEvent>(_onUpdateUser);
-    on<UserDeleteBlocEvent>(_onDeleteUser);
+  }) : super(UserBlocInitialState()) {
+    on<InsertUserBlocEvent>(_onInsertUser);
+    on<UpdateUserBlocEvent>(_onUpdateUser);
+    on<DeleteUserBlocEvent>(_onDeleteUser);
     on<GetUserByIdBlocEvent>(_onGetUserById);
     on<GetUserItemsAllBlocEvent>(_onGetUserItemsAll);
     on<GetUserItemsByIdSetBlocEvent>(_onGetUserItemsByIdSet);
@@ -34,96 +34,96 @@ class UserBlocUser extends Bloc<UserBlocEvent, UserBlocState> {
   }
 
   Future<void> _onInsertUser(
-      UserInsertBlocEvent event, Emitter<UserBlocState> emit) async {
-    emit(UserLoadingBlocState());
+      InsertUserBlocEvent event, Emitter<UserBlocState> emit) async {
+    emit(UserBlocLoading());
     final result = await insertUser(InsertUserParams(user: event.user));
     emit(result.fold(
-      (failure) => UserErrorBlocState(message: _mapFailureToMessage(failure)),
-      (id) => UserInsertedBlocState(id: id),
+      (failure) => UserBlocErrorState(message: _mapFailureToMessage(failure)),
+      (id) => UserBlocInsertedState(id: id),
     ));
   }
 
   Future<void> _onUpdateUser(
-      UserUpdateBlocEvent event, Emitter<UserBlocState> emit) async {
-    emit(UserLoadingBlocState());
+      UpdateUserBlocEvent event, Emitter<UserBlocState> emit) async {
+    emit(UserBlocLoading());
     final result = await updateUser(UpdateUserParams(user: event.user));
     emit(result.fold(
-      (failure) => UserErrorBlocState(message: _mapFailureToMessage(failure)),
-      (success) => UserUpdatedBlocState(success: success),
+      (failure) => UserBlocErrorState(message: _mapFailureToMessage(failure)),
+      (success) => UserBlocUpdatedState(success: success),
     ));
   }
 
   Future<void> _onDeleteUser(
-      UserDeleteBlocEvent event, Emitter<UserBlocState> emit) async {
-    emit(UserLoadingBlocState());
+      DeleteUserBlocEvent event, Emitter<UserBlocState> emit) async {
+    emit(UserBlocLoading());
     final result = await deleteUser(DeleteUserParams(userId: event.userId));
     emit(result.fold(
-      (failure) => UserErrorBlocState(message: _mapFailureToMessage(failure)),
-      (id) => UserDeletedBlocState(id: id),
+      (failure) => UserBlocErrorState(message: _mapFailureToMessage(failure)),
+      (id) => UserBlocDeletedState(id: id),
     ));
   }
 
   Future<void> _onGetUserById(
       GetUserByIdBlocEvent event, Emitter<UserBlocState> emit) async {
-    emit(UserLoadingBlocState());
+    emit(UserBlocLoading());
     final result = await getUserById(GetUserByIdParams(id: event.id));
     emit(result.fold(
-      (failure) => UserErrorBlocState(message: _mapFailureToMessage(failure)),
-      (user) => UserLoadedBlocState(user: user),
+      (failure) => UserBlocErrorState(message: _mapFailureToMessage(failure)),
+      (user) => UserBlocLoadedState(user: user),
     ));
   }
 
   Future<void> _onGetUserItemsAll(
       GetUserItemsAllBlocEvent event, Emitter<UserBlocState> emit) async {
-    emit(UserLoadingBlocState());
+    emit(UserBlocLoading());
     final result = await getUserItemsAll(NoParams());
     emit(result.fold(
-      (failure) => UserErrorBlocState(message: _mapFailureToMessage(failure)),
-      (users) => UserAllItemsLoadedBlocState(users: users),
+      (failure) => UserBlocErrorState(message: _mapFailureToMessage(failure)),
+      (users) => UserBlocAllItemsLoadedState(users: users),
     ));
   }
 
   Future<void> _onGetUserItemsByIdSet(
       GetUserItemsByIdSetBlocEvent event, Emitter<UserBlocState> emit) async {
-    emit(UserLoadingBlocState());
+    emit(UserBlocLoading());
     final result = await getUserItemsByIdSet(
         GetUserItemsByIdSetParams(idSet: event.idSet));
     emit(result.fold(
-      (failure) => UserErrorBlocState(message: _mapFailureToMessage(failure)),
-      (users) => UsertemsLoadedBlocIState(users: users),
+      (failure) => UserBlocErrorState(message: _mapFailureToMessage(failure)),
+      (users) => UserBlocItemsLoadedState(users: users),
     ));
   }
 
   Future<void> _onGetUserItemsByUserId(
       GetUserItemsByUserIdBlocEvent event, Emitter<UserBlocState> emit) async {
-    emit(UserLoadingBlocState());
+    emit(UserBlocLoading());
     final result = await getUserItemsByUserId(
         GetUserItemsByUserIdParams(userId: event.userId));
     emit(result.fold(
-      (failure) => UserErrorBlocState(message: _mapFailureToMessage(failure)),
-      (users) => UsertemsLoadedBlocIState(users: users),
+      (failure) => UserBlocErrorState(message: _mapFailureToMessage(failure)),
+      (users) => UserBlocItemsLoadedState(users: users),
     ));
   }
 
   Future<void> _onAddUserToUser(
       AddUserToUserBlocEvent event, Emitter<UserBlocState> emit) async {
-    emit(UserLoadingBlocState());
+    emit(UserBlocLoading());
     final result = await addUserToUser(AddUserToUserParams(
         userLinkedId: event.userLinkedId, userId: event.userId));
     emit(result.fold(
-      (failure) => UserErrorBlocState(message: _mapFailureToMessage(failure)),
-      (id) => UserAddedBlocState(id: id),
+      (failure) => UserBlocErrorState(message: _mapFailureToMessage(failure)),
+      (id) => UserBlocAddedState(id: id),
     ));
   }
 
   Future<void> _onDeleteUserFromUser(
       DeleteUserFromUserBlocEvent event, Emitter<UserBlocState> emit) async {
-    emit(UserLoadingBlocState());
+    emit(UserBlocLoading());
     final result = await deleteUserFromUser(DeleteUserFromUserParams(
         userLinkedId: event.userLinkedId, userId: event.userId));
     emit(result.fold(
-      (failure) => UserErrorBlocState(message: _mapFailureToMessage(failure)),
-      (id) => UserDeletedBlocState(id: id),
+      (failure) => UserBlocErrorState(message: _mapFailureToMessage(failure)),
+      (id) => UserBlocDeletedState(id: id),
     ));
   }
 }

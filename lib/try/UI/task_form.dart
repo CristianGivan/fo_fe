@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fo_fe/features/organizer/items/task/config/task_exports.dart';
+import 'package:fo_fe/features/organizer/items/task/presentation/logic/task_bloc/task_bloc.dart';
 
 class TaskForm extends StatefulWidget {
   @override
@@ -52,7 +53,7 @@ class _TaskFormState extends State<TaskForm> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       BlocProvider.of<TaskBlocTask>(context).add(
-        TaskAddBlocEvent(TaskEntity(subject: _title)),
+        AddTaskBlocEvent(TaskEntity(subject: _title)),
       );
       Navigator.pop(context);
     }

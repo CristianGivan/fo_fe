@@ -7,70 +7,48 @@ abstract class TaskBlocTaskEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class TaskGetByIdBlocEvent extends TaskBlocTaskEvent {
+class GetTaskByIdBlocEvent extends TaskBlocTaskEvent {
   final int taskId;
 
-  TaskGetByIdBlocEvent(this.taskId);
+  GetTaskByIdBlocEvent(this.taskId);
 
   @override
   List<Object> get props => [taskId];
 }
 
-class TaskGetItemsAllBlocEvent extends TaskBlocTaskEvent {}
+class LoadTaskItemsAllBlocEvent extends TaskBlocTaskEvent {}
 
-class TaskLoadItemsByIdSetBlocEvent extends TaskBlocTaskEvent {
+class LoadTaskItemsByIdSetBlocEvent extends TaskBlocTaskEvent {
   final IdSet idSet;
 
-  TaskLoadItemsByIdSetBlocEvent(this.idSet);
+  LoadTaskItemsByIdSetBlocEvent(this.idSet);
 
   @override
   List<Object> get props => [idSet];
 }
 
-class TaskItemsSortBlocEvent extends TaskBlocTaskEvent {
-  final SortTasksParams sortParams;
-
-  TaskItemsSortBlocEvent({
-    required this.sortParams,
-  });
-
-  @override
-  List<Object> get props => [sortParams];
-}
-
-class TaskItemsFilterBlocEvent extends TaskBlocTaskEvent {
-  final FilterTasksParams filterParams;
-
-  TaskItemsFilterBlocEvent({
-    required this.filterParams,
-  });
-
-  @override
-  List<Object> get props => [filterParams];
-}
-
-class TaskAddBlocEvent extends TaskBlocTaskEvent {
+class AddTaskBlocEvent extends TaskBlocTaskEvent {
   final TaskEntity task;
 
-  TaskAddBlocEvent(this.task);
+  AddTaskBlocEvent(this.task);
 
   @override
   List<Object> get props => [task];
 }
 
-class TaskUpdateBlocEvent extends TaskBlocTaskEvent {
+class UpdateTaskBlocEvent extends TaskBlocTaskEvent {
   final TaskEntity task;
 
-  TaskUpdateBlocEvent(this.task);
+  UpdateTaskBlocEvent(this.task);
 
   @override
   List<Object> get props => [task];
 }
 
-class TaskDeleteBlocEvent extends TaskBlocTaskEvent {
+class DeleteTaskBlocEvent extends TaskBlocTaskEvent {
   final int taskId;
 
-  TaskDeleteBlocEvent(this.taskId);
+  DeleteTaskBlocEvent(this.taskId);
 
   @override
   List<Object> get props => [taskId];

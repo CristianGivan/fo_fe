@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
 import 'package:fo_fe/features/organizer/items/task/config/task_exports.dart';
+import 'package:fo_fe/features/organizer/items/task/presentation/logic/task_bloc/task_bloc.dart';
 
 class UpdateTaskScreen extends StatefulWidget {
   @override
@@ -219,7 +220,7 @@ class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
                           : null,
                     );
                     BlocProvider.of<TaskBlocTask>(context)
-                        .add(TaskAddBlocEvent(task));
+                        .add(AddTaskBlocEvent(task));
                     Navigator.pop(context);
                   }
                 },
