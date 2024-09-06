@@ -5,7 +5,7 @@ import 'package:fo_fe/features/organizer/config/organizer_exports.dart';
 import 'package:go_router/go_router.dart';
 
 class AuthenticationScreenWithAutoLogIn extends StatefulWidget {
-  const AuthenticationScreenWithAutoLogIn({Key? key}) : super(key: key);
+  const AuthenticationScreenWithAutoLogIn({super.key});
 
   @override
   _AuthenticationScreenWithAutoLogInState createState() =>
@@ -39,7 +39,7 @@ class _AuthenticationScreenWithAutoLogInState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,

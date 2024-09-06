@@ -17,7 +17,7 @@ class TaskAppBranch {
     return GoRoute(
       name: TaskRouterNames.taskRoute,
       path: '/task',
-      pageBuilder: (context, state) => NoTransitionPage(
+      pageBuilder: (context, state) => const NoTransitionPage(
         child: TaskScreen(),
       ),
       routes: [
@@ -26,7 +26,7 @@ class TaskAppBranch {
           path: 'task_add',
           pageBuilder: (context, state) {
             // Accessing 'userId' from state.pathParameters
-            return NoTransitionPage(
+            return const NoTransitionPage(
               child: TaskAddScreen(),
             );
           },

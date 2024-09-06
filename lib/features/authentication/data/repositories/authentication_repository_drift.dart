@@ -2,7 +2,6 @@ import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/utils/core_utils_exports.dart';
 import 'package:fo_fe/features/authentication/config/authentication_exports.dart';
-import 'package:fo_fe/features/authentication/utils/token_manager.dart';
 import 'package:fo_fe/features/organizer/items/user/domain/entities/user_entity.dart';
 
 class AuthenticationRepositoryDrift implements AuthenticationRepository {
@@ -31,14 +30,14 @@ class AuthenticationRepositoryDrift implements AuthenticationRepository {
         deviceInfo: deviceInfo.getDeviceInfo(),
         // Simulated device user ID, replace with actual data
         createdDate: DateTime.now(),
-        expiredDate: DateTime.now().add(Duration(days: 30)),
+        expiredDate: DateTime.now().add(const Duration(days: 30)),
         lastUsedDate: DateTime.now(),
         isActive: true,
       );
       await localDataSource.insertAuthentication(authModel);
       return Right(AuthenticationMapper.entityFromModel(authModel));
     } catch (e) {
-      return Left(ServerFailure("ServerFailure"));
+      return const Left(ServerFailure("ServerFailure"));
     }
   }
 
@@ -49,21 +48,21 @@ class AuthenticationRepositoryDrift implements AuthenticationRepository {
       if (auth != null) {
         await localDataSource.deleteAuthenticationById(authId);
       }
-      return Right(null);
+      return const Right(null);
     } catch (e) {
-      return Left(ServerFailure("ServerFailure"));
+      return const Left(ServerFailure("ServerFailure"));
     }
   }
 
   @override
   Future<Either<Failure, AuthenticationEntity>> refreshToken(int authId) async {
-    final maxRefreshCount = 3;
+    const maxRefreshCount = 3;
     try {
       final auth = await localDataSource.getAuthenticationById(authId);
       if (auth != null) {
         if (auth.refreshCount >= maxRefreshCount) {
           // Enforce re-authentication
-          return Left(
+          return const Left(
               ReauthenticationRequiredFailure("ReauthenticationRequired"));
         }
 
@@ -74,16 +73,16 @@ class AuthenticationRepositoryDrift implements AuthenticationRepository {
         final updatedAuth = auth.copyWith(
           token: encryptedToken,
           lastUsedDate: DateTime.now(),
-          expiredDate: DateTime.now().add(Duration(days: 30)),
+          expiredDate: DateTime.now().add(const Duration(days: 30)),
           refreshCount: auth.refreshCount + 1,
         );
 
         await localDataSource.updateAuthentication(updatedAuth);
         return Right(AuthenticationMapper.entityFromModel(updatedAuth));
       }
-      return Left(CacheFailure("CacheFailure"));
+      return const Left(CacheFailure("CacheFailure"));
     } catch (e) {
-      return Left(ServerFailure("ServerFailure"));
+      return const Left(ServerFailure("ServerFailure"));
     }
   }
 
@@ -95,9 +94,9 @@ class AuthenticationRepositoryDrift implements AuthenticationRepository {
           .getActiveAuthenticationForDeviceInfo(deviceInfo.getDeviceInfo());
       return auth != null
           ? Right(AuthenticationMapper.entityFromModel(auth))
-          : Left(CacheFailure("CacheFailure"));
+          : const Left(CacheFailure("CacheFailure"));
     } catch (e) {
-      return Left(CacheFailure("CacheFailure"));
+      return const Left(CacheFailure("CacheFailure"));
     }
   }
 
@@ -108,7 +107,7 @@ class AuthenticationRepositoryDrift implements AuthenticationRepository {
       final auths = await localDataSource
           .getAuthenticationsForDeviceInfo(deviceInfo.getDeviceInfo());
       if (auths == null) {
-        return Left(NoActiveSessionFailure("NoActiveSessionFailure"));
+        return const Left(NoActiveSessionFailure("NoActiveSessionFailure"));
       }
       return Right(auths
           .where((auth) => auth != null)
@@ -116,7 +115,7 @@ class AuthenticationRepositoryDrift implements AuthenticationRepository {
               .entityFromModel) // todo cg check if I had to put it in Mapper this
           .toList());
     } catch (e) {
-      return Left(CacheFailure("CacheFailure"));
+      return const Left(CacheFailure("CacheFailure"));
     }
   }
 
@@ -126,9 +125,9 @@ class AuthenticationRepositoryDrift implements AuthenticationRepository {
     try {
       await localDataSource
           .updateAuthentication(AuthenticationMapper.modelFromEntity(auth));
-      return Right(null);
+      return const Right(null);
     } catch (e) {
-      return Left(CacheFailure("CacheFailure"));
+      return const Left(CacheFailure("CacheFailure"));
     }
   }
 }

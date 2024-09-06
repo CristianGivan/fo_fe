@@ -19,7 +19,7 @@ class AddUserToUserParams extends Equatable {
   final int userLinkedId;
   final int userId;
 
-  AddUserToUserParams({required this.userLinkedId, required this.userId});
+  const AddUserToUserParams({required this.userLinkedId, required this.userId});
 
   @override
   List<Object> get props => [userLinkedId, userId];

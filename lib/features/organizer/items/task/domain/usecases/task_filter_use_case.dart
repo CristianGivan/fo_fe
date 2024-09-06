@@ -10,7 +10,7 @@ class TaskFilterUseCase
   @override
   Future<Either<Failure, OrganizerItems<TaskEntity>>> call(
       FilterTasksParams params) async {
-    final filteredTasks;
+    final List<TaskEntity> filteredTasks;
     // Implement filtering logic based on the criteria provided in params
     if (params.criteria == "reset") {
       filteredTasks = params.originalTasks.toList();
@@ -39,7 +39,7 @@ class FilterTasksParams extends Equatable {
   final DateTime? startDate;
   final DateTime? endDate;
 
-  FilterTasksParams({
+  const FilterTasksParams({
     required this.originalTasks,
     required this.displayedTasks,
     required this.criteria,

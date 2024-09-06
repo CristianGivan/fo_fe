@@ -18,7 +18,7 @@ class DeleteTag extends UseCase<int, DeleteTagParams> {
 class DeleteTagParams extends Equatable {
   final int tagId;
 
-  DeleteTagParams({required this.tagId});
+  const DeleteTagParams({required this.tagId});
 
   @override
   List<Object?> get props => [tagId];

@@ -4,9 +4,9 @@ import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_i
 class IdSetBuilder extends Equatable {
   final Set<int> _ids;
 
-  IdSetBuilder._(this._ids);
+  const IdSetBuilder._(this._ids);
 
-  factory IdSetBuilder.empty() => IdSetBuilder._({});
+  factory IdSetBuilder.empty() => const IdSetBuilder._({});
 
   factory IdSetBuilder.of(Iterable<int?> ids) {
     return IdSetBuilder._(ids.whereType<int>().toSet());

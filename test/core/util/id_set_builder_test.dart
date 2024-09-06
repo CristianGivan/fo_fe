@@ -9,7 +9,7 @@ void main() {
     });
 
     test('of() creates IdSetBuilder from Iterable', () {
-      final builder = IdSetBuilder.of([1, 2, 3, null]);
+      final builder = IdSetBuilder.of(const [1, 2, 3, null]);
       expect(builder.ids, equals({1, 2, 3}));
     });
 
@@ -26,19 +26,19 @@ void main() {
     });
 
     test('removeId() removes an ID from the builder', () {
-      final builder = IdSetBuilder.of([1, 2, 3]);
+      final builder = IdSetBuilder.of(const [1, 2, 3]);
       builder.remove(2);
       expect(builder.ids, equals({1, 3}));
     });
 
     test('build() creates an IdSet from the builder', () {
-      final builder = IdSetBuilder.of([1, 2, 3]);
+      final builder = IdSetBuilder.of(const [1, 2, 3]);
       final idSet = builder.build();
       expect(idSet.toSet(), equals({1, 2, 3}));
     });
 
     test('props returns a list with _ids for Equatable', () {
-      final builder = IdSetBuilder.of([1, 2, 3]);
+      final builder = IdSetBuilder.of(const [1, 2, 3]);
       expect(
           builder.props,
           equals([

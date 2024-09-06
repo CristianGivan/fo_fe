@@ -18,7 +18,7 @@ class GetReminderById implements UseCase<ReminderEntity?, GetTagByIdParams> {
 class GetTagByIdParams extends Equatable {
   final int id;
 
-  GetTagByIdParams({required this.id});
+  const GetTagByIdParams({required this.id});
 
   @override
   List<Object?> get props => [id];

@@ -4,6 +4,8 @@ import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_i
 import 'package:fo_fe/features/organizer/items/task/config/task_exports.dart';
 
 class SortDialog extends StatefulWidget {
+  const SortDialog({super.key});
+
   @override
   _SortDialogState createState() => _SortDialogState();
 }
@@ -14,7 +16,7 @@ class _SortDialogState extends State<SortDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Sort Tasks'),
+      title: const Text('Sort Tasks'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -26,7 +28,7 @@ class _SortDialogState extends State<SortDialog> {
       actions: [
         ElevatedButton(
           onPressed: _applySort,
-          child: Text('Apply Sort'),
+          child: const Text('Apply Sort'),
         ),
       ],
     );
@@ -72,6 +74,6 @@ class _SortDialogState extends State<SortDialog> {
 void showSortDialog(BuildContext context) {
   showDialog(
     context: context,
-    builder: (context) => SortDialog(),
+    builder: (context) => const SortDialog(),
   );
 }

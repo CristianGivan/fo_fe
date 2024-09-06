@@ -8,17 +8,21 @@ import 'package:get_it/get_it.dart';
 
 void main() {
   init2();
-  runApp(MyAppMain3());
+  runApp(const MyAppMain3());
 }
 
 class MyAppMain3 extends StatelessWidget {
+  const MyAppMain3({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return appBlocProviders(child: AuthenticationScreen());
+    return appBlocProviders(child: const AuthenticationScreen());
   }
 }
 
 class MyAppMain extends StatelessWidget {
+  const MyAppMain({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -35,9 +39,11 @@ class MyAppMain extends StatelessWidget {
 }
 
 class MyAppMain1 extends StatelessWidget {
+  const MyAppMain1({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return test1(child: AppViewTemp());
+    return test1(child: const AppViewTemp());
   }
 
   BlocProvider<AuthenticationBlocSignUp> test1({
@@ -52,9 +58,11 @@ class MyAppMain1 extends StatelessWidget {
 }
 
 class MyAppMain2 extends StatelessWidget {
+  const MyAppMain2({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return test2(child: AppViewTemp());
+    return test2(child: const AppViewTemp());
   }
 }
 

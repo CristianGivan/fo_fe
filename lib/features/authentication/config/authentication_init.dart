@@ -2,7 +2,6 @@ import 'package:fo_fe/core/db/drift/authentication_drift_db.dart';
 import 'package:fo_fe/core/utils/core_utils_exports.dart';
 import 'package:fo_fe/features/authentication/config/authentication_exports.dart';
 import 'package:fo_fe/features/authentication/data/repositories/authentication_repository_drift.dart';
-import 'package:fo_fe/features/authentication/utils/token_manager.dart';
 import 'package:get_it/get_it.dart';
 
 final sl = GetIt.instance;

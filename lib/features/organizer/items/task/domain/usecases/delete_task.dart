@@ -19,7 +19,7 @@ class DeleteTask extends UseCase<int, DeleteTaskParams> {
 class DeleteTaskParams extends Equatable {
   final int taskId;
 
-  DeleteTaskParams({required this.taskId});
+  const DeleteTaskParams({required this.taskId});
 
   @override
   List<Object> get props => [taskId];

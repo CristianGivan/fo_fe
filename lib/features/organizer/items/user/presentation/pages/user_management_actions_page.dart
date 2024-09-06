@@ -9,12 +9,12 @@ class UserManagementActionsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       child: Row(
         children: [
           Expanded(
             child: TextField(
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Search users',
                 border: OutlineInputBorder(),
               ),
@@ -23,14 +23,14 @@ class UserManagementActionsPage extends StatelessWidget {
               },
             ),
           ),
-          SizedBox(width: 16),
+          const SizedBox(width: 16),
           ElevatedButton(
             onPressed: () {
               context.push(
                 '/user/add-users/$userId', // Assuming `userId` is already an integer
               );
             },
-            child: Text('Add Users'),
+            child: const Text('Add Users'),
           ),
         ],
       ),

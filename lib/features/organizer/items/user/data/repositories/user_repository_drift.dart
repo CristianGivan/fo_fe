@@ -15,7 +15,7 @@ class UserRepositoryDrift implements UserRepository {
       final result = await localDataSourceDrift.insertUser(companion);
       return Right(result);
     } catch (e) {
-      return Left(DatabaseFailure());
+      return const Left(DatabaseFailure());
     }
   }
 
@@ -26,7 +26,7 @@ class UserRepositoryDrift implements UserRepository {
       final result = await localDataSourceDrift.updateUser(companion);
       return Right(result);
     } catch (e) {
-      return Left(DatabaseFailure());
+      return const Left(DatabaseFailure());
     }
   }
 
@@ -36,7 +36,7 @@ class UserRepositoryDrift implements UserRepository {
       final result = await localDataSourceDrift.deleteUser(userId);
       return Right(result);
     } catch (e) {
-      return Left(DatabaseFailure());
+      return const Left(DatabaseFailure());
     }
   }
 
@@ -46,7 +46,7 @@ class UserRepositoryDrift implements UserRepository {
       final result = await localDataSourceDrift.getUserById(id);
       return Right(UserMapper.entityFromModel(result));
     } catch (e) {
-      return Left(DatabaseFailure());
+      return const Left(DatabaseFailure());
     }
   }
 
@@ -56,7 +56,7 @@ class UserRepositoryDrift implements UserRepository {
       final result = await localDataSourceDrift.getUserItemsAll();
       return Right(UserMapper.modelItemsFromEntityItems(result));
     } catch (e) {
-      return Left(DatabaseFailure());
+      return const Left(DatabaseFailure());
     }
   }
 
@@ -67,7 +67,7 @@ class UserRepositoryDrift implements UserRepository {
       final result = await localDataSourceDrift.getUserItemsByIdSet(idSet);
       return Right(UserMapper.modelItemsFromEntityItems(result));
     } catch (e) {
-      return Left(DatabaseFailure());
+      return const Left(DatabaseFailure());
     }
   }
 
@@ -78,7 +78,7 @@ class UserRepositoryDrift implements UserRepository {
       final result = await localDataSourceDrift.getUserItemsByUserId(userId);
       return Right(UserMapper.modelItemsFromEntityItems(result));
     } catch (e) {
-      return Left(DatabaseFailure());
+      return const Left(DatabaseFailure());
     }
   }
 
@@ -90,7 +90,7 @@ class UserRepositoryDrift implements UserRepository {
           await localDataSourceDrift.addUserToUser(userLinkedId, userId);
       return Right(result);
     } catch (e) {
-      return Left(DatabaseFailure());
+      return const Left(DatabaseFailure());
     }
   }
 
@@ -102,7 +102,7 @@ class UserRepositoryDrift implements UserRepository {
           await localDataSourceDrift.deleteUserFromUser(userLinkedId, userId);
       return Right(result);
     } catch (e) {
-      return Left(DatabaseFailure());
+      return const Left(DatabaseFailure());
     }
   }
 
@@ -114,7 +114,7 @@ class UserRepositoryDrift implements UserRepository {
           await localDataSourceDrift.getUserByEmailAndPassword(email, password);
       return Right(UserMapper.entityFromModel(user));
     } catch (e) {
-      return Left(CacheFailure("CacheFailure"));
+      return const Left(CacheFailure("CacheFailure"));
     }
   }
 }

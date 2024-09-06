@@ -21,7 +21,7 @@ class DeleteReminderFromTaskParams extends Equatable {
   final int taskId;
   final int reminderId;
 
-  DeleteReminderFromTaskParams(
+  const DeleteReminderFromTaskParams(
       {required this.taskId, required this.reminderId});
 
   @override

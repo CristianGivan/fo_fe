@@ -23,7 +23,7 @@ class LogoutUseCase extends UseCase<void, LogoutParams> {
 class LogoutParams extends Equatable {
   final int authId;
 
-  LogoutParams({required this.authId});
+  const LogoutParams({required this.authId});
 
   @override
   List<Object?> get props => [authId];

@@ -38,21 +38,21 @@ class NetworkFailure extends Failure {
 }
 
 class TaskNotFoundFailure extends Failure {
-  TaskNotFoundFailure() : super('Task not found');
+  const TaskNotFoundFailure() : super('Task not found');
 }
 
 class DatabaseFailure extends Failure {
-  DatabaseFailure() : super('Task not found');
+  const DatabaseFailure() : super('Task not found');
 }
 
 class ReauthenticationRequiredFailure extends Failure {
-  ReauthenticationRequiredFailure(String super.message);
+  const ReauthenticationRequiredFailure(String super.message);
 }
 
 class AuthenticationFailure extends Failure {
-  AuthenticationFailure(String super.message);
+  const AuthenticationFailure(String super.message);
 }
 
 class NoActiveSessionFailure extends Failure {
-  NoActiveSessionFailure(String super.message);
+  const NoActiveSessionFailure(String super.message);
 }

@@ -4,9 +4,9 @@ import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_i
 class OrganizerItems<T extends OrganizerItemEntity> extends Equatable {
   final List<T> _organizerItems;
 
-  OrganizerItems._(this._organizerItems);
+  const OrganizerItems._(this._organizerItems);
 
-  factory OrganizerItems.empty() => OrganizerItems._([]);
+  factory OrganizerItems.empty() => const OrganizerItems._([]);
 
   factory OrganizerItems.of(Iterable<T> organizerItems,
           {SortedBy sortedBy = SortedBy.none}) =>

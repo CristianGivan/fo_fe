@@ -6,6 +6,8 @@ import 'package:fo_fe/features/organizer/items/task/config/task_exports.dart';
 enum TaskFilterCriteria { status, dateRange, reset }
 
 class FilterDialog extends StatefulWidget {
+  const FilterDialog({super.key});
+
   @override
   _FilterDialogState createState() => _FilterDialogState();
 }
@@ -18,19 +20,19 @@ class _FilterDialogState extends State<FilterDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Filter Tasks'),
+      title: const Text('Filter Tasks'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           _buildCriteriaDropdown(),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           _buildSecondaryDropdown(),
         ],
       ),
       actions: [
         ElevatedButton(
           onPressed: _applyFilter,
-          child: Text('Apply Filter'),
+          child: const Text('Apply Filter'),
         ),
       ],
     );
@@ -38,7 +40,7 @@ class _FilterDialogState extends State<FilterDialog> {
 
   Widget _buildCriteriaDropdown() {
     return DropdownButton<TaskFilterCriteria>(
-      hint: Text('Select Criteria'),
+      hint: const Text('Select Criteria'),
       value: _selectedCriteria,
       onChanged: (TaskFilterCriteria? newValue) {
         setState(() {
@@ -63,15 +65,15 @@ class _FilterDialogState extends State<FilterDialog> {
       case TaskFilterCriteria.dateRange:
         return _buildDateRangePicker();
       case TaskFilterCriteria.reset:
-        return Text('Click Apply to reset filters');
+        return const Text('Click Apply to reset filters');
       default:
-        return SizedBox.shrink();
+        return const SizedBox.shrink();
     }
   }
 
   Widget _buildStatusDropdown() {
     return DropdownButton<TaskStatus>(
-      hint: Text('Select Status'),
+      hint: const Text('Select Status'),
       value: _selectedStatus,
       onChanged: (TaskStatus? newValue) {
         setState(() {
@@ -143,6 +145,6 @@ class _FilterDialogState extends State<FilterDialog> {
 void showFilterDialog(BuildContext context) {
   showDialog(
     context: context,
-    builder: (context) => FilterDialog(),
+    builder: (context) => const FilterDialog(),
   );
 }

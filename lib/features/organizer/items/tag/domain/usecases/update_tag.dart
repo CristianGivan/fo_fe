@@ -19,7 +19,7 @@ class UpdateTag extends UseCase<bool, UpdateTagParams> {
 class UpdateTagParams extends Equatable {
   final TagEntity tag;
 
-  UpdateTagParams({required this.tag});
+  const UpdateTagParams({required this.tag});
 
   @override
   List<Object?> get props => [tag];

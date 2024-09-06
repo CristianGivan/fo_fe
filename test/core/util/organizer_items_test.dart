@@ -39,7 +39,7 @@ void main() {
     });
 
     test('every should return true if all items pass the test', () {
-      expect(organizerItems.every((item) => item.id! >= 1), isTrue);
+      expect(organizerItems.every((item) => item.id >= 1), isTrue);
     });
 
     test('indexOf should return the index of the specified item', () {
@@ -64,7 +64,7 @@ void main() {
       test('filterByIdSet filters items correctly', () {
         // Arrange
         final idSet =
-            IdSet.of([1, 3, 5]); // Example IdSet with IDs to filter by
+            IdSet.of(const [1, 3, 5]); // Example IdSet with IDs to filter by
         final items = OrganizerItems.of([
           OrganizerItemEntity(id: 1),
           OrganizerItemEntity(id: 2),

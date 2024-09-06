@@ -16,7 +16,7 @@ class SignUpUseCase extends UseCase<AuthenticationEntity, SignUpParams> {
   Future<Either<Failure, AuthenticationEntity>> call(
       SignUpParams params) async {
     if (!isValidEmail(params.email) || !isValidPassword(params.password)) {
-      return Left(InvalidInputFailure("InvalidInputFailure"));
+      return const Left(InvalidInputFailure("InvalidInputFailure"));
     }
 
     final hashingPassword = HashingService.hashPassword(params.password);
@@ -62,7 +62,7 @@ class SignUpParams extends Equatable {
   final String email;
   final String password;
 
-  SignUpParams({
+  const SignUpParams({
     required this.name,
     required this.email,
     required this.password,

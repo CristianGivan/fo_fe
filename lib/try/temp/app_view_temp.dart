@@ -9,7 +9,7 @@ class AppViewTemp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData.dark(),
-      home: SignUpScreen1(),
+      home: const SignUpScreen1(),
     );
   }
 }

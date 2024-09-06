@@ -15,7 +15,7 @@ class LoginUseCase extends UseCase<AuthenticationEntity, LoginParams> {
   @override
   Future<Either<Failure, AuthenticationEntity>> call(LoginParams params) async {
     if (!isValidEmail(params.email) || !isValidPassword(params.password)) {
-      return Left(InvalidInputFailure("InvalidInputFailure"));
+      return const Left(InvalidInputFailure("InvalidInputFailure"));
     }
 
     // Fetch user by email and password
@@ -26,11 +26,6 @@ class LoginUseCase extends UseCase<AuthenticationEntity, LoginParams> {
     return userResult.fold(
       (failure) => Left(failure),
       (user) async {
-        if (user == null) {
-          return Left(InvalidInputFailure("Invalid email or password"));
-        }
-
-        // Proceed with authentication
         return await authRepository.insertAuthentication(user);
       },
     );
@@ -49,7 +44,7 @@ class LoginParams extends Equatable {
   final String email;
   final String password;
 
-  LoginParams({
+  const LoginParams({
     required this.email,
     required this.password,
   });

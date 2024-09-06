@@ -25,7 +25,7 @@ class SwitchUserUseCase
 
     return authsResult.fold((failure) => Left(failure), (auths) async {
       final newAuth = auths.firstWhere((auth) => auth.userId == params.userId,
-          orElse: () => throw UserNotFoundFailure("UserNotFoundFailure"));
+          orElse: () => throw const UserNotFoundFailure("UserNotFoundFailure"));
 
       final updatedAuth =
           newAuth.copyWith(isActive: true, lastUsedDate: DateTime.now());
@@ -38,7 +38,7 @@ class SwitchUserUseCase
 class SwitchUserParams extends Equatable {
   final int userId;
 
-  SwitchUserParams({
+  const SwitchUserParams({
     required this.userId,
   });
 

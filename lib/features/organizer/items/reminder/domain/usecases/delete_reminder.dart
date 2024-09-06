@@ -18,7 +18,7 @@ class DeleteReminder implements UseCase<int, DeleteTagParams> {
 class DeleteTagParams extends Equatable {
   final int id;
 
-  DeleteTagParams({required this.id});
+  const DeleteTagParams({required this.id});
 
   @override
   List<Object?> get props => [id];

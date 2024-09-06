@@ -14,7 +14,7 @@ class TagRepositoryDrift implements TagRepository {
       final id = await localDataSource.insertTag(tag);
       return Right(id);
     } catch (e) {
-      return Left(DatabaseFailure());
+      return const Left(DatabaseFailure());
     }
   }
 
@@ -24,7 +24,7 @@ class TagRepositoryDrift implements TagRepository {
       final success = await localDataSource.updateTag(tag);
       return Right(success);
     } catch (e) {
-      return Left(DatabaseFailure());
+      return const Left(DatabaseFailure());
     }
   }
 
@@ -34,7 +34,7 @@ class TagRepositoryDrift implements TagRepository {
       final id = await localDataSource.deleteTag(tagId);
       return Right(id);
     } catch (e) {
-      return Left(DatabaseFailure());
+      return const Left(DatabaseFailure());
     }
   }
 
@@ -44,7 +44,7 @@ class TagRepositoryDrift implements TagRepository {
       final tag = await localDataSource.getTagById(id);
       return Right(tag);
     } catch (e) {
-      return Left(DatabaseFailure());
+      return const Left(DatabaseFailure());
     }
   }
 
@@ -54,7 +54,7 @@ class TagRepositoryDrift implements TagRepository {
       final items = await localDataSource.getTagItemsAll();
       return Right(items);
     } catch (e) {
-      return Left(DatabaseFailure());
+      return const Left(DatabaseFailure());
     }
   }
 
@@ -65,7 +65,7 @@ class TagRepositoryDrift implements TagRepository {
       final items = await localDataSource.getTagItemsByIdSet(idSet);
       return Right(items);
     } catch (e) {
-      return Left(DatabaseFailure());
+      return const Left(DatabaseFailure());
     }
   }
 }

@@ -69,7 +69,7 @@ class TaskMapper {
       createdDate: Value(model.createdDate),
       creatorId: Value(model.creatorId),
       remoteId: model.remoteId != null
-          ? Value(model.remoteId!)
+          ? Value(model.remoteId)
           : const Value.absent(),
       lastUpdate: model.lastUpdate != null
           ? Value(model.lastUpdate!)

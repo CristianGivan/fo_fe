@@ -16,7 +16,7 @@ class UserAppBranch {
     return GoRoute(
       name: UserRouterNames.userRoute,
       path: '/user',
-      pageBuilder: (context, state) => NoTransitionPage(
+      pageBuilder: (context, state) => const NoTransitionPage(
         child: UserScreen(),
       ),
       routes: [

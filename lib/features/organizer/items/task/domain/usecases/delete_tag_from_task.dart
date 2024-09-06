@@ -20,7 +20,7 @@ class DeleteTagFromTaskParams extends Equatable {
   final int taskId;
   final int tagId;
 
-  DeleteTagFromTaskParams({required this.taskId, required this.tagId});
+  const DeleteTagFromTaskParams({required this.taskId, required this.tagId});
 
   @override
   List<Object> get props => [taskId, tagId];

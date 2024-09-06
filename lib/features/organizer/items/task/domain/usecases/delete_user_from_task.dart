@@ -20,7 +20,7 @@ class DeleteUserFromTaskParams extends Equatable {
   final int taskId;
   final int userId;
 
-  DeleteUserFromTaskParams({required this.taskId, required this.userId});
+  const DeleteUserFromTaskParams({required this.taskId, required this.userId});
 
   @override
   List<Object> get props => [taskId, userId];

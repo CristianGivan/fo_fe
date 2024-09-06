@@ -5,6 +5,8 @@ import 'package:fo_fe/features/organizer/items/task/config/task_exports.dart';
 import 'package:fo_fe/try/UI/select_user_screen.dart';
 
 class AddTaskScreen extends StatefulWidget {
+  const AddTaskScreen({super.key});
+
   @override
   _AddTaskScreenState createState() => _AddTaskScreenState();
 }
@@ -58,7 +60,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   Future<void> _navigateAndSelectUser(BuildContext context) async {
     final result = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => SelectUserScreen()),
+      MaterialPageRoute(builder: (context) => const SelectUserScreen()),
     );
 
     if (result != null) {
@@ -72,7 +74,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Task'),
+        title: const Text('Add Task'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -82,7 +84,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             children: [
               TextFormField(
                 controller: _subjectController,
-                decoration: InputDecoration(labelText: 'Subject'),
+                decoration: const InputDecoration(labelText: 'Subject'),
                 validator: (value) {
                   if (value?.isEmpty ?? true) {
                     return 'Please enter a subject';
@@ -92,53 +94,53 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               ),
               TextFormField(
                 controller: _checksumController,
-                decoration: InputDecoration(labelText: 'Checksum'),
+                decoration: const InputDecoration(labelText: 'Checksum'),
               ),
               TextFormField(
                 controller: _startDateController,
-                decoration: InputDecoration(labelText: 'Start Date'),
+                decoration: const InputDecoration(labelText: 'Start Date'),
                 readOnly: true,
                 onTap: () => _selectDateTime(context, _startDateController),
               ),
               TextFormField(
                 controller: _endDateController,
-                decoration: InputDecoration(labelText: 'End Date'),
+                decoration: const InputDecoration(labelText: 'End Date'),
                 readOnly: true,
                 onTap: () => _selectDateTime(context, _endDateController),
               ),
               TextFormField(
                 controller: _workingTimeController,
-                decoration: InputDecoration(labelText: 'Working Time'),
+                decoration: const InputDecoration(labelText: 'Working Time'),
               ),
               TextFormField(
                 controller: _estimatedTimeController,
-                decoration: InputDecoration(labelText: 'Estimated Time'),
+                decoration: const InputDecoration(labelText: 'Estimated Time'),
               ),
               TextFormField(
                 controller: _estimatedLeftTimeController,
-                decoration: InputDecoration(labelText: 'Estimated Left Time'),
+                decoration: const InputDecoration(labelText: 'Estimated Left Time'),
               ),
               TextFormField(
                 controller: _workingProgressController,
-                decoration: InputDecoration(labelText: 'Working Progress'),
+                decoration: const InputDecoration(labelText: 'Working Progress'),
               ),
               TextFormField(
                 controller: _taskStatusController,
-                decoration: InputDecoration(labelText: 'Task Status'),
+                decoration: const InputDecoration(labelText: 'Task Status'),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
                   _navigateAndSelectUser(context);
                 },
-                child: Text('Select User'),
+                child: const Text('Select User'),
               ),
               if (_selectedUser != null)
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0),
                   child: Text('Selected User: $_selectedUser'),
                 ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState?.validate() ?? false) {
@@ -175,7 +177,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                       taskStatus: _taskStatusController.text.isNotEmpty
                           ? TaskStatus.values.firstWhere((e) =>
                               e.toString() ==
-                              'TaskStatus.' + _taskStatusController.text)
+                              'TaskStatus.${_taskStatusController.text}')
                           : null,
                     );
                     BlocProvider.of<TaskBlocTask>(context)
@@ -183,7 +185,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                     Navigator.pop(context);
                   }
                 },
-                child: Text('Add Task'),
+                child: const Text('Add Task'),
               ),
             ],
           ),

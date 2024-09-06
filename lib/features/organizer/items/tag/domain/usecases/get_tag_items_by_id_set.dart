@@ -22,7 +22,7 @@ class GetTagItemsByIdSet
 class IdSetParams extends Equatable {
   final IdSet idSet;
 
-  IdSetParams({required this.idSet});
+  const IdSetParams({required this.idSet});
 
   @override
   List<Object?> get props => [idSet];

@@ -5,17 +5,13 @@ import '../../../../../../core/const/constants.dart';
 
 class UserModel extends UserEntity with EquatableMixin {
   UserModel({
-    required int id,
-    required String name,
-    required String? email,
-    required DateTime? createdDate,
+    required int super.id,
+    required super.name,
+    required super.email,
+    required super.createdDate,
     required String hashedPassword,
   }) : super(
-            id: id,
-            name: name,
-            password: hashedPassword,
-            email: email,
-            createdDate: createdDate);
+            password: hashedPassword);
 
   factory UserModel.empty() => UserModel(
         id: 0,

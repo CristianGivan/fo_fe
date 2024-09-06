@@ -20,7 +20,7 @@ class AddReminderToTaskParams extends Equatable {
   final int taskId;
   final int reminderId;
 
-  AddReminderToTaskParams({required this.taskId, required this.reminderId});
+  const AddReminderToTaskParams({required this.taskId, required this.reminderId});
 
   @override
   List<Object> get props => [taskId, reminderId];

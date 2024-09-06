@@ -19,7 +19,7 @@ void appInit({bool isDev = false}) {
 void coreInit() {
   // Util
   sl.registerLazySingleton(() => InputConverter());
-  sl.registerLazySingleton(() => DeviceInfo());
+  sl.registerLazySingleton(() => const DeviceInfo());
   sl.registerLazySingleton<EncryptionService>(() => Base64EncryptionService());
   sl.registerLazySingleton(() => TokenManager(sl<EncryptionService>()));
 

@@ -6,11 +6,13 @@ import 'package:fo_fe/features/organizer/items/user/presentation/widgets/user_in
 import 'package:fo_fe/features/organizer/items/user/presentation/widgets/user_list_widget.dart';
 
 class UserScreen extends StatelessWidget {
+  const UserScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('User Management'),
+        title: const Text('User Management'),
       ),
       body: BlocBuilder<AuthenticationBlocSession,
           AuthenticationBlocSessionState>(

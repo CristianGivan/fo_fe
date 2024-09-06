@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class SelectUserScreen extends StatelessWidget {
+  const SelectUserScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     // Dummy list of users for selection
@@ -8,7 +10,7 @@ class SelectUserScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Select User'),
+        title: const Text('Select User'),
       ),
       body: ListView.builder(
         itemCount: users.length,

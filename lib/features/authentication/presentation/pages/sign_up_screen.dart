@@ -6,6 +6,8 @@ import 'package:fo_fe/features/organizer/config/organizer_exports.dart';
 import 'package:go_router/go_router.dart';
 
 class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
+
   @override
   _SignUpScreenState createState() => _SignUpScreenState();
 }
@@ -29,7 +31,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Sign Up')),
+      appBar: AppBar(title: const Text('Sign Up')),
       body:
           BlocListener<AuthenticationBlocSignUp, AuthenticationBlocSignUpState>(
         listener: (context, state) {
@@ -38,7 +40,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             GoRouter.of(context).go(OrganizerRouterNames.organizerRoute);
 
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Sign up successful!')),
+              const SnackBar(content: Text('Sign up successful!')),
             );
           } else if (state is AuthenticationSignUpError) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -155,7 +157,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ],
                         );
                       }
-                      return SizedBox.shrink();
+                      return const SizedBox.shrink();
                     },
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
@@ -193,7 +195,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                           ),
                           child: isLoading
-                              ? CircularProgressIndicator(color: Colors.white)
+                              ? const CircularProgressIndicator(color: Colors.white)
                               : const Padding(
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 25, vertical: 5),
@@ -229,16 +231,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
             isMet ? Icons.check_circle : Icons.circle_outlined,
             color: isMet
                 ? Colors.green
-                : Theme.of(context).colorScheme.onBackground,
+                : Theme.of(context).colorScheme.onSurface,
             size: 16,
           ),
-          SizedBox(width: 8),
+          const SizedBox(width: 8),
           Text(
             requirement,
             style: TextStyle(
               color: isMet
                   ? Colors.green
-                  : Theme.of(context).colorScheme.onBackground,
+                  : Theme.of(context).colorScheme.onSurface,
             ),
           ),
         ],

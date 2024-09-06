@@ -19,7 +19,7 @@ class InsertTag extends UseCase<int, InsertTagParams> {
 class InsertTagParams extends Equatable {
   final TagEntity tag;
 
-  InsertTagParams({required this.tag});
+  const InsertTagParams({required this.tag});
 
   @override
   List<Object?> get props => [tag];

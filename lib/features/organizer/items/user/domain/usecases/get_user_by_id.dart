@@ -18,7 +18,7 @@ class GetUserById extends UseCase<UserEntity, GetUserByIdParams> {
 class GetUserByIdParams extends Equatable {
   final int id;
 
-  GetUserByIdParams({required this.id});
+  const GetUserByIdParams({required this.id});
 
   @override
   List<Object> get props => [id];

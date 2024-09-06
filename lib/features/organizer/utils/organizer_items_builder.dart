@@ -19,7 +19,7 @@ class OrganizerItemsBuilder<T extends OrganizerItemEntity> extends Equatable {
   OrganizerItemsBuilder._(this._organizerItems, this._sortedBy);
 
   factory OrganizerItemsBuilder.empty() =>
-      OrganizerItemsBuilder._([], SortedBy.none);
+      OrganizerItemsBuilder._(const [], SortedBy.none);
 
   factory OrganizerItemsBuilder.of(List<T> organizerItems,
           {SortedBy sortedBy = SortedBy.none}) =>

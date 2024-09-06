@@ -21,7 +21,7 @@ class GetUserItemsByIdSet
 class GetUserItemsByIdSetParams extends Equatable {
   final IdSet idSet;
 
-  GetUserItemsByIdSetParams({required this.idSet});
+  const GetUserItemsByIdSetParams({required this.idSet});
 
   @override
   List<Object> get props => [idSet];

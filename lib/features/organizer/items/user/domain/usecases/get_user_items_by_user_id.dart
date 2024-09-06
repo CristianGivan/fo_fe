@@ -21,7 +21,7 @@ class GetUserItemsByUserId
 class GetUserItemsByUserIdParams extends Equatable {
   final int userId;
 
-  GetUserItemsByUserIdParams({required this.userId});
+  const GetUserItemsByUserIdParams({required this.userId});
 
   @override
   List<Object> get props => [userId];

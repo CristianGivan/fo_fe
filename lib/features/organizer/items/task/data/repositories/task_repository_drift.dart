@@ -50,13 +50,14 @@ class TaskRepositoryDrift implements TaskRepository {
     return _handleDatabaseOperation(() => localDataSource.deleteTask(taskId));
   }
 
+  @override
   Future<Either<Failure, TaskEntity>> getTaskById(int id) {
     return _handleDatabaseOperation(() async {
       final taskModel = await localDataSource.getTaskById(id);
       if (taskModel != null) {
         return TaskMapper.modelToEntity(taskModel);
       } else {
-        throw TaskNotFoundFailure();
+        throw const TaskNotFoundFailure();
       }
     });
   }
@@ -68,7 +69,7 @@ class TaskRepositoryDrift implements TaskRepository {
       if (taskModel != null) {
         return TaskMapper.modelLazyLoadedToEntityLazyLoaded(taskModel);
       } else {
-        throw TaskNotFoundFailure();
+        throw const TaskNotFoundFailure();
       }
     });
   }
@@ -109,7 +110,7 @@ class TaskRepositoryDrift implements TaskRepository {
       if (userModel != null) {
         return UserMapper.entityFromModel(userModel);
       } else {
-        throw TaskNotFoundFailure();
+        throw const TaskNotFoundFailure();
       }
     });
   }

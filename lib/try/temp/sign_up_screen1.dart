@@ -2,9 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fo_fe/features/authentication/config/authentication_exports.dart';
-import 'package:fo_fe/features/authentication/presentation/pages/my_text_field.dart';
 
 class SignUpScreen1 extends StatefulWidget {
+  const SignUpScreen1({super.key});
+
   @override
   _SignUpScreen1State createState() => _SignUpScreen1State();
 }
@@ -28,14 +29,14 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Sign Up')),
+      appBar: AppBar(title: const Text('Sign Up')),
       body:
           BlocListener<AuthenticationBlocSignUp, AuthenticationBlocSignUpState>(
         listener: (context, state) {
           if (state is AuthenticationSignUpSuccess) {
             // Navigate to the next screen or show success message
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Sign up successful!')),
+              const SnackBar(content: Text('Sign up successful!')),
             );
             // Navigate to next screen or perform other actions
           } else if (state is AuthenticationSignUpError) {
@@ -153,7 +154,7 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
                           ],
                         );
                       }
-                      return SizedBox.shrink();
+                      return const SizedBox.shrink();
                     },
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
@@ -191,7 +192,7 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
                             ),
                           ),
                           child: isLoading
-                              ? CircularProgressIndicator(color: Colors.white)
+                              ? const CircularProgressIndicator(color: Colors.white)
                               : const Padding(
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 25, vertical: 5),
@@ -227,16 +228,16 @@ class _SignUpScreen1State extends State<SignUpScreen1> {
             isMet ? Icons.check_circle : Icons.circle_outlined,
             color: isMet
                 ? Colors.green
-                : Theme.of(context).colorScheme.onBackground,
+                : Theme.of(context).colorScheme.onSurface,
             size: 16,
           ),
-          SizedBox(width: 8),
+          const SizedBox(width: 8),
           Text(
             requirement,
             style: TextStyle(
               color: isMet
                   ? Colors.green
-                  : Theme.of(context).colorScheme.onBackground,
+                  : Theme.of(context).colorScheme.onSurface,
             ),
           ),
         ],

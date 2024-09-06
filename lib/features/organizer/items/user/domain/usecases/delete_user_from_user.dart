@@ -19,7 +19,7 @@ class DeleteUserFromUserParams extends Equatable {
   final int userLinkedId;
   final int userId;
 
-  DeleteUserFromUserParams({required this.userLinkedId, required this.userId});
+  const DeleteUserFromUserParams({required this.userLinkedId, required this.userId});
 
   @override
   List<Object> get props => [userLinkedId, userId];

@@ -20,7 +20,7 @@ class UpdateTask extends UseCase<bool, UpdateTaskParams> {
 class UpdateTaskParams extends Equatable {
   final TaskEntity task;
 
-  UpdateTaskParams({required this.task});
+  const UpdateTaskParams({required this.task});
 
   @override
   List<Object> get props => [task];

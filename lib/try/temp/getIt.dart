@@ -16,7 +16,7 @@ init1() {
       AuthenticationLocalDataSourceDrift(database: authenticationDriftDB);
   EncryptionService encryptionService = Base64EncryptionService();
   TokenManager tokenManager = TokenManager(encryptionService);
-  DeviceInfo deviceInfo = DeviceInfo(device: "device1", deviceUser: "devuser1");
+  DeviceInfo deviceInfo = const DeviceInfo(device: "device1", deviceUser: "devuser1");
   AuthenticationRepository authRepository = AuthenticationRepositoryDrift(
       localDataSource: authenticationLocalDataSourceDrift,
       tokenManager: tokenManager,

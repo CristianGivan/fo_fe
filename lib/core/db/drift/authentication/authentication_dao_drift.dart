@@ -7,7 +7,7 @@ part 'authentication_dao_drift.g.dart';
 @DriftAccessor(tables: [AuthenticationTableDrift])
 class AuthenticationDaoDrift extends DatabaseAccessor<AuthenticationDriftDB>
     with _$AuthenticationDaoDriftMixin {
-  AuthenticationDaoDrift(AuthenticationDriftDB db) : super(db);
+  AuthenticationDaoDrift(super.db);
 
   Future<AuthenticationTableDriftG?> getAuthenticationById(int id) =>
       (select(authenticationTableDrift)..where((tbl) => tbl.id.equals(id)))

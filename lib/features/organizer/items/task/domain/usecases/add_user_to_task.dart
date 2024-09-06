@@ -20,7 +20,7 @@ class AddUserToTaskParams extends Equatable {
   final int taskId;
   final int userId;
 
-  AddUserToTaskParams({required this.taskId, required this.userId});
+  const AddUserToTaskParams({required this.taskId, required this.userId});
 
   @override
   List<Object> get props => [taskId, userId];

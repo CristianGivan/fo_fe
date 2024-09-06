@@ -23,7 +23,7 @@ class GetRemindersByTaskId extends UseCase<OrganizerItems<ReminderEntity>,
 class GetRemindersByTaskIdParams extends Equatable {
   final int taskId;
 
-  GetRemindersByTaskIdParams({required this.taskId});
+  const GetRemindersByTaskIdParams({required this.taskId});
 
   @override
   List<Object> get props => [taskId];

@@ -60,12 +60,12 @@ class ReminderEntity extends OrganizerItemEntity with EquatableMixin {
       creatorId: creatorId ?? this.creatorId,
       remoteId: remoteId ?? this.remoteId,
       lastUpdate: lastUpdate ?? this.lastUpdate,
-      lastViewDate: lastViewDate ?? this.lastAccessedDate,
-      remoteViews: remoteViews ?? this.remoteAccesses,
-      views: views ?? this.accesses,
+      lastViewDate: lastViewDate ?? lastAccessedDate,
+      remoteViews: remoteViews ?? remoteAccesses,
+      views: views ?? accesses,
       checksum: checksum ?? this.checksum,
-      subject: subject ?? this._subject,
-      remindAt: remindAt ?? this._remindAt,
+      subject: subject ?? _subject,
+      remindAt: remindAt ?? _remindAt,
       taskId: taskId,
     );
   }

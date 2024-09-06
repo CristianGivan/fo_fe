@@ -20,7 +20,7 @@ class GetTaskById extends UseCase<TaskEntity, GetTaskByIdParams> {
 class GetTaskByIdParams extends Equatable {
   final int id;
 
-  GetTaskByIdParams({required this.id});
+  const GetTaskByIdParams({required this.id});
 
   @override
   List<Object> get props => [id];

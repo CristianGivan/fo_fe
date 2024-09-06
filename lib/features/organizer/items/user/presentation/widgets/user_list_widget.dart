@@ -18,7 +18,7 @@ class UserListWidget extends StatelessWidget {
     return BlocBuilder<UserBlocUser, UserBlocState>(
       builder: (context, state) {
         if (state is UserLoadingBlocState) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         } else if (state is UsertemsLoadedBlocIState) {
           final users = state.users;
 
@@ -30,7 +30,7 @@ class UserListWidget extends StatelessWidget {
             },
           );
         } else if (state is UserErrorBlocState) {
-          return Center(child: Text('Failed to load users'));
+          return const Center(child: Text('Failed to load users'));
         }
         return Container(); // Fallback if state is not recognized
       },

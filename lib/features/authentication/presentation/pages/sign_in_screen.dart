@@ -5,7 +5,7 @@ import 'package:fo_fe/features/organizer/config/organizer_exports.dart';
 import 'package:go_router/go_router.dart';
 
 class SignInScreen extends StatefulWidget {
-  const SignInScreen({Key? key}) : super(key: key);
+  const SignInScreen({super.key});
 
   @override
   _SignInScreenState createState() => _SignInScreenState();
@@ -19,7 +19,7 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Sign In')),
+      appBar: AppBar(title: const Text('Sign In')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -28,7 +28,7 @@ class _SignInScreenState extends State<SignInScreen> {
             children: [
               TextFormField(
                 controller: _emailController,
-                decoration: InputDecoration(labelText: 'Email'),
+                decoration: const InputDecoration(labelText: 'Email'),
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Please enter your email';
@@ -38,7 +38,7 @@ class _SignInScreenState extends State<SignInScreen> {
               ),
               TextFormField(
                 controller: _passwordController,
-                decoration: InputDecoration(labelText: 'Password'),
+                decoration: const InputDecoration(labelText: 'Password'),
                 obscureText: true,
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -47,12 +47,12 @@ class _SignInScreenState extends State<SignInScreen> {
                   return null;
                 },
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               BlocBuilder<AuthenticationBlocSignIn,
                   AuthenticationBlocSignInState>(
                 builder: (context, state) {
                   if (state is AuthenticationSignInLoading) {
-                    return CircularProgressIndicator();
+                    return const CircularProgressIndicator();
                   }
                   return ElevatedButton(
                     onPressed: () {
@@ -65,7 +65,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             );
                       }
                     },
-                    child: Text('Sign In'),
+                    child: const Text('Sign In'),
                   );
                 },
               ),

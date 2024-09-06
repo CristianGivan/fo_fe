@@ -23,7 +23,7 @@ class GetTagsByTaskId
 class GetTagsByTaskIdParams extends Equatable {
   final int taskId;
 
-  GetTagsByTaskIdParams({required this.taskId});
+  const GetTagsByTaskIdParams({required this.taskId});
 
   @override
   List<Object> get props => [taskId];

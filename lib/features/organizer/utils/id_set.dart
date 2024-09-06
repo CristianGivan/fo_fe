@@ -4,7 +4,7 @@ import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_i
 class IdSet extends Equatable {
   final Set<int> _ids;
 
-  IdSet._(this._ids);
+  const IdSet._(this._ids);
 
   const IdSet.empty() : _ids = const {};
 

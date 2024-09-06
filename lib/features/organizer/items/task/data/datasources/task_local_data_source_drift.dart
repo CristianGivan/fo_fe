@@ -20,25 +20,30 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
   });
 
   // CRUD operations
+  @override
   Future<int> insertTask(TaskTableDriftCompanion task) {
     return db.taskDaoDrift.insertTask(task);
   }
 
+  @override
   Future<bool> updateTask(TaskTableDriftCompanion task) {
     return db.taskDaoDrift.updateTask(task);
   }
 
+  @override
   Future<int> deleteTask(int taskId) {
     return db.taskDaoDrift.deleteTask(taskId);
   }
 
   // Get task by ID without related entities
+  @override
   Future<TaskModel?> getTaskById(int id) async {
     final taskTable = await db.taskDaoDrift.getTaskById(id);
     return taskTable != null ? TaskMapper.modelFromTableDrift(taskTable) : null;
   }
 
   // Get full lazy-loaded task by ID with all related entities
+  @override
   Future<TaskModelLazyLoaded?> getTaskByIdLazyLoaded(int id) async {
     final taskTable = await db.taskDaoDrift.getTaskById(id);
     if (taskTable == null) return null;
@@ -72,18 +77,21 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
   }
 
   // Get all task items
+  @override
   Future<OrganizerItems<TaskModel>> getTaskItemsAll() async {
     final taskTables = await db.taskDaoDrift.getTaskItemsAll();
     return TaskMapper.modelItemsFromTableDriftItems(taskTables);
   }
 
   // Get task items by ID set
+  @override
   Future<OrganizerItems<TaskModel>> getTaskItemsByIdSet(IdSet idSet) async {
     final taskTables = await db.taskDaoDrift.getTaskItemsByIdSet(idSet.toSet());
     return TaskMapper.modelItemsFromTableDriftItems(taskTables);
   }
 
   // Method to get users by task ID
+  @override
   Future<OrganizerItems<UserModel>> getUsersByTaskId(int taskId) async {
     final userIds = await db.taskUserDaoDrift.getUserIdsByTaskId(taskId);
     final userTables = await db.userDaoDrift.getUserItemsByIdSet(userIds);
@@ -91,6 +99,7 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
   }
 
   // Method to get tags by task ID
+  @override
   Future<OrganizerItems<TagModel>> getTagsByTaskId(int taskId) async {
     final tagIds = await db.taskTagDaoDrift.getTagIdsByTaskId(taskId);
     final tagTables = await db.tagDaoDrift.getTagItemsByTagIdSet(tagIds);
@@ -98,6 +107,7 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
   }
 
   // Method to get reminders by task ID
+  @override
   Future<OrganizerItems<ReminderModel>> getRemindersByTaskId(int taskId) async {
     final reminderIds =
         await db.taskReminderDaoDrift.getReminderIdsByTaskId(taskId);
@@ -107,40 +117,47 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
   }
 
   // Method to get creator by ID
+  @override
   Future<UserModel?> getCreatorById(int creatorId) async {
     final creator = await db.userDaoDrift.getUserById(creatorId);
     return creator != null ? UserMapper.modelFromTableDrift(creator) : null;
   }
 
   // Add user to task
+  @override
   Future<int> addUserToTask(int taskId, int userId) async {
     return db.taskUserDaoDrift
         .insertTaskUser(_createTaskUserCompanion(taskId, userId));
   }
 
   // Add tag to task
+  @override
   Future<int> addTagToTask(int taskId, int tagId) async {
     return db.taskTagDaoDrift
         .insertTaskTag(_createTaskTagCompanion(taskId, tagId));
   }
 
   // Add reminder to task
+  @override
   Future<int> addReminderToTask(int taskId, int reminderId) async {
     return db.taskReminderDaoDrift
         .insertTaskReminder(_createTaskReminderCompanion(taskId, reminderId));
   }
 
 // Delete user from task
+  @override
   Future<int> deleteUserFromTask(int taskId, int userId) async {
     return db.taskUserDaoDrift.deleteTaskUser(taskId, userId);
   }
 
   // Delete tag from task
+  @override
   Future<int> deleteTagFromTask(int taskId, int tagId) async {
     return db.taskTagDaoDrift.deleteTaskTag(taskId, tagId);
   }
 
   // Delete reminder from task
+  @override
   Future<int> deleteReminderFromTask(taskId, reminderId) async {
     return db.taskReminderDaoDrift.deleteTaskReminder(taskId, reminderId);
   }

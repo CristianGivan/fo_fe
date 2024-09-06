@@ -20,7 +20,7 @@ class GetCreatorById extends UseCase<UserEntity, GetCreatorByIdParams> {
 class GetCreatorByIdParams extends Equatable {
   final int creatorId;
 
-  GetCreatorByIdParams({required this.creatorId});
+  const GetCreatorByIdParams({required this.creatorId});
 
   @override
   List<Object> get props => [creatorId];

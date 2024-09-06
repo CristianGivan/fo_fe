@@ -7,5 +7,5 @@ void main() async {
   sl.appInit();
   WidgetsFlutterBinding.ensureInitialized();
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }

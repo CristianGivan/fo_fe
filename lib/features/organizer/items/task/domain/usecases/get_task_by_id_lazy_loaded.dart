@@ -22,7 +22,7 @@ class GetTaskByIdLazyLoaded
 class GetTaskByIdLazyLoadedParams extends Equatable {
   final int id;
 
-  GetTaskByIdLazyLoadedParams({required this.id});
+  const GetTaskByIdLazyLoadedParams({required this.id});
 
   @override
   List<Object> get props => [id];

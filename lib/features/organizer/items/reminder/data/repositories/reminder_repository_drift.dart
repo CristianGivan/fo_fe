@@ -14,7 +14,7 @@ class ReminderRepositoryDrift implements ReminderRepository {
       final id = await localDataSource.insertReminder(reminder);
       return Right(id);
     } catch (e) {
-      return Left(DatabaseFailure());
+      return const Left(DatabaseFailure());
     }
   }
 
@@ -24,7 +24,7 @@ class ReminderRepositoryDrift implements ReminderRepository {
       final success = await localDataSource.updateReminder(reminder);
       return Right(success);
     } catch (e) {
-      return Left(DatabaseFailure());
+      return const Left(DatabaseFailure());
     }
   }
 
@@ -34,7 +34,7 @@ class ReminderRepositoryDrift implements ReminderRepository {
       final id = await localDataSource.deleteReminder(reminderId);
       return Right(id);
     } catch (e) {
-      return Left(DatabaseFailure());
+      return const Left(DatabaseFailure());
     }
   }
 
@@ -44,7 +44,7 @@ class ReminderRepositoryDrift implements ReminderRepository {
       final reminder = await localDataSource.getReminderById(id);
       return Right(reminder);
     } catch (e) {
-      return Left(DatabaseFailure());
+      return const Left(DatabaseFailure());
     }
   }
 
@@ -55,7 +55,7 @@ class ReminderRepositoryDrift implements ReminderRepository {
       final items = await localDataSource.getReminderItemsAll();
       return Right(items);
     } catch (e) {
-      return Left(DatabaseFailure());
+      return const Left(DatabaseFailure());
     }
   }
 
@@ -66,7 +66,7 @@ class ReminderRepositoryDrift implements ReminderRepository {
       final items = await localDataSource.getReminderItemsByIdSet(idSet);
       return Right(items);
     } catch (e) {
-      return Left(DatabaseFailure());
+      return const Left(DatabaseFailure());
     }
   }
 

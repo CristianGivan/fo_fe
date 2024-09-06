@@ -20,7 +20,7 @@ class InsertTask extends UseCase<int, InsertTaskParams> {
 class InsertTaskParams extends Equatable {
   final TaskEntity task;
 
-  InsertTaskParams({required this.task});
+  const InsertTaskParams({required this.task});
 
   @override
   List<Object> get props => [task];

@@ -9,13 +9,13 @@ import 'package:fo_fe/try/UI/user_form.dart';
 class TaskDetailsScreen extends StatelessWidget {
   final int taskId;
 
-  TaskDetailsScreen({required this.taskId});
+  const TaskDetailsScreen({super.key, required this.taskId});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Task Details'),
+        title: const Text('Task Details'),
       ),
       body: MultiBlocProvider(
         providers: [
@@ -45,7 +45,7 @@ class TaskDetailsScreen extends StatelessWidget {
 class TaskDetails extends StatelessWidget {
   final int taskId;
 
-  TaskDetails({required this.taskId});
+  const TaskDetails({super.key, required this.taskId});
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class TaskDetails extends StatelessWidget {
           BlocBuilder<TaskBlocTask, TaskBlocState>(
             builder: (context, state) {
               if (state is TaskLoadingBlocState) {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               } else if (state is TaskLoadedBlocState) {
                 final task =
                     state.tasks.firstWhere((task) => task.id == taskId);
@@ -63,7 +63,7 @@ class TaskDetails extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text('Title: ${task.subject}',
-                        style: TextStyle(fontSize: 20)),
+                        style: const TextStyle(fontSize: 20)),
                     Text('Description: ${task.subject}'),
                     // Add more fields as necessary
                   ],
@@ -71,23 +71,23 @@ class TaskDetails extends StatelessWidget {
               } else if (state is TaskErrorBlocState) {
                 return Center(child: Text(state.message));
               } else {
-                return Center(child: Text('Unknown state'));
+                return const Center(child: Text('Unknown state'));
               }
             },
           ),
-          Divider(),
-          Text('Users:', style: TextStyle(fontSize: 18)),
+          const Divider(),
+          const Text('Users:', style: TextStyle(fontSize: 18)),
           BlocBuilder<TaskBlocUser, TaskUserBlocState>(
             builder: (context, state) {
               if (state is TaskLoadingBlocState) {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               } else if (state is UserLoadedBlocState) {
                 return Column(
                   children: state.users.map((user) {
                     return ListTile(
                       title: Text(user.name),
                       trailing: IconButton(
-                        icon: Icon(Icons.delete),
+                        icon: const Icon(Icons.delete),
                         onPressed: () {
                           BlocProvider.of<TaskBlocUser>(context).add(
                               DeleteUserFromTaskBlocEvent(taskId, user.id));
@@ -97,9 +97,9 @@ class TaskDetails extends StatelessWidget {
                   }).toList(),
                 );
               } else if (state is TaskErrorBlocState) {
-                return Center(child: Text("state.message"));
+                return const Center(child: Text("state.message"));
               } else {
-                return Center(child: Text('Unknown state'));
+                return const Center(child: Text('Unknown state'));
               }
             },
           ),
@@ -111,21 +111,21 @@ class TaskDetails extends StatelessWidget {
                     builder: (context) => UserForm(taskId: taskId)),
               );
             },
-            child: Text('Add User'),
+            child: const Text('Add User'),
           ),
-          Divider(),
-          Text('Tags:', style: TextStyle(fontSize: 18)),
+          const Divider(),
+          const Text('Tags:', style: TextStyle(fontSize: 18)),
           BlocBuilder<TaskBlocTag, TaskTagBlocState>(
             builder: (context, state) {
               if (state is TaskLoadingBlocState) {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               } else if (state is TagLoadedBlocState) {
                 return Column(
                   children: state.tags.map((tag) {
                     return ListTile(
                       title: Text(tag.subject),
                       trailing: IconButton(
-                        icon: Icon(Icons.delete),
+                        icon: const Icon(Icons.delete),
                         onPressed: () {
                           BlocProvider.of<TaskBlocTag>(context)
                               .add(DeleteTagFromTaskBlocEvent(taskId, tag.id));
@@ -135,9 +135,9 @@ class TaskDetails extends StatelessWidget {
                   }).toList(),
                 );
               } else if (state is TaskErrorBlocState) {
-                return Center(child: Text("state.message"));
+                return const Center(child: Text("state.message"));
               } else {
-                return Center(child: Text('Unknown state'));
+                return const Center(child: Text('Unknown state'));
               }
             },
           ),
@@ -149,21 +149,21 @@ class TaskDetails extends StatelessWidget {
                     builder: (context) => TagForm(taskId: taskId)),
               );
             },
-            child: Text('Add Tag'),
+            child: const Text('Add Tag'),
           ),
-          Divider(),
-          Text('Reminders:', style: TextStyle(fontSize: 18)),
+          const Divider(),
+          const Text('Reminders:', style: TextStyle(fontSize: 18)),
           BlocBuilder<TaskBlocReminder, TaskReminderBlocState>(
             builder: (context, state) {
               if (state is TaskLoadingBlocState) {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: CircularProgressIndicator());
               } else if (state is ReminderLoadedBlocState) {
                 return Column(
                   children: state.reminders.map((reminder) {
                     return ListTile(
                       title: Text(reminder.subject),
                       trailing: IconButton(
-                        icon: Icon(Icons.delete),
+                        icon: const Icon(Icons.delete),
                         onPressed: () {
                           BlocProvider.of<TaskBlocReminder>(context).add(
                               DeleteReminderFromTaskBlocEvent(
@@ -174,9 +174,9 @@ class TaskDetails extends StatelessWidget {
                   }).toList(),
                 );
               } else if (state is TaskErrorBlocState) {
-                return Center(child: Text("state.message"));
+                return const Center(child: Text("state.message"));
               } else {
-                return Center(child: Text('Unknown state'));
+                return const Center(child: Text('Unknown state'));
               }
             },
           ),
@@ -188,7 +188,7 @@ class TaskDetails extends StatelessWidget {
                     builder: (context) => ReminderForm(taskId: taskId)),
               );
             },
-            child: Text('Add Reminder'),
+            child: const Text('Add Reminder'),
           ),
         ],
       ),

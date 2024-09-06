@@ -4,12 +4,14 @@ import 'package:fo_fe/features/organizer/items/task/presentation/logic/task_bloc
 import 'package:fo_fe/try/UI/update_task_screen.dart';
 
 class TaskList extends StatelessWidget {
+  const TaskList({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TaskBlocTask, TaskBlocState>(
       builder: (context, state) {
         if (state is TaskLoadingBlocState) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         } else if (state is TaskLoadedBlocState) {
           return ListView.builder(
             itemCount: state.tasks.size(),
@@ -21,7 +23,7 @@ class TaskList extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => UpdateTaskScreen()),
+                    MaterialPageRoute(builder: (context) => const UpdateTaskScreen()),
                   );
                 },
               );
@@ -30,7 +32,7 @@ class TaskList extends StatelessWidget {
         } else if (state is TaskErrorBlocState) {
           return Center(child: Text(state.message));
         } else {
-          return Center(child: Text('No tasks available.'));
+          return const Center(child: Text('No tasks available.'));
         }
       },
     );

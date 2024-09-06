@@ -23,7 +23,7 @@ class GetUsersByTaskId
 class GetUsersByTaskIdParams extends Equatable {
   final int taskId;
 
-  GetUsersByTaskIdParams({required this.taskId});
+  const GetUsersByTaskIdParams({required this.taskId});
 
   @override
   List<Object> get props => [taskId];

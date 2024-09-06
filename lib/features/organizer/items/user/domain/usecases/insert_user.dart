@@ -18,7 +18,7 @@ class InsertUser extends UseCase<int, InsertUserParams> {
 class InsertUserParams extends Equatable {
   final UserEntity user;
 
-  InsertUserParams({required this.user});
+  const InsertUserParams({required this.user});
 
   @override
   List<Object> get props => [user];

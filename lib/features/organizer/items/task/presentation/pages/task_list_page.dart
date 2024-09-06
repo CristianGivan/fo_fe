@@ -6,12 +6,14 @@ import 'package:fo_fe/features/organizer/items/task/presentation/pages/task_view
 import 'package:fo_fe/features/organizer/items/task/presentation/screens/task_edit_screen.dart';
 
 class TaskListPage extends StatelessWidget {
+  const TaskListPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TaskBlocTask, TaskBlocState>(
       builder: (context, state) {
         if (state is TaskLoadingBlocState) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         } else if (state is TaskLoadedBlocState) {
           return ListView.builder(
             itemCount: state.displayedTasks.size(),
@@ -23,7 +25,7 @@ class TaskListPage extends StatelessWidget {
         } else if (state is TaskErrorBlocState) {
           return Center(child: Text(state.message));
         } else {
-          return Center(child: Text('No Tasks Available'));
+          return const Center(child: Text('No Tasks Available'));
         }
       },
     );

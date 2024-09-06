@@ -6,7 +6,7 @@ import 'package:fo_fe/features/organizer/items/user/config/user_exports.dart';
 class UserForm extends StatefulWidget {
   final int taskId;
 
-  UserForm({required this.taskId});
+  const UserForm({super.key, required this.taskId});
 
   @override
   _UserFormState createState() => _UserFormState();
@@ -20,24 +20,24 @@ class _UserFormState extends State<UserForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add User'),
+        title: const Text('Add User'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
           child: Column(
             children: <Widget>[
               TextFormField(
-                decoration: InputDecoration(labelText: 'User Name'),
+                decoration: const InputDecoration(labelText: 'User Name'),
                 onSaved: (value) {
                   _userName = value!;
                 },
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _submitForm,
-                child: Text('Add User'),
+                child: const Text('Add User'),
               ),
             ],
           ),

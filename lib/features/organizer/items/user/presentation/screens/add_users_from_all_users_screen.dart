@@ -52,10 +52,10 @@ class _AddUsersFromAllUsersScreenState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Users'),
+        title: const Text('Add Users'),
         actions: [
           IconButton(
-            icon: Icon(Icons.check),
+            icon: const Icon(Icons.check),
             onPressed: _addSelectedUsers,
           ),
         ],
@@ -67,7 +67,7 @@ class _AddUsersFromAllUsersScreenState
         },
         builder: (context, state) {
           if (state is UserLoadingBlocState) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (state is UserAllItemsLoadedBlocState) {
             return ListView.builder(
               itemCount: state.users.size(),
@@ -78,16 +78,16 @@ class _AddUsersFromAllUsersScreenState
                   title: Text(user.name),
                   // Assuming UserEntity has a 'name' field
                   trailing: isSelected
-                      ? Icon(Icons.check_box)
-                      : Icon(Icons.check_box_outline_blank),
+                      ? const Icon(Icons.check_box)
+                      : const Icon(Icons.check_box_outline_blank),
                   onTap: () => _toggleUserSelection(user),
                 );
               },
             );
           } else if (state is UserErrorBlocState) {
-            return Center(child: Text('Failed to load users'));
+            return const Center(child: Text('Failed to load users'));
           }
-          return Center(child: Text('???'));
+          return const Center(child: Text('???'));
         },
       ),
     );

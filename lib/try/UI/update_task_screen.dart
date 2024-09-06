@@ -4,6 +4,8 @@ import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_i
 import 'package:fo_fe/features/organizer/items/task/config/task_exports.dart';
 
 class UpdateTaskScreen extends StatefulWidget {
+  const UpdateTaskScreen({super.key});
+
   @override
   _UpdateTaskScreenState createState() => _UpdateTaskScreenState();
 }
@@ -63,7 +65,7 @@ class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Task'),
+        title: const Text('Add Task'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -73,7 +75,7 @@ class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
             children: [
               TextFormField(
                 controller: _subjectController,
-                decoration: InputDecoration(labelText: 'Subject'),
+                decoration: const InputDecoration(labelText: 'Subject'),
                 validator: (value) {
                   if (value?.isEmpty ?? true) {
                     return 'Please enter a subject';
@@ -83,7 +85,7 @@ class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
               ),
               TextFormField(
                 controller: _createdDateController,
-                decoration: InputDecoration(labelText: 'Created Date'),
+                decoration: const InputDecoration(labelText: 'Created Date'),
                 readOnly: true,
                 onTap: () => _selectDateTime(context, _createdDateController),
                 validator: (value) {
@@ -95,7 +97,7 @@ class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
               ),
               TextFormField(
                 controller: _creatorIdController,
-                decoration: InputDecoration(labelText: 'Creator ID'),
+                decoration: const InputDecoration(labelText: 'Creator ID'),
                 validator: (value) {
                   if (value?.isEmpty ?? true) {
                     return 'Please enter a creator ID';
@@ -106,65 +108,65 @@ class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
               // Optional fields
               TextFormField(
                 controller: _remoteIdController,
-                decoration: InputDecoration(labelText: 'Remote ID'),
+                decoration: const InputDecoration(labelText: 'Remote ID'),
               ),
               TextFormField(
                 controller: _lastUpdateController,
-                decoration: InputDecoration(labelText: 'Last Update'),
+                decoration: const InputDecoration(labelText: 'Last Update'),
                 readOnly: true,
                 onTap: () => _selectDateTime(context, _lastUpdateController),
               ),
               TextFormField(
                 controller: _lastViewDateController,
-                decoration: InputDecoration(labelText: 'Last View Date'),
+                decoration: const InputDecoration(labelText: 'Last View Date'),
                 readOnly: true,
                 onTap: () => _selectDateTime(context, _lastViewDateController),
               ),
               TextFormField(
                 controller: _remoteViewsController,
-                decoration: InputDecoration(labelText: 'Remote Views'),
+                decoration: const InputDecoration(labelText: 'Remote Views'),
               ),
               TextFormField(
                 controller: _viewsController,
-                decoration: InputDecoration(labelText: 'Views'),
+                decoration: const InputDecoration(labelText: 'Views'),
               ),
               TextFormField(
                 controller: _checksumController,
-                decoration: InputDecoration(labelText: 'Checksum'),
+                decoration: const InputDecoration(labelText: 'Checksum'),
               ),
               TextFormField(
                 controller: _startDateController,
-                decoration: InputDecoration(labelText: 'Start Date'),
+                decoration: const InputDecoration(labelText: 'Start Date'),
                 readOnly: true,
                 onTap: () => _selectDateTime(context, _startDateController),
               ),
               TextFormField(
                 controller: _endDateController,
-                decoration: InputDecoration(labelText: 'End Date'),
+                decoration: const InputDecoration(labelText: 'End Date'),
                 readOnly: true,
                 onTap: () => _selectDateTime(context, _endDateController),
               ),
               TextFormField(
                 controller: _workingTimeController,
-                decoration: InputDecoration(labelText: 'Working Time'),
+                decoration: const InputDecoration(labelText: 'Working Time'),
               ),
               TextFormField(
                 controller: _estimatedTimeController,
-                decoration: InputDecoration(labelText: 'Estimated Time'),
+                decoration: const InputDecoration(labelText: 'Estimated Time'),
               ),
               TextFormField(
                 controller: _estimatedLeftTimeController,
-                decoration: InputDecoration(labelText: 'Estimated Left Time'),
+                decoration: const InputDecoration(labelText: 'Estimated Left Time'),
               ),
               TextFormField(
                 controller: _workingProgressController,
-                decoration: InputDecoration(labelText: 'Working Progress'),
+                decoration: const InputDecoration(labelText: 'Working Progress'),
               ),
               TextFormField(
                 controller: _taskStatusController,
-                decoration: InputDecoration(labelText: 'Task Status'),
+                decoration: const InputDecoration(labelText: 'Task Status'),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState?.validate() ?? false) {
@@ -215,7 +217,7 @@ class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
                       taskStatus: _taskStatusController.text.isNotEmpty
                           ? TaskStatus.values.firstWhere((e) =>
                               e.toString() ==
-                              'TaskStatus.' + _taskStatusController.text)
+                              'TaskStatus.${_taskStatusController.text}')
                           : null,
                     );
                     BlocProvider.of<TaskBlocTask>(context)
@@ -223,7 +225,7 @@ class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
                     Navigator.pop(context);
                   }
                 },
-                child: Text('Add Task'),
+                child: const Text('Add Task'),
               ),
             ],
           ),

@@ -6,7 +6,7 @@ import 'package:fo_fe/features/organizer/items/task/presentation/logic/task_bloc
 class ReminderForm extends StatefulWidget {
   final int taskId;
 
-  ReminderForm({required this.taskId});
+  const ReminderForm({super.key, required this.taskId});
 
   @override
   _ReminderFormState createState() => _ReminderFormState();
@@ -20,24 +20,24 @@ class _ReminderFormState extends State<ReminderForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Reminder'),
+        title: const Text('Add Reminder'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
           child: Column(
             children: <Widget>[
               TextFormField(
-                decoration: InputDecoration(labelText: 'Reminder Description'),
+                decoration: const InputDecoration(labelText: 'Reminder Description'),
                 onSaved: (value) {
                   _reminderDescription = value!;
                 },
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _submitForm,
-                child: Text('Add Reminder'),
+                child: const Text('Add Reminder'),
               ),
             ],
           ),

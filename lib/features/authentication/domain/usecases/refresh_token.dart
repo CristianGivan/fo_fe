@@ -20,7 +20,7 @@ class RefreshTokenUseCase
 class RefreshTokenParams extends Equatable {
   final int authId;
 
-  RefreshTokenParams({required this.authId});
+  const RefreshTokenParams({required this.authId});
 
   @override
   List<Object?> get props => [authId];

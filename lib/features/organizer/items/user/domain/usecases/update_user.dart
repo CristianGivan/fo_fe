@@ -18,7 +18,7 @@ class UpdateUser extends UseCase<bool, UpdateUserParams> {
 class UpdateUserParams extends Equatable {
   final UserEntity user;
 
-  UpdateUserParams({required this.user});
+  const UpdateUserParams({required this.user});
 
   @override
   List<Object> get props => [user];

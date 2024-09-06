@@ -1,5 +1,4 @@
 import 'package:drift/drift.dart';
-import 'package:fo_fe/core/db/drift/organizer/task/task_reminder_table_drift.dart';
 import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
 
 part 'task_reminder_dao_drift.g.dart';

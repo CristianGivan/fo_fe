@@ -4,29 +4,21 @@ import 'package:fo_fe/features/organizer/items/reminder/config/reminder_exports.
 
 class ReminderModel extends ReminderEntity with EquatableMixin {
   ReminderModel({
-    int? id,
-    DateTime? createdDate,
-    int? creatorId,
-    int? remoteId,
-    DateTime? lastUpdate,
+    super.id,
+    super.createdDate,
+    super.creatorId,
+    super.remoteId,
+    super.lastUpdate,
     DateTime? lastAccessedDate,
     int? remoteAccesses,
     int? accesses,
-    String? checksum,
-    required String subject,
-    required DateTime remindAt,
+    super.checksum,
+    required super.subject,
+    required super.remindAt,
   }) : super(
-          id: id,
-          createdDate: createdDate,
-          creatorId: creatorId,
-          remoteId: remoteId,
-          lastUpdate: lastUpdate,
           lastViewDate: lastAccessedDate,
           remoteViews: remoteAccesses,
           views: accesses,
-          checksum: checksum,
-          subject: subject,
-          remindAt: remindAt,
         );
 
   factory ReminderModel.empty() => ReminderModel(

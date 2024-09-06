@@ -4,7 +4,7 @@ import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_i
 void main() {
   group('IdSet Tests', () {
     test('IdSet.empty creates an empty set', () {
-      final idSet = IdSet.empty();
+      const idSet = IdSet.empty();
       expect(idSet.isEmpty(), isTrue);
       expect(idSet.size, equals(0));
     });
@@ -17,43 +17,43 @@ void main() {
     });
 
     test('IdSet.containsId returns true for existing ID', () {
-      final idSet = IdSet.of([1, 2, 3]);
+      final idSet = IdSet.of(const [1, 2, 3]);
       expect(idSet.contains(2), isTrue);
     });
 
     test('IdSet.containsId returns false for non-existing ID', () {
-      final idSet = IdSet.of([1, 2, 3]);
+      final idSet = IdSet.of(const [1, 2, 3]);
       expect(idSet.contains(4), isFalse);
     });
 
     test('IdSet.first returns the first element', () {
-      final idSet = IdSet.of([3, 1, 2]);
+      final idSet = IdSet.of(const [3, 1, 2]);
       expect(idSet.first, equals(3));
     });
 
     test('IdSet.first throws StateError if the set is empty', () {
-      final idSet = IdSet.empty();
+      const idSet = IdSet.empty();
       expect(() => idSet.first, throwsA(isA<StateError>()));
     });
 
     test('IdSet.last returns the last element', () {
-      final idSet = IdSet.of([3, 1, 2]);
+      final idSet = IdSet.of(const [3, 1, 2]);
       expect(idSet.last, equals(2));
     });
 
     test('IdSet.last throws StateError if the set is empty', () {
-      final idSet = IdSet.empty();
+      const idSet = IdSet.empty();
       expect(() => idSet.last, throwsA(isA<StateError>()));
     });
 
     test('IdSet.toBuilder returns an IdSetBuilder with same IDs', () {
-      final idSet = IdSet.of([1, 2, 3]);
+      final idSet = IdSet.of(const [1, 2, 3]);
       final builder = idSet.toBuilder();
       expect(builder.ids, equals({1, 2, 3}));
     });
 
     test('IdSet.toBuilder returns an IdSetBuilder with same IDs', () {
-      final idSet = IdSet.of([1, 2, 3]);
+      final idSet = IdSet.of(const [1, 2, 3]);
       final builder = idSet.toBuilder();
       builder.add(4);
       final idSet1 = builder.build();
@@ -61,7 +61,7 @@ void main() {
     });
 
     test('Modifying builder does not affect built instance', () {
-      final idSet = IdSet.of([1, 2, 3]);
+      final idSet = IdSet.of(const [1, 2, 3]);
       final builder = idSet.toBuilder();
       builder.add(4);
       final idSet1 = builder.build();
@@ -72,12 +72,12 @@ void main() {
     });
 
     test('IdSet.toString returns string representation of IDs', () {
-      final idSet = IdSet.of([1, 2, 3]);
+      final idSet = IdSet.of(const [1, 2, 3]);
       expect(idSet.toString(), equals('{1, 2, 3}'));
     });
 
     test('IdSet.forEach iterates over all IDs', () {
-      final idSet = IdSet.of([1, 2, 3]);
+      final idSet = IdSet.of(const [1, 2, 3]);
       final List<int> result = [];
       idSet.forEach((id) => result.add(id));
       expect(result, equals([1, 2, 3]));

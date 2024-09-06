@@ -5,7 +5,7 @@ import 'package:fo_fe/features/organizer/items/user/config/user_exports.dart';
 class UserInfoWidget extends StatelessWidget {
   final int userId;
 
-  UserInfoWidget({required this.userId});
+  const UserInfoWidget({super.key, required this.userId});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class UserInfoWidget extends StatelessWidget {
       },
       builder: (context, state) {
         if (state is UserLoadingBlocState) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         } else if (state is UserLoadedBlocState) {
           final user = state.user;
 
@@ -34,7 +34,7 @@ class UserInfoWidget extends StatelessWidget {
             ),
           );
         } else if (state is UserErrorBlocState) {
-          return Center(child: Text('Failed to load user'));
+          return const Center(child: Text('Failed to load user'));
         }
         return Container(); // Empty container for irrelevant states
       },

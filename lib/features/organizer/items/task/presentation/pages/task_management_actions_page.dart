@@ -5,6 +5,8 @@ import 'package:go_router/go_router.dart';
 
 
 class TaskManagementActionsPage extends StatelessWidget {
+  const TaskManagementActionsPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -16,29 +18,29 @@ class TaskManagementActionsPage extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () => context.push('/task/task_add'),
-              child: Text('Add Task'),
+              child: const Text('Add Task'),
             ),
           ),
-          SizedBox(height: 16.0),
+          const SizedBox(height: 16.0),
           Row(
             children: [
               Expanded(
                 child: ElevatedButton(
                   onPressed: () => showFilterDialog(context),
-                  child: Text('Filter Tasks'),
+                  child: const Text('Filter Tasks'),
                 ),
               ),
-              SizedBox(width: 16.0),
+              const SizedBox(width: 16.0),
               Expanded(
                 child: ElevatedButton(
                   onPressed: () => showSortDialog(context),
-                  child: Text('Sort Tasks'),
+                  child: const Text('Sort Tasks'),
                 ),
               ),
             ],
           ),
-          SizedBox(height: 16.0),
-          TextField(
+          const SizedBox(height: 16.0),
+          const TextField(
             decoration: InputDecoration(
               labelText: 'Enter task description',
               border: OutlineInputBorder(),

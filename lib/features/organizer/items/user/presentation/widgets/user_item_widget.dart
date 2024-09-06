@@ -4,7 +4,7 @@ class UserItemWidget extends StatelessWidget {
   final String userName;
   final String email;
 
-  UserItemWidget({required this.userName, required this.email});
+  const UserItemWidget({super.key, required this.userName, required this.email});
 
   @override
   Widget build(BuildContext context) {

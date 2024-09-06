@@ -23,7 +23,7 @@ class GetTaskItemsByIdSet
 class GetTaskItemsByIdSetParams extends Equatable {
   final IdSet idSet;
 
-  GetTaskItemsByIdSetParams({required this.idSet});
+  const GetTaskItemsByIdSetParams({required this.idSet});
 
   @override
   List<Object> get props => [idSet];

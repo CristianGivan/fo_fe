@@ -3,26 +3,16 @@ import 'package:fo_fe/features/authentication/config/authentication_exports.dart
 
 class AuthenticationModel extends AuthenticationEntity with EquatableMixin {
   AuthenticationModel({
-    int? id,
-    int? userId,
-    String? token,
-    String? deviceInfo,
-    DateTime? createdDate,
-    DateTime? expiredDate,
-    DateTime? lastUsedDate,
-    int? refreshCount,
-    bool? isActive,
-  }) : super(
-          id: id,
-          userId: userId,
-          token: token,
-          deviceInfo: deviceInfo,
-          createdDate: createdDate,
-          expiredDate: expiredDate,
-          lastUsedDate: lastUsedDate,
-          refreshCount: refreshCount,
-          isActive: isActive,
-        );
+    super.id,
+    super.userId,
+    super.token,
+    super.deviceInfo,
+    super.createdDate,
+    super.expiredDate,
+    super.lastUsedDate,
+    super.refreshCount,
+    super.isActive,
+  });
 
   factory AuthenticationModel.empty() => AuthenticationModel(
         id: 0,
@@ -49,6 +39,7 @@ class AuthenticationModel extends AuthenticationEntity with EquatableMixin {
         isActive,
       ];
 
+  @override
   AuthenticationModel copyWith(
       {int? id,
       int? userId,

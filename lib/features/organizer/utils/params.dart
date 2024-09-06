@@ -24,7 +24,7 @@ class Params extends Equatable {
   factory Params.withSingleId(int id) {
     return Params(
       id: id,
-      idSet: IdSet.empty(),
+      idSet: const IdSet.empty(),
     );
   }
 

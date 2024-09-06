@@ -6,7 +6,7 @@ import 'package:fo_fe/features/organizer/items/task/presentation/logic/task_bloc
 class TagForm extends StatefulWidget {
   final int taskId;
 
-  TagForm({required this.taskId});
+  const TagForm({super.key, required this.taskId});
 
   @override
   _TagFormState createState() => _TagFormState();
@@ -20,24 +20,24 @@ class _TagFormState extends State<TagForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Tag'),
+        title: const Text('Add Tag'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
           child: Column(
             children: <Widget>[
               TextFormField(
-                decoration: InputDecoration(labelText: 'Tag Name'),
+                decoration: const InputDecoration(labelText: 'Tag Name'),
                 onSaved: (value) {
                   _tagName = value!;
                 },
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _submitForm,
-                child: Text('Add Tag'),
+                child: const Text('Add Tag'),
               ),
             ],
           ),

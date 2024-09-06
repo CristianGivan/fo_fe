@@ -5,16 +5,16 @@ class AppThemes{
     return ThemeData.dark().copyWith(
       textButtonTheme: TextButtonThemeData(
           style: ButtonStyle(
-              foregroundColor: MaterialStateProperty.resolveWith(
+              foregroundColor: WidgetStateProperty.resolveWith(
                       (state) => Colors.lightBlue[100]),
-          backgroundColor: MaterialStateProperty.resolveWith(
+          backgroundColor: WidgetStateProperty.resolveWith(
                   (state) => Colors.grey[800]))),
 
       elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
-              foregroundColor: MaterialStateProperty.resolveWith(
+              foregroundColor: WidgetStateProperty.resolveWith(
                       (state) => Colors.lightBlue[100]),
-              backgroundColor: MaterialStateProperty.resolveWith(
+              backgroundColor: WidgetStateProperty.resolveWith(
                       (state) => Colors.grey[800]))),
     );
   }
