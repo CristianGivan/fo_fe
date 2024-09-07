@@ -5,7 +5,7 @@ import 'package:fo_fe/features/organizer/items/user/config/user_exports.dart';
 
 void organizerInit() {
   taskInit();
-  tagInit();
   userInit();
   reminderInt();
+  tagInit();
 }

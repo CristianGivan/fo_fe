@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fo_fe/features/authentication/config/authentication_exports.dart';
+import 'package:fo_fe/features/organizer/items/tag/config/tag_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/config/task_route_names.dart';
 import 'package:go_router/go_router.dart';
 
@@ -66,6 +67,13 @@ class OrganizerHome extends StatelessWidget {
             child: ElevatedButton(
               onPressed: () => context.push(TaskRouterNames.taskRoute),
               child: const Text('Go to the reminder screen'),
+            ),
+          ),
+          const SizedBox(height: 10),
+          Center(
+            child: ElevatedButton(
+              onPressed: () => context.push(TagRouterNames.tagRoute),
+              child: const Text('Go to the tag screen'),
             ),
           ),
           const SizedBox(height: 10),
