@@ -80,10 +80,9 @@ class ReminderMapper {
     );
   }
 
-  static ReminderTableDriftCompanion tableDriftCompanionFromEntity(
-      ReminderEntity entity) {
+  static ReminderTableDriftCompanion entityToCompanion(ReminderEntity entity) {
     return ReminderTableDriftCompanion(
-      id: Value(entity.id),
+      id: entity.id == 0 ? const Value.absent() : Value(entity.id),
       remindAt: Value(entity.remindAt),
     );
   }

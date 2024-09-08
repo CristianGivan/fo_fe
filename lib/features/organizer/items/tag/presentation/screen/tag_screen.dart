@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fo_fe/features/organizer/items/tag/config/tag_exports.dart';
 import 'package:fo_fe/features/organizer/items/tag/presentation/pages/tag_list_page.dart';
 
+import '../pages/tag_management_actions_page.dart';
+
 class TagScreen extends StatelessWidget {
   const TagScreen({super.key});
 
@@ -18,6 +20,7 @@ class TagScreen extends StatelessWidget {
           Expanded(
             child: TagListPage(),
           ),
+          TagManagementActionsPage(),
         ],
       ),
     );

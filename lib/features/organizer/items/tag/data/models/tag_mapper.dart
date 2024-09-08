@@ -67,17 +67,17 @@ class TagMapper {
     return OrganizerItems.of(items.map(entityFromModel).toList());
   }
 
-  static TagTableDriftCompanion tableDriftCompanionFromModel(TagModel tag) {
+  static TagTableDriftCompanion tableDriftCompanionFromModel(TagModel model) {
     return TagTableDriftCompanion(
-      id: Value(tag.id),
-      subject: Value(tag.subject),
+      id: Value(model.id),
+      subject: Value(model.subject),
     );
   }
 
-  static TagTableDriftCompanion tableDriftCompanionFromEntity(TagEntity tag) {
+  static TagTableDriftCompanion entityToCompanion(TagEntity entity) {
     return TagTableDriftCompanion(
-      id: Value(tag.id),
-      subject: Value(tag.subject),
+      id: entity.id == 0 ? const Value.absent() : Value(entity.id),
+      subject: Value(entity.subject),
     );
   }
 }

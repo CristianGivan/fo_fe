@@ -22,6 +22,16 @@ class TagModel extends TagEntity with EquatableMixin {
   factory TagModel.empty() => TagModel(id: 0, subject: "");
 
   @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [
+        id,
+        createdDate,
+        creatorId,
+        remoteId,
+        lastUpdate,
+        // lastViewDate,
+        // remoteViews,
+        // views,
+        checksum,
+        subject
+      ];
 }

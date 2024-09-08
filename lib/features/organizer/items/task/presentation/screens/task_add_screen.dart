@@ -117,11 +117,13 @@ class _AddTaskScreenState extends State<TaskAddScreen> {
               ),
               TextFormField(
                 controller: _estimatedLeftTimeController,
-                decoration: const InputDecoration(labelText: 'Estimated Left Time'),
+                decoration:
+                    const InputDecoration(labelText: 'Estimated Left Time'),
               ),
               TextFormField(
                 controller: _workingProgressController,
-                decoration: const InputDecoration(labelText: 'Working Progress'),
+                decoration:
+                    const InputDecoration(labelText: 'Working Progress'),
               ),
               TextFormField(
                 controller: _taskStatusController,
@@ -184,7 +186,7 @@ class _AddTaskScreenState extends State<TaskAddScreen> {
                     Navigator.pop(context);
                   }
                 },
-                child: const Text('Add Task'),
+                child: const Text('Save'),
               ),
             ],
           ),

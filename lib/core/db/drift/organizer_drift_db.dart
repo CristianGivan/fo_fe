@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart';
+import 'package:drift/native.dart';
 import 'package:flutter/foundation.dart';
 import 'package:fo_fe/core/db/drift/connection/db_connection_drift.dart';
 import 'package:fo_fe/features/organizer/items/user/config/user_exports.dart';
@@ -29,7 +30,8 @@ part 'organizer_drift_db.g.dart';
   TagDaoDrift,
 ])
 class OrganizerDriftDB extends _$OrganizerDriftDB {
-  OrganizerDriftDB({bool isDev = false}) : super(_openConnection(isDev: isDev));
+  OrganizerDriftDB({bool isDev = false, bool inMemory = false})
+      : super(_openConnection(isDev: isDev, inMemory: inMemory));
 
   @override
   int get schemaVersion => 1;
@@ -42,14 +44,21 @@ class OrganizerDriftDB extends _$OrganizerDriftDB {
         onUpgrade: (Migrator m, int from, int to) async {},
       );
 
-  static LazyDatabase _openConnection({bool isDev = false}) {
+  static LazyDatabase _openConnection(
+      {bool isDev = false, bool inMemory = false}) {
     return LazyDatabase(() async {
-      final connection = await connect(
-        'OrganizerDBDrift.sqlite',
-        logStatements: kDebugMode,
-        isDev: isDev,
-      );
-      return connection.executor;
+      if (inMemory) {
+        // Use in-memory database for tests
+        return NativeDatabase.memory();
+      } else {
+        // Otherwise, use file-based SQLite for production
+        final connection = await connect(
+          'OrganizerDBDrift.sqlite',
+          logStatements: kDebugMode,
+          isDev: isDev,
+        );
+        return connection.executor;
+      }
     });
   }
 }

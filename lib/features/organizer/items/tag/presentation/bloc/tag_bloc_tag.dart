@@ -32,6 +32,7 @@ class TagBlocTag extends Bloc<TagBlocEvent, TagBlocState> {
       (failure) => emit(TagError(_mapFailureToMessage(failure))),
       (success) => emit(TagSuccess(success)),
     );
+    add(GetTagItemsAllBlocEvent());
   }
 
   Future<void> _onUpdateTag(

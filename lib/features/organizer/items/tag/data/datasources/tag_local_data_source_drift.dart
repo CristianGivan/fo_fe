@@ -10,13 +10,13 @@ class TagLocalDataSourceDrift implements TagLocalDataSource {
   @override
   Future<int> insertTag(TagEntity tag) async {
     // Convert TagEntity to TagTableDriftCompanion before inserting
-    final tagCompanion = TagMapper.tableDriftCompanionFromEntity(tag);
+    final tagCompanion = TagMapper.entityToCompanion(tag);
     return await db.tagDaoDrift.insertTag(tagCompanion);
   }
 
   @override
   Future<bool> updateTag(TagEntity tag) async {
-    final tagCompanion = TagMapper.tableDriftCompanionFromEntity(tag);
+    final tagCompanion = TagMapper.entityToCompanion(tag);
     return await db.tagDaoDrift.updateTag(tagCompanion);
   }
 

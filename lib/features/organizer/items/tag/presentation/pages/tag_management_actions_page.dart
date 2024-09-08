@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:fo_fe/features/organizer/items/task/presentation/pages/task_filter_dialog.dart';
-import 'package:fo_fe/features/organizer/items/task/presentation/pages/task_sort_dialog.dart';
 import 'package:go_router/go_router.dart';
 
-class TaskManagementActionsPage extends StatelessWidget {
-  const TaskManagementActionsPage({super.key});
+class TagManagementActionsPage extends StatelessWidget {
+  const TagManagementActionsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +14,8 @@ class TaskManagementActionsPage extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () => context.push('/task/task_add'),
-              child: const Text('Add Task'),
+              onPressed: () => context.push('/tag/tag_add'),
+              child: const Text('Add Tag'),
             ),
           ),
           const SizedBox(height: 16.0),
@@ -26,14 +24,14 @@ class TaskManagementActionsPage extends StatelessWidget {
               Expanded(
                 child: ElevatedButton(
                   onPressed: () => showFilterDialog(context),
-                  child: const Text('Filter Tasks'),
+                  child: const Text('Filter Tags'),
                 ),
               ),
               const SizedBox(width: 16.0),
               Expanded(
                 child: ElevatedButton(
                   onPressed: () => showSortDialog(context),
-                  child: const Text('Sort Tasks'),
+                  child: const Text('Sort Tags'),
                 ),
               ),
             ],
@@ -41,7 +39,7 @@ class TaskManagementActionsPage extends StatelessWidget {
           const SizedBox(height: 16.0),
           const TextField(
             decoration: InputDecoration(
-              labelText: 'Enter task description',
+              labelText: 'Enter tag description',
               border: OutlineInputBorder(),
             ),
           ),
@@ -49,4 +47,12 @@ class TaskManagementActionsPage extends StatelessWidget {
       ),
     );
   }
+}
+
+void showFilterDialog(BuildContext context) {
+  // Implement the filter dialog for tags
+}
+
+void showSortDialog(BuildContext context) {
+  // Implement the sort dialog for tags
 }
