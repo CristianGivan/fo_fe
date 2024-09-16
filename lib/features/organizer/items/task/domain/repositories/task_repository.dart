@@ -39,6 +39,9 @@ abstract class TaskRepository {
 
   Future<Either<Failure, int>> addTagToTask(int taskId, int tagId);
 
+  Future<Either<Failure, OrganizerItems<TagEntity>>> addTagItemsToTask(
+      int taskId, List<int> tags);
+
   Future<Either<Failure, int>> deleteTagFromTask(int taskId, int tagId);
 
   // Reminder operations related to tasks

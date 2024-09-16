@@ -20,6 +20,15 @@ class TagLoadedBlocState extends TaskTagBlocState {
 
 class TagAddedToTaskBlocState extends TaskTagBlocState {}
 
+class TagItemsAddedToTaskBlocState extends TaskTagBlocState {
+  final OrganizerItems<TagEntity> organizerItems;
+
+  TagItemsAddedToTaskBlocState(this.organizerItems);
+
+  @override
+  List<Object> get props => [organizerItems];
+}
+
 class TagDeletedFromTaskBlocState extends TaskTagBlocState {}
 
 class TagErrorBlocState extends TaskTagBlocState {

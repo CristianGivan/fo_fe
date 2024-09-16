@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fo_fe/features/organizer/items/tag/config/tag_exports.dart';
-import 'package:fo_fe/features/organizer/items/tag/presentation/pages/tag_card_page.dart';
 
 class TagListPage extends StatelessWidget {
-  const TagListPage({super.key});
+  final Function(TagEntity) onSelectTag;
+  final List<TagEntity> selectedTags;
+
+  const TagListPage({
+    super.key,
+    required this.onSelectTag,
+    required this.selectedTags,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,22 +23,13 @@ class TagListPage extends StatelessWidget {
             itemCount: state.tags.size(),
             itemBuilder: (context, index) {
               final tag = state.tags.getAt(index);
-              return TagCardPage(
-                tag: tag,
-                onUpdateTag: (updatedTag) {
-                  context
-                      .read<TagBlocTag>()
-                      .add(UpdateTagBlocEvent(updatedTag));
-                },
-                onViewTag: () {
-                  // Navigate to view Tag details
-                },
-                onEditTag: () {
-                  // Navigate to edit Tag page
-                },
-                onDeleteTag: (tag) {
-                  context.read<TagBlocTag>().add(DeleteTagBlocEvent(tag.id));
-                },
+              final isSelected = selectedTags.contains(tag);
+              return ListTile(
+                title: Text(tag.subject),
+                trailing: isSelected
+                    ? const Icon(Icons.check_box)
+                    : const Icon(Icons.check_box_outline_blank),
+                onTap: () => onSelectTag(tag),
               );
             },
           );

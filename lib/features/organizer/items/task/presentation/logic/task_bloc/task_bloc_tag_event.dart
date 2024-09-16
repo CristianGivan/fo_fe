@@ -20,10 +20,20 @@ class AddTagToTaskBlocEvent extends TaskBlocTagEvent {
   final int taskId;
   final TagEntity tag;
 
-  AddTagToTaskBlocEvent(this.taskId, this.tag);
+  AddTagToTaskBlocEvent({required this.taskId, required this.tag});
 
   @override
   List<Object> get props => [taskId, tag];
+}
+
+class AddTagItemsToTaskBlocEvent extends TaskBlocTagEvent {
+  final int taskId;
+  final List<int> tags;
+
+  AddTagItemsToTaskBlocEvent({required this.taskId, required this.tags});
+
+  @override
+  List<Object> get props => [taskId, tags];
 }
 
 class DeleteTagFromTaskBlocEvent extends TaskBlocTagEvent {

@@ -3,10 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fo_fe/features/organizer/items/tag/config/tag_exports.dart';
 import 'package:fo_fe/features/organizer/items/tag/presentation/pages/tag_list_page.dart';
 
-import '../pages/tag_management_actions_page.dart';
-
-class TagScreen extends StatelessWidget {
+class TagScreen extends StatefulWidget {
   const TagScreen({super.key});
+
+  @override
+  _TagScreenState createState() => _TagScreenState();
+}
+
+class _TagScreenState extends State<TagScreen> {
+  final List<TagEntity> selectedTags = [];
 
   @override
   Widget build(BuildContext context) {
@@ -14,13 +19,31 @@ class TagScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(title: const Text('Tag Management')),
-      body: const Column(
+      body: Column(
         children: [
-          Center(child: Text('All Tags:')),
+          const Center(child: Text('All Tags:')),
           Expanded(
-            child: TagListPage(),
+            child: TagListPage(
+              onSelectTag: (tag) {
+                setState(() {
+                  if (selectedTags.contains(tag)) {
+                    selectedTags.remove(tag);
+                  } else {
+                    selectedTags.add(tag);
+                  }
+                });
+              },
+              selectedTags: selectedTags,
+            ),
           ),
-          TagManagementActionsPage(),
+          ElevatedButton(
+            onPressed: () {
+              if (selectedTags.isNotEmpty) {
+                Navigator.pop(context, selectedTags.first);
+              }
+            },
+            child: const Text('Link'),
+          ),
         ],
       ),
     );

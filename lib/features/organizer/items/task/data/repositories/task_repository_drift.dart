@@ -171,4 +171,11 @@ class TaskRepositoryDrift implements TaskRepository {
     return _handleDatabaseOperation(
         () => localDataSource.deleteReminderFromTask(taskId, reminderId));
   }
+
+  @override
+  Future<Either<Failure, OrganizerItems<TagEntity>>> addTagItemsToTask(
+      int taskId, List<int> tags) {
+    // TODO: implement addTagItemsToTask
+    throw UnimplementedError();
+  }
 }

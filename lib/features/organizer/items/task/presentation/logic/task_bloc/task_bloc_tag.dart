@@ -2,6 +2,7 @@ part of 'task_bloc.dart';
 
 class TaskBlocTag extends Bloc<TaskBlocTagEvent, TaskTagBlocState> {
   final GetTagsByTaskId getTagsByTaskId;
+  final AddTagItemsToTask addTagItemsToTask;
   final AddTagToTask addTagToTask;
   final DeleteTagFromTask deleteTagFromTask;
 
@@ -9,6 +10,7 @@ class TaskBlocTag extends Bloc<TaskBlocTagEvent, TaskTagBlocState> {
     required this.getTagsByTaskId,
     required this.addTagToTask,
     required this.deleteTagFromTask,
+    required this.addTagItemsToTask,
   }) : super(TagLoadingBlocState());
 
   @override
@@ -34,6 +36,15 @@ class TaskBlocTag extends Bloc<TaskBlocTagEvent, TaskTagBlocState> {
       yield failureOrSuccess.fold(
         (failure) => TagErrorBlocState(_mapFailureToMessage(failure)),
         (_) => TagDeletedFromTaskBlocState(),
+      );
+    } else if (event is AddTagItemsToTaskBlocEvent) {
+      // Handle adding multiple tags to a task
+      final failureOrOrganizerItems = await addTagItemsToTask(
+        AddTagItemsToTaskParams(taskId: event.taskId, tags: event.tags),
+      );
+      yield failureOrOrganizerItems.fold(
+        (failure) => TagErrorBlocState(_mapFailureToMessage(failure)),
+        (organizerItems) => TagItemsAddedToTaskBlocState(organizerItems),
       );
     }
   }

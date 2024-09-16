@@ -5,6 +5,7 @@ import 'package:fo_fe/features/organizer/items/task/data/datasources/task_remote
 import 'package:fo_fe/features/organizer/items/task/data/datasources/task_remote_data_source_impl.dart';
 import 'package:fo_fe/features/organizer/items/task/data/repositories/task_repository_drift.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/repositories/task_repository.dart';
+import 'package:fo_fe/features/organizer/items/task/domain/usecases/add_tag_items_to_task.dart';
 import 'package:get_it/get_it.dart';
 
 final sl = GetIt.instance;
@@ -35,6 +36,7 @@ void taskInit() {
   sl.registerLazySingleton(() => DeleteUserFromTask(sl()));
   sl.registerLazySingleton(() => GetUsersByTaskId(sl()));
   sl.registerLazySingleton(() => AddTagToTask(sl()));
+  sl.registerLazySingleton(() => AddTagItemsToTask(sl()));
   sl.registerLazySingleton(() => DeleteTagFromTask(sl()));
   sl.registerLazySingleton(() => GetTagsByTaskId(sl()));
   sl.registerLazySingleton(() => AddReminderToTask(sl()));
@@ -62,6 +64,7 @@ void taskInit() {
   sl.registerFactory(() => TaskBlocTag(
         getTagsByTaskId: sl(),
         addTagToTask: sl(),
+        addTagItemsToTask: sl(),
         deleteTagFromTask: sl(),
       ));
   sl.registerFactory(() => TaskBlocReminder(

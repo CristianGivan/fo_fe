@@ -124,6 +124,13 @@ class TaskRepositoryImpl implements TaskRepository {
     // TODO: implement updateTask
     throw UnimplementedError();
   }
+
+  @override
+  Future<Either<Failure, OrganizerItems<TagEntity>>> addTagItemsToTask(
+      int taskId, List<int> tags) {
+    // TODO: implement addTagItemsToTask
+    throw UnimplementedError();
+  }
 }
 
 //   @override
