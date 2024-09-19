@@ -39,7 +39,7 @@ class _TagScreenState extends State<TagScreen> {
           ElevatedButton(
             onPressed: () {
               if (selectedTags.isNotEmpty) {
-                Navigator.pop(context, selectedTags.first);
+                Navigator.pop(context, selectedTags);
               }
             },
             child: const Text('Link'),

@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart';
 
 @DataClassName('TaskReminderTableDriftG')
-class TaskReminderTableDrift extends Table {
+class TaskReminderLinkTableDrift extends Table {
   IntColumn get id => integer().autoIncrement()();
 
   DateTimeColumn get linkingDate =>

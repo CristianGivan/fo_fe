@@ -61,7 +61,7 @@ void taskInit() {
         addUserToTask: sl(),
         deleteUserFromTask: sl(),
       ));
-  sl.registerFactory(() => TaskBlocTag(
+  sl.registerFactory(() => TaskTagLinkBloc(
         getTagsByTaskId: sl(),
         addTagToTask: sl(),
         addTagItemsToTask: sl(),

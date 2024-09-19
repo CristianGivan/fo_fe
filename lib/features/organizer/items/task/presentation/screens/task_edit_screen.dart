@@ -38,16 +38,18 @@ class TaskEditScreen extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    final selectedTag = await Navigator.push<TagEntity>(
+                    final tagItems = await Navigator.push<List<TagEntity>>(
                       context,
                       MaterialPageRoute(
                         builder: (context) => const TagScreen(),
                       ),
                     );
-                    if (selectedTag != null) {
-                      context.read<TaskBlocTag>().add(
-                            AddTagToTaskBlocEvent(
-                                taskId: task.id, tag: selectedTag),
+                    if (tagItems != null) {
+                      context.read<TaskTagLinkBloc>().add(
+                            AddTagItemsToTaskBlocEvent(
+                              taskId: task.id,
+                              tags: tagItems.map((tag) => tag.id).toList(),
+                            ),
                           );
                     }
                   },

@@ -11,7 +11,8 @@ import 'package:dartz/dartz.dart' as _i5;
 import 'package:data_connection_checker_nulls/data_connection_checker_nulls.dart'
     as _i6;
 import 'package:fo_fe/core/error/failures.dart' as _i14;
-import 'package:fo_fe/core/utils/core_utils_exports.dart' as _i8;
+import 'package:fo_fe/core/utils/converters/input_converter.dart' as _i19;
+import 'package:fo_fe/core/utils/network/network_info.dart' as _i8;
 import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart'
     as _i4;
 import 'package:fo_fe/features/organizer/items/reminder/domain/entities/reminder_entity.dart'
@@ -26,8 +27,6 @@ import 'package:fo_fe/features/organizer/items/task/data/models/task_model.dart'
     as _i3;
 import 'package:fo_fe/features/organizer/items/task/domain/repositories/task_repository.dart'
     as _i7;
-import 'package:fo_fe/features/organizer/items/task/domain/usecases/get_task_by_id.dart'
-    as _i19;
 import 'package:fo_fe/features/organizer/items/user/config/user_exports.dart'
     as _i15;
 import 'package:http/http.dart' as _i2;
@@ -795,6 +794,49 @@ class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
           ),
         )),
       ) as _i9.Future<_i5.Either<_i14.Failure, int>>);
+
+  @override
+  _i9.Future<_i5.Either<_i14.Failure, _i4.OrganizerItems<_i16.TagEntity>>>
+      addTagItemsToTask(
+    int? taskId,
+    List<int>? tags,
+  ) =>
+          (super.noSuchMethod(
+            Invocation.method(
+              #addTagItemsToTask,
+              [
+                taskId,
+                tags,
+              ],
+            ),
+            returnValue: _i9.Future<
+                    _i5.Either<_i14.Failure,
+                        _i4.OrganizerItems<_i16.TagEntity>>>.value(
+                _FakeEither_3<_i14.Failure, _i4.OrganizerItems<_i16.TagEntity>>(
+              this,
+              Invocation.method(
+                #addTagItemsToTask,
+                [
+                  taskId,
+                  tags,
+                ],
+              ),
+            )),
+            returnValueForMissingStub: _i9.Future<
+                    _i5.Either<_i14.Failure,
+                        _i4.OrganizerItems<_i16.TagEntity>>>.value(
+                _FakeEither_3<_i14.Failure, _i4.OrganizerItems<_i16.TagEntity>>(
+              this,
+              Invocation.method(
+                #addTagItemsToTask,
+                [
+                  taskId,
+                  tags,
+                ],
+              ),
+            )),
+          ) as _i9.Future<
+              _i5.Either<_i14.Failure, _i4.OrganizerItems<_i16.TagEntity>>>);
 
   @override
   _i9.Future<_i5.Either<_i14.Failure, int>> deleteTagFromTask(
@@ -1572,7 +1614,7 @@ class MockClient extends _i1.Mock implements _i2.Client {
 /// A class which mocks [InputConverter].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockInputConverter extends _i1.Mock implements _i8.InputConverter {
+class MockInputConverter extends _i1.Mock implements _i19.InputConverter {
   @override
   _i5.Either<_i14.Failure, int> stringToUnasingInteger(String? input) =>
       (super.noSuchMethod(
@@ -1600,7 +1642,7 @@ class MockInputConverter extends _i1.Mock implements _i8.InputConverter {
 /// A class which mocks [GetTaskById].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGetTaskById extends _i1.Mock implements _i19.GetTaskById {
+class MockGetTaskById extends _i1.Mock implements _i13.GetTaskById {
   @override
   _i7.TaskRepository get repository => (super.noSuchMethod(
         Invocation.getter(#repository),
@@ -1616,7 +1658,7 @@ class MockGetTaskById extends _i1.Mock implements _i19.GetTaskById {
 
   @override
   _i9.Future<_i5.Either<_i14.Failure, _i13.TaskEntity>> call(
-          _i19.GetTaskByIdParams? params) =>
+          _i13.GetTaskByIdParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,

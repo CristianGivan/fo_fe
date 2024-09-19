@@ -1,13 +1,13 @@
-part of 'task_bloc.dart';
+part of '../task_bloc.dart';
 
-abstract class TaskBlocTagEvent extends Equatable {
-  const TaskBlocTagEvent();
+abstract class TaskTagLinkBlocEvent extends Equatable {
+  const TaskTagLinkBlocEvent();
 
   @override
   List<Object> get props => [];
 }
 
-class GetTagsByTaskIdBlocEvent extends TaskBlocTagEvent {
+class GetTagsByTaskIdBlocEvent extends TaskTagLinkBlocEvent {
   final int taskId;
 
   GetTagsByTaskIdBlocEvent(this.taskId);
@@ -16,7 +16,7 @@ class GetTagsByTaskIdBlocEvent extends TaskBlocTagEvent {
   List<Object> get props => [taskId];
 }
 
-class AddTagToTaskBlocEvent extends TaskBlocTagEvent {
+class AddTagToTaskBlocEvent extends TaskTagLinkBlocEvent {
   final int taskId;
   final TagEntity tag;
 
@@ -26,7 +26,7 @@ class AddTagToTaskBlocEvent extends TaskBlocTagEvent {
   List<Object> get props => [taskId, tag];
 }
 
-class AddTagItemsToTaskBlocEvent extends TaskBlocTagEvent {
+class AddTagItemsToTaskBlocEvent extends TaskTagLinkBlocEvent {
   final int taskId;
   final List<int> tags;
 
@@ -36,7 +36,7 @@ class AddTagItemsToTaskBlocEvent extends TaskBlocTagEvent {
   List<Object> get props => [taskId, tags];
 }
 
-class DeleteTagFromTaskBlocEvent extends TaskBlocTagEvent {
+class DeleteTagFromTaskBlocEvent extends TaskTagLinkBlocEvent {
   final int taskId;
   final int tagId;
 

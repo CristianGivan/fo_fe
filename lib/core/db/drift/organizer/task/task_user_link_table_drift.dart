@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart';
 
-@DataClassName('TaskTagTableDriftG')
-class TaskTagTableDrift extends Table {
+@DataClassName('TaskUserTableDriftG')
+class TaskUserLinkTableDrift extends Table {
   IntColumn get id => integer().autoIncrement()();
 
   DateTimeColumn get linkingDate =>
@@ -10,6 +10,6 @@ class TaskTagTableDrift extends Table {
   IntColumn get taskId =>
       integer().customConstraint('REFERENCES TaskTableDrift(id)')();
 
-  IntColumn get tagId =>
-      integer().customConstraint('REFERENCES TagTableDrift(id)')();
+  IntColumn get userId =>
+      integer().customConstraint('REFERENCES UserTableDrift(id)')();
 }

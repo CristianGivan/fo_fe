@@ -4,3 +4,6 @@ Data types
 - Data shall be not nullable (shall be checked at constructor or adding) for IdSet or OrganizerItems
 
 - I will start only with local DB to get started (having the the mind also remote for the future) for Task, Tasks, Note, Topics, Tag, Reminder, User
+
+For now, you can use just the DAOs in the TaskDataSource to handle linking between Task and Tag, User, and Reminder—this keeps the architecture simpler while the relationships are straightforward.
+If any relationship becomes complex, you can always split off a dedicated data source (like TaskTagLinkDataSource) later, following the Single Responsibility Principle.

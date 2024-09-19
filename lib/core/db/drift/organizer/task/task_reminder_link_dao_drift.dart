@@ -1,37 +1,37 @@
 import 'package:drift/drift.dart';
 import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
 
-part 'task_reminder_dao_drift.g.dart';
+part 'task_reminder_link_dao_drift.g.dart';
 
-@DriftAccessor(tables: [TaskReminderTableDrift])
-class TaskReminderDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
-    with _$TaskReminderDaoDriftMixin {
+@DriftAccessor(tables: [TaskReminderLinkTableDrift])
+class TaskReminderLinkDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
+    with _$TaskReminderLinkDaoDriftMixin {
   final OrganizerDriftDB db;
 
-  TaskReminderDaoDrift(this.db) : super(db);
+  TaskReminderLinkDaoDrift(this.db) : super(db);
 
   Future<List<TaskReminderTableDriftG>> getAllTaskReminders() =>
-      select(taskReminderTableDrift).get();
+      select(taskReminderLinkTableDrift).get();
 
   Stream<List<TaskReminderTableDriftG>> watchAllTaskReminders() =>
-      select(taskReminderTableDrift).watch();
+      select(taskReminderLinkTableDrift).watch();
 
   Future<int> insertTaskReminder(
           Insertable<TaskReminderTableDriftG> taskReminder) =>
-      into(taskReminderTableDrift).insert(taskReminder);
+      into(taskReminderLinkTableDrift).insert(taskReminder);
 
   Future<bool> updateTaskReminder(
           Insertable<TaskReminderTableDriftG> taskReminder) =>
-      update(taskReminderTableDrift).replace(taskReminder);
+      update(taskReminderLinkTableDrift).replace(taskReminder);
 
   Future<int> deleteTaskReminderByTaskId(int taskId) async {
-    return (delete(taskReminderTableDrift)
+    return (delete(taskReminderLinkTableDrift)
           ..where((tbl) => tbl.taskId.equals(taskId)))
         .go();
   }
 
   Future<int> deleteTaskReminder(int taskId, int reminderId) async {
-    return (delete(taskReminderTableDrift)
+    return (delete(taskReminderLinkTableDrift)
           ..where((tbl) =>
               tbl.taskId.equals(taskId) & tbl.reminderId.equals(reminderId)))
         .go();
@@ -39,7 +39,7 @@ class TaskReminderDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
 
   Future<Set<int>> getReminderIdsByTaskId(int taskId) async {
     //todo cg
-    final result = await (select(taskReminderTableDrift)
+    final result = await (select(taskReminderLinkTableDrift)
           ..where((tbl) => tbl.taskId.equals(taskId)))
         .get();
     return result.map((row) => row.reminderId).toSet();

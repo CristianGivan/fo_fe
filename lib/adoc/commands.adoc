@@ -20,3 +20,19 @@ mason cache clear
 mason add item --git-url https://github.com/CristianGivan/bricks.git --git-path bricks/item --git-ref e36e3ade6d474d6e6471af3eba8ed5ba3be60230
 
 mason make item --name "TaskTagLink"
+
+1. remove
+mason remove item
+
+2. update mason.yaml
+
+''''
+
+bricks:
+item:
+git:
+url: "https://github.com/CristianGivan/bricks.git"
+path: bricks/item
+#           ref: e36e3ade6d474d6e6471af3eba8ed5ba3be60230s
+'''
+mason make item --BrickChangeName TaskTagLink -o lib/features/organizer/items

@@ -1325,12 +1325,12 @@ class TaskTableDriftCompanion extends UpdateCompanion<TaskTableDriftG> {
   }
 }
 
-class $TaskTagTableDriftTable extends TaskTagTableDrift
-    with TableInfo<$TaskTagTableDriftTable, TaskTagTableDriftG> {
+class $TaskTagLinkTableDriftTable extends TaskTagLinkTableDrift
+    with TableInfo<$TaskTagLinkTableDriftTable, TaskTagTableDriftG> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $TaskTagTableDriftTable(this.attachedDatabase, [this._alias]);
+  $TaskTagLinkTableDriftTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
@@ -1368,7 +1368,7 @@ class $TaskTagTableDriftTable extends TaskTagTableDrift
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
-  static const String $name = 'task_tag_table_drift';
+  static const String $name = 'task_tag_link_table_drift';
   @override
   VerificationContext validateIntegrity(Insertable<TaskTagTableDriftG> instance,
       {bool isInserting = false}) {
@@ -1416,8 +1416,8 @@ class $TaskTagTableDriftTable extends TaskTagTableDrift
   }
 
   @override
-  $TaskTagTableDriftTable createAlias(String alias) {
-    return $TaskTagTableDriftTable(attachedDatabase, alias);
+  $TaskTagLinkTableDriftTable createAlias(String alias) {
+    return $TaskTagLinkTableDriftTable(attachedDatabase, alias);
   }
 }
 
@@ -1442,8 +1442,8 @@ class TaskTagTableDriftG extends DataClass
     return map;
   }
 
-  TaskTagTableDriftCompanion toCompanion(bool nullToAbsent) {
-    return TaskTagTableDriftCompanion(
+  TaskTagLinkTableDriftCompanion toCompanion(bool nullToAbsent) {
+    return TaskTagLinkTableDriftCompanion(
       id: Value(id),
       linkingDate: Value(linkingDate),
       taskId: Value(taskId),
@@ -1480,7 +1480,7 @@ class TaskTagTableDriftG extends DataClass
         taskId: taskId ?? this.taskId,
         tagId: tagId ?? this.tagId,
       );
-  TaskTagTableDriftG copyWithCompanion(TaskTagTableDriftCompanion data) {
+  TaskTagTableDriftG copyWithCompanion(TaskTagLinkTableDriftCompanion data) {
     return TaskTagTableDriftG(
       id: data.id.present ? data.id.value : this.id,
       linkingDate:
@@ -1513,18 +1513,19 @@ class TaskTagTableDriftG extends DataClass
           other.tagId == this.tagId);
 }
 
-class TaskTagTableDriftCompanion extends UpdateCompanion<TaskTagTableDriftG> {
+class TaskTagLinkTableDriftCompanion
+    extends UpdateCompanion<TaskTagTableDriftG> {
   final Value<int> id;
   final Value<DateTime> linkingDate;
   final Value<int> taskId;
   final Value<int> tagId;
-  const TaskTagTableDriftCompanion({
+  const TaskTagLinkTableDriftCompanion({
     this.id = const Value.absent(),
     this.linkingDate = const Value.absent(),
     this.taskId = const Value.absent(),
     this.tagId = const Value.absent(),
   });
-  TaskTagTableDriftCompanion.insert({
+  TaskTagLinkTableDriftCompanion.insert({
     this.id = const Value.absent(),
     this.linkingDate = const Value.absent(),
     required int taskId,
@@ -1545,12 +1546,12 @@ class TaskTagTableDriftCompanion extends UpdateCompanion<TaskTagTableDriftG> {
     });
   }
 
-  TaskTagTableDriftCompanion copyWith(
+  TaskTagLinkTableDriftCompanion copyWith(
       {Value<int>? id,
       Value<DateTime>? linkingDate,
       Value<int>? taskId,
       Value<int>? tagId}) {
-    return TaskTagTableDriftCompanion(
+    return TaskTagLinkTableDriftCompanion(
       id: id ?? this.id,
       linkingDate: linkingDate ?? this.linkingDate,
       taskId: taskId ?? this.taskId,
@@ -1578,7 +1579,7 @@ class TaskTagTableDriftCompanion extends UpdateCompanion<TaskTagTableDriftG> {
 
   @override
   String toString() {
-    return (StringBuffer('TaskTagTableDriftCompanion(')
+    return (StringBuffer('TaskTagLinkTableDriftCompanion(')
           ..write('id: $id, ')
           ..write('linkingDate: $linkingDate, ')
           ..write('taskId: $taskId, ')
@@ -1588,12 +1589,12 @@ class TaskTagTableDriftCompanion extends UpdateCompanion<TaskTagTableDriftG> {
   }
 }
 
-class $TaskReminderTableDriftTable extends TaskReminderTableDrift
-    with TableInfo<$TaskReminderTableDriftTable, TaskReminderTableDriftG> {
+class $TaskReminderLinkTableDriftTable extends TaskReminderLinkTableDrift
+    with TableInfo<$TaskReminderLinkTableDriftTable, TaskReminderTableDriftG> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $TaskReminderTableDriftTable(this.attachedDatabase, [this._alias]);
+  $TaskReminderLinkTableDriftTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
@@ -1632,7 +1633,7 @@ class $TaskReminderTableDriftTable extends TaskReminderTableDrift
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
-  static const String $name = 'task_reminder_table_drift';
+  static const String $name = 'task_reminder_link_table_drift';
   @override
   VerificationContext validateIntegrity(
       Insertable<TaskReminderTableDriftG> instance,
@@ -1684,8 +1685,8 @@ class $TaskReminderTableDriftTable extends TaskReminderTableDrift
   }
 
   @override
-  $TaskReminderTableDriftTable createAlias(String alias) {
-    return $TaskReminderTableDriftTable(attachedDatabase, alias);
+  $TaskReminderLinkTableDriftTable createAlias(String alias) {
+    return $TaskReminderLinkTableDriftTable(attachedDatabase, alias);
   }
 }
 
@@ -1710,8 +1711,8 @@ class TaskReminderTableDriftG extends DataClass
     return map;
   }
 
-  TaskReminderTableDriftCompanion toCompanion(bool nullToAbsent) {
-    return TaskReminderTableDriftCompanion(
+  TaskReminderLinkTableDriftCompanion toCompanion(bool nullToAbsent) {
+    return TaskReminderLinkTableDriftCompanion(
       id: Value(id),
       linkingDate: Value(linkingDate),
       taskId: Value(taskId),
@@ -1749,7 +1750,7 @@ class TaskReminderTableDriftG extends DataClass
         reminderId: reminderId ?? this.reminderId,
       );
   TaskReminderTableDriftG copyWithCompanion(
-      TaskReminderTableDriftCompanion data) {
+      TaskReminderLinkTableDriftCompanion data) {
     return TaskReminderTableDriftG(
       id: data.id.present ? data.id.value : this.id,
       linkingDate:
@@ -1783,19 +1784,19 @@ class TaskReminderTableDriftG extends DataClass
           other.reminderId == this.reminderId);
 }
 
-class TaskReminderTableDriftCompanion
+class TaskReminderLinkTableDriftCompanion
     extends UpdateCompanion<TaskReminderTableDriftG> {
   final Value<int> id;
   final Value<DateTime> linkingDate;
   final Value<int> taskId;
   final Value<int> reminderId;
-  const TaskReminderTableDriftCompanion({
+  const TaskReminderLinkTableDriftCompanion({
     this.id = const Value.absent(),
     this.linkingDate = const Value.absent(),
     this.taskId = const Value.absent(),
     this.reminderId = const Value.absent(),
   });
-  TaskReminderTableDriftCompanion.insert({
+  TaskReminderLinkTableDriftCompanion.insert({
     this.id = const Value.absent(),
     this.linkingDate = const Value.absent(),
     required int taskId,
@@ -1816,12 +1817,12 @@ class TaskReminderTableDriftCompanion
     });
   }
 
-  TaskReminderTableDriftCompanion copyWith(
+  TaskReminderLinkTableDriftCompanion copyWith(
       {Value<int>? id,
       Value<DateTime>? linkingDate,
       Value<int>? taskId,
       Value<int>? reminderId}) {
-    return TaskReminderTableDriftCompanion(
+    return TaskReminderLinkTableDriftCompanion(
       id: id ?? this.id,
       linkingDate: linkingDate ?? this.linkingDate,
       taskId: taskId ?? this.taskId,
@@ -1849,7 +1850,7 @@ class TaskReminderTableDriftCompanion
 
   @override
   String toString() {
-    return (StringBuffer('TaskReminderTableDriftCompanion(')
+    return (StringBuffer('TaskReminderLinkTableDriftCompanion(')
           ..write('id: $id, ')
           ..write('linkingDate: $linkingDate, ')
           ..write('taskId: $taskId, ')
@@ -1859,12 +1860,12 @@ class TaskReminderTableDriftCompanion
   }
 }
 
-class $TaskUserTableDriftTable extends TaskUserTableDrift
-    with TableInfo<$TaskUserTableDriftTable, TaskUserTableDriftG> {
+class $TaskUserLinkTableDriftTable extends TaskUserLinkTableDrift
+    with TableInfo<$TaskUserLinkTableDriftTable, TaskUserTableDriftG> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $TaskUserTableDriftTable(this.attachedDatabase, [this._alias]);
+  $TaskUserLinkTableDriftTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
@@ -1902,7 +1903,7 @@ class $TaskUserTableDriftTable extends TaskUserTableDrift
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
-  static const String $name = 'task_user_table_drift';
+  static const String $name = 'task_user_link_table_drift';
   @override
   VerificationContext validateIntegrity(
       Insertable<TaskUserTableDriftG> instance,
@@ -1951,8 +1952,8 @@ class $TaskUserTableDriftTable extends TaskUserTableDrift
   }
 
   @override
-  $TaskUserTableDriftTable createAlias(String alias) {
-    return $TaskUserTableDriftTable(attachedDatabase, alias);
+  $TaskUserLinkTableDriftTable createAlias(String alias) {
+    return $TaskUserLinkTableDriftTable(attachedDatabase, alias);
   }
 }
 
@@ -1977,8 +1978,8 @@ class TaskUserTableDriftG extends DataClass
     return map;
   }
 
-  TaskUserTableDriftCompanion toCompanion(bool nullToAbsent) {
-    return TaskUserTableDriftCompanion(
+  TaskUserLinkTableDriftCompanion toCompanion(bool nullToAbsent) {
+    return TaskUserLinkTableDriftCompanion(
       id: Value(id),
       linkingDate: Value(linkingDate),
       taskId: Value(taskId),
@@ -2015,7 +2016,7 @@ class TaskUserTableDriftG extends DataClass
         taskId: taskId ?? this.taskId,
         userId: userId ?? this.userId,
       );
-  TaskUserTableDriftG copyWithCompanion(TaskUserTableDriftCompanion data) {
+  TaskUserTableDriftG copyWithCompanion(TaskUserLinkTableDriftCompanion data) {
     return TaskUserTableDriftG(
       id: data.id.present ? data.id.value : this.id,
       linkingDate:
@@ -2048,18 +2049,19 @@ class TaskUserTableDriftG extends DataClass
           other.userId == this.userId);
 }
 
-class TaskUserTableDriftCompanion extends UpdateCompanion<TaskUserTableDriftG> {
+class TaskUserLinkTableDriftCompanion
+    extends UpdateCompanion<TaskUserTableDriftG> {
   final Value<int> id;
   final Value<DateTime> linkingDate;
   final Value<int> taskId;
   final Value<int> userId;
-  const TaskUserTableDriftCompanion({
+  const TaskUserLinkTableDriftCompanion({
     this.id = const Value.absent(),
     this.linkingDate = const Value.absent(),
     this.taskId = const Value.absent(),
     this.userId = const Value.absent(),
   });
-  TaskUserTableDriftCompanion.insert({
+  TaskUserLinkTableDriftCompanion.insert({
     this.id = const Value.absent(),
     this.linkingDate = const Value.absent(),
     required int taskId,
@@ -2080,12 +2082,12 @@ class TaskUserTableDriftCompanion extends UpdateCompanion<TaskUserTableDriftG> {
     });
   }
 
-  TaskUserTableDriftCompanion copyWith(
+  TaskUserLinkTableDriftCompanion copyWith(
       {Value<int>? id,
       Value<DateTime>? linkingDate,
       Value<int>? taskId,
       Value<int>? userId}) {
-    return TaskUserTableDriftCompanion(
+    return TaskUserLinkTableDriftCompanion(
       id: id ?? this.id,
       linkingDate: linkingDate ?? this.linkingDate,
       taskId: taskId ?? this.taskId,
@@ -2113,7 +2115,7 @@ class TaskUserTableDriftCompanion extends UpdateCompanion<TaskUserTableDriftG> {
 
   @override
   String toString() {
-    return (StringBuffer('TaskUserTableDriftCompanion(')
+    return (StringBuffer('TaskUserLinkTableDriftCompanion(')
           ..write('id: $id, ')
           ..write('linkingDate: $linkingDate, ')
           ..write('taskId: $taskId, ')
@@ -4103,12 +4105,12 @@ abstract class _$OrganizerDriftDB extends GeneratedDatabase {
   late final $OrganizerItemTableDriftTable organizerItemTableDrift =
       $OrganizerItemTableDriftTable(this);
   late final $TaskTableDriftTable taskTableDrift = $TaskTableDriftTable(this);
-  late final $TaskTagTableDriftTable taskTagTableDrift =
-      $TaskTagTableDriftTable(this);
-  late final $TaskReminderTableDriftTable taskReminderTableDrift =
-      $TaskReminderTableDriftTable(this);
-  late final $TaskUserTableDriftTable taskUserTableDrift =
-      $TaskUserTableDriftTable(this);
+  late final $TaskTagLinkTableDriftTable taskTagLinkTableDrift =
+      $TaskTagLinkTableDriftTable(this);
+  late final $TaskReminderLinkTableDriftTable taskReminderLinkTableDrift =
+      $TaskReminderLinkTableDriftTable(this);
+  late final $TaskUserLinkTableDriftTable taskUserLinkTableDrift =
+      $TaskUserLinkTableDriftTable(this);
   late final $UserTableDriftTable userTableDrift = $UserTableDriftTable(this);
   late final $UserUserTableDriftTable userUserTableDrift =
       $UserUserTableDriftTable(this);
@@ -4118,12 +4120,12 @@ abstract class _$OrganizerDriftDB extends GeneratedDatabase {
   late final OrganizerItemDaoDrift organizerItemDaoDrift =
       OrganizerItemDaoDrift(this as OrganizerDriftDB);
   late final TaskDaoDrift taskDaoDrift = TaskDaoDrift(this as OrganizerDriftDB);
-  late final TaskTagDaoDrift taskTagDaoDrift =
-      TaskTagDaoDrift(this as OrganizerDriftDB);
-  late final TaskReminderDaoDrift taskReminderDaoDrift =
-      TaskReminderDaoDrift(this as OrganizerDriftDB);
-  late final TaskUserDaoDrift taskUserDaoDrift =
-      TaskUserDaoDrift(this as OrganizerDriftDB);
+  late final TaskTagLinkDaoDrift taskTagLinkDaoDrift =
+      TaskTagLinkDaoDrift(this as OrganizerDriftDB);
+  late final TaskReminderLinkDaoDrift taskReminderLinkDaoDrift =
+      TaskReminderLinkDaoDrift(this as OrganizerDriftDB);
+  late final TaskUserLinkDaoDrift taskUserLinkDaoDrift =
+      TaskUserLinkDaoDrift(this as OrganizerDriftDB);
   late final UserDaoDrift userDaoDrift = UserDaoDrift(this as OrganizerDriftDB);
   late final UserUserDaoDrift userUserDaoDrift =
       UserUserDaoDrift(this as OrganizerDriftDB);
@@ -4137,9 +4139,9 @@ abstract class _$OrganizerDriftDB extends GeneratedDatabase {
   List<DatabaseSchemaEntity> get allSchemaEntities => [
         organizerItemTableDrift,
         taskTableDrift,
-        taskTagTableDrift,
-        taskReminderTableDrift,
-        taskUserTableDrift,
+        taskTagLinkTableDrift,
+        taskReminderLinkTableDrift,
+        taskUserLinkTableDrift,
         userTableDrift,
         userUserTableDrift,
         reminderTableDrift,
@@ -4649,37 +4651,37 @@ class $$TaskTableDriftTableOrderingComposer
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
-typedef $$TaskTagTableDriftTableCreateCompanionBuilder
-    = TaskTagTableDriftCompanion Function({
+typedef $$TaskTagLinkTableDriftTableCreateCompanionBuilder
+    = TaskTagLinkTableDriftCompanion Function({
   Value<int> id,
   Value<DateTime> linkingDate,
   required int taskId,
   required int tagId,
 });
-typedef $$TaskTagTableDriftTableUpdateCompanionBuilder
-    = TaskTagTableDriftCompanion Function({
+typedef $$TaskTagLinkTableDriftTableUpdateCompanionBuilder
+    = TaskTagLinkTableDriftCompanion Function({
   Value<int> id,
   Value<DateTime> linkingDate,
   Value<int> taskId,
   Value<int> tagId,
 });
 
-class $$TaskTagTableDriftTableTableManager extends RootTableManager<
+class $$TaskTagLinkTableDriftTableTableManager extends RootTableManager<
     _$OrganizerDriftDB,
-    $TaskTagTableDriftTable,
+    $TaskTagLinkTableDriftTable,
     TaskTagTableDriftG,
-    $$TaskTagTableDriftTableFilterComposer,
-    $$TaskTagTableDriftTableOrderingComposer,
-    $$TaskTagTableDriftTableCreateCompanionBuilder,
-    $$TaskTagTableDriftTableUpdateCompanionBuilder> {
-  $$TaskTagTableDriftTableTableManager(
-      _$OrganizerDriftDB db, $TaskTagTableDriftTable table)
+    $$TaskTagLinkTableDriftTableFilterComposer,
+    $$TaskTagLinkTableDriftTableOrderingComposer,
+    $$TaskTagLinkTableDriftTableCreateCompanionBuilder,
+    $$TaskTagLinkTableDriftTableUpdateCompanionBuilder> {
+  $$TaskTagLinkTableDriftTableTableManager(
+      _$OrganizerDriftDB db, $TaskTagLinkTableDriftTable table)
       : super(TableManagerState(
           db: db,
           table: table,
-          filteringComposer:
-              $$TaskTagTableDriftTableFilterComposer(ComposerState(db, table)),
-          orderingComposer: $$TaskTagTableDriftTableOrderingComposer(
+          filteringComposer: $$TaskTagLinkTableDriftTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$TaskTagLinkTableDriftTableOrderingComposer(
               ComposerState(db, table)),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
@@ -4687,7 +4689,7 @@ class $$TaskTagTableDriftTableTableManager extends RootTableManager<
             Value<int> taskId = const Value.absent(),
             Value<int> tagId = const Value.absent(),
           }) =>
-              TaskTagTableDriftCompanion(
+              TaskTagLinkTableDriftCompanion(
             id: id,
             linkingDate: linkingDate,
             taskId: taskId,
@@ -4699,7 +4701,7 @@ class $$TaskTagTableDriftTableTableManager extends RootTableManager<
             required int taskId,
             required int tagId,
           }) =>
-              TaskTagTableDriftCompanion.insert(
+              TaskTagLinkTableDriftCompanion.insert(
             id: id,
             linkingDate: linkingDate,
             taskId: taskId,
@@ -4708,9 +4710,9 @@ class $$TaskTagTableDriftTableTableManager extends RootTableManager<
         ));
 }
 
-class $$TaskTagTableDriftTableFilterComposer
-    extends FilterComposer<_$OrganizerDriftDB, $TaskTagTableDriftTable> {
-  $$TaskTagTableDriftTableFilterComposer(super.$state);
+class $$TaskTagLinkTableDriftTableFilterComposer
+    extends FilterComposer<_$OrganizerDriftDB, $TaskTagLinkTableDriftTable> {
+  $$TaskTagLinkTableDriftTableFilterComposer(super.$state);
   ColumnFilters<int> get id => $state.composableBuilder(
       column: $state.table.id,
       builder: (column, joinBuilders) =>
@@ -4732,9 +4734,9 @@ class $$TaskTagTableDriftTableFilterComposer
           ColumnFilters(column, joinBuilders: joinBuilders));
 }
 
-class $$TaskTagTableDriftTableOrderingComposer
-    extends OrderingComposer<_$OrganizerDriftDB, $TaskTagTableDriftTable> {
-  $$TaskTagTableDriftTableOrderingComposer(super.$state);
+class $$TaskTagLinkTableDriftTableOrderingComposer
+    extends OrderingComposer<_$OrganizerDriftDB, $TaskTagLinkTableDriftTable> {
+  $$TaskTagLinkTableDriftTableOrderingComposer(super.$state);
   ColumnOrderings<int> get id => $state.composableBuilder(
       column: $state.table.id,
       builder: (column, joinBuilders) =>
@@ -4756,37 +4758,37 @@ class $$TaskTagTableDriftTableOrderingComposer
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
-typedef $$TaskReminderTableDriftTableCreateCompanionBuilder
-    = TaskReminderTableDriftCompanion Function({
+typedef $$TaskReminderLinkTableDriftTableCreateCompanionBuilder
+    = TaskReminderLinkTableDriftCompanion Function({
   Value<int> id,
   Value<DateTime> linkingDate,
   required int taskId,
   required int reminderId,
 });
-typedef $$TaskReminderTableDriftTableUpdateCompanionBuilder
-    = TaskReminderTableDriftCompanion Function({
+typedef $$TaskReminderLinkTableDriftTableUpdateCompanionBuilder
+    = TaskReminderLinkTableDriftCompanion Function({
   Value<int> id,
   Value<DateTime> linkingDate,
   Value<int> taskId,
   Value<int> reminderId,
 });
 
-class $$TaskReminderTableDriftTableTableManager extends RootTableManager<
+class $$TaskReminderLinkTableDriftTableTableManager extends RootTableManager<
     _$OrganizerDriftDB,
-    $TaskReminderTableDriftTable,
+    $TaskReminderLinkTableDriftTable,
     TaskReminderTableDriftG,
-    $$TaskReminderTableDriftTableFilterComposer,
-    $$TaskReminderTableDriftTableOrderingComposer,
-    $$TaskReminderTableDriftTableCreateCompanionBuilder,
-    $$TaskReminderTableDriftTableUpdateCompanionBuilder> {
-  $$TaskReminderTableDriftTableTableManager(
-      _$OrganizerDriftDB db, $TaskReminderTableDriftTable table)
+    $$TaskReminderLinkTableDriftTableFilterComposer,
+    $$TaskReminderLinkTableDriftTableOrderingComposer,
+    $$TaskReminderLinkTableDriftTableCreateCompanionBuilder,
+    $$TaskReminderLinkTableDriftTableUpdateCompanionBuilder> {
+  $$TaskReminderLinkTableDriftTableTableManager(
+      _$OrganizerDriftDB db, $TaskReminderLinkTableDriftTable table)
       : super(TableManagerState(
           db: db,
           table: table,
-          filteringComposer: $$TaskReminderTableDriftTableFilterComposer(
+          filteringComposer: $$TaskReminderLinkTableDriftTableFilterComposer(
               ComposerState(db, table)),
-          orderingComposer: $$TaskReminderTableDriftTableOrderingComposer(
+          orderingComposer: $$TaskReminderLinkTableDriftTableOrderingComposer(
               ComposerState(db, table)),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
@@ -4794,7 +4796,7 @@ class $$TaskReminderTableDriftTableTableManager extends RootTableManager<
             Value<int> taskId = const Value.absent(),
             Value<int> reminderId = const Value.absent(),
           }) =>
-              TaskReminderTableDriftCompanion(
+              TaskReminderLinkTableDriftCompanion(
             id: id,
             linkingDate: linkingDate,
             taskId: taskId,
@@ -4806,7 +4808,7 @@ class $$TaskReminderTableDriftTableTableManager extends RootTableManager<
             required int taskId,
             required int reminderId,
           }) =>
-              TaskReminderTableDriftCompanion.insert(
+              TaskReminderLinkTableDriftCompanion.insert(
             id: id,
             linkingDate: linkingDate,
             taskId: taskId,
@@ -4815,9 +4817,9 @@ class $$TaskReminderTableDriftTableTableManager extends RootTableManager<
         ));
 }
 
-class $$TaskReminderTableDriftTableFilterComposer
-    extends FilterComposer<_$OrganizerDriftDB, $TaskReminderTableDriftTable> {
-  $$TaskReminderTableDriftTableFilterComposer(super.$state);
+class $$TaskReminderLinkTableDriftTableFilterComposer extends FilterComposer<
+    _$OrganizerDriftDB, $TaskReminderLinkTableDriftTable> {
+  $$TaskReminderLinkTableDriftTableFilterComposer(super.$state);
   ColumnFilters<int> get id => $state.composableBuilder(
       column: $state.table.id,
       builder: (column, joinBuilders) =>
@@ -4839,9 +4841,10 @@ class $$TaskReminderTableDriftTableFilterComposer
           ColumnFilters(column, joinBuilders: joinBuilders));
 }
 
-class $$TaskReminderTableDriftTableOrderingComposer
-    extends OrderingComposer<_$OrganizerDriftDB, $TaskReminderTableDriftTable> {
-  $$TaskReminderTableDriftTableOrderingComposer(super.$state);
+class $$TaskReminderLinkTableDriftTableOrderingComposer
+    extends OrderingComposer<_$OrganizerDriftDB,
+        $TaskReminderLinkTableDriftTable> {
+  $$TaskReminderLinkTableDriftTableOrderingComposer(super.$state);
   ColumnOrderings<int> get id => $state.composableBuilder(
       column: $state.table.id,
       builder: (column, joinBuilders) =>
@@ -4863,37 +4866,37 @@ class $$TaskReminderTableDriftTableOrderingComposer
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
-typedef $$TaskUserTableDriftTableCreateCompanionBuilder
-    = TaskUserTableDriftCompanion Function({
+typedef $$TaskUserLinkTableDriftTableCreateCompanionBuilder
+    = TaskUserLinkTableDriftCompanion Function({
   Value<int> id,
   Value<DateTime> linkingDate,
   required int taskId,
   required int userId,
 });
-typedef $$TaskUserTableDriftTableUpdateCompanionBuilder
-    = TaskUserTableDriftCompanion Function({
+typedef $$TaskUserLinkTableDriftTableUpdateCompanionBuilder
+    = TaskUserLinkTableDriftCompanion Function({
   Value<int> id,
   Value<DateTime> linkingDate,
   Value<int> taskId,
   Value<int> userId,
 });
 
-class $$TaskUserTableDriftTableTableManager extends RootTableManager<
+class $$TaskUserLinkTableDriftTableTableManager extends RootTableManager<
     _$OrganizerDriftDB,
-    $TaskUserTableDriftTable,
+    $TaskUserLinkTableDriftTable,
     TaskUserTableDriftG,
-    $$TaskUserTableDriftTableFilterComposer,
-    $$TaskUserTableDriftTableOrderingComposer,
-    $$TaskUserTableDriftTableCreateCompanionBuilder,
-    $$TaskUserTableDriftTableUpdateCompanionBuilder> {
-  $$TaskUserTableDriftTableTableManager(
-      _$OrganizerDriftDB db, $TaskUserTableDriftTable table)
+    $$TaskUserLinkTableDriftTableFilterComposer,
+    $$TaskUserLinkTableDriftTableOrderingComposer,
+    $$TaskUserLinkTableDriftTableCreateCompanionBuilder,
+    $$TaskUserLinkTableDriftTableUpdateCompanionBuilder> {
+  $$TaskUserLinkTableDriftTableTableManager(
+      _$OrganizerDriftDB db, $TaskUserLinkTableDriftTable table)
       : super(TableManagerState(
           db: db,
           table: table,
-          filteringComposer:
-              $$TaskUserTableDriftTableFilterComposer(ComposerState(db, table)),
-          orderingComposer: $$TaskUserTableDriftTableOrderingComposer(
+          filteringComposer: $$TaskUserLinkTableDriftTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$TaskUserLinkTableDriftTableOrderingComposer(
               ComposerState(db, table)),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
@@ -4901,7 +4904,7 @@ class $$TaskUserTableDriftTableTableManager extends RootTableManager<
             Value<int> taskId = const Value.absent(),
             Value<int> userId = const Value.absent(),
           }) =>
-              TaskUserTableDriftCompanion(
+              TaskUserLinkTableDriftCompanion(
             id: id,
             linkingDate: linkingDate,
             taskId: taskId,
@@ -4913,7 +4916,7 @@ class $$TaskUserTableDriftTableTableManager extends RootTableManager<
             required int taskId,
             required int userId,
           }) =>
-              TaskUserTableDriftCompanion.insert(
+              TaskUserLinkTableDriftCompanion.insert(
             id: id,
             linkingDate: linkingDate,
             taskId: taskId,
@@ -4922,9 +4925,9 @@ class $$TaskUserTableDriftTableTableManager extends RootTableManager<
         ));
 }
 
-class $$TaskUserTableDriftTableFilterComposer
-    extends FilterComposer<_$OrganizerDriftDB, $TaskUserTableDriftTable> {
-  $$TaskUserTableDriftTableFilterComposer(super.$state);
+class $$TaskUserLinkTableDriftTableFilterComposer
+    extends FilterComposer<_$OrganizerDriftDB, $TaskUserLinkTableDriftTable> {
+  $$TaskUserLinkTableDriftTableFilterComposer(super.$state);
   ColumnFilters<int> get id => $state.composableBuilder(
       column: $state.table.id,
       builder: (column, joinBuilders) =>
@@ -4946,9 +4949,9 @@ class $$TaskUserTableDriftTableFilterComposer
           ColumnFilters(column, joinBuilders: joinBuilders));
 }
 
-class $$TaskUserTableDriftTableOrderingComposer
-    extends OrderingComposer<_$OrganizerDriftDB, $TaskUserTableDriftTable> {
-  $$TaskUserTableDriftTableOrderingComposer(super.$state);
+class $$TaskUserLinkTableDriftTableOrderingComposer
+    extends OrderingComposer<_$OrganizerDriftDB, $TaskUserLinkTableDriftTable> {
+  $$TaskUserLinkTableDriftTableOrderingComposer(super.$state);
   ColumnOrderings<int> get id => $state.composableBuilder(
       column: $state.table.id,
       builder: (column, joinBuilders) =>
@@ -5742,13 +5745,15 @@ class $OrganizerDriftDBManager {
           _db, _db.organizerItemTableDrift);
   $$TaskTableDriftTableTableManager get taskTableDrift =>
       $$TaskTableDriftTableTableManager(_db, _db.taskTableDrift);
-  $$TaskTagTableDriftTableTableManager get taskTagTableDrift =>
-      $$TaskTagTableDriftTableTableManager(_db, _db.taskTagTableDrift);
-  $$TaskReminderTableDriftTableTableManager get taskReminderTableDrift =>
-      $$TaskReminderTableDriftTableTableManager(
-          _db, _db.taskReminderTableDrift);
-  $$TaskUserTableDriftTableTableManager get taskUserTableDrift =>
-      $$TaskUserTableDriftTableTableManager(_db, _db.taskUserTableDrift);
+  $$TaskTagLinkTableDriftTableTableManager get taskTagLinkTableDrift =>
+      $$TaskTagLinkTableDriftTableTableManager(_db, _db.taskTagLinkTableDrift);
+  $$TaskReminderLinkTableDriftTableTableManager
+      get taskReminderLinkTableDrift =>
+          $$TaskReminderLinkTableDriftTableTableManager(
+              _db, _db.taskReminderLinkTableDrift);
+  $$TaskUserLinkTableDriftTableTableManager get taskUserLinkTableDrift =>
+      $$TaskUserLinkTableDriftTableTableManager(
+          _db, _db.taskUserLinkTableDrift);
   $$UserTableDriftTableTableManager get userTableDrift =>
       $$UserTableDriftTableTableManager(_db, _db.userTableDrift);
   $$UserUserTableDriftTableTableManager get userUserTableDrift =>

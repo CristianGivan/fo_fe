@@ -1,42 +1,42 @@
 import 'package:drift/drift.dart';
 import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
 
-part 'task_user_dao_drift.g.dart';
+part 'task_user_link_dao_drift.g.dart';
 
-@DriftAccessor(tables: [TaskUserTableDrift])
-class TaskUserDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
-    with _$TaskUserDaoDriftMixin {
+@DriftAccessor(tables: [TaskUserLinkTableDrift])
+class TaskUserLinkDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
+    with _$TaskUserLinkDaoDriftMixin {
   final OrganizerDriftDB db;
 
-  TaskUserDaoDrift(this.db) : super(db);
+  TaskUserLinkDaoDrift(this.db) : super(db);
 
   Future<List<TaskUserTableDriftG>> getAllTaskUsers() =>
-      select(taskUserTableDrift).get();
+      select(taskUserLinkTableDrift).get();
 
   Stream<List<TaskUserTableDriftG>> watchAllTaskUsers() =>
-      select(taskUserTableDrift).watch();
+      select(taskUserLinkTableDrift).watch();
 
   Future<int> insertTaskUser(Insertable<TaskUserTableDriftG> taskUser) =>
-      into(taskUserTableDrift).insert(taskUser);
+      into(taskUserLinkTableDrift).insert(taskUser);
 
   Future<bool> updateTaskUser(Insertable<TaskUserTableDriftG> taskUser) =>
-      update(taskUserTableDrift).replace(taskUser);
+      update(taskUserLinkTableDrift).replace(taskUser);
 
   Future<int> deleteTaskUserByTaskId(int taskId) async {
-    return (delete(taskUserTableDrift)
+    return (delete(taskUserLinkTableDrift)
           ..where((tbl) => tbl.taskId.equals(taskId)))
         .go();
   }
 
   Future<int> deleteTaskUser(int taskId, int userId) async {
-    return (delete(taskUserTableDrift)
+    return (delete(taskUserLinkTableDrift)
           ..where(
               (tbl) => tbl.taskId.equals(taskId) & tbl.userId.equals(userId)))
         .go();
   }
 
   Future<Set<int>> getUserIdsByTaskId(int taskId) async {
-    final result = await (select(taskUserTableDrift)
+    final result = await (select(taskUserLinkTableDrift)
           ..where((tbl) => tbl.taskId.equals(taskId)))
         .get();
     return result.map((row) => row.userId).toSet();
