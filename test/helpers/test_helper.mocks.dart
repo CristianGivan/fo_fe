@@ -335,7 +335,8 @@ class MockTaskLocalDataSourceDrift extends _i1.Mock
       ) as _i9.Future<_i4.OrganizerItems<_i13.UserModel>>);
 
   @override
-  _i9.Future<_i4.OrganizerItems<_i14.TagModel>> getTagsByTaskId(int? taskId) =>
+  _i9.Future<_i4.OrganizerItems<_i14.TagModel>> getTagItemsByTaskId(
+          int? taskId) =>
       (super.noSuchMethod(
         Invocation.method(
           #getTagsByTaskId,
@@ -838,7 +839,7 @@ class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
 
   @override
   _i9.Future<_i5.Either<_i16.Failure, _i4.OrganizerItems<_i14.TagEntity>>>
-      getTagsByTaskId(int? taskId) => (super.noSuchMethod(
+      getTagItemsByTaskId(int? taskId) => (super.noSuchMethod(
             Invocation.method(
               #getTagsByTaskId,
               [taskId],

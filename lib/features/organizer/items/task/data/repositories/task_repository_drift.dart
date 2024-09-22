@@ -135,11 +135,11 @@ class TaskRepositoryDrift implements TaskRepository {
 
   // Tag operations related to tasks
   @override
-  Future<Either<Failure, OrganizerItems<TagEntity>>> getTagsByTaskId(
+  Future<Either<Failure, OrganizerItems<TagEntity>>> getTagItemsByTaskId(
       int taskId) {
     return _handleDatabaseOperation(() async {
-      final tagModels = await localDataSource.getTagsByTaskId(taskId);
-      return TagMapper.entityItemsFromModelItems(tagModels);
+      final items = await localDataSource.getTagItemsByTaskId(taskId);
+      return TagMapper.entityItemsFromTableDriftItems(items);
     });
   }
 
@@ -183,7 +183,7 @@ class TaskRepositoryDrift implements TaskRepository {
       int taskId, List<int> tags) {
     return _handleDatabaseOperation(() async {
       await localDataSource.addTagItemsToTask(taskId, tags);
-      final tagModels = await localDataSource.getTagsByTaskId(taskId);
+      final tagModels = await localDataSource.getTagItemsByTaskId(taskId);
       return TagMapper.entityItemsFromModelItems(tagModels);
     });
   }

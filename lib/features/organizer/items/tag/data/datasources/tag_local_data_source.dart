@@ -1,3 +1,4 @@
+import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
 import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
 import 'package:fo_fe/features/organizer/items/tag/domain/entities/tag_entity.dart';
 
@@ -8,9 +9,9 @@ abstract class TagLocalDataSource {
 
   Future<int> deleteTag(int tagId);
 
-  Future<TagEntity?> getTagById(int id);
+  Future<TagTableDriftG?> getTagById(int id);
 
-  Future<OrganizerItems<TagEntity>> getTagItemsAll();
+  Future<List<TagTableDriftG>?> getTagItemsAll();
 
-  Future<OrganizerItems<TagEntity>> getTagItemsByIdSet(IdSet idSet);
+  Future<List<TagTableDriftG?>?> getTagItemsByIdSet(IdSet idSet);
 }

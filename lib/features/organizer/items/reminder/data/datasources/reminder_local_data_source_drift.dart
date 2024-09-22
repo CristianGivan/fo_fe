@@ -9,13 +9,13 @@ class ReminderLocalDataSourceDrift implements ReminderLocalDataSource {
 
   @override
   Future<int> insertReminder(ReminderEntity reminder) async {
-    final reminderCompanion = ReminderMapper.entityToCompanion(reminder);
+    final reminderCompanion = ReminderMapper.companionFromEntity(reminder);
     return await db.reminderDaoDrift.insertReminder(reminderCompanion);
   }
 
   @override
   Future<bool> updateReminder(ReminderEntity reminder) async {
-    final reminderCompanion = ReminderMapper.entityToCompanion(reminder);
+    final reminderCompanion = ReminderMapper.companionFromEntity(reminder);
     return await db.reminderDaoDrift.updateReminder(reminderCompanion);
   }
 
@@ -25,24 +25,18 @@ class ReminderLocalDataSourceDrift implements ReminderLocalDataSource {
   }
 
   @override
-  Future<ReminderEntity> getReminderById(int id) async {
-    final reminder = await db.reminderDaoDrift.getReminderById(id);
-    return reminder != null
-        ? ReminderMapper.entityFromTableDrift(reminder)
-        : ReminderEntity.empty();
+  Future<ReminderTableDriftG?> getReminderById(int id) async {
+    return await db.reminderDaoDrift.getReminderById(id);
   }
 
   @override
-  Future<OrganizerItems<ReminderEntity>> getReminderItemsAll() async {
-    final reminders = await db.reminderDaoDrift.getReminderItemsAll();
-    return ReminderMapper.modelItemsFromTableDriftItems(reminders);
+  Future<List<ReminderTableDriftG>> getReminderItemsAll() async {
+    return await db.reminderDaoDrift.getReminderItemsAll();
   }
 
   @override
-  Future<OrganizerItems<ReminderEntity>> getReminderItemsByIdSet(
-      IdSet idSet) async {
-    final reminders = await db.reminderDaoDrift
+  Future<List<ReminderTableDriftG>> getReminderItemsByIdSet(IdSet idSet) async {
+    return await db.reminderDaoDrift
         .getReminderItemsByReminderIdSet(idSet.toSet());
-    return ReminderMapper.entityItemsFromTableDriftItems(reminders);
   }
 }

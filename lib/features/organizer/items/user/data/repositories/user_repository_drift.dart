@@ -44,7 +44,7 @@ class UserRepositoryDrift implements UserRepository {
   Future<Either<Failure, UserEntity>> getUserById(int id) async {
     try {
       final result = await localDataSourceDrift.getUserById(id);
-      return Right(UserMapper.entityFromModel(result));
+      return Right(UserMapper.entityFromTableDrift(result));
     } catch (e) {
       return const Left(DatabaseFailure());
     }
@@ -54,7 +54,7 @@ class UserRepositoryDrift implements UserRepository {
   Future<Either<Failure, OrganizerItems<UserEntity>>> getUserItemsAll() async {
     try {
       final result = await localDataSourceDrift.getUserItemsAll();
-      return Right(UserMapper.modelItemsFromEntityItems(result));
+      return Right(UserMapper.entityItemsFromTableDriftItems(result));
     } catch (e) {
       return const Left(DatabaseFailure());
     }
@@ -65,7 +65,7 @@ class UserRepositoryDrift implements UserRepository {
       IdSet idSet) async {
     try {
       final result = await localDataSourceDrift.getUserItemsByIdSet(idSet);
-      return Right(UserMapper.modelItemsFromEntityItems(result));
+      return Right(UserMapper.entityItemsFromTableDriftItems(result));
     } catch (e) {
       return const Left(DatabaseFailure());
     }
@@ -76,7 +76,7 @@ class UserRepositoryDrift implements UserRepository {
       int userId) async {
     try {
       final result = await localDataSourceDrift.getUserItemsByUserId(userId);
-      return Right(UserMapper.modelItemsFromEntityItems(result));
+      return Right(UserMapper.entityItemsFromTableDriftItems(result));
     } catch (e) {
       return const Left(DatabaseFailure());
     }
@@ -112,7 +112,7 @@ class UserRepositoryDrift implements UserRepository {
     try {
       final user =
           await localDataSourceDrift.getUserByEmailAndPassword(email, password);
-      return Right(UserMapper.entityFromModel(user));
+      return Right(UserMapper.entityFromTableDrift(user));
     } catch (e) {
       return const Left(CacheFailure("CacheFailure"));
     }

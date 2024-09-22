@@ -16,7 +16,7 @@ class GetTagsByTaskId
   @override
   Future<Either<Failure, OrganizerItems<TagEntity>>> call(
       GetTagsByTaskIdParams params) {
-    return repository.getTagsByTaskId(params.taskId);
+    return repository.getTagItemsByTaskId(params.taskId);
   }
 }
 

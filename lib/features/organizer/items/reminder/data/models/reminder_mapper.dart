@@ -4,65 +4,6 @@ import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_i
 import 'package:fo_fe/features/organizer/items/reminder/config/reminder_exports.dart';
 
 class ReminderMapper {
-  static ReminderModel modelFromTableDrift(ReminderTableDriftG reminderTable) {
-    return ReminderModel(
-      id: reminderTable.id,
-      subject: reminderTable.subject,
-      remindAt: reminderTable.remindAt,
-    );
-  }
-
-  static OrganizerItems<ReminderModel> modelItemsFromTableDriftItems(
-      List<ReminderTableDriftG>? items) {
-    if (items == null) {
-      return OrganizerItems.empty();
-    }
-    return OrganizerItems.of(items.map(modelFromTableDrift).toList());
-  }
-
-  static ReminderModel modelFromEntity(ReminderEntity? reminderEntity) {
-    if (reminderEntity == null) {
-      return ReminderModel.empty();
-    }
-    return ReminderModel(
-      id: reminderEntity.id,
-      subject: reminderEntity.subject,
-      remindAt: reminderEntity.remindAt,
-    );
-  }
-
-  static OrganizerItems<ReminderModel> entityListToModelList(
-      OrganizerItems<ReminderEntity>? items) {
-    if (items == null) {
-      return OrganizerItems.empty();
-    }
-    return OrganizerItems.of(items.map(modelFromEntity).toList());
-  }
-
-  static ReminderEntity entityFromModel(ReminderModel model) {
-    return ReminderEntity(
-      id: model.id,
-      subject: model.subject,
-      remindAt: model.remindAt,
-    );
-  }
-
-  static OrganizerItems<ReminderEntity> entityItemsFromTableDriftItems(
-      List<ReminderTableDriftG>? items) {
-    if (items == null) {
-      return OrganizerItems.empty();
-    }
-    return OrganizerItems.of(items.map(modelFromTableDrift).toList());
-  }
-
-  static OrganizerItems<ReminderEntity> entityItemsFromModelItems(
-      OrganizerItems<ReminderModel>? items) {
-    if (items == null) {
-      return OrganizerItems.empty();
-    }
-    return OrganizerItems.of(items.map(entityFromModel).toList());
-  }
-
   static ReminderEntity entityFromTableDrift(
       ReminderTableDriftG reminderTable) {
     return ReminderEntity(
@@ -72,15 +13,21 @@ class ReminderMapper {
     );
   }
 
-  static ReminderTableDriftCompanion tableDriftCompanionFromModel(
-      ReminderModel reminder) {
+  static OrganizerItems<ReminderEntity> entityItemsFromTableDriftItems(
+      List<ReminderTableDriftG> items) {
+    return OrganizerItems.of(items.map(entityFromTableDrift).toList());
+  }
+
+  static ReminderTableDriftCompanion tableDriftCompanionFromEntity(
+      ReminderEntity reminder) {
     return ReminderTableDriftCompanion(
       id: Value(reminder.id),
       remindAt: Value(reminder.remindAt),
     );
   }
 
-  static ReminderTableDriftCompanion entityToCompanion(ReminderEntity entity) {
+  static ReminderTableDriftCompanion companionFromEntity(
+      ReminderEntity entity) {
     return ReminderTableDriftCompanion(
       id: entity.id == 0 ? const Value.absent() : Value(entity.id),
       remindAt: Value(entity.remindAt),

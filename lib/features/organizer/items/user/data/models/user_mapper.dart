@@ -4,46 +4,7 @@ import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_i
 import 'package:fo_fe/features/organizer/items/user/config/user_exports.dart';
 
 class UserMapper {
-  static UserModel modelFromTableDrift(UserTableDriftG user) {
-    return UserModel(
-      id: user.id,
-      name: user.name,
-      hashedPassword: user.hashedPassword,
-      email: user.email,
-      createdDate: user.createdDate,
-    );
-  }
-
-  static OrganizerItems<UserModel> modelItemsFromTableDriftItems(
-      List<UserTableDriftG>? items) {
-    if (items == null) {
-      return OrganizerItems.empty();
-    }
-    return OrganizerItems.of(items.map(modelFromTableDrift).toList());
-  }
-
-  static UserModel modelFromEntity(UserEntity? user) {
-    if (user == null) {
-      return UserModel.empty();
-    }
-    return UserModel(
-      id: user.id,
-      name: user.name,
-      hashedPassword: user.hashedPassword,
-      email: user.email,
-      createdDate: user.createdDate,
-    );
-  }
-
-  static OrganizerItems<UserModel> modelItemsFromEntityItems(
-      OrganizerItems<UserEntity>? items) {
-    if (items == null) {
-      return OrganizerItems.empty();
-    }
-    return OrganizerItems.of(items.map(modelFromEntity).toList());
-  }
-
-  static UserEntity entityFromModel(UserModel user) {
+  static UserEntity entityFromTableDrift(UserTableDriftG user) {
     return UserEntity(
       id: user.id,
       name: user.name,
@@ -53,15 +14,12 @@ class UserMapper {
     );
   }
 
-  static OrganizerItems<UserEntity> entityItemsFromModelItems(
-      OrganizerItems<UserModel>? models) {
-    if (models == null) {
-      return OrganizerItems.empty();
-    }
-    return OrganizerItems.of(models.map(entityFromModel).toList());
+  static OrganizerItems<UserEntity> entityItemsFromTableDriftItems(
+      List<UserTableDriftG> items) {
+    return OrganizerItems.of(items.map(entityFromTableDrift).toList());
   }
 
-  static UserTableDriftCompanion tableDriftCompanionFromModel(UserModel user) {
+  static UserTableDriftCompanion tableDriftCompanionFromModel(UserEntity user) {
     return UserTableDriftCompanion(
       id: Value(user.id),
       name: Value(user.name),

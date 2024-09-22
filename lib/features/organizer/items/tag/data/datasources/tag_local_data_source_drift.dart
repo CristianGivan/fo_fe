@@ -26,22 +26,17 @@ class TagLocalDataSourceDrift implements TagLocalDataSource {
   }
 
   @override
-  Future<TagEntity> getTagById(int id) async {
-    final tag = await db.tagDaoDrift.getTagById(id);
-    return tag != null
-        ? TagMapper.entityFromTableDrift(tag)
-        : TagEntity.empty();
+  Future<TagTableDriftG?> getTagById(int id) async {
+    return await db.tagDaoDrift.getTagById(id);
   }
 
   @override
-  Future<OrganizerItems<TagEntity>> getTagItemsAll() async {
-    final tags = await db.tagDaoDrift.getTagItemsAll();
-    return TagMapper.modelItemsFromTableDriftItems(tags);
+  Future<List<TagTableDriftG>?> getTagItemsAll() async {
+    return await db.tagDaoDrift.getTagItemsAll();
   }
 
   @override
-  Future<OrganizerItems<TagEntity>> getTagItemsByIdSet(IdSet idSet) async {
-    final tags = await db.tagDaoDrift.getTagItemsByTagIdSet(idSet.toSet());
-    return TagMapper.modelItemsFromTableDriftItems(tags);
+  Future<List<TagTableDriftG?>?> getTagItemsByIdSet(IdSet idSet) async {
+    return await db.tagDaoDrift.getTagItemsByTagIdSet(idSet.toSet());
   }
 }

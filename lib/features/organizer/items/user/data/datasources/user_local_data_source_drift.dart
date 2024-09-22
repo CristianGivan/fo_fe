@@ -29,32 +29,26 @@ class UserLocalDataSourceDrift implements UserLocalDataSource {
   }
 
   @override
-  Future<UserModel> getUserById(int id) async {
-    final userTable = await db.userDaoDrift.getUserById(id);
-    return userTable != null
-        ? UserMapper.modelFromTableDrift(userTable)
-        : UserModel.empty();
+  Future<UserTableDriftG?> getUserById(int id) async {
+    return await db.userDaoDrift.getUserById(id);
   }
 
   // Get all user items
   @override
-  Future<OrganizerItems<UserModel>> getUserItemsAll() async {
-    final items = await db.userDaoDrift.getUserItemsAll();
-    return UserMapper.modelItemsFromTableDriftItems(items);
+  Future<List<UserTableDriftG>?> getUserItemsAll() async {
+    return await db.userDaoDrift.getUserItemsAll();
   }
 
   // Get user items by ID set
   @override
-  Future<OrganizerItems<UserModel>> getUserItemsByIdSet(IdSet idSet) async {
-    final userTables = await db.userDaoDrift.getUserItemsByIdSet(idSet.toSet());
-    return UserMapper.modelItemsFromTableDriftItems(userTables);
+  Future<List<UserTableDriftG?>?> getUserItemsByIdSet(IdSet idSet) async {
+    return await db.userDaoDrift.getUserItemsByIdSet(idSet.toSet());
   }
 
   @override
-  Future<OrganizerItems<UserModel>> getUserItemsByUserId(int userId) async {
+  Future<List<UserTableDriftG?>?> getUserItemsByUserId(int userId) async {
     final userIds = await db.userUserDaoDrift.getUserIdsByUserId(userId);
-    final userTables = await db.userDaoDrift.getUserItemsByIdSet(userIds);
-    return UserMapper.modelItemsFromTableDriftItems(userTables);
+    return await db.userDaoDrift.getUserItemsByIdSet(userIds);
   }
 
   @override
@@ -68,21 +62,17 @@ class UserLocalDataSourceDrift implements UserLocalDataSource {
     return db.userUserDaoDrift.deleteUserUser(userLinkedId, userId);
   }
 
+  @override
+  Future<UserTableDriftG?> getUserByEmailAndPassword(
+      String email, String password) async {
+    return await db.userDaoDrift.getUserByEmailAndPassword(email, password);
+  }
+
   UserUserTableDriftCompanion _createUserUserCompanion(
       int userLinkedId, int userId) {
     return UserUserTableDriftCompanion(
       userLinkedId: Value(userLinkedId),
       userId: Value(userId),
     );
-  }
-
-  @override
-  Future<UserModel> getUserByEmailAndPassword(
-      String email, String password) async {
-    final userTable =
-        await db.userDaoDrift.getUserByEmailAndPassword(email, password);
-    return userTable != null
-        ? UserMapper.modelFromTableDrift(userTable)
-        : UserModel.empty();
   }
 }

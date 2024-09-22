@@ -34,7 +34,7 @@ abstract class TaskRepository {
   Future<Either<Failure, int>> deleteUserFromTask(int taskId, int userId);
 
   // Tag operations related to tasks
-  Future<Either<Failure, OrganizerItems<TagEntity>>> getTagsByTaskId(
+  Future<Either<Failure, OrganizerItems<TagEntity>>> getTagItemsByTaskId(
       int taskId);
 
   Future<Either<Failure, int>> addTagToTask(int taskId, int tagId);

@@ -3,10 +3,7 @@
 import 'package:drift/drift.dart';
 import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
 import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
-import 'package:fo_fe/features/organizer/items/reminder/config/reminder_exports.dart';
-import 'package:fo_fe/features/organizer/items/tag/config/tag_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/data/datasources/task_local_data_source.dart';
-import 'package:fo_fe/features/organizer/items/user/config/user_exports.dart';
 
 class TaskLocalDataSourceDrift implements TaskLocalDataSource {
   final OrganizerDriftDB db;
@@ -86,35 +83,31 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
 
   // Method to get users by task ID
   @override
-  Future<OrganizerItems<UserModel>> getUsersByTaskId(int taskId) async {
+  Future<List<UserTableDriftG>?> getUsersByTaskId(int taskId) async {
     final userIds = await db.taskUserLinkDaoDrift.getUserIdsByTaskId(taskId);
-    final userTables = await db.userDaoDrift.getUserItemsByIdSet(userIds);
-    return UserMapper.modelItemsFromTableDriftItems(userTables);
+    return await db.userDaoDrift.getUserItemsByIdSet(userIds);
   }
 
   // Method to get tags by task ID
   @override
-  Future<OrganizerItems<TagModel>> getTagsByTaskId(int taskId) async {
+  Future<List<TagTableDriftG>?> getTagItemsByTaskId(int taskId) async {
     final tagIds = await db.taskTagLinkDaoDrift.getTagIdsByTaskId(taskId);
-    final tagTables = await db.tagDaoDrift.getTagItemsByTagIdSet(tagIds);
-    return TagMapper.modelItemsFromTableDriftItems(tagTables);
+    return await db.tagDaoDrift.getTagItemsByTagIdSet(tagIds);
   }
 
   // Method to get reminders by task ID
   @override
-  Future<OrganizerItems<ReminderModel>> getRemindersByTaskId(int taskId) async {
+  Future<List<ReminderTableDriftG>?> getRemindersByTaskId(int taskId) async {
     final reminderIds =
         await db.taskReminderLinkDaoDrift.getReminderIdsByTaskId(taskId);
-    final reminderTables =
-        await db.reminderDaoDrift.getReminderItemsByReminderIdSet(reminderIds);
-    return ReminderMapper.modelItemsFromTableDriftItems(reminderTables);
+    return await db.reminderDaoDrift
+        .getReminderItemsByReminderIdSet(reminderIds);
   }
 
   // Method to get creator by ID
   @override
-  Future<UserModel?> getCreatorById(int creatorId) async {
-    final creator = await db.userDaoDrift.getUserById(creatorId);
-    return creator != null ? UserMapper.modelFromTableDrift(creator) : null;
+  Future<UserTableDriftG?> getCreatorById(int creatorId) async {
+    return await db.userDaoDrift.getUserById(creatorId);
   }
 
   // Add user to task

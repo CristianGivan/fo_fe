@@ -1,8 +1,5 @@
 import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
 import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
-import 'package:fo_fe/features/organizer/items/reminder/config/reminder_exports.dart';
-import 'package:fo_fe/features/organizer/items/tag/config/tag_exports.dart';
-import 'package:fo_fe/features/organizer/items/user/config/user_exports.dart';
 
 abstract class TaskLocalDataSource {
   // Task CRUD operations
@@ -19,16 +16,16 @@ abstract class TaskLocalDataSource {
   Future<List<TaskTableDriftG?>?> getTaskItemsByIdSet(IdSet idSet);
 
   // User operations related to tasks
-  Future<OrganizerItems<UserModel>> getUsersByTaskId(int taskId);
+  Future<List<UserTableDriftG>?> getUsersByTaskId(int taskId);
 
-  Future<UserModel?> getCreatorById(int creatorId);
+  Future<UserTableDriftG?> getCreatorById(int creatorId);
 
   Future<int> addUserToTask(int taskId, int userId);
 
   Future<int> deleteUserFromTask(int taskId, int userId);
 
   // Tag operations related to tasks
-  Future<OrganizerItems<TagModel>> getTagsByTaskId(int taskId);
+  Future<List<TagTableDriftG>?> getTagItemsByTaskId(int taskId);
 
   Future<int> addTagToTask(int taskId, int tagId);
 
@@ -37,7 +34,7 @@ abstract class TaskLocalDataSource {
   Future<int> deleteTagFromTask(int taskId, int tagId);
 
   // Reminder operations related to tasks
-  Future<OrganizerItems<ReminderModel>> getRemindersByTaskId(int taskId);
+  Future<List<ReminderTableDriftG>?> getRemindersByTaskId(int taskId);
 
   Future<int> addReminderToTask(int taskId, int reminderId);
 
