@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:fo_fe/core/const/constants.dart';
+import 'package:fo_fe/core/utils/date_time/date_time_constants.dart';
 
 class OrganizerItemEntity extends Equatable {
   final int _id;

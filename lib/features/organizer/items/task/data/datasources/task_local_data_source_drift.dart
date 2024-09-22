@@ -5,12 +5,8 @@ import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
 import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
 import 'package:fo_fe/features/organizer/items/reminder/config/reminder_exports.dart';
 import 'package:fo_fe/features/organizer/items/tag/config/tag_exports.dart';
-import 'package:fo_fe/features/organizer/items/task/config/task_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/data/datasources/task_local_data_source.dart';
-import 'package:fo_fe/features/organizer/items/task/data/models/task_model.dart';
 import 'package:fo_fe/features/organizer/items/user/config/user_exports.dart';
-
-import '../models/task_mapper.dart';
 
 class TaskLocalDataSourceDrift implements TaskLocalDataSource {
   final OrganizerDriftDB db;
@@ -37,57 +33,55 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
 
   // Get task by ID without related entities
   @override
-  Future<TaskModel?> getTaskById(int id) async {
-    final taskTable = await db.taskDaoDrift.getTaskById(id);
-    return taskTable != null ? TaskMapper.modelFromTableDrift(taskTable) : null;
+  Future<TaskTableDriftG?> getTaskById(int id) async {
+    return await db.taskDaoDrift.getTaskById(id);
   }
 
-  // Get full lazy-loaded task by ID with all related entities
-  @override
-  Future<TaskModelLazyLoaded?> getTaskByIdLazyLoaded(int id) async {
-    final taskTable = await db.taskDaoDrift.getTaskById(id);
-    if (taskTable == null) return null;
-
-    final creator = taskTable.creatorId != null
-        ? await db.userDaoDrift.getUserById(taskTable.creatorId!)
-        : null;
-
-    final userIds = await db.taskUserLinkDaoDrift.getUserIdsByTaskId(id);
-    final userTables = await db.userDaoDrift.getUserItemsByIdSet(userIds);
-    final users = UserMapper.modelItemsFromTableDriftItems(userTables);
-
-    final tagIds = await db.taskTagLinkDaoDrift.getTagIdsByTaskId(id);
-    final tagTables = await db.tagDaoDrift.getTagItemsByTagIdSet(tagIds);
-    final tags = TagMapper.modelItemsFromTableDriftItems(tagTables);
-
-    final reminderIds =
-        await db.taskReminderLinkDaoDrift.getReminderIdsByTaskId(id);
-    final reminderTables =
-        await db.reminderDaoDrift.getReminderItemsByReminderIdSet(reminderIds);
-    final reminders =
-        ReminderMapper.modelItemsFromTableDriftItems(reminderTables);
-
-    return TaskMapper.toLazyLoadedModel(
-      taskTable,
-      creator != null ? UserMapper.modelFromTableDrift(creator) : null,
-      users,
-      tags,
-      reminders,
-    );
-  }
+  //
+  // // Get full lazy-loaded task by ID with all related entities
+  // @override
+  // Future<TaskModelLazyLoaded?> getTaskByIdLazyLoaded(int id) async {
+  //   final taskTable = await db.taskDaoDrift.getTaskById(id);
+  //   if (taskTable == null) return null;
+  //
+  //   final creator = taskTable.creatorId != null
+  //       ? await db.userDaoDrift.getUserById(taskTable.creatorId!)
+  //       : null;
+  //
+  //   final userIds = await db.taskUserLinkDaoDrift.getUserIdsByTaskId(id);
+  //   final userTables = await db.userDaoDrift.getUserItemsByIdSet(userIds);
+  //   final users = UserMapper.modelItemsFromTableDriftItems(userTables);
+  //
+  //   final tagIds = await db.taskTagLinkDaoDrift.getTagIdsByTaskId(id);
+  //   final tagTables = await db.tagDaoDrift.getTagItemsByTagIdSet(tagIds);
+  //   final tags = TagMapper.modelItemsFromTableDriftItems(tagTables);
+  //
+  //   final reminderIds =
+  //       await db.taskReminderLinkDaoDrift.getReminderIdsByTaskId(id);
+  //   final reminderTables =
+  //       await db.reminderDaoDrift.getReminderItemsByReminderIdSet(reminderIds);
+  //   final reminders =
+  //       ReminderMapper.modelItemsFromTableDriftItems(reminderTables);
+  //
+  //   return TaskMapper.toLazyLoadedModel(
+  //     taskTable,
+  //     creator != null ? UserMapper.modelFromTableDrift(creator) : null,
+  //     users,
+  //     tags,
+  //     reminders,
+  //   );
+  // }
 
   // Get all task items
   @override
-  Future<OrganizerItems<TaskModel>> getTaskItemsAll() async {
-    final taskTables = await db.taskDaoDrift.getTaskItemsAll();
-    return TaskMapper.modelItemsFromTableDriftItems(taskTables);
+  Future<List<TaskTableDriftG>?> getTaskItemsAll() async {
+    return await db.taskDaoDrift.getTaskItemsAll();
   }
 
   // Get task items by ID set
   @override
-  Future<OrganizerItems<TaskModel>> getTaskItemsByIdSet(IdSet idSet) async {
-    final taskTables = await db.taskDaoDrift.getTaskItemsByIdSet(idSet.toSet());
-    return TaskMapper.modelItemsFromTableDriftItems(taskTables);
+  Future<List<TaskTableDriftG?>?> getTaskItemsByIdSet(IdSet idSet) async {
+    return await db.taskDaoDrift.getTaskItemsByIdSet(idSet.toSet());
   }
 
   // Method to get users by task ID
@@ -135,6 +129,15 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
   Future<int> addTagToTask(int taskId, int tagId) async {
     return db.taskTagLinkDaoDrift
         .insertTaskTag(_createTaskTagCompanion(taskId, tagId));
+  }
+
+  Future<void> addTagItemsToTask(int taskId, List<int> tags) async {
+    await db.transaction(() async {
+      for (final tagId in tags) {
+        await db.taskTagLinkDaoDrift
+            .insertTaskTag(_createTaskTagCompanion(taskId, tagId));
+      }
+    });
   }
 
   // Add reminder to task

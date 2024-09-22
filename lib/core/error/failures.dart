@@ -41,6 +41,10 @@ class TaskNotFoundFailure extends Failure {
   const TaskNotFoundFailure() : super('Task not found');
 }
 
+class IncompleteDataFailure extends Failure {
+  const IncompleteDataFailure() : super('Task not found');
+}
+
 class DatabaseFailure extends Failure {
   const DatabaseFailure() : super('Task not found');
 }
