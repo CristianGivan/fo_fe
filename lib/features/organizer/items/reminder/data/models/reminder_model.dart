@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:fo_fe/core/const/constants.dart';
+import 'package:fo_fe/core/utils/date_time/date_time_constants.dart';
 import 'package:fo_fe/features/organizer/items/reminder/config/reminder_exports.dart';
 
 class ReminderModel extends ReminderEntity with EquatableMixin {

@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:fo_fe/features/organizer/items/user/domain/entities/user_entity.dart';
 
-import '../../../../../../core/const/constants.dart';
+import '../../../../../../core/utils/date_time/date_time_constants.dart';
 
 class UserModel extends UserEntity with EquatableMixin {
   UserModel({
@@ -10,8 +10,7 @@ class UserModel extends UserEntity with EquatableMixin {
     required super.email,
     required super.createdDate,
     required String hashedPassword,
-  }) : super(
-            password: hashedPassword);
+  }) : super(password: hashedPassword);
 
   factory UserModel.empty() => UserModel(
         id: 0,

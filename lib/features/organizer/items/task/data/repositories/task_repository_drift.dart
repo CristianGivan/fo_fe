@@ -1,23 +1,23 @@
 import 'package:dartz/dartz.dart';
+import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
 import 'package:fo_fe/features/organizer/items/reminder/data/models/reminder_mapper.dart';
 import 'package:fo_fe/features/organizer/items/reminder/domain/entities/reminder_entity.dart';
 import 'package:fo_fe/features/organizer/items/tag/config/tag_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/config/task_exports.dart';
-import 'package:fo_fe/features/organizer/items/task/data/datasources/task_local_data_source_drift.dart';
+import 'package:fo_fe/features/organizer/items/task/data/datasources/task_local_data_source.dart';
 import 'package:fo_fe/features/organizer/items/task/data/models/task_mapper.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/repositories/task_repository.dart';
 import 'package:fo_fe/features/organizer/items/user/config/user_exports.dart';
 
 class TaskRepositoryDrift implements TaskRepository {
-  final TaskLocalDataSourceDrift localDataSource;
+  final TaskLocalDataSource localDataSource;
 
   TaskRepositoryDrift({required this.localDataSource});
 
   Future<Either<Failure, T>> _handleDatabaseOperation<T>(
-    Future<T> Function() operation,
-  ) async {
+      Future<T> Function() operation) async {
     try {
       final result = await operation();
       return Right(result);
@@ -53,44 +53,50 @@ class TaskRepositoryDrift implements TaskRepository {
   @override
   Future<Either<Failure, TaskEntity>> getTaskById(int id) {
     return _handleDatabaseOperation(() async {
-      final taskModel = await localDataSource.getTaskById(id);
-      if (taskModel != null) {
-        return TaskMapper.modelToEntity(taskModel);
-      } else {
-        throw const TaskNotFoundFailure();
+      final item = await localDataSource.getTaskById(id);
+      if (item == null) {
+        throw const TaskNotFoundFailure(); // Throw an exception if task is not found
       }
-    });
-  }
 
-  @override
-  Future<Either<Failure, TaskEntityLazyLoaded>> getTaskByIdLazyLoaded(int id) {
-    return _handleDatabaseOperation(() async {
-      final taskModel = await localDataSource.getTaskByIdLazyLoaded(id);
-      if (taskModel != null) {
-        return TaskMapper.modelLazyLoadedToEntityLazyLoaded(taskModel);
-      } else {
-        throw const TaskNotFoundFailure();
-      }
+      return TaskMapper.entityFromTableDrift(item);
     });
   }
 
   @override
   Future<Either<Failure, OrganizerItems<TaskEntity>>> getTaskItemsAll() {
     return _handleDatabaseOperation(() async {
-      final taskModels = await localDataSource.getTaskItemsAll();
-      return OrganizerItems.of(
-          taskModels.map(TaskMapper.modelToEntity).toList());
+      final items = await localDataSource.getTaskItemsAll();
+
+      if (items == null || items.isEmpty) {
+        throw const TaskNotFoundFailure();
+      }
+
+      return TaskMapper.entityItemsFromTableDriftItems(items);
     });
   }
 
-  @override
   Future<Either<Failure, OrganizerItems<TaskEntity>>> getTaskItemsByIdSet(
       IdSet idSet) {
-    return _handleDatabaseOperation(() async {
-      final taskModels = await localDataSource.getTaskItemsByIdSet(idSet);
-      return OrganizerItems.of(
-          taskModels.map(TaskMapper.modelToEntity).toList());
-    });
+    return _handleDatabaseOperation<OrganizerItems<TaskEntity>>(
+      () async {
+        final items = await localDataSource.getTaskItemsByIdSet(idSet);
+
+        if (items == null || items.isEmpty) {
+          throw const TaskNotFoundFailure();
+        }
+
+        final nonNullItems = items.whereType<TaskTableDriftG>().toList();
+        if (nonNullItems.length != items.length) {
+          throw const IncompleteDataFailure(); // Custom failure for incomplete data
+        }
+
+        if (nonNullItems.isEmpty) {
+          throw const TaskNotFoundFailure();
+        }
+
+        return TaskMapper.entityItemsFromTableDriftItems(nonNullItems);
+      },
+    );
   }
 
   // User operations related to tasks
@@ -175,7 +181,16 @@ class TaskRepositoryDrift implements TaskRepository {
   @override
   Future<Either<Failure, OrganizerItems<TagEntity>>> addTagItemsToTask(
       int taskId, List<int> tags) {
-    // TODO: implement addTagItemsToTask
+    return _handleDatabaseOperation(() async {
+      await localDataSource.addTagItemsToTask(taskId, tags);
+      final tagModels = await localDataSource.getTagsByTaskId(taskId);
+      return TagMapper.entityItemsFromModelItems(tagModels);
+    });
+  }
+
+  @override
+  Future<Either<Failure, TaskEntityLazyLoaded>> getTaskByIdLazyLoaded(int id) {
+    // TODO: implement getTaskByIdLazyLoaded
     throw UnimplementedError();
   }
 }

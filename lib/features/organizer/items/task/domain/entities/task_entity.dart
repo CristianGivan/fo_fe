@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:fo_fe/core/const/constants.dart';
+import 'package:fo_fe/core/utils/date_time/date_time_constants.dart';
 import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
 
 class TaskEntity extends OrganizerItemEntity with EquatableMixin {
@@ -21,6 +21,9 @@ class TaskEntity extends OrganizerItemEntity with EquatableMixin {
     DateTime? lastViewDate,
     int? remoteViews,
     int? views,
+    DateTime? lastAccessedDate,
+    int? remoteAccesses,
+    int? accesses,
     String? checksum,
     String? subject,
     DateTime? startDate,

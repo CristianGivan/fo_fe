@@ -18,7 +18,7 @@ class TaskDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
   Future<List<TaskTableDriftG>> getTaskItemsAll() =>
       select(taskTableDrift).get();
 
-  Future<List<TaskTableDriftG>> getTaskItemsByIdSet(Set<int> ids) =>
+  Future<List<TaskTableDriftG?>?> getTaskItemsByIdSet(Set<int> ids) =>
       (select(taskTableDrift)..where((tbl) => tbl.id.isIn(ids))).get();
 
   Stream<List<TaskTableDriftG>> watchTaskItemsAll() =>
