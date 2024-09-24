@@ -2,7 +2,7 @@ import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
 import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
 
 abstract class TagLocalDataSource {
-  Future<int> insertTag(TagTableDriftCompanion tagCompanion);
+  Future<int> addTag(TagTableDriftCompanion tagCompanion);
 
   Future<bool> updateTag(TagTableDriftCompanion tagCompanion);
 

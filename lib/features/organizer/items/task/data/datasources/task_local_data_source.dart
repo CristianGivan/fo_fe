@@ -3,7 +3,7 @@ import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_i
 
 abstract class TaskLocalDataSource {
   // Task CRUD operations
-  Future<int> insertTask(TaskTableDriftCompanion taskCompanion);
+  Future<int> addTask(TaskTableDriftCompanion taskCompanion);
 
   Future<bool> updateTask(TaskTableDriftCompanion taskCompanion);
 

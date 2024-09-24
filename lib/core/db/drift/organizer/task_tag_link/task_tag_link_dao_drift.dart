@@ -16,7 +16,7 @@ class TaskTagLinkDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
   Stream<List<TaskTagTableDriftG>> watchAllTaskTags() =>
       select(taskTagLinkTableDrift).watch();
 
-  Future<int> insertTaskTag(Insertable<TaskTagTableDriftG> taskTag) =>
+  Future<int> addTaskTag(Insertable<TaskTagTableDriftG> taskTag) =>
       into(taskTagLinkTableDrift).insert(taskTag);
 
   Future<bool> updateTaskTag(Insertable<TaskTagTableDriftG> taskTag) =>

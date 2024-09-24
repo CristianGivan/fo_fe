@@ -7,10 +7,10 @@ abstract class TagBlocEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class InsertTagBlocEvent extends TagBlocEvent {
+class AddTagBlocEvent extends TagBlocEvent {
   final TagEntity tag;
 
-  InsertTagBlocEvent(this.tag);
+  AddTagBlocEvent(this.tag);
 
   @override
   List<Object> get props => [tag];

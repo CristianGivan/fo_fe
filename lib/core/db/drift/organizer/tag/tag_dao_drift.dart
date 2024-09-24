@@ -19,7 +19,7 @@ class TagDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
 
   Stream<List<TagTableDriftG>> watchAllTags() => select(tagTableDrift).watch();
 
-  Future<int> insertTag(Insertable<TagTableDriftG> tag) =>
+  Future<int> addTag(Insertable<TagTableDriftG> tag) =>
       into(tagTableDrift).insert(tag);
 
   Future<bool> updateTag(Insertable<TagTableDriftG> tag) =>

@@ -26,7 +26,7 @@ class LoginUseCase extends UseCase<AuthenticationEntity, LoginParams> {
     return userResult.fold(
       (failure) => Left(failure),
       (user) async {
-        return await authRepository.insertAuthentication(user);
+        return await authRepository.addAuthentication(user);
       },
     );
   }

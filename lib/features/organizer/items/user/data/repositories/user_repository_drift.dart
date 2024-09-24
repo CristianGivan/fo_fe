@@ -11,11 +11,11 @@ class UserRepositoryDrift implements UserRepository {
 
   // User CRUD operations
   @override
-  Future<Either<Failure, int>> insertUser(UserEntity user) async {
+  Future<Either<Failure, int>> addUser(UserEntity user) async {
     return _handleDatabaseOperation(() {
       final companion = UserMapper.entityToCompanion(user);
       _checkItemNotNull(companion);
-      return localDataSource.insertUser(companion);
+      return localDataSource.addUser(companion);
     });
   }
 

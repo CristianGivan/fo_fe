@@ -33,9 +33,9 @@ class AuthenticationLocalDataSourceDrift
   }
 
   @override
-  Future<void> insertAuthentication(AuthenticationModel auth) async {
+  Future<void> addAuthentication(AuthenticationModel auth) async {
     final companion = AuthenticationMapper.tableDriftCompanionFromModel(auth);
-    await database.authenticationDaoDrift.insertAuthentication(companion);
+    await database.authenticationDaoDrift.addAuthentication(companion);
   }
 
   @override

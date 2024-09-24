@@ -27,7 +27,7 @@ class SignUpUseCase extends UseCase<AuthenticationEntity, SignUpParams> {
       (failure) => Left(failure),
       (user) async {
         if (user.id == 0) {
-          final insertResult = await userRepository.insertUser(UserEntity(
+          final insertResult = await userRepository.addUser(UserEntity(
               name: params.name,
               email: params.email,
               password: hashingPassword));
@@ -38,12 +38,12 @@ class SignUpUseCase extends UseCase<AuthenticationEntity, SignUpParams> {
                 name: params.name,
                 email: params.email,
                 password: hashingPassword);
-            return authRepository.insertAuthentication(newUser);
+            return authRepository.addAuthentication(newUser);
           });
         }
 
         // Proceed with authentication for existing user
-        return authRepository.insertAuthentication(user);
+        return authRepository.addAuthentication(user);
       },
     );
   }

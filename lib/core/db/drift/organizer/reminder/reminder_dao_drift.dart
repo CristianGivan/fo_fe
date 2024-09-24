@@ -21,7 +21,7 @@ class ReminderDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
   Stream<List<ReminderTableDriftG>> watchReminderItemsAll() =>
       select(reminderTableDrift).watch();
 
-  Future<int> insertReminder(Insertable<ReminderTableDriftG> reminder) =>
+  Future<int> addReminder(Insertable<ReminderTableDriftG> reminder) =>
       into(reminderTableDrift).insert(reminder);
 
   Future<bool> updateReminder(Insertable<ReminderTableDriftG> reminder) =>

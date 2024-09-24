@@ -25,7 +25,7 @@ class UserDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
   Stream<List<UserTableDriftG>> watchAllUsers() =>
       select(userTableDrift).watch();
 
-  Future<int> insertUser(Insertable<UserTableDriftG> user) =>
+  Future<int> addUser(Insertable<UserTableDriftG> user) =>
       into(userTableDrift).insert(user);
 
   Future<bool> updateUser(Insertable<UserTableDriftG> user) =>

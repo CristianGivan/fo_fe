@@ -34,7 +34,7 @@ class TagRepositoryImpl implements TagRepository {
   }
 
   @override
-  Future<Either<Failure, int>> insertTag(TagEntity tag) {
+  Future<Either<Failure, int>> addTag(TagEntity tag) {
     // TODO: implement insertTag
     throw UnimplementedError();
   }

@@ -24,7 +24,7 @@ class TaskDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
   Stream<List<TaskTableDriftG>> watchTaskItemsAll() =>
       select(taskTableDrift).watch();
 
-  Future<int> insertTask(Insertable<TaskTableDriftG> task) =>
+  Future<int> addTask(Insertable<TaskTableDriftG> task) =>
       into(taskTableDrift).insert(task);
 
   Future<bool> updateTask(Insertable<TaskTableDriftG> task) =>

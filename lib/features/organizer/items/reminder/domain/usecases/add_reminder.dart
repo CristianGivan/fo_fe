@@ -3,14 +3,14 @@ import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/usecase/usecase.dart';
 import 'package:fo_fe/features/organizer/items/reminder/config/reminder_exports.dart';
 
-class InsertReminder implements UseCase<int, ParamsReminder> {
+class AddReminder implements UseCase<int, ParamsReminder> {
   final ReminderRepository repository;
 
-  InsertReminder(this.repository);
+  AddReminder(this.repository);
 
   @override
   Future<Either<Failure, int>> call(ParamsReminder params) async {
-    return await repository.insertReminder(params.reminder);
+    return await repository.addReminder(params.reminder);
   }
 }
 

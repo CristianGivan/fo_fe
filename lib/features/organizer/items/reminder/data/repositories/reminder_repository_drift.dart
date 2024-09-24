@@ -10,11 +10,11 @@ class ReminderRepositoryDrift implements ReminderRepository {
   ReminderRepositoryDrift({required this.localDataSource});
 
   @override
-  Future<Either<Failure, int>> insertReminder(ReminderEntity reminder) async {
+  Future<Either<Failure, int>> addReminder(ReminderEntity reminder) async {
     return _handleDatabaseOperation(() {
       final companion = ReminderMapper.entityToCompanion(reminder);
       _checkItemNotNull(companion);
-      return localDataSource.insertReminder(companion);
+      return localDataSource.addReminder(companion);
     });
   }
 

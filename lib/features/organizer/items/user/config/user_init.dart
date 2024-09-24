@@ -23,12 +23,12 @@ void userInit() {
   sl.registerLazySingleton(() => GetUserItemsAll(sl()));
   sl.registerLazySingleton(() => GetUserItemsByIdSet(sl()));
   sl.registerLazySingleton(() => GetUserItemsByUserId(sl()));
-  sl.registerLazySingleton(() => InsertUser(sl()));
+  sl.registerLazySingleton(() => AddUser(sl()));
   sl.registerLazySingleton(() => UpdateUser(sl()));
 
   // User BLoCs
   sl.registerFactory(() => UserBlocUser(
-        insertUser: sl(),
+        addUser: sl(),
         updateUser: sl(),
         deleteUser: sl(),
         getUserById: sl(),

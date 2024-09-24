@@ -43,8 +43,8 @@ class ReminderRepositoryImpl implements ReminderRepository {
   }
 
   @override
-  Future<Either<Failure, int>> insertReminder(ReminderEntity reminder) {
-    // TODO: implement insertReminder
+  Future<Either<Failure, int>> addReminder(ReminderEntity reminder) {
+    // TODO: implement addReminder
     throw UnimplementedError();
   }
 

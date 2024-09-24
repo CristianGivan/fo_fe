@@ -24,8 +24,7 @@ class AuthenticationDaoDrift extends DatabaseAccessor<AuthenticationDriftDB>
   Stream<List<AuthenticationTableDriftG>> watchAllAuthentications() =>
       select(authenticationTableDrift).watch();
 
-  Future<int> insertAuthentication(
-          Insertable<AuthenticationTableDriftG> auth) =>
+  Future<int> addAuthentication(Insertable<AuthenticationTableDriftG> auth) =>
       into(authenticationTableDrift).insert(auth);
 
   Future<bool> updateAuthentication(

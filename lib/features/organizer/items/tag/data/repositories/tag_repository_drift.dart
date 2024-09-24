@@ -10,11 +10,11 @@ class TagRepositoryDrift implements TagRepository {
   TagRepositoryDrift({required this.localDataSource});
 
   @override
-  Future<Either<Failure, int>> insertTag(TagEntity tag) async {
+  Future<Either<Failure, int>> addTag(TagEntity tag) async {
     return _handleDatabaseOperation(() {
       final companion = TagMapper.entityToCompanion(tag);
       _checkItemNotNull(companion);
-      return localDataSource.insertTag(companion);
+      return localDataSource.addTag(companion);
     });
   }
 

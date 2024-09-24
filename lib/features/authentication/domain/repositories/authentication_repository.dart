@@ -4,7 +4,8 @@ import 'package:fo_fe/features/authentication/domain/entities/authentication_ent
 import 'package:fo_fe/features/organizer/items/user/domain/entities/user_entity.dart';
 
 abstract class AuthenticationRepository {
-  Future<Either<Failure, AuthenticationEntity>> insertAuthentication(UserEntity user);
+  Future<Either<Failure, AuthenticationEntity>> addAuthentication(
+      UserEntity user);
 
   Future<Either<Failure, void>> logout(int authId);
 

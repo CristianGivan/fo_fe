@@ -7,7 +7,7 @@ abstract class AuthenticationLocalDataSource {
 
   Future<List<AuthenticationModel>> getAllAuthentications();
 
-  Future<void> insertAuthentication(AuthenticationModel auth);
+  Future<void> addAuthentication(AuthenticationModel auth);
 
   Future<void> updateAuthentication(AuthenticationModel auth);
 

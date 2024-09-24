@@ -16,7 +16,7 @@ class TaskUserLinkDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
   Stream<List<TaskUserTableDriftG>> watchAllTaskUsers() =>
       select(taskUserLinkTableDrift).watch();
 
-  Future<int> insertTaskUser(Insertable<TaskUserTableDriftG> taskUser) =>
+  Future<int> addTaskUser(Insertable<TaskUserTableDriftG> taskUser) =>
       into(taskUserLinkTableDrift).insert(taskUser);
 
   Future<bool> updateTaskUser(Insertable<TaskUserTableDriftG> taskUser) =>

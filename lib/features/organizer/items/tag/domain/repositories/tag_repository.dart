@@ -4,7 +4,7 @@ import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_i
 import 'package:fo_fe/features/organizer/items/tag/domain/entities/tag_entity.dart';
 
 abstract class TagRepository {
-  Future<Either<Failure, int>> insertTag(TagEntity tag);
+  Future<Either<Failure, int>> addTag(TagEntity tag);
 
   Future<Either<Failure, bool>> updateTag(TagEntity tag);
 

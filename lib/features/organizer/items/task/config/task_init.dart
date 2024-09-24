@@ -29,7 +29,7 @@ void taskInit() {
   sl.registerLazySingleton(() => GetTaskById(sl()));
   sl.registerLazySingleton(() => GetTaskItemsAll(sl()));
   sl.registerLazySingleton(() => GetTaskItemsByIdSet(sl()));
-  sl.registerLazySingleton(() => InsertTask(sl()));
+  sl.registerLazySingleton(() => AddTask(sl()));
   sl.registerLazySingleton(() => UpdateTask(sl()));
   sl.registerLazySingleton(() => DeleteTask(sl()));
   sl.registerLazySingleton(() => AddUserToTask(sl()));
@@ -50,7 +50,7 @@ void taskInit() {
         getTaskById: sl(),
         getTaskItemsAll: sl(),
         getTaskItemsByIdSet: sl(),
-        insertTask: sl(),
+        addTask: sl(),
         updateTask: sl(),
         deleteTask: sl(),
         sortTasksUseCase: sl(),

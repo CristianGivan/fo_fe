@@ -480,7 +480,7 @@ class MockTaskLocalDataSourceDrift extends _i1.Mock
 /// See the documentation for Mockito's code generation for more information.
 class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
   @override
-  _i9.Future<_i4.Either<_i13.Failure, int>> insertTask(_i14.TaskEntity? task) =>
+  _i9.Future<_i4.Either<_i13.Failure, int>> addTask(_i14.TaskEntity? task) =>
       (super.noSuchMethod(
         Invocation.method(
           #insertTask,

@@ -4,7 +4,7 @@ import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_i
 import 'package:fo_fe/features/organizer/items/reminder/config/reminder_exports.dart';
 
 abstract class ReminderRepository {
-  Future<Either<Failure, int>> insertReminder(ReminderEntity reminder);
+  Future<Either<Failure, int>> addReminder(ReminderEntity reminder);
 
   Future<Either<Failure, bool>> updateReminder(ReminderEntity reminder);
 

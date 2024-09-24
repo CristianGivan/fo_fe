@@ -17,7 +17,7 @@ void tagInit() {
       ));
 
   // Tag Use cases
-  sl.registerLazySingleton(() => InsertTag(sl()));
+  sl.registerLazySingleton(() => AddTag(sl()));
   sl.registerLazySingleton(() => UpdateTag(sl()));
   sl.registerLazySingleton(() => DeleteTag(sl()));
   sl.registerLazySingleton(() => GetTagById(sl()));
@@ -26,7 +26,7 @@ void tagInit() {
 
   // Tag BLoCs
   sl.registerFactory(() => TagBlocTag(
-        insertTag: sl(),
+        addTag: sl(),
         updateTag: sl(),
         deleteTag: sl(),
         getTagById: sl(),

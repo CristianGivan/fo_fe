@@ -4,7 +4,7 @@ import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_i
 import 'package:fo_fe/features/organizer/items/user/config/user_exports.dart';
 
 abstract class UserRepository {
-  Future<Either<Failure, int>> insertUser(UserEntity user);
+  Future<Either<Failure, int>> addUser(UserEntity user);
 
   Future<Either<Failure, bool>> updateUser(UserEntity user);
 

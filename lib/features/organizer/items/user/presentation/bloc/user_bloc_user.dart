@@ -1,7 +1,7 @@
 part of 'user_bloc.dart';
 
 class UserBlocUser extends Bloc<UserBlocEvent, UserBlocState> {
-  final InsertUser insertUser;
+  final AddUser addUser;
   final UpdateUser updateUser;
   final DeleteUser deleteUser;
   final GetUserById getUserById;
@@ -12,7 +12,7 @@ class UserBlocUser extends Bloc<UserBlocEvent, UserBlocState> {
   final DeleteUserFromUser deleteUserFromUser;
 
   UserBlocUser({
-    required this.insertUser,
+    required this.addUser,
     required this.updateUser,
     required this.deleteUser,
     required this.getUserById,
@@ -22,7 +22,7 @@ class UserBlocUser extends Bloc<UserBlocEvent, UserBlocState> {
     required this.addUserToUser,
     required this.deleteUserFromUser,
   }) : super(UserInitialBlocState()) {
-    on<UserInsertBlocEvent>(_onInsertUser);
+    on<UserInsertBlocEvent>(_onAddUser);
     on<UserUpdateBlocEvent>(_onUpdateUser);
     on<UserDeleteBlocEvent>(_onDeleteUser);
     on<GetUserByIdBlocEvent>(_onGetUserById);
@@ -33,10 +33,10 @@ class UserBlocUser extends Bloc<UserBlocEvent, UserBlocState> {
     on<DeleteUserFromUserBlocEvent>(_onDeleteUserFromUser);
   }
 
-  Future<void> _onInsertUser(
+  Future<void> _onAddUser(
       UserInsertBlocEvent event, Emitter<UserBlocState> emit) async {
     emit(UserLoadingBlocState());
-    final result = await insertUser(InsertUserParams(user: event.user));
+    final result = await addUser(AddUserParams(user: event.user));
     emit(result.fold(
       (failure) => UserErrorBlocState(message: _mapFailureToMessage(failure)),
       (id) => UserInsertedBlocState(id: id),

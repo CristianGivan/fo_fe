@@ -7,10 +7,10 @@ abstract class ReminderBlocEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class InsertReminderBlocEvent extends ReminderBlocEvent {
+class AddReminderBlocEvent extends ReminderBlocEvent {
   final ReminderEntity reminder;
 
-  const InsertReminderBlocEvent(this.reminder);
+  const AddReminderBlocEvent(this.reminder);
 
   @override
   List<Object?> get props => [reminder];

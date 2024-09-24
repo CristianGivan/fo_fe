@@ -24,7 +24,7 @@ class _TagAddScreenState extends State<TagAddScreen> {
     final String tagName = _tagNameController.text;
     if (tagName.isNotEmpty) {
       final tag = TagEntity(subject: tagName);
-      BlocProvider.of<TagBlocTag>(context).add(InsertTagBlocEvent(tag));
+      BlocProvider.of<TagBlocTag>(context).add(AddTagBlocEvent(tag));
       Navigator.pop(context);
     }
   }

@@ -54,8 +54,8 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<Either<Failure, int>> insertUser(UserEntity user) {
-    // TODO: implement insertUser
+  Future<Either<Failure, int>> addUser(UserEntity user) {
+    // TODO: implement addUser
     throw UnimplementedError();
   }
 

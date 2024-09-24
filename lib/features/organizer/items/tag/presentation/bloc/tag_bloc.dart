@@ -9,7 +9,7 @@ part 'tag_bloc_event.dart';
 part 'tag_bloc_state.dart';
 
 class TagBlocTag extends Bloc<TagBlocEvent, TagBlocState> {
-  final InsertTag insertTag;
+  final AddTag addTag;
   final UpdateTag updateTag;
   final DeleteTag deleteTag;
   final GetTagById getTagById;
@@ -17,14 +17,14 @@ class TagBlocTag extends Bloc<TagBlocEvent, TagBlocState> {
   final GetTagItemsByIdSet getTagItemsByIdSet;
 
   TagBlocTag({
-    required this.insertTag,
+    required this.addTag,
     required this.updateTag,
     required this.deleteTag,
     required this.getTagById,
     required this.getTagItemsAll,
     required this.getTagItemsByIdSet,
   }) : super(TagInitial()) {
-    on<InsertTagBlocEvent>(_onInsertTag);
+    on<AddTagBlocEvent>(_onAddTag);
     on<UpdateTagBlocEvent>(_onUpdateTag);
     on<DeleteTagBlocEvent>(_onDeleteTag);
     on<GetTagByIdBlocEvent>(_onGetTagById);
@@ -32,10 +32,10 @@ class TagBlocTag extends Bloc<TagBlocEvent, TagBlocState> {
     on<GetTagItemsByIdSetBlocEvent>(_onGetTagItemsByIdSet);
   }
 
-  Future<void> _onInsertTag(
-      InsertTagBlocEvent event, Emitter<TagBlocState> emit) async {
+  Future<void> _onAddTag(
+      AddTagBlocEvent event, Emitter<TagBlocState> emit) async {
     emit(TagLoading());
-    final failureOrSuccess = await insertTag(InsertTagParams(tag: event.tag));
+    final failureOrSuccess = await addTag(AddTagParams(tag: event.tag));
     failureOrSuccess.fold(
       (failure) => emit(TagError(_mapFailureToMessage(failure))),
       (success) => emit(TagSuccess(success)),

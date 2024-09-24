@@ -114,7 +114,7 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<Either<Failure, int>> insertTask(TaskEntity task) {
+  Future<Either<Failure, int>> addTask(TaskEntity task) {
     // TODO: implement insertTask
     throw UnimplementedError();
   }

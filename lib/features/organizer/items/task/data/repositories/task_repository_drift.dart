@@ -17,11 +17,11 @@ class TaskRepositoryDrift implements TaskRepository {
 
   // Task CRUD operations
   @override
-  Future<Either<Failure, int>> insertTask(TaskEntity task) async {
+  Future<Either<Failure, int>> addTask(TaskEntity task) async {
     return _handleDatabaseOperation(() {
       final companion = TaskMapper.entityToCompanion(task);
       _checkItemNotNull(companion);
-      return localDataSource.insertTask(companion);
+      return localDataSource.addTask(companion);
     });
   }
 

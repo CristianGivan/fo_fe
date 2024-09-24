@@ -5,21 +5,21 @@ import 'package:fo_fe/core/usecase/usecase.dart';
 import 'package:fo_fe/features/organizer/items/tag/domain/entities/tag_entity.dart';
 import 'package:fo_fe/features/organizer/items/tag/domain/repositories/tag_repository.dart';
 
-class InsertTag extends UseCase<int, InsertTagParams> {
+class AddTag extends UseCase<int, AddTagParams> {
   final TagRepository repository;
 
-  InsertTag(this.repository);
+  AddTag(this.repository);
 
   @override
-  Future<Either<Failure, int>> call(InsertTagParams params) async {
-    return await repository.insertTag(params.tag);
+  Future<Either<Failure, int>> call(AddTagParams params) async {
+    return await repository.addTag(params.tag);
   }
 }
 
-class InsertTagParams extends Equatable {
+class AddTagParams extends Equatable {
   final TagEntity tag;
 
-  const InsertTagParams({required this.tag});
+  const AddTagParams({required this.tag});
 
   @override
   List<Object?> get props => [tag];

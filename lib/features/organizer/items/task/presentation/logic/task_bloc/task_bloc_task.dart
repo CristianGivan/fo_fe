@@ -4,7 +4,7 @@ class TaskBlocTask extends Bloc<TaskBlocTaskEvent, TaskBlocState> {
   final GetTaskById getTaskById;
   final GetTaskItemsAll getTaskItemsAll;
   final GetTaskItemsByIdSet getTaskItemsByIdSet;
-  final InsertTask insertTask;
+  final AddTask addTask;
   final UpdateTask updateTask;
   final DeleteTask deleteTask;
   final TaskSortUseCase sortTasksUseCase;
@@ -14,7 +14,7 @@ class TaskBlocTask extends Bloc<TaskBlocTaskEvent, TaskBlocState> {
     required this.getTaskById,
     required this.getTaskItemsAll,
     required this.getTaskItemsByIdSet,
-    required this.insertTask,
+    required this.addTask,
     required this.updateTask,
     required this.deleteTask,
     required this.sortTasksUseCase,
@@ -121,8 +121,7 @@ class TaskBlocTask extends Bloc<TaskBlocTaskEvent, TaskBlocState> {
     Emitter<TaskBlocState> emit,
   ) async {
     emit(TaskLoadingBlocState());
-    final failureOrSuccess =
-        await insertTask(InsertTaskParams(task: event.task));
+    final failureOrSuccess = await addTask(InsertTaskParams(task: event.task));
     emit(failureOrSuccess.fold(
       (failure) => TaskErrorBlocState(message: _mapFailureToMessage(failure)),
       (success) => TaskAddedBlocState(),

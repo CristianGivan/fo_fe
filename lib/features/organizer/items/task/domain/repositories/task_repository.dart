@@ -8,7 +8,7 @@ import 'package:fo_fe/features/organizer/items/user/config/user_exports.dart';
 
 abstract class TaskRepository {
   // Task CRUD operations
-  Future<Either<Failure, int>> insertTask(TaskEntity task);
+  Future<Either<Failure, int>> addTask(TaskEntity task);
 
   Future<Either<Failure, bool>> updateTask(TaskEntity task);
 

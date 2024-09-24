@@ -15,7 +15,7 @@ void reminderInt() {
       () => ReminderRepositoryDrift(localDataSource: sl()));
 
   // Use cases
-  sl.registerLazySingleton(() => InsertReminder(sl()));
+  sl.registerLazySingleton(() => AddReminder(sl()));
   sl.registerLazySingleton(() => UpdateReminder(sl()));
   sl.registerLazySingleton(() => DeleteReminder(sl()));
   sl.registerLazySingleton(() => GetReminderById(sl()));
@@ -24,7 +24,7 @@ void reminderInt() {
 
   // Bloc
   sl.registerFactory(() => ReminderBlocReminder(
-        insertReminder: sl(),
+        addReminder: sl(),
         updateReminder: sl(),
         deleteReminder: sl(),
         getReminderById: sl(),

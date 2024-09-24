@@ -2,7 +2,7 @@ import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
 import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
 
 abstract class UserLocalDataSource {
-  Future<int> insertUser(UserTableDriftCompanion userCompanion);
+  Future<int> addUser(UserTableDriftCompanion userCompanion);
 
   Future<bool> updateUser(UserTableDriftCompanion userCompanion);
 

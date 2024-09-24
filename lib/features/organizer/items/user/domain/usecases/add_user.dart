@@ -4,21 +4,21 @@ import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/usecase/usecase.dart';
 import 'package:fo_fe/features/organizer/items/user/config/user_exports.dart';
 
-class InsertUser extends UseCase<int, InsertUserParams> {
+class AddUser extends UseCase<int, AddUserParams> {
   final UserRepository repository;
 
-  InsertUser(this.repository);
+  AddUser(this.repository);
 
   @override
-  Future<Either<Failure, int>> call(InsertUserParams params) {
-    return repository.insertUser(params.user);
+  Future<Either<Failure, int>> call(AddUserParams params) {
+    return repository.addUser(params.user);
   }
 }
 
-class InsertUserParams extends Equatable {
+class AddUserParams extends Equatable {
   final UserEntity user;
 
-  const InsertUserParams({required this.user});
+  const AddUserParams({required this.user});
 
   @override
   List<Object> get props => [user];

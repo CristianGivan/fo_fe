@@ -8,8 +8,8 @@ class TagLocalDataSourceDrift implements TagLocalDataSource {
   TagLocalDataSourceDrift({required this.db});
 
   @override
-  Future<int> insertTag(TagTableDriftCompanion tagCompanion) async {
-    return await db.tagDaoDrift.insertTag(tagCompanion);
+  Future<int> addTag(TagTableDriftCompanion tagCompanion) async {
+    return await db.tagDaoDrift.addTag(tagCompanion);
   }
 
   @override

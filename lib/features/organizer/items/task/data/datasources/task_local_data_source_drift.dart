@@ -14,8 +14,8 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
 
   // CRUD operations
   @override
-  Future<int> insertTask(TaskTableDriftCompanion taskCompanion) {
-    return db.taskDaoDrift.insertTask(taskCompanion);
+  Future<int> addTask(TaskTableDriftCompanion taskCompanion) {
+    return db.taskDaoDrift.addTask(taskCompanion);
   }
 
   @override
@@ -114,21 +114,21 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
   @override
   Future<int> addUserToTask(int taskId, int userId) async {
     return db.taskUserLinkDaoDrift
-        .insertTaskUser(_createTaskUserCompanion(taskId, userId));
+        .addTaskUser(_createTaskUserCompanion(taskId, userId));
   }
 
   // Add tag to task
   @override
   Future<int> addTagToTask(int taskId, int tagId) async {
     return db.taskTagLinkDaoDrift
-        .insertTaskTag(_createTaskTagCompanion(taskId, tagId));
+        .addTaskTag(_createTaskTagCompanion(taskId, tagId));
   }
 
   Future<void> addTagItemsToTask(int taskId, List<int> tags) async {
     await db.transaction(() async {
       for (final tagId in tags) {
         await db.taskTagLinkDaoDrift
-            .insertTaskTag(_createTaskTagCompanion(taskId, tagId));
+            .addTaskTag(_createTaskTagCompanion(taskId, tagId));
       }
     });
   }
@@ -137,7 +137,7 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
   @override
   Future<int> addReminderToTask(int taskId, int reminderId) async {
     return db.taskReminderLinkDaoDrift
-        .insertTaskReminder(_createTaskReminderCompanion(taskId, reminderId));
+        .addTaskReminder(_createTaskReminderCompanion(taskId, reminderId));
   }
 
 // Delete user from task

@@ -1,7 +1,7 @@
 part of 'reminder_bloc.dart';
 
 class ReminderBlocReminder extends Bloc<ReminderBlocEvent, ReminderBlocState> {
-  final InsertReminder insertReminder;
+  final AddReminder addReminder;
   final UpdateReminder updateReminder;
   final DeleteReminder deleteReminder;
   final GetReminderById getReminderById;
@@ -9,17 +9,17 @@ class ReminderBlocReminder extends Bloc<ReminderBlocEvent, ReminderBlocState> {
   final GetReminderItemsByIdSet getReminderItemsByIdSet;
 
   ReminderBlocReminder({
-    required this.insertReminder,
+    required this.addReminder,
     required this.updateReminder,
     required this.deleteReminder,
     required this.getReminderById,
     required this.getReminderItemsAll,
     required this.getReminderItemsByIdSet,
   }) : super(ReminderInitialBlocState()) {
-    on<InsertReminderBlocEvent>((event, emit) async {
+    on<AddReminderBlocEvent>((event, emit) async {
       emit(ReminderLoadingBlocState());
       final failureOrSuccess =
-          await insertReminder(ParamsReminder(reminder: event.reminder));
+          await addReminder(ParamsReminder(reminder: event.reminder));
       emit(failureOrSuccess.fold(
         (failure) => ReminderErrorBlocState(_mapFailureToMessage(failure)),
         (id) => ReminderLoadedBlocState(event.reminder.copyWith(id: id)),

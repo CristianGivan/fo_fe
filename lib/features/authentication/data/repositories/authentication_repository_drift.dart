@@ -16,7 +16,8 @@ class AuthenticationRepositoryDrift implements AuthenticationRepository {
   });
 
   @override
-  Future<Either<Failure, AuthenticationEntity>> insertAuthentication(UserEntity user) async {
+  Future<Either<Failure, AuthenticationEntity>> addAuthentication(
+      UserEntity user) async {
     try {
       // Simulate remote login (replace with actual remote call in the future)
       final token = TokenManager.generateToken(); // Generate token
@@ -34,7 +35,7 @@ class AuthenticationRepositoryDrift implements AuthenticationRepository {
         lastUsedDate: DateTime.now(),
         isActive: true,
       );
-      await localDataSource.insertAuthentication(authModel);
+      await localDataSource.addAuthentication(authModel);
       return Right(AuthenticationMapper.entityFromModel(authModel));
     } catch (e) {
       return const Left(ServerFailure("ServerFailure"));

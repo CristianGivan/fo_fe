@@ -16,7 +16,7 @@ class TaskReminderLinkDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
   Stream<List<TaskReminderTableDriftG>> watchAllTaskReminders() =>
       select(taskReminderLinkTableDrift).watch();
 
-  Future<int> insertTaskReminder(
+  Future<int> addTaskReminder(
           Insertable<TaskReminderTableDriftG> taskReminder) =>
       into(taskReminderLinkTableDrift).insert(taskReminder);
 
