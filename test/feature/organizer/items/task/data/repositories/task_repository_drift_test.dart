@@ -44,7 +44,7 @@ void main() {
 
       final result = await repository.getTaskItemsByIdSet(tIdSet);
 
-      expect(result, Left(TaskNotFoundFailure()));
+      expect(result, Left(TaskNotFoundFailure("Task not found")));
       verify(mockLocalDataSource.getTaskItemsByIdSet(tIdSet));
     });
 
@@ -55,7 +55,7 @@ void main() {
 
       final result = await repository.getTaskItemsByIdSet(tIdSet);
 
-      expect(result, Left(TaskNotFoundFailure()));
+      expect(result, Left(TaskNotFoundFailure("Task not found")));
       verify(mockLocalDataSource.getTaskItemsByIdSet(tIdSet));
     });
 
@@ -66,7 +66,7 @@ void main() {
 
       final result = await repository.getTaskItemsByIdSet(tIdSet);
 
-      expect(result, Left(TaskNotFoundFailure()));
+      expect(result, Left(TaskNotFoundFailure("Task not found")));
       verify(mockLocalDataSource.getTaskItemsByIdSet(tIdSet));
     });
 

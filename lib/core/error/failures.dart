@@ -29,6 +29,14 @@ class UserNotFoundFailure extends Failure {
   const UserNotFoundFailure(String super.message);
 }
 
+class TagNotFoundFailure extends Failure {
+  const TagNotFoundFailure(String super.message);
+}
+
+class ReminderNotFoundFailure extends Failure {
+  const ReminderNotFoundFailure(String super.message);
+}
+
 class CacheFailure extends Failure {
   const CacheFailure(String super.message);
 }
@@ -38,15 +46,15 @@ class NetworkFailure extends Failure {
 }
 
 class TaskNotFoundFailure extends Failure {
-  const TaskNotFoundFailure() : super('Task not found');
+  const TaskNotFoundFailure(String super.message);
 }
 
 class IncompleteDataFailure extends Failure {
-  const IncompleteDataFailure() : super('Task not found');
+  const IncompleteDataFailure(String super.message);
 }
 
 class DatabaseFailure extends Failure {
-  const DatabaseFailure() : super('Task not found');
+  const DatabaseFailure(String super.message);
 }
 
 class ReauthenticationRequiredFailure extends Failure {

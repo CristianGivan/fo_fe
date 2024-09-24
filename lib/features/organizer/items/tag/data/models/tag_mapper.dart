@@ -27,6 +27,14 @@ class TagMapper {
   static TagTableDriftCompanion entityToCompanion(TagEntity entity) {
     return TagTableDriftCompanion(
       id: entity.id == 0 ? const Value.absent() : Value(entity.id),
+      createdDate: Value(entity.createdDate),
+      creatorId: Value(entity.creatorId),
+      remoteId: Value(entity.remoteId),
+      lastUpdate: Value(entity.lastUpdate),
+      lastAccessedDate: Value(entity.lastAccessedDate),
+      remoteAccesses: Value(entity.remoteAccesses),
+      accesses: Value(entity.accesses),
+      checksum: Value(entity.checksum),
       subject: Value(entity.subject),
     );
   }

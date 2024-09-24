@@ -12,7 +12,7 @@ void userInit() {
 
   // User Repository
   sl.registerLazySingleton<UserRepository>(() => UserRepositoryDrift(
-        localDataSourceDrift: sl<UserLocalDataSourceDrift>(),
+        localDataSource: sl<UserLocalDataSourceDrift>(),
       ));
 
   // User Use cases

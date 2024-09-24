@@ -3,9 +3,9 @@ import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_i
 
 abstract class TaskLocalDataSource {
   // Task CRUD operations
-  Future<int> insertTask(TaskTableDriftCompanion task);
+  Future<int> insertTask(TaskTableDriftCompanion taskCompanion);
 
-  Future<bool> updateTask(TaskTableDriftCompanion task);
+  Future<bool> updateTask(TaskTableDriftCompanion taskCompanion);
 
   Future<int> deleteTask(int taskId);
 
@@ -16,7 +16,7 @@ abstract class TaskLocalDataSource {
   Future<List<TaskTableDriftG?>?> getTaskItemsByIdSet(IdSet idSet);
 
   // User operations related to tasks
-  Future<List<UserTableDriftG>?> getUsersByTaskId(int taskId);
+  Future<List<UserTableDriftG>?> getUserItemsByTaskId(int taskId);
 
   Future<UserTableDriftG?> getCreatorById(int creatorId);
 

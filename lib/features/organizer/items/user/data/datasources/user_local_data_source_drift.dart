@@ -14,13 +14,13 @@ class UserLocalDataSourceDrift implements UserLocalDataSource {
   });
 
   @override
-  Future<int> insertUser(UserTableDriftCompanion user) {
-    return db.userDaoDrift.insertUser(user);
+  Future<int> insertUser(UserTableDriftCompanion userCompanion) {
+    return db.userDaoDrift.insertUser(userCompanion);
   }
 
   @override
-  Future<bool> updateUser(UserTableDriftCompanion user) {
-    return db.userDaoDrift.updateUser(user);
+  Future<bool> updateUser(UserTableDriftCompanion userCompanion) {
+    return db.userDaoDrift.updateUser(userCompanion);
   }
 
   @override

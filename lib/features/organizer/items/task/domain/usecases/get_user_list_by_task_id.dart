@@ -16,7 +16,7 @@ class GetUsersByTaskId
   @override
   Future<Either<Failure, OrganizerItems<UserEntity>>> call(
       GetUsersByTaskIdParams params) {
-    return repository.getUsersByTaskId(params.taskId);
+    return repository.getUserItemsByTaskId(params.taskId);
   }
 }
 

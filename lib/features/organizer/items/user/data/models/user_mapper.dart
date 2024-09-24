@@ -40,4 +40,15 @@ class UserMapper {
       creatorId: Value(user.creatorId),
     );
   }
+
+  static UserTableDriftCompanion entityToCompanion(UserEntity user) {
+    return UserTableDriftCompanion(
+      id: Value(user.id),
+      name: Value(user.name),
+      hashedPassword: Value(user.hashedPassword),
+      email: Value(user.email),
+      createdDate: Value(user.createdDate),
+      creatorId: Value(user.creatorId),
+    );
+  }
 }

@@ -33,4 +33,21 @@ class ReminderMapper {
       remindAt: Value(entity.remindAt),
     );
   }
+
+  static ReminderTableDriftCompanion entityToCompanion(
+      ReminderEntity reminder) {
+    return ReminderTableDriftCompanion(
+      id: Value(reminder.id),
+      createdDate: Value(reminder.createdDate),
+      creatorId: Value(reminder.creatorId),
+      remoteId: Value(reminder.remoteId),
+      lastUpdate: Value(reminder.lastUpdate),
+      lastAccessedDate: Value(reminder.lastAccessedDate),
+      remoteAccesses: Value(reminder.remoteAccesses),
+      accesses: Value(reminder.accesses),
+      checksum: Value(reminder.checksum),
+      subject: Value(reminder.subject),
+      remindAt: Value(reminder.remindAt),
+    );
+  }
 }

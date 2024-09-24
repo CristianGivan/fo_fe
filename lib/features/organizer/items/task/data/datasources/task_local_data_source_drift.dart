@@ -14,13 +14,13 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
 
   // CRUD operations
   @override
-  Future<int> insertTask(TaskTableDriftCompanion task) {
-    return db.taskDaoDrift.insertTask(task);
+  Future<int> insertTask(TaskTableDriftCompanion taskCompanion) {
+    return db.taskDaoDrift.insertTask(taskCompanion);
   }
 
   @override
-  Future<bool> updateTask(TaskTableDriftCompanion task) {
-    return db.taskDaoDrift.updateTask(task);
+  Future<bool> updateTask(TaskTableDriftCompanion taskCompanion) {
+    return db.taskDaoDrift.updateTask(taskCompanion);
   }
 
   @override
@@ -83,7 +83,7 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
 
   // Method to get users by task ID
   @override
-  Future<List<UserTableDriftG>?> getUsersByTaskId(int taskId) async {
+  Future<List<UserTableDriftG>?> getUserItemsByTaskId(int taskId) async {
     final userIds = await db.taskUserLinkDaoDrift.getUserIdsByTaskId(taskId);
     return await db.userDaoDrift.getUserItemsByIdSet(userIds);
   }

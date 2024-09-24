@@ -8,14 +8,14 @@ class ReminderLocalDataSourceDrift implements ReminderLocalDataSource {
   ReminderLocalDataSourceDrift({required this.db});
 
   @override
-  Future<int> insertReminder(ReminderEntity reminder) async {
-    final reminderCompanion = ReminderMapper.companionFromEntity(reminder);
+  Future<int> insertReminder(
+      ReminderTableDriftCompanion reminderCompanion) async {
     return await db.reminderDaoDrift.insertReminder(reminderCompanion);
   }
 
   @override
-  Future<bool> updateReminder(ReminderEntity reminder) async {
-    final reminderCompanion = ReminderMapper.companionFromEntity(reminder);
+  Future<bool> updateReminder(
+      ReminderTableDriftCompanion reminderCompanion) async {
     return await db.reminderDaoDrift.updateReminder(reminderCompanion);
   }
 

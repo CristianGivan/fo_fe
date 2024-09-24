@@ -1,11 +1,10 @@
 import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
 import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
-import 'package:fo_fe/features/organizer/items/reminder/config/reminder_exports.dart';
 
 abstract class ReminderLocalDataSource {
-  Future<int> insertReminder(ReminderEntity reminder);
+  Future<int> insertReminder(ReminderTableDriftCompanion reminderCompanion);
 
-  Future<bool> updateReminder(ReminderEntity reminder);
+  Future<bool> updateReminder(ReminderTableDriftCompanion reminderCompanion);
 
   Future<int> deleteReminder(int reminderId);
 

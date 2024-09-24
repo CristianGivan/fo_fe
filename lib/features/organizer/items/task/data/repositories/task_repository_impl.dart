@@ -107,7 +107,7 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<Either<Failure, OrganizerItems<UserEntity>>> getUsersByTaskId(
+  Future<Either<Failure, OrganizerItems<UserEntity>>> getUserItemsByTaskId(
       int taskId) {
     // TODO: implement getUsersByTaskId
     throw UnimplementedError();
