@@ -1,7 +1,6 @@
 export '../data/datasources/authentication_local_data_source.dart';
 export '../data/datasources/authentication_local_data_source_drift.dart';
 export '../data/models/authentication_mapper.dart';
-export '../data/models/authentication_model.dart';
 export '../domain/entities/authentication_entity.dart';
 export '../domain/repositories/authentication_repository.dart';
 export '../domain/usecases/auto_log_in.dart';

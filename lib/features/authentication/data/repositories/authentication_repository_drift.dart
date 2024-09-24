@@ -18,117 +18,129 @@ class AuthenticationRepositoryDrift implements AuthenticationRepository {
   @override
   Future<Either<Failure, AuthenticationEntity>> addAuthentication(
       UserEntity user) async {
-    try {
-      // Simulate remote login (replace with actual remote call in the future)
-      final token = TokenManager.generateToken(); // Generate token
-      final encryptedToken = tokenManager.encryptToken(token); // Encrypt token
+    return _handleDatabaseOperation(() async {
+      final token = TokenManager.generateToken();
+      final encryptedToken = tokenManager.encryptToken(token);
 
-      final authModel = AuthenticationModel(
+      final authEntity = AuthenticationEntity(
         userId: user.id,
-        // Simulated user ID, replace with actual data
         token: encryptedToken,
-        // Store encrypted token
         deviceInfo: deviceInfo.getDeviceInfo(),
-        // Simulated device user ID, replace with actual data
         createdDate: DateTime.now(),
         expiredDate: DateTime.now().add(const Duration(days: 30)),
         lastUsedDate: DateTime.now(),
         isActive: true,
       );
-      await localDataSource.addAuthentication(authModel);
-      return Right(AuthenticationMapper.entityFromModel(authModel));
-    } catch (e) {
-      return const Left(ServerFailure("ServerFailure"));
-    }
+      final authCompanionDrift =
+          AuthenticationMapper.companionFromEntity(authEntity);
+      await localDataSource.addAuthentication(authCompanionDrift);
+      return authEntity;
+    });
   }
 
   @override
   Future<Either<Failure, void>> logout(int authId) async {
-    try {
+    return _handleDatabaseOperation(() async {
       final auth = await localDataSource.getAuthenticationById(authId);
-      if (auth != null) {
-        await localDataSource.deleteAuthenticationById(authId);
-      }
-      return const Right(null);
-    } catch (e) {
-      return const Left(ServerFailure("ServerFailure"));
-    }
+      _checkItemNotNull(auth);
+      await localDataSource.deleteAuthenticationById(authId);
+    });
   }
 
   @override
   Future<Either<Failure, AuthenticationEntity>> refreshToken(int authId) async {
     const maxRefreshCount = 3;
-    try {
+    return _handleDatabaseOperation(() async {
       final auth = await localDataSource.getAuthenticationById(authId);
-      if (auth != null) {
-        if (auth.refreshCount >= maxRefreshCount) {
-          // Enforce re-authentication
-          return const Left(
-              ReauthenticationRequiredFailure("ReauthenticationRequired"));
-        }
+      _checkItemNotNull(auth);
 
-        // Generate a new token and update the expiration date and refresh count
-        final newToken = TokenManager.generateToken();
-        final encryptedToken = tokenManager.encryptToken(newToken);
-
-        final updatedAuth = auth.copyWith(
-          token: encryptedToken,
-          lastUsedDate: DateTime.now(),
-          expiredDate: DateTime.now().add(const Duration(days: 30)),
-          refreshCount: auth.refreshCount + 1,
-        );
-
-        await localDataSource.updateAuthentication(updatedAuth);
-        return Right(AuthenticationMapper.entityFromModel(updatedAuth));
+      if (auth!.refreshCount >= maxRefreshCount) {
+        throw const ReauthenticationRequiredFailure("ReauthenticationRequired");
       }
-      return const Left(CacheFailure("CacheFailure"));
-    } catch (e) {
-      return const Left(ServerFailure("ServerFailure"));
-    }
+
+      final newToken = TokenManager.generateToken();
+      final encryptedToken = tokenManager.encryptToken(newToken);
+
+      final updatedAuth = auth.copyWith(
+        token: encryptedToken,
+        lastUsedDate: DateTime.now(),
+        expiredDate: DateTime.now().add(const Duration(days: 30)),
+        refreshCount: auth.refreshCount + 1,
+      );
+      final updatedAuthTable =
+          AuthenticationMapper.companionFromTableDrift(updatedAuth);
+      await localDataSource.updateAuthentication(updatedAuthTable);
+      return AuthenticationMapper.entityFromTableDrift(updatedAuth);
+    });
   }
 
   @override
   Future<Either<Failure, AuthenticationEntity>>
       getActiveAuthenticationForDeviceInfo() async {
-    try {
+    return _handleDatabaseOperation(() async {
       final auth = await localDataSource
           .getActiveAuthenticationForDeviceInfo(deviceInfo.getDeviceInfo());
-      return auth != null
-          ? Right(AuthenticationMapper.entityFromModel(auth))
-          : const Left(CacheFailure("CacheFailure"));
-    } catch (e) {
-      return const Left(CacheFailure("CacheFailure"));
-    }
+      _checkItemNotNull(auth);
+      return AuthenticationMapper.entityFromTableDrift(auth!);
+    });
   }
 
   @override
   Future<Either<Failure, List<AuthenticationEntity>>>
       getAuthenticationsForDeviceInfo() async {
-    try {
+    return _handleDatabaseOperation(() async {
       final auths = await localDataSource
-          .getAuthenticationsForDeviceInfo(deviceInfo.getDeviceInfo());
-      if (auths == null) {
-        return const Left(NoActiveSessionFailure("NoActiveSessionFailure"));
-      }
-      return Right(auths
-          .where((auth) => auth != null)
-          .map(AuthenticationMapper
-              .entityFromModel) // todo cg check if I had to put it in Mapper this
-          .toList());
-    } catch (e) {
-      return const Left(CacheFailure("CacheFailure"));
-    }
+          .getAuthenticationItemsForDeviceInfo(deviceInfo.getDeviceInfo());
+      _checkItemsNotNullOrEmpty(auths);
+      return AuthenticationMapper.entityItemsFromTableDriftItems(auths!);
+    });
   }
 
   @override
   Future<Either<Failure, void>> updateAuthentication(
       AuthenticationEntity auth) async {
+    final companion = AuthenticationMapper.companionFromEntity(auth);
+    return _handleDatabaseOperation(() async {
+      await localDataSource.updateAuthentication(companion);
+    });
+  }
+
+  Future<Either<Failure, T>> _handleDatabaseOperation<T>(
+      Future<T> Function() operation) async {
     try {
-      await localDataSource
-          .updateAuthentication(AuthenticationMapper.modelFromEntity(auth));
-      return const Right(null);
+      final result = await operation();
+      return Right(result);
     } catch (e) {
-      return const Left(CacheFailure("CacheFailure"));
+      if (e is Failure) {
+        return Left(e);
+      } else {
+        return Left(LocalFailure(e.toString()));
+      }
     }
+  }
+
+  void _checkItemNotNull(dynamic item) {
+    if (item == null) {
+      throw const AuthenticationNotFoundFailure("Authentication not found");
+    }
+  }
+
+  void _checkItemsNotNullOrEmpty(List<dynamic>? items) {
+    if (items == null || items.isEmpty) {
+      throw const AuthenticationNotFoundFailure("No authentications found");
+    }
+  }
+
+  List<T> _filterNonNullItems<T>(List<dynamic> items) {
+    final nonNullItems = items.whereType<T>().toList();
+    if (nonNullItems.length != items.length) {
+      throw const IncompleteDataFailure("Incomplete data found");
+    }
+
+    if (nonNullItems.isEmpty) {
+      throw const AuthenticationNotFoundFailure("No items found");
+    }
+
+    return nonNullItems;
   }
 }

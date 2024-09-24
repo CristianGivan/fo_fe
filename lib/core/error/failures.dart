@@ -45,6 +45,10 @@ class NetworkFailure extends Failure {
   const NetworkFailure(String super.message);
 }
 
+class AuthenticationNotFoundFailure extends Failure {
+  const AuthenticationNotFoundFailure(String super.message);
+}
+
 class TaskNotFoundFailure extends Failure {
   const TaskNotFoundFailure(String super.message);
 }

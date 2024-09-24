@@ -8,39 +8,31 @@ class AuthenticationLocalDataSourceDrift
   AuthenticationLocalDataSourceDrift({required this.database});
 
   @override
-  Future<AuthenticationModel?> getAuthenticationById(int id) async {
-    final result =
-        await database.authenticationDaoDrift.getAuthenticationById(id);
-    return result != null
-        ? AuthenticationMapper.modelFromTableDrift(result)
-        : null;
+  Future<AuthenticationTableDriftG?> getAuthenticationById(int id) async {
+    return await database.authenticationDaoDrift.getAuthenticationById(id);
   }
 
   @override
-  Future<AuthenticationModel?> getAuthenticationByUserId(int userId) async {
-    final result =
-        await database.authenticationDaoDrift.getAuthenticationByUserId(userId);
-    return result != null
-        ? AuthenticationMapper.modelFromTableDrift(result)
-        : null;
+  Future<AuthenticationTableDriftG?> getAuthenticationByUserId(
+      int userId) async {
+    return await database.authenticationDaoDrift
+        .getAuthenticationByUserId(userId);
   }
 
   @override
-  Future<List<AuthenticationModel>> getAllAuthentications() async {
-    final results =
-        await database.authenticationDaoDrift.getAuthenticationItemsAll();
-    return AuthenticationMapper.modelItemsFromTableDriftItems(results);
+  Future<List<AuthenticationTableDriftG>> getAllAuthentications() async {
+    return await database.authenticationDaoDrift.getAuthenticationItemsAll();
   }
 
   @override
-  Future<void> addAuthentication(AuthenticationModel auth) async {
-    final companion = AuthenticationMapper.tableDriftCompanionFromModel(auth);
+  Future<void> addAuthentication(
+      AuthenticationTableDriftCompanion companion) async {
     await database.authenticationDaoDrift.addAuthentication(companion);
   }
 
   @override
-  Future<void> updateAuthentication(AuthenticationModel auth) async {
-    final companion = AuthenticationMapper.tableDriftCompanionFromModel(auth);
+  Future<void> updateAuthentication(
+      AuthenticationTableDriftCompanion companion) async {
     await database.authenticationDaoDrift.updateAuthentication(companion);
   }
 
@@ -55,20 +47,16 @@ class AuthenticationLocalDataSourceDrift
   }
 
   @override
-  Future<AuthenticationModel?> getActiveAuthenticationForDeviceInfo(
+  Future<AuthenticationTableDriftG?> getActiveAuthenticationForDeviceInfo(
       String deviceInfo) async {
-    final result = await database.authenticationDaoDrift
+    return await database.authenticationDaoDrift
         .getActiveAuthenticationForDeviceInfo(deviceInfo);
-    return result != null
-        ? AuthenticationMapper.modelFromTableDrift(result)
-        : null;
   }
 
   @override
-  Future<List<AuthenticationModel?>> getAuthenticationsForDeviceInfo(
+  Future<List<AuthenticationTableDriftG>?> getAuthenticationItemsForDeviceInfo(
       String deviceInfo) async {
-    final results = await database.authenticationDaoDrift
+    return await database.authenticationDaoDrift
         .getAuthenticationsForDeviceInfo(deviceInfo);
-    return AuthenticationMapper.modelItemsFromTableDriftItems(results);
   }
 }

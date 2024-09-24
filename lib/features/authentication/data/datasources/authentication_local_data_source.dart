@@ -1,23 +1,25 @@
-import 'package:fo_fe/features/authentication/config/authentication_exports.dart';
+import 'package:fo_fe/core/db/drift/authentication_drift_db.dart';
 
 abstract class AuthenticationLocalDataSource {
-  Future<AuthenticationModel?> getAuthenticationById(int id);
+  Future<AuthenticationTableDriftG?> getAuthenticationById(int id);
 
-  Future<AuthenticationModel?> getAuthenticationByUserId(int userId);
+  Future<AuthenticationTableDriftG?> getAuthenticationByUserId(int userId);
 
-  Future<List<AuthenticationModel>> getAllAuthentications();
+  Future<List<AuthenticationTableDriftG>> getAllAuthentications();
 
-  Future<void> addAuthentication(AuthenticationModel auth);
+  Future<void> addAuthentication(
+      AuthenticationTableDriftCompanion autehnticationCompanion);
 
-  Future<void> updateAuthentication(AuthenticationModel auth);
+  Future<void> updateAuthentication(
+      AuthenticationTableDriftCompanion autehnticationCompanion);
 
   Future<void> deleteAuthenticationById(int id);
 
   Future<void> deleteAuthenticationByUserId(int userId);
 
-  Future<AuthenticationModel?> getActiveAuthenticationForDeviceInfo(
+  Future<AuthenticationTableDriftG?> getActiveAuthenticationForDeviceInfo(
       String deviceInfo);
 
-  Future<List<AuthenticationModel?>?> getAuthenticationsForDeviceInfo(
+  Future<List<AuthenticationTableDriftG>?> getAuthenticationItemsForDeviceInfo(
       String deviceInfo);
 }

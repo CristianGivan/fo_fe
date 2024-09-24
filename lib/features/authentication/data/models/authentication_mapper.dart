@@ -3,54 +3,38 @@ import 'package:fo_fe/core/db/drift/authentication_drift_db.dart';
 import 'package:fo_fe/features/authentication/config/authentication_exports.dart';
 
 class AuthenticationMapper {
-  static AuthenticationModel modelFromEntity(AuthenticationEntity auth) {
-    return AuthenticationModel(
-      id: auth.id,
-      userId: auth.userId,
-      token: auth.token,
-      deviceInfo: auth.deviceInfo,
-      createdDate: auth.createdDate,
-      expiredDate: auth.expiredDate,
-      lastUsedDate: auth.lastUsedDate,
-      refreshCount: auth.refreshCount,
-      isActive: auth.isActive,
-    );
-  }
-
-  static AuthenticationEntity entityFromModel(AuthenticationModel? model) {
-    if (model == null) {
-      throw ArgumentError('AuthenticationModel cannot be null');
-    }
-    return AuthenticationEntity(
-      id: model.id,
-      userId: model.userId,
-      token: model.token,
-      deviceInfo: model.deviceInfo,
-      createdDate: model.createdDate,
-      expiredDate: model.expiredDate,
-      lastUsedDate: model.lastUsedDate,
-      refreshCount: model.refreshCount,
-      isActive: model.isActive,
-    );
-  }
-
-  static AuthenticationTableDriftCompanion tableDriftCompanionFromModel(
-      AuthenticationModel model) {
+  static AuthenticationTableDriftCompanion companionFromEntity(
+      AuthenticationEntity entity) {
     return AuthenticationTableDriftCompanion(
-      userId: Value(model.userId),
-      token: Value(model.token),
-      deviceInfo: Value(model.deviceInfo),
-      createdDate: Value(model.createdDate),
-      expiredDate: Value(model.expiredDate),
-      lastUsedDate: Value(model.lastUsedDate),
-      refreshCount: Value(model.refreshCount),
-      isActive: Value(model.isActive),
+      userId: Value(entity.userId),
+      token: Value(entity.token),
+      deviceInfo: Value(entity.deviceInfo),
+      createdDate: Value(entity.createdDate),
+      expiredDate: Value(entity.expiredDate),
+      lastUsedDate: Value(entity.lastUsedDate),
+      refreshCount: Value(entity.refreshCount),
+      isActive: Value(entity.isActive),
     );
   }
 
-  static AuthenticationModel modelFromTableDrift(
+  static AuthenticationTableDriftCompanion companionFromTableDrift(
+      AuthenticationTableDriftG table) {
+    return AuthenticationTableDriftCompanion(
+      id: Value(table.id),
+      userId: Value(table.userId),
+      token: Value(table.token),
+      deviceInfo: Value(table.deviceInfo),
+      createdDate: Value(table.createdDate),
+      expiredDate: Value(table.expiredDate),
+      lastUsedDate: Value(table.lastUsedDate),
+      refreshCount: Value(table.refreshCount),
+      isActive: Value(table.isActive),
+    );
+  }
+
+  static AuthenticationEntity entityFromTableDrift(
       AuthenticationTableDriftG data) {
-    return AuthenticationModel(
+    return AuthenticationEntity(
       id: data.id,
       userId: data.userId,
       token: data.token,
@@ -63,11 +47,23 @@ class AuthenticationMapper {
     );
   }
 
-  static List<AuthenticationModel> modelItemsFromTableDriftItems(
-      List<AuthenticationTableDriftG>? items) {
-    if (items == null) {
-      return List.empty();
-    }
-    return items.map(modelFromTableDrift).toList();
+  static AuthenticationTableDriftG tableDriftFromCompanion(
+      AuthenticationTableDriftCompanion companion) {
+    return AuthenticationTableDriftG(
+      id: companion.id.value,
+      userId: companion.userId.value,
+      token: companion.token.value,
+      deviceInfo: companion.deviceInfo.value,
+      createdDate: companion.createdDate.value,
+      expiredDate: companion.expiredDate.value,
+      lastUsedDate: companion.lastUsedDate.value,
+      refreshCount: companion.refreshCount.value,
+      isActive: companion.isActive.value,
+    );
+  }
+
+  static List<AuthenticationEntity> entityItemsFromTableDriftItems(
+      List<AuthenticationTableDriftG> items) {
+    return items.map(entityFromTableDrift).toList();
   }
 }
