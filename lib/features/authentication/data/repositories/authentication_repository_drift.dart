@@ -130,17 +130,4 @@ class AuthenticationRepositoryDrift implements AuthenticationRepository {
       throw const AuthenticationNotFoundFailure("No authentications found");
     }
   }
-
-  List<T> _filterNonNullItems<T>(List<dynamic> items) {
-    final nonNullItems = items.whereType<T>().toList();
-    if (nonNullItems.length != items.length) {
-      throw const IncompleteDataFailure("Incomplete data found");
-    }
-
-    if (nonNullItems.isEmpty) {
-      throw const AuthenticationNotFoundFailure("No items found");
-    }
-
-    return nonNullItems;
-  }
 }
