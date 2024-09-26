@@ -42,16 +42,6 @@ class TaskEditScreen extends StatelessWidget {
               return const Center(child: CircularProgressIndicator());
             } else if (state is TagLoadedBlocState) {
               return TagListLinkPage(tags: state.tags);
-              // return ListView.builder(
-              //   shrinkWrap: true,
-              //   itemCount: state.tags.size(),
-              //   itemBuilder: (context, index) {
-              //     final tag = state.tags.getAt(index);
-              //     return ListTile(
-              //       title: Text(tag.subject),
-              //     );
-              //   },
-              // );
             } else if (state is TagErrorBlocState) {
               return Center(child: Text(state.message));
             } else {

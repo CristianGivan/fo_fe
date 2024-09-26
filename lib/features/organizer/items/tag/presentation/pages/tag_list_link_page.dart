@@ -9,15 +9,27 @@ class TagListLinkPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: tags.size(),
-      itemBuilder: (context, index) {
-        final tag = tags.getAt(index);
-        return ListTile(
-          title: Text(tag.subject),
-        );
-      },
+    return Column(
+      children: [
+        ListView.builder(
+          shrinkWrap: true,
+          itemCount: tags.size(),
+          itemBuilder: (context, index) {
+            final tag = tags.getAt(index);
+            return ListTile(
+              title: Text(tag.subject),
+            );
+          },
+        ),
+        ElevatedButton(
+          onPressed: () => _handleAddTag(context),
+          child: const Text('Add'),
+        ),
+      ],
     );
+  }
+
+  Future<void> _handleAddTag(BuildContext context) async {
+    // Handle the button press logic here
   }
 }
