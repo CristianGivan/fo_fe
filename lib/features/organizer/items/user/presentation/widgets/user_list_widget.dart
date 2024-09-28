@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fo_fe/features/organizer/items/user/config/user_exports.dart';
+import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/items/user/presentation/widgets/user_item_widget.dart';
 
 class UserListWidget extends StatelessWidget {

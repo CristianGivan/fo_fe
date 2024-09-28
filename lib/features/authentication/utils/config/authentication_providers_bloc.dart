@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fo_fe/features/authentication/config/authentication_exports.dart';
+import 'package:fo_fe/features/authentication/utils/authentication_exports.dart';
 import 'package:get_it/get_it.dart';
 
 List<BlocProvider> getAuthenticationBlocProviders() {

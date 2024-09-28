@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/usecase/usecase.dart';
-import 'package:fo_fe/features/organizer/items/user/config/user_exports.dart';
+import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 
 class DeleteUserFromUser extends UseCase<int, DeleteUserFromUserParams> {
   final UserRepository repository;
@@ -19,7 +19,8 @@ class DeleteUserFromUserParams extends Equatable {
   final int userLinkedId;
   final int userId;
 
-  const DeleteUserFromUserParams({required this.userLinkedId, required this.userId});
+  const DeleteUserFromUserParams(
+      {required this.userLinkedId, required this.userId});
 
   @override
   List<Object> get props => [userLinkedId, userId];

@@ -18,17 +18,17 @@ import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_i
     as _i5;
 import 'package:fo_fe/features/organizer/items/reminder/domain/entities/reminder_entity.dart'
     as _i17;
-import 'package:fo_fe/features/organizer/items/tag/config/tag_exports.dart'
+import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart'
     as _i16;
-import 'package:fo_fe/features/organizer/items/task/config/task_exports.dart'
-    as _i14;
 import 'package:fo_fe/features/organizer/items/task/data/datasources/task_local_data_source_drift.dart'
     as _i12;
 import 'package:fo_fe/features/organizer/items/task/data/datasources/task_remote_data_source_impl.dart'
     as _i10;
 import 'package:fo_fe/features/organizer/items/task/domain/repositories/task_repository.dart'
     as _i7;
-import 'package:fo_fe/features/organizer/items/user/config/user_exports.dart'
+import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart'
+    as _i14;
+import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart'
     as _i15;
 import 'package:http/http.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;

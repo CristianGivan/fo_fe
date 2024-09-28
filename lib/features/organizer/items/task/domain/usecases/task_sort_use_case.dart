@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/usecase/usecase.dart';
 import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
-import 'package:fo_fe/features/organizer/items/task/config/task_exports.dart';
+import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 
 class TaskSortUseCase
     extends UseCase<OrganizerItems<TaskEntity>, SortTasksParams> {

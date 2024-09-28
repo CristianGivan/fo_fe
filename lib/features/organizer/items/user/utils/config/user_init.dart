@@ -1,6 +1,6 @@
 import 'package:fo_fe/core/db/drift/organizer_drift_db.dart';
-import 'package:fo_fe/features/organizer/items/user/config/user_exports.dart';
 import 'package:fo_fe/features/organizer/items/user/domain/usecases/user_usecase_export.dart';
+import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 import 'package:get_it/get_it.dart';
 
 final sl = GetIt.instance;

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:fo_fe/features/organizer/items/tag/config/tag_exports.dart';
+import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
 import 'package:go_router/go_router.dart';
 
-import '../presentation/screen/tag_screen.dart';
+import '../../presentation/screen/tag_screen.dart';
 
 class TagAppBranch {
   static StatefulShellBranch branch(GlobalKey<NavigatorState> navigatorKey) {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fo_fe/features/authentication/config/authentication_exports.dart';
+import 'package:fo_fe/features/authentication/utils/authentication_exports.dart';
 import 'package:go_router/go_router.dart';
 
 class AuthenticationAppBranch {

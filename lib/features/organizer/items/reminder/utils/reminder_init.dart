@@ -1,6 +1,6 @@
 import 'package:fo_fe/core/db/drift/organizer_drift_db.dart';
-import 'package:fo_fe/features/organizer/items/reminder/config/reminder_exports.dart';
 import 'package:fo_fe/features/organizer/items/reminder/domain/usecases/reminder_usecase_export.dart';
+import 'package:fo_fe/features/organizer/items/reminder/utils/reminder_exports.dart';
 import 'package:get_it/get_it.dart';
 
 final sl = GetIt.instance;

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fo_fe/features/organizer/items/tag/config/tag_exports.dart';
-import 'package:fo_fe/features/organizer/items/tag/presentation/screen/tag_screen.dart';
-import 'package:fo_fe/features/organizer/items/task/config/task_exports.dart';
+import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
+import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 
-import '../../../tag/presentation/pages/tag_list_link_page.dart';
+import '../../../tag/utils/tag_navigator.dart';
 
 class TaskEditScreen extends StatelessWidget {
   final TaskEntity task;
@@ -38,10 +37,13 @@ class TaskEditScreen extends StatelessWidget {
         ),
         BlocBuilder<TaskTagLinkBloc, TaskTagLinkBlocState>(
           builder: (context, state) {
+            print('Loaded tags: ${state}');
             if (state is TagLoadingBlocState) {
               return const Center(child: CircularProgressIndicator());
             } else if (state is TagLoadedBlocState) {
-              return TagListLinkPage(tags: state.tags);
+              return TaskTagListPage(task: task, tags: state.tagItems);
+            } else if (state is TagItemsAddedToTaskBlocState) {
+              return TaskTagListPage(task: task, tags: state.tagItems);
             } else if (state is TagErrorBlocState) {
               return Center(child: Text(state.message));
             } else {
@@ -72,19 +74,6 @@ class TaskEditScreen extends StatelessWidget {
   }
 
   Future<void> _handleLinkButtonPress(BuildContext context) async {
-    final tagItems = await Navigator.push<List<TagEntity>>(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const TagScreen(),
-      ),
-    );
-    if (tagItems != null) {
-      context.read<TaskTagLinkBloc>().add(
-            AddTagItemsToTaskBlocEvent(
-              taskId: task.id,
-              tags: tagItems.map((tag) => tag.id).toList(),
-            ),
-          );
-    }
+    TagNavigator.navigateAndAddTags(context, task.id);
   }
 }

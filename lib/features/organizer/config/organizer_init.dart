@@ -1,7 +1,7 @@
-import 'package:fo_fe/features/organizer/items/reminder/config/reminder_init.dart';
-import 'package:fo_fe/features/organizer/items/tag/config/tag_exports.dart';
-import 'package:fo_fe/features/organizer/items/task/config/task_exports.dart';
-import 'package:fo_fe/features/organizer/items/user/config/user_exports.dart';
+import 'package:fo_fe/features/organizer/items/reminder/utils/reminder_init.dart';
+import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
+import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
+import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 
 void organizerInit() {
   taskInit();

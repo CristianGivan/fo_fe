@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
-import 'package:fo_fe/features/organizer/items/reminder/config/reminder_exports.dart';
-import 'package:fo_fe/features/organizer/items/tag/config/tag_exports.dart';
+import 'package:fo_fe/features/organizer/items/reminder/utils/reminder_exports.dart';
+import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
 
 class ReminderRepositoryImpl implements ReminderRepository {
   final TagLocalDataSource localDataSource;

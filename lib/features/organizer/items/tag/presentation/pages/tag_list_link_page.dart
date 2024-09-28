@@ -1,6 +1,7 @@
+// lib/features/organizer/items/tag/presentation/pages/tag_list_link_page.dart
 import 'package:flutter/material.dart';
 import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
-import 'package:fo_fe/features/organizer/items/tag/config/tag_exports.dart';
+import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
 
 class TagListLinkPage extends StatelessWidget {
   final OrganizerItems<TagEntity> tags;
@@ -9,27 +10,15 @@ class TagListLinkPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ListView.builder(
-          shrinkWrap: true,
-          itemCount: tags.size(),
-          itemBuilder: (context, index) {
-            final tag = tags.getAt(index);
-            return ListTile(
-              title: Text(tag.subject),
-            );
-          },
-        ),
-        ElevatedButton(
-          onPressed: () => _handleAddTag(context),
-          child: const Text('Add'),
-        ),
-      ],
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: tags.size(),
+      itemBuilder: (context, index) {
+        final tag = tags.getAt(index);
+        return ListTile(
+          title: Text(tag.subject),
+        );
+      },
     );
-  }
-
-  Future<void> _handleAddTag(BuildContext context) async {
-    // Handle the button press logic here
   }
 }

@@ -1,5 +1,5 @@
 import 'package:fo_fe/core/db/drift/organizer_drift_db.dart';
-import 'package:fo_fe/features/organizer/items/tag/config/tag_exports.dart';
+import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/items/tag/data/datasources/tag_local_data_source_drift.dart';
 import 'package:fo_fe/features/organizer/items/tag/data/repositories/tag_repository_drift.dart';
 import 'package:get_it/get_it.dart';

@@ -1,5 +1,5 @@
 import 'package:fo_fe/core/db/drift/organizer_drift_db.dart';
-import 'package:fo_fe/features/organizer/items/task/config/task_exports.dart';
+import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/data/datasources/task_local_data_source_drift.dart';
 import 'package:fo_fe/features/organizer/items/task/data/datasources/task_remote_data_source.dart';
 import 'package:fo_fe/features/organizer/items/task/data/datasources/task_remote_data_source_impl.dart';

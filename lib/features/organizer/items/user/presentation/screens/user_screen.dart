@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fo_fe/features/authentication/config/authentication_exports.dart';
+import 'package:fo_fe/features/authentication/utils/authentication_exports.dart';
 import 'package:fo_fe/features/organizer/items/user/presentation/pages/user_management_actions_page.dart';
 import 'package:fo_fe/features/organizer/items/user/presentation/widgets/user_info_widget.dart';
 import 'package:fo_fe/features/organizer/items/user/presentation/widgets/user_list_widget.dart';

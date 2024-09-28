@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/usecase/usecase.dart';
 import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
-import 'package:fo_fe/features/organizer/items/tag/config/tag_exports.dart';
+import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
 
 import '../repositories/task_repository.dart';
 

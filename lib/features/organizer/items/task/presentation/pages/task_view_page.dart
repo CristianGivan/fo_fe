@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fo_fe/features/organizer/items/task/config/task_exports.dart';
+import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 
 class TaskViewPage extends StatelessWidget {
   final TaskEntity task;
@@ -15,7 +15,8 @@ class TaskViewPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Subject: ${task.subject}', style: const TextStyle(fontSize: 18)),
+            Text('Subject: ${task.subject}',
+                style: const TextStyle(fontSize: 18)),
             const SizedBox(height: 10),
             Text('Start Date: ${task.startDate}'),
             Text('End Date: ${task.endDate}'),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:fo_fe/features/organizer/items/user/config/user_exports.dart';
+import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:go_router/go_router.dart';
 
-class UserAppBranch {
+class TaskAppBranch {
   static StatefulShellBranch branch(GlobalKey<NavigatorState> navigatorKey) {
     return StatefulShellBranch(
       navigatorKey: navigatorKey,
@@ -14,20 +14,19 @@ class UserAppBranch {
 
   static GoRoute route() {
     return GoRoute(
-      name: UserRouterNames.userRoute,
-      path: '/user',
+      name: TaskRouterNames.taskRoute,
+      path: '/task',
       pageBuilder: (context, state) => const NoTransitionPage(
-        child: UserScreen(),
+        child: TaskScreen(),
       ),
       routes: [
         GoRoute(
-          name: UserRouterNames.addUsersFromAllUsersRoute,
-          path: 'add-users/:userId',
+          name: TaskRouterNames.taskAddRoute,
+          path: 'task_add',
           pageBuilder: (context, state) {
             // Accessing 'userId' from state.pathParameters
-            final userId = int.parse(state.pathParameters['userId']!);
-            return NoTransitionPage(
-              child: AddUsersFromAllUsersScreen(userId: userId),
+            return const NoTransitionPage(
+              child: TaskAddScreen(),
             );
           },
         ),

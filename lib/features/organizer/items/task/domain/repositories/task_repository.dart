@@ -2,9 +2,9 @@ import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
 import 'package:fo_fe/features/organizer/items/reminder/domain/entities/reminder_entity.dart';
-import 'package:fo_fe/features/organizer/items/tag/config/tag_exports.dart';
-import 'package:fo_fe/features/organizer/items/task/config/task_exports.dart';
-import 'package:fo_fe/features/organizer/items/user/config/user_exports.dart';
+import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
+import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
+import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 
 abstract class TaskRepository {
   // Task CRUD operations

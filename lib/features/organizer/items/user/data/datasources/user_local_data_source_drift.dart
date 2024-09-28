@@ -2,7 +2,7 @@
 
 import 'package:drift/drift.dart';
 import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
-import 'package:fo_fe/features/organizer/items/user/config/user_exports.dart';
+import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 
 import '../../../../../../core/db/drift/organizer_drift_exports.dart';
 

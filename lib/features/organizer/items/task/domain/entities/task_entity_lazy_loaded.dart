@@ -1,8 +1,8 @@
 import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
-import 'package:fo_fe/features/organizer/items/reminder/config/reminder_exports.dart';
-import 'package:fo_fe/features/organizer/items/tag/config/tag_exports.dart';
-import 'package:fo_fe/features/organizer/items/task/config/task_exports.dart';
-import 'package:fo_fe/features/organizer/items/user/config/user_exports.dart';
+import 'package:fo_fe/features/organizer/items/reminder/utils/reminder_exports.dart';
+import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
+import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
+import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 
 class TaskEntityLazyLoaded extends TaskEntity {
   UserEntity? creator;

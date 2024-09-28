@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fo_fe/features/organizer/items/tag/config/tag_exports.dart';
+import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
 import 'package:go_router/go_router.dart';
 
 class TagManagementActionsPage extends StatelessWidget {

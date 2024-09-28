@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/utils/core_utils_exports.dart';
-import 'package:fo_fe/features/authentication/config/authentication_exports.dart';
+import 'package:fo_fe/features/authentication/utils/authentication_exports.dart';
 import 'package:fo_fe/features/organizer/items/user/domain/entities/user_entity.dart';
 
 class AuthenticationRepositoryDrift implements AuthenticationRepository {

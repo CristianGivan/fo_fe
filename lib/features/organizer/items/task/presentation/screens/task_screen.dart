@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fo_fe/features/organizer/items/task/config/task_exports.dart';
+import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/presentation/pages/task_list_page.dart';
 import 'package:fo_fe/features/organizer/items/task/presentation/pages/task_management_actions_page.dart';
 

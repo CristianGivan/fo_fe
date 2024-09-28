@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fo_fe/features/authentication/config/authentication_exports.dart';
+import 'package:fo_fe/features/authentication/utils/authentication_exports.dart';
 import 'package:fo_fe/features/organizer/config/organizer_exports.dart';
 import 'package:go_router/go_router.dart';
 
@@ -195,7 +195,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ),
                           ),
                           child: isLoading
-                              ? const CircularProgressIndicator(color: Colors.white)
+                              ? const CircularProgressIndicator(
+                                  color: Colors.white)
                               : const Padding(
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 25, vertical: 5),
@@ -229,9 +230,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
         children: [
           Icon(
             isMet ? Icons.check_circle : Icons.circle_outlined,
-            color: isMet
-                ? Colors.green
-                : Theme.of(context).colorScheme.onSurface,
+            color:
+                isMet ? Colors.green : Theme.of(context).colorScheme.onSurface,
             size: 16,
           ),
           const SizedBox(width: 8),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fo_fe/features/organizer/config/organizer_exports.dart';
-import 'package:fo_fe/features/organizer/items/task/config/task_exports.dart';
+import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:go_router/go_router.dart';
 
 class OrganizerAppBranch {

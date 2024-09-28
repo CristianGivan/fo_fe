@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fo_fe/core/error/failures.dart';
-import 'package:fo_fe/features/authentication/config/authentication_exports.dart';
+import 'package:fo_fe/features/authentication/utils/authentication_exports.dart';
 
 part 'authentication_bloc_sign_in_event.dart';
 part 'authentication_bloc_sign_in_state.dart';

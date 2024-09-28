@@ -3,7 +3,7 @@ import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/usecase/no_params.dart';
 import 'package:fo_fe/core/usecase/usecase.dart';
 import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
-import 'package:fo_fe/features/organizer/items/user/config/user_exports.dart';
+import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 
 class GetUserItemsAll extends UseCase<OrganizerItems<UserEntity>, NoParams> {
   final UserRepository repository;
