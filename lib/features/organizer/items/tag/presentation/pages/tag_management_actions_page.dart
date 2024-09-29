@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
 import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
 import 'package:go_router/go_router.dart';
 
 class TagManagementActionsPage extends StatelessWidget {
-  List<TagEntity> selectedTags;
+  final OrganizerItems<TagEntity> selectedTags;
 
-  TagManagementActionsPage({super.key, this.selectedTags = const []});
+  TagManagementActionsPage({super.key, OrganizerItems<TagEntity>? selectedTags})
+      : selectedTags = selectedTags ?? OrganizerItems.empty();
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class TagManagementActionsPage extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () {
                     // Replace `selectedTags` with your actual selected tags variable
-                    if (selectedTags.isNotEmpty) {
+                    if (!selectedTags.isEmpty()) {
                       Navigator.pop(context, selectedTags);
                     }
                   },

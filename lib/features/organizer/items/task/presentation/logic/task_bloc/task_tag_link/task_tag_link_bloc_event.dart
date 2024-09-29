@@ -45,3 +45,13 @@ class DeleteTagFromTaskBlocEvent extends TaskTagLinkBlocEvent {
   @override
   List<Object> get props => [taskId, tagId];
 }
+
+class DeleteTagItemsToTaskBlocEvent extends TaskTagLinkBlocEvent {
+  final int taskId;
+  final List<int> tags;
+
+  DeleteTagItemsToTaskBlocEvent({required this.taskId, required this.tags});
+
+  @override
+  List<Object> get props => [taskId, tags];
+}

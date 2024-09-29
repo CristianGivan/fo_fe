@@ -29,6 +29,10 @@ class OrganizerItemsBuilder<T extends OrganizerItemEntity> extends Equatable {
 
   List<T> get organizerItems => _organizerItems;
 
+  bool contains(T organizerItem) {
+    return _organizerItems.contains(organizerItem);
+  }
+
   OrganizerItemsBuilder add(T organizerItem) {
     _organizerItems.add(organizerItem);
     //todo tests

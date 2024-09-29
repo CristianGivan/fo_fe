@@ -12,12 +12,12 @@ class TagInitial extends TagBlocState {}
 class TagLoading extends TagBlocState {}
 
 class TagLoaded extends TagBlocState {
-  final OrganizerItems<TagEntity> tags;
+  final OrganizerItems<TagEntity> tagItems;
 
-  TagLoaded(this.tags);
+  TagLoaded(this.tagItems);
 
   @override
-  List<Object> get props => [tags];
+  List<Object> get props => [tagItems];
 }
 
 class TagError extends TagBlocState {

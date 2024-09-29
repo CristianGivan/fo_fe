@@ -3,16 +3,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 
-import '../../../tag/utils/tag_navigator.dart';
+import '../../../../utils/organizer_items.dart';
 
-class TaskEditScreen extends StatelessWidget {
+class TaskEditScreen extends StatefulWidget {
   final TaskEntity task;
 
   const TaskEditScreen({super.key, required this.task});
 
   @override
+  _TaskEditScreenState createState() => _TaskEditScreenState();
+}
+
+class _TaskEditScreenState extends State<TaskEditScreen> {
+  OrganizerItems<TagEntity> taskTagItems = OrganizerItems.empty();
+
+  @override
   Widget build(BuildContext context) {
-    context.read<TaskTagLinkBloc>().add(GetTagsByTaskIdBlocEvent(task.id));
+    _loadTags(context);
     return Scaffold(
       appBar: AppBar(title: const Text('Edit Task')),
       body: SingleChildScrollView(
@@ -20,7 +27,7 @@ class TaskEditScreen extends StatelessWidget {
         child: Column(
           children: [
             _buildFormFields(),
-            const SizedBox(height: 20), // Add some space before the buttons
+            const SizedBox(height: 20),
             _buildActionButtons(context),
           ],
         ),
@@ -28,12 +35,18 @@ class TaskEditScreen extends StatelessWidget {
     );
   }
 
+  void _loadTags(BuildContext context) {
+    context
+        .read<TaskTagLinkBloc>()
+        .add(GetTagsByTaskIdBlocEvent(widget.task.id));
+  }
+
   Widget _buildFormFields() {
     return Column(
       children: [
         TextField(
           decoration: const InputDecoration(labelText: 'Subject'),
-          controller: TextEditingController(text: task.subject),
+          controller: TextEditingController(text: widget.task.subject),
         ),
         BlocBuilder<TaskTagLinkBloc, TaskTagLinkBlocState>(
           builder: (context, state) {
@@ -41,9 +54,11 @@ class TaskEditScreen extends StatelessWidget {
             if (state is TagLoadingBlocState) {
               return const Center(child: CircularProgressIndicator());
             } else if (state is TagLoadedBlocState) {
-              return TaskTagListPage(task: task, tags: state.tagItems);
+              taskTagItems = state.tagItems;
+              return TaskTagListPage(task: widget.task, tags: taskTagItems);
             } else if (state is TagItemsAddedToTaskBlocState) {
-              return TaskTagListPage(task: task, tags: state.tagItems);
+              taskTagItems = state.tagItems;
+              return TaskTagListPage(task: widget.task, tags: taskTagItems);
             } else if (state is TagErrorBlocState) {
               return Center(child: Text(state.message));
             } else {
@@ -74,6 +89,10 @@ class TaskEditScreen extends StatelessWidget {
   }
 
   Future<void> _handleLinkButtonPress(BuildContext context) async {
-    TagNavigator.navigateAndAddTags(context, task.id);
+    await TagNavigator.navigateAndAddTags(
+      context,
+      widget.task.id,
+      taskTagItems,
+    );
   }
 }

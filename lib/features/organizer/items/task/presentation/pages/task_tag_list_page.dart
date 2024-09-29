@@ -24,6 +24,10 @@ class TaskTagListPage extends StatelessWidget {
   }
 
   Future<void> _handleUpdateTagItems(BuildContext context) async {
-    TagNavigator.navigateAndAddTags(context, task.id);
+    TagNavigator.navigateAndAddTags(
+      context,
+      task.id,
+      tags,
+    );
   }
 }
