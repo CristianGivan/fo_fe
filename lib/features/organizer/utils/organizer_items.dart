@@ -27,14 +27,20 @@ class OrganizerItems<T extends OrganizerItemEntity> extends Equatable {
 
   T getAt(int index) => _organizerItems[index];
 
-  OrganizerItems<T>? getAddedItems(OrganizerItems<T>? newItems) {
+  OrganizerItems<T> getAddedItems(OrganizerItems<T>? newItems) {
+    if (newItems == null) {
+      return OrganizerItems.empty();
+    }
     return OrganizerItems.of(
-        newItems!.where((element) => !_organizerItems.contains(element)));
+        newItems.where((element) => !_organizerItems.contains(element)));
   }
 
-  OrganizerItems<T>? getRemovedItems(OrganizerItems<T>? newItems) {
+  OrganizerItems<T> getRemovedItems(OrganizerItems<T>? newItems) {
+    if (newItems == null) {
+      return OrganizerItems.empty();
+    }
     return OrganizerItems.of(
-        _organizerItems.where((element) => !newItems!.contains(element)));
+        _organizerItems.where((element) => !newItems.contains(element)));
   }
 
   bool isEmpty() {
@@ -59,6 +65,8 @@ class OrganizerItems<T extends OrganizerItemEntity> extends Equatable {
         _organizerItems.where((element) => idSet.contains(element.id)).toList();
     return OrganizerItems.of(filteredItems);
   }
+
+  List<int> getIdList() => _organizerItems.map((e) => e.id).toList();
 
   // //todo tests
   // OrganizerItems updateItems(OrganizerItems<T> updateItems) {

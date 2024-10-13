@@ -18,6 +18,7 @@ export '../domain/usecases/get_user_creator_by_id.dart';
 export '../domain/usecases/get_user_list_by_task_id.dart';
 export '../domain/usecases/task_filter_use_case.dart';
 export '../domain/usecases/task_sort_use_case.dart';
+export '../domain/usecases/update_tag_items_of_task_use_case.dart';
 export '../domain/usecases/update_task.dart';
 export '../presentation/logic/task_bloc/task_bloc.dart';
 export '../presentation/pages/task_tag_list_page.dart';

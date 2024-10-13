@@ -8,22 +8,22 @@ import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 
 class TagNavigator {
   //todo -i-  implement navigateAndUpdateTags to not DRY
-  static Future<void> navigateAndUpdateTags(
-      BuildContext context, int taskId, OrganizerItems<TagEntity> tagItems) async {
-    OrganizerItems<TagEntity> newTagItems = await Navigator.push<OrganizerItems<TagEntity>>(
-            context, MaterialPageRoute(builder: (context) => TagScreen(tagItems: tagItems))) ??
-        OrganizerItems.empty();
+  static Future<void> navigateAndUpdateTags(BuildContext context, int taskId,
+      OrganizerItems<TagEntity> tagItems) async {
+    OrganizerItems<TagEntity> updatedTagItems =
+        await Navigator.push<OrganizerItems<TagEntity>>(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => TagScreen(tagItems: tagItems))) ??
+            OrganizerItems.empty();
 
     //todo cg  implement removeTagItems
-
-    OrganizerItems<TagEntity>? addTagItems = tagItems.getAddedItems(newTagItems);
-    OrganizerItems<TagEntity>? removeTagItems = tagItems.getRemovedItems(newTagItems);
-    if (addTagItems != null) {
-      context.read<TaskTagLinkBloc>().add(
-            AddTagItemsToTaskBlocEvent(taskId: taskId, tagIds: IdSet.fromOrganizerItems(addTagItems)
-                // tagIds: addTagItems.map((tag) => tag.id).toList(),
-                ),
-          );
-    }
+    context.read<TaskTagLinkBloc>().add(
+          UpdateTagItemsOfTaskBlocEvent(
+            taskId: taskId,
+            tagItems: tagItems,
+            updatedTagItems: updatedTagItems,
+          ),
+        );
   }
 }

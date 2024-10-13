@@ -87,8 +87,10 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
 
   @override
   Future<List<ReminderTableDriftG>?> getRemindersByTaskId(int taskId) async {
-    final reminderIds = await db.taskReminderLinkDaoDrift.getReminderIdsByTaskId(taskId);
-    return await db.reminderDaoDrift.getReminderItemsByReminderIdSet(reminderIds);
+    final reminderIds =
+        await db.taskReminderLinkDaoDrift.getReminderIdsByTaskId(taskId);
+    return await db.reminderDaoDrift
+        .getReminderItemsByReminderIdSet(reminderIds);
   }
 
   @override
@@ -98,7 +100,8 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
 
   @override
   Future<int> addUserToTask(int taskId, int userId) async {
-    return db.taskUserLinkDaoDrift.addTaskUser(_createTaskUserCompanion(taskId, userId));
+    return db.taskUserLinkDaoDrift
+        .addTaskUser(_createTaskUserCompanion(taskId, userId));
   }
 
   @override
@@ -126,14 +129,16 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
 
   @override
   Future<int> addTagToTask(int taskId, int tagId) async {
-    return db.taskTagLinkDaoDrift.addTaskTag(_createTaskTagCompanion(taskId, tagId));
+    return db.taskTagLinkDaoDrift
+        .addTaskTag(_createTaskTagCompanion(taskId, tagId));
   }
 
   @override
   Future<void> addTagItemsToTask(int taskId, List<int> tags) async {
     await db.transaction(() async {
       for (final tagId in tags) {
-        await db.taskTagLinkDaoDrift.addTaskTag(_createTaskTagCompanion(taskId, tagId));
+        await db.taskTagLinkDaoDrift
+            .addTaskTag(_createTaskTagCompanion(taskId, tagId));
       }
     });
   }
@@ -144,7 +149,7 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
   }
 
   @override
-  Future<void> deleteTagItemsToTask(int taskId, List<int> tags) async {
+  Future<void> deleteTagItemsFromTask(int taskId, List<int> tags) async {
     await db.transaction(() async {
       for (final tagId in tags) {
         await db.taskTagLinkDaoDrift.deleteTaskTag(taskId, tagId);
@@ -152,21 +157,24 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
     });
   }
 
-  TaskTagLinkTableDriftCompanion _createTaskTagCompanion(int taskId, int tagId) {
+  TaskTagLinkTableDriftCompanion _createTaskTagCompanion(
+      int taskId, int tagId) {
     return TaskTagLinkTableDriftCompanion(
       taskId: Value(taskId),
       tagId: Value(tagId),
     );
   }
 
-  TaskReminderLinkTableDriftCompanion _createTaskReminderCompanion(int taskId, int reminderId) {
+  TaskReminderLinkTableDriftCompanion _createTaskReminderCompanion(
+      int taskId, int reminderId) {
     return TaskReminderLinkTableDriftCompanion(
       taskId: Value(taskId),
       reminderId: Value(reminderId),
     );
   }
 
-  TaskUserLinkTableDriftCompanion _createTaskUserCompanion(int taskId, int userId) {
+  TaskUserLinkTableDriftCompanion _createTaskUserCompanion(
+      int taskId, int userId) {
     return TaskUserLinkTableDriftCompanion(
       taskId: Value(taskId),
       userId: Value(userId),
