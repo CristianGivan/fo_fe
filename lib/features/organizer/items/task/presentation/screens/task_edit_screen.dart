@@ -55,10 +55,10 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
               return const Center(child: CircularProgressIndicator());
             } else if (state is TagLoadedBlocState) {
               taskTagItems = state.tagItems;
-              return TaskTagListPage(task: widget.task, tags: taskTagItems);
+              return TaskTagListPage(task: widget.task, tagItems: taskTagItems);
             } else if (state is TagItemsAddedToTaskBlocState) {
               taskTagItems = state.tagItems;
-              return TaskTagListPage(task: widget.task, tags: taskTagItems);
+              return TaskTagListPage(task: widget.task, tagItems: taskTagItems);
             } else if (state is TagErrorBlocState) {
               return Center(child: Text(state.message));
             } else {
@@ -89,7 +89,7 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
   }
 
   Future<void> _handleLinkButtonPress(BuildContext context) async {
-    await TagNavigator.navigateAndAddTags(
+    await TagNavigator.navigateAndUpdateTags(
       context,
       widget.task.id,
       taskTagItems,

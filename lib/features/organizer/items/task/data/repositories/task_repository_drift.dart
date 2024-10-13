@@ -57,8 +57,8 @@ class TaskRepositoryDrift implements TaskRepository {
     });
   }
 
-  Future<Either<Failure, OrganizerItems<TaskEntity>>> getTaskItemsByIdSet(
-      IdSet idSet) {
+  @override
+  Future<Either<Failure, OrganizerItems<TaskEntity>>> getTaskItemsByIdSet(IdSet idSet) {
     return _handleDatabaseOperation<OrganizerItems<TaskEntity>>(
       () async {
         final items = await localDataSource.getTaskItemsByIdSet(idSet);
@@ -72,8 +72,7 @@ class TaskRepositoryDrift implements TaskRepository {
 
   // User operations related to tasks
   @override
-  Future<Either<Failure, OrganizerItems<UserEntity>>> getUserItemsByTaskId(
-      int taskId) {
+  Future<Either<Failure, OrganizerItems<UserEntity>>> getUserItemsByTaskId(int taskId) {
     return _handleDatabaseOperation(() async {
       final items = await localDataSource.getUserItemsByTaskId(taskId);
       _checkItemsNotNullOrEmpty(items);
@@ -94,45 +93,51 @@ class TaskRepositoryDrift implements TaskRepository {
 
   @override
   Future<Either<Failure, int>> addUserToTask(int taskId, int userId) {
-    return _handleDatabaseOperation(
-        () => localDataSource.addUserToTask(taskId, userId));
+    return _handleDatabaseOperation(() => localDataSource.addUserToTask(taskId, userId));
   }
 
   @override
   Future<Either<Failure, int>> deleteUserFromTask(int taskId, int userId) {
-    return _handleDatabaseOperation(
-        () => localDataSource.deleteUserFromTask(taskId, userId));
+    return _handleDatabaseOperation(() => localDataSource.deleteUserFromTask(taskId, userId));
   }
 
   // Tag operations related to tasks
   @override
-  Future<Either<Failure, OrganizerItems<TagEntity>>> getTagItemsByTaskId(
-      int taskId) {
+  Future<Either<Failure, OrganizerItems<TagEntity>>> getTagItemsByTaskId(int taskId) {
     return _handleDatabaseOperation(() async {
-      final items = await localDataSource.getTagItemsByTaskId(taskId);
-      _checkItemsNotNullOrEmpty(items);
-
-      final nonNullItems = _filterNonNullItems<TagTableDriftG>(items!);
-      return TagMapper.entityItemsFromTableDriftItems(nonNullItems);
+      return await _getTagItemsByTaskId(taskId);
     });
   }
 
   @override
   Future<Either<Failure, int>> addTagToTask(int taskId, int tagId) {
-    return _handleDatabaseOperation(
-        () => localDataSource.addTagToTask(taskId, tagId));
+    return _handleDatabaseOperation(() => localDataSource.addTagToTask(taskId, tagId));
+  }
+
+  @override
+  Future<Either<Failure, OrganizerItems<TagEntity>>> addTagItemsToTask(int taskId, IdSet tags) {
+    return _handleDatabaseOperation(() async {
+      await localDataSource.addTagItemsToTask(taskId, tags.toList());
+      return await _getTagItemsByTaskId(taskId);
+    });
   }
 
   @override
   Future<Either<Failure, int>> deleteTagFromTask(int taskId, int tagId) {
-    return _handleDatabaseOperation(
-        () => localDataSource.deleteTagFromTask(taskId, tagId));
+    return _handleDatabaseOperation(() => localDataSource.deleteTagFromTask(taskId, tagId));
+  }
+
+  @override
+  Future<Either<Failure, OrganizerItems<TagEntity>>> updateTagItemsToTask(int taskId, IdSet tags) {
+    return _handleDatabaseOperation(() async {
+      await localDataSource.addTagItemsToTask(taskId, tags.toList());
+      return await _getTagItemsByTaskId(taskId);
+    });
   }
 
   // Reminder operations related to tasks
   @override
-  Future<Either<Failure, OrganizerItems<ReminderEntity>>> getRemindersByTaskId(
-      int taskId) {
+  Future<Either<Failure, OrganizerItems<ReminderEntity>>> getRemindersByTaskId(int taskId) {
     return _handleDatabaseOperation(() async {
       final items = await localDataSource.getRemindersByTaskId(taskId);
       _checkItemsNotNullOrEmpty(items);
@@ -144,26 +149,13 @@ class TaskRepositoryDrift implements TaskRepository {
 
   @override
   Future<Either<Failure, int>> addReminderToTask(int taskId, int reminderId) {
-    return _handleDatabaseOperation(
-        () => localDataSource.addReminderToTask(taskId, reminderId));
+    return _handleDatabaseOperation(() => localDataSource.addReminderToTask(taskId, reminderId));
   }
 
   @override
-  Future<Either<Failure, int>> deleteReminderFromTask(
-      int taskId, int reminderId) {
+  Future<Either<Failure, int>> deleteReminderFromTask(int taskId, int reminderId) {
     return _handleDatabaseOperation(
         () => localDataSource.deleteReminderFromTask(taskId, reminderId));
-  }
-
-  @override
-  Future<Either<Failure, OrganizerItems<TagEntity>>> addTagItemsToTask(
-      int taskId, List<int> tags) {
-    return _handleDatabaseOperation(() async {
-      await localDataSource.addTagItemsToTask(taskId, tags);
-      final tagModels = await localDataSource.getTagItemsByTaskId(taskId);
-      _checkItemsNotNullOrEmpty(tagModels);
-      return TagMapper.entityItemsFromTableDriftItems(tagModels!);
-    });
   }
 
   @override
@@ -172,8 +164,7 @@ class TaskRepositoryDrift implements TaskRepository {
     throw UnimplementedError();
   }
 
-  Future<Either<Failure, T>> _handleDatabaseOperation<T>(
-      Future<T> Function() operation) async {
+  Future<Either<Failure, T>> _handleDatabaseOperation<T>(Future<T> Function() operation) async {
     try {
       final result = await operation();
       return Right(result);
@@ -201,8 +192,7 @@ class TaskRepositoryDrift implements TaskRepository {
   List<T> _filterNonNullItems<T>(List<dynamic> items) {
     final nonNullItems = items.whereType<T>().toList();
     if (nonNullItems.length != items.length) {
-      throw const IncompleteDataFailure(
-          "Task not found"); // Custom failure for incomplete data
+      throw const IncompleteDataFailure("Task not found"); // Custom failure for incomplete data
     }
 
     if (nonNullItems.isEmpty) {
@@ -210,5 +200,13 @@ class TaskRepositoryDrift implements TaskRepository {
     }
 
     return nonNullItems;
+  }
+
+  Future<OrganizerItems<TagEntity>> _getTagItemsByTaskId(int taskId) async {
+    final items = await localDataSource.getTagItemsByTaskId(taskId);
+    _checkItemsNotNullOrEmpty(items);
+
+    final nonNullItems = _filterNonNullItems<TagTableDriftG>(items!);
+    return TagMapper.entityItemsFromTableDriftItems(nonNullItems);
   }
 }

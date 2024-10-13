@@ -33,6 +33,8 @@ abstract class TaskLocalDataSource {
 
   Future<int> deleteTagFromTask(int taskId, int tagId);
 
+  Future<void> deleteTagItemsToTask(int taskId, List<int> tagId);
+
   // Reminder operations related to tasks
   Future<List<ReminderTableDriftG>?> getRemindersByTaskId(int taskId);
 

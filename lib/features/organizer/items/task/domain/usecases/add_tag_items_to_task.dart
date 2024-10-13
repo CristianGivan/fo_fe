@@ -8,28 +8,26 @@ import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
 
 import '../repositories/task_repository.dart';
 
-class AddTagItemsToTask
-    extends UseCase<OrganizerItems<TagEntity>, AddTagItemsToTaskParams> {
+class AddTagItemsToTask extends UseCase<OrganizerItems<TagEntity>, AddTagItemsToTaskParams> {
   final TaskRepository repository;
 
   AddTagItemsToTask(this.repository);
 
   @override
-  Future<Either<Failure, OrganizerItems<TagEntity>>> call(
-      AddTagItemsToTaskParams params) {
-    return repository.addTagItemsToTask(params.taskId, params.tags);
+  Future<Either<Failure, OrganizerItems<TagEntity>>> call(AddTagItemsToTaskParams params) {
+    return repository.addTagItemsToTask(params.taskId, params.tagIds);
   }
 }
 
 class AddTagItemsToTaskParams extends Equatable {
   final int taskId;
-  final List<int> tags; // Assuming tag IDs are used to represent tags
+  final IdSet tagIds;
 
   const AddTagItemsToTaskParams({
     required this.taskId,
-    required this.tags,
+    required this.tagIds,
   });
 
   @override
-  List<Object> get props => [taskId, tags];
+  List<Object> get props => [taskId, tagIds];
 }

@@ -20,12 +20,10 @@ abstract class TaskRepository {
 
   Future<Either<Failure, OrganizerItems<TaskEntity>>> getTaskItemsAll();
 
-  Future<Either<Failure, OrganizerItems<TaskEntity>>> getTaskItemsByIdSet(
-      IdSet idSet);
+  Future<Either<Failure, OrganizerItems<TaskEntity>>> getTaskItemsByIdSet(IdSet idSet);
 
   // User operations related to tasks
-  Future<Either<Failure, OrganizerItems<UserEntity>>> getUserItemsByTaskId(
-      int taskId);
+  Future<Either<Failure, OrganizerItems<UserEntity>>> getUserItemsByTaskId(int taskId);
 
   Future<Either<Failure, UserEntity>> getCreatorById(int creatorId);
 
@@ -34,22 +32,20 @@ abstract class TaskRepository {
   Future<Either<Failure, int>> deleteUserFromTask(int taskId, int userId);
 
   // Tag operations related to tasks
-  Future<Either<Failure, OrganizerItems<TagEntity>>> getTagItemsByTaskId(
-      int taskId);
+  Future<Either<Failure, OrganizerItems<TagEntity>>> getTagItemsByTaskId(int taskId);
 
   Future<Either<Failure, int>> addTagToTask(int taskId, int tagId);
 
-  Future<Either<Failure, OrganizerItems<TagEntity>>> addTagItemsToTask(
-      int taskId, List<int> tags);
+  Future<Either<Failure, OrganizerItems<TagEntity>>> addTagItemsToTask(int taskId, IdSet tagIds);
 
   Future<Either<Failure, int>> deleteTagFromTask(int taskId, int tagId);
 
+  Future<Either<Failure, OrganizerItems<TagEntity>>> updateTagItemsToTask(int taskId, IdSet tagIds);
+
   // Reminder operations related to tasks
-  Future<Either<Failure, OrganizerItems<ReminderEntity>>> getRemindersByTaskId(
-      int taskId);
+  Future<Either<Failure, OrganizerItems<ReminderEntity>>> getRemindersByTaskId(int taskId);
 
   Future<Either<Failure, int>> addReminderToTask(int taskId, int reminderId);
 
-  Future<Either<Failure, int>> deleteReminderFromTask(
-      int taskId, int reminderId);
+  Future<Either<Failure, int>> deleteReminderFromTask(int taskId, int reminderId);
 }

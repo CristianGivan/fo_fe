@@ -28,12 +28,22 @@ class AddTagToTaskBlocEvent extends TaskTagLinkBlocEvent {
 
 class AddTagItemsToTaskBlocEvent extends TaskTagLinkBlocEvent {
   final int taskId;
-  final List<int> tags;
+  final IdSet tagIds;
 
-  AddTagItemsToTaskBlocEvent({required this.taskId, required this.tags});
+  AddTagItemsToTaskBlocEvent({required this.taskId, required this.tagIds});
 
   @override
-  List<Object> get props => [taskId, tags];
+  List<Object> get props => [taskId, tagIds];
+}
+
+class UpdateTagItemsFromTaskBlocEvent extends TaskTagLinkBlocEvent {
+  final int taskId;
+  final IdSet tagIds;
+
+  UpdateTagItemsFromTaskBlocEvent({required this.taskId, required this.tagIds});
+
+  @override
+  List<Object> get props => [taskId, tagIds];
 }
 
 class DeleteTagFromTaskBlocEvent extends TaskTagLinkBlocEvent {
@@ -48,10 +58,10 @@ class DeleteTagFromTaskBlocEvent extends TaskTagLinkBlocEvent {
 
 class DeleteTagItemsToTaskBlocEvent extends TaskTagLinkBlocEvent {
   final int taskId;
-  final List<int> tags;
+  final IdSet tagIds;
 
-  DeleteTagItemsToTaskBlocEvent({required this.taskId, required this.tags});
+  DeleteTagItemsToTaskBlocEvent({required this.taskId, required this.tagIds});
 
   @override
-  List<Object> get props => [taskId, tags];
+  List<Object> get props => [taskId, tagIds];
 }

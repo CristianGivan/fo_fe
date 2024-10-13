@@ -241,22 +241,22 @@ class MockTaskLocalDataSourceDrift extends _i1.Mock
       ) as _i3.OrganizerDriftDB);
 
   @override
-  _i9.Future<int> insertTask(_i3.TaskTableDriftCompanion? task) =>
+  _i9.Future<int> addTask(_i3.TaskTableDriftCompanion? taskCompanion) =>
       (super.noSuchMethod(
         Invocation.method(
-          #insertTask,
-          [task],
+          #addTask,
+          [taskCompanion],
         ),
         returnValue: _i9.Future<int>.value(0),
         returnValueForMissingStub: _i9.Future<int>.value(0),
       ) as _i9.Future<int>);
 
   @override
-  _i9.Future<bool> updateTask(_i3.TaskTableDriftCompanion? task) =>
+  _i9.Future<bool> updateTask(_i3.TaskTableDriftCompanion? taskCompanion) =>
       (super.noSuchMethod(
         Invocation.method(
           #updateTask,
-          [task],
+          [taskCompanion],
         ),
         returnValue: _i9.Future<bool>.value(false),
         returnValueForMissingStub: _i9.Future<bool>.value(false),
@@ -483,14 +483,14 @@ class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
   _i9.Future<_i4.Either<_i13.Failure, int>> addTask(_i14.TaskEntity? task) =>
       (super.noSuchMethod(
         Invocation.method(
-          #insertTask,
+          #addTask,
           [task],
         ),
         returnValue: _i9.Future<_i4.Either<_i13.Failure, int>>.value(
             _FakeEither_2<_i13.Failure, int>(
           this,
           Invocation.method(
-            #insertTask,
+            #addTask,
             [task],
           ),
         )),
@@ -499,7 +499,7 @@ class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
                 _FakeEither_2<_i13.Failure, int>(
           this,
           Invocation.method(
-            #insertTask,
+            #addTask,
             [task],
           ),
         )),
@@ -880,14 +880,14 @@ class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
   _i9.Future<_i4.Either<_i13.Failure, _i5.OrganizerItems<_i16.TagEntity>>>
       addTagItemsToTask(
     int? taskId,
-    List<int>? tags,
+    _i5.IdSet? tagIds,
   ) =>
           (super.noSuchMethod(
             Invocation.method(
               #addTagItemsToTask,
               [
                 taskId,
-                tags,
+                tagIds,
               ],
             ),
             returnValue: _i9.Future<
@@ -899,7 +899,7 @@ class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
                 #addTagItemsToTask,
                 [
                   taskId,
-                  tags,
+                  tagIds,
                 ],
               ),
             )),
@@ -912,7 +912,7 @@ class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
                 #addTagItemsToTask,
                 [
                   taskId,
-                  tags,
+                  tagIds,
                 ],
               ),
             )),

@@ -4,17 +4,17 @@ import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_i
 import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
 
 class TagListLinkPage extends StatelessWidget {
-  final OrganizerItems<TagEntity> tags;
+  final OrganizerItems<TagEntity> tagItems;
 
-  const TagListLinkPage({super.key, required this.tags});
+  const TagListLinkPage({super.key, required this.tagItems});
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       shrinkWrap: true,
-      itemCount: tags.size(),
+      itemCount: tagItems.size(),
       itemBuilder: (context, index) {
-        final tag = tags.getAt(index);
+        final tag = tagItems.getAt(index);
         return ListTile(
           title: Text(tag.subject),
         );
