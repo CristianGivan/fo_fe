@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
 import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
-
-import '../../../../utils/organizer_items.dart';
 
 class TaskEditScreen extends StatefulWidget {
   final TaskEntity task;

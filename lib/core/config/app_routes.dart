@@ -9,7 +9,8 @@ import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 import 'package:go_router/go_router.dart';
 
-final _organizerShellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'organizer');
+final _organizerShellNavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'organizer');
 final _authShellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'auth');
 final _userShellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'user');
 final _taskShellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'task');

@@ -37,7 +37,8 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<Either<Failure, int>> deleteReminderFromTask(int taskId, int reminderId) {
+  Future<Either<Failure, int>> deleteReminderFromTask(
+      int taskId, int reminderId) {
     // TODO: implement deleteReminderFromTask
     throw UnimplementedError();
   }
@@ -67,13 +68,15 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<Either<Failure, OrganizerItems<ReminderEntity>>> getRemindersByTaskId(int taskId) {
+  Future<Either<Failure, OrganizerItems<ReminderEntity>>> getRemindersByTaskId(
+      int taskId) {
     // TODO: implement getRemindersByTaskId
     throw UnimplementedError();
   }
 
   @override
-  Future<Either<Failure, OrganizerItems<TagEntity>>> getTagItemsByTaskId(int taskId) {
+  Future<Either<Failure, OrganizerItems<TagEntity>>> getTagItemsByTaskId(
+      int taskId) {
     // TODO: implement getTagsByTaskId
     throw UnimplementedError();
   }
@@ -97,13 +100,15 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<Either<Failure, OrganizerItems<TaskEntity>>> getTaskItemsByIdSet(IdSet idSet) {
+  Future<Either<Failure, OrganizerItems<TaskEntity>>> getTaskItemsByIdSet(
+      IdSet idSet) {
     // TODO: implement getTaskItemsByIdSet
     throw UnimplementedError();
   }
 
   @override
-  Future<Either<Failure, OrganizerItems<UserEntity>>> getUserItemsByTaskId(int taskId) {
+  Future<Either<Failure, OrganizerItems<UserEntity>>> getUserItemsByTaskId(
+      int taskId) {
     // TODO: implement getUsersByTaskId
     throw UnimplementedError();
   }
@@ -121,7 +126,8 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<Either<Failure, OrganizerItems<TagEntity>>> addTagItemsToTask(int taskId, IdSet tags) {
+  Future<Either<Failure, OrganizerItems<TagEntity>>> addTagItemsToTask(
+      int taskId, IdSet tags) {
     // TODO: implement addTagItemsToTask
     throw UnimplementedError();
   }

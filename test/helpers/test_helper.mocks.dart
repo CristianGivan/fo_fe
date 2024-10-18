@@ -320,18 +320,6 @@ class MockTaskLocalDataSourceDrift extends _i1.Mock
       ) as _i9.Future<List<_i3.UserTableDriftG>?>);
 
   @override
-  _i9.Future<List<_i3.TagTableDriftG>?> getTagItemsByTaskId(int? taskId) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #getTagItemsByTaskId,
-          [taskId],
-        ),
-        returnValue: _i9.Future<List<_i3.TagTableDriftG>?>.value(),
-        returnValueForMissingStub:
-            _i9.Future<List<_i3.TagTableDriftG>?>.value(),
-      ) as _i9.Future<List<_i3.TagTableDriftG>?>);
-
-  @override
   _i9.Future<List<_i3.ReminderTableDriftG>?> getRemindersByTaskId(
           int? taskId) =>
       (super.noSuchMethod(
@@ -373,40 +361,6 @@ class MockTaskLocalDataSourceDrift extends _i1.Mock
       ) as _i9.Future<int>);
 
   @override
-  _i9.Future<int> addTagToTask(
-    int? taskId,
-    int? tagId,
-  ) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #addTagToTask,
-          [
-            taskId,
-            tagId,
-          ],
-        ),
-        returnValue: _i9.Future<int>.value(0),
-        returnValueForMissingStub: _i9.Future<int>.value(0),
-      ) as _i9.Future<int>);
-
-  @override
-  _i9.Future<void> addTagItemsToTask(
-    int? taskId,
-    List<int>? tags,
-  ) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #addTagItemsToTask,
-          [
-            taskId,
-            tags,
-          ],
-        ),
-        returnValue: _i9.Future<void>.value(),
-        returnValueForMissingStub: _i9.Future<void>.value(),
-      ) as _i9.Future<void>);
-
-  @override
   _i9.Future<int> addReminderToTask(
     int? taskId,
     int? reminderId,
@@ -441,6 +395,69 @@ class MockTaskLocalDataSourceDrift extends _i1.Mock
       ) as _i9.Future<int>);
 
   @override
+  _i9.Future<int> deleteReminderFromTask(
+    int? taskId,
+    int? reminderId,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #deleteReminderFromTask,
+          [
+            taskId,
+            reminderId,
+          ],
+        ),
+        returnValue: _i9.Future<int>.value(0),
+        returnValueForMissingStub: _i9.Future<int>.value(0),
+      ) as _i9.Future<int>);
+
+  @override
+  _i9.Future<List<_i3.TagTableDriftG>?> getTagItemsByTaskId(int? taskId) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getTagItemsByTaskId,
+          [taskId],
+        ),
+        returnValue: _i9.Future<List<_i3.TagTableDriftG>?>.value(),
+        returnValueForMissingStub:
+            _i9.Future<List<_i3.TagTableDriftG>?>.value(),
+      ) as _i9.Future<List<_i3.TagTableDriftG>?>);
+
+  @override
+  _i9.Future<int> addTagToTask(
+    int? taskId,
+    int? tagId,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #addTagToTask,
+          [
+            taskId,
+            tagId,
+          ],
+        ),
+        returnValue: _i9.Future<int>.value(0),
+        returnValueForMissingStub: _i9.Future<int>.value(0),
+      ) as _i9.Future<int>);
+
+  @override
+  _i9.Future<void> addTagItemsToTask(
+    int? taskId,
+    List<int>? tags,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #addTagItemsToTask,
+          [
+            taskId,
+            tags,
+          ],
+        ),
+        returnValue: _i9.Future<void>.value(),
+        returnValueForMissingStub: _i9.Future<void>.value(),
+      ) as _i9.Future<void>);
+
+  @override
   _i9.Future<int> deleteTagFromTask(
     int? taskId,
     int? tagId,
@@ -458,21 +475,21 @@ class MockTaskLocalDataSourceDrift extends _i1.Mock
       ) as _i9.Future<int>);
 
   @override
-  _i9.Future<int> deleteReminderFromTask(
+  _i9.Future<void> deleteTagItemsFromTask(
     int? taskId,
-    int? reminderId,
+    List<int>? tags,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
-          #deleteReminderFromTask,
+          #deleteTagItemsFromTask,
           [
             taskId,
-            reminderId,
+            tags,
           ],
         ),
-        returnValue: _i9.Future<int>.value(0),
-        returnValueForMissingStub: _i9.Future<int>.value(0),
-      ) as _i9.Future<int>);
+        returnValue: _i9.Future<void>.value(),
+        returnValueForMissingStub: _i9.Future<void>.value(),
+      ) as _i9.Future<void>);
 }
 
 /// A class which mocks [TaskRepository].
@@ -956,6 +973,53 @@ class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
           ),
         )),
       ) as _i9.Future<_i4.Either<_i13.Failure, int>>);
+
+  @override
+  _i9.Future<_i4.Either<_i13.Failure, _i5.OrganizerItems<_i16.TagEntity>>>
+      updateTagItemOfTask(
+    int? taskId,
+    List<int>? tagItems,
+    List<int>? updatedTagItems,
+  ) =>
+          (super.noSuchMethod(
+            Invocation.method(
+              #updateTagItemOfTask,
+              [
+                taskId,
+                tagItems,
+                updatedTagItems,
+              ],
+            ),
+            returnValue: _i9.Future<
+                    _i4.Either<_i13.Failure,
+                        _i5.OrganizerItems<_i16.TagEntity>>>.value(
+                _FakeEither_2<_i13.Failure, _i5.OrganizerItems<_i16.TagEntity>>(
+              this,
+              Invocation.method(
+                #updateTagItemOfTask,
+                [
+                  taskId,
+                  tagItems,
+                  updatedTagItems,
+                ],
+              ),
+            )),
+            returnValueForMissingStub: _i9.Future<
+                    _i4.Either<_i13.Failure,
+                        _i5.OrganizerItems<_i16.TagEntity>>>.value(
+                _FakeEither_2<_i13.Failure, _i5.OrganizerItems<_i16.TagEntity>>(
+              this,
+              Invocation.method(
+                #updateTagItemOfTask,
+                [
+                  taskId,
+                  tagItems,
+                  updatedTagItems,
+                ],
+              ),
+            )),
+          ) as _i9.Future<
+              _i4.Either<_i13.Failure, _i5.OrganizerItems<_i16.TagEntity>>>);
 
   @override
   _i9.Future<_i4.Either<_i13.Failure, _i5.OrganizerItems<_i17.ReminderEntity>>>
