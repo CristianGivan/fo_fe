@@ -11,10 +11,10 @@ class TagInitial extends TagBlocState {}
 
 class TagLoading extends TagBlocState {}
 
-class TagLoaded extends TagBlocState {
+class TagItemsLoadedBlocState extends TagBlocState {
   final OrganizerItems<TagEntity> tagItems;
 
-  TagLoaded(this.tagItems);
+  TagItemsLoadedBlocState(this.tagItems);
 
   @override
   List<Object> get props => [tagItems];

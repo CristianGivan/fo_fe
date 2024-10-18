@@ -19,7 +19,7 @@ class TagListPage extends StatelessWidget {
       builder: (context, state) {
         if (state is TagLoading) {
           return _buildLoading();
-        } else if (state is TagLoaded) {
+        } else if (state is TagItemsLoadedBlocState) {
           return _buildTagList(state);
         } else if (state is TagError) {
           return _buildError(state);
@@ -34,7 +34,7 @@ class TagListPage extends StatelessWidget {
     return const Center(child: CircularProgressIndicator());
   }
 
-  Widget _buildTagList(TagLoaded state) {
+  Widget _buildTagList(TagItemsLoadedBlocState state) {
     return ListView.builder(
       itemCount: state.tagItems.size(),
       itemBuilder: (context, index) {
