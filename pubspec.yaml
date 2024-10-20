@@ -19,7 +19,7 @@ dependencies:
   bloc_test: ^9.1.6
 
   #firebase_core:
-  firebase_core: ^2.22.0
+  #  firebase_core: ^2.22.0
 
   #  firebase_for_all: ^0.1.1
 
