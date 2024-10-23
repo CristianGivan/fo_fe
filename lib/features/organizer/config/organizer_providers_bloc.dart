@@ -13,8 +13,8 @@ List<BlocProvider> getOrganizerBlocProviders() {
     BlocProvider<TaskTagLinkBloc>(
       create: (_) => GetIt.instance<TaskTagLinkBloc>(),
     ),
-    BlocProvider<TaskBlocReminder>(
-      create: (_) => GetIt.instance<TaskBlocReminder>(),
+    BlocProvider<TaskReminderLinkBloc>(
+      create: (_) => GetIt.instance<TaskReminderLinkBloc>(),
     ),
     // Add more BlocProviders as needed
   ];

@@ -1,13 +1,13 @@
-part of 'task_bloc.dart';
+part of '../task_bloc.dart';
 
-abstract class TaskBlocReminderEvent extends Equatable {
-  const TaskBlocReminderEvent();
+abstract class TaskReminderLinkBlocEvent extends Equatable {
+  const TaskReminderLinkBlocEvent();
 
   @override
   List<Object> get props => [];
 }
 
-class GetRemindersByTaskIdBlocEvent extends TaskBlocReminderEvent {
+class GetRemindersByTaskIdBlocEvent extends TaskReminderLinkBlocEvent {
   final int taskId;
 
   GetRemindersByTaskIdBlocEvent(this.taskId);
@@ -16,7 +16,7 @@ class GetRemindersByTaskIdBlocEvent extends TaskBlocReminderEvent {
   List<Object> get props => [taskId];
 }
 
-class AddReminderToTaskBlocEvent extends TaskBlocReminderEvent {
+class AddReminderToTaskBlocEvent extends TaskReminderLinkBlocEvent {
   final int taskId;
   final ReminderEntity reminder;
 
@@ -26,7 +26,7 @@ class AddReminderToTaskBlocEvent extends TaskBlocReminderEvent {
   List<Object> get props => [taskId, reminder];
 }
 
-class DeleteReminderFromTaskBlocEvent extends TaskBlocReminderEvent {
+class DeleteReminderFromTaskBlocEvent extends TaskReminderLinkBlocEvent {
   final int taskId;
   final int reminderId;
 

@@ -7,15 +7,13 @@ import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
 
 import '../repositories/task_repository.dart';
 
-class GetTagsByTaskId
-    extends UseCase<OrganizerItems<TagEntity>, GetTagsByTaskIdParams> {
+class GetTagItemsByTaskId extends UseCase<OrganizerItems<TagEntity>, GetTagsByTaskIdParams> {
   final TaskRepository repository;
 
-  GetTagsByTaskId(this.repository);
+  GetTagItemsByTaskId(this.repository);
 
   @override
-  Future<Either<Failure, OrganizerItems<TagEntity>>> call(
-      GetTagsByTaskIdParams params) {
+  Future<Either<Failure, OrganizerItems<TagEntity>>> call(GetTagsByTaskIdParams params) {
     return repository.getTagItemsByTaskId(params.taskId);
   }
 }

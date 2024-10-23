@@ -8,16 +8,12 @@ import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 
 class TagNavigator {
   //todo -i-  implement navigateAndUpdateTags to not DRY
-  static Future<void> navigateAndUpdateTags(BuildContext context, int taskId,
-      OrganizerItems<TagEntity> tagItems) async {
-    OrganizerItems<TagEntity> updatedTagItems =
-        await Navigator.push<OrganizerItems<TagEntity>>(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => TagScreen(tagItems: tagItems))) ??
-            OrganizerItems.empty();
+  static Future<void> navigateAndUpdateTags(
+      BuildContext context, int taskId, OrganizerItems<TagEntity> tagItems) async {
+    OrganizerItems<TagEntity> updatedTagItems = await Navigator.push<OrganizerItems<TagEntity>>(
+            context, MaterialPageRoute(builder: (context) => TagScreen(tagItems: tagItems))) ??
+        OrganizerItems.empty();
 
-    //todo cg  implement removeTagItems
     context.read<TaskTagLinkBloc>().add(
           UpdateTagItemsOfTaskBlocEvent(
             taskId: taskId,

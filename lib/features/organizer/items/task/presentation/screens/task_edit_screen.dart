@@ -35,9 +35,7 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
   }
 
   void _loadTags(BuildContext context) {
-    context
-        .read<TaskTagLinkBloc>()
-        .add(GetTagsByTaskIdBlocEvent(widget.task.id));
+    context.read<TaskTagLinkBloc>().add(GetTagsByTaskIdBlocEvent(widget.task.id));
   }
 
   Widget _buildFormFields() {
@@ -49,11 +47,13 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
         ),
         BlocBuilder<TaskTagLinkBloc, TaskTagLinkBlocState>(
           builder: (context, state) {
-            print('Loaded tags: ${state}');
             if (state is TagLoadingBlocState) {
               return const Center(child: CircularProgressIndicator());
             } else if (state is TagLoadedBlocState) {
               taskTagItems = state.tagItems;
+              if (taskTagItems.isEmpty()) {
+                return const Center(child: Text('No Tags Available'));
+              }
               return TaskTagListPage(task: widget.task, tagItems: taskTagItems);
             } else if (state is TagItemsAddedToTaskBlocState) {
               taskTagItems = state.tagItems;

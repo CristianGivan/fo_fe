@@ -15,10 +15,9 @@ void taskInit() {
   sl.registerLazySingleton<TaskRemoteDataSource>(() => TaskRemoteDataSourceImpl(
         httpClient: sl(),
       ));
-  sl.registerLazySingleton<TaskLocalDataSourceDrift>(
-      () => TaskLocalDataSourceDrift(
-            db: sl<OrganizerDriftDB>(),
-          ));
+  sl.registerLazySingleton<TaskLocalDataSourceDrift>(() => TaskLocalDataSourceDrift(
+        db: sl<OrganizerDriftDB>(),
+      ));
 
   // Task Repository
   sl.registerLazySingleton<TaskRepository>(() => TaskRepositoryDrift(
@@ -39,7 +38,7 @@ void taskInit() {
   sl.registerLazySingleton(() => AddTagItemsToTask(sl()));
   sl.registerLazySingleton(() => UpdateTagItemsOfTask(sl()));
   sl.registerLazySingleton(() => DeleteTagFromTask(sl()));
-  sl.registerLazySingleton(() => GetTagsByTaskId(sl()));
+  sl.registerLazySingleton(() => GetTagItemsByTaskId(sl()));
   sl.registerLazySingleton(() => AddReminderToTask(sl()));
   sl.registerLazySingleton(() => DeleteReminderFromTask(sl()));
   sl.registerLazySingleton(() => GetRemindersByTaskId(sl()));
@@ -69,7 +68,7 @@ void taskInit() {
         updateTagItemsOfTask: sl(),
         deleteTagFromTask: sl(),
       ));
-  sl.registerFactory(() => TaskBlocReminder(
+  sl.registerFactory(() => TaskReminderLinkBloc(
         getRemindersByTaskId: sl(),
         addReminderToTask: sl(),
         deleteReminderFromTask: sl(),

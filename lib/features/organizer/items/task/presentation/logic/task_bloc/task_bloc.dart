@@ -9,15 +9,15 @@ import 'package:fo_fe/features/organizer/items/task/domain/usecases/add_tag_item
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 
-part 'task_bloc_reminder.dart';
-part 'task_bloc_reminder_event.dart';
-part 'task_bloc_reminder_state.dart';
 part 'task_bloc_task.dart';
 part 'task_bloc_task_event.dart';
 part 'task_bloc_task_state.dart';
 part 'task_bloc_user.dart';
 part 'task_bloc_user_event.dart';
 part 'task_bloc_user_state.dart';
+part 'task_reminder_link/task_reminder_link_bloc.dart';
+part 'task_reminder_link/task_reminder_link_bloc_event.dart';
+part 'task_reminder_link/task_reminder_link_bloc_state.dart';
 part 'task_tag_link/task_tag_link_bloc.dart';
 part 'task_tag_link/task_tag_link_bloc_event.dart';
 part 'task_tag_link/task_tag_link_bloc_state.dart';
