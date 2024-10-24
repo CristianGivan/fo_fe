@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/error/failures.dart';
-import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
 import 'package:fo_fe/features/organizer/items/reminder/domain/entities/reminder_entity.dart';
 import 'package:fo_fe/features/organizer/items/tag/domain/entities/tag_entity.dart';
 import 'package:fo_fe/features/organizer/items/task/data/datasources/task_local_data_source.dart';
@@ -8,6 +7,7 @@ import 'package:fo_fe/features/organizer/items/task/data/datasources/task_remote
 import 'package:fo_fe/features/organizer/items/task/domain/repositories/task_repository.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/items/user/domain/entities/user_entity.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class TaskRepositoryImpl implements TaskRepository {
   final TaskLocalDataSource localDataSource;
@@ -37,8 +37,7 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<Either<Failure, int>> deleteReminderFromTask(
-      int taskId, int reminderId) {
+  Future<Either<Failure, int>> deleteReminderFromTask(int taskId, int reminderId) {
     // TODO: implement deleteReminderFromTask
     throw UnimplementedError();
   }
@@ -68,15 +67,13 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<Either<Failure, OrganizerItems<ReminderEntity>>> getRemindersByTaskId(
-      int taskId) {
+  Future<Either<Failure, OrganizerItems<ReminderEntity>>> getRemindersByTaskId(int taskId) {
     // TODO: implement getRemindersByTaskId
     throw UnimplementedError();
   }
 
   @override
-  Future<Either<Failure, OrganizerItems<TagEntity>>> getTagItemsByTaskId(
-      int taskId) {
+  Future<Either<Failure, OrganizerItems<TagEntity>>> getTagItemsByTaskId(int taskId) {
     // TODO: implement getTagsByTaskId
     throw UnimplementedError();
   }
@@ -100,15 +97,13 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<Either<Failure, OrganizerItems<TaskEntity>>> getTaskItemsByIdSet(
-      IdSet idSet) {
+  Future<Either<Failure, OrganizerItems<TaskEntity>>> getTaskItemsByIdSet(IdSet idSet) {
     // TODO: implement getTaskItemsByIdSet
     throw UnimplementedError();
   }
 
   @override
-  Future<Either<Failure, OrganizerItems<UserEntity>>> getUserItemsByTaskId(
-      int taskId) {
+  Future<Either<Failure, OrganizerItems<UserEntity>>> getUserItemsByTaskId(int taskId) {
     // TODO: implement getUsersByTaskId
     throw UnimplementedError();
   }
@@ -126,8 +121,7 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<Either<Failure, OrganizerItems<TagEntity>>> addTagItemsToTask(
-      int taskId, IdSet tags) {
+  Future<Either<Failure, OrganizerItems<TagEntity>>> addTagItemsToTask(int taskId, IdSet tags) {
     // TODO: implement addTagItemsToTask
     throw UnimplementedError();
   }

@@ -1,5 +1,11 @@
 Context is an organizer app, this app is in Flutter Dart it will be use on all platforms and I want to use Clean Architecture for this Use BLoc and GetIt and I use Drift for database. In the project I have the following items Note Task User Tag Reminder, and Note and Task can have tags, reminder and users
 
+Home
+- Authentication [Sign-in, Sign-up, AutoLogIn]
+- Organizer [Task, Note, Tag, Reminder, User]
+- Practice [Games, Practice, Test]
+- Settings [Display, View]
+
 240816
 
 Ca you help me to create a add_users_from_all_users_screen where I have to call getUserItemsAll to have a list with all users and in that list I can select the usesrs that I want to add, and the when I press an add button call addUserToUser for all users and go back to user_screen

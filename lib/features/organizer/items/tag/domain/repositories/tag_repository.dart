@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/error/failures.dart';
-import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
 import 'package:fo_fe/features/organizer/items/tag/domain/entities/tag_entity.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 abstract class TagRepository {
   Future<Either<Failure, int>> addTag(TagEntity tag);
@@ -14,6 +14,5 @@ abstract class TagRepository {
 
   Future<Either<Failure, OrganizerItems<TagEntity>>> getTagItemsAll();
 
-  Future<Either<Failure, OrganizerItems<TagEntity>>> getTagItemsByIdSet(
-      IdSet idSet);
+  Future<Either<Failure, OrganizerItems<TagEntity>>> getTagItemsByIdSet(IdSet idSet);
 }

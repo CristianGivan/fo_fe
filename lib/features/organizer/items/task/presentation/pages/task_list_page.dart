@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/presentation/pages/task_card_page.dart';
-import 'package:fo_fe/features/organizer/items/task/presentation/pages/task_view_page.dart';
-import 'package:fo_fe/features/organizer/items/task/presentation/screens/task_edit_screen.dart';
+import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
+import 'package:go_router/go_router.dart';
 
 class TaskListPage extends StatelessWidget {
   const TaskListPage({super.key});
@@ -12,21 +12,26 @@ class TaskListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<TaskBlocTask, TaskBlocState>(
       builder: (context, state) {
-        if (state is TaskLoadingBlocState) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (state is TaskLoadedBlocState) {
-          return ListView.builder(
-            itemCount: state.displayedTasks.size(),
-            itemBuilder: (context, index) {
-              final task = state.displayedTasks.getAt(index);
-              return _taskCardPage(task, context);
-            },
-          );
-        } else if (state is TaskErrorBlocState) {
-          return Center(child: Text(state.message));
-        } else {
-          return const Center(child: Text('No Tasks Available'));
+        switch (state.runtimeType) {
+          case TaskLoadingBlocState:
+            return const Center(child: CircularProgressIndicator());
+          case TaskLoadedBlocState:
+            return _buildTaskList(context, (state as TaskLoadedBlocState).displayedTasks);
+          case TaskErrorBlocState:
+            return Center(child: Text((state as TaskErrorBlocState).message));
+          default:
+            return const Center(child: Text('No Tasks Available'));
         }
+      },
+    );
+  }
+
+  Widget _buildTaskList(BuildContext context, OrganizerItems<TaskEntity> tasks) {
+    return ListView.builder(
+      itemCount: tasks.size(),
+      itemBuilder: (context, index) {
+        final task = tasks.getAt(index);
+        return _taskCardPage(task, context);
       },
     );
   }
@@ -38,16 +43,10 @@ class TaskListPage extends StatelessWidget {
         context.read<TaskBlocTask>().add(TaskUpdateBlocEvent(updatedTask));
       },
       onViewTask: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => TaskViewPage(task: task)),
-        );
+        context.pushNamed(TaskRouterNames.taskViewRouteName, extra: task);
       },
       onEditTask: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => TaskEditScreen(task: task)),
-        );
+        context.pushNamed(TaskRouterNames.taskEditRouteName, extra: task);
       },
       onDeleteTask: (task) {
         context.read<TaskBlocTask>().add(TaskDeleteBlocEvent(task.id));

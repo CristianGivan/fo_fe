@@ -2,20 +2,18 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/usecase/usecase.dart';
-import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 import '../../../user/domain/entities/user_entity.dart';
 import '../repositories/task_repository.dart';
 
-class GetUsersByTaskId
-    extends UseCase<OrganizerItems<UserEntity>, GetUsersByTaskIdParams> {
+class GetUsersByTaskId extends UseCase<OrganizerItems<UserEntity>, GetUsersByTaskIdParams> {
   final TaskRepository repository;
 
   GetUsersByTaskId(this.repository);
 
   @override
-  Future<Either<Failure, OrganizerItems<UserEntity>>> call(
-      GetUsersByTaskIdParams params) {
+  Future<Either<Failure, OrganizerItems<UserEntity>>> call(GetUsersByTaskIdParams params) {
     return repository.getUserItemsByTaskId(params.taskId);
   }
 }

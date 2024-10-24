@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
 import 'package:fo_fe/features/organizer/items/tag/presentation/pages/tag_list_link_page.dart';
 import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class TaskTagListPage extends StatelessWidget {
   final OrganizerItems<TagEntity> tagItems;
   final TaskEntity task;
 
-  const TaskTagListPage(
-      {super.key, required this.tagItems, required this.task});
+  const TaskTagListPage({super.key, required this.tagItems, required this.task});
 
   @override
   Widget build(BuildContext context) {

@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/error/failures.dart';
-import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
 import 'package:fo_fe/features/organizer/items/reminder/utils/reminder_exports.dart';
 import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class ReminderRepositoryImpl implements ReminderRepository {
   final TagLocalDataSource localDataSource;
@@ -22,22 +22,19 @@ class ReminderRepositoryImpl implements ReminderRepository {
   }
 
   @override
-  Future<Either<Failure, OrganizerItems<ReminderEntity>>>
-      getReminderItemsAll() {
+  Future<Either<Failure, OrganizerItems<ReminderEntity>>> getReminderItemsAll() {
     // TODO: implement getReminderItemsAll
     throw UnimplementedError();
   }
 
   @override
-  Future<Either<Failure, OrganizerItems<ReminderEntity>>>
-      getReminderItemsByIdSet(IdSet idSet) {
+  Future<Either<Failure, OrganizerItems<ReminderEntity>>> getReminderItemsByIdSet(IdSet idSet) {
     // TODO: implement getReminderItemsByIdSet
     throw UnimplementedError();
   }
 
   @override
-  Future<Either<Failure, OrganizerItems<ReminderEntity>>>
-      getReminderItemsByTaskId(int taskId) {
+  Future<Either<Failure, OrganizerItems<ReminderEntity>>> getReminderItemsByTaskId(int taskId) {
     // TODO: implement getReminderItemsByTaskId
     throw UnimplementedError();
   }

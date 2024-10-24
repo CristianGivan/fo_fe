@@ -3,36 +3,35 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i9;
+import 'dart:async' as _i8;
 import 'dart:convert' as _i18;
 import 'dart:typed_data' as _i19;
 
 import 'package:dartz/dartz.dart' as _i4;
 import 'package:data_connection_checker_nulls/data_connection_checker_nulls.dart'
-    as _i6;
+    as _i5;
 import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart' as _i3;
 import 'package:fo_fe/core/error/failures.dart' as _i13;
 import 'package:fo_fe/core/utils/converters/input_converter.dart' as _i20;
-import 'package:fo_fe/core/utils/network/network_info.dart' as _i8;
-import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart'
-    as _i5;
+import 'package:fo_fe/core/utils/network/network_info.dart' as _i7;
 import 'package:fo_fe/features/organizer/items/reminder/domain/entities/reminder_entity.dart'
     as _i17;
 import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart'
     as _i16;
 import 'package:fo_fe/features/organizer/items/task/data/datasources/task_local_data_source_drift.dart'
-    as _i12;
+    as _i11;
 import 'package:fo_fe/features/organizer/items/task/data/datasources/task_remote_data_source_impl.dart'
-    as _i10;
+    as _i9;
 import 'package:fo_fe/features/organizer/items/task/domain/repositories/task_repository.dart'
-    as _i7;
+    as _i6;
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart'
     as _i14;
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart'
     as _i15;
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart' as _i12;
 import 'package:http/http.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i11;
+import 'package:mockito/src/dummies.dart' as _i10;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -88,9 +87,8 @@ class _FakeDateTime_3 extends _i1.SmartFake implements DateTime {
         );
 }
 
-class _FakeOrganizerItems_4<T1 extends _i5.OrganizerItemEntity>
-    extends _i1.SmartFake implements _i5.OrganizerItems<T1> {
-  _FakeOrganizerItems_4(
+class _FakeDuration_4 extends _i1.SmartFake implements Duration {
+  _FakeDuration_4(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -99,8 +97,9 @@ class _FakeOrganizerItems_4<T1 extends _i5.OrganizerItemEntity>
         );
 }
 
-class _FakeDuration_5 extends _i1.SmartFake implements Duration {
-  _FakeDuration_5(
+class _FakeAddressCheckResult_5 extends _i1.SmartFake
+    implements _i5.AddressCheckResult {
+  _FakeAddressCheckResult_5(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -109,9 +108,8 @@ class _FakeDuration_5 extends _i1.SmartFake implements Duration {
         );
 }
 
-class _FakeAddressCheckResult_6 extends _i1.SmartFake
-    implements _i6.AddressCheckResult {
-  _FakeAddressCheckResult_6(
+class _FakeResponse_6 extends _i1.SmartFake implements _i2.Response {
+  _FakeResponse_6(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -120,19 +118,9 @@ class _FakeAddressCheckResult_6 extends _i1.SmartFake
         );
 }
 
-class _FakeResponse_7 extends _i1.SmartFake implements _i2.Response {
-  _FakeResponse_7(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
-class _FakeStreamedResponse_8 extends _i1.SmartFake
+class _FakeStreamedResponse_7 extends _i1.SmartFake
     implements _i2.StreamedResponse {
-  _FakeStreamedResponse_8(
+  _FakeStreamedResponse_7(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -141,9 +129,9 @@ class _FakeStreamedResponse_8 extends _i1.SmartFake
         );
 }
 
-class _FakeTaskRepository_9 extends _i1.SmartFake
-    implements _i7.TaskRepository {
-  _FakeTaskRepository_9(
+class _FakeTaskRepository_8 extends _i1.SmartFake
+    implements _i6.TaskRepository {
+  _FakeTaskRepository_8(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -155,20 +143,20 @@ class _FakeTaskRepository_9 extends _i1.SmartFake
 /// A class which mocks [NetworkInfo].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockNetworkInfo extends _i1.Mock implements _i8.NetworkInfo {
+class MockNetworkInfo extends _i1.Mock implements _i7.NetworkInfo {
   @override
-  _i9.Future<bool> get isInternet => (super.noSuchMethod(
+  _i8.Future<bool> get isInternet => (super.noSuchMethod(
         Invocation.getter(#isInternet),
-        returnValue: _i9.Future<bool>.value(false),
-        returnValueForMissingStub: _i9.Future<bool>.value(false),
-      ) as _i9.Future<bool>);
+        returnValue: _i8.Future<bool>.value(false),
+        returnValueForMissingStub: _i8.Future<bool>.value(false),
+      ) as _i8.Future<bool>);
 }
 
 /// A class which mocks [TaskRemoteDataSourceImpl].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockTaskRemoteDataSourceImpl extends _i1.Mock
-    implements _i10.TaskRemoteDataSourceImpl {
+    implements _i9.TaskRemoteDataSourceImpl {
   @override
   _i2.Client get httpClient => (super.noSuchMethod(
         Invocation.getter(#httpClient),
@@ -201,32 +189,32 @@ class MockTaskRemoteDataSourceImpl extends _i1.Mock
   @override
   String get serverUrl => (super.noSuchMethod(
         Invocation.getter(#serverUrl),
-        returnValue: _i11.dummyValue<String>(
+        returnValue: _i10.dummyValue<String>(
           this,
           Invocation.getter(#serverUrl),
         ),
-        returnValueForMissingStub: _i11.dummyValue<String>(
+        returnValueForMissingStub: _i10.dummyValue<String>(
           this,
           Invocation.getter(#serverUrl),
         ),
       ) as String);
 
   @override
-  _i9.Future<void> deleteTask(int? id) => (super.noSuchMethod(
+  _i8.Future<void> deleteTask(int? id) => (super.noSuchMethod(
         Invocation.method(
           #deleteTask,
           [id],
         ),
-        returnValue: _i9.Future<void>.value(),
-        returnValueForMissingStub: _i9.Future<void>.value(),
-      ) as _i9.Future<void>);
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
 }
 
 /// A class which mocks [TaskLocalDataSourceDrift].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockTaskLocalDataSourceDrift extends _i1.Mock
-    implements _i12.TaskLocalDataSourceDrift {
+    implements _i11.TaskLocalDataSourceDrift {
   @override
   _i3.OrganizerDriftDB get db => (super.noSuchMethod(
         Invocation.getter(#db),
@@ -241,110 +229,110 @@ class MockTaskLocalDataSourceDrift extends _i1.Mock
       ) as _i3.OrganizerDriftDB);
 
   @override
-  _i9.Future<int> addTask(_i3.TaskTableDriftCompanion? taskCompanion) =>
+  _i8.Future<int> addTask(_i3.TaskTableDriftCompanion? taskCompanion) =>
       (super.noSuchMethod(
         Invocation.method(
           #addTask,
           [taskCompanion],
         ),
-        returnValue: _i9.Future<int>.value(0),
-        returnValueForMissingStub: _i9.Future<int>.value(0),
-      ) as _i9.Future<int>);
+        returnValue: _i8.Future<int>.value(0),
+        returnValueForMissingStub: _i8.Future<int>.value(0),
+      ) as _i8.Future<int>);
 
   @override
-  _i9.Future<bool> updateTask(_i3.TaskTableDriftCompanion? taskCompanion) =>
+  _i8.Future<bool> updateTask(_i3.TaskTableDriftCompanion? taskCompanion) =>
       (super.noSuchMethod(
         Invocation.method(
           #updateTask,
           [taskCompanion],
         ),
-        returnValue: _i9.Future<bool>.value(false),
-        returnValueForMissingStub: _i9.Future<bool>.value(false),
-      ) as _i9.Future<bool>);
+        returnValue: _i8.Future<bool>.value(false),
+        returnValueForMissingStub: _i8.Future<bool>.value(false),
+      ) as _i8.Future<bool>);
 
   @override
-  _i9.Future<int> deleteTask(int? taskId) => (super.noSuchMethod(
+  _i8.Future<int> deleteTask(int? taskId) => (super.noSuchMethod(
         Invocation.method(
           #deleteTask,
           [taskId],
         ),
-        returnValue: _i9.Future<int>.value(0),
-        returnValueForMissingStub: _i9.Future<int>.value(0),
-      ) as _i9.Future<int>);
+        returnValue: _i8.Future<int>.value(0),
+        returnValueForMissingStub: _i8.Future<int>.value(0),
+      ) as _i8.Future<int>);
 
   @override
-  _i9.Future<_i3.TaskTableDriftG?> getTaskById(int? id) => (super.noSuchMethod(
+  _i8.Future<_i3.TaskTableDriftG?> getTaskById(int? id) => (super.noSuchMethod(
         Invocation.method(
           #getTaskById,
           [id],
         ),
-        returnValue: _i9.Future<_i3.TaskTableDriftG?>.value(),
-        returnValueForMissingStub: _i9.Future<_i3.TaskTableDriftG?>.value(),
-      ) as _i9.Future<_i3.TaskTableDriftG?>);
+        returnValue: _i8.Future<_i3.TaskTableDriftG?>.value(),
+        returnValueForMissingStub: _i8.Future<_i3.TaskTableDriftG?>.value(),
+      ) as _i8.Future<_i3.TaskTableDriftG?>);
 
   @override
-  _i9.Future<List<_i3.TaskTableDriftG>?> getTaskItemsAll() =>
+  _i8.Future<List<_i3.TaskTableDriftG>?> getTaskItemsAll() =>
       (super.noSuchMethod(
         Invocation.method(
           #getTaskItemsAll,
           [],
         ),
-        returnValue: _i9.Future<List<_i3.TaskTableDriftG>?>.value(),
+        returnValue: _i8.Future<List<_i3.TaskTableDriftG>?>.value(),
         returnValueForMissingStub:
-            _i9.Future<List<_i3.TaskTableDriftG>?>.value(),
-      ) as _i9.Future<List<_i3.TaskTableDriftG>?>);
+            _i8.Future<List<_i3.TaskTableDriftG>?>.value(),
+      ) as _i8.Future<List<_i3.TaskTableDriftG>?>);
 
   @override
-  _i9.Future<List<_i3.TaskTableDriftG?>?> getTaskItemsByIdSet(
-          _i5.IdSet? idSet) =>
+  _i8.Future<List<_i3.TaskTableDriftG?>?> getTaskItemsByIdSet(
+          _i12.IdSet? idSet) =>
       (super.noSuchMethod(
         Invocation.method(
           #getTaskItemsByIdSet,
           [idSet],
         ),
-        returnValue: _i9.Future<List<_i3.TaskTableDriftG?>?>.value(),
+        returnValue: _i8.Future<List<_i3.TaskTableDriftG?>?>.value(),
         returnValueForMissingStub:
-            _i9.Future<List<_i3.TaskTableDriftG?>?>.value(),
-      ) as _i9.Future<List<_i3.TaskTableDriftG?>?>);
+            _i8.Future<List<_i3.TaskTableDriftG?>?>.value(),
+      ) as _i8.Future<List<_i3.TaskTableDriftG?>?>);
 
   @override
-  _i9.Future<List<_i3.UserTableDriftG>?> getUserItemsByTaskId(int? taskId) =>
+  _i8.Future<List<_i3.UserTableDriftG>?> getUserItemsByTaskId(int? taskId) =>
       (super.noSuchMethod(
         Invocation.method(
           #getUserItemsByTaskId,
           [taskId],
         ),
-        returnValue: _i9.Future<List<_i3.UserTableDriftG>?>.value(),
+        returnValue: _i8.Future<List<_i3.UserTableDriftG>?>.value(),
         returnValueForMissingStub:
-            _i9.Future<List<_i3.UserTableDriftG>?>.value(),
-      ) as _i9.Future<List<_i3.UserTableDriftG>?>);
+            _i8.Future<List<_i3.UserTableDriftG>?>.value(),
+      ) as _i8.Future<List<_i3.UserTableDriftG>?>);
 
   @override
-  _i9.Future<List<_i3.ReminderTableDriftG>?> getRemindersByTaskId(
+  _i8.Future<List<_i3.ReminderTableDriftG>?> getRemindersByTaskId(
           int? taskId) =>
       (super.noSuchMethod(
         Invocation.method(
           #getRemindersByTaskId,
           [taskId],
         ),
-        returnValue: _i9.Future<List<_i3.ReminderTableDriftG>?>.value(),
+        returnValue: _i8.Future<List<_i3.ReminderTableDriftG>?>.value(),
         returnValueForMissingStub:
-            _i9.Future<List<_i3.ReminderTableDriftG>?>.value(),
-      ) as _i9.Future<List<_i3.ReminderTableDriftG>?>);
+            _i8.Future<List<_i3.ReminderTableDriftG>?>.value(),
+      ) as _i8.Future<List<_i3.ReminderTableDriftG>?>);
 
   @override
-  _i9.Future<_i3.UserTableDriftG?> getCreatorById(int? creatorId) =>
+  _i8.Future<_i3.UserTableDriftG?> getCreatorById(int? creatorId) =>
       (super.noSuchMethod(
         Invocation.method(
           #getCreatorById,
           [creatorId],
         ),
-        returnValue: _i9.Future<_i3.UserTableDriftG?>.value(),
-        returnValueForMissingStub: _i9.Future<_i3.UserTableDriftG?>.value(),
-      ) as _i9.Future<_i3.UserTableDriftG?>);
+        returnValue: _i8.Future<_i3.UserTableDriftG?>.value(),
+        returnValueForMissingStub: _i8.Future<_i3.UserTableDriftG?>.value(),
+      ) as _i8.Future<_i3.UserTableDriftG?>);
 
   @override
-  _i9.Future<int> addUserToTask(
+  _i8.Future<int> addUserToTask(
     int? taskId,
     int? userId,
   ) =>
@@ -356,12 +344,12 @@ class MockTaskLocalDataSourceDrift extends _i1.Mock
             userId,
           ],
         ),
-        returnValue: _i9.Future<int>.value(0),
-        returnValueForMissingStub: _i9.Future<int>.value(0),
-      ) as _i9.Future<int>);
+        returnValue: _i8.Future<int>.value(0),
+        returnValueForMissingStub: _i8.Future<int>.value(0),
+      ) as _i8.Future<int>);
 
   @override
-  _i9.Future<int> addReminderToTask(
+  _i8.Future<int> addReminderToTask(
     int? taskId,
     int? reminderId,
   ) =>
@@ -373,12 +361,12 @@ class MockTaskLocalDataSourceDrift extends _i1.Mock
             reminderId,
           ],
         ),
-        returnValue: _i9.Future<int>.value(0),
-        returnValueForMissingStub: _i9.Future<int>.value(0),
-      ) as _i9.Future<int>);
+        returnValue: _i8.Future<int>.value(0),
+        returnValueForMissingStub: _i8.Future<int>.value(0),
+      ) as _i8.Future<int>);
 
   @override
-  _i9.Future<int> deleteUserFromTask(
+  _i8.Future<int> deleteUserFromTask(
     int? taskId,
     int? userId,
   ) =>
@@ -390,12 +378,12 @@ class MockTaskLocalDataSourceDrift extends _i1.Mock
             userId,
           ],
         ),
-        returnValue: _i9.Future<int>.value(0),
-        returnValueForMissingStub: _i9.Future<int>.value(0),
-      ) as _i9.Future<int>);
+        returnValue: _i8.Future<int>.value(0),
+        returnValueForMissingStub: _i8.Future<int>.value(0),
+      ) as _i8.Future<int>);
 
   @override
-  _i9.Future<int> deleteReminderFromTask(
+  _i8.Future<int> deleteReminderFromTask(
     int? taskId,
     int? reminderId,
   ) =>
@@ -407,24 +395,24 @@ class MockTaskLocalDataSourceDrift extends _i1.Mock
             reminderId,
           ],
         ),
-        returnValue: _i9.Future<int>.value(0),
-        returnValueForMissingStub: _i9.Future<int>.value(0),
-      ) as _i9.Future<int>);
+        returnValue: _i8.Future<int>.value(0),
+        returnValueForMissingStub: _i8.Future<int>.value(0),
+      ) as _i8.Future<int>);
 
   @override
-  _i9.Future<List<_i3.TagTableDriftG>?> getTagItemsByTaskId(int? taskId) =>
+  _i8.Future<List<_i3.TagTableDriftG>?> getTagItemsByTaskId(int? taskId) =>
       (super.noSuchMethod(
         Invocation.method(
           #getTagItemsByTaskId,
           [taskId],
         ),
-        returnValue: _i9.Future<List<_i3.TagTableDriftG>?>.value(),
+        returnValue: _i8.Future<List<_i3.TagTableDriftG>?>.value(),
         returnValueForMissingStub:
-            _i9.Future<List<_i3.TagTableDriftG>?>.value(),
-      ) as _i9.Future<List<_i3.TagTableDriftG>?>);
+            _i8.Future<List<_i3.TagTableDriftG>?>.value(),
+      ) as _i8.Future<List<_i3.TagTableDriftG>?>);
 
   @override
-  _i9.Future<int> addTagToTask(
+  _i8.Future<int> addTagToTask(
     int? taskId,
     int? tagId,
   ) =>
@@ -436,12 +424,12 @@ class MockTaskLocalDataSourceDrift extends _i1.Mock
             tagId,
           ],
         ),
-        returnValue: _i9.Future<int>.value(0),
-        returnValueForMissingStub: _i9.Future<int>.value(0),
-      ) as _i9.Future<int>);
+        returnValue: _i8.Future<int>.value(0),
+        returnValueForMissingStub: _i8.Future<int>.value(0),
+      ) as _i8.Future<int>);
 
   @override
-  _i9.Future<void> addTagItemsToTask(
+  _i8.Future<void> addTagItemsToTask(
     int? taskId,
     List<int>? tags,
   ) =>
@@ -453,12 +441,12 @@ class MockTaskLocalDataSourceDrift extends _i1.Mock
             tags,
           ],
         ),
-        returnValue: _i9.Future<void>.value(),
-        returnValueForMissingStub: _i9.Future<void>.value(),
-      ) as _i9.Future<void>);
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
 
   @override
-  _i9.Future<int> deleteTagFromTask(
+  _i8.Future<int> deleteTagFromTask(
     int? taskId,
     int? tagId,
   ) =>
@@ -470,12 +458,12 @@ class MockTaskLocalDataSourceDrift extends _i1.Mock
             tagId,
           ],
         ),
-        returnValue: _i9.Future<int>.value(0),
-        returnValueForMissingStub: _i9.Future<int>.value(0),
-      ) as _i9.Future<int>);
+        returnValue: _i8.Future<int>.value(0),
+        returnValueForMissingStub: _i8.Future<int>.value(0),
+      ) as _i8.Future<int>);
 
   @override
-  _i9.Future<void> deleteTagItemsFromTask(
+  _i8.Future<void> deleteTagItemsFromTask(
     int? taskId,
     List<int>? tags,
   ) =>
@@ -487,23 +475,23 @@ class MockTaskLocalDataSourceDrift extends _i1.Mock
             tags,
           ],
         ),
-        returnValue: _i9.Future<void>.value(),
-        returnValueForMissingStub: _i9.Future<void>.value(),
-      ) as _i9.Future<void>);
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
 }
 
 /// A class which mocks [TaskRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
+class MockTaskRepository extends _i1.Mock implements _i6.TaskRepository {
   @override
-  _i9.Future<_i4.Either<_i13.Failure, int>> addTask(_i14.TaskEntity? task) =>
+  _i8.Future<_i4.Either<_i13.Failure, int>> addTask(_i14.TaskEntity? task) =>
       (super.noSuchMethod(
         Invocation.method(
           #addTask,
           [task],
         ),
-        returnValue: _i9.Future<_i4.Either<_i13.Failure, int>>.value(
+        returnValue: _i8.Future<_i4.Either<_i13.Failure, int>>.value(
             _FakeEither_2<_i13.Failure, int>(
           this,
           Invocation.method(
@@ -512,7 +500,7 @@ class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
           ),
         )),
         returnValueForMissingStub:
-            _i9.Future<_i4.Either<_i13.Failure, int>>.value(
+            _i8.Future<_i4.Either<_i13.Failure, int>>.value(
                 _FakeEither_2<_i13.Failure, int>(
           this,
           Invocation.method(
@@ -520,17 +508,17 @@ class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
             [task],
           ),
         )),
-      ) as _i9.Future<_i4.Either<_i13.Failure, int>>);
+      ) as _i8.Future<_i4.Either<_i13.Failure, int>>);
 
   @override
-  _i9.Future<_i4.Either<_i13.Failure, bool>> updateTask(
+  _i8.Future<_i4.Either<_i13.Failure, bool>> updateTask(
           _i14.TaskEntity? task) =>
       (super.noSuchMethod(
         Invocation.method(
           #updateTask,
           [task],
         ),
-        returnValue: _i9.Future<_i4.Either<_i13.Failure, bool>>.value(
+        returnValue: _i8.Future<_i4.Either<_i13.Failure, bool>>.value(
             _FakeEither_2<_i13.Failure, bool>(
           this,
           Invocation.method(
@@ -539,7 +527,7 @@ class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
           ),
         )),
         returnValueForMissingStub:
-            _i9.Future<_i4.Either<_i13.Failure, bool>>.value(
+            _i8.Future<_i4.Either<_i13.Failure, bool>>.value(
                 _FakeEither_2<_i13.Failure, bool>(
           this,
           Invocation.method(
@@ -547,16 +535,16 @@ class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
             [task],
           ),
         )),
-      ) as _i9.Future<_i4.Either<_i13.Failure, bool>>);
+      ) as _i8.Future<_i4.Either<_i13.Failure, bool>>);
 
   @override
-  _i9.Future<_i4.Either<_i13.Failure, int>> deleteTask(int? taskId) =>
+  _i8.Future<_i4.Either<_i13.Failure, int>> deleteTask(int? taskId) =>
       (super.noSuchMethod(
         Invocation.method(
           #deleteTask,
           [taskId],
         ),
-        returnValue: _i9.Future<_i4.Either<_i13.Failure, int>>.value(
+        returnValue: _i8.Future<_i4.Either<_i13.Failure, int>>.value(
             _FakeEither_2<_i13.Failure, int>(
           this,
           Invocation.method(
@@ -565,7 +553,7 @@ class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
           ),
         )),
         returnValueForMissingStub:
-            _i9.Future<_i4.Either<_i13.Failure, int>>.value(
+            _i8.Future<_i4.Either<_i13.Failure, int>>.value(
                 _FakeEither_2<_i13.Failure, int>(
           this,
           Invocation.method(
@@ -573,17 +561,17 @@ class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
             [taskId],
           ),
         )),
-      ) as _i9.Future<_i4.Either<_i13.Failure, int>>);
+      ) as _i8.Future<_i4.Either<_i13.Failure, int>>);
 
   @override
-  _i9.Future<_i4.Either<_i13.Failure, _i14.TaskEntity>> getTaskById(int? id) =>
+  _i8.Future<_i4.Either<_i13.Failure, _i14.TaskEntity>> getTaskById(int? id) =>
       (super.noSuchMethod(
         Invocation.method(
           #getTaskById,
           [id],
         ),
         returnValue:
-            _i9.Future<_i4.Either<_i13.Failure, _i14.TaskEntity>>.value(
+            _i8.Future<_i4.Either<_i13.Failure, _i14.TaskEntity>>.value(
                 _FakeEither_2<_i13.Failure, _i14.TaskEntity>(
           this,
           Invocation.method(
@@ -592,7 +580,7 @@ class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
           ),
         )),
         returnValueForMissingStub:
-            _i9.Future<_i4.Either<_i13.Failure, _i14.TaskEntity>>.value(
+            _i8.Future<_i4.Either<_i13.Failure, _i14.TaskEntity>>.value(
                 _FakeEither_2<_i13.Failure, _i14.TaskEntity>(
           this,
           Invocation.method(
@@ -600,16 +588,16 @@ class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
             [id],
           ),
         )),
-      ) as _i9.Future<_i4.Either<_i13.Failure, _i14.TaskEntity>>);
+      ) as _i8.Future<_i4.Either<_i13.Failure, _i14.TaskEntity>>);
 
   @override
-  _i9.Future<_i4.Either<_i13.Failure, _i14.TaskEntityLazyLoaded>>
+  _i8.Future<_i4.Either<_i13.Failure, _i14.TaskEntityLazyLoaded>>
       getTaskByIdLazyLoaded(int? id) => (super.noSuchMethod(
             Invocation.method(
               #getTaskByIdLazyLoaded,
               [id],
             ),
-            returnValue: _i9.Future<
+            returnValue: _i8.Future<
                     _i4.Either<_i13.Failure, _i14.TaskEntityLazyLoaded>>.value(
                 _FakeEither_2<_i13.Failure, _i14.TaskEntityLazyLoaded>(
               this,
@@ -618,7 +606,7 @@ class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
                 [id],
               ),
             )),
-            returnValueForMissingStub: _i9.Future<
+            returnValueForMissingStub: _i8.Future<
                     _i4.Either<_i13.Failure, _i14.TaskEntityLazyLoaded>>.value(
                 _FakeEither_2<_i13.Failure, _i14.TaskEntityLazyLoaded>(
               this,
@@ -627,102 +615,102 @@ class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
                 [id],
               ),
             )),
-          ) as _i9.Future<_i4.Either<_i13.Failure, _i14.TaskEntityLazyLoaded>>);
+          ) as _i8.Future<_i4.Either<_i13.Failure, _i14.TaskEntityLazyLoaded>>);
 
   @override
-  _i9.Future<
+  _i8.Future<
       _i4.Either<_i13.Failure,
-          _i5.OrganizerItems<_i14.TaskEntity>>> getTaskItemsAll() =>
+          _i12.OrganizerItems<_i14.TaskEntity>>> getTaskItemsAll() =>
       (super.noSuchMethod(
         Invocation.method(
           #getTaskItemsAll,
           [],
         ),
-        returnValue: _i9.Future<
+        returnValue: _i8.Future<
                 _i4.Either<_i13.Failure,
-                    _i5.OrganizerItems<_i14.TaskEntity>>>.value(
-            _FakeEither_2<_i13.Failure, _i5.OrganizerItems<_i14.TaskEntity>>(
+                    _i12.OrganizerItems<_i14.TaskEntity>>>.value(
+            _FakeEither_2<_i13.Failure, _i12.OrganizerItems<_i14.TaskEntity>>(
           this,
           Invocation.method(
             #getTaskItemsAll,
             [],
           ),
         )),
-        returnValueForMissingStub: _i9.Future<
+        returnValueForMissingStub: _i8.Future<
                 _i4.Either<_i13.Failure,
-                    _i5.OrganizerItems<_i14.TaskEntity>>>.value(
-            _FakeEither_2<_i13.Failure, _i5.OrganizerItems<_i14.TaskEntity>>(
+                    _i12.OrganizerItems<_i14.TaskEntity>>>.value(
+            _FakeEither_2<_i13.Failure, _i12.OrganizerItems<_i14.TaskEntity>>(
           this,
           Invocation.method(
             #getTaskItemsAll,
             [],
           ),
         )),
-      ) as _i9.Future<
-          _i4.Either<_i13.Failure, _i5.OrganizerItems<_i14.TaskEntity>>>);
+      ) as _i8.Future<
+          _i4.Either<_i13.Failure, _i12.OrganizerItems<_i14.TaskEntity>>>);
 
   @override
-  _i9.Future<_i4.Either<_i13.Failure, _i5.OrganizerItems<_i14.TaskEntity>>>
-      getTaskItemsByIdSet(_i5.IdSet? idSet) => (super.noSuchMethod(
+  _i8.Future<_i4.Either<_i13.Failure, _i12.OrganizerItems<_i14.TaskEntity>>>
+      getTaskItemsByIdSet(_i12.IdSet? idSet) => (super.noSuchMethod(
             Invocation.method(
               #getTaskItemsByIdSet,
               [idSet],
             ),
-            returnValue: _i9.Future<
+            returnValue: _i8.Future<
                 _i4.Either<_i13.Failure,
-                    _i5.OrganizerItems<_i14.TaskEntity>>>.value(_FakeEither_2<
-                _i13.Failure, _i5.OrganizerItems<_i14.TaskEntity>>(
+                    _i12.OrganizerItems<_i14.TaskEntity>>>.value(_FakeEither_2<
+                _i13.Failure, _i12.OrganizerItems<_i14.TaskEntity>>(
               this,
               Invocation.method(
                 #getTaskItemsByIdSet,
                 [idSet],
               ),
             )),
-            returnValueForMissingStub: _i9.Future<
+            returnValueForMissingStub: _i8.Future<
                 _i4.Either<_i13.Failure,
-                    _i5.OrganizerItems<_i14.TaskEntity>>>.value(_FakeEither_2<
-                _i13.Failure, _i5.OrganizerItems<_i14.TaskEntity>>(
+                    _i12.OrganizerItems<_i14.TaskEntity>>>.value(_FakeEither_2<
+                _i13.Failure, _i12.OrganizerItems<_i14.TaskEntity>>(
               this,
               Invocation.method(
                 #getTaskItemsByIdSet,
                 [idSet],
               ),
             )),
-          ) as _i9.Future<
-              _i4.Either<_i13.Failure, _i5.OrganizerItems<_i14.TaskEntity>>>);
+          ) as _i8.Future<
+              _i4.Either<_i13.Failure, _i12.OrganizerItems<_i14.TaskEntity>>>);
 
   @override
-  _i9.Future<_i4.Either<_i13.Failure, _i5.OrganizerItems<_i15.UserEntity>>>
+  _i8.Future<_i4.Either<_i13.Failure, _i12.OrganizerItems<_i15.UserEntity>>>
       getUserItemsByTaskId(int? taskId) => (super.noSuchMethod(
             Invocation.method(
               #getUserItemsByTaskId,
               [taskId],
             ),
-            returnValue: _i9.Future<
+            returnValue: _i8.Future<
                 _i4.Either<_i13.Failure,
-                    _i5.OrganizerItems<_i15.UserEntity>>>.value(_FakeEither_2<
-                _i13.Failure, _i5.OrganizerItems<_i15.UserEntity>>(
+                    _i12.OrganizerItems<_i15.UserEntity>>>.value(_FakeEither_2<
+                _i13.Failure, _i12.OrganizerItems<_i15.UserEntity>>(
               this,
               Invocation.method(
                 #getUserItemsByTaskId,
                 [taskId],
               ),
             )),
-            returnValueForMissingStub: _i9.Future<
+            returnValueForMissingStub: _i8.Future<
                 _i4.Either<_i13.Failure,
-                    _i5.OrganizerItems<_i15.UserEntity>>>.value(_FakeEither_2<
-                _i13.Failure, _i5.OrganizerItems<_i15.UserEntity>>(
+                    _i12.OrganizerItems<_i15.UserEntity>>>.value(_FakeEither_2<
+                _i13.Failure, _i12.OrganizerItems<_i15.UserEntity>>(
               this,
               Invocation.method(
                 #getUserItemsByTaskId,
                 [taskId],
               ),
             )),
-          ) as _i9.Future<
-              _i4.Either<_i13.Failure, _i5.OrganizerItems<_i15.UserEntity>>>);
+          ) as _i8.Future<
+              _i4.Either<_i13.Failure, _i12.OrganizerItems<_i15.UserEntity>>>);
 
   @override
-  _i9.Future<_i4.Either<_i13.Failure, _i15.UserEntity>> getCreatorById(
+  _i8.Future<_i4.Either<_i13.Failure, _i15.UserEntity>> getCreatorById(
           int? creatorId) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -730,7 +718,7 @@ class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
           [creatorId],
         ),
         returnValue:
-            _i9.Future<_i4.Either<_i13.Failure, _i15.UserEntity>>.value(
+            _i8.Future<_i4.Either<_i13.Failure, _i15.UserEntity>>.value(
                 _FakeEither_2<_i13.Failure, _i15.UserEntity>(
           this,
           Invocation.method(
@@ -739,7 +727,7 @@ class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
           ),
         )),
         returnValueForMissingStub:
-            _i9.Future<_i4.Either<_i13.Failure, _i15.UserEntity>>.value(
+            _i8.Future<_i4.Either<_i13.Failure, _i15.UserEntity>>.value(
                 _FakeEither_2<_i13.Failure, _i15.UserEntity>(
           this,
           Invocation.method(
@@ -747,10 +735,10 @@ class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
             [creatorId],
           ),
         )),
-      ) as _i9.Future<_i4.Either<_i13.Failure, _i15.UserEntity>>);
+      ) as _i8.Future<_i4.Either<_i13.Failure, _i15.UserEntity>>);
 
   @override
-  _i9.Future<_i4.Either<_i13.Failure, int>> addUserToTask(
+  _i8.Future<_i4.Either<_i13.Failure, int>> addUserToTask(
     int? taskId,
     int? userId,
   ) =>
@@ -762,7 +750,7 @@ class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
             userId,
           ],
         ),
-        returnValue: _i9.Future<_i4.Either<_i13.Failure, int>>.value(
+        returnValue: _i8.Future<_i4.Either<_i13.Failure, int>>.value(
             _FakeEither_2<_i13.Failure, int>(
           this,
           Invocation.method(
@@ -774,7 +762,7 @@ class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
           ),
         )),
         returnValueForMissingStub:
-            _i9.Future<_i4.Either<_i13.Failure, int>>.value(
+            _i8.Future<_i4.Either<_i13.Failure, int>>.value(
                 _FakeEither_2<_i13.Failure, int>(
           this,
           Invocation.method(
@@ -785,10 +773,10 @@ class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
             ],
           ),
         )),
-      ) as _i9.Future<_i4.Either<_i13.Failure, int>>);
+      ) as _i8.Future<_i4.Either<_i13.Failure, int>>);
 
   @override
-  _i9.Future<_i4.Either<_i13.Failure, int>> deleteUserFromTask(
+  _i8.Future<_i4.Either<_i13.Failure, int>> deleteUserFromTask(
     int? taskId,
     int? userId,
   ) =>
@@ -800,7 +788,7 @@ class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
             userId,
           ],
         ),
-        returnValue: _i9.Future<_i4.Either<_i13.Failure, int>>.value(
+        returnValue: _i8.Future<_i4.Either<_i13.Failure, int>>.value(
             _FakeEither_2<_i13.Failure, int>(
           this,
           Invocation.method(
@@ -812,7 +800,7 @@ class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
           ),
         )),
         returnValueForMissingStub:
-            _i9.Future<_i4.Either<_i13.Failure, int>>.value(
+            _i8.Future<_i4.Either<_i13.Failure, int>>.value(
                 _FakeEither_2<_i13.Failure, int>(
           this,
           Invocation.method(
@@ -823,40 +811,44 @@ class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
             ],
           ),
         )),
-      ) as _i9.Future<_i4.Either<_i13.Failure, int>>);
+      ) as _i8.Future<_i4.Either<_i13.Failure, int>>);
 
   @override
-  _i9.Future<_i4.Either<_i13.Failure, _i5.OrganizerItems<_i16.TagEntity>>>
-      getTagItemsByTaskId(int? taskId) => (super.noSuchMethod(
-            Invocation.method(
-              #getTagItemsByTaskId,
-              [taskId],
-            ),
-            returnValue: _i9.Future<
-                    _i4.Either<_i13.Failure,
-                        _i5.OrganizerItems<_i16.TagEntity>>>.value(
-                _FakeEither_2<_i13.Failure, _i5.OrganizerItems<_i16.TagEntity>>(
-              this,
-              Invocation.method(
-                #getTagItemsByTaskId,
-                [taskId],
-              ),
-            )),
-            returnValueForMissingStub: _i9.Future<
-                    _i4.Either<_i13.Failure,
-                        _i5.OrganizerItems<_i16.TagEntity>>>.value(
-                _FakeEither_2<_i13.Failure, _i5.OrganizerItems<_i16.TagEntity>>(
-              this,
-              Invocation.method(
-                #getTagItemsByTaskId,
-                [taskId],
-              ),
-            )),
-          ) as _i9.Future<
-              _i4.Either<_i13.Failure, _i5.OrganizerItems<_i16.TagEntity>>>);
+  _i8.Future<
+      _i4.Either<
+          _i13.Failure,
+          _i12
+          .OrganizerItems<_i16.TagEntity>>> getTagItemsByTaskId(int? taskId) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getTagItemsByTaskId,
+          [taskId],
+        ),
+        returnValue: _i8.Future<
+                _i4.Either<_i13.Failure,
+                    _i12.OrganizerItems<_i16.TagEntity>>>.value(
+            _FakeEither_2<_i13.Failure, _i12.OrganizerItems<_i16.TagEntity>>(
+          this,
+          Invocation.method(
+            #getTagItemsByTaskId,
+            [taskId],
+          ),
+        )),
+        returnValueForMissingStub: _i8.Future<
+                _i4.Either<_i13.Failure,
+                    _i12.OrganizerItems<_i16.TagEntity>>>.value(
+            _FakeEither_2<_i13.Failure, _i12.OrganizerItems<_i16.TagEntity>>(
+          this,
+          Invocation.method(
+            #getTagItemsByTaskId,
+            [taskId],
+          ),
+        )),
+      ) as _i8.Future<
+          _i4.Either<_i13.Failure, _i12.OrganizerItems<_i16.TagEntity>>>);
 
   @override
-  _i9.Future<_i4.Either<_i13.Failure, int>> addTagToTask(
+  _i8.Future<_i4.Either<_i13.Failure, int>> addTagToTask(
     int? taskId,
     int? tagId,
   ) =>
@@ -868,7 +860,7 @@ class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
             tagId,
           ],
         ),
-        returnValue: _i9.Future<_i4.Either<_i13.Failure, int>>.value(
+        returnValue: _i8.Future<_i4.Either<_i13.Failure, int>>.value(
             _FakeEither_2<_i13.Failure, int>(
           this,
           Invocation.method(
@@ -880,7 +872,7 @@ class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
           ),
         )),
         returnValueForMissingStub:
-            _i9.Future<_i4.Either<_i13.Failure, int>>.value(
+            _i8.Future<_i4.Either<_i13.Failure, int>>.value(
                 _FakeEither_2<_i13.Failure, int>(
           this,
           Invocation.method(
@@ -891,53 +883,54 @@ class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
             ],
           ),
         )),
-      ) as _i9.Future<_i4.Either<_i13.Failure, int>>);
+      ) as _i8.Future<_i4.Either<_i13.Failure, int>>);
 
   @override
-  _i9.Future<_i4.Either<_i13.Failure, _i5.OrganizerItems<_i16.TagEntity>>>
-      addTagItemsToTask(
+  _i8.Future<
+      _i4.Either<_i13.Failure,
+          _i12.OrganizerItems<_i16.TagEntity>>> addTagItemsToTask(
     int? taskId,
-    _i5.IdSet? tagIds,
+    _i12.IdSet? tagIds,
   ) =>
-          (super.noSuchMethod(
-            Invocation.method(
-              #addTagItemsToTask,
-              [
-                taskId,
-                tagIds,
-              ],
-            ),
-            returnValue: _i9.Future<
-                    _i4.Either<_i13.Failure,
-                        _i5.OrganizerItems<_i16.TagEntity>>>.value(
-                _FakeEither_2<_i13.Failure, _i5.OrganizerItems<_i16.TagEntity>>(
-              this,
-              Invocation.method(
-                #addTagItemsToTask,
-                [
-                  taskId,
-                  tagIds,
-                ],
-              ),
-            )),
-            returnValueForMissingStub: _i9.Future<
-                    _i4.Either<_i13.Failure,
-                        _i5.OrganizerItems<_i16.TagEntity>>>.value(
-                _FakeEither_2<_i13.Failure, _i5.OrganizerItems<_i16.TagEntity>>(
-              this,
-              Invocation.method(
-                #addTagItemsToTask,
-                [
-                  taskId,
-                  tagIds,
-                ],
-              ),
-            )),
-          ) as _i9.Future<
-              _i4.Either<_i13.Failure, _i5.OrganizerItems<_i16.TagEntity>>>);
+      (super.noSuchMethod(
+        Invocation.method(
+          #addTagItemsToTask,
+          [
+            taskId,
+            tagIds,
+          ],
+        ),
+        returnValue: _i8.Future<
+                _i4.Either<_i13.Failure,
+                    _i12.OrganizerItems<_i16.TagEntity>>>.value(
+            _FakeEither_2<_i13.Failure, _i12.OrganizerItems<_i16.TagEntity>>(
+          this,
+          Invocation.method(
+            #addTagItemsToTask,
+            [
+              taskId,
+              tagIds,
+            ],
+          ),
+        )),
+        returnValueForMissingStub: _i8.Future<
+                _i4.Either<_i13.Failure,
+                    _i12.OrganizerItems<_i16.TagEntity>>>.value(
+            _FakeEither_2<_i13.Failure, _i12.OrganizerItems<_i16.TagEntity>>(
+          this,
+          Invocation.method(
+            #addTagItemsToTask,
+            [
+              taskId,
+              tagIds,
+            ],
+          ),
+        )),
+      ) as _i8.Future<
+          _i4.Either<_i13.Failure, _i12.OrganizerItems<_i16.TagEntity>>>);
 
   @override
-  _i9.Future<_i4.Either<_i13.Failure, int>> deleteTagFromTask(
+  _i8.Future<_i4.Either<_i13.Failure, int>> deleteTagFromTask(
     int? taskId,
     int? tagId,
   ) =>
@@ -949,7 +942,7 @@ class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
             tagId,
           ],
         ),
-        returnValue: _i9.Future<_i4.Either<_i13.Failure, int>>.value(
+        returnValue: _i8.Future<_i4.Either<_i13.Failure, int>>.value(
             _FakeEither_2<_i13.Failure, int>(
           this,
           Invocation.method(
@@ -961,7 +954,7 @@ class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
           ),
         )),
         returnValueForMissingStub:
-            _i9.Future<_i4.Either<_i13.Failure, int>>.value(
+            _i8.Future<_i4.Either<_i13.Failure, int>>.value(
                 _FakeEither_2<_i13.Failure, int>(
           this,
           Invocation.method(
@@ -972,90 +965,91 @@ class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
             ],
           ),
         )),
-      ) as _i9.Future<_i4.Either<_i13.Failure, int>>);
+      ) as _i8.Future<_i4.Either<_i13.Failure, int>>);
 
   @override
-  _i9.Future<_i4.Either<_i13.Failure, _i5.OrganizerItems<_i16.TagEntity>>>
-      updateTagItemOfTask(
+  _i8.Future<
+      _i4.Either<_i13.Failure,
+          _i12.OrganizerItems<_i16.TagEntity>>> updateTagItemOfTask(
     int? taskId,
     List<int>? tagItems,
     List<int>? updatedTagItems,
   ) =>
-          (super.noSuchMethod(
-            Invocation.method(
-              #updateTagItemOfTask,
-              [
-                taskId,
-                tagItems,
-                updatedTagItems,
-              ],
-            ),
-            returnValue: _i9.Future<
-                    _i4.Either<_i13.Failure,
-                        _i5.OrganizerItems<_i16.TagEntity>>>.value(
-                _FakeEither_2<_i13.Failure, _i5.OrganizerItems<_i16.TagEntity>>(
-              this,
-              Invocation.method(
-                #updateTagItemOfTask,
-                [
-                  taskId,
-                  tagItems,
-                  updatedTagItems,
-                ],
-              ),
-            )),
-            returnValueForMissingStub: _i9.Future<
-                    _i4.Either<_i13.Failure,
-                        _i5.OrganizerItems<_i16.TagEntity>>>.value(
-                _FakeEither_2<_i13.Failure, _i5.OrganizerItems<_i16.TagEntity>>(
-              this,
-              Invocation.method(
-                #updateTagItemOfTask,
-                [
-                  taskId,
-                  tagItems,
-                  updatedTagItems,
-                ],
-              ),
-            )),
-          ) as _i9.Future<
-              _i4.Either<_i13.Failure, _i5.OrganizerItems<_i16.TagEntity>>>);
+      (super.noSuchMethod(
+        Invocation.method(
+          #updateTagItemOfTask,
+          [
+            taskId,
+            tagItems,
+            updatedTagItems,
+          ],
+        ),
+        returnValue: _i8.Future<
+                _i4.Either<_i13.Failure,
+                    _i12.OrganizerItems<_i16.TagEntity>>>.value(
+            _FakeEither_2<_i13.Failure, _i12.OrganizerItems<_i16.TagEntity>>(
+          this,
+          Invocation.method(
+            #updateTagItemOfTask,
+            [
+              taskId,
+              tagItems,
+              updatedTagItems,
+            ],
+          ),
+        )),
+        returnValueForMissingStub: _i8.Future<
+                _i4.Either<_i13.Failure,
+                    _i12.OrganizerItems<_i16.TagEntity>>>.value(
+            _FakeEither_2<_i13.Failure, _i12.OrganizerItems<_i16.TagEntity>>(
+          this,
+          Invocation.method(
+            #updateTagItemOfTask,
+            [
+              taskId,
+              tagItems,
+              updatedTagItems,
+            ],
+          ),
+        )),
+      ) as _i8.Future<
+          _i4.Either<_i13.Failure, _i12.OrganizerItems<_i16.TagEntity>>>);
 
   @override
-  _i9.Future<_i4.Either<_i13.Failure, _i5.OrganizerItems<_i17.ReminderEntity>>>
+  _i8.Future<_i4.Either<_i13.Failure, _i12.OrganizerItems<_i17.ReminderEntity>>>
       getRemindersByTaskId(int? taskId) => (super.noSuchMethod(
             Invocation.method(
               #getRemindersByTaskId,
               [taskId],
             ),
-            returnValue: _i9.Future<
+            returnValue: _i8.Future<
                     _i4.Either<_i13.Failure,
-                        _i5.OrganizerItems<_i17.ReminderEntity>>>.value(
+                        _i12.OrganizerItems<_i17.ReminderEntity>>>.value(
                 _FakeEither_2<_i13.Failure,
-                    _i5.OrganizerItems<_i17.ReminderEntity>>(
+                    _i12.OrganizerItems<_i17.ReminderEntity>>(
               this,
               Invocation.method(
                 #getRemindersByTaskId,
                 [taskId],
               ),
             )),
-            returnValueForMissingStub: _i9.Future<
+            returnValueForMissingStub: _i8.Future<
                     _i4.Either<_i13.Failure,
-                        _i5.OrganizerItems<_i17.ReminderEntity>>>.value(
+                        _i12.OrganizerItems<_i17.ReminderEntity>>>.value(
                 _FakeEither_2<_i13.Failure,
-                    _i5.OrganizerItems<_i17.ReminderEntity>>(
+                    _i12.OrganizerItems<_i17.ReminderEntity>>(
               this,
               Invocation.method(
                 #getRemindersByTaskId,
                 [taskId],
               ),
             )),
-          ) as _i9.Future<
+          ) as _i8.Future<
               _i4
-              .Either<_i13.Failure, _i5.OrganizerItems<_i17.ReminderEntity>>>);
+              .Either<_i13.Failure, _i12.OrganizerItems<_i17.ReminderEntity>>>);
 
   @override
-  _i9.Future<_i4.Either<_i13.Failure, int>> addReminderToTask(
+  _i8.Future<_i4.Either<_i13.Failure, int>> addReminderToTask(
     int? taskId,
     int? reminderId,
   ) =>
@@ -1067,7 +1061,7 @@ class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
             reminderId,
           ],
         ),
-        returnValue: _i9.Future<_i4.Either<_i13.Failure, int>>.value(
+        returnValue: _i8.Future<_i4.Either<_i13.Failure, int>>.value(
             _FakeEither_2<_i13.Failure, int>(
           this,
           Invocation.method(
@@ -1079,7 +1073,7 @@ class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
           ),
         )),
         returnValueForMissingStub:
-            _i9.Future<_i4.Either<_i13.Failure, int>>.value(
+            _i8.Future<_i4.Either<_i13.Failure, int>>.value(
                 _FakeEither_2<_i13.Failure, int>(
           this,
           Invocation.method(
@@ -1090,10 +1084,10 @@ class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
             ],
           ),
         )),
-      ) as _i9.Future<_i4.Either<_i13.Failure, int>>);
+      ) as _i8.Future<_i4.Either<_i13.Failure, int>>);
 
   @override
-  _i9.Future<_i4.Either<_i13.Failure, int>> deleteReminderFromTask(
+  _i8.Future<_i4.Either<_i13.Failure, int>> deleteReminderFromTask(
     int? taskId,
     int? reminderId,
   ) =>
@@ -1105,7 +1099,7 @@ class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
             reminderId,
           ],
         ),
-        returnValue: _i9.Future<_i4.Either<_i13.Failure, int>>.value(
+        returnValue: _i8.Future<_i4.Either<_i13.Failure, int>>.value(
             _FakeEither_2<_i13.Failure, int>(
           this,
           Invocation.method(
@@ -1117,7 +1111,7 @@ class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
           ),
         )),
         returnValueForMissingStub:
-            _i9.Future<_i4.Either<_i13.Failure, int>>.value(
+            _i8.Future<_i4.Either<_i13.Failure, int>>.value(
                 _FakeEither_2<_i13.Failure, int>(
           this,
           Invocation.method(
@@ -1128,49 +1122,14 @@ class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
             ],
           ),
         )),
-      ) as _i9.Future<_i4.Either<_i13.Failure, int>>);
-}
-
-/// A class which mocks [OrganizerItemRepository].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockOrganizerItemRepository<T extends _i5.OrganizerItemEntity>
-    extends _i1.Mock implements _i5.OrganizerItemRepository<T> {
-  @override
-  _i9.Future<
-      _i4.Either<_i13.Failure, _i5.OrganizerItems<T>>> getOrganizerItemsByIdSet(
-          _i5.IdSet? id) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #getOrganizerItemsByIdSet,
-          [id],
-        ),
-        returnValue:
-            _i9.Future<_i4.Either<_i13.Failure, _i5.OrganizerItems<T>>>.value(
-                _FakeEither_2<_i13.Failure, _i5.OrganizerItems<T>>(
-          this,
-          Invocation.method(
-            #getOrganizerItemsByIdSet,
-            [id],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i9.Future<_i4.Either<_i13.Failure, _i5.OrganizerItems<T>>>.value(
-                _FakeEither_2<_i13.Failure, _i5.OrganizerItems<T>>(
-          this,
-          Invocation.method(
-            #getOrganizerItemsByIdSet,
-            [id],
-          ),
-        )),
-      ) as _i9.Future<_i4.Either<_i13.Failure, _i5.OrganizerItems<T>>>);
+      ) as _i8.Future<_i4.Either<_i13.Failure, int>>);
 }
 
 /// A class which mocks [OrganizerItemEntity].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockOrganizerItemEntity extends _i1.Mock
-    implements _i5.OrganizerItemEntity {
+    implements _i12.OrganizerItemEntity {
   @override
   List<Object?> get props => (super.noSuchMethod(
         Invocation.getter(#props),
@@ -1223,115 +1182,20 @@ class MockOrganizerItemEntity extends _i1.Mock
       ) as Map<String, dynamic>);
 }
 
-/// A class which mocks [OrganizerItemSyncDataSource].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockOrganizerItemSyncDataSource<T extends _i5.OrganizerItemEntity>
-    extends _i1.Mock implements _i5.OrganizerItemSyncDataSource<T> {
-  @override
-  _i9.Future<_i5.OrganizerItems<T>> syncTaskListWithIdSet(_i5.IdSet? idSet) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #syncTaskListWithIdSet,
-          [idSet],
-        ),
-        returnValue:
-            _i9.Future<_i5.OrganizerItems<T>>.value(_FakeOrganizerItems_4<T>(
-          this,
-          Invocation.method(
-            #syncTaskListWithIdSet,
-            [idSet],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i9.Future<_i5.OrganizerItems<T>>.value(_FakeOrganizerItems_4<T>(
-          this,
-          Invocation.method(
-            #syncTaskListWithIdSet,
-            [idSet],
-          ),
-        )),
-      ) as _i9.Future<_i5.OrganizerItems<T>>);
-}
-
-/// A class which mocks [OrganizerItemRemoteDataSource].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockOrganizerItemRemoteDataSource<T extends _i5.OrganizerItemEntity>
-    extends _i1.Mock implements _i5.OrganizerItemRemoteDataSource<T> {
-  @override
-  _i9.Future<_i5.OrganizerItems<T>> getOrganizerItemsByIdSet(
-          _i5.IdSet? idSet) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #getOrganizerItemsByIdSet,
-          [idSet],
-        ),
-        returnValue:
-            _i9.Future<_i5.OrganizerItems<T>>.value(_FakeOrganizerItems_4<T>(
-          this,
-          Invocation.method(
-            #getOrganizerItemsByIdSet,
-            [idSet],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i9.Future<_i5.OrganizerItems<T>>.value(_FakeOrganizerItems_4<T>(
-          this,
-          Invocation.method(
-            #getOrganizerItemsByIdSet,
-            [idSet],
-          ),
-        )),
-      ) as _i9.Future<_i5.OrganizerItems<T>>);
-}
-
-/// A class which mocks [OrganizerItemLocalDataSource].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockOrganizerItemLocalDataSource<T extends _i5.OrganizerItemEntity>
-    extends _i1.Mock implements _i5.OrganizerItemLocalDataSource<T> {
-  @override
-  _i9.Future<_i5.OrganizerItems<T>> getOrganizerItemsByIdSet(
-          _i5.IdSet? idSet) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #getOrganizerItemsByIdSet,
-          [idSet],
-        ),
-        returnValue:
-            _i9.Future<_i5.OrganizerItems<T>>.value(_FakeOrganizerItems_4<T>(
-          this,
-          Invocation.method(
-            #getOrganizerItemsByIdSet,
-            [idSet],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i9.Future<_i5.OrganizerItems<T>>.value(_FakeOrganizerItems_4<T>(
-          this,
-          Invocation.method(
-            #getOrganizerItemsByIdSet,
-            [idSet],
-          ),
-        )),
-      ) as _i9.Future<_i5.OrganizerItems<T>>);
-}
-
 /// A class which mocks [DataConnectionChecker].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockDataConnectionChecker extends _i1.Mock
-    implements _i6.DataConnectionChecker {
+    implements _i5.DataConnectionChecker {
   @override
-  List<_i6.AddressCheckOptions> get addresses => (super.noSuchMethod(
+  List<_i5.AddressCheckOptions> get addresses => (super.noSuchMethod(
         Invocation.getter(#addresses),
-        returnValue: <_i6.AddressCheckOptions>[],
-        returnValueForMissingStub: <_i6.AddressCheckOptions>[],
-      ) as List<_i6.AddressCheckOptions>);
+        returnValue: <_i5.AddressCheckOptions>[],
+        returnValueForMissingStub: <_i5.AddressCheckOptions>[],
+      ) as List<_i5.AddressCheckOptions>);
 
   @override
-  set addresses(List<_i6.AddressCheckOptions>? _addresses) =>
+  set addresses(List<_i5.AddressCheckOptions>? _addresses) =>
       super.noSuchMethod(
         Invocation.setter(
           #addresses,
@@ -1343,11 +1207,11 @@ class MockDataConnectionChecker extends _i1.Mock
   @override
   Duration get checkInterval => (super.noSuchMethod(
         Invocation.getter(#checkInterval),
-        returnValue: _FakeDuration_5(
+        returnValue: _FakeDuration_4(
           this,
           Invocation.getter(#checkInterval),
         ),
-        returnValueForMissingStub: _FakeDuration_5(
+        returnValueForMissingStub: _FakeDuration_4(
           this,
           Invocation.getter(#checkInterval),
         ),
@@ -1363,36 +1227,36 @@ class MockDataConnectionChecker extends _i1.Mock
       );
 
   @override
-  List<_i6.AddressCheckResult> get lastTryResults => (super.noSuchMethod(
+  List<_i5.AddressCheckResult> get lastTryResults => (super.noSuchMethod(
         Invocation.getter(#lastTryResults),
-        returnValue: <_i6.AddressCheckResult>[],
-        returnValueForMissingStub: <_i6.AddressCheckResult>[],
-      ) as List<_i6.AddressCheckResult>);
+        returnValue: <_i5.AddressCheckResult>[],
+        returnValueForMissingStub: <_i5.AddressCheckResult>[],
+      ) as List<_i5.AddressCheckResult>);
 
   @override
-  _i9.Future<bool> get hasConnection => (super.noSuchMethod(
+  _i8.Future<bool> get hasConnection => (super.noSuchMethod(
         Invocation.getter(#hasConnection),
-        returnValue: _i9.Future<bool>.value(false),
-        returnValueForMissingStub: _i9.Future<bool>.value(false),
-      ) as _i9.Future<bool>);
+        returnValue: _i8.Future<bool>.value(false),
+        returnValueForMissingStub: _i8.Future<bool>.value(false),
+      ) as _i8.Future<bool>);
 
   @override
-  _i9.Future<_i6.DataConnectionStatus> get connectionStatus =>
+  _i8.Future<_i5.DataConnectionStatus> get connectionStatus =>
       (super.noSuchMethod(
         Invocation.getter(#connectionStatus),
-        returnValue: _i9.Future<_i6.DataConnectionStatus>.value(
-            _i6.DataConnectionStatus.disconnected),
-        returnValueForMissingStub: _i9.Future<_i6.DataConnectionStatus>.value(
-            _i6.DataConnectionStatus.disconnected),
-      ) as _i9.Future<_i6.DataConnectionStatus>);
+        returnValue: _i8.Future<_i5.DataConnectionStatus>.value(
+            _i5.DataConnectionStatus.disconnected),
+        returnValueForMissingStub: _i8.Future<_i5.DataConnectionStatus>.value(
+            _i5.DataConnectionStatus.disconnected),
+      ) as _i8.Future<_i5.DataConnectionStatus>);
 
   @override
-  _i9.Stream<_i6.DataConnectionStatus> get onStatusChange =>
+  _i8.Stream<_i5.DataConnectionStatus> get onStatusChange =>
       (super.noSuchMethod(
         Invocation.getter(#onStatusChange),
-        returnValue: _i9.Stream<_i6.DataConnectionStatus>.empty(),
-        returnValueForMissingStub: _i9.Stream<_i6.DataConnectionStatus>.empty(),
-      ) as _i9.Stream<_i6.DataConnectionStatus>);
+        returnValue: _i8.Stream<_i5.DataConnectionStatus>.empty(),
+        returnValueForMissingStub: _i8.Stream<_i5.DataConnectionStatus>.empty(),
+      ) as _i8.Stream<_i5.DataConnectionStatus>);
 
   @override
   bool get hasListeners => (super.noSuchMethod(
@@ -1409,15 +1273,15 @@ class MockDataConnectionChecker extends _i1.Mock
       ) as bool);
 
   @override
-  _i9.Future<_i6.AddressCheckResult> isHostReachable(
-          _i6.AddressCheckOptions? options) =>
+  _i8.Future<_i5.AddressCheckResult> isHostReachable(
+          _i5.AddressCheckOptions? options) =>
       (super.noSuchMethod(
         Invocation.method(
           #isHostReachable,
           [options],
         ),
         returnValue:
-            _i9.Future<_i6.AddressCheckResult>.value(_FakeAddressCheckResult_6(
+            _i8.Future<_i5.AddressCheckResult>.value(_FakeAddressCheckResult_5(
           this,
           Invocation.method(
             #isHostReachable,
@@ -1425,14 +1289,14 @@ class MockDataConnectionChecker extends _i1.Mock
           ),
         )),
         returnValueForMissingStub:
-            _i9.Future<_i6.AddressCheckResult>.value(_FakeAddressCheckResult_6(
+            _i8.Future<_i5.AddressCheckResult>.value(_FakeAddressCheckResult_5(
           this,
           Invocation.method(
             #isHostReachable,
             [options],
           ),
         )),
-      ) as _i9.Future<_i6.AddressCheckResult>);
+      ) as _i8.Future<_i5.AddressCheckResult>);
 }
 
 /// A class which mocks [Client].
@@ -1440,7 +1304,7 @@ class MockDataConnectionChecker extends _i1.Mock
 /// See the documentation for Mockito's code generation for more information.
 class MockClient extends _i1.Mock implements _i2.Client {
   @override
-  _i9.Future<_i2.Response> head(
+  _i8.Future<_i2.Response> head(
     Uri? url, {
     Map<String, String>? headers,
   }) =>
@@ -1450,7 +1314,7 @@ class MockClient extends _i1.Mock implements _i2.Client {
           [url],
           {#headers: headers},
         ),
-        returnValue: _i9.Future<_i2.Response>.value(_FakeResponse_7(
+        returnValue: _i8.Future<_i2.Response>.value(_FakeResponse_6(
           this,
           Invocation.method(
             #head,
@@ -1459,7 +1323,7 @@ class MockClient extends _i1.Mock implements _i2.Client {
           ),
         )),
         returnValueForMissingStub:
-            _i9.Future<_i2.Response>.value(_FakeResponse_7(
+            _i8.Future<_i2.Response>.value(_FakeResponse_6(
           this,
           Invocation.method(
             #head,
@@ -1467,10 +1331,10 @@ class MockClient extends _i1.Mock implements _i2.Client {
             {#headers: headers},
           ),
         )),
-      ) as _i9.Future<_i2.Response>);
+      ) as _i8.Future<_i2.Response>);
 
   @override
-  _i9.Future<_i2.Response> get(
+  _i8.Future<_i2.Response> get(
     Uri? url, {
     Map<String, String>? headers,
   }) =>
@@ -1480,7 +1344,7 @@ class MockClient extends _i1.Mock implements _i2.Client {
           [url],
           {#headers: headers},
         ),
-        returnValue: _i9.Future<_i2.Response>.value(_FakeResponse_7(
+        returnValue: _i8.Future<_i2.Response>.value(_FakeResponse_6(
           this,
           Invocation.method(
             #get,
@@ -1489,7 +1353,7 @@ class MockClient extends _i1.Mock implements _i2.Client {
           ),
         )),
         returnValueForMissingStub:
-            _i9.Future<_i2.Response>.value(_FakeResponse_7(
+            _i8.Future<_i2.Response>.value(_FakeResponse_6(
           this,
           Invocation.method(
             #get,
@@ -1497,10 +1361,10 @@ class MockClient extends _i1.Mock implements _i2.Client {
             {#headers: headers},
           ),
         )),
-      ) as _i9.Future<_i2.Response>);
+      ) as _i8.Future<_i2.Response>);
 
   @override
-  _i9.Future<_i2.Response> post(
+  _i8.Future<_i2.Response> post(
     Uri? url, {
     Map<String, String>? headers,
     Object? body,
@@ -1516,7 +1380,7 @@ class MockClient extends _i1.Mock implements _i2.Client {
             #encoding: encoding,
           },
         ),
-        returnValue: _i9.Future<_i2.Response>.value(_FakeResponse_7(
+        returnValue: _i8.Future<_i2.Response>.value(_FakeResponse_6(
           this,
           Invocation.method(
             #post,
@@ -1529,7 +1393,7 @@ class MockClient extends _i1.Mock implements _i2.Client {
           ),
         )),
         returnValueForMissingStub:
-            _i9.Future<_i2.Response>.value(_FakeResponse_7(
+            _i8.Future<_i2.Response>.value(_FakeResponse_6(
           this,
           Invocation.method(
             #post,
@@ -1541,10 +1405,10 @@ class MockClient extends _i1.Mock implements _i2.Client {
             },
           ),
         )),
-      ) as _i9.Future<_i2.Response>);
+      ) as _i8.Future<_i2.Response>);
 
   @override
-  _i9.Future<_i2.Response> put(
+  _i8.Future<_i2.Response> put(
     Uri? url, {
     Map<String, String>? headers,
     Object? body,
@@ -1560,7 +1424,7 @@ class MockClient extends _i1.Mock implements _i2.Client {
             #encoding: encoding,
           },
         ),
-        returnValue: _i9.Future<_i2.Response>.value(_FakeResponse_7(
+        returnValue: _i8.Future<_i2.Response>.value(_FakeResponse_6(
           this,
           Invocation.method(
             #put,
@@ -1573,7 +1437,7 @@ class MockClient extends _i1.Mock implements _i2.Client {
           ),
         )),
         returnValueForMissingStub:
-            _i9.Future<_i2.Response>.value(_FakeResponse_7(
+            _i8.Future<_i2.Response>.value(_FakeResponse_6(
           this,
           Invocation.method(
             #put,
@@ -1585,10 +1449,10 @@ class MockClient extends _i1.Mock implements _i2.Client {
             },
           ),
         )),
-      ) as _i9.Future<_i2.Response>);
+      ) as _i8.Future<_i2.Response>);
 
   @override
-  _i9.Future<_i2.Response> patch(
+  _i8.Future<_i2.Response> patch(
     Uri? url, {
     Map<String, String>? headers,
     Object? body,
@@ -1604,7 +1468,7 @@ class MockClient extends _i1.Mock implements _i2.Client {
             #encoding: encoding,
           },
         ),
-        returnValue: _i9.Future<_i2.Response>.value(_FakeResponse_7(
+        returnValue: _i8.Future<_i2.Response>.value(_FakeResponse_6(
           this,
           Invocation.method(
             #patch,
@@ -1617,7 +1481,7 @@ class MockClient extends _i1.Mock implements _i2.Client {
           ),
         )),
         returnValueForMissingStub:
-            _i9.Future<_i2.Response>.value(_FakeResponse_7(
+            _i8.Future<_i2.Response>.value(_FakeResponse_6(
           this,
           Invocation.method(
             #patch,
@@ -1629,10 +1493,10 @@ class MockClient extends _i1.Mock implements _i2.Client {
             },
           ),
         )),
-      ) as _i9.Future<_i2.Response>);
+      ) as _i8.Future<_i2.Response>);
 
   @override
-  _i9.Future<_i2.Response> delete(
+  _i8.Future<_i2.Response> delete(
     Uri? url, {
     Map<String, String>? headers,
     Object? body,
@@ -1648,7 +1512,7 @@ class MockClient extends _i1.Mock implements _i2.Client {
             #encoding: encoding,
           },
         ),
-        returnValue: _i9.Future<_i2.Response>.value(_FakeResponse_7(
+        returnValue: _i8.Future<_i2.Response>.value(_FakeResponse_6(
           this,
           Invocation.method(
             #delete,
@@ -1661,7 +1525,7 @@ class MockClient extends _i1.Mock implements _i2.Client {
           ),
         )),
         returnValueForMissingStub:
-            _i9.Future<_i2.Response>.value(_FakeResponse_7(
+            _i8.Future<_i2.Response>.value(_FakeResponse_6(
           this,
           Invocation.method(
             #delete,
@@ -1673,10 +1537,10 @@ class MockClient extends _i1.Mock implements _i2.Client {
             },
           ),
         )),
-      ) as _i9.Future<_i2.Response>);
+      ) as _i8.Future<_i2.Response>);
 
   @override
-  _i9.Future<String> read(
+  _i8.Future<String> read(
     Uri? url, {
     Map<String, String>? headers,
   }) =>
@@ -1686,7 +1550,7 @@ class MockClient extends _i1.Mock implements _i2.Client {
           [url],
           {#headers: headers},
         ),
-        returnValue: _i9.Future<String>.value(_i11.dummyValue<String>(
+        returnValue: _i8.Future<String>.value(_i10.dummyValue<String>(
           this,
           Invocation.method(
             #read,
@@ -1695,7 +1559,7 @@ class MockClient extends _i1.Mock implements _i2.Client {
           ),
         )),
         returnValueForMissingStub:
-            _i9.Future<String>.value(_i11.dummyValue<String>(
+            _i8.Future<String>.value(_i10.dummyValue<String>(
           this,
           Invocation.method(
             #read,
@@ -1703,10 +1567,10 @@ class MockClient extends _i1.Mock implements _i2.Client {
             {#headers: headers},
           ),
         )),
-      ) as _i9.Future<String>);
+      ) as _i8.Future<String>);
 
   @override
-  _i9.Future<_i19.Uint8List> readBytes(
+  _i8.Future<_i19.Uint8List> readBytes(
     Uri? url, {
     Map<String, String>? headers,
   }) =>
@@ -1716,20 +1580,20 @@ class MockClient extends _i1.Mock implements _i2.Client {
           [url],
           {#headers: headers},
         ),
-        returnValue: _i9.Future<_i19.Uint8List>.value(_i19.Uint8List(0)),
+        returnValue: _i8.Future<_i19.Uint8List>.value(_i19.Uint8List(0)),
         returnValueForMissingStub:
-            _i9.Future<_i19.Uint8List>.value(_i19.Uint8List(0)),
-      ) as _i9.Future<_i19.Uint8List>);
+            _i8.Future<_i19.Uint8List>.value(_i19.Uint8List(0)),
+      ) as _i8.Future<_i19.Uint8List>);
 
   @override
-  _i9.Future<_i2.StreamedResponse> send(_i2.BaseRequest? request) =>
+  _i8.Future<_i2.StreamedResponse> send(_i2.BaseRequest? request) =>
       (super.noSuchMethod(
         Invocation.method(
           #send,
           [request],
         ),
         returnValue:
-            _i9.Future<_i2.StreamedResponse>.value(_FakeStreamedResponse_8(
+            _i8.Future<_i2.StreamedResponse>.value(_FakeStreamedResponse_7(
           this,
           Invocation.method(
             #send,
@@ -1737,14 +1601,14 @@ class MockClient extends _i1.Mock implements _i2.Client {
           ),
         )),
         returnValueForMissingStub:
-            _i9.Future<_i2.StreamedResponse>.value(_FakeStreamedResponse_8(
+            _i8.Future<_i2.StreamedResponse>.value(_FakeStreamedResponse_7(
           this,
           Invocation.method(
             #send,
             [request],
           ),
         )),
-      ) as _i9.Future<_i2.StreamedResponse>);
+      ) as _i8.Future<_i2.StreamedResponse>);
 
   @override
   void close() => super.noSuchMethod(
@@ -1789,20 +1653,20 @@ class MockInputConverter extends _i1.Mock implements _i20.InputConverter {
 /// See the documentation for Mockito's code generation for more information.
 class MockGetTaskById extends _i1.Mock implements _i14.GetTaskById {
   @override
-  _i7.TaskRepository get repository => (super.noSuchMethod(
+  _i6.TaskRepository get repository => (super.noSuchMethod(
         Invocation.getter(#repository),
-        returnValue: _FakeTaskRepository_9(
+        returnValue: _FakeTaskRepository_8(
           this,
           Invocation.getter(#repository),
         ),
-        returnValueForMissingStub: _FakeTaskRepository_9(
+        returnValueForMissingStub: _FakeTaskRepository_8(
           this,
           Invocation.getter(#repository),
         ),
-      ) as _i7.TaskRepository);
+      ) as _i6.TaskRepository);
 
   @override
-  _i9.Future<_i4.Either<_i13.Failure, _i14.TaskEntity>> call(
+  _i8.Future<_i4.Either<_i13.Failure, _i14.TaskEntity>> call(
           _i14.GetTaskByIdParams? params) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -1810,7 +1674,7 @@ class MockGetTaskById extends _i1.Mock implements _i14.GetTaskById {
           [params],
         ),
         returnValue:
-            _i9.Future<_i4.Either<_i13.Failure, _i14.TaskEntity>>.value(
+            _i8.Future<_i4.Either<_i13.Failure, _i14.TaskEntity>>.value(
                 _FakeEither_2<_i13.Failure, _i14.TaskEntity>(
           this,
           Invocation.method(
@@ -1819,7 +1683,7 @@ class MockGetTaskById extends _i1.Mock implements _i14.GetTaskById {
           ),
         )),
         returnValueForMissingStub:
-            _i9.Future<_i4.Either<_i13.Failure, _i14.TaskEntity>>.value(
+            _i8.Future<_i4.Either<_i13.Failure, _i14.TaskEntity>>.value(
                 _FakeEither_2<_i13.Failure, _i14.TaskEntity>(
           this,
           Invocation.method(
@@ -1827,5 +1691,5 @@ class MockGetTaskById extends _i1.Mock implements _i14.GetTaskById {
             [params],
           ),
         )),
-      ) as _i9.Future<_i4.Either<_i13.Failure, _i14.TaskEntity>>);
+      ) as _i8.Future<_i4.Either<_i13.Failure, _i14.TaskEntity>>);
 }

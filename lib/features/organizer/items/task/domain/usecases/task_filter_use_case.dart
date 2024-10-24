@@ -2,14 +2,12 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/usecase/usecase.dart';
-import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class TaskFilterUseCase
-    extends UseCase<OrganizerItems<TaskEntity>, FilterTasksParams> {
+class TaskFilterUseCase extends UseCase<OrganizerItems<TaskEntity>, FilterTasksParams> {
   @override
-  Future<Either<Failure, OrganizerItems<TaskEntity>>> call(
-      FilterTasksParams params) async {
+  Future<Either<Failure, OrganizerItems<TaskEntity>>> call(FilterTasksParams params) async {
     final List<TaskEntity> filteredTasks;
     // Implement filtering logic based on the criteria provided in params
     if (params.criteria == "reset") {
@@ -67,6 +65,5 @@ class FilterTasksParams extends Equatable {
   }
 
   @override
-  List<Object?> get props =>
-      [originalTasks, displayedTasks, criteria, status, startDate, endDate];
+  List<Object?> get props => [originalTasks, displayedTasks, criteria, status, startDate, endDate];
 }

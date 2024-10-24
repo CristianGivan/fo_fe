@@ -14,8 +14,8 @@ class AuthenticationAppBranch {
 
   static GoRoute route() {
     return GoRoute(
-      name: AuthenticationRouterNames.authenticationRoute,
-      path: '/authentication',
+      path: AuthenticationRouterNames.authenticationRoutePath,
+      name: AuthenticationRouterNames.authenticationRouteName,
       pageBuilder: (context, state) => const NoTransitionPage(
         child: AuthenticationScreen(),
       ),

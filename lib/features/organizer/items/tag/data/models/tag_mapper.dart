@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
-import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
 import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class TagMapper {
   static TagEntity entityFromTableDrift(TagTableDriftG tag) {
@@ -11,13 +11,11 @@ class TagMapper {
     );
   }
 
-  static OrganizerItems<TagEntity> entityItemsFromTableDriftItems(
-      List<TagTableDriftG> items) {
+  static OrganizerItems<TagEntity> entityItemsFromTableDriftItems(List<TagTableDriftG> items) {
     return OrganizerItems.of(items.map(entityFromTableDrift).toList());
   }
 
-  static TagTableDriftCompanion tableDriftCompanionFromEntity(
-      TagEntity entity) {
+  static TagTableDriftCompanion tableDriftCompanionFromEntity(TagEntity entity) {
     return TagTableDriftCompanion(
       id: Value(entity.id),
       subject: Value(entity.subject),

@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
 import 'package:fo_fe/core/error/failures.dart';
-import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
 import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class TagRepositoryDrift implements TagRepository {
   final TagLocalDataSource localDataSource;
@@ -50,8 +50,7 @@ class TagRepositoryDrift implements TagRepository {
     });
   }
 
-  Future<Either<Failure, OrganizerItems<TagEntity>>> getTagItemsByIdSet(
-      IdSet idSet) {
+  Future<Either<Failure, OrganizerItems<TagEntity>>> getTagItemsByIdSet(IdSet idSet) {
     return _handleDatabaseOperation<OrganizerItems<TagEntity>>(
       () async {
         final items = await localDataSource.getTagItemsByIdSet(idSet);
@@ -63,8 +62,7 @@ class TagRepositoryDrift implements TagRepository {
     );
   }
 
-  Future<Either<Failure, T>> _handleDatabaseOperation<T>(
-      Future<T> Function() operation) async {
+  Future<Either<Failure, T>> _handleDatabaseOperation<T>(Future<T> Function() operation) async {
     try {
       final result = await operation();
       return Right(result);

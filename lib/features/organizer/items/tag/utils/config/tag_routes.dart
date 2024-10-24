@@ -1,24 +1,14 @@
-import 'package:flutter/material.dart';
-import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../presentation/screen/tag_screen.dart';
 
-class TagAppBranch {
-  static StatefulShellBranch branch(GlobalKey<NavigatorState> navigatorKey) {
-    return StatefulShellBranch(
-      navigatorKey: navigatorKey,
-      routes: [
-        route(),
-      ],
-    );
-  }
-
-  static GoRoute route() {
+class TagRoutes {
+  static GoRoute routes() {
     return GoRoute(
       name: TagRouterNames.tagRoute,
-      path: '/tag',
+      path: 'tag',
       pageBuilder: (context, state) => NoTransitionPage(
         child: TagScreen(tagItems: OrganizerItems<TagEntity>.empty()),
       ),

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fo_fe/features/authentication/utils/authentication_exports.dart';
-import 'package:fo_fe/features/organizer/config/organizer_exports.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 import 'package:go_router/go_router.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -32,12 +32,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Sign Up')),
-      body:
-          BlocListener<AuthenticationBlocSignUp, AuthenticationBlocSignUpState>(
+      body: BlocListener<AuthenticationBlocSignUp, AuthenticationBlocSignUpState>(
         listener: (context, state) {
           if (state is AuthenticationSignUpSuccess) {
             // Navigate to the organizer route on successful sign-up using GoRouter
-            GoRouter.of(context).go(OrganizerRouterNames.organizerRoute);
+            GoRouter.of(context).go(OrganizerRouterNames.organizerRouteName);
 
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Sign up successful!')),
@@ -71,16 +70,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       return null;
                     },
                     onChanged: (val) {
-                      context
-                          .read<AuthenticationBlocSignUp>()
-                          .add(NameChanged(val));
+                      context.read<AuthenticationBlocSignUp>().add(NameChanged(val));
                     },
                   ),
                   const SizedBox(height: 10),
-                  BlocBuilder<AuthenticationBlocSignUp,
-                      AuthenticationBlocSignUpState>(
-                    buildWhen: (previous, current) =>
-                        current is EmailValidationState,
+                  BlocBuilder<AuthenticationBlocSignUp, AuthenticationBlocSignUpState>(
+                    buildWhen: (previous, current) => current is EmailValidationState,
                     builder: (context, state) {
                       return MyTextField(
                         controller: emailController,
@@ -98,9 +93,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           return null;
                         },
                         onChanged: (val) {
-                          context
-                              .read<AuthenticationBlocSignUp>()
-                              .add(EmailChanged(val));
+                          context.read<AuthenticationBlocSignUp>().add(EmailChanged(val));
                         },
                       );
                     },
@@ -113,9 +106,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     keyboardType: TextInputType.visiblePassword,
                     prefixIcon: const Icon(CupertinoIcons.lock_fill),
                     onChanged: (val) {
-                      context
-                          .read<AuthenticationBlocSignUp>()
-                          .add(PasswordChanged(val));
+                      context.read<AuthenticationBlocSignUp>().add(PasswordChanged(val));
                     },
                     suffixIcon: IconButton(
                       onPressed: () {
@@ -136,24 +127,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     },
                   ),
                   const SizedBox(height: 10),
-                  BlocBuilder<AuthenticationBlocSignUp,
-                      AuthenticationBlocSignUpState>(
-                    buildWhen: (previous, current) =>
-                        current is PasswordValidationState,
+                  BlocBuilder<AuthenticationBlocSignUp, AuthenticationBlocSignUpState>(
+                    buildWhen: (previous, current) => current is PasswordValidationState,
                     builder: (context, state) {
                       if (state is PasswordValidationState) {
                         return Column(
                           children: [
+                            _buildPasswordRequirement("1 uppercase", state.containsUpperCase),
+                            _buildPasswordRequirement("1 lowercase", state.containsLowerCase),
+                            _buildPasswordRequirement("1 number", state.containsNumber),
                             _buildPasswordRequirement(
-                                "1 uppercase", state.containsUpperCase),
-                            _buildPasswordRequirement(
-                                "1 lowercase", state.containsLowerCase),
-                            _buildPasswordRequirement(
-                                "1 number", state.containsNumber),
-                            _buildPasswordRequirement("1 special character",
-                                state.containsSpecialChar),
-                            _buildPasswordRequirement(
-                                "8 minimum characters", state.contains8Length),
+                                "1 special character", state.containsSpecialChar),
+                            _buildPasswordRequirement("8 minimum characters", state.contains8Length),
                           ],
                         );
                       }
@@ -161,14 +146,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     },
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                  BlocBuilder<AuthenticationBlocSignUp,
-                      AuthenticationBlocSignUpState>(
+                  BlocBuilder<AuthenticationBlocSignUp, AuthenticationBlocSignUpState>(
                     buildWhen: (previous, current) =>
-                        current is FormValidationState ||
-                        current is AuthenticationSignUpLoading,
+                        current is FormValidationState || current is AuthenticationSignUpLoading,
                     builder: (context, state) {
-                      bool isFormValid =
-                          state is FormValidationState && state.isFormValid;
+                      bool isFormValid = state is FormValidationState && state.isFormValid;
                       bool isLoading = state is AuthenticationSignUpLoading;
                       return SizedBox(
                         width: MediaQuery.of(context).size.width * 0.5,
@@ -186,20 +168,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               : null,
                           style: TextButton.styleFrom(
                             elevation: 3.0,
-                            backgroundColor: isFormValid
-                                ? Theme.of(context).colorScheme.primary
-                                : Colors.grey,
+                            backgroundColor:
+                                isFormValid ? Theme.of(context).colorScheme.primary : Colors.grey,
                             foregroundColor: Colors.white,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(60),
                             ),
                           ),
                           child: isLoading
-                              ? const CircularProgressIndicator(
-                                  color: Colors.white)
+                              ? const CircularProgressIndicator(color: Colors.white)
                               : const Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 25, vertical: 5),
+                                  padding: EdgeInsets.symmetric(horizontal: 25, vertical: 5),
                                   child: Text(
                                     'Sign Up',
                                     textAlign: TextAlign.center,
@@ -230,17 +209,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
         children: [
           Icon(
             isMet ? Icons.check_circle : Icons.circle_outlined,
-            color:
-                isMet ? Colors.green : Theme.of(context).colorScheme.onSurface,
+            color: isMet ? Colors.green : Theme.of(context).colorScheme.onSurface,
             size: 16,
           ),
           const SizedBox(width: 8),
           Text(
             requirement,
             style: TextStyle(
-              color: isMet
-                  ? Colors.green
-                  : Theme.of(context).colorScheme.onSurface,
+              color: isMet ? Colors.green : Theme.of(context).colorScheme.onSurface,
             ),
           ),
         ],

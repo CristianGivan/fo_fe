@@ -1,6 +1,6 @@
 import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
-import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
 import 'package:fo_fe/features/organizer/items/reminder/utils/reminder_exports.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class ReminderLocalDataSourceDrift implements ReminderLocalDataSource {
   final OrganizerDriftDB db;
@@ -13,8 +13,7 @@ class ReminderLocalDataSourceDrift implements ReminderLocalDataSource {
   }
 
   @override
-  Future<bool> updateReminder(
-      ReminderTableDriftCompanion reminderCompanion) async {
+  Future<bool> updateReminder(ReminderTableDriftCompanion reminderCompanion) async {
     return await db.reminderDaoDrift.updateReminder(reminderCompanion);
   }
 
@@ -35,7 +34,6 @@ class ReminderLocalDataSourceDrift implements ReminderLocalDataSource {
 
   @override
   Future<List<ReminderTableDriftG>> getReminderItemsByIdSet(IdSet idSet) async {
-    return await db.reminderDaoDrift
-        .getReminderItemsByReminderIdSet(idSet.toSet());
+    return await db.reminderDaoDrift.getReminderItemsByReminderIdSet(idSet.toSet());
   }
 }

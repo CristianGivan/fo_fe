@@ -1,14 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/usecase/usecase.dart';
-import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class TaskSortUseCase
-    extends UseCase<OrganizerItems<TaskEntity>, SortTasksParams> {
+class TaskSortUseCase extends UseCase<OrganizerItems<TaskEntity>, SortTasksParams> {
   @override
-  Future<Either<Failure, OrganizerItems<TaskEntity>>> call(
-      SortTasksParams params) async {
+  Future<Either<Failure, OrganizerItems<TaskEntity>>> call(SortTasksParams params) async {
     try {
       final builder = params.tasks.toBuilder();
 
@@ -18,8 +16,7 @@ class TaskSortUseCase
           sortComparator = (a, b) => a.createdDate.compareTo(b.createdDate);
           break;
         case 'status':
-          sortComparator =
-              (a, b) => a.taskStatus!.index.compareTo(b.taskStatus!.index);
+          sortComparator = (a, b) => a.taskStatus!.index.compareTo(b.taskStatus!.index);
           break;
         default:
           return Right(params.tasks);

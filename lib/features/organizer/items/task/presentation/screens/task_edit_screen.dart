@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 
@@ -41,32 +41,44 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
   Widget _buildFormFields() {
     return Column(
       children: [
-        TextField(
-          decoration: const InputDecoration(labelText: 'Subject'),
-          controller: TextEditingController(text: widget.task.subject),
-        ),
-        BlocBuilder<TaskTagLinkBloc, TaskTagLinkBlocState>(
-          builder: (context, state) {
-            if (state is TagLoadingBlocState) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (state is TagLoadedBlocState) {
-              taskTagItems = state.tagItems;
-              if (taskTagItems.isEmpty()) {
-                return const Center(child: Text('No Tags Available'));
-              }
-              return TaskTagListPage(task: widget.task, tagItems: taskTagItems);
-            } else if (state is TagItemsAddedToTaskBlocState) {
-              taskTagItems = state.tagItems;
-              return TaskTagListPage(task: widget.task, tagItems: taskTagItems);
-            } else if (state is TagErrorBlocState) {
-              return Center(child: Text(state.message));
-            } else {
-              return const Center(child: Text('No Tags Available'));
-            }
-          },
-        ),
+        _buildSubjectField(),
+        _buildTagList(),
       ],
     );
+  }
+
+  Widget _buildSubjectField() {
+    return TextField(
+      decoration: const InputDecoration(labelText: 'Subject'),
+      controller: TextEditingController(text: widget.task.subject),
+    );
+  }
+
+  Widget _buildTagList() {
+    return BlocBuilder<TaskTagLinkBloc, TaskTagLinkBlocState>(
+      builder: (context, state) {
+        if (state is TagLoadingBlocState) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (state is TagLoadedBlocState) {
+          taskTagItems = state.tagItems;
+          return _buildTagListContent();
+        } else if (state is TagItemsAddedToTaskBlocState) {
+          taskTagItems = state.tagItems;
+          return _buildTagListContent();
+        } else if (state is TagErrorBlocState) {
+          return Center(child: Text(state.message));
+        } else {
+          return const Center(child: Text('No Tags Available'));
+        }
+      },
+    );
+  }
+
+  Widget _buildTagListContent() {
+    if (taskTagItems.isEmpty()) {
+      return const Center(child: Text('No Tags Available'));
+    }
+    return TaskTagListPage(task: widget.task, tagItems: taskTagItems);
   }
 
   Widget _buildActionButtons(BuildContext context) {
@@ -74,9 +86,7 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         ElevatedButton(
-          onPressed: () {
-            // Handle save button press
-          },
+          onPressed: _handleSaveButtonPress,
           child: const Text('Save'),
         ),
         ElevatedButton(
@@ -85,6 +95,10 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
         ),
       ],
     );
+  }
+
+  void _handleSaveButtonPress() {
+    // Handle save button press
   }
 
   Future<void> _handleLinkButtonPress(BuildContext context) async {

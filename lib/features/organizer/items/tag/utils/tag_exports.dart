@@ -7,4 +7,5 @@ export '../presentation/bloc/tag_bloc.dart';
 export '../presentation/screen/tag_add_screen.dart';
 export 'config/tag_init.dart';
 export 'config/tag_route_names.dart';
+export 'config/tag_routes.dart';
 export 'tag_navigator.dart';

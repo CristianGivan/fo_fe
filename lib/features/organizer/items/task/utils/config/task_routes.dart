@@ -1,32 +1,41 @@
-import 'package:flutter/material.dart';
+import 'package:fo_fe/features/organizer/items/task/presentation/screens/task_edit_screen.dart';
+import 'package:fo_fe/features/organizer/items/task/presentation/screens/task_view_screen.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:go_router/go_router.dart';
 
-class TaskAppBranch {
-  static StatefulShellBranch branch(GlobalKey<NavigatorState> navigatorKey) {
-    return StatefulShellBranch(
-      navigatorKey: navigatorKey,
-      routes: [
-        route(),
-      ],
-    );
-  }
-
-  static GoRoute route() {
+class TaskRoutes {
+  static GoRoute routes() {
     return GoRoute(
-      name: TaskRouterNames.taskRoute,
-      path: '/task',
+      path: TaskRouterNames.taskRoutePath,
+      name: TaskRouterNames.taskRouteName,
       pageBuilder: (context, state) => const NoTransitionPage(
         child: TaskScreen(),
       ),
       routes: [
         GoRoute(
-          name: TaskRouterNames.taskAddRoute,
-          path: 'task_add',
+          path: TaskRouterNames.taskAddRoutePath,
+          name: TaskRouterNames.taskAddRouteName,
+          pageBuilder: (context, state) => const NoTransitionPage(
+            child: TaskAddScreen(),
+          ),
+        ),
+        GoRoute(
+          path: TaskRouterNames.taskEditRoutePath,
+          name: TaskRouterNames.taskEditRouteName,
           pageBuilder: (context, state) {
-            // Accessing 'userId' from state.pathParameters
-            return const NoTransitionPage(
-              child: TaskAddScreen(),
+            final task = state.extra as TaskEntity?;
+            return NoTransitionPage(
+              child: TaskEditScreen(task: task!),
+            );
+          },
+        ),
+        GoRoute(
+          path: TaskRouterNames.taskViewRoutePath,
+          name: TaskRouterNames.taskViewRouteName,
+          pageBuilder: (context, state) {
+            final task = state.extra as TaskEntity?;
+            return NoTransitionPage(
+              child: TaskViewScreen(task: task!),
             );
           },
         ),

@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 void main() {
   group('OrganizerItems', () {
@@ -63,8 +63,7 @@ void main() {
     group('filterByIdSet', () {
       test('filterByIdSet filters items correctly', () {
         // Arrange
-        final idSet =
-            IdSet.of(const [1, 3, 5]); // Example IdSet with IDs to filter by
+        final idSet = IdSet.of(const [1, 3, 5]); // Example IdSet with IDs to filter by
         final items = OrganizerItems.of([
           OrganizerItemEntity(id: 1),
           OrganizerItemEntity(id: 2),
@@ -77,8 +76,7 @@ void main() {
         final filteredItems = items.filterByIdSet(idSet);
 
         // Assert
-        expect(filteredItems.size(),
-            equals(3)); // Expecting 3 items after filtering
+        expect(filteredItems.size(), equals(3)); // Expecting 3 items after filtering
         expect(filteredItems.contains(OrganizerItemEntity(id: 1)), isTrue);
         expect(filteredItems.contains(OrganizerItemEntity(id: 2)), isFalse);
         expect(filteredItems.contains(OrganizerItemEntity(id: 3)), isTrue);

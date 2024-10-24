@@ -1,8 +1,8 @@
-import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
 import 'package:fo_fe/features/organizer/items/reminder/utils/reminder_exports.dart';
 import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class TaskEntityLazyLoaded extends TaskEntity {
   UserEntity? creator;
@@ -35,6 +35,5 @@ class TaskEntityLazyLoaded extends TaskEntity {
   });
 
   @override
-  List<Object?> get props =>
-      super.props..addAll([creator, userItems, tagItems, reminderItems]);
+  List<Object?> get props => super.props..addAll([creator, userItems, tagItems, reminderItems]);
 }

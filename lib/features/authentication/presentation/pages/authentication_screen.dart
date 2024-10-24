@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fo_fe/features/authentication/utils/authentication_exports.dart';
-import 'package:fo_fe/features/organizer/config/organizer_exports.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart'; // Import Provider package if not already imported
 
@@ -15,7 +15,7 @@ class AuthenticationScreen extends StatelessWidget {
     // Handle navigation based on authentication state
     authBloc.stream.listen((state) {
       if (state is AuthenticationSessionAuthenticated) {
-        context.goNamed(OrganizerRouterNames.organizerRoute);
+        context.goNamed(OrganizerRouterNames.organizerRouteName);
       } else if (state is AuthenticationSessionError) {
         // Handle the error case or show an error message if necessary
         print('Error: ${state.message}');

@@ -5,15 +5,14 @@ import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:go_router/go_router.dart';
 
-class OrganizerHome extends StatelessWidget {
-  const OrganizerHome({super.key});
+class OrganizerHomeScreen extends StatelessWidget {
+  const OrganizerHomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: BlocBuilder<AuthenticationBlocSession,
-            AuthenticationBlocSessionState>(
+        title: BlocBuilder<AuthenticationBlocSession, AuthenticationBlocSessionState>(
           builder: (context, state) {
             if (state is AuthenticationSessionAuthenticated) {
               return Text('Welcome, authId: ${state.authEntity.id},'
@@ -26,8 +25,7 @@ class OrganizerHome extends StatelessWidget {
           },
         ),
         actions: [
-          BlocBuilder<AuthenticationBlocSession,
-              AuthenticationBlocSessionState>(
+          BlocBuilder<AuthenticationBlocSession, AuthenticationBlocSessionState>(
             builder: (context, state) {
               if (state is AuthenticationSessionAuthenticated) {
                 return IconButton(
@@ -36,7 +34,7 @@ class OrganizerHome extends StatelessWidget {
                     context.read<AuthenticationBlocToken>().add(
                           LogoutBlocEvent(authId: state.authEntity.id),
                         );
-                    context.push(AuthenticationRouterNames.authenticationRoute);
+                    context.pushNamed(AuthenticationRouterNames.authenticationRouteName);
                   },
                 );
               } else {
@@ -51,35 +49,35 @@ class OrganizerHome extends StatelessWidget {
           const SizedBox(height: 10),
           Center(
             child: ElevatedButton(
-              onPressed: () => context.push('/organizer/task'),
+              onPressed: () => context.pushNamed(TaskRouterNames.taskRouteName),
               child: const Text('Go to the topics screen'),
             ),
           ),
           const SizedBox(height: 10),
           Center(
             child: ElevatedButton(
-              onPressed: () => context.push('/organizer/task'),
+              onPressed: () => context.pushNamed(TaskRouterNames.taskRouteName),
               child: const Text('Go to the tasks screen'),
             ),
           ),
           const SizedBox(height: 10),
           Center(
             child: ElevatedButton(
-              onPressed: () => context.push(TaskRouterNames.taskRoute),
+              onPressed: () => context.pushNamed(TaskRouterNames.taskRouteName),
               child: const Text('Go to the reminder screen'),
             ),
           ),
           const SizedBox(height: 10),
           Center(
             child: ElevatedButton(
-              onPressed: () => context.push(TagRouterNames.tagRoute),
+              onPressed: () => context.pushNamed(TagRouterNames.tagRoute),
               child: const Text('Go to the tag screen'),
             ),
           ),
           const SizedBox(height: 10),
           Center(
             child: ElevatedButton(
-              onPressed: () => context.push('/authentication'),
+              onPressed: () => context.pushNamed(AuthenticationRouterNames.authenticationRouteName),
               child: const Text('Authentication'),
             ),
           ),

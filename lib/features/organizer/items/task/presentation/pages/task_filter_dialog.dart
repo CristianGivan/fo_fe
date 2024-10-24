@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 enum TaskFilterCriteria { status, dateRange, reset }
 
@@ -111,9 +111,7 @@ class _FilterDialogState extends State<FilterDialog> {
 
   void _applyFilter() {
     final filterParams = _buildFilterParams();
-    context
-        .read<TaskBlocTask>()
-        .add(TaskItemsFilterBlocEvent(filterParams: filterParams));
+    context.read<TaskBlocTask>().add(TaskItemsFilterBlocEvent(filterParams: filterParams));
     Navigator.of(context).pop();
   }
 

@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:fo_fe/core/utils/date_time/date_time_constants.dart';
-import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class TagEntity extends OrganizerItemEntity with EquatableMixin {
   final String _subject;

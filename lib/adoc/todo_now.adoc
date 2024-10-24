@@ -1,0 +1,10 @@
+== Next
+
+remove Navigator.pop(context)
+
+== Now
+
+update push routes
+
+== Done
+

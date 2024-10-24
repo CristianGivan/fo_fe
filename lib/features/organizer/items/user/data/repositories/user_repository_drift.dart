@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
 import 'package:fo_fe/core/error/failures.dart';
-import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class UserRepositoryDrift implements UserRepository {
   final UserLocalDataSource localDataSource;
@@ -52,8 +52,7 @@ class UserRepositoryDrift implements UserRepository {
   }
 
   @override
-  Future<Either<Failure, OrganizerItems<UserEntity>>> getUserItemsByIdSet(
-      IdSet idSet) {
+  Future<Either<Failure, OrganizerItems<UserEntity>>> getUserItemsByIdSet(IdSet idSet) {
     return _handleDatabaseOperation<OrganizerItems<UserEntity>>(
       () async {
         final items = await localDataSource.getUserItemsByIdSet(idSet);
@@ -66,8 +65,7 @@ class UserRepositoryDrift implements UserRepository {
   }
 
   @override
-  Future<Either<Failure, OrganizerItems<UserEntity>>> getUserItemsByUserId(
-      int userId) {
+  Future<Either<Failure, OrganizerItems<UserEntity>>> getUserItemsByUserId(int userId) {
     return _handleDatabaseOperation(() async {
       final items = await localDataSource.getUserItemsByUserId(userId);
       _checkItemsNotNullOrEmpty(items);
@@ -79,30 +77,24 @@ class UserRepositoryDrift implements UserRepository {
 
   @override
   Future<Either<Failure, int>> addUserToUser(int userLinkedId, int userId) {
-    return _handleDatabaseOperation(
-        () => localDataSource.addUserToUser(userLinkedId, userId));
+    return _handleDatabaseOperation(() => localDataSource.addUserToUser(userLinkedId, userId));
   }
 
   @override
-  Future<Either<Failure, int>> deleteUserFromUser(
-      int userLinkedId, int userId) {
-    return _handleDatabaseOperation(
-        () => localDataSource.deleteUserFromUser(userLinkedId, userId));
+  Future<Either<Failure, int>> deleteUserFromUser(int userLinkedId, int userId) {
+    return _handleDatabaseOperation(() => localDataSource.deleteUserFromUser(userLinkedId, userId));
   }
 
   @override
-  Future<Either<Failure, UserEntity>> getUserByEmailAndPassword(
-      String email, String password) {
+  Future<Either<Failure, UserEntity>> getUserByEmailAndPassword(String email, String password) {
     return _handleDatabaseOperation(() async {
-      final user =
-          await localDataSource.getUserByEmailAndPassword(email, password);
+      final user = await localDataSource.getUserByEmailAndPassword(email, password);
       _checkItemNotNull(user);
       return UserMapper.entityFromTableDrift(user!);
     });
   }
 
-  Future<Either<Failure, T>> _handleDatabaseOperation<T>(
-      Future<T> Function() operation) async {
+  Future<Either<Failure, T>> _handleDatabaseOperation<T>(Future<T> Function() operation) async {
     try {
       final result = await operation();
       return Right(result);

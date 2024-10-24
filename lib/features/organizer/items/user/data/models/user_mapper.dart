@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
-import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class UserMapper {
   static UserEntity entityFromTableDrift(UserTableDriftG user) {
@@ -14,8 +14,7 @@ class UserMapper {
     );
   }
 
-  static OrganizerItems<UserEntity> entityItemsFromTableDriftItems(
-      List<UserTableDriftG> items) {
+  static OrganizerItems<UserEntity> entityItemsFromTableDriftItems(List<UserTableDriftG> items) {
     return OrganizerItems.of(items.map(entityFromTableDrift).toList());
   }
 
@@ -29,8 +28,7 @@ class UserMapper {
     );
   }
 
-  static UserTableDriftCompanion tableDriftCompanionFromEntity(
-      UserEntity user) {
+  static UserTableDriftCompanion tableDriftCompanionFromEntity(UserEntity user) {
     return UserTableDriftCompanion(
       // id: Value(user.id),
       name: Value(user.name),

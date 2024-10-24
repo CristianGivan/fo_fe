@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fo_fe/features/authentication/utils/authentication_exports.dart';
-import 'package:fo_fe/features/organizer/config/organizer_exports.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 import 'package:go_router/go_router.dart';
 
 class AuthenticationScreenWithAutoLogIn extends StatefulWidget {
   const AuthenticationScreenWithAutoLogIn({super.key});
 
   @override
-  _AuthenticationScreenWithAutoLogInState createState() =>
-      _AuthenticationScreenWithAutoLogInState();
+  _AuthenticationScreenWithAutoLogInState createState() => _AuthenticationScreenWithAutoLogInState();
 }
 
-class _AuthenticationScreenWithAutoLogInState
-    extends State<AuthenticationScreenWithAutoLogIn> {
+class _AuthenticationScreenWithAutoLogInState extends State<AuthenticationScreenWithAutoLogIn> {
   @override
   void initState() {
     super.initState();
@@ -28,7 +26,7 @@ class _AuthenticationScreenWithAutoLogInState
     // Handle navigation based on authentication state
     authBloc.stream.listen((state) {
       if (state is AuthenticationSessionAuthenticated) {
-        context.goNamed(OrganizerRouterNames.organizerRoute);
+        context.goNamed(OrganizerRouterNames.organizerRouteName);
       } else if (state is AuthenticationSessionError) {
         // Handle the error case or show an error message if necessary
         print('Error: ${state.message}');

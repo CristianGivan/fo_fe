@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fo_fe/features/organizer/items/organizer_item/config/organizer_item_export.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 import 'package:fo_fe/features/organizer/items/tag/presentation/pages/tag_list_page.dart';
 import 'package:fo_fe/features/organizer/items/tag/presentation/pages/tag_management_actions_page.dart';
 import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
