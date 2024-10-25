@@ -3,7 +3,6 @@ import 'package:drift/drift.dart';
 import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
-import 'package:fo_fe/features/organizer/utils/other/organizer_items.dart';
 
 class TaskMapper {
   static TaskEntity entityFromTableDrift(TaskTableDriftG task) {
@@ -28,7 +27,8 @@ class TaskMapper {
     );
   }
 
-  static OrganizerItems<TaskEntity> entityItemsFromTableDriftItems(List<TaskTableDriftG> items) {
+  static OrganizerItems<TaskEntity> entityItemsFromTableDriftItems(
+      List<TaskTableDriftG> items) {
     return OrganizerItems.of(items.map(entityFromTableDrift).toList());
   }
 
@@ -56,7 +56,8 @@ class TaskMapper {
 
   static jsonFoApiToModel(Map<String, dynamic> json) {
     return TaskEntity(
-      startDate: json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
+      startDate:
+          json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
       endDate: json['endDate'] != null ? DateTime.parse(json['endDate']) : null,
       workingTime: json['workingTime'],
       estimatedTime: json['estimatedTime'],
@@ -76,8 +77,12 @@ class TaskMapper {
       // reminderList: const [],
       //json['reminderList'] != null ? List<Reminder>.from(json['reminderList'].map((x) => Reminder.fromJson(x))) : null,
       remoteId: json['remoteId'],
-      lastUpdate: json['lastUpdate'] != null ? DateTime.parse(json['lastUpdate']) : null,
-      lastAccessedDate: json['lastViewDate'] != null ? DateTime.parse(json['lastViewDate']) : null,
+      lastUpdate: json['lastUpdate'] != null
+          ? DateTime.parse(json['lastUpdate'])
+          : null,
+      lastAccessedDate: json['lastViewDate'] != null
+          ? DateTime.parse(json['lastViewDate'])
+          : null,
       remoteAccesses: json['remoteViews'],
       accesses: json['views'],
       checksum: json['checksum'],
@@ -102,7 +107,8 @@ class TaskMapper {
     };
   }
 
-  static Map<String, dynamic> jsonForCheckingTheUpdatesFromEntity(TaskEntity model) {
+  static Map<String, dynamic> jsonForCheckingTheUpdatesFromEntity(
+      TaskEntity model) {
     return {
       "remoteId": model.remoteId,
       "checksum": model.checksum,
