@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fo_fe/features/organizer/items/reminder/utils/config/reminder_routes.dart';
 import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
@@ -19,6 +20,7 @@ class OrganizerAppBranch {
             UserRoutes.routes(),
             TaskRoutes.routes(),
             TagRoutes.routes(),
+            ReminderRoutes.routes(),
           ],
         ),
       ],

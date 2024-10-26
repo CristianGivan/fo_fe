@@ -25,7 +25,6 @@ class _TagAddScreenState extends State<TagAddScreen> {
     if (tagName.isNotEmpty) {
       final tag = TagEntity(subject: tagName);
       BlocProvider.of<TagBlocTag>(context).add(AddTagBlocEvent(tag));
-      context.pop(context);
     }
   }
 
@@ -49,18 +48,19 @@ class _TagAddScreenState extends State<TagAddScreen> {
             const SizedBox(height: 16.0),
             BlocConsumer<TagBlocTag, TagBlocState>(
               listener: (context, state) {
-                if (state is TagSuccess) {
+                if (state is TagSuccessBlocState) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text('Tag saved successfully')),
                   );
-                } else if (state is TagError) {
+                  context.pop();
+                } else if (state is TagErrorBlocState) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text(state.message)),
                   );
                 }
               },
               builder: (context, state) {
-                if (state is TagLoading) {
+                if (state is TagLoadingBlocState) {
                   return CircularProgressIndicator();
                 }
                 return SizedBox(

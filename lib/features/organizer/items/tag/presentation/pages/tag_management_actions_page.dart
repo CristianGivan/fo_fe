@@ -19,7 +19,8 @@ class TagManagementActionsPage extends StatelessWidget {
             children: [
               Expanded(
                 child: ElevatedButton(
-                  onPressed: () => context.push('/tag/tag_add'),
+                  onPressed: () =>
+                      context.pushNamed(TagRouterNames.tagAddRouteName),
                   child: const Text('Add Tag'),
                 ),
               ),
@@ -29,6 +30,8 @@ class TagManagementActionsPage extends StatelessWidget {
                   onPressed: () {
                     if (!selectedTags.isEmpty()) {
                       context.pop(selectedTags);
+                    } else {
+                      context.pop();
                     }
                   },
                   child: const Text('Link'),

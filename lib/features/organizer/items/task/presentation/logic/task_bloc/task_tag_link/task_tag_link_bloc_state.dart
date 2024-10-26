@@ -7,12 +7,12 @@ abstract class TaskTagLinkBlocState extends Equatable {
   List<Object> get props => [];
 }
 
-class TagLoadingBlocState extends TaskTagLinkBlocState {}
+class TaskTagLoadingBlocState extends TaskTagLinkBlocState {}
 
-class TagLoadedBlocState extends TaskTagLinkBlocState {
+class TaskTagLoadedBlocState extends TaskTagLinkBlocState {
   final OrganizerItems<TagEntity> tagItems;
 
-  TagLoadedBlocState(this.tagItems);
+  TaskTagLoadedBlocState(this.tagItems);
 
   @override
   List<Object> get props => [tagItems];
@@ -31,10 +31,10 @@ class TagItemsAddedToTaskBlocState extends TaskTagLinkBlocState {
 
 class TagDeletedFromTaskBlocState extends TaskTagLinkBlocState {}
 
-class TagErrorBlocState extends TaskTagLinkBlocState {
+class TaskTagErrorBlocState extends TaskTagLinkBlocState {
   final String message;
 
-  TagErrorBlocState(this.message);
+  TaskTagErrorBlocState(this.message);
 
   @override
   List<Object> get props => [message];

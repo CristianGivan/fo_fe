@@ -23,7 +23,7 @@ void reminderInt() {
   sl.registerLazySingleton(() => GetReminderItemsByIdSet(sl()));
 
   // Bloc
-  sl.registerFactory(() => ReminderBlocReminder(
+  sl.registerFactory(() => ReminderBloc(
         addReminder: sl(),
         updateReminder: sl(),
         deleteReminder: sl(),

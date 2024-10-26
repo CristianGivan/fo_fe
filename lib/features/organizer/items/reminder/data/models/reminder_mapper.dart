@@ -4,7 +4,8 @@ import 'package:fo_fe/features/organizer/items/reminder/utils/reminder_exports.d
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class ReminderMapper {
-  static ReminderEntity entityFromTableDrift(ReminderTableDriftG reminderTable) {
+  static ReminderEntity entityFromTableDrift(
+      ReminderTableDriftG reminderTable) {
     return ReminderEntity(
       id: reminderTable.id,
       subject: reminderTable.subject,
@@ -17,33 +18,35 @@ class ReminderMapper {
     return OrganizerItems.of(items.map(entityFromTableDrift).toList());
   }
 
-  static ReminderTableDriftCompanion tableDriftCompanionFromEntity(ReminderEntity reminder) {
+  static ReminderTableDriftCompanion tableDriftCompanionFromEntity(
+      ReminderEntity reminder) {
     return ReminderTableDriftCompanion(
       id: Value(reminder.id),
       remindAt: Value(reminder.remindAt),
     );
   }
 
-  static ReminderTableDriftCompanion companionFromEntity(ReminderEntity entity) {
+  static ReminderTableDriftCompanion companionFromEntity(
+      ReminderEntity entity) {
     return ReminderTableDriftCompanion(
       id: entity.id == 0 ? const Value.absent() : Value(entity.id),
       remindAt: Value(entity.remindAt),
     );
   }
 
-  static ReminderTableDriftCompanion entityToCompanion(ReminderEntity reminder) {
+  static ReminderTableDriftCompanion entityToCompanion(ReminderEntity entity) {
     return ReminderTableDriftCompanion(
-      id: Value(reminder.id),
-      createdDate: Value(reminder.createdDate),
-      creatorId: Value(reminder.creatorId),
-      remoteId: Value(reminder.remoteId),
-      lastUpdate: Value(reminder.lastUpdate),
-      lastAccessedDate: Value(reminder.lastAccessedDate),
-      remoteAccesses: Value(reminder.remoteAccesses),
-      accesses: Value(reminder.accesses),
-      checksum: Value(reminder.checksum),
-      subject: Value(reminder.subject),
-      remindAt: Value(reminder.remindAt),
+      id: entity.id == 0 ? const Value.absent() : Value(entity.id),
+      createdDate: Value(entity.createdDate),
+      creatorId: Value(entity.creatorId),
+      remoteId: Value(entity.remoteId),
+      lastUpdate: Value(entity.lastUpdate),
+      lastAccessedDate: Value(entity.lastAccessedDate),
+      remoteAccesses: Value(entity.remoteAccesses),
+      accesses: Value(entity.accesses),
+      checksum: Value(entity.checksum),
+      subject: Value(entity.subject),
+      remindAt: Value(entity.remindAt),
     );
   }
 }

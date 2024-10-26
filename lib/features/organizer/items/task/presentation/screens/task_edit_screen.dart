@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class TaskEditScreen extends StatefulWidget {
   final TaskEntity task;
@@ -35,7 +35,9 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
   }
 
   void _loadTags(BuildContext context) {
-    context.read<TaskTagLinkBloc>().add(GetTagsByTaskIdBlocEvent(widget.task.id));
+    context
+        .read<TaskTagLinkBloc>()
+        .add(GetTagsByTaskIdBlocEvent(widget.task.id));
   }
 
   Widget _buildFormFields() {
@@ -57,15 +59,15 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
   Widget _buildTagList() {
     return BlocBuilder<TaskTagLinkBloc, TaskTagLinkBlocState>(
       builder: (context, state) {
-        if (state is TagLoadingBlocState) {
+        if (state is TaskTagLoadingBlocState) {
           return const Center(child: CircularProgressIndicator());
-        } else if (state is TagLoadedBlocState) {
+        } else if (state is TaskTagLoadedBlocState) {
           taskTagItems = state.tagItems;
           return _buildTagListContent();
         } else if (state is TagItemsAddedToTaskBlocState) {
           taskTagItems = state.tagItems;
           return _buildTagListContent();
-        } else if (state is TagErrorBlocState) {
+        } else if (state is TaskTagErrorBlocState) {
           return Center(child: Text(state.message));
         } else {
           return const Center(child: Text('No Tags Available'));

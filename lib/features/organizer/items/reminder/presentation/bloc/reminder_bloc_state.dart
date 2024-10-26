@@ -21,12 +21,12 @@ class ReminderLoadedBlocState extends ReminderBlocState {
 }
 
 class ReminderItemsLoadedBlocState extends ReminderBlocState {
-  final OrganizerItems<ReminderEntity> reminders;
+  final OrganizerItems<ReminderEntity> reminderItems;
 
-  const ReminderItemsLoadedBlocState(this.reminders);
+  const ReminderItemsLoadedBlocState(this.reminderItems);
 
   @override
-  List<Object?> get props => [reminders];
+  List<Object?> get props => [reminderItems];
 }
 
 class ReminderErrorBlocState extends ReminderBlocState {
@@ -36,4 +36,22 @@ class ReminderErrorBlocState extends ReminderBlocState {
 
   @override
   List<Object?> get props => [message];
+}
+
+class ReminderSuccessBlocState extends ReminderBlocState {
+  final int id;
+
+  ReminderSuccessBlocState(this.id);
+
+  @override
+  List<Object> get props => [id];
+}
+
+class SingleReminderLoadedBlocState extends ReminderBlocState {
+  final ReminderEntity reminder;
+
+  SingleReminderLoadedBlocState(this.reminder);
+
+  @override
+  List<Object> get props => [reminder];
 }

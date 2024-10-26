@@ -7,9 +7,9 @@ abstract class TagBlocState extends Equatable {
   List<Object> get props => [];
 }
 
-class TagInitial extends TagBlocState {}
+class TagInitialBlocState extends TagBlocState {}
 
-class TagLoading extends TagBlocState {}
+class TagLoadingBlocState extends TagBlocState {}
 
 class TagItemsLoadedBlocState extends TagBlocState {
   final OrganizerItems<TagEntity> tagItems;
@@ -20,28 +20,28 @@ class TagItemsLoadedBlocState extends TagBlocState {
   List<Object> get props => [tagItems];
 }
 
-class TagError extends TagBlocState {
+class TagErrorBlocState extends TagBlocState {
   final String message;
 
-  TagError(this.message);
+  TagErrorBlocState(this.message);
 
   @override
   List<Object> get props => [message];
 }
 
-class TagSuccess extends TagBlocState {
+class TagSuccessBlocState extends TagBlocState {
   final int id;
 
-  TagSuccess(this.id);
+  TagSuccessBlocState(this.id);
 
   @override
   List<Object> get props => [id];
 }
 
-class SingleTagLoaded extends TagBlocState {
+class SingleTagLoadedBlocState extends TagBlocState {
   final TagEntity tag;
 
-  SingleTagLoaded(this.tag);
+  SingleTagLoadedBlocState(this.tag);
 
   @override
   List<Object> get props => [tag];

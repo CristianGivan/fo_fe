@@ -5,3 +5,7 @@ export '../data/repositories/reminder_repository_drift.dart';
 export '../domain/entities/reminder_entity.dart';
 export '../domain/repositories/reminder_repository.dart';
 export '../presentation/bloc/reminder_bloc.dart';
+export '../presentation/screens/reminder_add_screen.dart';
+export '../presentation/screens/reminder_screen.dart';
+export '../utils/config/reminder_init.dart';
+export '../utils/config/reminder_route_names.dart';
