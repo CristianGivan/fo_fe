@@ -50,7 +50,8 @@ class TagRepositoryDrift implements TagRepository {
     });
   }
 
-  Future<Either<Failure, OrganizerItems<TagEntity>>> getTagItemsByIdSet(IdSet idSet) {
+  Future<Either<Failure, OrganizerItems<TagEntity>>> getTagItemsByIdSet(
+      IdSet idSet) {
     return _handleDatabaseOperation<OrganizerItems<TagEntity>>(
       () async {
         final items = await localDataSource.getTagItemsByIdSet(idSet);
@@ -62,7 +63,8 @@ class TagRepositoryDrift implements TagRepository {
     );
   }
 
-  Future<Either<Failure, T>> _handleDatabaseOperation<T>(Future<T> Function() operation) async {
+  Future<Either<Failure, T>> _handleDatabaseOperation<T>(
+      Future<T> Function() operation) async {
     try {
       final result = await operation();
       return Right(result);
@@ -75,6 +77,17 @@ class TagRepositoryDrift implements TagRepository {
     }
   }
 
+  List<TagTableDriftG> _filterNonNullItems(List<dynamic> items) {
+    final nonNullItems = items.whereType<TagTableDriftG>().toList();
+    if (nonNullItems.length != items.length) {
+      throw const IncompleteDataFailure("Task incomplete");
+    }
+    if (nonNullItems.isEmpty) {
+      throw const TagNotFoundFailure("Tag not found");
+    }
+    return nonNullItems;
+  }
+
   void _checkItemNotNull(dynamic item) {
     if (item == null) {
       throw const TagNotFoundFailure("Tag not found");
@@ -85,18 +98,5 @@ class TagRepositoryDrift implements TagRepository {
     if (items == null || items.isEmpty) {
       throw const TagNotFoundFailure("Tag not found");
     }
-  }
-
-  List<TagTableDriftG> _filterNonNullItems(List<dynamic> items) {
-    final nonNullItems = items.whereType<TagTableDriftG>().toList();
-    if (nonNullItems.length != items.length) {
-      throw const IncompleteDataFailure("Task incomplete");
-    }
-
-    if (nonNullItems.isEmpty) {
-      throw const TagNotFoundFailure("Tag not found");
-    }
-
-    return nonNullItems;
   }
 }

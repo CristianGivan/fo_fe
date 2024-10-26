@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
 import 'package:fo_fe/core/error/failures.dart';
-import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 import 'package:fo_fe/features/organizer/items/reminder/utils/reminder_exports.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class ReminderRepositoryDrift implements ReminderRepository {
   final ReminderLocalDataSource localDataSource;
@@ -95,11 +95,9 @@ class ReminderRepositoryDrift implements ReminderRepository {
     if (nonNullItems.length != items.length) {
       throw const IncompleteDataFailure("Incomplete data found");
     }
-
     if (nonNullItems.isEmpty) {
       throw const ReminderNotFoundFailure("No items found");
     }
-
     return nonNullItems;
   }
 }
