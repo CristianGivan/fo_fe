@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class AddUsersFromAllUsersScreen extends StatefulWidget {
   final int userId;
@@ -45,7 +46,7 @@ class _AddUsersFromAllUsersScreenState
     }
 
     // Navigate back to the previous screen (UserScreen)
-    Navigator.of(context).pop();
+    context.pop;
   }
 
   @override

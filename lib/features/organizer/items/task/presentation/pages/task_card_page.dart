@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class TaskCardPage extends StatelessWidget {
   final TaskEntity task;
@@ -43,8 +43,10 @@ class TaskCardPage extends StatelessWidget {
 
           return false;
         },
-        background: _buildSwipeActionBackground(Icons.arrow_forward, Colors.green),
-        secondaryBackground: _buildSwipeActionBackground(Icons.arrow_back, Colors.red),
+        background:
+            _buildSwipeActionBackground(Icons.arrow_forward, Colors.green),
+        secondaryBackground:
+            _buildSwipeActionBackground(Icons.arrow_back, Colors.red),
         child: Card(
           margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
           elevation: 4.0,
@@ -58,7 +60,8 @@ class TaskCardPage extends StatelessWidget {
                     Expanded(
                       child: Text(
                         task.subject,
-                        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                     ),
                     IconButton(
@@ -75,19 +78,23 @@ class TaskCardPage extends StatelessWidget {
                         Row(
                           children: [
                             Expanded(
-                              child: _buildTaskStatus("Status", task.taskStatus),
+                              child:
+                                  _buildTaskStatus("Status", task.taskStatus),
                             ),
                             const SizedBox(width: 10),
                             Expanded(
-                              child: _buildTaskDateRow("Start Date", task.startDate),
+                              child: _buildTaskDateRow(
+                                  "Start Date", task.startDate),
                             ),
                             const SizedBox(width: 10),
                             Expanded(
-                              child: _buildTaskDateRow("End Date", task.endDate),
+                              child:
+                                  _buildTaskDateRow("End Date", task.endDate),
                             ),
                             const SizedBox(width: 10),
                             Expanded(
-                              child: _buildTaskProgress("Progress", task.workingProgress),
+                              child: _buildTaskProgress(
+                                  "Progress", task.workingProgress),
                             ),
                           ],
                         ),
@@ -113,13 +120,13 @@ class TaskCardPage extends StatelessWidget {
           actions: <Widget>[
             TextButton(
               child: const Text("Cancel"),
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: () => context.pop(),
             ),
             TextButton(
               child: const Text("Delete"),
               onPressed: () {
                 onDeleteTask(task);
-                Navigator.of(context).pop();
+                context.pop();
               },
             ),
           ],

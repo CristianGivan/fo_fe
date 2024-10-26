@@ -5,7 +5,7 @@ export '../domain/repositories/tag_repository.dart';
 export '../domain/usecases/tag_usecase_export.dart';
 export '../presentation/bloc/tag_bloc.dart';
 export '../presentation/screen/tag_add_screen.dart';
-export 'config/other/tag_navigator.dart';
 export 'config/tag_init.dart';
 export 'config/tag_route_names.dart';
 export 'config/tag_routes.dart';
+export 'other/tag_navigator.dart';

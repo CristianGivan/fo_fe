@@ -111,8 +111,10 @@ class _FilterDialogState extends State<FilterDialog> {
 
   void _applyFilter() {
     final filterParams = _buildFilterParams();
-    context.read<TaskBlocTask>().add(TaskItemsFilterBlocEvent(filterParams: filterParams));
-    Navigator.of(context).pop();
+    context
+        .read<TaskBlocTask>()
+        .add(TaskItemsFilterBlocEvent(filterParams: filterParams));
+    context.pop();
   }
 
   FilterTasksParams _buildFilterParams() {

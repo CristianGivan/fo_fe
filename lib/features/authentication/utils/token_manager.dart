@@ -1,4 +1,4 @@
-import 'package:fo_fe/core/utils/core_utils_exports.dart';
+import 'package:fo_fe/core/utils/exports/core_utils_exports.dart';
 
 class TokenManager {
   final EncryptionService encryptionService;

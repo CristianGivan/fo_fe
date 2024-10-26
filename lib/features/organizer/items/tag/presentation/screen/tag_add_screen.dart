@@ -1,8 +1,8 @@
 // lib/features/organizer/items/tag/presentation/screen/tag_add_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fo_fe/features/organizer/items/tag/domain/entities/tag_entity.dart';
-import 'package:fo_fe/features/organizer/items/tag/presentation/bloc/tag_bloc.dart';
+import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class TagAddScreen extends StatefulWidget {
   const TagAddScreen({super.key});
@@ -25,7 +25,7 @@ class _TagAddScreenState extends State<TagAddScreen> {
     if (tagName.isNotEmpty) {
       final tag = TagEntity(subject: tagName);
       BlocProvider.of<TagBlocTag>(context).add(AddTagBlocEvent(tag));
-      Navigator.pop(context);
+      context.pop(context);
     }
   }
 

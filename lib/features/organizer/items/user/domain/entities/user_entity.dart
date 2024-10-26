@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:fo_fe/core/utils/core_utils_exports.dart';
+import 'package:fo_fe/core/utils/exports/core_utils_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 import '../../../../../../core/utils/date_time/date_time_constants.dart';

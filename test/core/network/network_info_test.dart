@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:fo_fe/core/utils/core_utils_exports.dart';
+import 'package:fo_fe/core/utils/exports/core_utils_exports.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../helpers/test_helper.mocks.dart';

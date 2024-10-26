@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fo_fe/features/organizer/items/task/presentation/pages/task_filter_dialog.dart';
 import 'package:fo_fe/features/organizer/items/task/presentation/pages/task_sort_dialog.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
-import 'package:go_router/go_router.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class TaskManagementActionsPage extends StatelessWidget {
   const TaskManagementActionsPage({super.key});
@@ -17,7 +17,8 @@ class TaskManagementActionsPage extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () => context.pushNamed(TaskRouterNames.taskAddRouteName),
+              onPressed: () =>
+                  context.pushNamed(TaskRouterNames.taskAddRouteName),
               child: const Text('Add Task'),
             ),
           ),

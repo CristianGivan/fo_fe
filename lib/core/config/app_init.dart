@@ -2,7 +2,7 @@ import 'package:data_connection_checker_nulls/data_connection_checker_nulls.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
-import 'package:fo_fe/core/utils/core_utils_exports.dart';
+import 'package:fo_fe/core/utils/exports/core_utils_exports.dart';
 import 'package:fo_fe/features/authentication/utils/authentication_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 import 'package:fo_fe/functions/simple_bloc_observer.dart';

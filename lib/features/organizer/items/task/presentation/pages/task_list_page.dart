@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fo_fe/features/organizer/items/task/presentation/pages/task_card_page.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
-import 'package:go_router/go_router.dart';
 
 class TaskListPage extends StatelessWidget {
   const TaskListPage({super.key});
@@ -16,7 +15,8 @@ class TaskListPage extends StatelessWidget {
           case TaskLoadingBlocState:
             return const Center(child: CircularProgressIndicator());
           case TaskLoadedBlocState:
-            return _buildTaskList(context, (state as TaskLoadedBlocState).displayedTasks);
+            return _buildTaskList(
+                context, (state as TaskLoadedBlocState).displayedTasks);
           case TaskErrorBlocState:
             return Center(child: Text((state as TaskErrorBlocState).message));
           default:
@@ -26,7 +26,8 @@ class TaskListPage extends StatelessWidget {
     );
   }
 
-  Widget _buildTaskList(BuildContext context, OrganizerItems<TaskEntity> tasks) {
+  Widget _buildTaskList(
+      BuildContext context, OrganizerItems<TaskEntity> tasks) {
     return ListView.builder(
       itemCount: tasks.size(),
       itemBuilder: (context, index) {

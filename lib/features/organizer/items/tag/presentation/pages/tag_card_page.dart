@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class TagCardPage extends StatelessWidget {
   final TagEntity tag;
@@ -70,13 +71,13 @@ class TagCardPage extends StatelessWidget {
           actions: <Widget>[
             TextButton(
               child: const Text("Cancel"),
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: () => context.pop(),
             ),
             TextButton(
               child: const Text("Delete"),
               onPressed: () {
                 onDeleteTag(tag);
-                Navigator.of(context).pop();
+                context.pop();
               },
             ),
           ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.title, required this.colorWidget});
@@ -36,7 +37,7 @@ class _HomePageState extends State<HomePage> {
             ),
             MaterialButton(
               onPressed: () {
-                Navigator.of(context).pushNamed('/quick_note_reminder_task');
+                context.pushNamed('/quick_note_reminder_task');
               },
               child: const Text('Go to quick note reminder task'),
             ),
@@ -45,7 +46,7 @@ class _HomePageState extends State<HomePage> {
             ),
             MaterialButton(
               onPressed: () {
-                Navigator.of(context).pushNamed('/organizer');
+                context.pushNamed('/organizer');
               },
               child: const Text('Go to organizer'),
             ),
@@ -54,7 +55,7 @@ class _HomePageState extends State<HomePage> {
             ),
             MaterialButton(
               onPressed: () {
-                Navigator.of(context).pushNamed('/communication');
+                context.pushNamed('/communication');
               },
               child: const Text('Go to communication'),
             ),
@@ -63,7 +64,7 @@ class _HomePageState extends State<HomePage> {
             ),
             MaterialButton(
               onPressed: () {
-                Navigator.of(context).pushNamed('/media');
+                context.pushNamed('/media');
               },
               child: const Text('Go to media'),
             ),
@@ -72,7 +73,7 @@ class _HomePageState extends State<HomePage> {
             ),
             MaterialButton(
               onPressed: () {
-                Navigator.of(context).pushNamed('/practice');
+                context.pushNamed('/practice');
               },
               child: const Text('Go to practice'),
             ),
@@ -81,7 +82,7 @@ class _HomePageState extends State<HomePage> {
             ),
             MaterialButton(
               onPressed: () {
-                Navigator.of(context).pushNamed('/authentication');
+                context.pushNamed('/authentication');
               },
               child: const Text('Go to authentication'),
             ),

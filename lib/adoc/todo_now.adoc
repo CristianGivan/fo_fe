@@ -1,10 +1,7 @@
 == Next
 
-remove Navigator.pop(context)
-
 == Now
-
-update push routes
 
 == Done
 
+remove Navigator.pop(context) update push routes

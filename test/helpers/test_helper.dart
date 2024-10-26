@@ -1,5 +1,5 @@
 import 'package:data_connection_checker_nulls/data_connection_checker_nulls.dart';
-import 'package:fo_fe/core/utils/core_utils_exports.dart';
+import 'package:fo_fe/core/utils/exports/core_utils_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/data/datasources/task_local_data_source_drift.dart';
 import 'package:fo_fe/features/organizer/items/task/data/datasources/task_remote_data_source_impl.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/repositories/task_repository.dart';

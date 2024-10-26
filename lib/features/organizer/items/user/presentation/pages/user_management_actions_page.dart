@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class UserManagementActionsPage extends StatelessWidget {
   final int userId;

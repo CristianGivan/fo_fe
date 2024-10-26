@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class QuickNoteReminderTaskScreen extends StatefulWidget {
   const QuickNoteReminderTaskScreen(
@@ -27,7 +28,7 @@ class _QuickNoteReminderTaskScreenState
           children: <Widget>[
             MaterialButton(
               onPressed: () {
-                Navigator.of(context).pushNamed('/quick_note');
+                context.pushNamed('/quick_note');
               },
               child: const Text('Create Note'),
             ),
@@ -36,7 +37,7 @@ class _QuickNoteReminderTaskScreenState
             ),
             MaterialButton(
               onPressed: () {
-                Navigator.of(context).pushNamed('/quick_reminder');
+                context.pushNamed('/quick_reminder');
               },
               child: const Text('Create Reminder'),
             ),
@@ -45,7 +46,7 @@ class _QuickNoteReminderTaskScreenState
             ),
             MaterialButton(
               onPressed: () {
-                Navigator.of(context).pushNamed('/quick_task');
+                context.pushNamed('/quick_task');
               },
               child: const Text('Create task'),
             ),

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fo_fe/features/authentication/utils/authentication_exports.dart';
 import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
-import 'package:go_router/go_router.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class OrganizerHomeScreen extends StatelessWidget {
   const OrganizerHomeScreen({super.key});
@@ -12,7 +12,8 @@ class OrganizerHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: BlocBuilder<AuthenticationBlocSession, AuthenticationBlocSessionState>(
+        title: BlocBuilder<AuthenticationBlocSession,
+            AuthenticationBlocSessionState>(
           builder: (context, state) {
             if (state is AuthenticationSessionAuthenticated) {
               return Text('Welcome, authId: ${state.authEntity.id},'
@@ -25,7 +26,8 @@ class OrganizerHomeScreen extends StatelessWidget {
           },
         ),
         actions: [
-          BlocBuilder<AuthenticationBlocSession, AuthenticationBlocSessionState>(
+          BlocBuilder<AuthenticationBlocSession,
+              AuthenticationBlocSessionState>(
             builder: (context, state) {
               if (state is AuthenticationSessionAuthenticated) {
                 return IconButton(
@@ -34,7 +36,8 @@ class OrganizerHomeScreen extends StatelessWidget {
                     context.read<AuthenticationBlocToken>().add(
                           LogoutBlocEvent(authId: state.authEntity.id),
                         );
-                    context.pushNamed(AuthenticationRouterNames.authenticationRouteName);
+                    context.pushNamed(
+                        AuthenticationRouterNames.authenticationRouteName);
                   },
                 );
               } else {
@@ -70,14 +73,15 @@ class OrganizerHomeScreen extends StatelessWidget {
           const SizedBox(height: 10),
           Center(
             child: ElevatedButton(
-              onPressed: () => context.pushNamed(TagRouterNames.tagRoute),
+              onPressed: () => context.pushNamed(TagRouterNames.tagRouteName),
               child: const Text('Go to the tag screen'),
             ),
           ),
           const SizedBox(height: 10),
           Center(
             child: ElevatedButton(
-              onPressed: () => context.pushNamed(AuthenticationRouterNames.authenticationRouteName),
+              onPressed: () => context
+                  .pushNamed(AuthenticationRouterNames.authenticationRouteName),
               child: const Text('Authentication'),
             ),
           ),

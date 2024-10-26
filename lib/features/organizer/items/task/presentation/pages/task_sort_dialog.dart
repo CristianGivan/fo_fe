@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class SortDialog extends StatefulWidget {
   const SortDialog({super.key});
@@ -59,7 +59,7 @@ class _SortDialogState extends State<SortDialog> {
     context
         .read<TaskBlocTask>()
         .add(TaskItemsSortBlocEvent(sortParams: sortParams));
-    Navigator.of(context).pop();
+    context.pop();
   }
 
   OrganizerItems<TaskEntity> _getTasksFromState() {

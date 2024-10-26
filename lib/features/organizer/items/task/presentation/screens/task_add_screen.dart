@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class TaskAddScreen extends StatefulWidget {
   const TaskAddScreen({super.key});
@@ -24,7 +24,8 @@ class _AddTaskScreenState extends State<TaskAddScreen> {
 
   String? _selectedUser; // Variable to store the selected user
 
-  Future<void> _selectDateTime(BuildContext context, TextEditingController controller) async {
+  Future<void> _selectDateTime(
+      BuildContext context, TextEditingController controller) async {
     final DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -48,7 +49,8 @@ class _AddTaskScreenState extends State<TaskAddScreen> {
         );
 
         setState(() {
-          controller.text = pickedDateTime.toIso8601String(); // Use a standardized format
+          controller.text =
+              pickedDateTime.toIso8601String(); // Use a standardized format
         });
       }
     }
@@ -106,11 +108,13 @@ class _AddTaskScreenState extends State<TaskAddScreen> {
               ),
               TextFormField(
                 controller: _estimatedLeftTimeController,
-                decoration: const InputDecoration(labelText: 'Estimated Left Time'),
+                decoration:
+                    const InputDecoration(labelText: 'Estimated Left Time'),
               ),
               TextFormField(
                 controller: _workingProgressController,
-                decoration: const InputDecoration(labelText: 'Working Progress'),
+                decoration:
+                    const InputDecoration(labelText: 'Working Progress'),
               ),
               TextFormField(
                 controller: _taskStatusController,
@@ -136,10 +140,12 @@ class _AddTaskScreenState extends State<TaskAddScreen> {
                       id: 0,
                       // ID will be auto-generated
                       subject: _subjectController.text,
-                      createdDate: DateTime.parse(DateTime.now().toIso8601String()),
+                      createdDate:
+                          DateTime.parse(DateTime.now().toIso8601String()),
                       creatorId: int.parse("1"),
-                      checksum:
-                          _checksumController.text.isNotEmpty ? _checksumController.text : null,
+                      checksum: _checksumController.text.isNotEmpty
+                          ? _checksumController.text
+                          : null,
                       startDate: _startDateController.text.isNotEmpty
                           ? DateTime.parse(_startDateController.text)
                           : null,
@@ -152,19 +158,23 @@ class _AddTaskScreenState extends State<TaskAddScreen> {
                       estimatedTime: _estimatedTimeController.text.isNotEmpty
                           ? double.parse(_estimatedTimeController.text)
                           : null,
-                      estimatedLeftTime: _estimatedLeftTimeController.text.isNotEmpty
-                          ? double.parse(_estimatedLeftTimeController.text)
-                          : null,
-                      workingProgress: _workingProgressController.text.isNotEmpty
-                          ? double.parse(_workingProgressController.text)
-                          : null,
+                      estimatedLeftTime:
+                          _estimatedLeftTimeController.text.isNotEmpty
+                              ? double.parse(_estimatedLeftTimeController.text)
+                              : null,
+                      workingProgress:
+                          _workingProgressController.text.isNotEmpty
+                              ? double.parse(_workingProgressController.text)
+                              : null,
                       taskStatus: _taskStatusController.text.isNotEmpty
-                          ? TaskStatus.values.firstWhere(
-                              (e) => e.toString() == 'TaskStatus.${_taskStatusController.text}')
+                          ? TaskStatus.values.firstWhere((e) =>
+                              e.toString() ==
+                              'TaskStatus.${_taskStatusController.text}')
                           : null,
                     );
-                    BlocProvider.of<TaskBlocTask>(context).add(TaskAddBlocEvent(task));
-                    Navigator.pop(context);
+                    BlocProvider.of<TaskBlocTask>(context)
+                        .add(TaskAddBlocEvent(task));
+                    context.pop();
                   }
                 },
                 child: const Text('Save'),

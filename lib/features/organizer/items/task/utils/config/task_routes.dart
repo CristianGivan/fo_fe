@@ -1,7 +1,7 @@
 import 'package:fo_fe/features/organizer/items/task/presentation/screens/task_edit_screen.dart';
 import 'package:fo_fe/features/organizer/items/task/presentation/screens/task_view_screen.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
-import 'package:go_router/go_router.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class TaskRoutes {
   static GoRoute routes() {

@@ -1,5 +1,5 @@
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
-import 'package:go_router/go_router.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class UserRoutes {
   static GoRoute routes() {
