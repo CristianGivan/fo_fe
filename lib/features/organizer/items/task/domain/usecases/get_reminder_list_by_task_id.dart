@@ -7,14 +7,15 @@ import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 import '../repositories/task_repository.dart';
 
-class GetRemindersByTaskId
-    extends UseCase<OrganizerItems<ReminderEntity>, GetRemindersByTaskIdParams> {
+class GetReminderItemsByTaskId extends UseCase<OrganizerItems<ReminderEntity>,
+    GetRemindersByTaskIdParams> {
   final TaskRepository repository;
 
-  GetRemindersByTaskId(this.repository);
+  GetReminderItemsByTaskId(this.repository);
 
   @override
-  Future<Either<Failure, OrganizerItems<ReminderEntity>>> call(GetRemindersByTaskIdParams params) {
+  Future<Either<Failure, OrganizerItems<ReminderEntity>>> call(
+      GetRemindersByTaskIdParams params) {
     return repository.getRemindersByTaskId(params.taskId);
   }
 }

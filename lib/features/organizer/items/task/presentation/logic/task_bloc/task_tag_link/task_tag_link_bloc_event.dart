@@ -7,10 +7,10 @@ abstract class TaskTagLinkBlocEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GetTagsByTaskIdBlocEvent extends TaskTagLinkBlocEvent {
+class GetTagItemsByTaskIdBlocEvent extends TaskTagLinkBlocEvent {
   final int taskId;
 
-  GetTagsByTaskIdBlocEvent(this.taskId);
+  GetTagItemsByTaskIdBlocEvent(this.taskId);
 
   @override
   List<Object> get props => [taskId];

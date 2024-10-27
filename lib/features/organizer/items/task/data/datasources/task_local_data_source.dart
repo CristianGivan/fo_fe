@@ -38,7 +38,13 @@ abstract class TaskLocalDataSource {
   // Reminder operations related to tasks
   Future<List<ReminderTableDriftG>?> getRemindersByTaskId(int taskId);
 
+  Future<List<ReminderTableDriftG>?> getReminderItemsByTaskId(int taskId);
+
   Future<int> addReminderToTask(int taskId, int reminderId);
 
+  Future<void> addReminderItemsToTask(int taskId, List<int> tagId);
+
   Future<int> deleteReminderFromTask(int taskId, int reminderId);
+
+  Future<void> deleteReminderItemsFromTask(int taskId, List<int> reminderId);
 }

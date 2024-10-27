@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fo_fe/features/organizer/items/reminder/utils/reminder_exports.dart';
 import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
+import 'package:fo_fe/features/organizer/items/task/presentation/pages/task_reminder_list_page.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
@@ -15,10 +17,11 @@ class TaskEditScreen extends StatefulWidget {
 
 class _TaskEditScreenState extends State<TaskEditScreen> {
   OrganizerItems<TagEntity> taskTagItems = OrganizerItems.empty();
+  OrganizerItems<ReminderEntity> taskReminderItems = OrganizerItems.empty();
 
   @override
   Widget build(BuildContext context) {
-    _loadTags(context);
+    _loadTagsAndReminders(context);
     return Scaffold(
       appBar: AppBar(title: const Text('Edit Task')),
       body: SingleChildScrollView(
@@ -34,10 +37,13 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
     );
   }
 
-  void _loadTags(BuildContext context) {
+  void _loadTagsAndReminders(BuildContext context) {
     context
         .read<TaskTagLinkBloc>()
-        .add(GetTagsByTaskIdBlocEvent(widget.task.id));
+        .add(GetTagItemsByTaskIdBlocEvent(widget.task.id));
+    context
+        .read<TaskReminderLinkBloc>()
+        .add(GetReminderItemsByTaskIdBlocEvent(widget.task.id));
   }
 
   Widget _buildFormFields() {
@@ -45,6 +51,8 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
       children: [
         _buildSubjectField(),
         _buildTagList(),
+        const Text("Reminder"),
+        _buildReminderList(), // New
       ],
     );
   }
@@ -83,6 +91,35 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
     return TaskTagListPage(task: widget.task, tagItems: taskTagItems);
   }
 
+  // New method for reminder list
+  Widget _buildReminderList() {
+    return BlocBuilder<TaskReminderLinkBloc, TaskReminderLinkBlocState>(
+      builder: (context, state) {
+        if (state is TaskReminderLoadingBlocState) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (state is TaskReminderLoadedBlocState) {
+          taskReminderItems = state.reminderItems;
+          return _buildReminderListContent();
+        } else if (state is ReminderItemsAddedToTaskBlocState) {
+          taskReminderItems = state.reminderItems;
+          return _buildReminderListContent();
+        } else if (state is TaskReminderErrorBlocState) {
+          return Center(child: Text(state.message));
+        } else {
+          return const Center(child: Text('No Reminders Available'));
+        }
+      },
+    );
+  }
+
+  Widget _buildReminderListContent() {
+    if (taskReminderItems.isEmpty()) {
+      return const Center(child: Text('No Reminders Available'));
+    }
+    return TaskReminderListPage(
+        task: widget.task, reminderItems: taskReminderItems);
+  }
+
   Widget _buildActionButtons(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -92,8 +129,12 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
           child: const Text('Save'),
         ),
         ElevatedButton(
-          onPressed: () => _handleLinkButtonPress(context),
-          child: const Text('Link'),
+          onPressed: () => _handleLinkTagButtonPress(context),
+          child: const Text('Link Tag'),
+        ),
+        ElevatedButton(
+          onPressed: () => _handleLinkReminderButtonPress(context),
+          child: const Text('Link Reminder'),
         ),
       ],
     );
@@ -103,11 +144,21 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
     // Handle save button press
   }
 
-  Future<void> _handleLinkButtonPress(BuildContext context) async {
-    await TagNavigator.navigateAndUpdateTags(
+  Future<void> _handleLinkTagButtonPress(BuildContext context) async {
+    await OrganizerItemNavigator.navigateAndUpdateItems<TagEntity>(
       context,
       widget.task.id,
       taskTagItems,
+      TagRouterNames.tagRouteName,
+    );
+  }
+
+  Future<void> _handleLinkReminderButtonPress(BuildContext context) async {
+    await OrganizerItemNavigator.navigateAndUpdateItems<ReminderEntity>(
+      context,
+      widget.task.id,
+      taskReminderItems,
+      ReminderRouterNames.reminderRouteName,
     );
   }
 }

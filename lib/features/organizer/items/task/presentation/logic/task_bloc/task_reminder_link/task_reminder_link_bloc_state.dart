@@ -7,25 +7,34 @@ abstract class TaskReminderLinkBlocState extends Equatable {
   List<Object> get props => [];
 }
 
-class ReminderLoadingBlocState extends TaskReminderLinkBlocState {}
+class TaskReminderLoadingBlocState extends TaskReminderLinkBlocState {}
 
-class ReminderLoadedBlocState extends TaskReminderLinkBlocState {
-  final OrganizerItems<ReminderEntity> reminders;
+class TaskReminderLoadedBlocState extends TaskReminderLinkBlocState {
+  final OrganizerItems<ReminderEntity> reminderItems;
 
-  ReminderLoadedBlocState(this.reminders);
+  TaskReminderLoadedBlocState(this.reminderItems);
 
   @override
-  List<Object> get props => [reminders];
+  List<Object> get props => [reminderItems];
 }
 
 class ReminderAddedToTaskBlocState extends TaskReminderLinkBlocState {}
 
+class ReminderItemsAddedToTaskBlocState extends TaskReminderLinkBlocState {
+  final OrganizerItems<ReminderEntity> reminderItems;
+
+  ReminderItemsAddedToTaskBlocState(this.reminderItems);
+
+  @override
+  List<Object> get props => [reminderItems];
+}
+
 class ReminderDeletedFromTaskBlocState extends TaskReminderLinkBlocState {}
 
-class ReminderErrorBlocState extends TaskReminderLinkBlocState {
+class TaskReminderErrorBlocState extends TaskReminderLinkBlocState {
   final String message;
 
-  ReminderErrorBlocState(this.message);
+  TaskReminderErrorBlocState(this.message);
 
   @override
   List<Object> get props => [message];

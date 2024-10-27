@@ -3,7 +3,7 @@ part of '../task_bloc.dart';
 class TaskTagLinkBloc extends Bloc<TaskTagLinkBlocEvent, TaskTagLinkBlocState> {
   final GetTagItemsByTaskId getTagsByTaskId;
   final AddTagToTask addTagToTask;
-  final AddTagItemsToTask addTagItemsToTask;
+  final AddItemsToTaskUseCase<TagEntity> addItemsToTask;
   final UpdateTagItemsOfTask updateTagItemsOfTask;
   final DeleteTagFromTask deleteTagFromTask;
 
@@ -11,10 +11,10 @@ class TaskTagLinkBloc extends Bloc<TaskTagLinkBlocEvent, TaskTagLinkBlocState> {
     required this.getTagsByTaskId,
     required this.addTagToTask,
     required this.deleteTagFromTask,
-    required this.addTagItemsToTask,
+    required this.addItemsToTask,
     required this.updateTagItemsOfTask,
   }) : super(TaskTagLoadingBlocState()) {
-    on<GetTagsByTaskIdBlocEvent>(_onGetTagsByTaskId);
+    on<GetTagItemsByTaskIdBlocEvent>(_onGetTagsByTaskId);
     on<AddTagToTaskBlocEvent>(_onAddTagToTask);
     on<DeleteTagFromTaskBlocEvent>(_onDeleteTagFromTask);
     on<AddTagItemsToTaskBlocEvent>(_onAddTagItemsToTask);
@@ -22,7 +22,7 @@ class TaskTagLinkBloc extends Bloc<TaskTagLinkBlocEvent, TaskTagLinkBlocState> {
   }
 
   Future<void> _onGetTagsByTaskId(
-    GetTagsByTaskIdBlocEvent event,
+    GetTagItemsByTaskIdBlocEvent event,
     Emitter<TaskTagLinkBlocState> emit,
   ) async {
     emit(TaskTagLoadingBlocState());
@@ -63,8 +63,11 @@ class TaskTagLinkBloc extends Bloc<TaskTagLinkBlocEvent, TaskTagLinkBlocState> {
     Emitter<TaskTagLinkBlocState> emit,
   ) async {
     emit(TaskTagLoadingBlocState());
-    final failureOrOrganizerItems = await addTagItemsToTask(
-        AddTagItemsToTaskParams(taskId: event.taskId, tagIds: event.tagIds));
+    final failureOrOrganizerItems = await addItemsToTask(AddItemsToTaskParams(
+      taskId: event.taskId,
+      itemsIds: event.tagIds,
+      itemType: ItemsType.tag,
+    ));
     emit(failureOrOrganizerItems.fold(
       (failure) => TaskTagErrorBlocState(_mapFailureToMessage(failure)),
       (organizerItems) => TagItemsAddedToTaskBlocState(organizerItems),

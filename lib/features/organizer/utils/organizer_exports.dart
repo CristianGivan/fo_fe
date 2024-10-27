@@ -1,6 +1,6 @@
 export 'package:fo_fe/core/utils/exports/external_exports.dart';
 
-export '../screens/organizer_home_screen.dart';
+export '../presentation/screens/organizer_home_screen.dart';
 export 'config/organizer_init.dart';
 export 'config/organizer_router.dart';
 export 'config/organizer_router_names.dart';
