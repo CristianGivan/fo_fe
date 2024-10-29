@@ -3,14 +3,12 @@ import 'package:fo_fe/features/organizer/items/reminder/utils/reminder_exports.d
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/presentation/pages/item_list_link_page.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
-import 'package:fo_fe/features/organizer/utils/other/organizer_item_navigator.dart';
 
 class TaskReminderListPage extends StatelessWidget {
   final OrganizerItems<ReminderEntity> reminderItems;
   final TaskEntity task;
 
-  const TaskReminderListPage(
-      {super.key, required this.reminderItems, required this.task});
+  const TaskReminderListPage({super.key, required this.reminderItems, required this.task});
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +27,13 @@ class TaskReminderListPage extends StatelessWidget {
   }
 
   Future<void> _handleUpdateReminderItems(BuildContext context) async {
-    await OrganizerItemNavigator.navigateAndUpdateItems<ReminderEntity>(
+    final navigator = NavigatorFactory.getNavigator<ReminderEntity>(
+      routeName: ReminderRouterNames.reminderRouteName,
+    );
+    await navigator.navigateAndUpdateItems(
       context,
       task.id,
       reminderItems,
-      ReminderRouterNames.reminderRouteName,
     );
   }
 }

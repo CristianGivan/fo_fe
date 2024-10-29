@@ -38,12 +38,8 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
   }
 
   void _loadTagsAndReminders(BuildContext context) {
-    context
-        .read<TaskTagLinkBloc>()
-        .add(GetTagItemsByTaskIdBlocEvent(widget.task.id));
-    context
-        .read<TaskReminderLinkBloc>()
-        .add(GetReminderItemsByTaskIdBlocEvent(widget.task.id));
+    context.read<TaskTagLinkBloc>().add(GetTagItemsByTaskIdBlocEvent(widget.task.id));
+    context.read<TaskReminderLinkBloc>().add(GetReminderItemsByTaskIdBlocEvent(widget.task.id));
   }
 
   Widget _buildFormFields() {
@@ -116,8 +112,7 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
     if (taskReminderItems.isEmpty()) {
       return const Center(child: Text('No Reminders Available'));
     }
-    return TaskReminderListPage(
-        task: widget.task, reminderItems: taskReminderItems);
+    return TaskReminderListPage(task: widget.task, reminderItems: taskReminderItems);
   }
 
   Widget _buildActionButtons(BuildContext context) {
@@ -145,20 +140,24 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
   }
 
   Future<void> _handleLinkTagButtonPress(BuildContext context) async {
-    await OrganizerItemNavigator.navigateAndUpdateItems<TagEntity>(
+    final navigator = NavigatorFactory.getNavigator<TagEntity>(
+      routeName: TagRouterNames.tagRouteName,
+    );
+    await navigator.navigateAndUpdateItems(
       context,
       widget.task.id,
       taskTagItems,
-      TagRouterNames.tagRouteName,
     );
   }
 
   Future<void> _handleLinkReminderButtonPress(BuildContext context) async {
-    await OrganizerItemNavigator.navigateAndUpdateItems<ReminderEntity>(
+    final navigator = NavigatorFactory.getNavigator<ReminderEntity>(
+      routeName: ReminderRouterNames.reminderRouteName,
+    );
+    await navigator.navigateAndUpdateItems(
       context,
       widget.task.id,
       taskReminderItems,
-      ReminderRouterNames.reminderRouteName,
     );
   }
 }

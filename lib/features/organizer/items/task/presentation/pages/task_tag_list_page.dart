@@ -8,8 +8,7 @@ class TaskTagListPage extends StatelessWidget {
   final OrganizerItems<TagEntity> tagItems;
   final TaskEntity task;
 
-  const TaskTagListPage(
-      {super.key, required this.tagItems, required this.task});
+  const TaskTagListPage({super.key, required this.tagItems, required this.task});
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +27,13 @@ class TaskTagListPage extends StatelessWidget {
   }
 
   Future<void> _handleUpdateTagItems(BuildContext context) async {
-    OrganizerItemNavigator.navigateAndUpdateItems<TagEntity>(
+    final navigator = NavigatorFactory.getNavigator<TagEntity>(
+      routeName: TagRouterNames.tagRouteName,
+    );
+    await navigator.navigateAndUpdateItems(
       context,
       task.id,
       tagItems,
-      TagRouterNames.tagRouteName,
     );
   }
 }

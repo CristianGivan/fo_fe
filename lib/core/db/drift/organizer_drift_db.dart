@@ -44,8 +44,7 @@ class OrganizerDriftDB extends _$OrganizerDriftDB {
         onUpgrade: (Migrator m, int from, int to) async {},
       );
 
-  static LazyDatabase _openConnection(
-      {bool isDev = false, bool inMemory = false}) {
+  static LazyDatabase _openConnection({bool isDev = false, bool inMemory = false}) {
     return LazyDatabase(() async {
       if (inMemory) {
         // Use in-memory database for tests

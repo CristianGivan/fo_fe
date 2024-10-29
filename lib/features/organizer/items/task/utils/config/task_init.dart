@@ -1,12 +1,12 @@
 import 'package:fo_fe/core/db/drift/organizer_drift_db.dart';
-import 'package:fo_fe/features/organizer/items/reminder/utils/reminder_exports.dart';
-import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/data/datasources/task_local_data_source_drift.dart';
 import 'package:fo_fe/features/organizer/items/task/data/datasources/task_remote_data_source.dart';
 import 'package:fo_fe/features/organizer/items/task/data/datasources/task_remote_data_source_impl.dart';
 import 'package:fo_fe/features/organizer/items/task/data/repositories/task_repository_drift.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/repositories/task_repository.dart';
-import 'package:fo_fe/features/organizer/items/task/domain/usecases/add_items_to_task_use_case.dart';
+import 'package:fo_fe/features/organizer/items/task/domain/usecases/add_reminder_items_to_task_use_case.dart';
+import 'package:fo_fe/features/organizer/items/task/domain/usecases/add_tag_items_to_task_use_case.dart';
+import 'package:fo_fe/features/organizer/items/task/domain/usecases/update_reminder_items_of_task_use_case.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:get_it/get_it.dart';
 
@@ -36,14 +36,12 @@ void taskInit() {
   sl.registerLazySingleton(() => AddUserToTask(sl()));
   sl.registerLazySingleton(() => DeleteUserFromTask(sl()));
   sl.registerLazySingleton(() => GetUsersByTaskId(sl()));
-  sl.registerLazySingleton(() => AddTagToTask(sl()));
-  sl.registerLazySingleton(() => AddItemsToTaskUseCase<TagEntity>(sl()));
-  sl.registerLazySingleton(() => AddItemsToTaskUseCase<ReminderEntity>(sl()));
-  sl.registerLazySingleton(() => UpdateItemsOfTask<TagEntity>(sl()));
-  sl.registerLazySingleton(() => UpdateItemsOfTask<ReminderEntity>(sl()));
+  sl.registerLazySingleton(() => AddTagItemsToTaskUseCase(sl()));
+  sl.registerLazySingleton(() => AddReminderItemsToTaskUseCase(sl()));
+  sl.registerLazySingleton(() => UpdateTagItemsOfTask(sl()));
+  sl.registerLazySingleton(() => UpdateReminderItemsOfTask(sl()));
   sl.registerLazySingleton(() => DeleteTagFromTask(sl()));
   sl.registerLazySingleton(() => GetTagItemsByTaskId(sl()));
-  sl.registerLazySingleton(() => AddReminderToTask(sl()));
   sl.registerLazySingleton(() => DeleteReminderFromTask(sl()));
   sl.registerLazySingleton(() => GetReminderItemsByTaskId(sl()));
   sl.registerLazySingleton(() => TaskFilterUseCase());
@@ -67,16 +65,14 @@ void taskInit() {
       ));
   sl.registerFactory(() => TaskTagLinkBloc(
         getTagsByTaskId: sl(),
-        addTagToTask: sl(),
-        addItemsToTask: sl(),
+        addReminderItemsToTask: sl(),
         updateTagItemsOfTask: sl(),
         deleteTagFromTask: sl(),
       ));
   sl.registerFactory(() => TaskReminderLinkBloc(
         getRemindersByTaskId: sl(),
-        addReminderToTask: sl(),
         deleteReminderFromTask: sl(),
-        addItemsToTask: sl(),
+        addReminderItemsToTask: sl(),
         updateReminderItemsOfTask: sl(),
       ));
 }

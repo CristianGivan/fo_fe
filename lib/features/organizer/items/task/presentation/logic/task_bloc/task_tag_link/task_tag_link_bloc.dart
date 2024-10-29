@@ -2,20 +2,17 @@ part of '../task_bloc.dart';
 
 class TaskTagLinkBloc extends Bloc<TaskTagLinkBlocEvent, TaskTagLinkBlocState> {
   final GetTagItemsByTaskId getTagsByTaskId;
-  final AddTagToTask addTagToTask;
-  final AddItemsToTaskUseCase<TagEntity> addItemsToTask;
-  final UpdateItemsOfTask<TagEntity> updateTagItemsOfTask;
+  final AddTagItemsToTaskUseCase addReminderItemsToTask;
+  final UpdateTagItemsOfTask updateTagItemsOfTask;
   final DeleteTagFromTask deleteTagFromTask;
 
   TaskTagLinkBloc({
     required this.getTagsByTaskId,
-    required this.addTagToTask,
     required this.deleteTagFromTask,
-    required this.addItemsToTask,
+    required this.addReminderItemsToTask,
     required this.updateTagItemsOfTask,
   }) : super(TaskTagLoadingBlocState()) {
     on<GetTagItemsByTaskIdBlocEvent>(_onGetTagsByTaskId);
-    on<AddTagToTaskBlocEvent>(_onAddTagToTask);
     on<DeleteTagFromTaskBlocEvent>(_onDeleteTagFromTask);
     on<AddTagItemsToTaskBlocEvent>(_onAddTagItemsToTask);
     on<UpdateTagItemsOfTaskBlocEvent>(_onUpdateTagItemsOfTask);
@@ -30,18 +27,6 @@ class TaskTagLinkBloc extends Bloc<TaskTagLinkBlocEvent, TaskTagLinkBlocState> {
     emit(failureOrTags.fold(
       (failure) => TaskTagErrorBlocState(_mapFailureToMessage(failure)),
       (tags) => TaskTagLoadedBlocState(tags),
-    ));
-  }
-
-  Future<void> _onAddTagToTask(
-    AddTagToTaskBlocEvent event,
-    Emitter<TaskTagLinkBlocState> emit,
-  ) async {
-    final failureOrSuccess =
-        await addTagToTask(AddTagToTaskParams(taskId: event.taskId, tagId: event.tag.id));
-    emit(failureOrSuccess.fold(
-      (failure) => TaskTagErrorBlocState(_mapFailureToMessage(failure)),
-      (_) => TagAddedToTaskBlocState(),
     ));
   }
 
@@ -62,10 +47,9 @@ class TaskTagLinkBloc extends Bloc<TaskTagLinkBlocEvent, TaskTagLinkBlocState> {
     Emitter<TaskTagLinkBlocState> emit,
   ) async {
     emit(TaskTagLoadingBlocState());
-    final failureOrOrganizerItems = await addItemsToTask(AddItemsToTaskParams(
+    final failureOrOrganizerItems = await addReminderItemsToTask(AddItemsToTaskParams(
       taskId: event.taskId,
       itemsIds: event.tagIds,
-      itemType: ItemsType.tag,
     ));
     emit(failureOrOrganizerItems.fold(
       (failure) => TaskTagErrorBlocState(_mapFailureToMessage(failure)),
@@ -82,7 +66,6 @@ class TaskTagLinkBloc extends Bloc<TaskTagLinkBlocEvent, TaskTagLinkBlocState> {
       taskId: event.taskId,
       items: event.tagItems,
       updatedItems: event.updatedTagItems,
-      itemType: ItemsType.tag,
     ));
     emit(failureOrOrganizerItems.fold(
       (failure) => TaskTagErrorBlocState(_mapFailureToMessage(failure)),

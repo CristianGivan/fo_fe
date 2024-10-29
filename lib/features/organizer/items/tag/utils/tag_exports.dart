@@ -1,4 +1,3 @@
-export '../../../utils/other/organizer_item_navigator.dart';
 export '../data/datasources/tag_local_data_source.dart';
 export '../data/models/tag_mapper.dart';
 export '../domain/entities/tag_entity.dart';
