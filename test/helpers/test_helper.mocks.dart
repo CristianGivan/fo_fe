@@ -189,15 +189,6 @@ class MockTaskRemoteDataSourceImpl extends _i1.Mock implements _i9.TaskRemoteDat
           Invocation.getter(#serverUrl),
         ),
       ) as String);
-
-  _i8.Future<void> deleteTask(int? id) => (super.noSuchMethod(
-        Invocation.method(
-          #deleteTask,
-          [id],
-        ),
-        returnValue: _i8.Future<void>.value(),
-        returnValueForMissingStub: _i8.Future<void>.value(),
-      ) as _i8.Future<void>);
 }
 
 /// A class which mocks [TaskLocalDataSourceDrift].
@@ -300,6 +291,17 @@ class MockTaskLocalDataSourceDrift extends _i1.Mock implements _i11.TaskLocalDat
       ) as _i8.Future<List<_i3.ReminderTableDriftG>?>);
 
   @override
+  _i8.Future<List<_i3.ReminderTableDriftG>?> getReminderItemsByTaskId(int? taskId) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getReminderItemsByTaskId,
+          [taskId],
+        ),
+        returnValue: _i8.Future<List<_i3.ReminderTableDriftG>?>.value(),
+        returnValueForMissingStub: _i8.Future<List<_i3.ReminderTableDriftG>?>.value(),
+      ) as _i8.Future<List<_i3.ReminderTableDriftG>?>);
+
+  @override
   _i8.Future<_i3.UserTableDriftG?> getCreatorById(int? creatorId) => (super.noSuchMethod(
         Invocation.method(
           #getCreatorById,
@@ -344,6 +346,23 @@ class MockTaskLocalDataSourceDrift extends _i1.Mock implements _i11.TaskLocalDat
       ) as _i8.Future<int>);
 
   @override
+  _i8.Future<void> addReminderItemsToTask(
+    int? taskId,
+    List<int>? reminderItems,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #addReminderItemsToTask,
+          [
+            taskId,
+            reminderItems,
+          ],
+        ),
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
+
+  @override
   _i8.Future<int> deleteUserFromTask(
     int? taskId,
     int? userId,
@@ -378,6 +397,23 @@ class MockTaskLocalDataSourceDrift extends _i1.Mock implements _i11.TaskLocalDat
       ) as _i8.Future<int>);
 
   @override
+  _i8.Future<void> deleteReminderItemsFromTask(
+    int? taskId,
+    List<int>? reminderItems,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #deleteReminderItemsFromTask,
+          [
+            taskId,
+            reminderItems,
+          ],
+        ),
+        returnValue: _i8.Future<void>.value(),
+        returnValueForMissingStub: _i8.Future<void>.value(),
+      ) as _i8.Future<void>);
+
+  @override
   _i8.Future<List<_i3.TagTableDriftG>?> getTagItemsByTaskId(int? taskId) => (super.noSuchMethod(
         Invocation.method(
           #getTagItemsByTaskId,
@@ -407,14 +443,14 @@ class MockTaskLocalDataSourceDrift extends _i1.Mock implements _i11.TaskLocalDat
   @override
   _i8.Future<void> addTagItemsToTask(
     int? taskId,
-    List<int>? tags,
+    List<int>? tagItems,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
           #addTagItemsToTask,
           [
             taskId,
-            tags,
+            tagItems,
           ],
         ),
         returnValue: _i8.Future<void>.value(),
@@ -1016,6 +1052,46 @@ class MockTaskRepository extends _i1.Mock implements _i6.TaskRepository {
       ) as _i8.Future<_i4.Either<_i13.Failure, int>>);
 
   @override
+  _i8.Future<
+      _i4.Either<_i13.Failure, _i12.OrganizerItems<_i17.ReminderEntity>>> addReminderItemsToTask(
+    int? taskId,
+    _i12.IdSet? tagIds,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #addReminderItemsToTask,
+          [
+            taskId,
+            tagIds,
+          ],
+        ),
+        returnValue:
+            _i8.Future<_i4.Either<_i13.Failure, _i12.OrganizerItems<_i17.ReminderEntity>>>.value(
+                _FakeEither_2<_i13.Failure, _i12.OrganizerItems<_i17.ReminderEntity>>(
+          this,
+          Invocation.method(
+            #addReminderItemsToTask,
+            [
+              taskId,
+              tagIds,
+            ],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i8.Future<_i4.Either<_i13.Failure, _i12.OrganizerItems<_i17.ReminderEntity>>>.value(
+                _FakeEither_2<_i13.Failure, _i12.OrganizerItems<_i17.ReminderEntity>>(
+          this,
+          Invocation.method(
+            #addReminderItemsToTask,
+            [
+              taskId,
+              tagIds,
+            ],
+          ),
+        )),
+      ) as _i8.Future<_i4.Either<_i13.Failure, _i12.OrganizerItems<_i17.ReminderEntity>>>);
+
+  @override
   _i8.Future<_i4.Either<_i13.Failure, int>> deleteReminderFromTask(
     int? taskId,
     int? reminderId,
@@ -1051,6 +1127,50 @@ class MockTaskRepository extends _i1.Mock implements _i6.TaskRepository {
           ),
         )),
       ) as _i8.Future<_i4.Either<_i13.Failure, int>>);
+
+  @override
+  _i8.Future<
+      _i4.Either<_i13.Failure, _i12.OrganizerItems<_i17.ReminderEntity>>> updateReminderItemOfTask(
+    int? taskId,
+    List<int>? reminderItems,
+    List<int>? updatedReminderItems,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updateReminderItemOfTask,
+          [
+            taskId,
+            reminderItems,
+            updatedReminderItems,
+          ],
+        ),
+        returnValue:
+            _i8.Future<_i4.Either<_i13.Failure, _i12.OrganizerItems<_i17.ReminderEntity>>>.value(
+                _FakeEither_2<_i13.Failure, _i12.OrganizerItems<_i17.ReminderEntity>>(
+          this,
+          Invocation.method(
+            #updateReminderItemOfTask,
+            [
+              taskId,
+              reminderItems,
+              updatedReminderItems,
+            ],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i8.Future<_i4.Either<_i13.Failure, _i12.OrganizerItems<_i17.ReminderEntity>>>.value(
+                _FakeEither_2<_i13.Failure, _i12.OrganizerItems<_i17.ReminderEntity>>(
+          this,
+          Invocation.method(
+            #updateReminderItemOfTask,
+            [
+              taskId,
+              reminderItems,
+              updatedReminderItems,
+            ],
+          ),
+        )),
+      ) as _i8.Future<_i4.Either<_i13.Failure, _i12.OrganizerItems<_i17.ReminderEntity>>>);
 }
 
 /// A class which mocks [OrganizerItemEntity].
