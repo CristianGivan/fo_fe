@@ -52,7 +52,7 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
         _buildSubjectField(),
         _buildTagList(),
         const Text("Reminder"),
-        _buildReminderList(), // New
+        _buildReminderList(),
       ],
     );
   }

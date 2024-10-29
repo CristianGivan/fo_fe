@@ -121,11 +121,12 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
 
 //todo -dry-
   @override
-  Future<void> addReminderItemsToTask(int taskId, List<int> tags) async {
+  Future<void> addReminderItemsToTask(
+      int taskId, List<int> reminderItems) async {
     await db.transaction(() async {
-      for (final tagId in tags) {
-        await db.taskTagLinkDaoDrift
-            .addTaskTag(_createTaskTagCompanion(taskId, tagId));
+      for (final tagId in reminderItems) {
+        await db.taskReminderLinkDaoDrift
+            .addTaskReminder(_createTaskReminderCompanion(taskId, tagId));
       }
     });
   }
@@ -138,6 +139,16 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
   @override
   Future<int> deleteReminderFromTask(taskId, reminderId) async {
     return db.taskReminderLinkDaoDrift.deleteTaskReminder(taskId, reminderId);
+  }
+
+  @override
+  Future<void> deleteReminderItemsFromTask(
+      int taskId, List<int> reminderItems) async {
+    await db.transaction(() async {
+      for (final tagId in reminderItems) {
+        await db.taskReminderLinkDaoDrift.deleteTaskReminder(taskId, tagId);
+      }
+    });
   }
 
 // Tags of task
@@ -154,9 +165,9 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
   }
 
   @override
-  Future<void> addTagItemsToTask(int taskId, List<int> tags) async {
+  Future<void> addTagItemsToTask(int taskId, List<int> tagItems) async {
     await db.transaction(() async {
-      for (final tagId in tags) {
+      for (final tagId in tagItems) {
         await db.taskTagLinkDaoDrift
             .addTaskTag(_createTaskTagCompanion(taskId, tagId));
       }
@@ -173,18 +184,6 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
     await db.transaction(() async {
       for (final tagId in tags) {
         await db.taskTagLinkDaoDrift.deleteTaskTag(taskId, tagId);
-      }
-    });
-  }
-
-//todo -dry-
-  @override
-  Future<void> deleteReminderItemsFromTask(
-      int taskId, List<int> reminders) async {
-    await db.transaction(() async {
-      for (final reminderId in reminders) {
-        await db.taskReminderLinkDaoDrift
-            .deleteTaskReminder(taskId, reminderId);
       }
     });
   }
