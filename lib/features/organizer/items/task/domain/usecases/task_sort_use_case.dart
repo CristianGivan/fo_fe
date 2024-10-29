@@ -54,6 +54,5 @@ class SortTasksParams {
     );
   }
 
-  @override
   List<Object> get props => [tasks, criteria];
 }

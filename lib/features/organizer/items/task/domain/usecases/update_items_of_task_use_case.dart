@@ -21,11 +21,9 @@ class UpdateItemsOfTask<T extends OrganizerItemEntity>
       case ItemsType.tag:
         return repository.updateTagItemOfTask(params.taskId, addedTagItems, removedTagItems)
             as Future<Either<Failure, OrganizerItems<T>>>;
-        ;
       case ItemsType.reminder:
         return repository.updateReminderItemOfTask(params.taskId, addedTagItems, removedTagItems)
             as Future<Either<Failure, OrganizerItems<T>>>;
-        ;
       default:
         throw UnsupportedError("Unsupported item type: ${params.itemType}");
     }

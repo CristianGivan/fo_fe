@@ -3,7 +3,6 @@ import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 void main() {
   group('OrganizerItems', () {
-    late OrganizerItems emptyOrganizerItems;
     late OrganizerItems organizerItems;
     late OrganizerItemEntity organizerItem1;
     late OrganizerItemEntity organizerItem2;
@@ -16,7 +15,6 @@ void main() {
         id: 2,
       );
       organizerItems = OrganizerItems.of([organizerItem1, organizerItem2]);
-      emptyOrganizerItems = OrganizerItems.empty();
     });
 
     test('get item at index should return the correct item', () {

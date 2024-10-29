@@ -16,8 +16,7 @@ class AuthenticationBlocSignIn
     on<LoginEvent>(_onLogin);
   }
 
-  Future<void> _onLogin(
-      LoginEvent event, Emitter<AuthenticationBlocSignInState> emit) async {
+  Future<void> _onLogin(LoginEvent event, Emitter<AuthenticationBlocSignInState> emit) async {
     emit(AuthenticationSignInLoading());
 
     final result = await loginUseCase(LoginParams(
@@ -33,11 +32,11 @@ class AuthenticationBlocSignIn
 
   String _mapFailureToMessage(Failure failure) {
     switch (failure.runtimeType) {
-      case NetworkFailure:
+      case NetworkFailure _:
         return 'Network error occurred';
-      case ServerFailure:
+      case ServerFailure _:
         return 'Server error occurred';
-      case AuthenticationFailure:
+      case AuthenticationFailure _:
         return 'Authentication failed';
       default:
         return 'Unexpected error occurred';

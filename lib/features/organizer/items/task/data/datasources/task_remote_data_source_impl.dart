@@ -15,12 +15,6 @@ class TaskRemoteDataSourceImpl implements TaskRemoteDataSource {
   final serverUrl = 'https://fo.givanc.eu/';
 
   TaskRemoteDataSourceImpl({required this.httpClient});
-
-  @override
-  Future<void> deleteTask(int id) {
-    // TODO: implement deleteTask
-    throw UnimplementedError();
-  }
 //
 // @override
 // Future<TaskModel> getTaskById(int id) async {

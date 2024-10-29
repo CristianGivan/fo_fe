@@ -8,8 +8,8 @@ import 'package:fo_fe/features/authentication/utils/authentication_exports.dart'
 part 'authentication_bloc_session_event.dart';
 part 'authentication_bloc_session_state.dart';
 
-class AuthenticationBlocSession extends Bloc<AuthenticationBlocSessionEvent,
-    AuthenticationBlocSessionState> {
+class AuthenticationBlocSession
+    extends Bloc<AuthenticationBlocSessionEvent, AuthenticationBlocSessionState> {
   final AutoLoginUseCase autoLoginUseCase;
   final GetLoggedInUserIdUseCase getLoggedInUserIdUseCase;
   final SwitchUserUseCase switchUserUseCase;
@@ -24,20 +24,19 @@ class AuthenticationBlocSession extends Bloc<AuthenticationBlocSessionEvent,
     on<SwitchUserBlocEvent>(_onSwitchUser);
   }
 
-  Future<void> _onAutoLogin(AutoLoginBlocEvent event,
-      Emitter<AuthenticationBlocSessionState> emit) async {
+  Future<void> _onAutoLogin(
+      AutoLoginBlocEvent event, Emitter<AuthenticationBlocSessionState> emit) async {
     emit(AuthenticationSessionLoading());
 
     final result = await autoLoginUseCase(NoParams());
     emit(result.fold(
       (failure) => AuthenticationSessionError(_mapFailureToMessage(failure)),
-      (authEntity) =>
-          AuthenticationSessionAuthenticated(authEntity: authEntity),
+      (authEntity) => AuthenticationSessionAuthenticated(authEntity: authEntity),
     ));
   }
 
-  Future<void> _onGetLoggedInUserId(GetLoggedInUserIdBlocEvent event,
-      Emitter<AuthenticationBlocSessionState> emit) async {
+  Future<void> _onGetLoggedInUserId(
+      GetLoggedInUserIdBlocEvent event, Emitter<AuthenticationBlocSessionState> emit) async {
     emit(AuthenticationSessionLoading());
 
     final result = await getLoggedInUserIdUseCase(NoParams());
@@ -47,26 +46,24 @@ class AuthenticationBlocSession extends Bloc<AuthenticationBlocSessionEvent,
     ));
   }
 
-  Future<void> _onSwitchUser(SwitchUserBlocEvent event,
-      Emitter<AuthenticationBlocSessionState> emit) async {
+  Future<void> _onSwitchUser(
+      SwitchUserBlocEvent event, Emitter<AuthenticationBlocSessionState> emit) async {
     emit(AuthenticationSessionLoading());
 
-    final result =
-        await switchUserUseCase(SwitchUserParams(userId: event.userId));
+    final result = await switchUserUseCase(SwitchUserParams(userId: event.userId));
     emit(result.fold(
       (failure) => AuthenticationSessionError(_mapFailureToMessage(failure)),
-      (authEntity) =>
-          AuthenticationSessionAuthenticated(authEntity: authEntity),
+      (authEntity) => AuthenticationSessionAuthenticated(authEntity: authEntity),
     ));
   }
 
   String _mapFailureToMessage(Failure failure) {
     switch (failure.runtimeType) {
-      case NetworkFailure:
+      case NetworkFailure _:
         return 'Network error occurred';
-      case ServerFailure:
+      case ServerFailure _:
         return 'Server error occurred';
-      case AuthenticationFailure:
+      case AuthenticationFailure _:
         return 'Authentication failed';
       default:
         return 'Unexpected error occurred';

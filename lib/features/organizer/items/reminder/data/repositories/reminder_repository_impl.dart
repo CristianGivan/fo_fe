@@ -34,12 +34,6 @@ class ReminderRepositoryImpl implements ReminderRepository {
   }
 
   @override
-  Future<Either<Failure, OrganizerItems<ReminderEntity>>> getReminderItemsByTaskId(int taskId) {
-    // TODO: implement getReminderItemsByTaskId
-    throw UnimplementedError();
-  }
-
-  @override
   Future<Either<Failure, int>> addReminder(ReminderEntity reminder) {
     // TODO: implement addReminder
     throw UnimplementedError();

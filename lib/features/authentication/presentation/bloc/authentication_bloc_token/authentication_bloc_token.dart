@@ -19,8 +19,7 @@ class AuthenticationBlocToken
     on<RefreshTokenBlocEvent>(_onRefreshToken);
   }
 
-  Future<void> _onLogout(
-      LogoutBlocEvent event, Emitter<AuthenticationBlocTokenState> emit) async {
+  Future<void> _onLogout(LogoutBlocEvent event, Emitter<AuthenticationBlocTokenState> emit) async {
     emit(AuthenticationTokenLoading());
 
     final result = await logoutUseCase(LogoutParams(authId: event.authId));
@@ -30,12 +29,11 @@ class AuthenticationBlocToken
     ));
   }
 
-  Future<void> _onRefreshToken(RefreshTokenBlocEvent event,
-      Emitter<AuthenticationBlocTokenState> emit) async {
+  Future<void> _onRefreshToken(
+      RefreshTokenBlocEvent event, Emitter<AuthenticationBlocTokenState> emit) async {
     emit(AuthenticationTokenLoading());
 
-    final result =
-        await refreshTokenUseCase(RefreshTokenParams(authId: event.authId));
+    final result = await refreshTokenUseCase(RefreshTokenParams(authId: event.authId));
     emit(result.fold(
       (failure) => AuthenticationTokenError(_mapFailureToMessage(failure)),
       (authEntity) => AuthenticationTokenAuthenticated(authEntity: authEntity),
@@ -44,11 +42,11 @@ class AuthenticationBlocToken
 
   String _mapFailureToMessage(Failure failure) {
     switch (failure.runtimeType) {
-      case NetworkFailure:
+      case NetworkFailure _:
         return 'Network error occurred';
-      case ServerFailure:
+      case ServerFailure _:
         return 'Server error occurred';
-      case AuthenticationFailure:
+      case AuthenticationFailure _:
         return 'Authentication failed';
       default:
         return 'Unexpected error occurred';

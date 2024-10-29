@@ -11,8 +11,7 @@ class AuthenticationBlocSignUp
     extends Bloc<AuthenticationBlocSignUpEvent, AuthenticationBlocSignUpState> {
   final SignUpUseCase signUpUseCase;
 
-  AuthenticationBlocSignUp({required this.signUpUseCase})
-      : super(AuthenticationSignUpInitial()) {
+  AuthenticationBlocSignUp({required this.signUpUseCase}) : super(AuthenticationSignUpInitial()) {
     on<EmailChanged>(_onEmailChanged);
     on<PasswordChanged>(_onPasswordChanged);
     on<NameChanged>(_onNameChanged);
@@ -20,24 +19,17 @@ class AuthenticationBlocSignUp
     on<SignUpBlocEvent>(_onSignUp);
   }
 
-  String _email = '';
-  String _password = '';
-  String _name = '';
   bool _isEmailValid = false;
   bool _isPasswordValid = false;
   bool _isNameValid = false;
 
-  void _onEmailChanged(
-      EmailChanged event, Emitter<AuthenticationBlocSignUpState> emit) {
-    _email = event.email;
+  void _onEmailChanged(EmailChanged event, Emitter<AuthenticationBlocSignUpState> emit) {
     _isEmailValid = emailRexExp.hasMatch(event.email);
     emit(EmailValidationState(isValid: _isEmailValid));
     add(ValidateForm());
   }
 
-  void _onPasswordChanged(
-      PasswordChanged event, Emitter<AuthenticationBlocSignUpState> emit) {
-    _password = event.password;
+  void _onPasswordChanged(PasswordChanged event, Emitter<AuthenticationBlocSignUpState> emit) {
     bool containsUpperCase = event.password.contains(RegExp(r'[A-Z]'));
     bool containsLowerCase = event.password.contains(RegExp(r'[a-z]'));
     bool containsNumber = event.password.contains(RegExp(r'[0-9]'));
@@ -60,15 +52,12 @@ class AuthenticationBlocSignUp
     add(ValidateForm());
   }
 
-  void _onNameChanged(
-      NameChanged event, Emitter<AuthenticationBlocSignUpState> emit) {
-    _name = event.name;
+  void _onNameChanged(NameChanged event, Emitter<AuthenticationBlocSignUpState> emit) {
     _isNameValid = event.name.isNotEmpty && event.name.length <= 30;
     add(ValidateForm());
   }
 
-  void _onValidateForm(
-      ValidateForm event, Emitter<AuthenticationBlocSignUpState> emit) {
+  void _onValidateForm(ValidateForm event, Emitter<AuthenticationBlocSignUpState> emit) {
     emit(FormValidationState(
       isEmailValid: _isEmailValid,
       isPasswordValid: _isPasswordValid,
@@ -76,8 +65,7 @@ class AuthenticationBlocSignUp
     ));
   }
 
-  Future<void> _onSignUp(SignUpBlocEvent event,
-      Emitter<AuthenticationBlocSignUpState> emit) async {
+  Future<void> _onSignUp(SignUpBlocEvent event, Emitter<AuthenticationBlocSignUpState> emit) async {
     emit(AuthenticationSignUpLoading());
 
     final result = await signUpUseCase(SignUpParams(
@@ -94,11 +82,11 @@ class AuthenticationBlocSignUp
 
   String _mapFailureToMessage(Failure failure) {
     switch (failure.runtimeType) {
-      case NetworkFailure:
+      case NetworkFailure _:
         return 'Network error occurred';
-      case ServerFailure:
+      case ServerFailure _:
         return 'Server error occurred';
-      case AuthenticationFailure:
+      case AuthenticationFailure _:
         return 'Authentication failed';
       default:
         return 'Unexpected error occurred';
