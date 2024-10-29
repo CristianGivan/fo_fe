@@ -7,7 +7,6 @@ import 'package:fo_fe/features/organizer/items/task/data/datasources/task_remote
 import 'package:fo_fe/features/organizer/items/task/data/repositories/task_repository_drift.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/repositories/task_repository.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/usecases/add_items_to_task_use_case.dart';
-import 'package:fo_fe/features/organizer/items/task/domain/usecases/update_reminder_items_of_task_use_case.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:get_it/get_it.dart';
 
@@ -18,10 +17,9 @@ void taskInit() {
   sl.registerLazySingleton<TaskRemoteDataSource>(() => TaskRemoteDataSourceImpl(
         httpClient: sl(),
       ));
-  sl.registerLazySingleton<TaskLocalDataSourceDrift>(
-      () => TaskLocalDataSourceDrift(
-            db: sl<OrganizerDriftDB>(),
-          ));
+  sl.registerLazySingleton<TaskLocalDataSourceDrift>(() => TaskLocalDataSourceDrift(
+        db: sl<OrganizerDriftDB>(),
+      ));
 
   // Task Repository
   sl.registerLazySingleton<TaskRepository>(() => TaskRepositoryDrift(
@@ -41,11 +39,11 @@ void taskInit() {
   sl.registerLazySingleton(() => AddTagToTask(sl()));
   sl.registerLazySingleton(() => AddItemsToTaskUseCase<TagEntity>(sl()));
   sl.registerLazySingleton(() => AddItemsToTaskUseCase<ReminderEntity>(sl()));
-  sl.registerLazySingleton(() => UpdateTagItemsOfTask(sl()));
+  sl.registerLazySingleton(() => UpdateItemsOfTask<TagEntity>(sl()));
+  sl.registerLazySingleton(() => UpdateItemsOfTask<ReminderEntity>(sl()));
   sl.registerLazySingleton(() => DeleteTagFromTask(sl()));
   sl.registerLazySingleton(() => GetTagItemsByTaskId(sl()));
   sl.registerLazySingleton(() => AddReminderToTask(sl()));
-  sl.registerLazySingleton(() => UpdateReminderItemsOfTask(sl()));
   sl.registerLazySingleton(() => DeleteReminderFromTask(sl()));
   sl.registerLazySingleton(() => GetReminderItemsByTaskId(sl()));
   sl.registerLazySingleton(() => TaskFilterUseCase());

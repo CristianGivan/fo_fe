@@ -14,14 +14,15 @@ class AddItemsToTaskUseCase<T extends OrganizerItemEntity>
 
   @override
   Future<Either<Failure, OrganizerItems<T>>> call(AddItemsToTaskParams params) {
-    if (params.itemType == ItemsType.tag) {
-      return repository.addTagItemsToTask(params.taskId, params.itemsIds)
-          as Future<Either<Failure, OrganizerItems<T>>>;
-    } else if (params.itemType == ItemsType.reminder) {
-      return repository.addReminderItemsToTask(params.taskId, params.itemsIds)
-          as Future<Either<Failure, OrganizerItems<T>>>;
-    } else {
-      throw UnsupportedError("Unsupported item type: ${params.itemType}");
+    switch (params.itemType) {
+      case ItemsType.tag:
+        return repository.addTagItemsToTask(params.taskId, params.itemsIds)
+            as Future<Either<Failure, OrganizerItems<T>>>;
+      case ItemsType.reminder:
+        return repository.addReminderItemsToTask(params.taskId, params.itemsIds)
+            as Future<Either<Failure, OrganizerItems<T>>>;
+      default:
+        throw UnsupportedError("Unsupported item type: ${params.itemType}");
     }
   }
 }

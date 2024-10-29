@@ -4,7 +4,7 @@ class TaskTagLinkBloc extends Bloc<TaskTagLinkBlocEvent, TaskTagLinkBlocState> {
   final GetTagItemsByTaskId getTagsByTaskId;
   final AddTagToTask addTagToTask;
   final AddItemsToTaskUseCase<TagEntity> addItemsToTask;
-  final UpdateTagItemsOfTask updateTagItemsOfTask;
+  final UpdateItemsOfTask<TagEntity> updateTagItemsOfTask;
   final DeleteTagFromTask deleteTagFromTask;
 
   TaskTagLinkBloc({
@@ -26,8 +26,7 @@ class TaskTagLinkBloc extends Bloc<TaskTagLinkBlocEvent, TaskTagLinkBlocState> {
     Emitter<TaskTagLinkBlocState> emit,
   ) async {
     emit(TaskTagLoadingBlocState());
-    final failureOrTags =
-        await getTagsByTaskId(GetTagsByTaskIdParams(taskId: event.taskId));
+    final failureOrTags = await getTagsByTaskId(GetTagsByTaskIdParams(taskId: event.taskId));
     emit(failureOrTags.fold(
       (failure) => TaskTagErrorBlocState(_mapFailureToMessage(failure)),
       (tags) => TaskTagLoadedBlocState(tags),
@@ -38,8 +37,8 @@ class TaskTagLinkBloc extends Bloc<TaskTagLinkBlocEvent, TaskTagLinkBlocState> {
     AddTagToTaskBlocEvent event,
     Emitter<TaskTagLinkBlocState> emit,
   ) async {
-    final failureOrSuccess = await addTagToTask(
-        AddTagToTaskParams(taskId: event.taskId, tagId: event.tag.id));
+    final failureOrSuccess =
+        await addTagToTask(AddTagToTaskParams(taskId: event.taskId, tagId: event.tag.id));
     emit(failureOrSuccess.fold(
       (failure) => TaskTagErrorBlocState(_mapFailureToMessage(failure)),
       (_) => TagAddedToTaskBlocState(),
@@ -50,8 +49,8 @@ class TaskTagLinkBloc extends Bloc<TaskTagLinkBlocEvent, TaskTagLinkBlocState> {
     DeleteTagFromTaskBlocEvent event,
     Emitter<TaskTagLinkBlocState> emit,
   ) async {
-    final failureOrSuccess = await deleteTagFromTask(
-        DeleteTagFromTaskParams(taskId: event.taskId, tagId: event.tagId));
+    final failureOrSuccess =
+        await deleteTagFromTask(DeleteTagFromTaskParams(taskId: event.taskId, tagId: event.tagId));
     emit(failureOrSuccess.fold(
       (failure) => TaskTagErrorBlocState(_mapFailureToMessage(failure)),
       (_) => TagDeletedFromTaskBlocState(),
@@ -79,11 +78,12 @@ class TaskTagLinkBloc extends Bloc<TaskTagLinkBlocEvent, TaskTagLinkBlocState> {
     Emitter<TaskTagLinkBlocState> emit,
   ) async {
     emit(TaskTagLoadingBlocState());
-    final failureOrOrganizerItems = await updateTagItemsOfTask(
-        UpdateTagItemsToTaskParams(
-            taskId: event.taskId,
-            tagItems: event.tagItems,
-            updatedTagItems: event.updatedTagItems));
+    final failureOrOrganizerItems = await updateTagItemsOfTask(UpdateItemsToTaskParams(
+      taskId: event.taskId,
+      items: event.tagItems,
+      updatedItems: event.updatedTagItems,
+      itemType: ItemsType.tag,
+    ));
     emit(failureOrOrganizerItems.fold(
       (failure) => TaskTagErrorBlocState(_mapFailureToMessage(failure)),
       (organizerItems) => TagItemsAddedToTaskBlocState(organizerItems),

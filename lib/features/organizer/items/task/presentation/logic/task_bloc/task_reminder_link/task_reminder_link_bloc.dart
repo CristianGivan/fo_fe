@@ -1,11 +1,10 @@
 part of '../task_bloc.dart';
 
-class TaskReminderLinkBloc
-    extends Bloc<TaskReminderLinkBlocEvent, TaskReminderLinkBlocState> {
+class TaskReminderLinkBloc extends Bloc<TaskReminderLinkBlocEvent, TaskReminderLinkBlocState> {
   final GetReminderItemsByTaskId getRemindersByTaskId;
   final AddReminderToTask addReminderToTask;
   final AddItemsToTaskUseCase<ReminderEntity> addItemsToTask;
-  final UpdateReminderItemsOfTask updateReminderItemsOfTask;
+  final UpdateItemsOfTask<ReminderEntity> updateReminderItemsOfTask;
   final DeleteReminderFromTask deleteReminderFromTask;
 
   TaskReminderLinkBloc({
@@ -27,8 +26,8 @@ class TaskReminderLinkBloc
     Emitter<TaskReminderLinkBlocState> emit,
   ) async {
     emit(TaskReminderLoadingBlocState());
-    final failureOrReminders = await getRemindersByTaskId(
-        GetRemindersByTaskIdParams(taskId: event.taskId));
+    final failureOrReminders =
+        await getRemindersByTaskId(GetRemindersByTaskIdParams(taskId: event.taskId));
     emit(failureOrReminders.fold(
       (failure) => TaskReminderErrorBlocState(_mapFailureToMessage(failure)),
       (reminders) => TaskReminderLoadedBlocState(reminders),
@@ -39,8 +38,8 @@ class TaskReminderLinkBloc
     AddReminderToTaskBlocEvent event,
     Emitter<TaskReminderLinkBlocState> emit,
   ) async {
-    final failureOrSuccess = await addReminderToTask(AddReminderToTaskParams(
-        taskId: event.taskId, reminderId: event.reminder.id));
+    final failureOrSuccess = await addReminderToTask(
+        AddReminderToTaskParams(taskId: event.taskId, reminderId: event.reminder.id));
     emit(failureOrSuccess.fold(
       (failure) => TaskReminderErrorBlocState(_mapFailureToMessage(failure)),
       (_) => ReminderAddedToTaskBlocState(),
@@ -52,8 +51,7 @@ class TaskReminderLinkBloc
     Emitter<TaskReminderLinkBlocState> emit,
   ) async {
     final failureOrSuccess = await deleteReminderFromTask(
-        DeleteReminderFromTaskParams(
-            taskId: event.taskId, reminderId: event.reminderId));
+        DeleteReminderFromTaskParams(taskId: event.taskId, reminderId: event.reminderId));
     emit(failureOrSuccess.fold(
       (failure) => TaskReminderErrorBlocState(_mapFailureToMessage(failure)),
       (_) => ReminderDeletedFromTaskBlocState(),
@@ -81,11 +79,12 @@ class TaskReminderLinkBloc
     Emitter<TaskReminderLinkBlocState> emit,
   ) async {
     emit(TaskReminderLoadingBlocState());
-    final failureOrOrganizerItems = await updateReminderItemsOfTask(
-        UpdateReminderItemsToTaskParams(
-            taskId: event.taskId,
-            reminderItems: event.reminderItems,
-            updatedReminderItems: event.updatedReminderItems));
+    final failureOrOrganizerItems = await updateReminderItemsOfTask(UpdateItemsToTaskParams(
+      taskId: event.taskId,
+      items: event.reminderItems,
+      updatedItems: event.updatedReminderItems,
+      itemType: ItemsType.reminder,
+    ));
     emit(failureOrOrganizerItems.fold(
       (failure) => TaskReminderErrorBlocState(_mapFailureToMessage(failure)),
       (organizerItems) => ReminderItemsAddedToTaskBlocState(organizerItems),
