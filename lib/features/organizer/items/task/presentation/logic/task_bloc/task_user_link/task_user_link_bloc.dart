@@ -20,7 +20,7 @@ class TaskUserLinkBloc extends Bloc<TaskUserLinkBlocEvent, TaskUserLinkBlocState
     Emitter<TaskUserLinkBlocState> emit,
   ) async {
     emit(TaskUserLoadingBlocState());
-    final failureOrUsers = await getUserItemsByTaskId(GetUsersByTaskIdParams(taskId: event.taskId));
+    final failureOrUsers = await getUserItemsByTaskId(TaskParams(taskId: event.taskId));
     emit(failureOrUsers.fold(
       (failure) => TaskUserErrorBlocState(_mapFailureToMessage(failure)),
       (users) => TaskUserLoadedBlocState(users),

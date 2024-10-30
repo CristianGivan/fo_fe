@@ -6,14 +6,14 @@ import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 
 import '../repositories/task_repository.dart';
 
-class GetTaskByIdUseCase extends UseCase<TaskEntity, GetTaskByIdParams> {
+class GetTaskByIdUseCase extends UseCase<TaskEntity, TaskParams> {
   final TaskRepository repository;
 
   GetTaskByIdUseCase(this.repository);
 
   @override
-  Future<Either<Failure, TaskEntity>> call(GetTaskByIdParams params) {
-    return repository.getTaskById(params.id);
+  Future<Either<Failure, TaskEntity>> call(TaskParams params) {
+    return repository.getTaskById(params.taskId);
   }
 }
 

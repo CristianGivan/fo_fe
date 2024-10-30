@@ -37,22 +37,3 @@ class SortFailure extends Failure {
   @override
   List<Object?> get props => [];
 }
-
-class SortTasksParams {
-  final OrganizerItems<TaskEntity> tasks;
-  final String criteria;
-
-  SortTasksParams({required this.tasks, required this.criteria});
-
-  SortTasksParams copyWith({
-    OrganizerItems<TaskEntity>? tasks,
-    String? criteria,
-  }) {
-    return SortTasksParams(
-      tasks: tasks ?? this.tasks,
-      criteria: criteria ?? this.criteria,
-    );
-  }
-
-  List<Object> get props => [tasks, criteria];
-}

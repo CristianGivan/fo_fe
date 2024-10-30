@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:equatable/equatable.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/usecase/usecase.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
@@ -27,43 +26,4 @@ class TaskFilterUseCase extends UseCase<OrganizerItems<TaskEntity>, FilterTasksP
     }
     return Right(OrganizerItems.of(filteredTasks));
   }
-}
-
-class FilterTasksParams extends Equatable {
-  final OrganizerItems<TaskEntity> originalTasks;
-  final OrganizerItems<TaskEntity> displayedTasks;
-  final String criteria;
-  final TaskStatus? status;
-  final DateTime? startDate;
-  final DateTime? endDate;
-
-  const FilterTasksParams({
-    required this.originalTasks,
-    required this.displayedTasks,
-    required this.criteria,
-    this.status,
-    this.startDate,
-    this.endDate,
-  });
-
-  FilterTasksParams copyWith({
-    OrganizerItems<TaskEntity>? originalTasks,
-    OrganizerItems<TaskEntity>? displayedTasks,
-    String? criteria,
-    TaskStatus? status,
-    DateTime? startDate,
-    DateTime? endDate,
-  }) {
-    return FilterTasksParams(
-      originalTasks: originalTasks ?? this.originalTasks,
-      displayedTasks: displayedTasks ?? this.displayedTasks,
-      criteria: criteria ?? this.criteria,
-      status: status ?? this.status,
-      startDate: startDate ?? this.startDate,
-      endDate: endDate ?? this.endDate,
-    );
-  }
-
-  @override
-  List<Object?> get props => [originalTasks, displayedTasks, criteria, status, startDate, endDate];
 }

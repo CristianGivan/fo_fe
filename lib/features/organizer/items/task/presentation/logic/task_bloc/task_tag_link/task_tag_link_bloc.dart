@@ -17,7 +17,7 @@ class TaskTagLinkBloc extends Bloc<TaskTagLinkBlocEvent, TaskTagLinkBlocState> {
     Emitter<TaskTagLinkBlocState> emit,
   ) async {
     emit(TaskTagLoadingBlocState());
-    final failureOrTags = await getTagsByTaskId(GetTagsByTaskIdParams(taskId: event.taskId));
+    final failureOrTags = await getTagsByTaskId(TaskParams(taskId: event.taskId));
     emit(failureOrTags.fold(
       (failure) => TaskTagErrorBlocState(_mapFailureToMessage(failure)),
       (tags) => TaskTagLoadedBlocState(tags),

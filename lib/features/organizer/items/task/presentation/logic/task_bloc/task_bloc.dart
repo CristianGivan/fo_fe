@@ -71,7 +71,7 @@ class TaskBlocTask extends Bloc<TaskBlocTaskEvent, TaskBlocState> {
     Emitter<TaskBlocState> emit,
   ) async {
     emit(TaskLoadingBlocState());
-    final failureOrTask = await getTaskById(GetTaskByIdParams(id: event.taskId));
+    final failureOrTask = await getTaskById(TaskParams(taskId: event.taskId));
     emit(failureOrTask.fold(
       (failure) => TaskErrorBlocState(message: _mapFailureToMessage(failure)),
       (task) => TaskLoadedBlocState(
@@ -139,7 +139,7 @@ class TaskBlocTask extends Bloc<TaskBlocTaskEvent, TaskBlocState> {
     Emitter<TaskBlocState> emit,
   ) async {
     emit(TaskLoadingBlocState());
-    final failureOrTasks = await getTaskItemsByIdSet(GetTaskItemsByIdSetParams(idSet: event.idSet));
+    final failureOrTasks = await getTaskItemsByIdSet(TaskParams(idSet: event.idSet));
     emit(failureOrTasks.fold(
       (failure) => TaskErrorBlocState(message: _mapFailureToMessage(failure)),
       (tasks) => TaskLoadedBlocState(originalTasks: tasks, displayedTasks: tasks),
@@ -151,7 +151,7 @@ class TaskBlocTask extends Bloc<TaskBlocTaskEvent, TaskBlocState> {
     Emitter<TaskBlocState> emit,
   ) async {
     emit(TaskLoadingBlocState());
-    final failureOrSuccess = await addTask(InsertTaskParams(task: event.task));
+    final failureOrSuccess = await addTask(TaskParams(task: event.task));
     emit(failureOrSuccess.fold(
       (failure) => TaskErrorBlocState(message: _mapFailureToMessage(failure)),
       (success) => TaskAddedBlocState(),
@@ -164,7 +164,7 @@ class TaskBlocTask extends Bloc<TaskBlocTaskEvent, TaskBlocState> {
     Emitter<TaskBlocState> emit,
   ) async {
     emit(TaskLoadingBlocState());
-    final failureOrSuccess = await updateTask(UpdateTaskParams(task: event.task));
+    final failureOrSuccess = await updateTask(TaskParams(task: event.task));
     emit(failureOrSuccess.fold(
       (failure) => TaskErrorBlocState(message: _mapFailureToMessage(failure)),
       (success) => TaskUpdatedBlocState(),
@@ -177,7 +177,7 @@ class TaskBlocTask extends Bloc<TaskBlocTaskEvent, TaskBlocState> {
     Emitter<TaskBlocState> emit,
   ) async {
     emit(TaskLoadingBlocState());
-    final failureOrSuccess = await deleteTask(DeleteTaskParams(taskId: event.taskId));
+    final failureOrSuccess = await deleteTask(TaskParams(taskId: event.taskId));
     emit(failureOrSuccess.fold(
       (failure) => TaskErrorBlocState(message: _mapFailureToMessage(failure)),
       (success) => TaskDeletedBlocState(),

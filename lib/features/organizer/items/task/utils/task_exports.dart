@@ -4,7 +4,6 @@ export '../domain/usecases/add_task_use_case.dart';
 export '../domain/usecases/delete_task_use_case.dart';
 export '../domain/usecases/get_reminder_list_by_task_id_use_case.dart';
 export '../domain/usecases/get_tag_list_by_task_id_use_case.dart';
-export '../domain/usecases/get_task_by_id_lazy_loaded_use_case.dart';
 export '../domain/usecases/get_task_by_id_use_case.dart';
 export '../domain/usecases/get_task_items_all_use_case.dart';
 export '../domain/usecases/get_task_items_by_id_set_use_case.dart';

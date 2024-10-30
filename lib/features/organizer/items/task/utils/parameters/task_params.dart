@@ -1,6 +1,19 @@
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
+class TaskParams extends Equatable {
+  final TaskEntity task;
+  final int taskId;
+  final IdSet idSet;
+
+  TaskParams({TaskEntity? task, this.taskId = 0, IdSet? idSet})
+      : task = task ?? TaskEntity.empty(),
+        idSet = idSet ?? IdSet.empty();
+
+  @override
+  List<Object> get props => [task, taskId];
+}
+
 class AddItemsToTaskParams extends Equatable {
   final int taskId;
   final IdSet itemsIds;
@@ -12,15 +25,6 @@ class AddItemsToTaskParams extends Equatable {
 
   @override
   List<Object> get props => [taskId, itemsIds];
-}
-
-class InsertTaskParams extends Equatable {
-  final TaskEntity task;
-
-  const InsertTaskParams({required this.task});
-
-  @override
-  List<Object> get props => [task];
 }
 
 class UpdateItemsToTaskParams<T extends OrganizerItemEntity> extends Equatable {
@@ -36,4 +40,62 @@ class UpdateItemsToTaskParams<T extends OrganizerItemEntity> extends Equatable {
 
   @override
   List<Object> get props => [taskId, items, updatedItems];
+}
+
+class FilterTasksParams extends Equatable {
+  final OrganizerItems<TaskEntity> originalTasks;
+  final OrganizerItems<TaskEntity> displayedTasks;
+  final String criteria;
+  final TaskStatus? status;
+  final DateTime? startDate;
+  final DateTime? endDate;
+
+  const FilterTasksParams({
+    required this.originalTasks,
+    required this.displayedTasks,
+    required this.criteria,
+    this.status,
+    this.startDate,
+    this.endDate,
+  });
+
+  FilterTasksParams copyWith({
+    OrganizerItems<TaskEntity>? originalTasks,
+    OrganizerItems<TaskEntity>? displayedTasks,
+    String? criteria,
+    TaskStatus? status,
+    DateTime? startDate,
+    DateTime? endDate,
+  }) {
+    return FilterTasksParams(
+      originalTasks: originalTasks ?? this.originalTasks,
+      displayedTasks: displayedTasks ?? this.displayedTasks,
+      criteria: criteria ?? this.criteria,
+      status: status ?? this.status,
+      startDate: startDate ?? this.startDate,
+      endDate: endDate ?? this.endDate,
+    );
+  }
+
+  @override
+  List<Object?> get props => [originalTasks, displayedTasks, criteria, status, startDate, endDate];
+}
+
+class SortTasksParams {
+  final OrganizerItems<TaskEntity> tasks;
+  final String criteria;
+
+  SortTasksParams({required this.tasks, required this.criteria});
+
+  SortTasksParams copyWith({
+    OrganizerItems<TaskEntity>? tasks,
+    String? criteria,
+  }) {
+    return SortTasksParams(
+      tasks: tasks ?? this.tasks,
+      criteria: criteria ?? this.criteria,
+    );
+  }
+
+  List<Object> get props => [tasks, criteria];
 }
