@@ -1,4 +1,4 @@
-part of 'task_bloc.dart';
+part of '../task_bloc.dart';
 
 abstract class TaskBlocUserEvent extends Equatable {
   const TaskBlocUserEvent();

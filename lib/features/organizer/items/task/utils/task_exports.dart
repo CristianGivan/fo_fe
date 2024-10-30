@@ -1,11 +1,7 @@
 export '../domain/entities/task_entity.dart';
 export '../domain/entities/task_entity_lazy_loaded.dart';
 export '../domain/usecases/add_task.dart';
-export '../domain/usecases/add_user_to_task.dart';
-export '../domain/usecases/delete_reminder_from_task.dart';
-export '../domain/usecases/delete_tag_from_task.dart';
 export '../domain/usecases/delete_task.dart';
-export '../domain/usecases/delete_user_from_task.dart';
 export '../domain/usecases/get_reminder_list_by_task_id.dart';
 export '../domain/usecases/get_tag_list_by_task_id.dart';
 export '../domain/usecases/get_task_by_id.dart';
