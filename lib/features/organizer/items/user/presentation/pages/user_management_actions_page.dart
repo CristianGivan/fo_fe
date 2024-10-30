@@ -1,39 +1,78 @@
 import 'package:flutter/material.dart';
+import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class UserManagementActionsPage extends StatelessWidget {
-  final int userId;
+  final OrganizerItems<UserEntity> selectedUsers;
 
-  const UserManagementActionsPage({super.key, required this.userId});
+  UserManagementActionsPage({super.key, OrganizerItems<UserEntity>? selectedUsers})
+      : selectedUsers = selectedUsers ?? OrganizerItems.empty();
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      child: Row(
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Expanded(
-            child: TextField(
-              decoration: const InputDecoration(
-                labelText: 'Search users',
-                border: OutlineInputBorder(),
+          Row(
+            children: [
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () => context.pushNamed(UserRouterNames.userAddRouteName),
+                  child: const Text('Add User'),
+                ),
               ),
-              onChanged: (query) {
-                // context.read<UserBloc>().add(FilterUsers(query));
-              },
-            ),
+              const SizedBox(width: 16.0),
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (!selectedUsers.isEmpty()) {
+                      context.pop(selectedUsers);
+                    } else {
+                      context.pop();
+                    }
+                  },
+                  child: const Text('Link'),
+                ),
+              ),
+            ],
           ),
-          const SizedBox(width: 16),
-          ElevatedButton(
-            onPressed: () {
-              context.push(
-                '/user/add-users/$userId', // Assuming `userId` is already an integer
-              );
-            },
-            child: const Text('Add Users'),
+          const SizedBox(height: 16.0),
+          Row(
+            children: [
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () => showFilterDialog(context),
+                  child: const Text('Filter Users'),
+                ),
+              ),
+              const SizedBox(width: 16.0),
+              Expanded(
+                child: ElevatedButton(
+                  onPressed: () => showSortDialog(context),
+                  child: const Text('Sort Users'),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16.0),
+          const TextField(
+            decoration: InputDecoration(
+              labelText: 'Enter user description',
+              border: OutlineInputBorder(),
+            ),
           ),
         ],
       ),
     );
   }
+}
+
+void showFilterDialog(BuildContext context) {
+  // Implement the filter dialog for users
+}
+
+void showSortDialog(BuildContext context) {
+  // Implement the sort dialog for users
 }

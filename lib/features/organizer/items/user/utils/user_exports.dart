@@ -9,7 +9,7 @@ export '../data/repositories/user_repository_drift.dart';
 export '../domain/entities/user_entity.dart';
 export '../domain/repositories/user_repository.dart';
 export '../presentation/bloc/user_bloc.dart';
-export '../presentation/screens/add_users_from_all_users_screen.dart';
+export '../presentation/screens/user_add_screen.dart';
 export '../presentation/screens/user_screen.dart';
 export 'config/user_init.dart';
 export 'config/user_providers_bloc.dart';

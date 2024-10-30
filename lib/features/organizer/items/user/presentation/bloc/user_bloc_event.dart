@@ -4,43 +4,43 @@ abstract class UserBlocEvent extends Equatable {
   const UserBlocEvent();
 
   @override
-  List<Object?> get props => [];
+  List<Object> get props => [];
 }
 
-class UserInsertBlocEvent extends UserBlocEvent {
+class AddUserBlocEvent extends UserBlocEvent {
   final UserEntity user;
 
-  const UserInsertBlocEvent({required this.user});
+  AddUserBlocEvent(this.user);
 
   @override
-  List<Object?> get props => [user];
+  List<Object> get props => [user];
 }
 
-class UserUpdateBlocEvent extends UserBlocEvent {
+class UpdateUserBlocEvent extends UserBlocEvent {
   final UserEntity user;
 
-  const UserUpdateBlocEvent({required this.user});
+  UpdateUserBlocEvent(this.user);
 
   @override
-  List<Object?> get props => [user];
+  List<Object> get props => [user];
 }
 
-class UserDeleteBlocEvent extends UserBlocEvent {
+class DeleteUserBlocEvent extends UserBlocEvent {
   final int userId;
 
-  const UserDeleteBlocEvent({required this.userId});
+  DeleteUserBlocEvent(this.userId);
 
   @override
-  List<Object?> get props => [userId];
+  List<Object> get props => [userId];
 }
 
 class GetUserByIdBlocEvent extends UserBlocEvent {
   final int id;
 
-  const GetUserByIdBlocEvent({required this.id});
+  GetUserByIdBlocEvent(this.id);
 
   @override
-  List<Object?> get props => [id];
+  List<Object> get props => [id];
 }
 
 class GetUserItemsAllBlocEvent extends UserBlocEvent {}
@@ -48,10 +48,10 @@ class GetUserItemsAllBlocEvent extends UserBlocEvent {}
 class GetUserItemsByIdSetBlocEvent extends UserBlocEvent {
   final IdSet idSet;
 
-  const GetUserItemsByIdSetBlocEvent({required this.idSet});
+  GetUserItemsByIdSetBlocEvent(this.idSet);
 
   @override
-  List<Object?> get props => [idSet];
+  List<Object> get props => [idSet];
 }
 
 class GetUserItemsByUserIdBlocEvent extends UserBlocEvent {
@@ -60,27 +60,25 @@ class GetUserItemsByUserIdBlocEvent extends UserBlocEvent {
   const GetUserItemsByUserIdBlocEvent({required this.userId});
 
   @override
-  List<Object?> get props => [userId];
+  List<Object> get props => [userId];
 }
 
 class AddUserToUserBlocEvent extends UserBlocEvent {
   final int userLinkedId;
   final int userId;
 
-  const AddUserToUserBlocEvent(
-      {required this.userLinkedId, required this.userId});
+  const AddUserToUserBlocEvent({required this.userLinkedId, required this.userId});
 
   @override
-  List<Object?> get props => [userLinkedId, userId];
+  List<Object> get props => [userLinkedId, userId];
 }
 
 class DeleteUserFromUserBlocEvent extends UserBlocEvent {
   final int userLinkedId;
   final int userId;
 
-  const DeleteUserFromUserBlocEvent(
-      {required this.userLinkedId, required this.userId});
+  const DeleteUserFromUserBlocEvent({required this.userLinkedId, required this.userId});
 
   @override
-  List<Object?> get props => [userLinkedId, userId];
+  List<Object> get props => [userLinkedId, userId];
 }

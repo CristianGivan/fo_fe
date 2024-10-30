@@ -4,65 +4,47 @@ abstract class UserBlocState extends Equatable {
   const UserBlocState();
 
   @override
-  List<Object?> get props => [];
+  List<Object> get props => [];
 }
 
 class UserInitialBlocState extends UserBlocState {}
 
 class UserLoadingBlocState extends UserBlocState {}
 
-class UserInsertedBlocState extends UserBlocState {
+class UserItemsLoadedBlocState extends UserBlocState {
+  final OrganizerItems<UserEntity> userItems;
+
+  UserItemsLoadedBlocState(this.userItems);
+
+  @override
+  List<Object> get props => [userItems];
+}
+
+class UserErrorBlocState extends UserBlocState {
+  final String message;
+
+  UserErrorBlocState(this.message);
+
+  @override
+  List<Object> get props => [message];
+}
+
+class UserSuccessBlocState extends UserBlocState {
   final int id;
 
-  const UserInsertedBlocState({required this.id});
+  UserSuccessBlocState(this.id);
 
   @override
-  List<Object?> get props => [id];
+  List<Object> get props => [id];
 }
 
-class UserUpdatedBlocState extends UserBlocState {
-  final bool success;
-
-  const UserUpdatedBlocState({required this.success});
-
-  @override
-  List<Object?> get props => [success];
-}
-
-class UserDeletedBlocState extends UserBlocState {
-  final int id;
-
-  const UserDeletedBlocState({required this.id});
-
-  @override
-  List<Object?> get props => [id];
-}
-
-class UserLoadedBlocState extends UserBlocState {
+class SingleUserLoadedBlocState extends UserBlocState {
   final UserEntity user;
 
-  const UserLoadedBlocState({required this.user});
+  SingleUserLoadedBlocState(this.user);
 
   @override
-  List<Object?> get props => [user];
-}
-
-class UsertemsLoadedBlocIState extends UserBlocState {
-  final OrganizerItems<UserEntity> users;
-
-  const UsertemsLoadedBlocIState({required this.users});
-
-  @override
-  List<Object?> get props => [users];
-}
-
-class UserAllItemsLoadedBlocState extends UserBlocState {
-  final OrganizerItems<UserEntity> users;
-
-  const UserAllItemsLoadedBlocState({required this.users});
-
-  @override
-  List<Object?> get props => [users];
+  List<Object> get props => [user];
 }
 
 class UserAddedBlocState extends UserBlocState {
@@ -71,14 +53,23 @@ class UserAddedBlocState extends UserBlocState {
   const UserAddedBlocState({required this.id});
 
   @override
-  List<Object?> get props => [id];
+  List<Object> get props => [id];
 }
 
-class UserErrorBlocState extends UserBlocState {
-  final String message;
+class UserDeletedBlocState extends UserBlocState {
+  final int id;
 
-  const UserErrorBlocState({required this.message});
+  const UserDeletedBlocState({required this.id});
 
   @override
-  List<Object?> get props => [message];
+  List<Object> get props => [id];
+}
+
+class UserItemsLoadedBlocIState extends UserBlocState {
+  final OrganizerItems<UserEntity> users;
+
+  const UserItemsLoadedBlocIState({required this.users});
+
+  @override
+  List<Object> get props => [users];
 }

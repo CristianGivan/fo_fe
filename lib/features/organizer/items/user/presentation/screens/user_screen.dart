@@ -1,42 +1,64 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fo_fe/features/authentication/utils/authentication_exports.dart';
+import 'package:fo_fe/features/organizer/items/user/presentation/pages/user_list_page.dart';
 import 'package:fo_fe/features/organizer/items/user/presentation/pages/user_management_actions_page.dart';
-import 'package:fo_fe/features/organizer/items/user/presentation/widgets/user_info_widget.dart';
-import 'package:fo_fe/features/organizer/items/user/presentation/widgets/user_list_widget.dart';
+import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class UserScreen extends StatelessWidget {
-  const UserScreen({super.key});
+class UserScreen extends StatefulWidget {
+  final OrganizerItems<UserEntity> userItems;
+
+  const UserScreen({super.key, required this.userItems});
+
+  @override
+  _UserScreenState createState() => _UserScreenState();
+}
+
+class _UserScreenState extends State<UserScreen> {
+  late OrganizerItems<UserEntity> selectedUserItems;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedUserItems = widget.userItems;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('User Management'),
-      ),
-      body: BlocBuilder<AuthenticationBlocSession,
-          AuthenticationBlocSessionState>(
-        builder: (context, state) {
-          if (state is AuthenticationSessionAuthenticated) {
-            final userId = state.authEntity.userId;
+    _loadUsers(context);
 
-            return Column(
-              children: [
-                UserInfoWidget(userId: userId),
-                // Pass userId to widget
-                Expanded(child: UserListWidget(userId: userId)),
-                // Pass userId to widget
-                UserManagementActionsPage(userId: userId),
-                // Pass userId to widget
-              ],
-            );
-          } else {
-            return const Center(
-                child:
-                    CircularProgressIndicator()); // Handle other states or loading
-          }
-        },
+    return Scaffold(
+      appBar: AppBar(title: const Text('User Management')),
+      body: Column(
+        children: [
+          const Center(child: Text('All Users:')),
+          _buildUserList(context),
+          _buildUserManagementActions(),
+        ],
       ),
     );
+  }
+
+  void _loadUsers(BuildContext context) {
+    context.read<UserBlocUser>().add(GetUserItemsAllBlocEvent());
+  }
+
+  Widget _buildUserList(BuildContext context) {
+    return Expanded(
+      child: UserListPage(
+        onSelectUser: (user) {
+          setState(() {
+            var builder = selectedUserItems.toBuilder();
+            builder.contains(user) ? builder.remove(user) : builder.add(user);
+            selectedUserItems = builder.build();
+          });
+        },
+        selectedUsers: selectedUserItems,
+      ),
+    );
+  }
+
+  Widget _buildUserManagementActions() {
+    return UserManagementActionsPage(selectedUsers: selectedUserItems);
   }
 }

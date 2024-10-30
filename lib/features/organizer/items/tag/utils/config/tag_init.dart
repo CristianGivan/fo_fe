@@ -1,7 +1,7 @@
 import 'package:fo_fe/core/db/drift/organizer_drift_db.dart';
-import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/items/tag/data/datasources/tag_local_data_source_drift.dart';
 import 'package:fo_fe/features/organizer/items/tag/data/repositories/tag_repository_drift.dart';
+import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
 import 'package:get_it/get_it.dart';
 
 final sl = GetIt.instance;
@@ -17,12 +17,12 @@ void tagInit() {
       ));
 
   // Tag Use cases
-  sl.registerLazySingleton(() => AddTag(sl()));
-  sl.registerLazySingleton(() => UpdateTag(sl()));
-  sl.registerLazySingleton(() => DeleteTag(sl()));
-  sl.registerLazySingleton(() => GetTagById(sl()));
-  sl.registerLazySingleton(() => GetTagItemsAll(sl()));
-  sl.registerLazySingleton(() => GetTagItemsByIdSet(sl()));
+  sl.registerLazySingleton(() => AddTagUseCase(sl()));
+  sl.registerLazySingleton(() => UpdateTagUseCase(sl()));
+  sl.registerLazySingleton(() => DeleteTagUseCase(sl()));
+  sl.registerLazySingleton(() => GetTagByIdUseCase(sl()));
+  sl.registerLazySingleton(() => GetTagItemsAllUseCase(sl()));
+  sl.registerLazySingleton(() => GetTagItemsByIdSetUseCase(sl()));
 
   // Tag BLoCs
   sl.registerFactory(() => TagBlocTag(

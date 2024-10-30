@@ -1,17 +1,17 @@
 import 'package:dartz/dartz.dart';
-import 'package:equatable/equatable.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/usecase/usecase.dart';
+import 'package:fo_fe/features/organizer/items/user/utils/parameters/user_params.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class GetUserItemsByIdSet extends UseCase<OrganizerItems<UserEntity>, GetUserItemsByIdSetParams> {
+class GetUserItemsByIdSet extends UseCase<OrganizerItems<UserEntity>, UserParams> {
   final UserRepository repository;
 
   GetUserItemsByIdSet(this.repository);
 
   @override
-  Future<Either<Failure, OrganizerItems<UserEntity>>> call(GetUserItemsByIdSetParams params) {
+  Future<Either<Failure, OrganizerItems<UserEntity>>> call(UserParams params) {
     return repository.getUserItemsByIdSet(params.idSet);
   }
 }
