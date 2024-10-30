@@ -5,6 +5,7 @@ import 'package:fo_fe/features/organizer/items/task/data/datasources/task_remote
 import 'package:fo_fe/features/organizer/items/task/data/repositories/task_repository_drift.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/repositories/task_repository.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/usecases/update_reminder_items_of_task_use_case.dart';
+import 'package:fo_fe/features/organizer/items/task/domain/usecases/update_user_items_of_task_use_case.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:get_it/get_it.dart';
 
@@ -32,6 +33,8 @@ void taskInit() {
   sl.registerLazySingleton(() => UpdateTaskUseCase(sl()));
   sl.registerLazySingleton(() => DeleteTaskUseCase(sl()));
   sl.registerLazySingleton(() => GetUserItemsByTaskIdUseCase(sl()));
+  sl.registerLazySingleton(() => GetCreatorByTaskIdUseCase(sl()));
+  sl.registerLazySingleton(() => UpdateUserItemsOfTaskUseCase(sl()));
   sl.registerLazySingleton(() => UpdateTagItemsOfTaskUseCase(sl()));
   sl.registerLazySingleton(() => UpdateReminderItemsOfTaskUseCase(sl()));
   sl.registerLazySingleton(() => GetTagItemsByTaskIdUseCase(sl()));

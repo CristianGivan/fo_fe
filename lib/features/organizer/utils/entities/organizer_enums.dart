@@ -1,5 +1,4 @@
 // todo
-enum ItemsType { tag, reminder }
 
 enum TaskStatus { undefined, started, working, pending, completed }
 

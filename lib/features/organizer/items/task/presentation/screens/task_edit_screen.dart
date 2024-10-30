@@ -1,11 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fo_fe/features/organizer/items/reminder/utils/reminder_exports.dart';
 import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
-import 'package:fo_fe/features/organizer/items/task/presentation/pages/task_reminder_list_page.dart';
+import 'package:fo_fe/features/organizer/items/task/presentation/pages/task_edit_action_buttons_page.dart';
+import 'package:fo_fe/features/organizer/items/task/presentation/pages/task_form_fields_page.dart';
+import 'package:fo_fe/features/organizer/items/task/utils/other/task_navigator_helper.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
+import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
+// Main TaskEditScreen with modular widgets
 class TaskEditScreen extends StatefulWidget {
   final TaskEntity task;
 
@@ -15,149 +17,78 @@ class TaskEditScreen extends StatefulWidget {
   _TaskEditScreenState createState() => _TaskEditScreenState();
 }
 
-class _TaskEditScreenState extends State<TaskEditScreen> {
-  OrganizerItems<TagEntity> taskTagItems = OrganizerItems.empty();
-  OrganizerItems<ReminderEntity> taskReminderItems = OrganizerItems.empty();
-
+class _TaskEditScreenState extends State<TaskEditScreen> with TaskDataLoaderMixin {
   @override
   Widget build(BuildContext context) {
-    _loadTagsAndReminders(context);
+    loadTaskData(context, widget.task.id);
     return Scaffold(
       appBar: AppBar(title: const Text('Edit Task')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            _buildFormFields(),
+            TaskFormFieldsPage(task: widget.task),
             const SizedBox(height: 20),
-            _buildActionButtons(context),
+            TaskEditActionButtonsPage(
+              onSave: _handleSaveButtonPress,
+              // onLinkTag: () =>
+              //     _handleLinkPress<TagEntity>(context, TagRouterNames.tagRouteName, taskTagItems),
+              // onLinkReminder: () => _handleLinkPress<ReminderEntity>(
+              //     context, ReminderRouterNames.reminderRouteName, taskReminderItems),
+              // onLinkUser: () => _handleLinkPress<UserEntity>(
+              //     context, UserRouterNames.userRouteName, taskUserItems),
+            ),
           ],
         ),
       ),
     );
   }
 
-  void _loadTagsAndReminders(BuildContext context) {
-    context.read<TaskTagLinkBloc>().add(GetTagItemsByTaskIdBlocEvent(widget.task.id));
-    context.read<TaskReminderLinkBloc>().add(GetReminderItemsByTaskIdBlocEvent(widget.task.id));
-  }
-
-  Widget _buildFormFields() {
-    return Column(
-      children: [
-        _buildSubjectField(),
-        _buildTagList(),
-        const Text("Reminder"),
-        _buildReminderList(),
-      ],
-    );
-  }
-
-  Widget _buildSubjectField() {
-    return TextField(
-      decoration: const InputDecoration(labelText: 'Subject'),
-      controller: TextEditingController(text: widget.task.subject),
-    );
-  }
-
-  Widget _buildTagList() {
-    return BlocBuilder<TaskTagLinkBloc, TaskTagLinkBlocState>(
-      builder: (context, state) {
-        if (state is TaskTagLoadingBlocState) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (state is TaskTagLoadedBlocState) {
-          taskTagItems = state.tagItems;
-          return _buildTagListContent();
-        } else if (state is TagItemsUpdatedToTaskBlocState) {
-          taskTagItems = state.tagItemsUpdated;
-          return _buildTagListContent();
-        } else if (state is TaskTagErrorBlocState) {
-          return Center(child: Text(state.message));
-        } else {
-          return const Center(child: Text('No Tags Available'));
-        }
-      },
-    );
-  }
-
-  Widget _buildTagListContent() {
-    if (taskTagItems.isEmpty()) {
-      return const Center(child: Text('No Tags Available'));
-    }
-    return TaskTagListPage(task: widget.task, tagItems: taskTagItems);
-  }
-
-  // New method for reminder list
-  Widget _buildReminderList() {
-    return BlocBuilder<TaskReminderLinkBloc, TaskReminderLinkBlocState>(
-      builder: (context, state) {
-        if (state is TaskReminderLoadingBlocState) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (state is TaskReminderLoadedBlocState) {
-          taskReminderItems = state.reminderItems;
-          return _buildReminderListContent();
-        } else if (state is ReminderItemsUpdeatedToTaskBlocState) {
-          taskReminderItems = state.reminderItemsUpdated;
-          return _buildReminderListContent();
-        } else if (state is TaskReminderErrorBlocState) {
-          return Center(child: Text(state.message));
-        } else {
-          return const Center(child: Text('No Reminders Available'));
-        }
-      },
-    );
-  }
-
-  Widget _buildReminderListContent() {
-    if (taskReminderItems.isEmpty()) {
-      return const Center(child: Text('No Reminders Available'));
-    }
-    return TaskReminderListPage(task: widget.task, reminderItems: taskReminderItems);
-  }
-
-  Widget _buildActionButtons(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        ElevatedButton(
-          onPressed: _handleSaveButtonPress,
-          child: const Text('Save'),
-        ),
-        ElevatedButton(
-          onPressed: () => _handleLinkTagButtonPress(context),
-          child: const Text('Link Tag'),
-        ),
-        ElevatedButton(
-          onPressed: () => _handleLinkReminderButtonPress(context),
-          child: const Text('Link Reminder'),
-        ),
-      ],
-    );
+  Future<void> _handleLinkPress<T extends OrganizerItemEntity>(
+      BuildContext context, String routeName, OrganizerItems<T> items) async {
+    await TaskNavigatorHelper.handleNavigation(context, routeName, widget.task.id, items);
   }
 
   void _handleSaveButtonPress() {
-    // Handle save button press
-  }
-
-  Future<void> _handleLinkTagButtonPress(BuildContext context) async {
-    final navigator = NavigatorFactory.getNavigator<TagEntity>(
-      routeName: TagRouterNames.tagRouteName,
-    );
-    await navigator.navigateAndUpdateItems(
-      context,
-      widget.task.id,
-      taskTagItems,
-    );
-  }
-
-  Future<void> _handleLinkReminderButtonPress(BuildContext context) async {
-    final navigator = NavigatorFactory.getNavigator<ReminderEntity>(
-      routeName: ReminderRouterNames.reminderRouteName,
-    );
-    await navigator.navigateAndUpdateItems(
-      context,
-      widget.task.id,
-      taskReminderItems,
-    );
+    // Implement save logic here
   }
 }
+
+// Mixins for loading task data
+mixin TaskDataLoaderMixin<T extends StatefulWidget> on State<T> {
+  OrganizerItems<TagEntity> taskTagItems = OrganizerItems.empty();
+  OrganizerItems<ReminderEntity> taskReminderItems = OrganizerItems.empty();
+  OrganizerItems<UserEntity> taskUserItems = OrganizerItems.empty();
+
+  void loadTaskData(BuildContext context, int taskId) {
+    context.read<TaskTagLinkBloc>().add(GetTagItemsByTaskIdBlocEvent(taskId));
+    context.read<TaskReminderLinkBloc>().add(GetReminderItemsByTaskIdBlocEvent(taskId));
+    context.read<TaskUserLinkBloc>().add(GetUserItemsByTaskIdBlocEvent(taskId));
+  }
+}
+
+// Helper class to handle navigation
+
+// Modular TaskFormFields widget
+
+// Reusable TaskItemList widget
+
+// Modular ActionButtons widget
+
+// Example content widget for item list
+// class ItemListContent<T extends OrganizerItemEntity> extends StatelessWidget {
+//   final OrganizerItems<T> items;
+//
+//   const ItemListContent({super.key, required this.items});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return ListView.builder(
+//       shrinkWrap: true,
+//       itemCount: items.length,
+//       itemBuilder: (context, index) {
+//         final item = items[index];
+//         return ListTile(title: Text(item.name));
+//       },
+//     );
+//   }

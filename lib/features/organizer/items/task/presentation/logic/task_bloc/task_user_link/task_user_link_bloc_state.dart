@@ -10,12 +10,12 @@ abstract class TaskUserLinkBlocState extends Equatable {
 class TaskUserLoadingBlocState extends TaskUserLinkBlocState {}
 
 class TaskUserLoadedBlocState extends TaskUserLinkBlocState {
-  final OrganizerItems<UserEntity> users;
+  final OrganizerItems<UserEntity> userItems;
 
-  TaskUserLoadedBlocState(this.users);
+  TaskUserLoadedBlocState(this.userItems);
 
   @override
-  List<Object> get props => [users];
+  List<Object> get props => [userItems];
 }
 
 class UserItemsUpdatedToTaskBlocState extends TaskUserLinkBlocState {

@@ -36,7 +36,7 @@ class TaskReminderLinkBloc extends Bloc<TaskReminderLinkBlocEvent, TaskReminderL
     ));
     emit(failureOrOrganizerItems.fold(
       (failure) => TaskReminderErrorBlocState(_mapFailureToMessage(failure)),
-      (organizerItems) => ReminderItemsUpdeatedToTaskBlocState(organizerItems),
+      (organizerItems) => ReminderItemsUpdatedToTaskBlocState(organizerItems),
     ));
   }
 
