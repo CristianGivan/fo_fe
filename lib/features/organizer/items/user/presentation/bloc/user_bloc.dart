@@ -1,10 +1,9 @@
-import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fo_fe/core/error/failures.dart';
-import 'package:fo_fe/core/usecase/no_params.dart';
-import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
+import 'package:fo_fe/core/usecase/params.dart';
 import 'package:fo_fe/features/organizer/items/user/domain/usecases/user_usecase_export.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 part 'user_bloc_event.dart';
 part 'user_bloc_state.dart';

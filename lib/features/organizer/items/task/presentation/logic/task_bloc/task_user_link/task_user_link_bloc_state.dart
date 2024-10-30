@@ -1,31 +1,36 @@
 part of '../task_bloc.dart';
 
-abstract class TaskUserBlocState extends Equatable {
-  const TaskUserBlocState();
+abstract class TaskUserLinkBlocState extends Equatable {
+  const TaskUserLinkBlocState();
 
   @override
   List<Object> get props => [];
 }
 
-class UserLoadingBlocState extends TaskUserBlocState {}
+class TaskUserLoadingBlocState extends TaskUserLinkBlocState {}
 
-class UserLoadedBlocState extends TaskUserBlocState {
+class TaskUserLoadedBlocState extends TaskUserLinkBlocState {
   final OrganizerItems<UserEntity> users;
 
-  UserLoadedBlocState(this.users);
+  TaskUserLoadedBlocState(this.users);
 
   @override
   List<Object> get props => [users];
 }
 
-class UserAddedToTaskBlocState extends TaskUserBlocState {}
+class UserItemsUpdatedToTaskBlocState extends TaskUserLinkBlocState {
+  final OrganizerItems<UserEntity> userItemsUpdated;
 
-class UserDeletedFromTaskBlocState extends TaskUserBlocState {}
+  UserItemsUpdatedToTaskBlocState(this.userItemsUpdated);
 
-class UserErrorBlocState extends TaskUserBlocState {
+  @override
+  List<Object> get props => [userItemsUpdated];
+}
+
+class TaskUserErrorBlocState extends TaskUserLinkBlocState {
   final String message;
 
-  UserErrorBlocState(this.message);
+  TaskUserErrorBlocState(this.message);
 
   @override
   List<Object> get props => [message];

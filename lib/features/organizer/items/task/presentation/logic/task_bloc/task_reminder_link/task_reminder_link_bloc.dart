@@ -1,8 +1,8 @@
 part of '../task_bloc.dart';
 
 class TaskReminderLinkBloc extends Bloc<TaskReminderLinkBlocEvent, TaskReminderLinkBlocState> {
-  final GetReminderItemsByTaskId getRemindersByTaskId;
-  final UpdateReminderItemsOfTask updateReminderItemsOfTask;
+  final GetReminderItemsByTaskIdUseCase getRemindersByTaskId;
+  final UpdateReminderItemsOfTaskUseCase updateReminderItemsOfTask;
 
   TaskReminderLinkBloc({
     required this.getRemindersByTaskId,
@@ -37,7 +37,7 @@ class TaskReminderLinkBloc extends Bloc<TaskReminderLinkBlocEvent, TaskReminderL
     ));
     emit(failureOrOrganizerItems.fold(
       (failure) => TaskReminderErrorBlocState(_mapFailureToMessage(failure)),
-      (organizerItems) => ReminderItemsAddedToTaskBlocState(organizerItems),
+      (organizerItems) => ReminderItemsUpdeatedToTaskBlocState(organizerItems),
     ));
   }
 

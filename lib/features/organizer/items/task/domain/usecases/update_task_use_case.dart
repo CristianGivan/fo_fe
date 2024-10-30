@@ -6,10 +6,10 @@ import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 
 import '../repositories/task_repository.dart';
 
-class UpdateTask extends UseCase<bool, UpdateTaskParams> {
+class UpdateTaskUseCase extends UseCase<bool, UpdateTaskParams> {
   final TaskRepository repository;
 
-  UpdateTask(this.repository);
+  UpdateTaskUseCase(this.repository);
 
   @override
   Future<Either<Failure, bool>> call(UpdateTaskParams params) {

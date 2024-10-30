@@ -68,8 +68,8 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
         } else if (state is TaskTagLoadedBlocState) {
           taskTagItems = state.tagItems;
           return _buildTagListContent();
-        } else if (state is TagItemsAddedToTaskBlocState) {
-          taskTagItems = state.tagItems;
+        } else if (state is TagItemsUpdatedToTaskBlocState) {
+          taskTagItems = state.tagItemsUpdated;
           return _buildTagListContent();
         } else if (state is TaskTagErrorBlocState) {
           return Center(child: Text(state.message));
@@ -96,8 +96,8 @@ class _TaskEditScreenState extends State<TaskEditScreen> {
         } else if (state is TaskReminderLoadedBlocState) {
           taskReminderItems = state.reminderItems;
           return _buildReminderListContent();
-        } else if (state is ReminderItemsAddedToTaskBlocState) {
-          taskReminderItems = state.reminderItems;
+        } else if (state is ReminderItemsUpdeatedToTaskBlocState) {
+          taskReminderItems = state.reminderItemsUpdated;
           return _buildReminderListContent();
         } else if (state is TaskReminderErrorBlocState) {
           return Center(child: Text(state.message));

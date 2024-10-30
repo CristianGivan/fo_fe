@@ -7,8 +7,8 @@ List<BlocProvider> getOrganizerBlocProviders() {
     BlocProvider<TaskBlocTask>(
       create: (_) => GetIt.instance<TaskBlocTask>(),
     ),
-    BlocProvider<TaskBlocUser>(
-      create: (_) => GetIt.instance<TaskBlocUser>(),
+    BlocProvider<TaskUserLinkBloc>(
+      create: (_) => GetIt.instance<TaskUserLinkBloc>(),
     ),
     BlocProvider<TaskTagLinkBloc>(
       create: (_) => GetIt.instance<TaskTagLinkBloc>(),

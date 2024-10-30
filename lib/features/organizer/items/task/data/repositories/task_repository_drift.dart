@@ -72,6 +72,16 @@ class TaskRepositoryDrift implements TaskRepository {
   }
 
   // User operations related to tasks
+
+  @override
+  Future<Either<Failure, UserEntity>> getCreatorTaskById(int creatorId) {
+    return _handleDatabaseOperation(() async {
+      final userModel = await localDataSource.getCreatorById(creatorId);
+      _checkItemNotNull(userModel);
+      return UserMapper.entityFromTableDrift(userModel!);
+    });
+  }
+
   @override
   Future<Either<Failure, OrganizerItems<UserEntity>>> getUserItemsByTaskId(int taskId) {
     return _handleDatabaseOperation(() async {
@@ -82,23 +92,25 @@ class TaskRepositoryDrift implements TaskRepository {
   }
 
   @override
-  Future<Either<Failure, UserEntity>> getCreatorById(int creatorId) {
+  Future<Either<Failure, OrganizerItems<UserEntity>>> updateUserItemOfTask(
+    int taskId,
+    List<int> addedUserItems,
+    List<int> removedUserItems,
+  ) {
     return _handleDatabaseOperation(() async {
-      final userModel = await localDataSource.getCreatorById(creatorId);
-      _checkItemNotNull(userModel);
-      return UserMapper.entityFromTableDrift(userModel!);
+      if (addedUserItems != []) {
+        localDataSource.addUserItemsToTask(taskId, addedUserItems);
+      }
+      if (removedUserItems != []) {
+        localDataSource.deleteUserItemsFromTask(taskId, removedUserItems);
+      }
+      return _filterNonNullItems<UserEntity, UserTableDriftG>(
+          await localDataSource.getUserItemsByTaskId(taskId),
+          UserMapper.entityItemsFromTableDriftItems);
     });
   }
 
-  @override
-  Future<Either<Failure, int>> addUserToTask(int taskId, int userId) {
-    return _handleDatabaseOperation(() => localDataSource.addUserToTask(taskId, userId));
-  }
-
-  @override
-  Future<Either<Failure, int>> deleteUserFromTask(int taskId, int userId) {
-    return _handleDatabaseOperation(() => localDataSource.deleteUserFromTask(taskId, userId));
-  }
+  // Tag operations related to tasks
 
   @override
   Future<Either<Failure, OrganizerItems<TagEntity>>> getTagItemsByTaskId(int taskId) {
@@ -107,26 +119,6 @@ class TaskRepositoryDrift implements TaskRepository {
           await localDataSource.getTagItemsByTaskId(taskId),
           TagMapper.entityItemsFromTableDriftItems);
     });
-  }
-
-  @override
-  Future<Either<Failure, int>> addTagToTask(int taskId, int tagId) {
-    return _handleDatabaseOperation(() => localDataSource.addTagToTask(taskId, tagId));
-  }
-
-  @override
-  Future<Either<Failure, OrganizerItems<TagEntity>>> addTagItemsToTask(int taskId, IdSet tags) {
-    return _handleDatabaseOperation(() async {
-      await localDataSource.addTagItemsToTask(taskId, tags.toList());
-      return _filterNonNullItems<TagEntity, TagTableDriftG>(
-          await localDataSource.getTagItemsByTaskId(taskId),
-          TagMapper.entityItemsFromTableDriftItems);
-    });
-  }
-
-  @override
-  Future<Either<Failure, int>> deleteTagFromTask(int taskId, int tagId) {
-    return _handleDatabaseOperation(() => localDataSource.deleteTagFromTask(taskId, tagId));
   }
 
   @override
@@ -148,35 +140,14 @@ class TaskRepositoryDrift implements TaskRepository {
     });
   }
 
+  // Reminder operations related to tasks
   @override
   Future<Either<Failure, OrganizerItems<ReminderEntity>>> getRemindersByTaskId(int taskId) {
     return _handleDatabaseOperation(() async {
       return _filterNonNullItems<ReminderEntity, ReminderTableDriftG>(
-          await localDataSource.getRemindersByTaskId(taskId),
-          ReminderMapper.entityItemsFromTableDriftItems);
-    });
-  }
-
-  @override
-  Future<Either<Failure, int>> addReminderToTask(int taskId, int reminderId) {
-    return _handleDatabaseOperation(() => localDataSource.addReminderToTask(taskId, reminderId));
-  }
-
-  @override
-  Future<Either<Failure, OrganizerItems<ReminderEntity>>> addReminderItemsToTask(
-      int taskId, IdSet tags) {
-    return _handleDatabaseOperation(() async {
-      await localDataSource.addReminderItemsToTask(taskId, tags.toList());
-      return _filterNonNullItems<ReminderEntity, ReminderTableDriftG>(
           await localDataSource.getReminderItemsByTaskId(taskId),
           ReminderMapper.entityItemsFromTableDriftItems);
     });
-  }
-
-  @override
-  Future<Either<Failure, int>> deleteReminderFromTask(int taskId, int reminderId) {
-    return _handleDatabaseOperation(
-        () => localDataSource.deleteReminderFromTask(taskId, reminderId));
   }
 
   @override

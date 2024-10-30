@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:fo_fe/core/error/failures.dart';
-import 'package:fo_fe/core/usecase/no_params.dart';
+import 'package:fo_fe/core/usecase/params.dart';
 import 'package:fo_fe/features/organizer/items/reminder/utils/reminder_exports.dart';
 import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/usecases/update_reminder_items_of_task_use_case.dart';
+import 'package:fo_fe/features/organizer/items/task/domain/usecases/update_user_items_of_task_use_case.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
@@ -34,12 +37,12 @@ String _mapFailureToMessage(Failure failure) {
 }
 
 class TaskBlocTask extends Bloc<TaskBlocTaskEvent, TaskBlocState> {
-  final GetTaskById getTaskById;
-  final GetTaskItemsAll getTaskItemsAll;
-  final GetTaskItemsByIdSet getTaskItemsByIdSet;
-  final AddTask addTask;
-  final UpdateTask updateTask;
-  final DeleteTask deleteTask;
+  final GetTaskByIdUseCase getTaskById;
+  final GetTaskItemsAllUseCase getTaskItemsAll;
+  final GetTaskItemsByIdSetUseCase getTaskItemsByIdSet;
+  final AddTaskUseCase addTask;
+  final UpdateTaskUseCase updateTask;
+  final DeleteTaskUseCase deleteTask;
   final TaskSortUseCase sortTasksUseCase;
   final TaskFilterUseCase filterTasksUseCase;
 

@@ -1,37 +1,41 @@
 part of '../task_bloc.dart';
 
-abstract class TaskBlocUserEvent extends Equatable {
-  const TaskBlocUserEvent();
+abstract class TaskUserLinkBlocEvent extends Equatable {
+  const TaskUserLinkBlocEvent();
 
   @override
   List<Object> get props => [];
 }
 
-class GetUsersByTaskIdBlocEvent extends TaskBlocUserEvent {
+class GetUserItemsByTaskIdBlocEvent extends TaskUserLinkBlocEvent {
   final int taskId;
 
-  GetUsersByTaskIdBlocEvent(this.taskId);
+  GetUserItemsByTaskIdBlocEvent(this.taskId);
 
   @override
   List<Object> get props => [taskId];
 }
 
-class AddUserToTaskBlocEvent extends TaskBlocUserEvent {
+class GetCreatorByTaskIdBlocEvent extends TaskUserLinkBlocEvent {
   final int taskId;
-  final UserEntity user;
 
-  AddUserToTaskBlocEvent(this.taskId, this.user);
+  GetCreatorByTaskIdBlocEvent(this.taskId);
 
   @override
-  List<Object> get props => [taskId, user];
+  List<Object> get props => [taskId];
 }
 
-class DeleteUserFromTaskBlocEvent extends TaskBlocUserEvent {
+class UpdateUserItemsOfTaskBlocEvent extends TaskUserLinkBlocEvent {
   final int taskId;
-  final int userId;
+  final OrganizerItems<UserEntity> userItems;
+  final OrganizerItems<UserEntity> updatedUserItems;
 
-  DeleteUserFromTaskBlocEvent(this.taskId, this.userId);
+  UpdateUserItemsOfTaskBlocEvent({
+    required this.taskId,
+    required this.userItems,
+    required this.updatedUserItems,
+  });
 
   @override
-  List<Object> get props => [taskId, userId];
+  List<Object> get props => [taskId, userItems, updatedUserItems];
 }

@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/error/failures.dart';
-import 'package:fo_fe/core/usecase/no_params.dart';
+import 'package:fo_fe/core/usecase/params.dart';
 import 'package:fo_fe/core/usecase/usecase.dart';
 import 'package:fo_fe/features/organizer/items/tag/domain/entities/tag_entity.dart';
 import 'package:fo_fe/features/organizer/items/tag/domain/repositories/tag_repository.dart';

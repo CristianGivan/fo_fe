@@ -1,8 +1,8 @@
 part of '../task_bloc.dart';
 
 class TaskTagLinkBloc extends Bloc<TaskTagLinkBlocEvent, TaskTagLinkBlocState> {
-  final GetTagItemsByTaskId getTagsByTaskId;
-  final UpdateTagItemsOfTask updateTagItemsOfTask;
+  final GetTagItemsByTaskIdUseCase getTagsByTaskId;
+  final UpdateTagItemsOfTaskUseCase updateTagItemsOfTask;
 
   TaskTagLinkBloc({
     required this.getTagsByTaskId,
@@ -36,7 +36,7 @@ class TaskTagLinkBloc extends Bloc<TaskTagLinkBlocEvent, TaskTagLinkBlocState> {
     ));
     emit(failureOrOrganizerItems.fold(
       (failure) => TaskTagErrorBlocState(_mapFailureToMessage(failure)),
-      (organizerItems) => TagItemsAddedToTaskBlocState(organizerItems),
+      (organizerItems) => TagItemsUpdatedToTaskBlocState(organizerItems),
     ));
   }
 

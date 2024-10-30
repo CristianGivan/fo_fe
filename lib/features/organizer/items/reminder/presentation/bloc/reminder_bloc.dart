@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:fo_fe/core/error/failures.dart';
-import 'package:fo_fe/core/usecase/no_params.dart';
+import 'package:fo_fe/core/usecase/params.dart';
 import 'package:fo_fe/features/organizer/items/reminder/domain/usecases/reminder_usecase_export.dart';
 import 'package:fo_fe/features/organizer/items/reminder/utils/reminder_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
@@ -42,8 +41,7 @@ class ReminderBloc extends Bloc<ReminderBlocEvent, ReminderBlocState> {
   }) : super(ReminderInitialBlocState()) {
     on<AddReminderBlocEvent>((event, emit) async {
       emit(ReminderLoadingBlocState());
-      final failureOrSuccess =
-          await addReminder(ParamsReminder(reminder: event.reminder));
+      final failureOrSuccess = await addReminder(ParamsReminder(reminder: event.reminder));
       emit(failureOrSuccess.fold(
         (failure) => ReminderErrorBlocState(_mapFailureToMessage(failure)),
         (id) => ReminderSuccessBlocState(id),
@@ -53,8 +51,7 @@ class ReminderBloc extends Bloc<ReminderBlocEvent, ReminderBlocState> {
 
     on<UpdateReminderBlocEvent>((event, emit) async {
       emit(ReminderLoadingBlocState());
-      final failureOrSuccess =
-          await updateReminder(ParamsReminder(reminder: event.reminder));
+      final failureOrSuccess = await updateReminder(ParamsReminder(reminder: event.reminder));
       emit(failureOrSuccess.fold(
         (failure) => ReminderErrorBlocState(_mapFailureToMessage(failure)),
         (success) => success
@@ -65,8 +62,7 @@ class ReminderBloc extends Bloc<ReminderBlocEvent, ReminderBlocState> {
 
     on<DeleteReminderBlocEvent>((event, emit) async {
       emit(ReminderLoadingBlocState());
-      final failureOrSuccess =
-          await deleteReminder(DeleteTagParams(id: event.id));
+      final failureOrSuccess = await deleteReminder(DeleteTagParams(id: event.id));
       emit(failureOrSuccess.fold(
         (failure) => ReminderErrorBlocState(_mapFailureToMessage(failure)),
         (id) => ReminderInitialBlocState(),
@@ -75,8 +71,7 @@ class ReminderBloc extends Bloc<ReminderBlocEvent, ReminderBlocState> {
 
     on<GetReminderByIdBlocEvent>((event, emit) async {
       emit(ReminderLoadingBlocState());
-      final failureOrReminder =
-          await getReminderById(GetTagByIdParams(id: event.id));
+      final failureOrReminder = await getReminderById(GetTagByIdParams(id: event.id));
       emit(failureOrReminder.fold(
         (failure) => ReminderErrorBlocState(_mapFailureToMessage(failure)),
         (reminder) => ReminderLoadedBlocState(reminder!),
@@ -94,8 +89,7 @@ class ReminderBloc extends Bloc<ReminderBlocEvent, ReminderBlocState> {
 
     on<GetReminderItemsByIdSetBlocEvent>((event, emit) async {
       emit(ReminderLoadingBlocState());
-      final failureOrReminders =
-          await getReminderItemsByIdSet(ParamsIdSet(idSet: event.idSet));
+      final failureOrReminders = await getReminderItemsByIdSet(ParamsIdSet(idSet: event.idSet));
       emit(failureOrReminders.fold(
         (failure) => ReminderErrorBlocState(_mapFailureToMessage(failure)),
         (reminders) => ReminderItemsLoadedBlocState(reminders),

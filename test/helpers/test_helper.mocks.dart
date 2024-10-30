@@ -703,7 +703,7 @@ class MockTaskRepository extends _i1.Mock implements _i6.TaskRepository {
       ) as _i8.Future<_i4.Either<_i13.Failure, _i12.OrganizerItems<_i15.UserEntity>>>);
 
   @override
-  _i8.Future<_i4.Either<_i13.Failure, _i15.UserEntity>> getCreatorById(int? creatorId) =>
+  _i8.Future<_i4.Either<_i13.Failure, _i15.UserEntity>> getCreatorTaskById(int? creatorId) =>
       (super.noSuchMethod(
         Invocation.method(
           #getCreatorById,
@@ -1680,7 +1680,7 @@ class MockInputConverter extends _i1.Mock implements _i20.InputConverter {
 /// A class which mocks [GetTaskById].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockGetTaskById extends _i1.Mock implements _i14.GetTaskById {
+class MockGetTaskById extends _i1.Mock implements _i14.GetTaskByIdUseCase {
   @override
   _i6.TaskRepository get repository => (super.noSuchMethod(
         Invocation.getter(#repository),

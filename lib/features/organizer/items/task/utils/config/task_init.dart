@@ -25,17 +25,17 @@ void taskInit() {
       ));
 
   // Task Use cases
-  sl.registerLazySingleton(() => GetTaskById(sl()));
-  sl.registerLazySingleton(() => GetTaskItemsAll(sl()));
-  sl.registerLazySingleton(() => GetTaskItemsByIdSet(sl()));
-  sl.registerLazySingleton(() => AddTask(sl()));
-  sl.registerLazySingleton(() => UpdateTask(sl()));
-  sl.registerLazySingleton(() => DeleteTask(sl()));
-  sl.registerLazySingleton(() => GetUsersByTaskId(sl()));
-  sl.registerLazySingleton(() => UpdateTagItemsOfTask(sl()));
-  sl.registerLazySingleton(() => UpdateReminderItemsOfTask(sl()));
-  sl.registerLazySingleton(() => GetTagItemsByTaskId(sl()));
-  sl.registerLazySingleton(() => GetReminderItemsByTaskId(sl()));
+  sl.registerLazySingleton(() => GetTaskByIdUseCase(sl()));
+  sl.registerLazySingleton(() => GetTaskItemsAllUseCase(sl()));
+  sl.registerLazySingleton(() => GetTaskItemsByIdSetUseCase(sl()));
+  sl.registerLazySingleton(() => AddTaskUseCase(sl()));
+  sl.registerLazySingleton(() => UpdateTaskUseCase(sl()));
+  sl.registerLazySingleton(() => DeleteTaskUseCase(sl()));
+  sl.registerLazySingleton(() => GetUserItemsByTaskIdUseCase(sl()));
+  sl.registerLazySingleton(() => UpdateTagItemsOfTaskUseCase(sl()));
+  sl.registerLazySingleton(() => UpdateReminderItemsOfTaskUseCase(sl()));
+  sl.registerLazySingleton(() => GetTagItemsByTaskIdUseCase(sl()));
+  sl.registerLazySingleton(() => GetReminderItemsByTaskIdUseCase(sl()));
   sl.registerLazySingleton(() => TaskFilterUseCase());
   sl.registerLazySingleton(() => TaskSortUseCase());
 
@@ -50,8 +50,10 @@ void taskInit() {
         sortTasksUseCase: sl(),
         filterTasksUseCase: sl(),
       ));
-  sl.registerFactory(() => TaskBlocUser(
-        getUsersByTaskId: sl(),
+  sl.registerFactory(() => TaskUserLinkBloc(
+        getUserItemsByTaskId: sl(),
+        getCreatorByTaskId: sl(),
+        updateUserItemsOfTask: sl(),
       ));
   sl.registerFactory(() => TaskTagLinkBloc(
         getTagsByTaskId: sl(),

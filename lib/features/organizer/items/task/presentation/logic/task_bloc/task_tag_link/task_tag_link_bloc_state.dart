@@ -18,18 +18,14 @@ class TaskTagLoadedBlocState extends TaskTagLinkBlocState {
   List<Object> get props => [tagItems];
 }
 
-class TagAddedToTaskBlocState extends TaskTagLinkBlocState {}
+class TagItemsUpdatedToTaskBlocState extends TaskTagLinkBlocState {
+  final OrganizerItems<TagEntity> tagItemsUpdated;
 
-class TagItemsAddedToTaskBlocState extends TaskTagLinkBlocState {
-  final OrganizerItems<TagEntity> tagItems;
-
-  TagItemsAddedToTaskBlocState(this.tagItems);
+  TagItemsUpdatedToTaskBlocState(this.tagItemsUpdated);
 
   @override
-  List<Object> get props => [tagItems];
+  List<Object> get props => [tagItemsUpdated];
 }
-
-class TagDeletedFromTaskBlocState extends TaskTagLinkBlocState {}
 
 class TaskTagErrorBlocState extends TaskTagLinkBlocState {
   final String message;

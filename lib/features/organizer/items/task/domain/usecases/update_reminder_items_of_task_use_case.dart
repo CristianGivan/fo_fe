@@ -7,11 +7,11 @@ import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 import '../repositories/task_repository.dart';
 
-class UpdateReminderItemsOfTask
+class UpdateReminderItemsOfTaskUseCase
     extends UseCase<OrganizerItems<ReminderEntity>, UpdateItemsToTaskParams<ReminderEntity>> {
   final TaskRepository repository;
 
-  UpdateReminderItemsOfTask(this.repository);
+  UpdateReminderItemsOfTaskUseCase(this.repository);
 
   @override
   Future<Either<Failure, OrganizerItems<ReminderEntity>>> call(UpdateItemsToTaskParams params) {

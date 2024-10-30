@@ -18,18 +18,14 @@ class TaskReminderLoadedBlocState extends TaskReminderLinkBlocState {
   List<Object> get props => [reminderItems];
 }
 
-class ReminderAddedToTaskBlocState extends TaskReminderLinkBlocState {}
+class ReminderItemsUpdeatedToTaskBlocState extends TaskReminderLinkBlocState {
+  final OrganizerItems<ReminderEntity> reminderItemsUpdated;
 
-class ReminderItemsAddedToTaskBlocState extends TaskReminderLinkBlocState {
-  final OrganizerItems<ReminderEntity> reminderItems;
-
-  ReminderItemsAddedToTaskBlocState(this.reminderItems);
+  ReminderItemsUpdeatedToTaskBlocState(this.reminderItemsUpdated);
 
   @override
-  List<Object> get props => [reminderItems];
+  List<Object> get props => [reminderItemsUpdated];
 }
-
-class ReminderDeletedFromTaskBlocState extends TaskReminderLinkBlocState {}
 
 class TaskReminderErrorBlocState extends TaskReminderLinkBlocState {
   final String message;

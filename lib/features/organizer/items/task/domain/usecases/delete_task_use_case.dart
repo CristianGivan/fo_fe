@@ -5,10 +5,10 @@ import 'package:fo_fe/core/usecase/usecase.dart';
 
 import '../repositories/task_repository.dart';
 
-class DeleteTask extends UseCase<int, DeleteTaskParams> {
+class DeleteTaskUseCase extends UseCase<int, DeleteTaskParams> {
   final TaskRepository repository;
 
-  DeleteTask(this.repository);
+  DeleteTaskUseCase(this.repository);
 
   @override
   Future<Either<Failure, int>> call(DeleteTaskParams params) {
