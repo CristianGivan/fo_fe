@@ -1,9 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 import 'package:fo_fe/features/organizer/items/tag/presentation/pages/tag_list_page.dart';
 import 'package:fo_fe/features/organizer/items/tag/presentation/pages/tag_management_actions_page.dart';
 import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class TagScreen extends StatefulWidget {
   final OrganizerItems<TagEntity> tagItems;
@@ -15,12 +13,12 @@ class TagScreen extends StatefulWidget {
 }
 
 class _TagScreenState extends State<TagScreen> {
-  late OrganizerItems<TagEntity> selectedTagItems;
+  late OrganizerItems<TagEntity> selectedItems;
 
   @override
   void initState() {
     super.initState();
-    selectedTagItems = widget.tagItems;
+    selectedItems = widget.tagItems;
   }
 
   @override
@@ -28,12 +26,20 @@ class _TagScreenState extends State<TagScreen> {
     _loadTags(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Tag Management')),
+      appBar: AppBar(
+        title: const Text('Tag Management'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            context.pop(selectedItems);
+          },
+        ),
+      ),
       body: Column(
         children: [
           const Center(child: Text('All Tags:')),
           _buildTagList(context),
-          _buildTagManagementActions(),
+          TagManagementActionsPage(selectedTags: selectedItems),
         ],
       ),
     );
@@ -48,17 +54,13 @@ class _TagScreenState extends State<TagScreen> {
       child: TagListPage(
         onSelectTag: (tag) {
           setState(() {
-            var builder = selectedTagItems.toBuilder();
+            var builder = selectedItems.toBuilder();
             builder.contains(tag) ? builder.remove(tag) : builder.add(tag);
-            selectedTagItems = builder.build();
+            selectedItems = builder.build();
           });
         },
-        selectedTags: selectedTagItems,
+        selectedTags: selectedItems,
       ),
     );
-  }
-
-  Widget _buildTagManagementActions() {
-    return TagManagementActionsPage(selectedTags: selectedTagItems);
   }
 }

@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fo_fe/features/organizer/items/user/presentation/pages/user_list_page.dart';
 import 'package:fo_fe/features/organizer/items/user/presentation/pages/user_management_actions_page.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
@@ -15,12 +13,12 @@ class UserScreen extends StatefulWidget {
 }
 
 class _UserScreenState extends State<UserScreen> {
-  late OrganizerItems<UserEntity> selectedUserItems;
+  late OrganizerItems<UserEntity> selectedItems;
 
   @override
   void initState() {
     super.initState();
-    selectedUserItems = widget.userItems;
+    selectedItems = widget.userItems;
   }
 
   @override
@@ -28,7 +26,15 @@ class _UserScreenState extends State<UserScreen> {
     _loadUsers(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('User Management')),
+      appBar: AppBar(
+        title: const Text('User Management'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            context.pop(selectedItems);
+          },
+        ),
+      ),
       body: Column(
         children: [
           const Center(child: Text('All Users:')),
@@ -48,17 +54,17 @@ class _UserScreenState extends State<UserScreen> {
       child: UserListPage(
         onSelectUser: (user) {
           setState(() {
-            var builder = selectedUserItems.toBuilder();
+            var builder = selectedItems.toBuilder();
             builder.contains(user) ? builder.remove(user) : builder.add(user);
-            selectedUserItems = builder.build();
+            selectedItems = builder.build();
           });
         },
-        selectedUsers: selectedUserItems,
+        selectedUsers: selectedItems,
       ),
     );
   }
 
   Widget _buildUserManagementActions() {
-    return UserManagementActionsPage(selectedUsers: selectedUserItems);
+    return UserManagementActionsPage(selectedUsers: selectedItems);
   }
 }
