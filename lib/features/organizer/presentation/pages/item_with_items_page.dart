@@ -22,15 +22,15 @@ class ItemWithItemsPage<T extends OrganizerItemEntity, E extends OrganizerItemEn
     return Column(
       children: [
         if (items.isEmpty())
-          Center(child: Text('No $type Available'))
+          Center(child: Text('No ${itemsType.type} Available'))
         else
-          ItemListLinkPage(
+          ItemListLinkPage<E>(
               items: items,
               //todo -t- to be updated with another widget
-              itemTextBuilder: (itemOfItems) => itemOfItems.id.toString()),
+              itemTextBuilder: itemsType.itemTextBuilder),
         ElevatedButton(
           onPressed: () => _handleUpdateUserItems(context, itemsType),
-          child: Text('Update $type'),
+          child: Text('Update ${itemsType.type}'),
         ),
       ],
     );

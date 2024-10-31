@@ -1,9 +1,9 @@
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class ItemsType<T extends OrganizerItemEntity> extends Equatable {
+class ItemsType extends Equatable {
   final String type;
   final String routeName;
-  final String Function(T) itemTextBuilder;
+  final String Function(OrganizerItemEntity) itemTextBuilder; // Accepts OrganizerItemEntity
 
   const ItemsType({
     required this.type,
