@@ -2,7 +2,6 @@ import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:flutter/foundation.dart';
 import 'package:fo_fe/core/db/drift/connection/db_connection_drift.dart';
-import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 
 import 'organizer_drift_exports.dart';
 

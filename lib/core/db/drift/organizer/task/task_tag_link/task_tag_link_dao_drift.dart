@@ -10,11 +10,9 @@ class TaskTagLinkDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
 
   TaskTagLinkDaoDrift(this.db) : super(db);
 
-  Future<List<TaskTagTableDriftG>> getAllTaskTags() =>
-      select(taskTagLinkTableDrift).get();
+  Future<List<TaskTagTableDriftG>> getAllTaskTags() => select(taskTagLinkTableDrift).get();
 
-  Stream<List<TaskTagTableDriftG>> watchAllTaskTags() =>
-      select(taskTagLinkTableDrift).watch();
+  Stream<List<TaskTagTableDriftG>> watchAllTaskTags() => select(taskTagLinkTableDrift).watch();
 
   Future<int> addTaskTag(Insertable<TaskTagTableDriftG> taskTag) =>
       into(taskTagLinkTableDrift).insert(taskTag);
@@ -23,9 +21,7 @@ class TaskTagLinkDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
       update(taskTagLinkTableDrift).replace(taskTag);
 
   Future<int> deleteTaskTagByTaskId(int taskId) async {
-    return (delete(taskTagLinkTableDrift)
-          ..where((tbl) => tbl.taskId.equals(taskId)))
-        .go();
+    return (delete(taskTagLinkTableDrift)..where((tbl) => tbl.taskId.equals(taskId))).go();
   }
 
   Future<int> deleteTaskTag(int taskId, int tagId) async {
@@ -35,9 +31,8 @@ class TaskTagLinkDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
   }
 
   Future<Set<int>> getTagIdsByTaskId(int taskId) async {
-    final result = await (select(taskTagLinkTableDrift)
-          ..where((tbl) => tbl.taskId.equals(taskId)))
-        .get();
+    final result =
+        await (select(taskTagLinkTableDrift)..where((tbl) => tbl.taskId.equals(taskId))).get();
     return result.map((row) => row.tagId).toSet();
   }
 }

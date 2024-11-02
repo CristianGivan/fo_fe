@@ -1,21 +1,17 @@
 import 'package:drift/drift.dart';
 import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
-import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 
 part 'user_user_dao_drift.g.dart';
 
 @DriftAccessor(tables: [UserUserTableDrift])
-class UserUserDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
-    with _$UserUserDaoDriftMixin {
+class UserUserDaoDrift extends DatabaseAccessor<OrganizerDriftDB> with _$UserUserDaoDriftMixin {
   final OrganizerDriftDB db;
 
   UserUserDaoDrift(this.db) : super(db);
 
-  Future<List<UserUserTableDriftG>> getAllUserUsers() =>
-      select(userUserTableDrift).get();
+  Future<List<UserUserTableDriftG>> getAllUserUsers() => select(userUserTableDrift).get();
 
-  Stream<List<UserUserTableDriftG>> watchAllUserUsers() =>
-      select(userUserTableDrift).watch();
+  Stream<List<UserUserTableDriftG>> watchAllUserUsers() => select(userUserTableDrift).watch();
 
   Future<int> addUserUser(Insertable<UserUserTableDriftG> userUser) =>
       into(userUserTableDrift).insert(userUser);
@@ -24,22 +20,18 @@ class UserUserDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
       update(userUserTableDrift).replace(userUser);
 
   Future<int> deleteUserUserByUserId(int userId) async {
-    return (delete(userUserTableDrift)
-          ..where((tbl) => tbl.userId.equals(userId)))
-        .go();
+    return (delete(userUserTableDrift)..where((tbl) => tbl.userId.equals(userId))).go();
   }
 
   Future<int> deleteUserUser(int userId, int userLinkedId) async {
     return (delete(userUserTableDrift)
-          ..where((tbl) =>
-              tbl.userId.equals(userId) & tbl.userLinkedId.equals(userId)))
+          ..where((tbl) => tbl.userId.equals(userId) & tbl.userLinkedId.equals(userId)))
         .go();
   }
 
   Future<Set<int>> getUserIdsByUserId(int userId) async {
-    final result = await (select(userUserTableDrift)
-          ..where((tbl) => tbl.userId.equals(userId)))
-        .get();
+    final result =
+        await (select(userUserTableDrift)..where((tbl) => tbl.userId.equals(userId))).get();
     return result.map((row) => row.userId).toSet();
   }
 }
