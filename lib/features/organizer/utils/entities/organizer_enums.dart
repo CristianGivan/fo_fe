@@ -1,4 +1,4 @@
-// todo
+enum UserStatus { pending, accepted, rejected, blocked }
 
 enum TaskStatus { undefined, started, working, pending, completed }
 

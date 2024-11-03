@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/usecase/params.dart';
+import 'package:fo_fe/features/organizer/items/user/domain/usecases/get_user_items_by_user_id.dart';
 import 'package:fo_fe/features/organizer/items/user/domain/usecases/user_usecase_export.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/parameters/user_params.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
@@ -18,9 +18,9 @@ class UserBlocUser extends Bloc<UserBlocEvent, UserBlocState> {
   final DeleteUser deleteUser;
   final DeleteUserFromUser deleteUserFromUser;
   final GetUserById getUserById;
-  final GetUserItemsAll getUserItemsAll;
   final GetUserItemsByIdSet getUserItemsByIdSet;
   final GetUserItemsByUserId getUserItemsByUserId;
+  final GetConnectedUserItems getConnectedUserItems;
 
   UserBlocUser({
     required this.addUser,
@@ -29,9 +29,9 @@ class UserBlocUser extends Bloc<UserBlocEvent, UserBlocState> {
     required this.deleteUser,
     required this.deleteUserFromUser,
     required this.getUserById,
-    required this.getUserItemsAll,
     required this.getUserItemsByIdSet,
     required this.getUserItemsByUserId,
+    required this.getConnectedUserItems,
   }) : super(UserInitialBlocState()) {
     on<AddUserBlocEvent>(_onAddUser);
     on<AddUserToUserBlocEvent>(_onAddUserToUser);
@@ -39,9 +39,9 @@ class UserBlocUser extends Bloc<UserBlocEvent, UserBlocState> {
     on<DeleteUserBlocEvent>(_onDeleteUser);
     on<DeleteUserFromUserBlocEvent>(_onDeleteUserFromUser);
     on<GetUserByIdBlocEvent>(_onGetUserById);
-    on<GetUserItemsAllBlocEvent>(_onGetUserItemsAll);
     on<GetUserItemsByIdSetBlocEvent>(_onGetUserItemsByIdSet);
     on<GetUserItemsByUserIdBlocEvent>(_onGetUserItemsByUserId);
+    on<GetConnectedUserItemsBlocEvent>(_onGetConnectedUserItems);
   }
 
   Future<void> _onAddUser(AddUserBlocEvent event, Emitter<UserBlocState> emit) async {
@@ -51,7 +51,6 @@ class UserBlocUser extends Bloc<UserBlocEvent, UserBlocState> {
       (failure) => emit(UserErrorBlocState(_mapFailureToMessage(failure))),
       (success) => emit(UserSuccessBlocState(success)),
     );
-    add(GetUserItemsAllBlocEvent());
   }
 
   Future<void> _onUpdateUser(UpdateUserBlocEvent event, Emitter<UserBlocState> emit) async {
@@ -84,10 +83,10 @@ class UserBlocUser extends Bloc<UserBlocEvent, UserBlocState> {
     );
   }
 
-  Future<void> _onGetUserItemsAll(
-      GetUserItemsAllBlocEvent event, Emitter<UserBlocState> emit) async {
+  Future<void> _onGetConnectedUserItems(
+      GetConnectedUserItemsBlocEvent event, Emitter<UserBlocState> emit) async {
     emit(UserLoadingBlocState());
-    final failureOrUsers = await getUserItemsAll(NoParams());
+    final failureOrUsers = await getConnectedUserItems(NoParams());
     failureOrUsers.fold(
       (failure) => emit(UserErrorBlocState(_mapFailureToMessage(failure))),
       (users) => emit(UserItemsLoadedBlocState(users)),
@@ -107,7 +106,7 @@ class UserBlocUser extends Bloc<UserBlocEvent, UserBlocState> {
   Future<void> _onGetUserItemsByUserId(
       GetUserItemsByUserIdBlocEvent event, Emitter<UserBlocState> emit) async {
     emit(UserLoadingBlocState());
-    final result = await getUserItemsByUserId(GetUserItemsByUserIdParams(userId: event.userId));
+    final result = await getUserItemsByUserId(UserParams(userId: event.userId));
     emit(result.fold(
       (failure) => UserErrorBlocState(_mapFailureToMessage(failure)),
       (users) => UserItemsLoadedBlocIState(users: users),

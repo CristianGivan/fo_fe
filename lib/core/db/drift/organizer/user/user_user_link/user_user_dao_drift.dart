@@ -9,18 +9,30 @@ class UserUserDaoDrift extends DatabaseAccessor<OrganizerDriftDB> with _$UserUse
 
   UserUserDaoDrift(this.db) : super(db);
 
-  Future<List<UserUserTableDriftG>> getAllUserUsers() => select(userUserTableDrift).get();
-
-  Stream<List<UserUserTableDriftG>> watchAllUserUsers() => select(userUserTableDrift).watch();
-
   Future<int> addUserUser(Insertable<UserUserTableDriftG> userUser) =>
       into(userUserTableDrift).insert(userUser);
 
   Future<bool> updateUserUser(Insertable<UserUserTableDriftG> userUser) =>
       update(userUserTableDrift).replace(userUser);
 
-  Future<int> deleteUserUserByUserId(int userId) async {
-    return (delete(userUserTableDrift)..where((tbl) => tbl.userId.equals(userId))).go();
+  Future<List<UserUserTableDriftG>> getPendingInvitations(int userId) {
+    return (select(userUserTableDrift)
+          ..where((tbl) => tbl.userLinkedId.equals(userId) & tbl.status.equals('pending')))
+        .get();
+  }
+
+  Future<List<UserUserTableDriftG>> getSendInvitations(int userId) {
+    return (select(userUserTableDrift)
+          ..where((tbl) => tbl.userId.equals(userId) & tbl.status.equals('pending')))
+        .get();
+  }
+
+  Future<List<UserUserTableDriftG>> getConnectedUserIdsByUserId(int userId) async {
+    return (select(userUserTableDrift)
+          ..where((tbl) =>
+              (tbl.userId.equals(userId) | tbl.userLinkedId.equals(userId)) &
+              tbl.status.equals('accepted')))
+        .get();
   }
 
   Future<int> deleteUserUser(int userId, int userLinkedId) async {
@@ -29,9 +41,11 @@ class UserUserDaoDrift extends DatabaseAccessor<OrganizerDriftDB> with _$UserUse
         .go();
   }
 
-  Future<Set<int>> getUserIdsByUserId(int userId) async {
-    final result =
-        await (select(userUserTableDrift)..where((tbl) => tbl.userId.equals(userId))).get();
-    return result.map((row) => row.userId).toSet();
-  }
+// Future<int> deleteUserUserByUserId(int userId) async {
+//   return (delete(userUserTableDrift)..where((tbl) => tbl.userId.equals(userId))).go();
+// }
+
+// Future<List<UserUserTableDriftG>> getAllUserUsers() => select(userUserTableDrift).get();
+
+// Stream<List<UserUserTableDriftG>> watchAllUserUsers() => select(userUserTableDrift).watch();
 }

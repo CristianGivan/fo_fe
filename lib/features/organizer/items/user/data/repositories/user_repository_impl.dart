@@ -45,7 +45,7 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<Either<Failure, OrganizerItems<UserEntity>>> getUserItemsByUserId(int userId) {
+  Future<Either<Failure, OrganizerItems<UserEntity>>> getConnectedUserItemsByUserId(int userId) {
     // TODO: implement getUserItemsByUserId
     throw UnimplementedError();
   }
@@ -65,6 +65,18 @@ class UserRepositoryImpl implements UserRepository {
   @override
   Future<Either<Failure, UserEntity>> getUserByEmailAndPassword(String email, String password) {
     // TODO: implement getUserByEmailAndPassword
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, OrganizerItems<UserEntity>>> getPendingInvitations(int userId) {
+    // TODO: implement getPendingInvitations
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, OrganizerItems<UserEntity>>> getSendInvitations(int userId) {
+    // TODO: implement getSendInvitations
     throw UnimplementedError();
   }
 }

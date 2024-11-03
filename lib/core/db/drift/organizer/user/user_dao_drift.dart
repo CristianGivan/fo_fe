@@ -12,13 +12,13 @@ class UserDaoDrift extends DatabaseAccessor<OrganizerDriftDB> with _$UserDaoDrif
   Future<UserTableDriftG?> getUserById(int id) =>
       (select(userTableDrift)..where((tbl) => tbl.id.equals(id))).getSingleOrNull();
 
-  Future<List<UserTableDriftG>> getUserItemsAll() => select(userTableDrift).get();
+  // Future<List<UserTableDriftG>> getUserItemsAll() => select(userTableDrift).get();
+
+  // Stream<List<UserTableDriftG>> watchAllUsers() => select(userTableDrift).watch();
 
   Future<List<UserTableDriftG>> getUserItemsByIdSet(Set<int> ids) async {
     return (select(userTableDrift)..where((tbl) => tbl.id.isIn(ids))).get();
   }
-
-  Stream<List<UserTableDriftG>> watchAllUsers() => select(userTableDrift).watch();
 
   Future<int> addUser(Insertable<UserTableDriftG> user) => into(userTableDrift).insert(user);
 

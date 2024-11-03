@@ -10,7 +10,7 @@ abstract class UserBlocEvent extends Equatable {
 class AddUserBlocEvent extends UserBlocEvent {
   final UserEntity user;
 
-  AddUserBlocEvent(this.user);
+  const AddUserBlocEvent(this.user);
 
   @override
   List<Object> get props => [user];
@@ -19,7 +19,7 @@ class AddUserBlocEvent extends UserBlocEvent {
 class UpdateUserBlocEvent extends UserBlocEvent {
   final UserEntity user;
 
-  UpdateUserBlocEvent(this.user);
+  const UpdateUserBlocEvent(this.user);
 
   @override
   List<Object> get props => [user];
@@ -28,7 +28,7 @@ class UpdateUserBlocEvent extends UserBlocEvent {
 class DeleteUserBlocEvent extends UserBlocEvent {
   final int userId;
 
-  DeleteUserBlocEvent(this.userId);
+  const DeleteUserBlocEvent(this.userId);
 
   @override
   List<Object> get props => [userId];
@@ -37,18 +37,18 @@ class DeleteUserBlocEvent extends UserBlocEvent {
 class GetUserByIdBlocEvent extends UserBlocEvent {
   final int id;
 
-  GetUserByIdBlocEvent(this.id);
+  const GetUserByIdBlocEvent(this.id);
 
   @override
   List<Object> get props => [id];
 }
 
-class GetUserItemsAllBlocEvent extends UserBlocEvent {}
+class GetConnectedUserItemsBlocEvent extends UserBlocEvent {}
 
 class GetUserItemsByIdSetBlocEvent extends UserBlocEvent {
   final IdSet idSet;
 
-  GetUserItemsByIdSetBlocEvent(this.idSet);
+  const GetUserItemsByIdSetBlocEvent(this.idSet);
 
   @override
   List<Object> get props => [idSet];

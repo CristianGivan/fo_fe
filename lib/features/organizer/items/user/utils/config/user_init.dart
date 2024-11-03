@@ -1,4 +1,5 @@
 import 'package:fo_fe/core/db/drift/organizer_drift_db.dart';
+import 'package:fo_fe/features/organizer/items/user/domain/usecases/get_user_items_by_user_id.dart';
 import 'package:fo_fe/features/organizer/items/user/domain/usecases/user_usecase_export.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 import 'package:get_it/get_it.dart';
@@ -20,7 +21,7 @@ void userInit() {
   sl.registerLazySingleton(() => DeleteUser(sl()));
   sl.registerLazySingleton(() => DeleteUserFromUser(sl()));
   sl.registerLazySingleton(() => GetUserById(sl()));
-  sl.registerLazySingleton(() => GetUserItemsAll(sl()));
+  sl.registerLazySingleton(() => GetConnectedUserItems(sl(), sl()));
   sl.registerLazySingleton(() => GetUserItemsByIdSet(sl()));
   sl.registerLazySingleton(() => GetUserItemsByUserId(sl()));
   sl.registerLazySingleton(() => AddUser(sl()));
@@ -32,10 +33,10 @@ void userInit() {
         updateUser: sl(),
         deleteUser: sl(),
         getUserById: sl(),
-        getUserItemsAll: sl(),
-        getUserItemsByIdSet: sl(),
-        getUserItemsByUserId: sl(),
         addUserToUser: sl(),
         deleteUserFromUser: sl(),
+        getUserItemsByIdSet: sl(),
+        getUserItemsByUserId: sl(),
+        getConnectedUserItems: sl(),
       ));
 }

@@ -14,9 +14,7 @@ class GetLoggedInUserIdUseCase extends UseCase<int, NoParams> {
     final result = await authRepository.getActiveAuthenticationForDeviceInfo();
     return result.fold(
       (failure) => Left(failure),
-      (auth) async {
-        return Right(auth.userId);
-      },
+      (auth) async => Right(auth.userId),
     );
   }
 }

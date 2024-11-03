@@ -46,7 +46,7 @@ class _UserScreenState extends State<UserScreen> {
   }
 
   void _loadUsers(BuildContext context) {
-    context.read<UserBlocUser>().add(GetUserItemsAllBlocEvent());
+    context.read<UserBlocUser>().add(GetConnectedUserItemsBlocEvent());
   }
 
   Widget _buildUserList(BuildContext context) {

@@ -10,15 +10,21 @@ abstract class UserLocalDataSource {
 
   Future<UserTableDriftG?> getUserById(int id);
 
-  Future<List<UserTableDriftG>?> getUserItemsAll();
-
   Future<List<UserTableDriftG?>?> getUserItemsByIdSet(IdSet idSet);
 
-  Future<List<UserTableDriftG?>?> getUserItemsByUserId(int userId);
-
   Future<int> addUserToUser(int userLinkedId, int userId);
+
+  Future<bool> updateUserUser(int userLinkedId, int userId);
 
   Future<int> deleteUserFromUser(int userLinkedId, int userId);
 
   Future<UserTableDriftG?> getUserByEmailAndPassword(String email, String password);
+
+  Future<List<UserTableDriftG?>?> getConnectedUserIdsByUserId(int userId);
+
+  Future<List<UserTableDriftG?>?> getPendingInvitations(int userId);
+
+  Future<List<UserTableDriftG?>?> getSendInvitations(int userId);
+
+// Future<List<UserTableDriftG>?> getUserItemsAll();
 }
