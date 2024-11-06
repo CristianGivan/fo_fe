@@ -11,3 +11,5 @@ export 'config/user_init.dart';
 export 'config/user_providers_bloc.dart';
 export 'config/user_route_names.dart';
 export 'config/user_routes.dart';
+export 'other/user_enums.dart';
+export 'other/user_params.dart';

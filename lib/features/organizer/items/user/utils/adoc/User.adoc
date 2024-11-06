@@ -1,0 +1,14 @@
+= User
+
+== Decided
+
+=== UserType
+
+Local: Users whose accounts are created and used only on the current device. They don’t sync with any remote server.
+
+Remote: Users who exist on a server and are accessible across multiple devices. They don’t have a full profile locally but can interact with local users.
+
+Temporary: Users created offline with minimal information. They have restricted access and can be converted to a synced user upon connection to the internet.
+
+Synced (or Hybrid): Local users who are also registered on the server, allowing them to sync data and access their account from other devices.
+

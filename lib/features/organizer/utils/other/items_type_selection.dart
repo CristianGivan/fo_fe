@@ -4,9 +4,8 @@ import 'package:fo_fe/features/organizer/items/tag/domain/entities/tag_entity.da
 import 'package:fo_fe/features/organizer/items/tag/utils/config/tag_route_names.dart';
 import 'package:fo_fe/features/organizer/items/user/domain/entities/user_entity.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/config/user_route_names.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 import 'package:fo_fe/features/organizer/utils/other/items_type.dart';
-
-enum ItemsTypeEnum { tag, reminder, user }
 
 class ItemsTypeSelection {
   static ItemsType getItemType(ItemsTypeEnum type) {

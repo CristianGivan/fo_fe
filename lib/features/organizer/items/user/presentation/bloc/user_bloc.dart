@@ -4,7 +4,6 @@ import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/usecase/params.dart';
 import 'package:fo_fe/features/organizer/items/user/domain/usecases/get_user_items_by_user_id.dart';
 import 'package:fo_fe/features/organizer/items/user/domain/usecases/user_usecase_export.dart';
-import 'package:fo_fe/features/organizer/items/user/utils/parameters/user_params.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 

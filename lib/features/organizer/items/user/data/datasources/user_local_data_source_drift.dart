@@ -40,10 +40,6 @@ class UserLocalDataSourceDrift implements UserLocalDataSource {
   // }
 
   // Get user items by ID set
-  @override
-  Future<List<UserTableDriftG?>?> getUserItemsByIdSet(IdSet idSet) async {
-    return await db.userDaoDrift.getUserItemsByIdSet(idSet.toSet());
-  }
 
   @override
   Future<int> addUserToUser(int userLinkedId, int userId) async {
@@ -58,6 +54,11 @@ class UserLocalDataSourceDrift implements UserLocalDataSource {
   @override
   Future<UserTableDriftG?> getUserByEmailAndPassword(String email, String password) async {
     return await db.userDaoDrift.getUserByEmailAndPassword(email, password);
+  }
+
+  @override
+  Future<List<UserTableDriftG?>?> getUserItemsByIdSet(IdSet idSet) async {
+    return await db.userDaoDrift.getUserItemsByIdSet(idSet.toSet());
   }
 
   @override

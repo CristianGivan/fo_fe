@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
@@ -83,7 +81,7 @@ class _FilterDialogState extends State<FilterDialog> {
       items: TaskStatus.values.map((TaskStatus status) {
         return DropdownMenuItem<TaskStatus>(
           value: status,
-          child: Text(taskStatusToStringMap[status]!),
+          child: Text(taskStatusMapToString[status]!),
         );
       }).toList(),
     );
@@ -111,9 +109,7 @@ class _FilterDialogState extends State<FilterDialog> {
 
   void _applyFilter() {
     final filterParams = _buildFilterParams();
-    context
-        .read<TaskBlocTask>()
-        .add(TaskItemsFilterBlocEvent(filterParams: filterParams));
+    context.read<TaskBlocTask>().add(TaskItemsFilterBlocEvent(filterParams: filterParams));
     context.pop();
   }
 

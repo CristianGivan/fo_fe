@@ -7,5 +7,7 @@ class UserTableDrift extends OrganizerItemTableDrift {
 
   TextColumn get hashedPassword => text()();
 
-  TextColumn get email => text().nullable()();
+  TextColumn get email => text()();
+
+  TextColumn get userType => text().withDefault(const Constant('local'))();
 }

@@ -12,7 +12,7 @@ class UserRepositoryDrift implements UserRepository {
   // User CRUD operations
   @override
   Future<Either<Failure, int>> addUser(UserEntity user) async {
-    return _handleDatabaseOperation(() {
+    return _executeDatabaseOperation(() {
       final companion = UserMapper.entityToCompanion(user);
       _checkItemNotNull(companion);
       return localDataSource.addUser(companion);
@@ -21,7 +21,7 @@ class UserRepositoryDrift implements UserRepository {
 
   @override
   Future<Either<Failure, bool>> updateUser(UserEntity user) async {
-    return _handleDatabaseOperation(() {
+    return _executeDatabaseOperation(() {
       final companion = UserMapper.entityToCompanion(user);
       _checkItemNotNull(companion);
       return localDataSource.updateUser(companion);
@@ -30,12 +30,12 @@ class UserRepositoryDrift implements UserRepository {
 
   @override
   Future<Either<Failure, int>> deleteUser(int userId) {
-    return _handleDatabaseOperation(() => localDataSource.deleteUser(userId));
+    return _executeDatabaseOperation(() => localDataSource.deleteUser(userId));
   }
 
   @override
   Future<Either<Failure, UserEntity>> getUserById(int id) {
-    return _handleDatabaseOperation(() async {
+    return _executeDatabaseOperation(() async {
       final item = await localDataSource.getUserById(id);
       _checkItemNotNull(item);
       return UserMapper.entityFromTableDrift(item!);
@@ -52,31 +52,19 @@ class UserRepositoryDrift implements UserRepository {
   // }
 
   @override
-  Future<Either<Failure, OrganizerItems<UserEntity>>> getUserItemsByIdSet(IdSet idSet) {
-    return _handleDatabaseOperation<OrganizerItems<UserEntity>>(
-      () async {
-        final items = await localDataSource.getUserItemsByIdSet(idSet);
-        _checkItemsNotNullOrEmpty(items);
-
-        final nonNullItems = _filterNonNullItems<UserTableDriftG>(items!);
-        return UserMapper.entityItemsFromTableDriftItems(nonNullItems);
-      },
-    );
-  }
-
-  @override
   Future<Either<Failure, int>> addUserToUser(int userLinkedId, int userId) {
-    return _handleDatabaseOperation(() => localDataSource.addUserToUser(userLinkedId, userId));
+    return _executeDatabaseOperation(() => localDataSource.addUserToUser(userLinkedId, userId));
   }
 
   @override
   Future<Either<Failure, int>> deleteUserFromUser(int userLinkedId, int userId) {
-    return _handleDatabaseOperation(() => localDataSource.deleteUserFromUser(userLinkedId, userId));
+    return _executeDatabaseOperation(
+        () => localDataSource.deleteUserFromUser(userLinkedId, userId));
   }
 
   @override
   Future<Either<Failure, UserEntity>> getUserByEmailAndPassword(String email, String password) {
-    return _handleDatabaseOperation(() async {
+    return _executeDatabaseOperation(() async {
       final user = await localDataSource.getUserByEmailAndPassword(email, password);
       _checkItemNotNull(user);
       return UserMapper.entityFromTableDrift(user!);
@@ -84,66 +72,71 @@ class UserRepositoryDrift implements UserRepository {
   }
 
   @override
+  Future<Either<Failure, OrganizerItems<UserEntity>>> getUserItemsByIdSet(IdSet idSet) {
+    return _processUserItems(localDataSource.getUserItemsByIdSet(idSet));
+  }
+
+  @override
   Future<Either<Failure, OrganizerItems<UserEntity>>> getConnectedUserItemsByUserId(int userId) {
-    return _handleUserItems(userId, localDataSource.getConnectedUserIdsByUserId(userId));
+    return _processUserItems(localDataSource.getConnectedUserIdsByUserId(userId));
   }
 
   @override
   Future<Either<Failure, OrganizerItems<UserEntity>>> getPendingInvitations(int userId) {
-    return _handleUserItems(userId, localDataSource.getPendingInvitations(userId));
+    return _processUserItems(localDataSource.getPendingInvitations(userId));
   }
 
   @override
   Future<Either<Failure, OrganizerItems<UserEntity>>> getSendInvitations(int userId) {
-    return _handleUserItems(userId, localDataSource.getSendInvitations(userId));
+    return _processUserItems(localDataSource.getSendInvitations(userId));
   }
 
-  Future<Either<Failure, OrganizerItems<UserEntity>>> _handleUserItems(
-      int userId, Future<List<UserTableDriftG?>?> getUserItems) {
-    return _handleDatabaseOperation(() async {
-      final items = await getUserItems;
+  Future<Either<Failure, OrganizerItems<UserEntity>>> _processUserItems(
+      Future<List<UserTableDriftG?>?> fetchItemsFuture) {
+    return _executeDatabaseOperation(() async {
+      final items = await fetchItemsFuture;
       _checkItemsNotNullOrEmpty(items);
 
       final nonNullItems = _filterNonNullItems<UserTableDriftG>(items!);
       return UserMapper.entityItemsFromTableDriftItems(nonNullItems);
     });
   }
-}
 
-Future<Either<Failure, T>> _handleDatabaseOperation<T>(Future<T> Function() operation) async {
-  try {
-    final result = await operation();
-    return Right(result);
-  } catch (e) {
-    if (e is Failure) {
-      return Left(e);
-    } else {
-      return Left(LocalFailure(e.toString()));
+  Future<Either<Failure, T>> _executeDatabaseOperation<T>(Future<T> Function() operation) async {
+    try {
+      final result = await operation();
+      return Right(result);
+    } catch (e) {
+      if (e is Failure) {
+        return Left(e);
+      } else {
+        return Left(LocalFailure(e.toString()));
+      }
     }
   }
-}
 
-void _checkItemNotNull(dynamic item) {
-  if (item == null) {
-    throw const UserNotFoundFailure("User not found");
-  }
-}
-
-void _checkItemsNotNullOrEmpty(List<dynamic>? items) {
-  if (items == null || items.isEmpty) {
-    throw const UserNotFoundFailure("No users found");
-  }
-}
-
-List<T> _filterNonNullItems<T>(List<dynamic> items) {
-  final nonNullItems = items.whereType<T>().toList();
-  if (nonNullItems.length != items.length) {
-    throw const IncompleteDataFailure("Incomplete data found");
+  void _checkItemNotNull(dynamic item) {
+    if (item == null) {
+      throw const UserNotFoundFailure("User not found");
+    }
   }
 
-  if (nonNullItems.isEmpty) {
-    throw const UserNotFoundFailure("No items found");
+  void _checkItemsNotNullOrEmpty(List<dynamic>? items) {
+    if (items == null || items.isEmpty) {
+      throw const UserNotFoundFailure("No users found");
+    }
   }
 
-  return nonNullItems;
+  List<T> _filterNonNullItems<T>(List<dynamic> items) {
+    final nonNullItems = items.whereType<T>().toList();
+    if (nonNullItems.length != items.length) {
+      throw const IncompleteDataFailure("Incomplete data found");
+    }
+
+    if (nonNullItems.isEmpty) {
+      throw const UserNotFoundFailure("No items found");
+    }
+
+    return nonNullItems;
+  }
 }

@@ -27,8 +27,7 @@ class TaskMapper {
     );
   }
 
-  static OrganizerItems<TaskEntity> entityItemsFromTableDriftItems(
-      List<TaskTableDriftG> items) {
+  static OrganizerItems<TaskEntity> entityItemsFromTableDriftItems(List<TaskTableDriftG> items) {
     return OrganizerItems.of(items.map(entityFromTableDrift).toList());
   }
 
@@ -50,14 +49,13 @@ class TaskMapper {
       estimatedTime: Value(entity.estimatedTime),
       estimatedLeftTime: Value(entity.estimatedLeftTime),
       workingProgress: Value(entity.workingProgress),
-      taskStatus: Value(taskStatusToStringMap[entity.taskStatus]),
+      taskStatus: Value(taskStatusMapToString[entity.taskStatus]),
     );
   }
 
   static jsonFoApiToModel(Map<String, dynamic> json) {
     return TaskEntity(
-      startDate:
-          json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
+      startDate: json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
       endDate: json['endDate'] != null ? DateTime.parse(json['endDate']) : null,
       workingTime: json['workingTime'],
       estimatedTime: json['estimatedTime'],
@@ -77,12 +75,8 @@ class TaskMapper {
       // reminderList: const [],
       //json['reminderList'] != null ? List<Reminder>.from(json['reminderList'].map((x) => Reminder.fromJson(x))) : null,
       remoteId: json['remoteId'],
-      lastUpdate: json['lastUpdate'] != null
-          ? DateTime.parse(json['lastUpdate'])
-          : null,
-      lastAccessedDate: json['lastViewDate'] != null
-          ? DateTime.parse(json['lastViewDate'])
-          : null,
+      lastUpdate: json['lastUpdate'] != null ? DateTime.parse(json['lastUpdate']) : null,
+      lastAccessedDate: json['lastViewDate'] != null ? DateTime.parse(json['lastViewDate']) : null,
       remoteAccesses: json['remoteViews'],
       accesses: json['views'],
       checksum: json['checksum'],
@@ -97,7 +91,7 @@ class TaskMapper {
       "createdDate": model.createdDate.toIso8601String(),
       "startDate": model.startDate?.toIso8601String(),
       "endDate": model.endDate?.toIso8601String(),
-      "taskStatus": taskStatusToStringMap[model.taskStatus] ?? 'UNDEFINED',
+      "taskStatus": taskStatusMapToString[model.taskStatus] ?? 'UNDEFINED',
       "remoteId": model.remoteId,
       "lastUpdate": model.lastUpdate?.toIso8601String(),
       "lastViewDate": model.lastAccessedDate?.toIso8601String(),
@@ -107,8 +101,7 @@ class TaskMapper {
     };
   }
 
-  static Map<String, dynamic> jsonForCheckingTheUpdatesFromEntity(
-      TaskEntity model) {
+  static Map<String, dynamic> jsonForCheckingTheUpdatesFromEntity(TaskEntity model) {
     return {
       "remoteId": model.remoteId,
       "checksum": model.checksum,

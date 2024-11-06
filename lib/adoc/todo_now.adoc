@@ -4,7 +4,19 @@
 
 == Now
 
-Add User
+class UserTableDrift extends Table {
+IntColumn get id => integer().autoIncrement()();
+TextColumn get username => text()();
+TextColumn get email => text().nullable()();
+
+  // Indicates whether the user is 'local' or 'remote'
+  TextColumn get userType => text().withDefault(const Constant('local'))();
+
+  // For local users, stores additional login data or other local settings
+  TextColumn get authToken => text().nullable()();
+
+  DateTimeColumn get createdDate => dateTime().withDefault(currentDateAndTime)();
+}
 
 == Done
 

@@ -2204,8 +2204,16 @@ class $UserTableDriftTable extends UserTableDrift
   static const VerificationMeta _emailMeta = const VerificationMeta('email');
   @override
   late final GeneratedColumn<String> email = GeneratedColumn<String>(
-      'email', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
+      'email', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _userTypeMeta =
+      const VerificationMeta('userType');
+  @override
+  late final GeneratedColumn<String> userType = GeneratedColumn<String>(
+      'user_type', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultValue: const Constant('local'));
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -2219,7 +2227,8 @@ class $UserTableDriftTable extends UserTableDrift
         checksum,
         name,
         hashedPassword,
-        email
+        email,
+        userType
       ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -2291,6 +2300,12 @@ class $UserTableDriftTable extends UserTableDrift
     if (data.containsKey('email')) {
       context.handle(
           _emailMeta, email.isAcceptableOrUnknown(data['email']!, _emailMeta));
+    } else if (isInserting) {
+      context.missing(_emailMeta);
+    }
+    if (data.containsKey('user_type')) {
+      context.handle(_userTypeMeta,
+          userType.isAcceptableOrUnknown(data['user_type']!, _userTypeMeta));
     }
     return context;
   }
@@ -2324,7 +2339,9 @@ class $UserTableDriftTable extends UserTableDrift
       hashedPassword: attachedDatabase.typeMapping.read(
           DriftSqlType.string, data['${effectivePrefix}hashed_password'])!,
       email: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}email']),
+          .read(DriftSqlType.string, data['${effectivePrefix}email'])!,
+      userType: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}user_type'])!,
     );
   }
 
@@ -2346,7 +2363,8 @@ class UserTableDriftG extends DataClass implements Insertable<UserTableDriftG> {
   final String? checksum;
   final String name;
   final String hashedPassword;
-  final String? email;
+  final String email;
+  final String userType;
   const UserTableDriftG(
       {required this.id,
       required this.createdDate,
@@ -2359,7 +2377,8 @@ class UserTableDriftG extends DataClass implements Insertable<UserTableDriftG> {
       this.checksum,
       required this.name,
       required this.hashedPassword,
-      this.email});
+      required this.email,
+      required this.userType});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -2388,9 +2407,8 @@ class UserTableDriftG extends DataClass implements Insertable<UserTableDriftG> {
     }
     map['name'] = Variable<String>(name);
     map['hashed_password'] = Variable<String>(hashedPassword);
-    if (!nullToAbsent || email != null) {
-      map['email'] = Variable<String>(email);
-    }
+    map['email'] = Variable<String>(email);
+    map['user_type'] = Variable<String>(userType);
     return map;
   }
 
@@ -2421,8 +2439,8 @@ class UserTableDriftG extends DataClass implements Insertable<UserTableDriftG> {
           : Value(checksum),
       name: Value(name),
       hashedPassword: Value(hashedPassword),
-      email:
-          email == null && nullToAbsent ? const Value.absent() : Value(email),
+      email: Value(email),
+      userType: Value(userType),
     );
   }
 
@@ -2442,7 +2460,8 @@ class UserTableDriftG extends DataClass implements Insertable<UserTableDriftG> {
       checksum: serializer.fromJson<String?>(json['checksum']),
       name: serializer.fromJson<String>(json['name']),
       hashedPassword: serializer.fromJson<String>(json['hashedPassword']),
-      email: serializer.fromJson<String?>(json['email']),
+      email: serializer.fromJson<String>(json['email']),
+      userType: serializer.fromJson<String>(json['userType']),
     );
   }
   @override
@@ -2460,7 +2479,8 @@ class UserTableDriftG extends DataClass implements Insertable<UserTableDriftG> {
       'checksum': serializer.toJson<String?>(checksum),
       'name': serializer.toJson<String>(name),
       'hashedPassword': serializer.toJson<String>(hashedPassword),
-      'email': serializer.toJson<String?>(email),
+      'email': serializer.toJson<String>(email),
+      'userType': serializer.toJson<String>(userType),
     };
   }
 
@@ -2476,7 +2496,8 @@ class UserTableDriftG extends DataClass implements Insertable<UserTableDriftG> {
           Value<String?> checksum = const Value.absent(),
           String? name,
           String? hashedPassword,
-          Value<String?> email = const Value.absent()}) =>
+          String? email,
+          String? userType}) =>
       UserTableDriftG(
         id: id ?? this.id,
         createdDate: createdDate ?? this.createdDate,
@@ -2492,7 +2513,8 @@ class UserTableDriftG extends DataClass implements Insertable<UserTableDriftG> {
         checksum: checksum.present ? checksum.value : this.checksum,
         name: name ?? this.name,
         hashedPassword: hashedPassword ?? this.hashedPassword,
-        email: email.present ? email.value : this.email,
+        email: email ?? this.email,
+        userType: userType ?? this.userType,
       );
   UserTableDriftG copyWithCompanion(UserTableDriftCompanion data) {
     return UserTableDriftG(
@@ -2516,6 +2538,7 @@ class UserTableDriftG extends DataClass implements Insertable<UserTableDriftG> {
           ? data.hashedPassword.value
           : this.hashedPassword,
       email: data.email.present ? data.email.value : this.email,
+      userType: data.userType.present ? data.userType.value : this.userType,
     );
   }
 
@@ -2533,7 +2556,8 @@ class UserTableDriftG extends DataClass implements Insertable<UserTableDriftG> {
           ..write('checksum: $checksum, ')
           ..write('name: $name, ')
           ..write('hashedPassword: $hashedPassword, ')
-          ..write('email: $email')
+          ..write('email: $email, ')
+          ..write('userType: $userType')
           ..write(')'))
         .toString();
   }
@@ -2551,7 +2575,8 @@ class UserTableDriftG extends DataClass implements Insertable<UserTableDriftG> {
       checksum,
       name,
       hashedPassword,
-      email);
+      email,
+      userType);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -2567,7 +2592,8 @@ class UserTableDriftG extends DataClass implements Insertable<UserTableDriftG> {
           other.checksum == this.checksum &&
           other.name == this.name &&
           other.hashedPassword == this.hashedPassword &&
-          other.email == this.email);
+          other.email == this.email &&
+          other.userType == this.userType);
 }
 
 class UserTableDriftCompanion extends UpdateCompanion<UserTableDriftG> {
@@ -2582,7 +2608,8 @@ class UserTableDriftCompanion extends UpdateCompanion<UserTableDriftG> {
   final Value<String?> checksum;
   final Value<String> name;
   final Value<String> hashedPassword;
-  final Value<String?> email;
+  final Value<String> email;
+  final Value<String> userType;
   const UserTableDriftCompanion({
     this.id = const Value.absent(),
     this.createdDate = const Value.absent(),
@@ -2596,6 +2623,7 @@ class UserTableDriftCompanion extends UpdateCompanion<UserTableDriftG> {
     this.name = const Value.absent(),
     this.hashedPassword = const Value.absent(),
     this.email = const Value.absent(),
+    this.userType = const Value.absent(),
   });
   UserTableDriftCompanion.insert({
     this.id = const Value.absent(),
@@ -2609,9 +2637,11 @@ class UserTableDriftCompanion extends UpdateCompanion<UserTableDriftG> {
     this.checksum = const Value.absent(),
     required String name,
     required String hashedPassword,
-    this.email = const Value.absent(),
+    required String email,
+    this.userType = const Value.absent(),
   })  : name = Value(name),
-        hashedPassword = Value(hashedPassword);
+        hashedPassword = Value(hashedPassword),
+        email = Value(email);
   static Insertable<UserTableDriftG> custom({
     Expression<int>? id,
     Expression<DateTime>? createdDate,
@@ -2625,6 +2655,7 @@ class UserTableDriftCompanion extends UpdateCompanion<UserTableDriftG> {
     Expression<String>? name,
     Expression<String>? hashedPassword,
     Expression<String>? email,
+    Expression<String>? userType,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -2639,6 +2670,7 @@ class UserTableDriftCompanion extends UpdateCompanion<UserTableDriftG> {
       if (name != null) 'name': name,
       if (hashedPassword != null) 'hashed_password': hashedPassword,
       if (email != null) 'email': email,
+      if (userType != null) 'user_type': userType,
     });
   }
 
@@ -2654,7 +2686,8 @@ class UserTableDriftCompanion extends UpdateCompanion<UserTableDriftG> {
       Value<String?>? checksum,
       Value<String>? name,
       Value<String>? hashedPassword,
-      Value<String?>? email}) {
+      Value<String>? email,
+      Value<String>? userType}) {
     return UserTableDriftCompanion(
       id: id ?? this.id,
       createdDate: createdDate ?? this.createdDate,
@@ -2668,6 +2701,7 @@ class UserTableDriftCompanion extends UpdateCompanion<UserTableDriftG> {
       name: name ?? this.name,
       hashedPassword: hashedPassword ?? this.hashedPassword,
       email: email ?? this.email,
+      userType: userType ?? this.userType,
     );
   }
 
@@ -2710,6 +2744,9 @@ class UserTableDriftCompanion extends UpdateCompanion<UserTableDriftG> {
     if (email.present) {
       map['email'] = Variable<String>(email.value);
     }
+    if (userType.present) {
+      map['user_type'] = Variable<String>(userType.value);
+    }
     return map;
   }
 
@@ -2727,7 +2764,8 @@ class UserTableDriftCompanion extends UpdateCompanion<UserTableDriftG> {
           ..write('checksum: $checksum, ')
           ..write('name: $name, ')
           ..write('hashedPassword: $hashedPassword, ')
-          ..write('email: $email')
+          ..write('email: $email, ')
+          ..write('userType: $userType')
           ..write(')'))
         .toString();
   }
@@ -2748,14 +2786,6 @@ class $UserUserTableDriftTable extends UserUserTableDrift
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _linkingDateMeta =
-      const VerificationMeta('linkingDate');
-  @override
-  late final GeneratedColumn<DateTime> linkingDate = GeneratedColumn<DateTime>(
-      'linking_date', aliasedName, false,
-      type: DriftSqlType.dateTime,
-      requiredDuringInsert: false,
-      defaultValue: currentDateAndTime);
   static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
   @override
   late final GeneratedColumn<int> userId = GeneratedColumn<int>(
@@ -2771,8 +2801,45 @@ class $UserUserTableDriftTable extends UserUserTableDrift
       type: DriftSqlType.int,
       requiredDuringInsert: true,
       $customConstraints: 'REFERENCES UserTableDrift(id)');
+  static const VerificationMeta _statusMeta = const VerificationMeta('status');
   @override
-  List<GeneratedColumn> get $columns => [id, linkingDate, userId, userLinkedId];
+  late final GeneratedColumn<String> status = GeneratedColumn<String>(
+      'status', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _muteUntilDateMeta =
+      const VerificationMeta('muteUntilDate');
+  @override
+  late final GeneratedColumn<DateTime> muteUntilDate =
+      GeneratedColumn<DateTime>('mute_until_date', aliasedName, false,
+          type: DriftSqlType.dateTime,
+          requiredDuringInsert: false,
+          defaultValue: currentDateAndTime);
+  static const VerificationMeta _createdDateMeta =
+      const VerificationMeta('createdDate');
+  @override
+  late final GeneratedColumn<DateTime> createdDate = GeneratedColumn<DateTime>(
+      'created_date', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  static const VerificationMeta _updatedDateMeta =
+      const VerificationMeta('updatedDate');
+  @override
+  late final GeneratedColumn<DateTime> updatedDate = GeneratedColumn<DateTime>(
+      'updated_date', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        userId,
+        userLinkedId,
+        status,
+        muteUntilDate,
+        createdDate,
+        updatedDate
+      ];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -2786,12 +2853,6 @@ class $UserUserTableDriftTable extends UserUserTableDrift
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('linking_date')) {
-      context.handle(
-          _linkingDateMeta,
-          linkingDate.isAcceptableOrUnknown(
-              data['linking_date']!, _linkingDateMeta));
     }
     if (data.containsKey('user_id')) {
       context.handle(_userIdMeta,
@@ -2807,6 +2868,30 @@ class $UserUserTableDriftTable extends UserUserTableDrift
     } else if (isInserting) {
       context.missing(_userLinkedIdMeta);
     }
+    if (data.containsKey('status')) {
+      context.handle(_statusMeta,
+          status.isAcceptableOrUnknown(data['status']!, _statusMeta));
+    } else if (isInserting) {
+      context.missing(_statusMeta);
+    }
+    if (data.containsKey('mute_until_date')) {
+      context.handle(
+          _muteUntilDateMeta,
+          muteUntilDate.isAcceptableOrUnknown(
+              data['mute_until_date']!, _muteUntilDateMeta));
+    }
+    if (data.containsKey('created_date')) {
+      context.handle(
+          _createdDateMeta,
+          createdDate.isAcceptableOrUnknown(
+              data['created_date']!, _createdDateMeta));
+    }
+    if (data.containsKey('updated_date')) {
+      context.handle(
+          _updatedDateMeta,
+          updatedDate.isAcceptableOrUnknown(
+              data['updated_date']!, _updatedDateMeta));
+    }
     return context;
   }
 
@@ -2818,12 +2903,18 @@ class $UserUserTableDriftTable extends UserUserTableDrift
     return UserUserTableDriftG(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      linkingDate: attachedDatabase.typeMapping
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}linking_date'])!,
       userId: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}user_id'])!,
       userLinkedId: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}user_linked_id'])!,
+      status: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}status'])!,
+      muteUntilDate: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}mute_until_date'])!,
+      createdDate: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}created_date'])!,
+      updatedDate: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}updated_date'])!,
     );
   }
 
@@ -2836,30 +2927,42 @@ class $UserUserTableDriftTable extends UserUserTableDrift
 class UserUserTableDriftG extends DataClass
     implements Insertable<UserUserTableDriftG> {
   final int id;
-  final DateTime linkingDate;
   final int userId;
   final int userLinkedId;
+  final String status;
+  final DateTime muteUntilDate;
+  final DateTime createdDate;
+  final DateTime updatedDate;
   const UserUserTableDriftG(
       {required this.id,
-      required this.linkingDate,
       required this.userId,
-      required this.userLinkedId});
+      required this.userLinkedId,
+      required this.status,
+      required this.muteUntilDate,
+      required this.createdDate,
+      required this.updatedDate});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
-    map['linking_date'] = Variable<DateTime>(linkingDate);
     map['user_id'] = Variable<int>(userId);
     map['user_linked_id'] = Variable<int>(userLinkedId);
+    map['status'] = Variable<String>(status);
+    map['mute_until_date'] = Variable<DateTime>(muteUntilDate);
+    map['created_date'] = Variable<DateTime>(createdDate);
+    map['updated_date'] = Variable<DateTime>(updatedDate);
     return map;
   }
 
   UserUserTableDriftCompanion toCompanion(bool nullToAbsent) {
     return UserUserTableDriftCompanion(
       id: Value(id),
-      linkingDate: Value(linkingDate),
       userId: Value(userId),
       userLinkedId: Value(userLinkedId),
+      status: Value(status),
+      muteUntilDate: Value(muteUntilDate),
+      createdDate: Value(createdDate),
+      updatedDate: Value(updatedDate),
     );
   }
 
@@ -2868,9 +2971,12 @@ class UserUserTableDriftG extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return UserUserTableDriftG(
       id: serializer.fromJson<int>(json['id']),
-      linkingDate: serializer.fromJson<DateTime>(json['linkingDate']),
       userId: serializer.fromJson<int>(json['userId']),
       userLinkedId: serializer.fromJson<int>(json['userLinkedId']),
+      status: serializer.fromJson<String>(json['status']),
+      muteUntilDate: serializer.fromJson<DateTime>(json['muteUntilDate']),
+      createdDate: serializer.fromJson<DateTime>(json['createdDate']),
+      updatedDate: serializer.fromJson<DateTime>(json['updatedDate']),
     );
   }
   @override
@@ -2878,29 +2984,47 @@ class UserUserTableDriftG extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
-      'linkingDate': serializer.toJson<DateTime>(linkingDate),
       'userId': serializer.toJson<int>(userId),
       'userLinkedId': serializer.toJson<int>(userLinkedId),
+      'status': serializer.toJson<String>(status),
+      'muteUntilDate': serializer.toJson<DateTime>(muteUntilDate),
+      'createdDate': serializer.toJson<DateTime>(createdDate),
+      'updatedDate': serializer.toJson<DateTime>(updatedDate),
     };
   }
 
   UserUserTableDriftG copyWith(
-          {int? id, DateTime? linkingDate, int? userId, int? userLinkedId}) =>
+          {int? id,
+          int? userId,
+          int? userLinkedId,
+          String? status,
+          DateTime? muteUntilDate,
+          DateTime? createdDate,
+          DateTime? updatedDate}) =>
       UserUserTableDriftG(
         id: id ?? this.id,
-        linkingDate: linkingDate ?? this.linkingDate,
         userId: userId ?? this.userId,
         userLinkedId: userLinkedId ?? this.userLinkedId,
+        status: status ?? this.status,
+        muteUntilDate: muteUntilDate ?? this.muteUntilDate,
+        createdDate: createdDate ?? this.createdDate,
+        updatedDate: updatedDate ?? this.updatedDate,
       );
   UserUserTableDriftG copyWithCompanion(UserUserTableDriftCompanion data) {
     return UserUserTableDriftG(
       id: data.id.present ? data.id.value : this.id,
-      linkingDate:
-          data.linkingDate.present ? data.linkingDate.value : this.linkingDate,
       userId: data.userId.present ? data.userId.value : this.userId,
       userLinkedId: data.userLinkedId.present
           ? data.userLinkedId.value
           : this.userLinkedId,
+      status: data.status.present ? data.status.value : this.status,
+      muteUntilDate: data.muteUntilDate.present
+          ? data.muteUntilDate.value
+          : this.muteUntilDate,
+      createdDate:
+          data.createdDate.present ? data.createdDate.value : this.createdDate,
+      updatedDate:
+          data.updatedDate.present ? data.updatedDate.value : this.updatedDate,
     );
   }
 
@@ -2908,67 +3032,96 @@ class UserUserTableDriftG extends DataClass
   String toString() {
     return (StringBuffer('UserUserTableDriftG(')
           ..write('id: $id, ')
-          ..write('linkingDate: $linkingDate, ')
           ..write('userId: $userId, ')
-          ..write('userLinkedId: $userLinkedId')
+          ..write('userLinkedId: $userLinkedId, ')
+          ..write('status: $status, ')
+          ..write('muteUntilDate: $muteUntilDate, ')
+          ..write('createdDate: $createdDate, ')
+          ..write('updatedDate: $updatedDate')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, linkingDate, userId, userLinkedId);
+  int get hashCode => Object.hash(id, userId, userLinkedId, status,
+      muteUntilDate, createdDate, updatedDate);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is UserUserTableDriftG &&
           other.id == this.id &&
-          other.linkingDate == this.linkingDate &&
           other.userId == this.userId &&
-          other.userLinkedId == this.userLinkedId);
+          other.userLinkedId == this.userLinkedId &&
+          other.status == this.status &&
+          other.muteUntilDate == this.muteUntilDate &&
+          other.createdDate == this.createdDate &&
+          other.updatedDate == this.updatedDate);
 }
 
 class UserUserTableDriftCompanion extends UpdateCompanion<UserUserTableDriftG> {
   final Value<int> id;
-  final Value<DateTime> linkingDate;
   final Value<int> userId;
   final Value<int> userLinkedId;
+  final Value<String> status;
+  final Value<DateTime> muteUntilDate;
+  final Value<DateTime> createdDate;
+  final Value<DateTime> updatedDate;
   const UserUserTableDriftCompanion({
     this.id = const Value.absent(),
-    this.linkingDate = const Value.absent(),
     this.userId = const Value.absent(),
     this.userLinkedId = const Value.absent(),
+    this.status = const Value.absent(),
+    this.muteUntilDate = const Value.absent(),
+    this.createdDate = const Value.absent(),
+    this.updatedDate = const Value.absent(),
   });
   UserUserTableDriftCompanion.insert({
     this.id = const Value.absent(),
-    this.linkingDate = const Value.absent(),
     required int userId,
     required int userLinkedId,
+    required String status,
+    this.muteUntilDate = const Value.absent(),
+    this.createdDate = const Value.absent(),
+    this.updatedDate = const Value.absent(),
   })  : userId = Value(userId),
-        userLinkedId = Value(userLinkedId);
+        userLinkedId = Value(userLinkedId),
+        status = Value(status);
   static Insertable<UserUserTableDriftG> custom({
     Expression<int>? id,
-    Expression<DateTime>? linkingDate,
     Expression<int>? userId,
     Expression<int>? userLinkedId,
+    Expression<String>? status,
+    Expression<DateTime>? muteUntilDate,
+    Expression<DateTime>? createdDate,
+    Expression<DateTime>? updatedDate,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
-      if (linkingDate != null) 'linking_date': linkingDate,
       if (userId != null) 'user_id': userId,
       if (userLinkedId != null) 'user_linked_id': userLinkedId,
+      if (status != null) 'status': status,
+      if (muteUntilDate != null) 'mute_until_date': muteUntilDate,
+      if (createdDate != null) 'created_date': createdDate,
+      if (updatedDate != null) 'updated_date': updatedDate,
     });
   }
 
   UserUserTableDriftCompanion copyWith(
       {Value<int>? id,
-      Value<DateTime>? linkingDate,
       Value<int>? userId,
-      Value<int>? userLinkedId}) {
+      Value<int>? userLinkedId,
+      Value<String>? status,
+      Value<DateTime>? muteUntilDate,
+      Value<DateTime>? createdDate,
+      Value<DateTime>? updatedDate}) {
     return UserUserTableDriftCompanion(
       id: id ?? this.id,
-      linkingDate: linkingDate ?? this.linkingDate,
       userId: userId ?? this.userId,
       userLinkedId: userLinkedId ?? this.userLinkedId,
+      status: status ?? this.status,
+      muteUntilDate: muteUntilDate ?? this.muteUntilDate,
+      createdDate: createdDate ?? this.createdDate,
+      updatedDate: updatedDate ?? this.updatedDate,
     );
   }
 
@@ -2978,14 +3131,23 @@ class UserUserTableDriftCompanion extends UpdateCompanion<UserUserTableDriftG> {
     if (id.present) {
       map['id'] = Variable<int>(id.value);
     }
-    if (linkingDate.present) {
-      map['linking_date'] = Variable<DateTime>(linkingDate.value);
-    }
     if (userId.present) {
       map['user_id'] = Variable<int>(userId.value);
     }
     if (userLinkedId.present) {
       map['user_linked_id'] = Variable<int>(userLinkedId.value);
+    }
+    if (status.present) {
+      map['status'] = Variable<String>(status.value);
+    }
+    if (muteUntilDate.present) {
+      map['mute_until_date'] = Variable<DateTime>(muteUntilDate.value);
+    }
+    if (createdDate.present) {
+      map['created_date'] = Variable<DateTime>(createdDate.value);
+    }
+    if (updatedDate.present) {
+      map['updated_date'] = Variable<DateTime>(updatedDate.value);
     }
     return map;
   }
@@ -2994,9 +3156,12 @@ class UserUserTableDriftCompanion extends UpdateCompanion<UserUserTableDriftG> {
   String toString() {
     return (StringBuffer('UserUserTableDriftCompanion(')
           ..write('id: $id, ')
-          ..write('linkingDate: $linkingDate, ')
           ..write('userId: $userId, ')
-          ..write('userLinkedId: $userLinkedId')
+          ..write('userLinkedId: $userLinkedId, ')
+          ..write('status: $status, ')
+          ..write('muteUntilDate: $muteUntilDate, ')
+          ..write('createdDate: $createdDate, ')
+          ..write('updatedDate: $updatedDate')
           ..write(')'))
         .toString();
   }
@@ -4986,7 +5151,8 @@ typedef $$UserTableDriftTableCreateCompanionBuilder = UserTableDriftCompanion
   Value<String?> checksum,
   required String name,
   required String hashedPassword,
-  Value<String?> email,
+  required String email,
+  Value<String> userType,
 });
 typedef $$UserTableDriftTableUpdateCompanionBuilder = UserTableDriftCompanion
     Function({
@@ -5001,7 +5167,8 @@ typedef $$UserTableDriftTableUpdateCompanionBuilder = UserTableDriftCompanion
   Value<String?> checksum,
   Value<String> name,
   Value<String> hashedPassword,
-  Value<String?> email,
+  Value<String> email,
+  Value<String> userType,
 });
 
 class $$UserTableDriftTableTableManager extends RootTableManager<
@@ -5033,7 +5200,8 @@ class $$UserTableDriftTableTableManager extends RootTableManager<
             Value<String?> checksum = const Value.absent(),
             Value<String> name = const Value.absent(),
             Value<String> hashedPassword = const Value.absent(),
-            Value<String?> email = const Value.absent(),
+            Value<String> email = const Value.absent(),
+            Value<String> userType = const Value.absent(),
           }) =>
               UserTableDriftCompanion(
             id: id,
@@ -5048,6 +5216,7 @@ class $$UserTableDriftTableTableManager extends RootTableManager<
             name: name,
             hashedPassword: hashedPassword,
             email: email,
+            userType: userType,
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
@@ -5061,7 +5230,8 @@ class $$UserTableDriftTableTableManager extends RootTableManager<
             Value<String?> checksum = const Value.absent(),
             required String name,
             required String hashedPassword,
-            Value<String?> email = const Value.absent(),
+            required String email,
+            Value<String> userType = const Value.absent(),
           }) =>
               UserTableDriftCompanion.insert(
             id: id,
@@ -5076,6 +5246,7 @@ class $$UserTableDriftTableTableManager extends RootTableManager<
             name: name,
             hashedPassword: hashedPassword,
             email: email,
+            userType: userType,
           ),
         ));
 }
@@ -5142,6 +5313,11 @@ class $$UserTableDriftTableFilterComposer
       column: $state.table.email,
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get userType => $state.composableBuilder(
+      column: $state.table.userType,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
 }
 
 class $$UserTableDriftTableOrderingComposer
@@ -5206,21 +5382,32 @@ class $$UserTableDriftTableOrderingComposer
       column: $state.table.email,
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get userType => $state.composableBuilder(
+      column: $state.table.userType,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
 typedef $$UserUserTableDriftTableCreateCompanionBuilder
     = UserUserTableDriftCompanion Function({
   Value<int> id,
-  Value<DateTime> linkingDate,
   required int userId,
   required int userLinkedId,
+  required String status,
+  Value<DateTime> muteUntilDate,
+  Value<DateTime> createdDate,
+  Value<DateTime> updatedDate,
 });
 typedef $$UserUserTableDriftTableUpdateCompanionBuilder
     = UserUserTableDriftCompanion Function({
   Value<int> id,
-  Value<DateTime> linkingDate,
   Value<int> userId,
   Value<int> userLinkedId,
+  Value<String> status,
+  Value<DateTime> muteUntilDate,
+  Value<DateTime> createdDate,
+  Value<DateTime> updatedDate,
 });
 
 class $$UserUserTableDriftTableTableManager extends RootTableManager<
@@ -5242,27 +5429,39 @@ class $$UserUserTableDriftTableTableManager extends RootTableManager<
               ComposerState(db, table)),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
-            Value<DateTime> linkingDate = const Value.absent(),
             Value<int> userId = const Value.absent(),
             Value<int> userLinkedId = const Value.absent(),
+            Value<String> status = const Value.absent(),
+            Value<DateTime> muteUntilDate = const Value.absent(),
+            Value<DateTime> createdDate = const Value.absent(),
+            Value<DateTime> updatedDate = const Value.absent(),
           }) =>
               UserUserTableDriftCompanion(
             id: id,
-            linkingDate: linkingDate,
             userId: userId,
             userLinkedId: userLinkedId,
+            status: status,
+            muteUntilDate: muteUntilDate,
+            createdDate: createdDate,
+            updatedDate: updatedDate,
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
-            Value<DateTime> linkingDate = const Value.absent(),
             required int userId,
             required int userLinkedId,
+            required String status,
+            Value<DateTime> muteUntilDate = const Value.absent(),
+            Value<DateTime> createdDate = const Value.absent(),
+            Value<DateTime> updatedDate = const Value.absent(),
           }) =>
               UserUserTableDriftCompanion.insert(
             id: id,
-            linkingDate: linkingDate,
             userId: userId,
             userLinkedId: userLinkedId,
+            status: status,
+            muteUntilDate: muteUntilDate,
+            createdDate: createdDate,
+            updatedDate: updatedDate,
           ),
         ));
 }
@@ -5275,11 +5474,6 @@ class $$UserUserTableDriftTableFilterComposer
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
-  ColumnFilters<DateTime> get linkingDate => $state.composableBuilder(
-      column: $state.table.linkingDate,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
   ColumnFilters<int> get userId => $state.composableBuilder(
       column: $state.table.userId,
       builder: (column, joinBuilders) =>
@@ -5287,6 +5481,26 @@ class $$UserUserTableDriftTableFilterComposer
 
   ColumnFilters<int> get userLinkedId => $state.composableBuilder(
       column: $state.table.userLinkedId,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get status => $state.composableBuilder(
+      column: $state.table.status,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get muteUntilDate => $state.composableBuilder(
+      column: $state.table.muteUntilDate,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get createdDate => $state.composableBuilder(
+      column: $state.table.createdDate,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<DateTime> get updatedDate => $state.composableBuilder(
+      column: $state.table.updatedDate,
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 }
@@ -5299,11 +5513,6 @@ class $$UserUserTableDriftTableOrderingComposer
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 
-  ColumnOrderings<DateTime> get linkingDate => $state.composableBuilder(
-      column: $state.table.linkingDate,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
   ColumnOrderings<int> get userId => $state.composableBuilder(
       column: $state.table.userId,
       builder: (column, joinBuilders) =>
@@ -5311,6 +5520,26 @@ class $$UserUserTableDriftTableOrderingComposer
 
   ColumnOrderings<int> get userLinkedId => $state.composableBuilder(
       column: $state.table.userLinkedId,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get status => $state.composableBuilder(
+      column: $state.table.status,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get muteUntilDate => $state.composableBuilder(
+      column: $state.table.muteUntilDate,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get createdDate => $state.composableBuilder(
+      column: $state.table.createdDate,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<DateTime> get updatedDate => $state.composableBuilder(
+      column: $state.table.updatedDate,
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }

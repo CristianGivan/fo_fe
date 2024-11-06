@@ -1,5 +1,3 @@
-enum UserStatus { pending, accepted, rejected, blocked }
-
 enum TaskStatus { undefined, started, working, pending, completed }
 
 const Map<String, TaskStatus> taskStatusMap = {
@@ -9,7 +7,8 @@ const Map<String, TaskStatus> taskStatusMap = {
   'PENDING': TaskStatus.pending,
   'COMPLETED': TaskStatus.completed,
 };
-const Map<TaskStatus, String> taskStatusToStringMap = {
+
+const Map<TaskStatus, String> taskStatusMapToString = {
   TaskStatus.undefined: 'UNDEFINE',
   TaskStatus.started: 'STARTED',
   TaskStatus.working: 'WORKING',

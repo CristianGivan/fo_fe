@@ -1,23 +1,25 @@
-import 'package:equatable/equatable.dart';
 import 'package:fo_fe/core/utils/exports/core_utils_exports.dart';
+import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 import '../../../../../../core/utils/date_time/date_time_constants.dart';
 
 class UserEntity extends OrganizerItemEntity with EquatableMixin {
-  final String _name;
-  final String _hashedPassword;
-  final String _email;
+  final String name;
+  final String email;
+  final String hashedPassword;
+  final UserTypeEnum userType;
 
   UserEntity({
     int? id,
-    required String name,
+    required this.name,
     String? email,
-    DateTime? createdDate,
     String? password,
-  })  : _name = name,
-        _email = email ?? "",
-        _hashedPassword = HashingService.hashPassword(password ?? name),
+    DateTime? createdDate,
+    UserTypeEnum? userType,
+  })  : email = email ?? "",
+        hashedPassword = HashingService.hashPassword(password ?? name),
+        userType = userType ?? UserTypeEnum.Local,
         super(
           id: id ?? 0,
           createdDate: createdDate ?? INITIAL_EPOCH_DATE,
@@ -25,17 +27,11 @@ class UserEntity extends OrganizerItemEntity with EquatableMixin {
 
   factory UserEntity.empty() => UserEntity(name: "", email: "", password: "");
 
-  String get name => _name;
-
-  String get email => _email;
-
-  String get hashedPassword => _hashedPassword;
-
   @override
-  List<Object?> get props => [id, name, email, hashedPassword];
+  List<Object?> get props => [id, name, email, userType, hashedPassword];
 
   @override
   String toString() {
-    return 'UserModel{id: $id, name: $name, email: $email, hashedPassword: $hashedPassword}';
+    return 'UserModel{id: $id, name: $name, email: $email, userType: $userType}';
   }
 }
