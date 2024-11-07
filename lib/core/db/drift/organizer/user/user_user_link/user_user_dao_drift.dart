@@ -17,7 +17,7 @@ class UserUserDaoDrift extends DatabaseAccessor<OrganizerDriftDB> with _$UserUse
 
   Future<List<UserUserTableDriftG>> getPendingInvitations(int userId) {
     return (select(userUserTableDrift)
-          ..where((tbl) => tbl.userLinkedId.equals(userId) & tbl.status.equals('pending')))
+          ..where((tbl) => tbl.userIdLinked.equals(userId) & tbl.status.equals('pending')))
         .get();
   }
 
@@ -30,14 +30,14 @@ class UserUserDaoDrift extends DatabaseAccessor<OrganizerDriftDB> with _$UserUse
   Future<List<UserUserTableDriftG>> getConnectedUserIdsByUserId(int userId) async {
     return (select(userUserTableDrift)
           ..where((tbl) =>
-              (tbl.userId.equals(userId) | tbl.userLinkedId.equals(userId)) &
+              (tbl.userId.equals(userId) | tbl.userIdLinked.equals(userId)) &
               tbl.status.equals('accepted')))
         .get();
   }
 
   Future<int> deleteUserUser(int userId, int userLinkedId) async {
     return (delete(userUserTableDrift)
-          ..where((tbl) => tbl.userId.equals(userId) & tbl.userLinkedId.equals(userId)))
+          ..where((tbl) => tbl.userId.equals(userId) & tbl.userIdLinked.equals(userId)))
         .go();
   }
 

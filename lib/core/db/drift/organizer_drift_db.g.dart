@@ -2793,14 +2793,20 @@ class $UserUserTableDriftTable extends UserUserTableDrift
       type: DriftSqlType.int,
       requiredDuringInsert: true,
       $customConstraints: 'REFERENCES UserTableDrift(id)');
-  static const VerificationMeta _userLinkedIdMeta =
-      const VerificationMeta('userLinkedId');
+  static const VerificationMeta _userIdLinkedMeta =
+      const VerificationMeta('userIdLinked');
   @override
-  late final GeneratedColumn<int> userLinkedId = GeneratedColumn<int>(
-      'user_linked_id', aliasedName, false,
+  late final GeneratedColumn<int> userIdLinked = GeneratedColumn<int>(
+      'user_id_linked', aliasedName, false,
       type: DriftSqlType.int,
       requiredDuringInsert: true,
       $customConstraints: 'REFERENCES UserTableDrift(id)');
+  static const VerificationMeta _userNameLinkedMeta =
+      const VerificationMeta('userNameLinked');
+  @override
+  late final GeneratedColumn<String> userNameLinked = GeneratedColumn<String>(
+      'user_name_linked', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _statusMeta = const VerificationMeta('status');
   @override
   late final GeneratedColumn<String> status = GeneratedColumn<String>(
@@ -2834,7 +2840,8 @@ class $UserUserTableDriftTable extends UserUserTableDrift
   List<GeneratedColumn> get $columns => [
         id,
         userId,
-        userLinkedId,
+        userIdLinked,
+        userNameLinked,
         status,
         muteUntilDate,
         createdDate,
@@ -2860,13 +2867,21 @@ class $UserUserTableDriftTable extends UserUserTableDrift
     } else if (isInserting) {
       context.missing(_userIdMeta);
     }
-    if (data.containsKey('user_linked_id')) {
+    if (data.containsKey('user_id_linked')) {
       context.handle(
-          _userLinkedIdMeta,
-          userLinkedId.isAcceptableOrUnknown(
-              data['user_linked_id']!, _userLinkedIdMeta));
+          _userIdLinkedMeta,
+          userIdLinked.isAcceptableOrUnknown(
+              data['user_id_linked']!, _userIdLinkedMeta));
     } else if (isInserting) {
-      context.missing(_userLinkedIdMeta);
+      context.missing(_userIdLinkedMeta);
+    }
+    if (data.containsKey('user_name_linked')) {
+      context.handle(
+          _userNameLinkedMeta,
+          userNameLinked.isAcceptableOrUnknown(
+              data['user_name_linked']!, _userNameLinkedMeta));
+    } else if (isInserting) {
+      context.missing(_userNameLinkedMeta);
     }
     if (data.containsKey('status')) {
       context.handle(_statusMeta,
@@ -2905,8 +2920,10 @@ class $UserUserTableDriftTable extends UserUserTableDrift
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       userId: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}user_id'])!,
-      userLinkedId: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}user_linked_id'])!,
+      userIdLinked: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}user_id_linked'])!,
+      userNameLinked: attachedDatabase.typeMapping.read(
+          DriftSqlType.string, data['${effectivePrefix}user_name_linked'])!,
       status: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}status'])!,
       muteUntilDate: attachedDatabase.typeMapping.read(
@@ -2928,7 +2945,8 @@ class UserUserTableDriftG extends DataClass
     implements Insertable<UserUserTableDriftG> {
   final int id;
   final int userId;
-  final int userLinkedId;
+  final int userIdLinked;
+  final String userNameLinked;
   final String status;
   final DateTime muteUntilDate;
   final DateTime createdDate;
@@ -2936,7 +2954,8 @@ class UserUserTableDriftG extends DataClass
   const UserUserTableDriftG(
       {required this.id,
       required this.userId,
-      required this.userLinkedId,
+      required this.userIdLinked,
+      required this.userNameLinked,
       required this.status,
       required this.muteUntilDate,
       required this.createdDate,
@@ -2946,7 +2965,8 @@ class UserUserTableDriftG extends DataClass
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
     map['user_id'] = Variable<int>(userId);
-    map['user_linked_id'] = Variable<int>(userLinkedId);
+    map['user_id_linked'] = Variable<int>(userIdLinked);
+    map['user_name_linked'] = Variable<String>(userNameLinked);
     map['status'] = Variable<String>(status);
     map['mute_until_date'] = Variable<DateTime>(muteUntilDate);
     map['created_date'] = Variable<DateTime>(createdDate);
@@ -2958,7 +2978,8 @@ class UserUserTableDriftG extends DataClass
     return UserUserTableDriftCompanion(
       id: Value(id),
       userId: Value(userId),
-      userLinkedId: Value(userLinkedId),
+      userIdLinked: Value(userIdLinked),
+      userNameLinked: Value(userNameLinked),
       status: Value(status),
       muteUntilDate: Value(muteUntilDate),
       createdDate: Value(createdDate),
@@ -2972,7 +2993,8 @@ class UserUserTableDriftG extends DataClass
     return UserUserTableDriftG(
       id: serializer.fromJson<int>(json['id']),
       userId: serializer.fromJson<int>(json['userId']),
-      userLinkedId: serializer.fromJson<int>(json['userLinkedId']),
+      userIdLinked: serializer.fromJson<int>(json['userIdLinked']),
+      userNameLinked: serializer.fromJson<String>(json['userNameLinked']),
       status: serializer.fromJson<String>(json['status']),
       muteUntilDate: serializer.fromJson<DateTime>(json['muteUntilDate']),
       createdDate: serializer.fromJson<DateTime>(json['createdDate']),
@@ -2985,7 +3007,8 @@ class UserUserTableDriftG extends DataClass
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'userId': serializer.toJson<int>(userId),
-      'userLinkedId': serializer.toJson<int>(userLinkedId),
+      'userIdLinked': serializer.toJson<int>(userIdLinked),
+      'userNameLinked': serializer.toJson<String>(userNameLinked),
       'status': serializer.toJson<String>(status),
       'muteUntilDate': serializer.toJson<DateTime>(muteUntilDate),
       'createdDate': serializer.toJson<DateTime>(createdDate),
@@ -2996,7 +3019,8 @@ class UserUserTableDriftG extends DataClass
   UserUserTableDriftG copyWith(
           {int? id,
           int? userId,
-          int? userLinkedId,
+          int? userIdLinked,
+          String? userNameLinked,
           String? status,
           DateTime? muteUntilDate,
           DateTime? createdDate,
@@ -3004,7 +3028,8 @@ class UserUserTableDriftG extends DataClass
       UserUserTableDriftG(
         id: id ?? this.id,
         userId: userId ?? this.userId,
-        userLinkedId: userLinkedId ?? this.userLinkedId,
+        userIdLinked: userIdLinked ?? this.userIdLinked,
+        userNameLinked: userNameLinked ?? this.userNameLinked,
         status: status ?? this.status,
         muteUntilDate: muteUntilDate ?? this.muteUntilDate,
         createdDate: createdDate ?? this.createdDate,
@@ -3014,9 +3039,12 @@ class UserUserTableDriftG extends DataClass
     return UserUserTableDriftG(
       id: data.id.present ? data.id.value : this.id,
       userId: data.userId.present ? data.userId.value : this.userId,
-      userLinkedId: data.userLinkedId.present
-          ? data.userLinkedId.value
-          : this.userLinkedId,
+      userIdLinked: data.userIdLinked.present
+          ? data.userIdLinked.value
+          : this.userIdLinked,
+      userNameLinked: data.userNameLinked.present
+          ? data.userNameLinked.value
+          : this.userNameLinked,
       status: data.status.present ? data.status.value : this.status,
       muteUntilDate: data.muteUntilDate.present
           ? data.muteUntilDate.value
@@ -3033,7 +3061,8 @@ class UserUserTableDriftG extends DataClass
     return (StringBuffer('UserUserTableDriftG(')
           ..write('id: $id, ')
           ..write('userId: $userId, ')
-          ..write('userLinkedId: $userLinkedId, ')
+          ..write('userIdLinked: $userIdLinked, ')
+          ..write('userNameLinked: $userNameLinked, ')
           ..write('status: $status, ')
           ..write('muteUntilDate: $muteUntilDate, ')
           ..write('createdDate: $createdDate, ')
@@ -3043,15 +3072,16 @@ class UserUserTableDriftG extends DataClass
   }
 
   @override
-  int get hashCode => Object.hash(id, userId, userLinkedId, status,
-      muteUntilDate, createdDate, updatedDate);
+  int get hashCode => Object.hash(id, userId, userIdLinked, userNameLinked,
+      status, muteUntilDate, createdDate, updatedDate);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is UserUserTableDriftG &&
           other.id == this.id &&
           other.userId == this.userId &&
-          other.userLinkedId == this.userLinkedId &&
+          other.userIdLinked == this.userIdLinked &&
+          other.userNameLinked == this.userNameLinked &&
           other.status == this.status &&
           other.muteUntilDate == this.muteUntilDate &&
           other.createdDate == this.createdDate &&
@@ -3061,7 +3091,8 @@ class UserUserTableDriftG extends DataClass
 class UserUserTableDriftCompanion extends UpdateCompanion<UserUserTableDriftG> {
   final Value<int> id;
   final Value<int> userId;
-  final Value<int> userLinkedId;
+  final Value<int> userIdLinked;
+  final Value<String> userNameLinked;
   final Value<String> status;
   final Value<DateTime> muteUntilDate;
   final Value<DateTime> createdDate;
@@ -3069,7 +3100,8 @@ class UserUserTableDriftCompanion extends UpdateCompanion<UserUserTableDriftG> {
   const UserUserTableDriftCompanion({
     this.id = const Value.absent(),
     this.userId = const Value.absent(),
-    this.userLinkedId = const Value.absent(),
+    this.userIdLinked = const Value.absent(),
+    this.userNameLinked = const Value.absent(),
     this.status = const Value.absent(),
     this.muteUntilDate = const Value.absent(),
     this.createdDate = const Value.absent(),
@@ -3078,18 +3110,21 @@ class UserUserTableDriftCompanion extends UpdateCompanion<UserUserTableDriftG> {
   UserUserTableDriftCompanion.insert({
     this.id = const Value.absent(),
     required int userId,
-    required int userLinkedId,
+    required int userIdLinked,
+    required String userNameLinked,
     required String status,
     this.muteUntilDate = const Value.absent(),
     this.createdDate = const Value.absent(),
     this.updatedDate = const Value.absent(),
   })  : userId = Value(userId),
-        userLinkedId = Value(userLinkedId),
+        userIdLinked = Value(userIdLinked),
+        userNameLinked = Value(userNameLinked),
         status = Value(status);
   static Insertable<UserUserTableDriftG> custom({
     Expression<int>? id,
     Expression<int>? userId,
-    Expression<int>? userLinkedId,
+    Expression<int>? userIdLinked,
+    Expression<String>? userNameLinked,
     Expression<String>? status,
     Expression<DateTime>? muteUntilDate,
     Expression<DateTime>? createdDate,
@@ -3098,7 +3133,8 @@ class UserUserTableDriftCompanion extends UpdateCompanion<UserUserTableDriftG> {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (userId != null) 'user_id': userId,
-      if (userLinkedId != null) 'user_linked_id': userLinkedId,
+      if (userIdLinked != null) 'user_id_linked': userIdLinked,
+      if (userNameLinked != null) 'user_name_linked': userNameLinked,
       if (status != null) 'status': status,
       if (muteUntilDate != null) 'mute_until_date': muteUntilDate,
       if (createdDate != null) 'created_date': createdDate,
@@ -3109,7 +3145,8 @@ class UserUserTableDriftCompanion extends UpdateCompanion<UserUserTableDriftG> {
   UserUserTableDriftCompanion copyWith(
       {Value<int>? id,
       Value<int>? userId,
-      Value<int>? userLinkedId,
+      Value<int>? userIdLinked,
+      Value<String>? userNameLinked,
       Value<String>? status,
       Value<DateTime>? muteUntilDate,
       Value<DateTime>? createdDate,
@@ -3117,7 +3154,8 @@ class UserUserTableDriftCompanion extends UpdateCompanion<UserUserTableDriftG> {
     return UserUserTableDriftCompanion(
       id: id ?? this.id,
       userId: userId ?? this.userId,
-      userLinkedId: userLinkedId ?? this.userLinkedId,
+      userIdLinked: userIdLinked ?? this.userIdLinked,
+      userNameLinked: userNameLinked ?? this.userNameLinked,
       status: status ?? this.status,
       muteUntilDate: muteUntilDate ?? this.muteUntilDate,
       createdDate: createdDate ?? this.createdDate,
@@ -3134,8 +3172,11 @@ class UserUserTableDriftCompanion extends UpdateCompanion<UserUserTableDriftG> {
     if (userId.present) {
       map['user_id'] = Variable<int>(userId.value);
     }
-    if (userLinkedId.present) {
-      map['user_linked_id'] = Variable<int>(userLinkedId.value);
+    if (userIdLinked.present) {
+      map['user_id_linked'] = Variable<int>(userIdLinked.value);
+    }
+    if (userNameLinked.present) {
+      map['user_name_linked'] = Variable<String>(userNameLinked.value);
     }
     if (status.present) {
       map['status'] = Variable<String>(status.value);
@@ -3157,7 +3198,8 @@ class UserUserTableDriftCompanion extends UpdateCompanion<UserUserTableDriftG> {
     return (StringBuffer('UserUserTableDriftCompanion(')
           ..write('id: $id, ')
           ..write('userId: $userId, ')
-          ..write('userLinkedId: $userLinkedId, ')
+          ..write('userIdLinked: $userIdLinked, ')
+          ..write('userNameLinked: $userNameLinked, ')
           ..write('status: $status, ')
           ..write('muteUntilDate: $muteUntilDate, ')
           ..write('createdDate: $createdDate, ')
@@ -5393,7 +5435,8 @@ typedef $$UserUserTableDriftTableCreateCompanionBuilder
     = UserUserTableDriftCompanion Function({
   Value<int> id,
   required int userId,
-  required int userLinkedId,
+  required int userIdLinked,
+  required String userNameLinked,
   required String status,
   Value<DateTime> muteUntilDate,
   Value<DateTime> createdDate,
@@ -5403,7 +5446,8 @@ typedef $$UserUserTableDriftTableUpdateCompanionBuilder
     = UserUserTableDriftCompanion Function({
   Value<int> id,
   Value<int> userId,
-  Value<int> userLinkedId,
+  Value<int> userIdLinked,
+  Value<String> userNameLinked,
   Value<String> status,
   Value<DateTime> muteUntilDate,
   Value<DateTime> createdDate,
@@ -5430,7 +5474,8 @@ class $$UserUserTableDriftTableTableManager extends RootTableManager<
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<int> userId = const Value.absent(),
-            Value<int> userLinkedId = const Value.absent(),
+            Value<int> userIdLinked = const Value.absent(),
+            Value<String> userNameLinked = const Value.absent(),
             Value<String> status = const Value.absent(),
             Value<DateTime> muteUntilDate = const Value.absent(),
             Value<DateTime> createdDate = const Value.absent(),
@@ -5439,7 +5484,8 @@ class $$UserUserTableDriftTableTableManager extends RootTableManager<
               UserUserTableDriftCompanion(
             id: id,
             userId: userId,
-            userLinkedId: userLinkedId,
+            userIdLinked: userIdLinked,
+            userNameLinked: userNameLinked,
             status: status,
             muteUntilDate: muteUntilDate,
             createdDate: createdDate,
@@ -5448,7 +5494,8 @@ class $$UserUserTableDriftTableTableManager extends RootTableManager<
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
             required int userId,
-            required int userLinkedId,
+            required int userIdLinked,
+            required String userNameLinked,
             required String status,
             Value<DateTime> muteUntilDate = const Value.absent(),
             Value<DateTime> createdDate = const Value.absent(),
@@ -5457,7 +5504,8 @@ class $$UserUserTableDriftTableTableManager extends RootTableManager<
               UserUserTableDriftCompanion.insert(
             id: id,
             userId: userId,
-            userLinkedId: userLinkedId,
+            userIdLinked: userIdLinked,
+            userNameLinked: userNameLinked,
             status: status,
             muteUntilDate: muteUntilDate,
             createdDate: createdDate,
@@ -5479,8 +5527,13 @@ class $$UserUserTableDriftTableFilterComposer
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
-  ColumnFilters<int> get userLinkedId => $state.composableBuilder(
-      column: $state.table.userLinkedId,
+  ColumnFilters<int> get userIdLinked => $state.composableBuilder(
+      column: $state.table.userIdLinked,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get userNameLinked => $state.composableBuilder(
+      column: $state.table.userNameLinked,
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
@@ -5518,8 +5571,13 @@ class $$UserUserTableDriftTableOrderingComposer
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 
-  ColumnOrderings<int> get userLinkedId => $state.composableBuilder(
-      column: $state.table.userLinkedId,
+  ColumnOrderings<int> get userIdLinked => $state.composableBuilder(
+      column: $state.table.userIdLinked,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get userNameLinked => $state.composableBuilder(
+      column: $state.table.userNameLinked,
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 

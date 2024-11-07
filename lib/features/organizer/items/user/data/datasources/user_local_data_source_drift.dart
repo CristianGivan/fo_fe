@@ -79,7 +79,7 @@ class UserLocalDataSourceDrift implements UserLocalDataSource {
 
   UserUserTableDriftCompanion _createUserUserCompanion(int userLinkedId, int userId) {
     return UserUserTableDriftCompanion(
-      userLinkedId: Value(userLinkedId),
+      userIdLinked: Value(userLinkedId),
       userId: Value(userId),
     );
   }

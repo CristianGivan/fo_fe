@@ -6,7 +6,9 @@ class UserUserTableDrift extends Table {
 
   IntColumn get userId => integer().customConstraint('REFERENCES UserTableDrift(id)')();
 
-  IntColumn get userLinkedId => integer().customConstraint('REFERENCES UserTableDrift(id)')();
+  IntColumn get userIdLinked => integer().customConstraint('REFERENCES UserTableDrift(id)')();
+
+  TextColumn get userNameLinked => text()();
 
   TextColumn get status => text()();
 

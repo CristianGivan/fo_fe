@@ -1,14 +1,32 @@
 = User
 
-== Decided
+=== ToDecede
+
+* how to set the name of the user that appear for each user
+** using nickname
+** using the userUser table nickname
+
+== Decided User
 
 === UserType
 
 Local: Users whose accounts are created and used only on the current device. They don’t sync with any remote server.
+mandatory name and password
+can have email
 
 Remote: Users who exist on a server and are accessible across multiple devices. They don’t have a full profile locally but can interact with local users.
+mandatory name and email verified by email
+can have password
 
 Temporary: Users created offline with minimal information. They have restricted access and can be converted to a synced user upon connection to the internet.
+mandatory name
+can have email and password
 
 Synced (or Hybrid): Local users who are also registered on the server, allowing them to sync data and access their account from other devices.
+mandatory name and email and password verified  and sync with remote
 
+== Decide UserUser
+
+=== userNameLinked
+
+* is the name that this user is setting to linked user and is the first name of the user
