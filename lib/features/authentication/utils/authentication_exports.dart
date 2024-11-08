@@ -1,3 +1,5 @@
+export '../../organizer/items/user/presentation/screens/user_sign_up_screen.dart';
+export '../../organizer/items/user/presentation/widgets/my_text_field_widget.dart';
 export '../data/datasources/authentication_local_data_source.dart';
 export '../data/datasources/authentication_local_data_source_drift.dart';
 export '../data/models/authentication_mapper.dart';
@@ -16,9 +18,7 @@ export '../presentation/bloc/authentication_bloc_sign_up/authentication_bloc_sig
 export '../presentation/bloc/authentication_bloc_token/authentication_bloc_token.dart';
 export '../presentation/pages/authentication_screen.dart';
 export '../presentation/pages/authentication_screen_with_auto_log_in.dart';
-export '../presentation/pages/my_text_field.dart';
 export '../presentation/pages/sign_in_screen.dart';
-export '../presentation/pages/sign_up_screen.dart';
 export 'config/authentication_init.dart';
 export 'config/authentication_providers_bloc.dart';
 export 'config/authentication_router.dart';

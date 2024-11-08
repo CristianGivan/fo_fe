@@ -28,7 +28,7 @@ void userInit() {
   sl.registerLazySingleton(() => UpdateUser(sl()));
 
   // User BLoCs
-  sl.registerFactory(() => UserBlocUser(
+  sl.registerFactory(() => UserBloc(
         addUser: sl(),
         updateUser: sl(),
         deleteUser: sl(),
@@ -39,4 +39,6 @@ void userInit() {
         getUserItemsByUserId: sl(),
         getConnectedUserItems: sl(),
       ));
+
+  sl.registerFactory(() => UserValidationBloc());
 }

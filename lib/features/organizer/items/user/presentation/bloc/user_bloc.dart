@@ -10,7 +10,7 @@ import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 part 'user_bloc_event.dart';
 part 'user_bloc_state.dart';
 
-class UserBlocUser extends Bloc<UserBlocEvent, UserBlocState> {
+class UserBloc extends Bloc<UserBlocEvent, UserBlocState> {
   final AddUser addUser;
   final AddUserToUser addUserToUser;
   final UpdateUser updateUser;
@@ -21,7 +21,7 @@ class UserBlocUser extends Bloc<UserBlocEvent, UserBlocState> {
   final GetUserItemsByUserId getUserItemsByUserId;
   final GetConnectedUserItems getConnectedUserItems;
 
-  UserBlocUser({
+  UserBloc({
     required this.addUser,
     required this.addUserToUser,
     required this.updateUser,

@@ -1,7 +1,16 @@
-RegExp emailRexExp = RegExp(r'^[\w-\.]+@([\w-]+.)+[\w-]{2,4}$');
+const String lowerCasePattern = r'(?=.*?[a-z])';
+const String upperCasePattern = r'(?=.*?[A-Z])';
+const String digitPattern = r'(?=.*?[0-9])';
+const String specialCharPattern = r'(?=.*?[!@#\$&*~`)\%\-(_+=;:,.<>/?"[{\]}\|^])';
+const String minLengthPattern = r'.{9,}';
+const String namePattern = r'^[\w\s]{1,30}$';
+const String emailPattern = r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
 
-RegExp passwordRexExp = RegExp(
-    r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~`)\%\-(_+=;:,.<>/?"[{\]}\|^]).{8,}$');
+RegExp specialCharRegExp = RegExp(specialCharPattern);
 
-RegExp specialCharRexExp =
-    RegExp(r'^(?=.*?[!@#$&*~`)\%\-(_+=;:,.<>/?"[{\]}\|^])');
+RegExp userNameRegExp = RegExp(namePattern);
+
+RegExp  emailRegExp = RegExp(emailPattern);
+
+RegExp passwordRegExp = RegExp(
+    '^$upperCasePattern$lowerCasePattern$digitPattern$specialCharPattern$minLengthPattern\$');

@@ -4,8 +4,11 @@ import 'package:get_it/get_it.dart';
 
 List<BlocProvider> getUserBlocProviders() {
   return [
-    BlocProvider<UserBlocUser>(
-      create: (_) => GetIt.instance<UserBlocUser>(),
+    BlocProvider<UserBloc>(
+      create: (_) => GetIt.instance<UserBloc>(),
+    ),
+    BlocProvider<UserValidationBloc>(
+      create: (_) => GetIt.instance<UserValidationBloc>(),
     ),
   ];
 }

@@ -15,7 +15,7 @@ class UserListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<UserBlocUser, UserBlocState>(
+    return BlocBuilder<UserBloc, UserBlocState>(
       builder: (context, state) {
         if (state is UserLoadingBlocState) {
           return _buildLoadingIndicator();

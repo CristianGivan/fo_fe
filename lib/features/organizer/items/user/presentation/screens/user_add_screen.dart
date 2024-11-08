@@ -24,7 +24,7 @@ class _UserAddScreenState extends State<UserAddScreen> {
     final String userName = _userNameController.text;
     if (userName.isNotEmpty) {
       final user = UserEntity(name: userName);
-      BlocProvider.of<UserBlocUser>(context).add(AddUserBlocEvent(user));
+      BlocProvider.of<UserBloc>(context).add(AddUserBlocEvent(user));
     }
   }
 
@@ -46,7 +46,7 @@ class _UserAddScreenState extends State<UserAddScreen> {
               ),
             ),
             const SizedBox(height: 16.0),
-            BlocConsumer<UserBlocUser, UserBlocState>(
+            BlocConsumer<UserBloc, UserBlocState>(
               listener: (context, state) {
                 if (state is UserSuccessBlocState) {
                   ScaffoldMessenger.of(context).showSnackBar(

@@ -24,7 +24,7 @@ class AuthenticationBlocSignUp
   bool _isNameValid = false;
 
   void _onEmailChanged(EmailChanged event, Emitter<AuthenticationBlocSignUpState> emit) {
-    _isEmailValid = emailRexExp.hasMatch(event.email);
+    _isEmailValid = emailRegExp.hasMatch(event.email);
     emit(EmailValidationState(isValid: _isEmailValid));
     add(ValidateForm());
   }
@@ -33,7 +33,7 @@ class AuthenticationBlocSignUp
     bool containsUpperCase = event.password.contains(RegExp(r'[A-Z]'));
     bool containsLowerCase = event.password.contains(RegExp(r'[a-z]'));
     bool containsNumber = event.password.contains(RegExp(r'[0-9]'));
-    bool containsSpecialChar = event.password.contains(specialCharRexExp);
+    bool containsSpecialChar = event.password.contains(specialCharRegExp);
     bool contains8Length = event.password.length >= 8;
 
     _isPasswordValid = containsUpperCase &&
