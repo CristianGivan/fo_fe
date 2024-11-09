@@ -1,19 +1,14 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 
 class EmailFieldWidget extends StatefulWidget {
   final TextEditingController controller;
-  final TextEditingController nameController;
-  final TextEditingController passwordController;
 
   const EmailFieldWidget({
-    Key? key,
+    super.key,
     required this.controller,
-    required this.nameController,
-    required this.passwordController,
-  }) : super(key: key);
+  });
 
   @override
   _EmailFieldWidgetState createState() => _EmailFieldWidgetState();
@@ -54,13 +49,6 @@ class _EmailFieldWidgetState extends State<EmailFieldWidget> {
       onChanged: (val) {
         context.read<UserValidationBloc>().add(ValidateEmailBlocEvent(val));
       },
-      // validator: (val) {
-      //   if (val!.isEmpty) {
-      //     return 'Please fill in this field';
-      //   }
-      //   // You can add additional validation logic here if needed
-      //   return null;
-      // },
     );
   }
 }

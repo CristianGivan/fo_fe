@@ -1,8 +1,12 @@
 == Next
 
  add authentication
+ understand _focusNode.hasFocus
 
 == Now
+
+SignUpButtonWidget update it
+add an user to the database
 
 == Done
 

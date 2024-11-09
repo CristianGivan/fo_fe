@@ -4,15 +4,11 @@ import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 
 class NameFieldWidget extends StatefulWidget {
   final TextEditingController controller;
-  final TextEditingController emailController;
-  final TextEditingController passwordController;
 
   const NameFieldWidget({
-    Key? key,
+    super.key,
     required this.controller,
-    required this.emailController,
-    required this.passwordController,
-  }) : super(key: key);
+  });
 
   @override
   _NameFieldWidgetState createState() => _NameFieldWidgetState();
@@ -53,14 +49,6 @@ class _NameFieldWidgetState extends State<NameFieldWidget> {
       onChanged: (val) {
         context.read<UserValidationBloc>().add(ValidateNameBlocEvent(val));
       },
-      // validator: (val) {
-      //   if (val!.isEmpty) {
-      //     return 'Please fill in this field';
-      //   } else if (val.length > 30) {
-      //     return 'Name too long';
-      //   }
-      //   return null;
-      // },
     );
   }
 }

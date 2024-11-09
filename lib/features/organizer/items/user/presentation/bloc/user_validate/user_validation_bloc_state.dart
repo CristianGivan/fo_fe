@@ -60,14 +60,14 @@ class NameValidationBlocState extends UserValidationBlocState {
 }
 
 class FormValidationBlocState extends UserValidationBlocState {
+  final bool isNameValid;
   final bool isEmailValid;
   final bool isPasswordValid;
-  final bool isNameValid;
 
   const FormValidationBlocState({
+    required this.isNameValid,
     required this.isEmailValid,
     required this.isPasswordValid,
-    required this.isNameValid,
   });
 
   @override

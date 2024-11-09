@@ -1,34 +1,25 @@
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
+class UserSignUpScreen extends StatefulWidget {
+  const UserSignUpScreen({super.key});
 
   @override
-  _SignUpScreenState createState() => _SignUpScreenState();
+  _UserSignUpScreenState createState() => _UserSignUpScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _UserSignUpScreenState extends State<UserSignUpScreen> {
   final _formKey = GlobalKey<FormState>();
+  final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  final nameController = TextEditingController();
 
-  bool _wasEmailValid = false;
-  bool _wasNameValid = false;
-  bool _wasPasswordValid = false;
-
-  @override
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-    nameController.dispose();
-    super.dispose();
-  }
+  bool _wasEmailValid = true;
+  bool _wasNameValid = true;
+  bool _wasPasswordValid = true;
 
   void _userBlocListener(BuildContext context, UserBlocState state) {
     if (state is UserSuccessBlocState) {
-      // Navigate to the organizer route on successful sign-up using GoRouter
       GoRouter.of(context).go(OrganizerRouterNames.organizerRouteName);
 
       ScaffoldMessenger.of(context).showSnackBar(
@@ -89,20 +80,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   const SizedBox(height: 20),
                   NameFieldWidget(
                     controller: nameController,
-                    emailController: emailController,
-                    passwordController: passwordController,
                   ),
                   const SizedBox(height: 10),
                   EmailFieldWidget(
                     controller: emailController,
-                    nameController: nameController,
-                    passwordController: passwordController,
                   ),
                   const SizedBox(height: 10),
                   PasswordFieldWidget(
                     controller: passwordController,
-                    emailController: emailController,
-                    nameController: nameController,
                   ),
                   const SizedBox(height: 10),
                   BlocBuilder<UserValidationBloc, UserValidationBlocState>(
@@ -114,8 +99,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       return const SizedBox.shrink();
                     },
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                  const SizedBox(height: 20),
                   SignUpButtonWidget(
+                    isEnabled: true,
+                    formKey: _formKey,
                     nameController: nameController,
                     emailController: emailController,
                     passwordController: passwordController,

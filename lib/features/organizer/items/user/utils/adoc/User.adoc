@@ -30,3 +30,9 @@ mandatory name and email and password verified  and sync with remote
 === userNameLinked
 
 * is the name that this user is setting to linked user and is the first name of the user
+
+==Worked
+
+241109
+* if the name pasword and email are changing from a valid format name or password to an invalid
+state to be shown a message that the name or password is invalid

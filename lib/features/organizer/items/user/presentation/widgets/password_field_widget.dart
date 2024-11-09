@@ -5,14 +5,10 @@ import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 
 class PasswordFieldWidget extends StatefulWidget {
   final TextEditingController controller;
-  final TextEditingController emailController;
-  final TextEditingController nameController;
 
   const PasswordFieldWidget({
     Key? key,
     required this.controller,
-    required this.emailController,
-    required this.nameController,
   }) : super(key: key);
 
   @override

@@ -3,22 +3,27 @@
 import 'package:fo_fe/core/const/regexp.dart';
 
 class UserValidation {
-
   static bool isNameValid(String name) {
     return name.isNotEmpty && userNameRegExp.hasMatch(name);
   }
+
   static bool isEmailValid(String email) {
     return email.isNotEmpty && emailRegExp.hasMatch(email);
   }
-
 
   static bool isPasswordValid(String password) {
     return password.isNotEmpty && passwordRegExp.hasMatch(password);
   }
 
+  static isUserNameEmailPasswordValid(
+      {required String name, required String email, required String password}) {
+    return isNameValid(name) && isEmailValid(email) && isPasswordValid(password);
+  }
+
   static bool isMinPasswordLength(String password) {
     return minPasswordLengthRegExp.hasMatch(password);
   }
+
   static bool containsUpperCase(String input) {
     return upperCaseRegExp.hasMatch(input);
   }

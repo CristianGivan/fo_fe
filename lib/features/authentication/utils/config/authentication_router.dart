@@ -30,8 +30,8 @@ class AuthenticationAppBranch {
         GoRoute(
           name: AuthenticationRouterNames.signUpRoute,
           path: 'sign-up',
-          pageBuilder: (context, state) => const NoTransitionPage(
-            child: SignUpScreen(),
+          pageBuilder: (context, state) => NoTransitionPage(
+            child: UserSignUpScreen(),
           ),
         ),
         GoRoute(
