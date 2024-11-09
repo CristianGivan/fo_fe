@@ -34,22 +34,14 @@ class _SignUpButtonWidgetState extends State<SignUpButtonWidget> {
         ));
   }
 
+  // todo -fix- this validation and submision shal bedon with bloc in my revouse commit but
+  //  i have to press 2 times the button
   void _validateAndSubmit() {
-    // if (widget.formKey.currentState!.validate()) {
-    //   context.read<UserValidationBloc>().add(ValidateFormBlocEvent(
-    //         email: widget.emailController.text,
-    //         password: widget.passwordController.text,
-    //         name: widget.nameController.text,
-    //       ));
-
     final isUserNameEmailPasswordValid = UserValidation.isUserNameEmailPasswordValid(
       name: widget.nameController.text,
       email: widget.emailController.text,
       password: widget.passwordController.text,
     );
-    // todo -fix- not working it hall be press 2 time the button
-    //  = context.read<UserValidationBloc>().state;
-    // if (userValidationState is FormValidationBlocState && userValidationState.isFormValid) {
     if (isUserNameEmailPasswordValid) {
       context.read<UserBloc>().add(
             AddUserBlocEvent(
@@ -62,7 +54,6 @@ class _SignUpButtonWidgetState extends State<SignUpButtonWidget> {
           );
       context.pop();
     }
-    // }
   }
 
   @override

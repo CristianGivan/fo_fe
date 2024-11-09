@@ -2,12 +2,13 @@
 
  add authentication
  understand _focusNode.hasFocus
+why I couldn use bloc in SignUpButtonWidget
 
 == Now
 
-SignUpButtonWidget update it
 add an user to the database
 
 == Done
 
+SignUpButtonWidget update it
 remove Navigator.pop(context) update push routes
