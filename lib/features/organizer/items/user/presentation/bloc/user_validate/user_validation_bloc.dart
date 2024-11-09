@@ -19,14 +19,12 @@ class UserValidationBloc extends Bloc<UserValidationBlocEvent, UserValidationBlo
   }
 
   void _onValidatePassword(ValidatePasswordBlocEvent event, Emitter<UserValidationBlocState> emit) {
-    final isValid = UserValidation.isPasswordValid(event.password);
     emit(PasswordValidationBlocState(
-      containsUpperCase: event.password.contains(RegExp(r'[A-Z]')),
-      containsLowerCase: event.password.contains(RegExp(r'[a-z]')),
-      containsNumber: event.password.contains(RegExp(r'[0-9]')),
-      containsSpecialChar:
-          event.password.contains(RegExp(r'[!@#\$&*~`)\%\-(_+=;:,.<>/?"[{\]}\|^]')),
-      contains9Length: event.password.length >= 8,
+      containsUpperCase: UserValidation.containsUpperCase(event.password),
+      containsLowerCase: UserValidation.containsLowerCase(event.password),
+      containsNumber: UserValidation.containsNumber(event.password),
+      containsSpecialChar: UserValidation.containsSpecialChar(event.password),
+      containsLength: UserValidation.isMinPasswordLength(event.password),
     ));
   }
 

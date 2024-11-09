@@ -15,7 +15,7 @@ class PasswordRequirements extends StatelessWidget {
         _buildPasswordRequirement(context, "1 lowercase", state.containsLowerCase),
         _buildPasswordRequirement(context, "1 number", state.containsNumber),
         _buildPasswordRequirement(context, "1 special character", state.containsSpecialChar),
-        _buildPasswordRequirement(context, "9 minimum characters", state.contains9Length),
+        _buildPasswordRequirement(context, "9 minimum characters", state.containsLength),
       ],
     );
   }

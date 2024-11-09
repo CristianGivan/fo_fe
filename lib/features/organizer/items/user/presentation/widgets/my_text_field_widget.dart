@@ -21,7 +21,7 @@ class MyTextField extends StatelessWidget {
     this.validator,
     this.errorMsg,
     this.onChanged,
-    super.key,
+    super.key, required FocusNode focusNode,
   });
 
   @override

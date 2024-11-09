@@ -14,6 +14,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final passwordController = TextEditingController();
   final nameController = TextEditingController();
 
+  bool _wasEmailValid = false;
+  bool _wasNameValid = false;
+  bool _wasPasswordValid = false;
+
   @override
   void dispose() {
     emailController.dispose();
@@ -38,18 +42,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   void _userValidationBlocListener(BuildContext context, UserValidationBlocState state) {
-    if (state is EmailValidationBlocState && !state.isValid) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Invalid email format')),
-      );
-    } else if (state is NameValidationBlocState && !state.isValid) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Invalid name')),
-      );
-    } else if (state is PasswordValidationBlocState && !state.isValid) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Invalid password')),
-      );
+    if (state is EmailValidationBlocState) {
+      if (_wasEmailValid && !state.isValid) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Invalid email format')),
+        );
+      }
+      _wasEmailValid = state.isValid;
+    } else if (state is NameValidationBlocState) {
+      if (_wasNameValid && !state.isValid) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Invalid name')),
+        );
+      }
+      _wasNameValid = state.isValid;
+    } else if (state is PasswordValidationBlocState) {
+      if (_wasPasswordValid && !state.isValid) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Invalid password')),
+        );
+      }
+      _wasPasswordValid = state.isValid;
     }
   }
 
@@ -74,7 +87,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               child: Column(
                 children: [
                   const SizedBox(height: 20),
-                  NameFieldwidget(
+                  NameFieldWidget(
                     controller: nameController,
                     emailController: emailController,
                     passwordController: passwordController,

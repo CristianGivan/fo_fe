@@ -22,11 +22,33 @@ class PasswordFieldWidget extends StatefulWidget {
 class _PasswordFieldWidgetState extends State<PasswordFieldWidget> {
   bool obscurePassword = true;
   IconData iconPassword = CupertinoIcons.eye_fill;
+  late FocusNode _focusNode;
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode = FocusNode();
+    _focusNode.addListener(_onFocusChange);
+  }
+
+  @override
+  void dispose() {
+    _focusNode.removeListener(_onFocusChange);
+    _focusNode.dispose();
+    super.dispose();
+  }
+
+  void _onFocusChange() {
+    if (!_focusNode.hasFocus) {
+      context.read<UserValidationBloc>().add(ValidatePasswordBlocEvent(widget.controller.text));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return MyTextField(
       controller: widget.controller,
+      focusNode: _focusNode,
       hintText: 'Password',
       obscureText: obscurePassword,
       keyboardType: TextInputType.visiblePassword,
@@ -44,12 +66,6 @@ class _PasswordFieldWidgetState extends State<PasswordFieldWidget> {
         },
         icon: Icon(iconPassword),
       ),
-      validator: (val) {
-        if (val!.isEmpty) {
-          return 'Please fill in this field';
-        }
-        return null;
-      },
     );
   }
 }

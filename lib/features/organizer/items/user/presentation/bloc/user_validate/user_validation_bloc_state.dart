@@ -23,14 +23,14 @@ class PasswordValidationBlocState extends UserValidationBlocState {
   final bool containsLowerCase;
   final bool containsNumber;
   final bool containsSpecialChar;
-  final bool contains9Length;
+  final bool containsLength;
 
   const PasswordValidationBlocState({
     required this.containsUpperCase,
     required this.containsLowerCase,
     required this.containsNumber,
     required this.containsSpecialChar,
-    required this.contains9Length,
+    required this.containsLength,
   });
 
   @override
@@ -39,7 +39,7 @@ class PasswordValidationBlocState extends UserValidationBlocState {
         containsLowerCase,
         containsNumber,
         containsSpecialChar,
-        contains9Length,
+        containsLength,
       ];
 
   bool get isValid =>
@@ -47,7 +47,7 @@ class PasswordValidationBlocState extends UserValidationBlocState {
       containsLowerCase &&
       containsNumber &&
       containsSpecialChar &&
-      contains9Length;
+      containsLength;
 }
 
 class NameValidationBlocState extends UserValidationBlocState {

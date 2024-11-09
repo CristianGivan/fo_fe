@@ -9,8 +9,7 @@ final sl = GetIt.instance;
 void authenticationInit() {
   // Register AuthenticationLocalDataSource
   sl.registerLazySingleton<AuthenticationLocalDataSource>(
-    () => AuthenticationLocalDataSourceDrift(
-        database: sl<AuthenticationDriftDB>()),
+    () => AuthenticationLocalDataSourceDrift(database: sl<AuthenticationDriftDB>()),
   );
 
   // Register AuthenticationRepository
@@ -41,8 +40,10 @@ void authenticationInit() {
         logoutUseCase: sl<LogoutUseCase>(),
         refreshTokenUseCase: sl<RefreshTokenUseCase>(),
       ));
+  //todo - fix- check if is correct
   sl.registerFactory(() => AuthenticationBlocSignUp(
         signUpUseCase: sl<SignUpUseCase>(),
+        userValidationBloc: sl(),
       ));
   sl.registerFactory(() => AuthenticationBlocSignIn(
         loginUseCase: sl<LoginUseCase>(),
