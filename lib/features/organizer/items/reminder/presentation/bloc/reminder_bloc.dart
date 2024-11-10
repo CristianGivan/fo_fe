@@ -1,4 +1,3 @@
-import 'package:bloc/bloc.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/usecase/params.dart';
 import 'package:fo_fe/features/organizer/items/reminder/domain/usecases/reminder_usecase_export.dart';
@@ -19,7 +18,7 @@ String _mapFailureToMessage(Failure failure) {
     case LocalFailure e:
       return e.message.toString();
     default:
-      return 'Unexpected error occurred';
+      return 'An error occurred: ${failure.message}';
   }
 }
 

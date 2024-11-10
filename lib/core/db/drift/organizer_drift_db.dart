@@ -33,7 +33,7 @@ class OrganizerDriftDB extends _$OrganizerDriftDB {
       : super(_openConnection(isDev: isDev, inMemory: inMemory));
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(

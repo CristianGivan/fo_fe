@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/usecase/params.dart';
 import 'package:fo_fe/features/organizer/items/reminder/utils/reminder_exports.dart';
@@ -32,7 +31,7 @@ String _mapFailureToMessage(Failure failure) {
     case CacheFailure:
       return 'Cache error occurred';
     default:
-      return 'Unexpected error occurred';
+      return 'An error occurred: ${failure.message}';
   }
 }
 

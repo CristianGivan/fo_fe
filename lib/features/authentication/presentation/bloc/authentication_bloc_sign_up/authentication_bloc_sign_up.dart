@@ -85,7 +85,7 @@ class AuthenticationBlocSignUp
       case CacheFailure:
         return 'Cache error occurred';
       default:
-        return 'Unexpected error occurred';
+        return 'An error occurred: ${failure.message}';
     }
   }
 }

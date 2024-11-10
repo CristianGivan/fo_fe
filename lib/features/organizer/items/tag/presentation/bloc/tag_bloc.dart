@@ -1,4 +1,3 @@
-import 'package:bloc/bloc.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/usecase/params.dart';
 import 'package:fo_fe/features/organizer/items/tag/utils/parameters/tag_params.dart';
@@ -100,7 +99,7 @@ class TagBlocTag extends Bloc<TagBlocEvent, TagBlocState> {
       case CacheFailure:
         return 'Cache error occurred';
       default:
-        return 'Unexpected error occurred';
+        return 'An error occurred: ${failure.message}';
     }
   }
 }

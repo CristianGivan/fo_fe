@@ -66,7 +66,7 @@ class AuthenticationBlocSession
       case AuthenticationFailure _:
         return 'Authentication failed';
       default:
-        return 'Unexpected error occurred';
+        return 'An error occurred: ${failure.message}';
     }
   }
 }
