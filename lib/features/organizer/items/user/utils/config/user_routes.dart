@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
@@ -20,7 +19,7 @@ class UserRoutes {
           pageBuilder: (context, state) {
             // Accessing 'userId' from state.pathParameters
             return const NoTransitionPage(
-              child: UserAddScreen(),
+              child: UserSignUpScreen(),
             );
           },
         ),

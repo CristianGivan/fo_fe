@@ -14,29 +14,29 @@ class AuthenticationAppBranch {
 
   static GoRoute route() {
     return GoRoute(
-      path: AuthenticationRouterNames.authenticationRoutePath,
       name: AuthenticationRouterNames.authenticationRouteName,
+      path: AuthenticationRouterNames.authenticationRoutePath,
       pageBuilder: (context, state) => const NoTransitionPage(
         child: AuthenticationScreen(),
       ),
       routes: [
         GoRoute(
-          name: AuthenticationRouterNames.signInRoute,
-          path: 'sign-in',
+          path: AuthenticationRouterNames.authenticationSignInRoutePath,
+          name: AuthenticationRouterNames.authenticationSignInRouteName,
           pageBuilder: (context, state) => const NoTransitionPage(
             child: SignInScreen(),
           ),
         ),
         GoRoute(
-          name: AuthenticationRouterNames.signUpRoute,
-          path: 'sign-up',
+          path: AuthenticationRouterNames.authenticationSignUpRoutePath,
+          name: AuthenticationRouterNames.authenticationSignUpRouteName,
           pageBuilder: (context, state) => const NoTransitionPage(
             child: UserSignUpScreen(),
           ),
         ),
         GoRoute(
-          name: AuthenticationRouterNames.authenticationWithAutoLogInRoute,
-          path: 'authenticationWithAutoLogIn',
+          path: AuthenticationRouterNames.authenticationAuthenticationWithAutoLogInRoutePath,
+          name: AuthenticationRouterNames.authenticationAuthenticationWithAutoLogInRouteName,
           pageBuilder: (context, state) => const NoTransitionPage(
             child: AuthenticationScreenWithAutoLogIn(),
           ),

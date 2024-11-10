@@ -1,8 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:fo_fe/features/authentication/utils/authentication_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
-import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart'; // Import Provider package if not already imported
 
 class AuthenticationScreen extends StatelessWidget {
   const AuthenticationScreen({super.key});
@@ -42,14 +39,14 @@ class AuthenticationScreen extends StatelessWidget {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                context.goNamed(AuthenticationRouterNames.signInRoute);
+                context.pushNamed(AuthenticationRouterNames.authenticationSignInRouteName);
               },
               child: const Text('Sign In'),
             ),
             const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {
-                context.goNamed(AuthenticationRouterNames.signUpRoute);
+                context.pushNamed(AuthenticationRouterNames.authenticationSignUpRouteName);
               },
               child: const Text('Sign Up'),
             ),

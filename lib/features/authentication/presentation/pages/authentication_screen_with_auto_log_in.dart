@@ -1,14 +1,12 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fo_fe/features/authentication/utils/authentication_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
-import 'package:go_router/go_router.dart';
 
 class AuthenticationScreenWithAutoLogIn extends StatefulWidget {
   const AuthenticationScreenWithAutoLogIn({super.key});
 
   @override
-  _AuthenticationScreenWithAutoLogInState createState() => _AuthenticationScreenWithAutoLogInState();
+  _AuthenticationScreenWithAutoLogInState createState() =>
+      _AuthenticationScreenWithAutoLogInState();
 }
 
 class _AuthenticationScreenWithAutoLogInState extends State<AuthenticationScreenWithAutoLogIn> {
@@ -53,14 +51,14 @@ class _AuthenticationScreenWithAutoLogInState extends State<AuthenticationScreen
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                context.goNamed(AuthenticationRouterNames.signInRoute);
+                context.goNamed(AuthenticationRouterNames.authenticationSignInRouteName);
               },
               child: const Text('Sign In'),
             ),
             const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {
-                context.goNamed(AuthenticationRouterNames.signUpRoute);
+                context.goNamed(AuthenticationRouterNames.authenticationSignUpRouteName);
               },
               child: const Text('Sign Up'),
             ),
