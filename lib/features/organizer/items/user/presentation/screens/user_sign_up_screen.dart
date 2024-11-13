@@ -1,8 +1,10 @@
-import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
-import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
+import '../../../../utils/organizer_exports.dart';
+import '../../utils/user_exports.dart';
 
 class UserSignUpScreen extends StatefulWidget {
-  const UserSignUpScreen({super.key});
+  final AddUserActionEnum action;
+
+  const UserSignUpScreen({super.key, required this.action});
 
   @override
   _UserSignUpScreenState createState() => _UserSignUpScreenState();
@@ -100,12 +102,19 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
                     },
                   ),
                   const SizedBox(height: 20),
-                  SignUpButtonWidget(
-                    isEnabled: true,
-                    formKey: _formKey,
-                    nameController: nameController,
-                    emailController: emailController,
-                    passwordController: passwordController,
+                  BlocBuilder<UserValidationBloc, UserValidationBlocState>(
+                    buildWhen: (previous, current) => current is FormValidationBlocState,
+                    builder: (context, state) {
+                      bool isFormValid = state is FormValidationBlocState && state.isFormValid;
+                      return SignUpButtonWidget(
+                        isEnabled: true,
+                        formKey: _formKey,
+                        nameController: nameController,
+                        emailController: emailController,
+                        passwordController: passwordController,
+                        action: widget.action,
+                      );
+                    },
                   ),
                 ],
               ),

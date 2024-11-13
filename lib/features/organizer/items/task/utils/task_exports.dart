@@ -20,4 +20,4 @@ export 'config/task_init.dart';
 export 'config/task_route_names.dart';
 export 'config/task_routes.dart';
 export 'other/task_enums.dart';
-export 'parameters/task_params.dart';
+export 'other/task_params.dart';

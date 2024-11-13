@@ -17,9 +17,9 @@ class UserRoutes {
           path: UserRouterNames.userAddRoutePath,
           name: UserRouterNames.userAddRouteName,
           pageBuilder: (context, state) {
-            // Accessing 'userId' from state.pathParameters
-            return const NoTransitionPage(
-              child: UserSignUpScreen(),
+            final AddUserActionEnum addUserAction = state.extra as AddUserActionEnum;
+            return NoTransitionPage(
+              child: UserSignUpScreen(action: addUserAction),
             );
           },
         ),

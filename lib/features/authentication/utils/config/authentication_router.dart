@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fo_fe/features/authentication/utils/authentication_exports.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../organizer/items/user/utils/user_exports.dart';
+
 class AuthenticationAppBranch {
   static StatefulShellBranch branch(GlobalKey<NavigatorState> navigatorKey) {
     return StatefulShellBranch(
@@ -28,12 +30,14 @@ class AuthenticationAppBranch {
           ),
         ),
         GoRoute(
-          path: AuthenticationRouterNames.authenticationSignUpRoutePath,
-          name: AuthenticationRouterNames.authenticationSignUpRouteName,
-          pageBuilder: (context, state) => const NoTransitionPage(
-            child: UserSignUpScreen(),
-          ),
-        ),
+            path: AuthenticationRouterNames.authenticationSignUpRoutePath,
+            name: AuthenticationRouterNames.authenticationSignUpRouteName,
+            pageBuilder: (context, state) {
+              final AddUserActionEnum addUserAction = state.extra as AddUserActionEnum;
+              return NoTransitionPage(
+                child: UserSignUpScreen(action: addUserAction),
+              );
+            }),
         GoRoute(
           path: AuthenticationRouterNames.authenticationAuthenticationWithAutoLogInRoutePath,
           name: AuthenticationRouterNames.authenticationAuthenticationWithAutoLogInRouteName,

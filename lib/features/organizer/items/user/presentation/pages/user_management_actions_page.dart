@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
@@ -19,7 +18,10 @@ class UserManagementActionsPage extends StatelessWidget {
             children: [
               Expanded(
                 child: ElevatedButton(
-                  onPressed: () => context.pushNamed(UserRouterNames.userAddRouteName),
+                  onPressed: () => context.pushNamed(
+                    UserRouterNames.userAddRouteName,
+                    extra: AddUserActionEnum.AddUser,
+                  ),
                   child: const Text('Add User'),
                 ),
               ),

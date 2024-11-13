@@ -41,7 +41,7 @@ void authenticationInit() {
         refreshTokenUseCase: sl<RefreshTokenUseCase>(),
       ));
   //todo - fix- check if is correct
-  sl.registerFactory(() => AuthenticationBlocSignUp(
+  sl.registerFactory(() => AuthenticationSignUp(
         signUpUseCase: sl<SignUpUseCase>(),
         userValidationBloc: sl(),
       ));

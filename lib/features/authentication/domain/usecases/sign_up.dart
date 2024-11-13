@@ -13,31 +13,26 @@ class SignUpUseCase extends UseCase<AuthenticationEntity, SignUpParams> {
   SignUpUseCase(this.authRepository, this.userRepository);
 
   @override
-  Future<Either<Failure, AuthenticationEntity>> call(
-      SignUpParams params) async {
+  Future<Either<Failure, AuthenticationEntity>> call(SignUpParams params) async {
+    // todo -fix- should I add the user in the DB
     if (!isValidEmail(params.email) || !isValidPassword(params.password)) {
       return const Left(InvalidInputFailure("InvalidInputFailure"));
     }
 
     final hashingPassword = HashingService.hashPassword(params.password);
-    final userResult = await userRepository.getUserByEmailAndPassword(
-        params.email, hashingPassword);
+    final userResult =
+        await userRepository.getUserByEmailAndPassword(params.email, hashingPassword);
 
     return userResult.fold(
       (failure) => Left(failure),
       (user) async {
         if (user.id == 0) {
-          final insertResult = await userRepository.addUser(UserEntity(
-              name: params.name,
-              email: params.email,
-              password: hashingPassword));
+          final insertResult = await userRepository.addUser(
+              UserEntity(name: params.name, email: params.email, password: hashingPassword));
 
           return insertResult.fold((failure) => Left(failure), (id) {
             final newUser = UserEntity(
-                id: id,
-                name: params.name,
-                email: params.email,
-                password: hashingPassword);
+                id: id, name: params.name, email: params.email, password: hashingPassword);
             return authRepository.addAuthentication(newUser);
           });
         }

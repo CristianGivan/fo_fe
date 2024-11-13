@@ -33,15 +33,17 @@ class OrganizerDriftDB extends _$OrganizerDriftDB {
       : super(_openConnection(isDev: isDev, inMemory: inMemory));
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
 
   @override
-  MigrationStrategy get migration => MigrationStrategy(
-        onCreate: (Migrator m) async {
-          await m.createAll();
-        },
-        onUpgrade: (Migrator m, int from, int to) async {},
-      );
+  MigrationStrategy get migration => MigrationStrategy(onCreate: (Migrator m) async {
+        await m.createAll();
+      }, onUpgrade: (Migrator m, int from, int to) async {
+        if (from < 2 && to >= 3) {
+          await m.createTable(userTableDrift);
+          await m.createTable(userUserTableDrift);
+        }
+      });
 
   static LazyDatabase _openConnection({bool isDev = false, bool inMemory = false}) {
     return LazyDatabase(() async {

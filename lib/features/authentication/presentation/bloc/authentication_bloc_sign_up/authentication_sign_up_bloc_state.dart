@@ -1,17 +1,17 @@
-part of 'authentication_bloc_sign_up.dart';
+part of 'authentication_sign_up.dart';
 
-abstract class AuthenticationBlocSignUpState extends Equatable {
-  const AuthenticationBlocSignUpState();
+abstract class AuthenticationSignUpBlocState extends Equatable {
+  const AuthenticationSignUpBlocState();
 
   @override
   List<Object> get props => [];
 }
 
-class AuthenticationSignUpInitial extends AuthenticationBlocSignUpState {}
+class AuthenticationSignUpInitial extends AuthenticationSignUpBlocState {}
 
-class AuthenticationSignUpLoading extends AuthenticationBlocSignUpState {}
+class AuthenticationSignUpLoading extends AuthenticationSignUpBlocState {}
 
-class AuthenticationSignUpSuccess extends AuthenticationBlocSignUpState {
+class AuthenticationSignUpSuccess extends AuthenticationSignUpBlocState {
   final AuthenticationEntity authEntity;
 
   const AuthenticationSignUpSuccess({required this.authEntity});
@@ -20,7 +20,7 @@ class AuthenticationSignUpSuccess extends AuthenticationBlocSignUpState {
   List<Object> get props => [authEntity];
 }
 
-class AuthenticationSignUpError extends AuthenticationBlocSignUpState {
+class AuthenticationSignUpError extends AuthenticationSignUpBlocState {
   final String message;
 
   const AuthenticationSignUpError(this.message);
@@ -29,7 +29,7 @@ class AuthenticationSignUpError extends AuthenticationBlocSignUpState {
   List<Object> get props => [message];
 }
 
-class EmailValidationState extends AuthenticationBlocSignUpState {
+class EmailValidationState extends AuthenticationSignUpBlocState {
   final bool isValid;
 
   const EmailValidationState({required this.isValid});
@@ -38,7 +38,7 @@ class EmailValidationState extends AuthenticationBlocSignUpState {
   List<Object> get props => [isValid];
 }
 
-class PasswordValidationState extends AuthenticationBlocSignUpState {
+class PasswordValidationState extends AuthenticationSignUpBlocState {
   final bool containsUpperCase;
   final bool containsLowerCase;
   final bool containsNumber;
@@ -54,13 +54,8 @@ class PasswordValidationState extends AuthenticationBlocSignUpState {
   });
 
   @override
-  List<Object> get props => [
-        containsUpperCase,
-        containsLowerCase,
-        containsNumber,
-        containsSpecialChar,
-        contains8Length
-      ];
+  List<Object> get props =>
+      [containsUpperCase, containsLowerCase, containsNumber, containsSpecialChar, contains8Length];
 
   bool get isValid =>
       containsUpperCase &&
@@ -70,7 +65,7 @@ class PasswordValidationState extends AuthenticationBlocSignUpState {
       contains8Length;
 }
 
-class FormValidationState extends AuthenticationBlocSignUpState {
+class FormValidationState extends AuthenticationSignUpBlocState {
   final bool isEmailValid;
   final bool isPasswordValid;
   final bool isNameValid;

@@ -15,44 +15,42 @@ class UserMapper {
     );
   }
 
-  static OrganizerItems<UserEntity> entityItemsFromTableDriftItems(
-      List<UserTableDriftG> items) {
+  static OrganizerItems<UserEntity> entityItemsFromTableDriftItems(List<UserTableDriftG> items) {
     return OrganizerItems.of(items.map(entityFromTableDrift).toList());
   }
 
-  static UserTableDriftCompanion tableDriftCompanionFromModel(UserEntity user) {
+  static UserTableDriftCompanion tableDriftCompanionFromModel(UserEntity entity) {
     return UserTableDriftCompanion(
-      id: Value(user.id),
-      name: Value(user.name),
-      hashedPassword: Value(user.hashedPassword),
-      email: Value(user.email),
-      createdDate: Value(user.createdDate),
-      userType: Value(userTypeEnumToStringMap[user.userType]!),
+      id: Value(entity.id),
+      name: Value(entity.name),
+      hashedPassword: Value(entity.hashedPassword),
+      email: Value(entity.email),
+      createdDate: Value(entity.createdDate),
+      userType: Value(userTypeMapToString[entity.userType]!),
     );
   }
 
-  static UserTableDriftCompanion tableDriftCompanionFromEntity(
-      UserEntity user) {
+  static UserTableDriftCompanion tableDriftCompanionFromEntity(UserEntity entity) {
     return UserTableDriftCompanion(
       // id: Value(user.id),
-      name: Value(user.name),
-      hashedPassword: Value(user.hashedPassword),
-      email: Value(user.email),
-      createdDate: Value(user.createdDate),
-      creatorId: Value(user.creatorId),
-      userType: Value(userTypeEnumToStringMap[user.userType]!),
+      name: Value(entity.name),
+      hashedPassword: Value(entity.hashedPassword),
+      email: Value(entity.email),
+      createdDate: Value(entity.createdDate),
+      creatorId: Value(entity.creatorId),
+      userType: Value(userTypeMapToString[entity.userType]!),
     );
   }
 
-  static UserTableDriftCompanion entityToCompanion(UserEntity user) {
+  static UserTableDriftCompanion entityToCompanion(UserEntity entity) {
     return UserTableDriftCompanion(
-      id: Value(user.id),
-      name: Value(user.name),
-      hashedPassword: Value(user.hashedPassword),
-      email: Value(user.email),
-      createdDate: Value(user.createdDate),
-      creatorId: Value(user.creatorId),
-      userType: Value(userTypeEnumToStringMap[user.userType]!),
+      id: entity.id == 0 ? const Value.absent() : Value(entity.id),
+      name: Value(entity.name),
+      hashedPassword: Value(entity.hashedPassword),
+      email: Value(entity.email),
+      createdDate: Value(entity.createdDate),
+      creatorId: Value(entity.creatorId),
+      userType: Value(userTypeMapToString[entity.userType]!),
     );
   }
 }

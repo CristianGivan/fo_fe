@@ -6,35 +6,35 @@ import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 
 import '../../../../../core/error/failures.dart';
 
-part 'authentication_bloc_sign_up_event.dart';
-part 'authentication_bloc_sign_up_state.dart';
+part 'authentication_sign_up_bloc_event.dart';
+part 'authentication_sign_up_bloc_state.dart';
 
-class AuthenticationBlocSignUp
-    extends Bloc<AuthenticationBlocSignUpEvent, AuthenticationBlocSignUpState> {
+class AuthenticationSignUp
+    extends Bloc<AuthenticationSignUpBlocEvent, AuthenticationSignUpBlocState> {
   final SignUpUseCase signUpUseCase;
   final UserValidationBloc userValidationBloc;
 
-  AuthenticationBlocSignUp({required this.signUpUseCase, required this.userValidationBloc})
+  AuthenticationSignUp({required this.signUpUseCase, required this.userValidationBloc})
       : super(AuthenticationSignUpInitial()) {
     on<EmailChanged>(_onEmailChanged);
     on<PasswordChanged>(_onPasswordChanged);
     on<NameChanged>(_onNameChanged);
     on<ValidateForm>(_onValidateForm);
-    on<SignUpBlocEvent>(_onSignUp);
+    on<AuthSignUpBlocEvent>(_onSignUp);
   }
 
   bool _isEmailValid = false;
   bool _isPasswordValid = false;
   bool _isNameValid = false;
 
-  void _onEmailChanged(EmailChanged event, Emitter<AuthenticationBlocSignUpState> emit) {
+  void _onEmailChanged(EmailChanged event, Emitter<AuthenticationSignUpBlocState> emit) {
     userValidationBloc.add(ValidateEmailBlocEvent(event.email));
     _isEmailValid = UserValidation.isEmailValid(event.email);
     emit(EmailValidationState(isValid: _isEmailValid));
     add(ValidateForm());
   }
 
-  void _onPasswordChanged(PasswordChanged event, Emitter<AuthenticationBlocSignUpState> emit) {
+  void _onPasswordChanged(PasswordChanged event, Emitter<AuthenticationSignUpBlocState> emit) {
     userValidationBloc.add(ValidatePasswordBlocEvent(event.password));
     _isPasswordValid = UserValidation.isPasswordValid(event.password);
     emit(PasswordValidationState(
@@ -48,13 +48,13 @@ class AuthenticationBlocSignUp
     add(ValidateForm());
   }
 
-  void _onNameChanged(NameChanged event, Emitter<AuthenticationBlocSignUpState> emit) {
+  void _onNameChanged(NameChanged event, Emitter<AuthenticationSignUpBlocState> emit) {
     userValidationBloc.add(ValidateNameBlocEvent(event.name));
     _isNameValid = UserValidation.isNameValid(event.name);
     add(ValidateForm());
   }
 
-  void _onValidateForm(ValidateForm event, Emitter<AuthenticationBlocSignUpState> emit) {
+  void _onValidateForm(ValidateForm event, Emitter<AuthenticationSignUpBlocState> emit) {
     emit(FormValidationState(
       isEmailValid: _isEmailValid,
       isPasswordValid: _isPasswordValid,
@@ -62,9 +62,10 @@ class AuthenticationBlocSignUp
     ));
   }
 
-  Future<void> _onSignUp(SignUpBlocEvent event, Emitter<AuthenticationBlocSignUpState> emit) async {
+  Future<void> _onSignUp(
+      AuthSignUpBlocEvent event, Emitter<AuthenticationSignUpBlocState> emit) async {
     emit(AuthenticationSignUpLoading());
-
+// todo -refactor- shalll I passs SingUpParams or a suser entity
     final result = await signUpUseCase(SignUpParams(
       name: event.name,
       email: event.email,

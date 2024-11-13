@@ -1,15 +1,15 @@
 import 'package:fo_fe/features/authentication/utils/authentication_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
+import '../../../organizer/items/user/utils/user_exports.dart';
+
 class AuthenticationScreen extends StatelessWidget {
   const AuthenticationScreen({super.key});
 
   void _checkAutoLogin(BuildContext context) async {
-    // Check auto-login when the button is pressed
     final authBloc = context.read<AuthenticationBlocSession>();
     authBloc.add(AutoLoginBlocEvent());
 
-    // Handle navigation based on authentication state
     authBloc.stream.listen((state) {
       if (state is AuthenticationSessionAuthenticated) {
         context.goNamed(OrganizerRouterNames.organizerRouteName);
@@ -46,7 +46,8 @@ class AuthenticationScreen extends StatelessWidget {
             const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {
-                context.pushNamed(AuthenticationRouterNames.authenticationSignUpRouteName);
+                context.pushNamed(AuthenticationRouterNames.authenticationSignUpRouteName,
+                    extra: AddUserActionEnum.SignUp);
               },
               child: const Text('Sign Up'),
             ),

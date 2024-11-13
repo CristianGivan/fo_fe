@@ -45,7 +45,7 @@ class UserBloc extends Bloc<UserBlocEvent, UserBlocState> {
 
   Future<void> _onAddUser(AddUserBlocEvent event, Emitter<UserBlocState> emit) async {
     emit(UserLoadingBlocState());
-    final failureOrSuccess = await addUser(AddUserParams(user: event.user));
+    final failureOrSuccess = await addUser(UserParams(user: event.user));
     failureOrSuccess.fold(
       (failure) => emit(UserErrorBlocState(_mapFailureToMessage(failure))),
       (success) => emit(UserSuccessBlocState(success)),

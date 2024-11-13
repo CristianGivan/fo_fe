@@ -3,6 +3,8 @@ import 'package:equatable/equatable.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/features/authentication/utils/authentication_exports.dart';
 
+import '../../../../organizer/items/user/utils/user_exports.dart';
+
 part 'authentication_bloc_sign_in_event.dart';
 part 'authentication_bloc_sign_in_state.dart';
 
@@ -19,7 +21,7 @@ class AuthenticationBlocSignIn
   Future<void> _onLogin(LoginEvent event, Emitter<AuthenticationBlocSignInState> emit) async {
     emit(AuthenticationSignInLoading());
 
-    final result = await loginUseCase(LoginParams(
+    final result = await loginUseCase(UserParams(
       email: event.email,
       password: event.password,
     ));

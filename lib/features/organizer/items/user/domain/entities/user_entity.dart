@@ -27,6 +27,9 @@ class UserEntity extends OrganizerItemEntity with EquatableMixin {
 
   factory UserEntity.empty() => UserEntity(name: "", email: "", password: "");
 
+//todo -update- to uncased password
+  String get password => HashingService.hashPassword(password);
+
   @override
   List<Object?> get props => [id, name, email, userType, hashedPassword];
 

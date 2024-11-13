@@ -1,4 +1,4 @@
-import 'package:fo_fe/features/organizer/items/user/utils/other/user_validation.dart';
+import 'package:fo_fe/features/authentication/presentation/bloc/authentication_bloc_sign_up/authentication_sign_up.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
@@ -8,6 +8,7 @@ class SignUpButtonWidget extends StatefulWidget {
   final TextEditingController nameController;
   final TextEditingController emailController;
   final TextEditingController passwordController;
+  final AddUserActionEnum action;
 
   const SignUpButtonWidget({
     Key? key,
@@ -16,6 +17,7 @@ class SignUpButtonWidget extends StatefulWidget {
     required this.nameController,
     required this.emailController,
     required this.passwordController,
+    required this.action,
   }) : super(key: key);
 
   @override
@@ -34,25 +36,37 @@ class _SignUpButtonWidgetState extends State<SignUpButtonWidget> {
         ));
   }
 
-  // todo -fix- this validation and submision shal bedon with bloc in my revouse commit but
-  //  i have to press 2 times the button
   void _validateAndSubmit() {
-    final isUserNameEmailPasswordValid = UserValidation.isUserNameEmailPasswordValid(
-      name: widget.nameController.text,
-      email: widget.emailController.text,
-      password: widget.passwordController.text,
-    );
-    if (isUserNameEmailPasswordValid) {
-      context.read<UserBloc>().add(
-            AddUserBlocEvent(
-              UserEntity(
-                name: widget.nameController.text,
-                email: widget.emailController.text,
-                password: widget.passwordController.text,
-              ),
-            ),
-          );
-      context.pop();
+    // Validate the form fields
+    if (widget.formKey.currentState!.validate()) {
+      context.read<UserValidationBloc>().add(ValidateFormBlocEvent(
+            email: widget.emailController.text,
+            password: widget.passwordController.text,
+            name: widget.nameController.text,
+          ));
+// todo -refactor- is not better tu instatiet the user here?
+      final userValidationState = context.read<UserValidationBloc>().state;
+      if (userValidationState is FormValidationBlocState && userValidationState.isFormValid) {
+        if (widget.action == AddUserActionEnum.AddUser) {
+          context.read<UserBloc>().add(
+                AddUserBlocEvent(
+                  UserEntity(
+                    name: widget.nameController.text,
+                    email: widget.emailController.text,
+                    password: widget.passwordController.text,
+                  ),
+                ),
+              );
+        } else if (widget.action == AddUserActionEnum.SignUp) {
+          context.read<AuthenticationSignUp>().add(
+                AuthSignUpBlocEvent(
+                  name: widget.nameController.text,
+                  email: widget.emailController.text,
+                  password: widget.passwordController.text,
+                ),
+              );
+        }
+      }
     }
   }
 

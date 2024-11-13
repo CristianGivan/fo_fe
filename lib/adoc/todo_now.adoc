@@ -1,12 +1,17 @@
 == Next
 
  add authentication
- understand _focusNode.hasFocus
-why I couldn use bloc in SignUpButtonWidget
+ first Id shall be 1
+ how to crete a doroping table
 
 == Now
 
 add an user to the database
+
+== Nice
+
+ understand _focusNode.hasFocus
+why I couldn use bloc in SignUpButtonWidget
 
 == Done
 

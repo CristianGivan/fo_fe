@@ -1,2 +1,19 @@
 == Commands
 
+=== SQLite:
+
+* start
+D:\dev\tools\SQLite\sqlite3.exe D:\dev\Flutter\flutterApps\fo_fe\lib\core\db\test_db\OrganizerDBDrift.sqlite
+* get all tables
+SELECT name FROM sqlite_master WHERE type='table';
+
+* get schema version of database
+PRAGMA user_version;
+
+* get everything in a table
+SELECT * FROM user_table_drift;
+
+* get everything in a table
+DROP TABLE IF EXISTS user_table_drift;
+
+
