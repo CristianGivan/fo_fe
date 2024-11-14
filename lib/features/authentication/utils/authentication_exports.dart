@@ -10,7 +10,7 @@ export '../domain/usecases/get_log_in_user_id.dart';
 export '../domain/usecases/log_in_use_case.dart';
 export '../domain/usecases/log_out.dart';
 export '../domain/usecases/refresh_token.dart';
-export '../domain/usecases/sign_up.dart';
+export '../domain/usecases/sign_up_use_case.dart';
 export '../domain/usecases/switch_user.dart';
 export '../presentation/bloc/authentication_bloc_session/authentication_bloc_session.dart';
 export '../presentation/bloc/authentication_bloc_sign_in/authentication_bloc_sign_in.dart';

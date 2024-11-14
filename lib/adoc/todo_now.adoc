@@ -1,19 +1,23 @@
 == Next
 
- add authentication
- first Id shall be 1
- how to crete a doroping table
+* update with user type sing_up
 
 == Now
 
-add an user to the database
+* GoRouter expects the data you pass in the extra parameter to be serializable, meaning it should ideally be simple types like String, int, double, or basic collections (e.g., Map or List).
+* add authentication
 
 == Nice
 
- understand _focusNode.hasFocus
-why I couldn use bloc in SignUpButtonWidget
+* understand _focusNode.hasFocus
+* why I couldn use bloc in SignUpButtonWidget
 
 == Done
 
-SignUpButtonWidget update it
-remove Navigator.pop(context) update push routes
+* how to crete a doroping table -
+** how to crete a doroping table
+* first Id shall be 1
+* add an user to the database
+* send a message if something is not valide wnr I dont have all the fuildes
+* SignUpButtonWidget update it
+* remove Navigator.pop(context) update push routes

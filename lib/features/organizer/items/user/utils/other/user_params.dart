@@ -5,6 +5,7 @@ class UserParams extends Equatable {
   final UserEntity user;
   final int userId;
   final IdSet idSet;
+  final String name;
   final String email;
   final String password;
 
@@ -12,6 +13,7 @@ class UserParams extends Equatable {
     UserEntity? user,
     this.userId = 0,
     IdSet? idSet,
+    this.name = '',
     this.email = '',
     this.password = '',
   })  : user = user ?? UserEntity.empty(),

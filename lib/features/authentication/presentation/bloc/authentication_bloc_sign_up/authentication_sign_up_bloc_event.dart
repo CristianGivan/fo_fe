@@ -8,18 +8,12 @@ abstract class AuthenticationSignUpBlocEvent extends Equatable {
 }
 
 class AuthSignUpBlocEvent extends AuthenticationSignUpBlocEvent {
-  final String name;
-  final String email;
-  final String password;
+  final UserEntity user;
 
-  const AuthSignUpBlocEvent({
-    required this.name,
-    required this.email,
-    required this.password,
-  });
+  const AuthSignUpBlocEvent({required this.user});
 
   @override
-  List<Object> get props => [name, email, password];
+  List<Object> get props => [user];
 }
 
 class EmailChanged extends AuthenticationSignUpBlocEvent {

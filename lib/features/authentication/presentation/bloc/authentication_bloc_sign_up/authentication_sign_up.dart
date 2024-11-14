@@ -66,11 +66,7 @@ class AuthenticationSignUp
       AuthSignUpBlocEvent event, Emitter<AuthenticationSignUpBlocState> emit) async {
     emit(AuthenticationSignUpLoading());
 // todo -refactor- shalll I passs SingUpParams or a suser entity
-    final result = await signUpUseCase(SignUpParams(
-      name: event.name,
-      email: event.email,
-      password: event.password,
-    ));
+    final result = await signUpUseCase(UserParams(user: event.user));
     emit(result.fold(
       (failure) => AuthenticationSignUpError(_mapFailureToMessage(failure)),
       (authEntity) => AuthenticationSignUpSuccess(authEntity: authEntity),
