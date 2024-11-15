@@ -1,8 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fo_fe/features/authentication/utils/authentication_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
-import 'package:go_router/go_router.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -48,16 +45,16 @@ class _SignInScreenState extends State<SignInScreen> {
                 },
               ),
               const SizedBox(height: 20),
-              BlocBuilder<AuthenticationBlocSignIn, AuthenticationBlocSignInState>(
+              BlocBuilder<AuthenticationSignBloc, AuthenticationSignBlocState>(
                 builder: (context, state) {
-                  if (state is AuthenticationSignInLoading) {
+                  if (state is AuthSignLoadingBlocState) {
                     return const CircularProgressIndicator();
                   }
                   return ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        context.read<AuthenticationBlocSignIn>().add(
-                              LoginEvent(
+                        context.read<AuthenticationSignBloc>().add(
+                              AuthSignInBlocEvent(
                                 email: _emailController.text,
                                 password: _passwordController.text,
                               ),
@@ -68,14 +65,14 @@ class _SignInScreenState extends State<SignInScreen> {
                   );
                 },
               ),
-              BlocListener<AuthenticationBlocSignIn, AuthenticationBlocSignInState>(
+              BlocListener<AuthenticationSignBloc, AuthenticationSignBlocState>(
                 listener: (context, state) {
-                  if (state is AuthenticationSignInError) {
+                  if (state is AuthSignErrorBlocState) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text(state.message)),
                     );
-                  } else if (state is AuthenticationSignInAuthenticated) {
-                    context.goNamed(OrganizerRouterNames.organizerRouteName);
+                  } else if (state is AuthSignInSuccessBlocState) {
+                    context.pushNamed(OrganizerRouterNames.organizerRouteName);
                   }
                 },
                 child: Container(),

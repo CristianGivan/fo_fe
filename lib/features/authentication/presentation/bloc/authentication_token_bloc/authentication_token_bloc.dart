@@ -2,16 +2,17 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/features/authentication/utils/authentication_exports.dart';
+import 'package:fo_fe/features/authentication/utils/other/auth_params.dart';
 
-part 'authentication_bloc_token_event.dart';
-part 'authentication_bloc_token_state.dart';
+part 'authentication_token_bloc_event.dart';
+part 'authentication_token_bloc_state.dart';
 
-class AuthenticationBlocToken
-    extends Bloc<AuthenticationBlocTokenEvent, AuthenticationBlocTokenState> {
-  final LogoutUseCase logoutUseCase;
+class AuthenticationTokenBloc
+    extends Bloc<AuthenticationTokenBlocEvent, AuthenticationTokenBlocState> {
+  final SignOutUseCase logoutUseCase;
   final RefreshTokenUseCase refreshTokenUseCase;
 
-  AuthenticationBlocToken({
+  AuthenticationTokenBloc({
     required this.logoutUseCase,
     required this.refreshTokenUseCase,
   }) : super(AuthenticationTokenInitial()) {
@@ -19,10 +20,10 @@ class AuthenticationBlocToken
     on<RefreshTokenBlocEvent>(_onRefreshToken);
   }
 
-  Future<void> _onLogout(LogoutBlocEvent event, Emitter<AuthenticationBlocTokenState> emit) async {
+  Future<void> _onLogout(LogoutBlocEvent event, Emitter<AuthenticationTokenBlocState> emit) async {
     emit(AuthenticationTokenLoading());
 
-    final result = await logoutUseCase(LogoutParams(authId: event.authId));
+    final result = await logoutUseCase(AuthParams(authId: event.authId));
     emit(result.fold(
       (failure) => AuthenticationTokenError(_mapFailureToMessage(failure)),
       (success) => AuthenticationTokenSuccess(),
@@ -30,7 +31,7 @@ class AuthenticationBlocToken
   }
 
   Future<void> _onRefreshToken(
-      RefreshTokenBlocEvent event, Emitter<AuthenticationBlocTokenState> emit) async {
+      RefreshTokenBlocEvent event, Emitter<AuthenticationTokenBlocState> emit) async {
     emit(AuthenticationTokenLoading());
 
     final result = await refreshTokenUseCase(RefreshTokenParams(authId: event.authId));

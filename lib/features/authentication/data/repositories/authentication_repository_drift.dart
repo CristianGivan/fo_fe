@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/utils/exports/core_utils_exports.dart';
-import 'package:fo_fe/features/authentication/utils/authentication_exports.dart';
-import 'package:fo_fe/features/organizer/items/user/domain/entities/user_entity.dart';
+
+import '../../utils/authentication_exports.dart';
 
 class AuthenticationRepositoryDrift implements AuthenticationRepository {
   final AuthenticationLocalDataSource localDataSource;
@@ -16,14 +16,13 @@ class AuthenticationRepositoryDrift implements AuthenticationRepository {
   });
 
   @override
-  Future<Either<Failure, AuthenticationEntity>> addAuthentication(
-      UserEntity user) async {
+  Future<Either<Failure, AuthenticationEntity>> addAuthentication(int userId) async {
     return _handleDatabaseOperation(() async {
       final token = TokenManager.generateToken();
       final encryptedToken = tokenManager.encryptToken(token);
 
       final authEntity = AuthenticationEntity(
-        userId: user.id,
+        userId: userId,
         token: encryptedToken,
         deviceInfo: deviceInfo.getDeviceInfo(),
         createdDate: DateTime.now(),
@@ -31,8 +30,7 @@ class AuthenticationRepositoryDrift implements AuthenticationRepository {
         lastUsedDate: DateTime.now(),
         isActive: true,
       );
-      final authCompanionDrift =
-          AuthenticationMapper.companionFromEntity(authEntity);
+      final authCompanionDrift = AuthenticationMapper.companionFromEntity(authEntity);
       await localDataSource.addAuthentication(authCompanionDrift);
       return authEntity;
     });
@@ -67,46 +65,41 @@ class AuthenticationRepositoryDrift implements AuthenticationRepository {
         expiredDate: DateTime.now().add(const Duration(days: 30)),
         refreshCount: auth.refreshCount + 1,
       );
-      final updatedAuthTable =
-          AuthenticationMapper.companionFromTableDrift(updatedAuth);
+      final updatedAuthTable = AuthenticationMapper.companionFromTableDrift(updatedAuth);
       await localDataSource.updateAuthentication(updatedAuthTable);
       return AuthenticationMapper.entityFromTableDrift(updatedAuth);
     });
   }
 
   @override
-  Future<Either<Failure, AuthenticationEntity>>
-      getActiveAuthenticationForDeviceInfo() async {
+  Future<Either<Failure, AuthenticationEntity>> getActiveAuthenticationForDeviceInfo() async {
     return _handleDatabaseOperation(() async {
-      final auth = await localDataSource
-          .getActiveAuthenticationForDeviceInfo(deviceInfo.getDeviceInfo());
+      final auth =
+          await localDataSource.getActiveAuthenticationForDeviceInfo(deviceInfo.getDeviceInfo());
       _checkItemNotNull(auth);
       return AuthenticationMapper.entityFromTableDrift(auth!);
     });
   }
 
   @override
-  Future<Either<Failure, List<AuthenticationEntity>>>
-      getAuthenticationsForDeviceInfo() async {
+  Future<Either<Failure, List<AuthenticationEntity>>> getAuthenticationsForDeviceInfo() async {
     return _handleDatabaseOperation(() async {
-      final auths = await localDataSource
-          .getAuthenticationItemsForDeviceInfo(deviceInfo.getDeviceInfo());
+      final auths =
+          await localDataSource.getAuthenticationItemsForDeviceInfo(deviceInfo.getDeviceInfo());
       _checkItemsNotNullOrEmpty(auths);
       return AuthenticationMapper.entityItemsFromTableDriftItems(auths!);
     });
   }
 
   @override
-  Future<Either<Failure, void>> updateAuthentication(
-      AuthenticationEntity auth) async {
+  Future<Either<Failure, void>> updateAuthentication(AuthenticationEntity auth) async {
     final companion = AuthenticationMapper.companionFromEntity(auth);
     return _handleDatabaseOperation(() async {
       await localDataSource.updateAuthentication(companion);
     });
   }
 
-  Future<Either<Failure, T>> _handleDatabaseOperation<T>(
-      Future<T> Function() operation) async {
+  Future<Either<Failure, T>> _handleDatabaseOperation<T>(Future<T> Function() operation) async {
     try {
       final result = await operation();
       return Right(result);

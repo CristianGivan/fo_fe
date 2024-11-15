@@ -32,6 +32,21 @@ class AuthenticationEntity extends Equatable {
         _refreshCount = refreshCount ?? 0,
         _isActive = isActive ?? false;
 
+  factory AuthenticationEntity.empty() {
+    return AuthenticationEntity(
+      id: 0,
+      userId: 0,
+      token: "",
+      deviceInfo: "",
+      createdDate: INITIAL_EPOCH_DATE,
+      expiredDate: INITIAL_EPOCH_DATE,
+      lastUsedDate: INITIAL_EPOCH_DATE,
+      refreshCount: 0,
+      isActive: false,
+    );
+  }
+
+
   int get id => _id;
 
   int get userId => _userId;

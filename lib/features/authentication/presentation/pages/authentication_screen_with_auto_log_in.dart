@@ -18,14 +18,14 @@ class _AuthenticationScreenWithAutoLogInState extends State<AuthenticationScreen
 
   void _checkAutoLogin() async {
     // Check auto-login when the screen is initialized
-    final authBloc = context.read<AuthenticationBlocSession>();
-    authBloc.add(AutoLoginBlocEvent());
+    final authBloc = context.read<AuthenticationSignBloc>();
+    authBloc.add(AuthSignInAutoBlocEvent());
 
     // Handle navigation based on authentication state
     authBloc.stream.listen((state) {
-      if (state is AuthenticationSessionAuthenticated) {
-        context.goNamed(OrganizerRouterNames.organizerRouteName);
-      } else if (state is AuthenticationSessionError) {
+      if (state is AuthSignInAutoSuccessBlocState) {
+        context.pushNamed(OrganizerRouterNames.organizerRouteName);
+      } else if (state is AuthSignErrorBlocState) {
         // Handle the error case or show an error message if necessary
         print('Error: ${state.message}');
       }
@@ -51,14 +51,14 @@ class _AuthenticationScreenWithAutoLogInState extends State<AuthenticationScreen
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                context.goNamed(AuthenticationRouterNames.authenticationSignInRouteName);
+                context.pushNamed(AuthenticationRouterNames.authenticationSignInRouteName);
               },
               child: const Text('Sign In'),
             ),
             const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {
-                context.goNamed(AuthenticationRouterNames.authenticationSignUpRouteName);
+                context.pushNamed(AuthenticationRouterNames.authenticationSignUpRouteName);
               },
               child: const Text('Sign Up'),
             ),

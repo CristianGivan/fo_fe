@@ -1,4 +1,4 @@
-import 'package:fo_fe/features/authentication/presentation/bloc/authentication_bloc_sign_up/authentication_sign_up.dart';
+import 'package:fo_fe/features/authentication/utils/authentication_exports.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/other/user_validation.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
@@ -87,9 +87,11 @@ class _SignUpButtonWidgetState extends State<SignUpButtonWidget> {
     switch (widget.action) {
       case AddUserActionEnum.AddUser:
         context.read<UserBloc>().add(AddUserBlocEvent(user));
+        context.pop();
         break;
       case AddUserActionEnum.SignUp:
-        context.read<AuthenticationSignUp>().add(AuthSignUpBlocEvent(user: user));
+        context.read<AuthenticationSignBloc>().add(AuthSignUpBlocEvent(user: user));
+        context.pushNamed(OrganizerRouterNames.organizerRoutePath);
         break;
     }
   }

@@ -1,10 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/features/authentication/domain/entities/authentication_entity.dart';
-import 'package:fo_fe/features/organizer/items/user/domain/entities/user_entity.dart';
 
 abstract class AuthenticationRepository {
-  Future<Either<Failure, AuthenticationEntity>> addAuthentication(UserEntity user);
+  Future<Either<Failure, AuthenticationEntity>> addAuthentication(int userId);
 
   Future<Either<Failure, void>> logout(int authId);
 

@@ -6,11 +6,11 @@ import 'package:fo_fe/features/authentication/utils/authentication_exports.dart'
 import 'package:fo_fe/features/organizer/items/user/utils/other/user_validation.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 
-class LoginUseCase extends UseCase<AuthenticationEntity, UserParams> {
+class SigInUseCase extends UseCase<AuthenticationEntity, UserParams> {
   final AuthenticationRepository authRepository;
   final UserRepository userRepository;
 
-  LoginUseCase(this.authRepository, this.userRepository);
+  SigInUseCase(this.authRepository, this.userRepository);
 
   @override
   Future<Either<Failure, AuthenticationEntity>> call(UserParams params) async {
@@ -28,7 +28,7 @@ class LoginUseCase extends UseCase<AuthenticationEntity, UserParams> {
     return userResult.fold(
       (failure) => Left(failure),
       (user) async {
-        return await authRepository.addAuthentication(user);
+        return await authRepository.addAuthentication(user.id);
       },
     );
   }

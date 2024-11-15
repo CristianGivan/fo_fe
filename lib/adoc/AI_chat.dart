@@ -83,8 +83,8 @@
 //     BlocProvider<AuthenticationBlocSignUp>(
 //       create: (_) => GetIt.instance<AuthenticationBlocSignUp>(),
 //     ),
-//     BlocProvider<AuthenticationBlocSignIn>(
-//       create: (_) => GetIt.instance<AuthenticationBlocSignIn>(),
+//     BlocProvider<AuthenticationSignBloc>(
+//       create: (_) => GetIt.instance<AuthenticationSignBloc>(),
 //     ),
 //   ];
 // }

@@ -1,13 +1,13 @@
-part of 'authentication_bloc_token.dart';
+part of 'authentication_token_bloc.dart';
 
-abstract class AuthenticationBlocTokenEvent extends Equatable {
-  const AuthenticationBlocTokenEvent();
+abstract class AuthenticationTokenBlocEvent extends Equatable {
+  const AuthenticationTokenBlocEvent();
 
   @override
   List<Object> get props => [];
 }
 
-class LogoutBlocEvent extends AuthenticationBlocTokenEvent {
+class LogoutBlocEvent extends AuthenticationTokenBlocEvent {
   final int authId;
 
   const LogoutBlocEvent({required this.authId});
@@ -16,7 +16,7 @@ class LogoutBlocEvent extends AuthenticationBlocTokenEvent {
   List<Object> get props => [authId];
 }
 
-class RefreshTokenBlocEvent extends AuthenticationBlocTokenEvent {
+class RefreshTokenBlocEvent extends AuthenticationTokenBlocEvent {
   final int authId;
 
   const RefreshTokenBlocEvent({required this.authId});

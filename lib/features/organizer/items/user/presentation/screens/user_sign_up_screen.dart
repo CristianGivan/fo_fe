@@ -105,7 +105,6 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
                   BlocBuilder<UserValidationBloc, UserValidationBlocState>(
                     buildWhen: (previous, current) => current is FormValidationBlocState,
                     builder: (context, state) {
-                      bool isFormValid = state is FormValidationBlocState && state.isFormValid;
                       return SignUpButtonWidget(
                         isEnabled: true,
                         formKey: _formKey,

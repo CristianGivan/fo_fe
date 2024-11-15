@@ -30,6 +30,25 @@ class UserEntity extends OrganizerItemEntity with EquatableMixin {
 //todo -update- to uncased password
   String get password => HashingService.hashPassword(password);
 
+  UserEntity copyWith({
+    int? id,
+    String? name,
+    String? email,
+    String? password,
+    DateTime? createdDate,
+    UserTypeEnum? userType,
+  }) {
+    return UserEntity(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      email: email ?? this.email,
+      //todo -fix- dont hash password 2 times
+      // password: password ?? this.password,
+      createdDate: createdDate ?? this.createdDate,
+      userType: userType ?? this.userType,
+    );
+  }
+
   @override
   List<Object?> get props => [id, name, email, userType, hashedPassword];
 

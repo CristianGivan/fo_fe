@@ -33,7 +33,8 @@ class AuthenticationAppBranch {
             path: AuthenticationRouterNames.authenticationSignUpRoutePath,
             name: AuthenticationRouterNames.authenticationSignUpRouteName,
             pageBuilder: (context, state) {
-              final AddUserActionEnum addUserAction = state.extra as AddUserActionEnum;
+              // GoRouter expects the data you pass in the extra parameter to be serializable, meaning it should ideally be simple
+              final addUserAction = addUserActionMap[state.extra]!;
               return NoTransitionPage(
                 child: UserSignUpScreen(action: addUserAction),
               );

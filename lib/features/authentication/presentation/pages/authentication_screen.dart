@@ -7,13 +7,13 @@ class AuthenticationScreen extends StatelessWidget {
   const AuthenticationScreen({super.key});
 
   void _checkAutoLogin(BuildContext context) async {
-    final authBloc = context.read<AuthenticationBlocSession>();
-    authBloc.add(AutoLoginBlocEvent());
+    final authBloc = context.read<AuthenticationSignBloc>();
+    authBloc.add(AuthSignInAutoBlocEvent());
 
     authBloc.stream.listen((state) {
-      if (state is AuthenticationSessionAuthenticated) {
-        context.goNamed(OrganizerRouterNames.organizerRouteName);
-      } else if (state is AuthenticationSessionError) {
+      if (state is AuthSignInAutoSuccessBlocState) {
+        context.pushNamed(OrganizerRouterNames.organizerRouteName);
+      } else if (state is AuthSignErrorBlocState) {
         // Handle the error case or show an error message if necessary
         print('Error: ${state.message}');
       }
@@ -47,7 +47,7 @@ class AuthenticationScreen extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 context.pushNamed(AuthenticationRouterNames.authenticationSignUpRouteName,
-                    extra: AddUserActionEnum.SignUp);
+                    extra: addUserActionMapToString[AddUserActionEnum.SignUp]);
               },
               child: const Text('Sign Up'),
             ),

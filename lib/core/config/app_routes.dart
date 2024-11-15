@@ -16,8 +16,8 @@ final _errorShellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'error');
 class AppRouter {
   static GoRouter returnRouter() {
     return GoRouter(
-      // initialLocation: "/",
-      initialLocation: OrganizerRouterNames.organizerRoutePath,
+      initialLocation: "/",
+      // initialLocation: OrganizerRouterNames.organizerRoutePath,
       debugLogDiagnostics: true,
       routes: [
         StatefulShellRoute.indexedStack(

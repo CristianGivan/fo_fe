@@ -4,17 +4,11 @@ import 'package:get_it/get_it.dart';
 
 List<BlocProvider> getAuthenticationBlocProviders() {
   return [
-    BlocProvider<AuthenticationBlocSession>(
-      create: (_) => GetIt.instance<AuthenticationBlocSession>(),
+    BlocProvider<AuthenticationSignBloc>(
+      create: (_) => GetIt.instance<AuthenticationSignBloc>(),
     ),
-    BlocProvider<AuthenticationBlocToken>(
-      create: (_) => GetIt.instance<AuthenticationBlocToken>(),
-    ),
-    BlocProvider<AuthenticationSignUp>(
-      create: (_) => GetIt.instance<AuthenticationSignUp>(),
-    ),
-    BlocProvider<AuthenticationBlocSignIn>(
-      create: (_) => GetIt.instance<AuthenticationBlocSignIn>(),
+    BlocProvider<AuthenticationTokenBloc>(
+      create: (_) => GetIt.instance<AuthenticationTokenBloc>(),
     ),
   ];
 }

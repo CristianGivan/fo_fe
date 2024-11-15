@@ -20,7 +20,7 @@ class UserManagementActionsPage extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () => context.pushNamed(
                     UserRouterNames.userAddRouteName,
-                    extra: AddUserActionEnum.AddUser,
+                    extra: addUserActionMapToString[AddUserActionEnum.AddUser],
                   ),
                   child: const Text('Add User'),
                 ),

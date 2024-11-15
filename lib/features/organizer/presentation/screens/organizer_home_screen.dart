@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fo_fe/features/app_home/presentation/app_bar_widget.dart';
 import 'package:fo_fe/features/authentication/utils/authentication_exports.dart';
 import 'package:fo_fe/features/organizer/items/reminder/utils/config/reminder_route_names.dart';
 import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
@@ -14,37 +13,7 @@ class OrganizerHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: BlocBuilder<AuthenticationBlocSession, AuthenticationBlocSessionState>(
-          builder: (context, state) {
-            if (state is AuthenticationSessionAuthenticated) {
-              return Text('Welcome, authId: ${state.authEntity.id},'
-                  'userId: ${state.authEntity.userId}');
-            } else if (state is AuthenticationSessionLoading) {
-              return const CircularProgressIndicator();
-            } else {
-              return const Text('Organizer');
-            }
-          },
-        ),
-        actions: [
-          BlocBuilder<AuthenticationBlocSession, AuthenticationBlocSessionState>(
-            builder: (context, state) {
-              if (state is AuthenticationSessionAuthenticated) {
-                return IconButton(
-                  icon: const Icon(Icons.logout),
-                  onPressed: () {
-                    context.read<AuthenticationBlocToken>().add(
-                          LogoutBlocEvent(authId: state.authEntity.id),
-                        );
-                    context.pushNamed(AuthenticationRouterNames.authenticationRouteName);
-                  },
-                );
-              } else {
-                return Container();
-              }
-            },
-          ),
-        ],
+        title: const AppBarWidget(title: 'Organizer'),
       ),
       body: Column(
         children: [

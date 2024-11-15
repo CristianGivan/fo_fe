@@ -22,30 +22,25 @@ void authenticationInit() {
   );
 
   // Register UseCases
-  sl.registerLazySingleton(() => LoginUseCase(sl(), sl()));
-  sl.registerLazySingleton(() => LogoutUseCase(sl()));
+  sl.registerLazySingleton(() => SigInUseCase(sl(), sl()));
+  sl.registerLazySingleton(() => SignOutUseCase(sl()));
   sl.registerLazySingleton(() => RefreshTokenUseCase(sl()));
-  sl.registerLazySingleton(() => AutoLoginUseCase(sl()));
-  sl.registerLazySingleton(() => GetLoggedInUserIdUseCase(sl()));
+  sl.registerLazySingleton(() => SignInAutoUseCase(sl()));
+  sl.registerLazySingleton(() => GetSignInUserIdUseCase(sl()));
   sl.registerLazySingleton(() => SwitchUserUseCase(sl()));
   sl.registerLazySingleton(() => SignUpUseCase(sl(), sl()));
 
   // Register BLoCs
-  sl.registerFactory(() => AuthenticationBlocSession(
-        autoLoginUseCase: sl<AutoLoginUseCase>(),
-        getLoggedInUserIdUseCase: sl<GetLoggedInUserIdUseCase>(),
-        switchUserUseCase: sl<SwitchUserUseCase>(),
-      ));
-  sl.registerFactory(() => AuthenticationBlocToken(
-        logoutUseCase: sl<LogoutUseCase>(),
-        refreshTokenUseCase: sl<RefreshTokenUseCase>(),
-      ));
-  //todo - fix- check if is correct
-  sl.registerFactory(() => AuthenticationSignUp(
+  sl.registerFactory(() => AuthenticationSignBloc(
         signUpUseCase: sl<SignUpUseCase>(),
-        userValidationBloc: sl(),
+        sigInUseCase: sl<SigInUseCase>(),
+        signInAutoUseCase: sl<SignInAutoUseCase>(),
+        signOutUseCase: sl<SignOutUseCase>(),
+        switchUserUseCase: sl<SwitchUserUseCase>(),
+        getLoggedInUserIdUseCase: sl<GetSignInUserIdUseCase>(),
       ));
-  sl.registerFactory(() => AuthenticationBlocSignIn(
-        loginUseCase: sl<LoginUseCase>(),
+  sl.registerFactory(() => AuthenticationTokenBloc(
+        logoutUseCase: sl<SignOutUseCase>(),
+        refreshTokenUseCase: sl<RefreshTokenUseCase>(),
       ));
 }
