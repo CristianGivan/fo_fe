@@ -31,8 +31,8 @@ class AuthenticationRepositoryDrift implements AuthenticationRepository {
         isActive: true,
       );
       final authCompanionDrift = AuthenticationMapper.companionFromEntity(authEntity);
-      await localDataSource.addAuthentication(authCompanionDrift);
-      return authEntity;
+      final authId = await localDataSource.addAuthentication(authCompanionDrift);
+      return authEntity.copyWith(id: authId);
     });
   }
 

@@ -4,9 +4,12 @@
 * * update all state.extra GoRouter expects the data you pass in the extra parameter to be serializable, meaning
 it should ideally be simple types like String, int, double, or basic collections (e.g., Map or List).
 * todo -fix- dont hash password 2 times
+
 * update add user not dupicate
-* tyo don't have the a new authentication eache log in
+
 == Now
+
+* tyo don't have the a new authentication eache log in
 
 == Nice
 

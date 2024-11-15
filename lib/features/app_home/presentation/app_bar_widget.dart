@@ -20,8 +20,7 @@ class AppBarWidget extends StatelessWidget {
             } else if (state is AuthSignInSuccessBlocState) {
               return _buildAuthenticatedTitle(context, state.authEntity);
             } else if (state is AuthSignUpSuccessBlocState) {
-              return _buildAuthenticatedTitle(
-                  context, (state as AuthSignUpSuccessBlocState).authEntity);
+              return _buildAuthenticatedTitle(context, state.authEntity);
             } else if (state is AuthSignLoadingBlocState) {
               return const CircularProgressIndicator();
             } else {

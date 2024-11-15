@@ -1,8 +1,7 @@
 import 'package:fo_fe/core/db/drift/authentication_drift_db.dart';
 import 'package:fo_fe/features/authentication/utils/authentication_exports.dart';
 
-class AuthenticationLocalDataSourceDrift
-    implements AuthenticationLocalDataSource {
+class AuthenticationLocalDataSourceDrift implements AuthenticationLocalDataSource {
   final AuthenticationDriftDB database;
 
   AuthenticationLocalDataSourceDrift({required this.database});
@@ -13,10 +12,8 @@ class AuthenticationLocalDataSourceDrift
   }
 
   @override
-  Future<AuthenticationTableDriftG?> getAuthenticationByUserId(
-      int userId) async {
-    return await database.authenticationDaoDrift
-        .getAuthenticationByUserId(userId);
+  Future<AuthenticationTableDriftG?> getAuthenticationByUserId(int userId) async {
+    return await database.authenticationDaoDrift.getAuthenticationByUserId(userId);
   }
 
   @override
@@ -25,14 +22,12 @@ class AuthenticationLocalDataSourceDrift
   }
 
   @override
-  Future<void> addAuthentication(
-      AuthenticationTableDriftCompanion companion) async {
-    await database.authenticationDaoDrift.addAuthentication(companion);
+  Future<int> addAuthentication(AuthenticationTableDriftCompanion companion) async {
+    return await database.authenticationDaoDrift.addAuthentication(companion);
   }
 
   @override
-  Future<void> updateAuthentication(
-      AuthenticationTableDriftCompanion companion) async {
+  Future<void> updateAuthentication(AuthenticationTableDriftCompanion companion) async {
     await database.authenticationDaoDrift.updateAuthentication(companion);
   }
 
@@ -47,16 +42,13 @@ class AuthenticationLocalDataSourceDrift
   }
 
   @override
-  Future<AuthenticationTableDriftG?> getActiveAuthenticationForDeviceInfo(
-      String deviceInfo) async {
-    return await database.authenticationDaoDrift
-        .getActiveAuthenticationForDeviceInfo(deviceInfo);
+  Future<AuthenticationTableDriftG?> getActiveAuthenticationForDeviceInfo(String deviceInfo) async {
+    return await database.authenticationDaoDrift.getActiveAuthenticationForDeviceInfo(deviceInfo);
   }
 
   @override
   Future<List<AuthenticationTableDriftG>?> getAuthenticationItemsForDeviceInfo(
       String deviceInfo) async {
-    return await database.authenticationDaoDrift
-        .getAuthenticationsForDeviceInfo(deviceInfo);
+    return await database.authenticationDaoDrift.getAuthenticationsForDeviceInfo(deviceInfo);
   }
 }

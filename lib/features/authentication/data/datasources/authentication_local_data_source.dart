@@ -7,19 +7,15 @@ abstract class AuthenticationLocalDataSource {
 
   Future<List<AuthenticationTableDriftG>> getAllAuthentications();
 
-  Future<void> addAuthentication(
-      AuthenticationTableDriftCompanion autehnticationCompanion);
+  Future<int> addAuthentication(AuthenticationTableDriftCompanion authenticationCompanion);
 
-  Future<void> updateAuthentication(
-      AuthenticationTableDriftCompanion autehnticationCompanion);
+  Future<void> updateAuthentication(AuthenticationTableDriftCompanion authenticationCompanion);
 
   Future<void> deleteAuthenticationById(int id);
 
   Future<void> deleteAuthenticationByUserId(int userId);
 
-  Future<AuthenticationTableDriftG?> getActiveAuthenticationForDeviceInfo(
-      String deviceInfo);
+  Future<AuthenticationTableDriftG?> getActiveAuthenticationForDeviceInfo(String deviceInfo);
 
-  Future<List<AuthenticationTableDriftG>?> getAuthenticationItemsForDeviceInfo(
-      String deviceInfo);
+  Future<List<AuthenticationTableDriftG>?> getAuthenticationItemsForDeviceInfo(String deviceInfo);
 }
