@@ -3,7 +3,7 @@
 // import 'package:fo_fe/core/config/app_init.dart';
 // import 'package:fo_fe/core/del/stateful_route_shell_old.dart';
 // import 'package:fo_fe/core/themes/app_themes.dart';
-// import 'package:fo_fe/features/authentication/config/authentication_exports.dart';
+// import 'package:fo_fe/features/auth/config/auth_exports.dart';
 // import 'package:fo_fe/features/organizer/config/organizer_exports.dart';
 // import 'package:fo_fe/features/organizer/items/task/presentation/logic/task_bloc/task_user_link_bloc.dart';
 // import 'package:fo_fe/try/UI/add_task_screen.dart';
@@ -48,7 +48,7 @@
 //   return MultiBlocProvider(
 //     providers: [
 //       ...getOrganizerBlocProviders(),
-//       ...getAuthenticationBlocProviders()
+//       ...getAuthBlocProviders()
 //     ],
 //     child: child,
 //   );
@@ -72,19 +72,19 @@
 //   ];
 // }
 //
-// List<BlocProvider> getAuthenticationBlocProviders() {
+// List<BlocProvider> getAuthBlocProviders() {
 //   return [
-//     BlocProvider<AuthenticationBlocSession>(
-//       create: (_) => GetIt.instance<AuthenticationBlocSession>(),
+//     BlocProvider<AuthBlocSession>(
+//       create: (_) => GetIt.instance<AuthBlocSession>(),
 //     ),
-//     BlocProvider<AuthenticationBlocToken>(
-//       create: (_) => GetIt.instance<AuthenticationBlocToken>(),
+//     BlocProvider<AuthBlocToken>(
+//       create: (_) => GetIt.instance<AuthBlocToken>(),
 //     ),
-//     BlocProvider<AuthenticationBlocSignUp>(
-//       create: (_) => GetIt.instance<AuthenticationBlocSignUp>(),
+//     BlocProvider<AuthBlocSignUp>(
+//       create: (_) => GetIt.instance<AuthBlocSignUp>(),
 //     ),
-//     BlocProvider<AuthenticationSignBloc>(
-//       create: (_) => GetIt.instance<AuthenticationSignBloc>(),
+//     BlocProvider<AuthSignBloc>(
+//       create: (_) => GetIt.instance<AuthSignBloc>(),
 //     ),
 //   ];
 // }
@@ -99,7 +99,7 @@
 //   static GoRouter returnRouter() {
 //     GoRouter router = GoRouter(
 //       initialLocation:
-//           AuthenticationRouterNames.authenticationWithAutoLogInRoute,
+//           AuthRouterNames.authWithAutoLogInRoute,
 //       debugLogDiagnostics: true,
 //       routes: [
 //         StatefulShellRoute.indexedStack(
@@ -110,7 +110,7 @@
 //           },
 //           branches: [
 //             OrganizerAppBranch.branch(_organizerShellNavigatorKey),
-//             AuthenticationAppBranch.branch(_authShellNavigatorKey),
+//             AuthAppBranch.branch(_authShellNavigatorKey),
 //           ],
 //         ),
 //       ],
@@ -159,7 +159,7 @@
 //   }
 // }
 //
-// class AuthenticationAppBranch {
+// class AuthAppBranch {
 //   static StatefulShellBranch branch(GlobalKey<NavigatorState> navigatorKey) {
 //     return StatefulShellBranch(
 //       navigatorKey: navigatorKey,
@@ -171,31 +171,31 @@
 //
 //   static GoRoute route() {
 //     return GoRoute(
-//       name: AuthenticationRouterNames.authenticationRoute,
-//       path: '/authentication',
+//       name: AuthRouterNames.authRoute,
+//       path: '/auth',
 //       pageBuilder: (context, state) => NoTransitionPage(
-//         child: AuthenticationScreen(),
+//         child: AuthScreen(),
 //       ),
 //       routes: [
 //         GoRoute(
-//           name: AuthenticationRouterNames.signInRoute,
+//           name: AuthRouterNames.signInRoute,
 //           path: 'sign-in',
 //           pageBuilder: (context, state) => NoTransitionPage(
 //             child: SignInScreen(),
 //           ),
 //         ),
 //         GoRoute(
-//           name: AuthenticationRouterNames.signUpRoute,
+//           name: AuthRouterNames.signUpRoute,
 //           path: 'sign-up',
 //           pageBuilder: (context, state) => NoTransitionPage(
 //             child: SignUpScreen(),
 //           ),
 //         ),
 //         GoRoute(
-//           name: AuthenticationRouterNames.authenticationWithAutoLogInRoute,
-//           path: 'authenticationWithAutoLogIn',
+//           name: AuthRouterNames.authWithAutoLogInRoute,
+//           path: 'authWithAutoLogIn',
 //           pageBuilder: (context, state) => NoTransitionPage(
-//             child: AuthenticationScreenWithAutoLogIn(),
+//             child: AuthScreenWithAutoLogIn(),
 //           ),
 //         )
 //       ],

@@ -1,7 +1,7 @@
 Context is an organizer app, this app is in Flutter Dart it will be use on all platforms and I want to use Clean Architecture for this Use BLoc and GetIt and I use Drift for database. In the project I have the following items Note Task User Tag Reminder, and Note and Task can have tags, reminder and users
 
 Home
-- Authentication [Sign-in, Sign-up, AutoLogIn]
+- Auth [Sign-in, Sign-up, AutoLogIn]
 - Organizer [Task, Note, Tag, Reminder, User]
 - Practice [Games, Practice, Test]
 - Settings [Display, View]

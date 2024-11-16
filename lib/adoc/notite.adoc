@@ -12,9 +12,9 @@ List<TaskEntity> sau TaskEntities as a list
 A user shall have a name, email, password,created date.
 A User can have a user list, when a user want to pick a to be added to a task reminder or other then shall be chose from this list. If it is not in the list it can be added
 
-=== Authentication
+=== Auth
 
-authentication must have:
+auth must have:
 id, userId, token, deviceInfo, createdDate, expiredDate, lastUsedDate, isActive
 
 events:
@@ -39,7 +39,7 @@ the encription and decryption shall be done in datasource or repository?
 if I have so much logic in repository what logic shall I have on usecase?
 what do you think is the difference between deviceUser and deviceInfo? should I concatenate all the info in one field?
 this refreshToken will be called by user or automathicaly ? if is authomaticaly then why I have expiration date?
-getActiveAuthenticationForDevice or better getActiveAuthenticationForUserDevice? or better deviceInfo and deviceUserr
+getActiveAuthForDevice or better getActiveAuthForUserDevice? or better deviceInfo and deviceUserr
 
 usecase
 auto_log_in

@@ -7,17 +7,14 @@ class ScaffoldWithNestedNavigation extends StatefulWidget {
   const ScaffoldWithNestedNavigation({
     Key? key,
     required this.navigationShell,
-  }) : super(
-            key: key ?? const ValueKey<String>('ScaffoldWithNestedNavigation'));
+  }) : super(key: key ?? const ValueKey<String>('ScaffoldWithNestedNavigation'));
   final StatefulNavigationShell navigationShell;
 
   @override
-  State<ScaffoldWithNestedNavigation> createState() =>
-      _ScaffoldWithNestedNavigationState();
+  State<ScaffoldWithNestedNavigation> createState() => _ScaffoldWithNestedNavigationState();
 }
 
-class _ScaffoldWithNestedNavigationState
-    extends State<ScaffoldWithNestedNavigation> {
+class _ScaffoldWithNestedNavigationState extends State<ScaffoldWithNestedNavigation> {
   bool showMenu = false;
 
   void _goBranch(int index) {
@@ -37,8 +34,7 @@ class _ScaffoldWithNestedNavigationState
       if (showMenu) {
         if (constraints.maxWidth < 800) {
           return Padding(
-            padding: MediaQuery.of(context)
-                .viewInsets, // Adjust the padding as needed
+            padding: MediaQuery.of(context).viewInsets, // Adjust the padding as needed
             child: ScaffoldWithNavigationBar(
               body: widget.navigationShell,
               selectedIndex: widget.navigationShell.currentIndex,
@@ -138,13 +134,11 @@ class ScaffoldWithNavigationRail extends StatelessWidget {
             labelType: NavigationRailLabelType.all,
             destinations: const <NavigationRailDestination>[
               NavigationRailDestination(
-                  label: Text(RouteCoreConstants.homeMenuName),
-                  icon: Icon(Icons.home)),
+                  label: Text(RouteCoreConstants.homeMenuName), icon: Icon(Icons.home)),
               NavigationRailDestination(
-                  label: Text(RouteCoreConstants.settingsMenuName),
-                  icon: Icon(Icons.settings)),
+                  label: Text(RouteCoreConstants.settingsMenuName), icon: Icon(Icons.settings)),
               // NavigationRailDestination(
-              //     label: Text(RouteCoreConstants.authenticationRouteName),
+              //     label: Text(RouteCoreConstants.authRouteName),
               //     icon: Icon(Icons.login)),
             ],
           ),

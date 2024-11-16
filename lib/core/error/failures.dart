@@ -45,8 +45,8 @@ class NetworkFailure extends Failure {
   const NetworkFailure(String super.message);
 }
 
-class AuthenticationNotFoundFailure extends Failure {
-  const AuthenticationNotFoundFailure(String super.message);
+class AuthNotFoundFailure extends Failure {
+  const AuthNotFoundFailure(String super.message);
 }
 
 class TaskNotFoundFailure extends Failure {
@@ -61,12 +61,12 @@ class DatabaseFailure extends Failure {
   const DatabaseFailure(String super.message);
 }
 
-class ReauthenticationRequiredFailure extends Failure {
-  const ReauthenticationRequiredFailure(String super.message);
+class ReauthRequiredFailure extends Failure {
+  const ReauthRequiredFailure(String super.message);
 }
 
-class AuthenticationFailure extends Failure {
-  const AuthenticationFailure(String super.message);
+class AuthFailure extends Failure {
+  const AuthFailure(String super.message);
 }
 
 class NoActiveSessionFailure extends Failure {

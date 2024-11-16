@@ -1,5 +1,5 @@
-export 'authentication/authentication_dao_drift.dart';
-export 'authentication/authentication_table_drift.dart';
+export 'auth/auth_dao_drift.dart';
+export 'auth/auth_table_drift.dart';
 export 'drift_db_init.dart';
 export 'organizer/organizer_item/organizer_item_dao_drift.dart';
 export 'organizer/organizer_item/organizer_item_table_drift.dart';

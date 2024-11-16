@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fo_fe/features/authentication/utils/authentication_exports.dart';
+import 'package:fo_fe/features/auth/utils/auth_exports.dart';
 import 'package:go_router/go_router.dart';
 
 class AppBarWidget extends StatelessWidget {
@@ -13,7 +13,7 @@ class AppBarWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        BlocBuilder<AuthenticationSignBloc, AuthenticationSignBlocState>(
+        BlocBuilder<AuthSignBloc, AuthSignBlocState>(
           builder: (context, state) {
             if (state is AuthSignInAutoSuccessBlocState) {
               return _buildAuthenticatedTitle(context, state.authEntity);
@@ -28,7 +28,7 @@ class AppBarWidget extends StatelessWidget {
             }
           },
         ),
-        BlocBuilder<AuthenticationSignBloc, AuthenticationSignBlocState>(
+        BlocBuilder<AuthSignBloc, AuthSignBlocState>(
           builder: (context, state) {
             if (state is AuthSignInAutoSuccessBlocState ||
                 state is AuthSignInSuccessBlocState ||
@@ -37,7 +37,7 @@ class AppBarWidget extends StatelessWidget {
               return IconButton(
                 icon: const Icon(Icons.logout),
                 onPressed: () {
-                  context.read<AuthenticationSignBloc>().add(
+                  context.read<AuthSignBloc>().add(
                         AuthSignOutBlocEvent(authId: authEntity.id),
                       );
                   context.pushNamed(AuthRouterNames.authRouteName);

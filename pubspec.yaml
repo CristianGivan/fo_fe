@@ -32,8 +32,8 @@ dependencies:
   #    path: packages/organizer
   #  user_repository:
   #    path: packages/user_repository
-  #  authentication:
-  #    path: packages/authentication
+  #  auth:
+  #    path: packages/auth
   #  tasks:
   #     path: packages/tasks
 

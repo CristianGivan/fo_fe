@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class HomePage extends StatefulWidget {
@@ -82,9 +81,9 @@ class _HomePageState extends State<HomePage> {
             ),
             MaterialButton(
               onPressed: () {
-                context.pushNamed('/authentication');
+                context.pushNamed('/auth');
               },
-              child: const Text('Go to authentication'),
+              child: const Text('Go to auth'),
             ),
           ],
         ),

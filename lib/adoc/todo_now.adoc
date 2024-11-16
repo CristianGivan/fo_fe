@@ -7,22 +7,22 @@ it should ideally be simple types like String, int, double, or basic collections
 
 * update add user not dupicate
 
-* update all Authentication with Auth
-* increment of usedCount
+* update all Auth with Auth
+* dont incres the count if you are authenticated and try to reauthenticate with the same user
 
 == Now
 
-* update AuthenticationEntity
-
 == Nice
 
-* add authentication
+* add auth
 * understand _focusNode.hasFocus
 * why I couldn use bloc in SignUpButtonWidget
 
 == Done
 
-* tyo don't have the a new authentication eache log in
+* update AuthEntity
+* increment of usedCount
+* tyo don't have the a new auth eache log in
 * how to crete a doroping table -
 ** how to crete a doroping table
 * first Id shall be 1
