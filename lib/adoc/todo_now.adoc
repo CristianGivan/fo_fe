@@ -1,25 +1,17 @@
 == Next
 
 * update with user type sing_up
-* * update all state.extra GoRouter expects the data you pass in the extra parameter to be serializable, meaning
-it should ideally be simple types like String, int, double, or basic collections (e.g., Map or List).
 * todo -fix- dont hash password 2 times
-
-* update add user not dupicate
-
-* update all Auth with Auth
-* dont incres the count if you are authenticated and try to reauthenticate with the same user
 
 == Now
 
-== Nice
+* update add user not dupicate
 
-* add auth
-* understand _focusNode.hasFocus
-* why I couldn use bloc in SignUpButtonWidget
+== Nice
 
 == Done
 
+* update all Auth with Auth
 * update AuthEntity
 * increment of usedCount
 * tyo don't have the a new auth eache log in

@@ -10,3 +10,17 @@
 - [ ] should not have a different DB for Autehtntication?
 - [ ] hassed passord is checke ok at logIn usecase
 - [ ] te log in is not working have a new auth is done when log in
+
+== Learning
+
+- [ ] understand _focusNode.hasFocus
+- [ ]  why I couldn use bloc in SignUpButtonWidget
+
+=== Navigation
+
+- [ ] update all state.extra GoRouter expects the data you pass in the extra parameter to be  serializable, meaning it should ideally be simple types like String, int, double, or basic collections (e.g., Map or List).
+- [ ] update the navigations authentification
+
+=== Authentification
+
+- [ ] dont increment the count if you are authenticated and try to reauthenticate with the same user
