@@ -63,11 +63,16 @@ class AuthenticationSignBloc
   Future<void> _signInAutoUseCase(
       AuthSignInAutoBlocEvent event, Emitter<AuthenticationSignBlocState> emit) async {
     emit(AuthSignLoadingBlocState());
-
     final result = await signInAutoUseCase(NoParams());
     emit(result.fold(
       (failure) => AuthSignErrorBlocState(_mapFailureToMessage(failure)),
-      (authEntity) => AuthSignInAutoSuccessBlocState(authEntity: authEntity),
+      (authEntity) {
+        if (authEntity.isEmpty()) {
+          return const AuthSignFailedBlocState('Token Expired');
+        } else {
+          return AuthSignInAutoSuccessBlocState(authEntity: authEntity);
+        }
+      },
     ));
   }
 
@@ -97,7 +102,7 @@ class AuthenticationSignBloc
       AuthSwitchUserBlocEvent event, Emitter<AuthenticationSignBlocState> emit) async {
     emit(AuthSignLoadingBlocState());
 
-    final result = await switchUserUseCase(SwitchUserParams(userId: event.userId));
+    final result = await switchUserUseCase(AuthParams(userId: event.userId));
     emit(result.fold(
       (failure) => AuthSignErrorBlocState(_mapFailureToMessage(failure)),
       (authEntity) => AuthSignInAutoSuccessBlocState(authEntity: authEntity),

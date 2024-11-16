@@ -14,7 +14,7 @@ class AuthenticationTokenLoading extends AuthenticationTokenBlocState {}
 class AuthenticationTokenSuccess extends AuthenticationTokenBlocState {}
 
 class AuthenticationTokenAuthenticated extends AuthenticationTokenBlocState {
-  final AuthenticationEntity authEntity;
+  final AuthEntity authEntity;
 
   const AuthenticationTokenAuthenticated({required this.authEntity});
 

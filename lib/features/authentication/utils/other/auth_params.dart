@@ -2,17 +2,19 @@ import 'package:fo_fe/features/authentication/domain/entities/authentication_ent
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class AuthParams extends Equatable {
-  final AuthenticationEntity auth;
+  final AuthEntity auth;
   final int authId;
+  final int userId;
   final IdSet idSet;
 
   AuthParams({
-    AuthenticationEntity? auth,
+    AuthEntity? auth,
     this.authId = 0,
+    this.userId = 0,
     IdSet? idSet,
-  })  : auth = auth ?? AuthenticationEntity.empty(),
+  })  : auth = auth ?? AuthEntity.empty(),
         idSet = idSet ?? IdSet.empty();
 
   @override
-  List<Object?> get props => [auth, authId, idSet];
+  List<Object?> get props => [auth, authId, userId, idSet];
 }

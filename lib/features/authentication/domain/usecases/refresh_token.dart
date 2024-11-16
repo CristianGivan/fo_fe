@@ -1,27 +1,16 @@
 import 'package:dartz/dartz.dart';
-import 'package:equatable/equatable.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/usecase/usecase.dart';
 import 'package:fo_fe/features/authentication/utils/authentication_exports.dart';
+import 'package:fo_fe/features/authentication/utils/other/auth_params.dart';
 
-class RefreshTokenUseCase
-    extends UseCase<AuthenticationEntity, RefreshTokenParams> {
-  final AuthenticationRepository authRepository;
+class RefreshTokenUseCase extends UseCase<AuthEntity, AuthParams> {
+  final AuthRepository authRepository;
 
   RefreshTokenUseCase(this.authRepository);
 
   @override
-  Future<Either<Failure, AuthenticationEntity>> call(
-      RefreshTokenParams params) async {
+  Future<Either<Failure, AuthEntity>> call(AuthParams params) async {
     return await authRepository.refreshToken(params.authId);
   }
-}
-
-class RefreshTokenParams extends Equatable {
-  final int authId;
-
-  const RefreshTokenParams({required this.authId});
-
-  @override
-  List<Object?> get props => [authId];
 }

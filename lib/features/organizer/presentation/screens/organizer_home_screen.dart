@@ -48,7 +48,7 @@ class OrganizerHomeScreen extends StatelessWidget {
           const SizedBox(height: 10),
           Center(
             child: ElevatedButton(
-              onPressed: () => context.pushNamed(AuthenticationRouterNames.authenticationRouteName),
+              onPressed: () => context.pushNamed(AuthRouterNames.authRouteName),
               child: const Text('Authentication'),
             ),
           ),

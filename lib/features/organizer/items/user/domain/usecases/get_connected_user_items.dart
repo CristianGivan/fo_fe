@@ -8,13 +8,13 @@ import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class GetConnectedUserItems extends UseCase<OrganizerItems<UserEntity>, NoParams> {
   final UserRepository repository;
-  final AuthenticationRepository authenticationRepository;
+  final AuthRepository authenticationRepository;
 
   GetConnectedUserItems(this.repository, this.authenticationRepository);
 
   @override
   Future<Either<Failure, OrganizerItems<UserEntity>>> call(NoParams params) async {
-    final result = await authenticationRepository.getActiveAuthenticationForDeviceInfo();
+    final result = await authenticationRepository.getActiveAuthForDeviceInfo();
     return result.fold((failure) => Left(failure),
         (auth) async => repository.getConnectedUserItemsByUserId(auth.userId));
   }

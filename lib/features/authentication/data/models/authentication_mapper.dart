@@ -3,8 +3,7 @@ import 'package:fo_fe/core/db/drift/authentication_drift_db.dart';
 import 'package:fo_fe/features/authentication/utils/authentication_exports.dart';
 
 class AuthenticationMapper {
-  static AuthenticationTableDriftCompanion companionFromEntity(
-      AuthenticationEntity entity) {
+  static AuthenticationTableDriftCompanion companionFromEntity(AuthEntity entity) {
     return AuthenticationTableDriftCompanion(
       userId: Value(entity.userId),
       token: Value(entity.token),
@@ -12,7 +11,7 @@ class AuthenticationMapper {
       createdDate: Value(entity.createdDate),
       expiredDate: Value(entity.expiredDate),
       lastUsedDate: Value(entity.lastUsedDate),
-      refreshCount: Value(entity.refreshCount),
+      refreshCount: Value(entity.usedCount),
       isActive: Value(entity.isActive),
     );
   }
@@ -32,9 +31,8 @@ class AuthenticationMapper {
     );
   }
 
-  static AuthenticationEntity entityFromTableDrift(
-      AuthenticationTableDriftG data) {
-    return AuthenticationEntity(
+  static AuthEntity entityFromTableDrift(AuthenticationTableDriftG data) {
+    return AuthEntity(
       id: data.id,
       userId: data.userId,
       token: data.token,
@@ -42,7 +40,7 @@ class AuthenticationMapper {
       createdDate: data.createdDate,
       expiredDate: data.expiredDate,
       lastUsedDate: data.lastUsedDate,
-      refreshCount: data.refreshCount,
+      usedCount: data.refreshCount,
       isActive: data.isActive,
     );
   }
@@ -62,8 +60,7 @@ class AuthenticationMapper {
     );
   }
 
-  static List<AuthenticationEntity> entityItemsFromTableDriftItems(
-      List<AuthenticationTableDriftG> items) {
+  static List<AuthEntity> entityItemsFromTableDriftItems(List<AuthenticationTableDriftG> items) {
     return items.map(entityFromTableDrift).toList();
   }
 }

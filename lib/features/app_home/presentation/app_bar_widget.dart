@@ -40,7 +40,7 @@ class AppBarWidget extends StatelessWidget {
                   context.read<AuthenticationSignBloc>().add(
                         AuthSignOutBlocEvent(authId: authEntity.id),
                       );
-                  context.pushNamed(AuthenticationRouterNames.authenticationRouteName);
+                  context.pushNamed(AuthRouterNames.authRouteName);
                 },
               );
             } else {
@@ -52,7 +52,7 @@ class AppBarWidget extends StatelessWidget {
     );
   }
 
-  Widget _buildAuthenticatedTitle(BuildContext context, AuthenticationEntity authEntity) {
+  Widget _buildAuthenticatedTitle(BuildContext context, AuthEntity authEntity) {
     return Text('Welcome, authId: ${authEntity.id}, userId: ${authEntity.userId}');
   }
 }

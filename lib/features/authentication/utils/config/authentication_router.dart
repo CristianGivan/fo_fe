@@ -16,22 +16,22 @@ class AuthenticationAppBranch {
 
   static GoRoute route() {
     return GoRoute(
-      name: AuthenticationRouterNames.authenticationRouteName,
-      path: AuthenticationRouterNames.authenticationRoutePath,
+      name: AuthRouterNames.authRouteName,
+      path: AuthRouterNames.authRoutePath,
       pageBuilder: (context, state) => const NoTransitionPage(
         child: AuthenticationScreen(),
       ),
       routes: [
         GoRoute(
-          path: AuthenticationRouterNames.authenticationSignInRoutePath,
-          name: AuthenticationRouterNames.authenticationSignInRouteName,
+          path: AuthRouterNames.authSignInRoutePath,
+          name: AuthRouterNames.authSignInRouteName,
           pageBuilder: (context, state) => const NoTransitionPage(
             child: SignInScreen(),
           ),
         ),
         GoRoute(
-            path: AuthenticationRouterNames.authenticationSignUpRoutePath,
-            name: AuthenticationRouterNames.authenticationSignUpRouteName,
+            path: AuthRouterNames.authSignUpRoutePath,
+            name: AuthRouterNames.authSignUpRouteName,
             pageBuilder: (context, state) {
               // GoRouter expects the data you pass in the extra parameter to be serializable, meaning it should ideally be simple
               final addUserAction = addUserActionMap[state.extra]!;
@@ -40,8 +40,8 @@ class AuthenticationAppBranch {
               );
             }),
         GoRoute(
-          path: AuthenticationRouterNames.authenticationAuthenticationWithAutoLogInRoutePath,
-          name: AuthenticationRouterNames.authenticationAuthenticationWithAutoLogInRouteName,
+          path: AuthRouterNames.authWithAutoLogInRoutePath,
+          name: AuthRouterNames.authWithAutoLogInRouteName,
           pageBuilder: (context, state) => const NoTransitionPage(
             child: AuthenticationScreenWithAutoLogIn(),
           ),

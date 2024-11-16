@@ -34,7 +34,7 @@ class AuthenticationTokenBloc
       RefreshTokenBlocEvent event, Emitter<AuthenticationTokenBlocState> emit) async {
     emit(AuthenticationTokenLoading());
 
-    final result = await refreshTokenUseCase(RefreshTokenParams(authId: event.authId));
+    final result = await refreshTokenUseCase(AuthParams(authId: event.authId));
     emit(result.fold(
       (failure) => AuthenticationTokenError(_mapFailureToMessage(failure)),
       (authEntity) => AuthenticationTokenAuthenticated(authEntity: authEntity),

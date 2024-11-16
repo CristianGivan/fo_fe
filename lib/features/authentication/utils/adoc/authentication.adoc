@@ -1,0 +1,46 @@
+=== Authentication namings
+
+* shall be used all the time short form auth
+
+==== AuthSignFailedBlocState
+
+* AuthSignFailedBlocState is a new state you can create to represent a specific failure in the
+authentication process, with an error property to store the error message.
+* AuthSignErrorBlocState is an existing state that also represents an error in the authentication
+process, with a message property to store the error message.
+* Both states serve a similar purpose but may be used in different contexts or to represent
+different types of errors.
+
+=== Authentication Entity
+
+* refreshCount = every time the user is log out and log in again, the refresh count will be
+increased by 1
+* isActive = true if the user is active, false if the user is inactive (log out)
+* isAutoSignIn = true if the user is log in automatically and is not nedd to enter the password
+* _refreshMax = the maximum number of refresh count
+
+=== Sign In
+
+* is cherching if the user and passwoords are valid
+* get useridby name and passwpord
+* check if there is an autehntication with user id on device
+** return existing authentication
+** create new authentication
+
+=== Auto Sign In
+
+* get the latest authentication for that device
+* if token is not expired
+** return the authentication
+** Send mesage the token expired log in again
+
+=== Sign Out
+
+* check if the refrresh count is the same as the max refreshCount or expire date is due.
+** if yes, delete the authentication
+** if no, set active to no
+
+=== Presentation
+
+* to don't increment usles the view count use get auth
+?? is the state from app_bar_widget incrising the coutn or is just reading from the latest state?

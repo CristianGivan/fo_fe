@@ -7,9 +7,12 @@ it should ideally be simple types like String, int, double, or basic collections
 
 * update add user not dupicate
 
+* update all Authentication with Auth
+* increment of usedCount
+
 == Now
 
-* tyo don't have the a new authentication eache log in
+* update AuthenticationEntity
 
 == Nice
 
@@ -19,6 +22,7 @@ it should ideally be simple types like String, int, double, or basic collections
 
 == Done
 
+* tyo don't have the a new authentication eache log in
 * how to crete a doroping table -
 ** how to crete a doroping table
 * first Id shall be 1

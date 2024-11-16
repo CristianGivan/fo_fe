@@ -1,14 +1,12 @@
-class AuthenticationRouterNames {
-  static const String authenticationRoutePath = '/authentication';
-  static const String authenticationRouteName = authenticationRoutePath;
-  static const String authenticationSignInRoutePath = 'sign-in';
-  static const String authenticationSignInRouteName =
-      '$authenticationRouteName/$authenticationSignInRoutePath';
-  static const String authenticationSignUpRoutePath = 'sign-up';
-  static const String authenticationSignUpRouteName =
-      '$authenticationRouteName/$authenticationSignUpRoutePath';
-  static const String authenticationAuthenticationWithAutoLogInRoutePath =
-      'authenticationWithAutoLogIn';
-  static const String authenticationAuthenticationWithAutoLogInRouteName =
-      '$authenticationRouteName/$authenticationAuthenticationWithAutoLogInRoutePath';
+import 'package:fo_fe/features/organizer/utils/config/organizer_router_names.dart';
+
+class AuthRouterNames {
+  static const String authRoutePath = '/authentication';
+  static const String authRouteName = authRoutePath;
+  static const String authSignInRoutePath = 'sign-in';
+  static const String authSignInRouteName = '$authRouteName/$authSignInRoutePath';
+  static const String authSignUpRoutePath = 'sign-up';
+  static const String authSignUpRouteName = '$authRouteName/$authSignUpRoutePath';
+  static const String authWithAutoLogInRoutePath = OrganizerRouterNames.organizerRoutePath;
+  static const String authWithAutoLogInRouteName = '$authRouteName/$authWithAutoLogInRoutePath';
 }

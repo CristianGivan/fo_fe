@@ -47,6 +47,18 @@ class AuthenticationLocalDataSourceDrift implements AuthenticationLocalDataSourc
   }
 
   @override
+  Future<AuthenticationTableDriftG?> getLatestActiveAuthForDeviceInfo(String deviceInfo) async {
+    return await database.authenticationDaoDrift.getLatestActiveAuthForDeviceInfo(deviceInfo);
+  }
+
+  @override
+  Future<AuthenticationTableDriftG?> getAuthenticationForUserAndDeviceInfo(
+      int userId, String deviceInfo) async {
+    return await database.authenticationDaoDrift
+        .getAuthenticationForUserAndDeviceInfo(userId, deviceInfo);
+  }
+
+  @override
   Future<List<AuthenticationTableDriftG>?> getAuthenticationItemsForDeviceInfo(
       String deviceInfo) async {
     return await database.authenticationDaoDrift.getAuthenticationsForDeviceInfo(deviceInfo);

@@ -12,7 +12,7 @@ class AuthSignInitialBlocState extends AuthenticationSignBlocState {}
 class AuthSignLoadingBlocState extends AuthenticationSignBlocState {}
 
 class AuthSignUpSuccessBlocState extends AuthenticationSignBlocState {
-  final AuthenticationEntity authEntity;
+  final AuthEntity authEntity;
 
   const AuthSignUpSuccessBlocState({required this.authEntity});
 
@@ -21,7 +21,7 @@ class AuthSignUpSuccessBlocState extends AuthenticationSignBlocState {
 }
 
 class AuthSignInSuccessBlocState extends AuthenticationSignBlocState {
-  final AuthenticationEntity authEntity;
+  final AuthEntity authEntity;
 
   const AuthSignInSuccessBlocState({required this.authEntity});
 
@@ -30,7 +30,7 @@ class AuthSignInSuccessBlocState extends AuthenticationSignBlocState {
 }
 
 class AuthSignInAutoSuccessBlocState extends AuthenticationSignBlocState {
-  final AuthenticationEntity authEntity;
+  final AuthEntity authEntity;
 
   const AuthSignInAutoSuccessBlocState({required this.authEntity});
 
@@ -47,6 +47,15 @@ class AuthUserIdLoadedBlocState extends AuthenticationSignBlocState {
 
   @override
   List<Object> get props => [userId];
+}
+
+class AuthSignFailedBlocState extends AuthenticationSignBlocState {
+  final String error;
+
+  const AuthSignFailedBlocState(this.error);
+
+  @override
+  List<Object> get props => [error];
 }
 
 class AuthSignErrorBlocState extends AuthenticationSignBlocState {

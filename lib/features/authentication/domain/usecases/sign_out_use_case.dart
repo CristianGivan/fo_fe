@@ -5,17 +5,17 @@ import 'package:fo_fe/features/authentication/utils/authentication_exports.dart'
 import 'package:fo_fe/features/authentication/utils/other/auth_params.dart';
 
 class SignOutUseCase extends UseCase<void, AuthParams> {
-  final AuthenticationRepository authRepository;
+  final AuthRepository authRepository;
 
   SignOutUseCase(this.authRepository);
 
   @override
   @override
   Future<Either<Failure, void>> call(AuthParams params) async {
-    final result = await authRepository.getActiveAuthenticationForDeviceInfo();
+    final result = await authRepository.getActiveAuthForDeviceInfo();
     return await result.fold(
       (failure) async => Left(failure),
-      (auth) async => await authRepository.logout(auth.id),
+      (auth) async => await authRepository.signOut(auth.id),
     );
   }
 }

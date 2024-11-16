@@ -1,15 +1,27 @@
 import 'package:fo_fe/features/authentication/utils/authentication_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-import '../../../organizer/items/user/utils/user_exports.dart';
+class AuthenticationScreenWithAutoLogIn extends StatefulWidget {
+  const AuthenticationScreenWithAutoLogIn({super.key});
 
-class AuthenticationScreen extends StatelessWidget {
-  const AuthenticationScreen({super.key});
+  @override
+  _AuthenticationScreenWithAutoLogInState createState() =>
+      _AuthenticationScreenWithAutoLogInState();
+}
 
-  void _checkAutoLogin(BuildContext context) async {
+class _AuthenticationScreenWithAutoLogInState extends State<AuthenticationScreenWithAutoLogIn> {
+  @override
+  void initState() {
+    super.initState();
+    _checkAutoLogin();
+  }
+
+  void _checkAutoLogin() async {
+    // Check auto-login when the screen is initialized
     final authBloc = context.read<AuthenticationSignBloc>();
     authBloc.add(AuthSignInAutoBlocEvent());
 
+    // Handle navigation based on authentication state
     authBloc.stream.listen((state) {
       if (state is AuthSignInAutoSuccessBlocState) {
         context.pushNamed(OrganizerRouterNames.organizerRouteName);
@@ -39,24 +51,16 @@ class AuthenticationScreen extends StatelessWidget {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                context.pushNamed(AuthenticationRouterNames.authenticationSignInRouteName);
+                context.pushNamed(AuthRouterNames.authSignInRouteName);
               },
               child: const Text('Sign In'),
             ),
             const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {
-                context.pushNamed(AuthenticationRouterNames.authenticationSignUpRouteName,
-                    extra: addUserActionMapToString[AddUserActionEnum.SignUp]);
+                context.pushNamed(AuthRouterNames.authSignUpRouteName);
               },
               child: const Text('Sign Up'),
-            ),
-            const SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () {
-                _checkAutoLogin(context);
-              },
-              child: const Text('Reactivation'),
             ),
           ],
         ),

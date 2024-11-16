@@ -17,5 +17,10 @@ abstract class AuthenticationLocalDataSource {
 
   Future<AuthenticationTableDriftG?> getActiveAuthenticationForDeviceInfo(String deviceInfo);
 
+  Future<AuthenticationTableDriftG?> getLatestActiveAuthForDeviceInfo(String deviceInfo);
+
+  Future<AuthenticationTableDriftG?> getAuthenticationForUserAndDeviceInfo(
+      int userId, String deviceInfo);
+
   Future<List<AuthenticationTableDriftG>?> getAuthenticationItemsForDeviceInfo(String deviceInfo);
 }

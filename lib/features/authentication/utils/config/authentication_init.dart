@@ -13,8 +13,8 @@ void authenticationInit() {
   );
 
   // Register AuthenticationRepository
-  sl.registerLazySingleton<AuthenticationRepository>(
-    () => AuthenticationRepositoryDrift(
+  sl.registerLazySingleton<AuthRepository>(
+    () => AuthRepositoryDrift(
       localDataSource: sl<AuthenticationLocalDataSource>(),
       tokenManager: sl<TokenManager>(),
       deviceInfo: sl<DeviceInfo>(),
