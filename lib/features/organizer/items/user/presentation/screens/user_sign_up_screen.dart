@@ -15,7 +15,7 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  UserTypeEnum _selectedUserType = UserTypeEnum.Local;
+  UserTypeEnum _selectedUserType = UserTypeEnum.Temporary;
   bool _isAutoSignIn = false;
 
   @override

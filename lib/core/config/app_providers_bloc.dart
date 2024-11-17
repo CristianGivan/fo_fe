@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fo_fe/features/auth/utils/config/auth_providers_bloc.dart';
+import 'package:fo_fe/features/authentication/utils/config/auth_providers_bloc.dart';
 import 'package:fo_fe/features/organizer/items/reminder/utils/config/reminder_providers_bloc.dart';
 import 'package:fo_fe/features/organizer/items/tag/utils/config/tag_providers_bloc.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/config/task_providers_bloc.dart';

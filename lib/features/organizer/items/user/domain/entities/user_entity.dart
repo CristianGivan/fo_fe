@@ -19,7 +19,7 @@ class UserEntity extends OrganizerItemEntity with EquatableMixin {
     UserTypeEnum? userType,
   })  : email = email ?? "",
         hashedPassword = HashingService.hashPassword(password ?? name),
-        userType = userType ?? UserTypeEnum.Local,
+        userType = userType ?? UserTypeEnum.Temporary,
         super(
           id: id ?? 0,
           createdDate: createdDate ?? INITIAL_EPOCH_DATE,

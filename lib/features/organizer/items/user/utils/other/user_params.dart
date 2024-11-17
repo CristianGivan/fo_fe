@@ -8,6 +8,8 @@ class UserParams extends Equatable {
   final String name;
   final String email;
   final String password;
+  final UserTypeEnum userType;
+  final bool isEmailVerified;
 
   UserParams({
     UserEntity? user,
@@ -16,6 +18,8 @@ class UserParams extends Equatable {
     this.name = '',
     this.email = '',
     this.password = '',
+    this.userType = UserTypeEnum.Temporary,
+    this.isEmailVerified = false,
   })  : user = user ?? UserEntity.empty(),
         idSet = idSet ?? IdSet.empty();
 

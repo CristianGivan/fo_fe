@@ -1,5 +1,5 @@
 import 'package:fo_fe/features/app_home/presentation/app_bar_widget.dart';
-import 'package:fo_fe/features/auth/utils/auth_exports.dart';
+import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 import 'package:fo_fe/features/practice/presentation/utils/practice_exports.dart';
 import 'package:fo_fe/features/settings/utils/config/settings_route_names.dart';

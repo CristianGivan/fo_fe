@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fo_fe/features/auth/utils/auth_exports.dart';
+import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
 import 'package:go_router/go_router.dart';
 
 class AppBarWidget extends StatelessWidget {

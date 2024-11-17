@@ -1,7 +1,7 @@
 import 'package:fo_fe/core/del/stateful_route_shell_old.dart';
 import 'package:fo_fe/core/error/error_router.dart';
 import 'package:fo_fe/features/app_home/utils/app_home_exports.dart';
-import 'package:fo_fe/features/auth/utils/auth_exports.dart';
+import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 import 'package:fo_fe/features/practice/presentation/utils/config/practice_router.dart';
 import 'package:fo_fe/features/settings/utils/config/settings_router.dart';

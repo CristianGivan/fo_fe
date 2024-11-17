@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fo_fe/core/config/app_routes.dart';
 import 'package:fo_fe/core/themes/app_themes.dart';
 
-import 'features/auth/utils/auth_exports.dart';
+import 'features/authentication/utils/auth_exports.dart';
 
 class AppView extends StatelessWidget {
   const AppView({super.key});
