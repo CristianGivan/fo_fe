@@ -57,6 +57,16 @@ class UserLocalDataSourceDrift implements UserLocalDataSource {
   }
 
   @override
+  Future<UserTableDriftG?> getUserByEmail(String email) async {
+    return await db.userDaoDrift.getUserByEmail(email);
+  }
+
+  @override
+  Future<UserTableDriftG?> getUserByName(String name) async {
+    return await db.userDaoDrift.getUserByName(name);
+  }
+
+  @override
   Future<List<UserTableDriftG?>?> getUserItemsByIdSet(IdSet idSet) async {
     return await db.userDaoDrift.getUserItemsByIdSet(idSet.toSet());
   }

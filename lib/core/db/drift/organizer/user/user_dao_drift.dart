@@ -32,4 +32,14 @@ class UserDaoDrift extends DatabaseAccessor<OrganizerDriftDB> with _$UserDaoDrif
       ..where((u) => u.email.equals(email) & u.hashedPassword.equals(hashedPassword));
     return await query.getSingleOrNull();
   }
+
+  Future<UserTableDriftG?> getUserByEmail(String email) async {
+    final query = select(userTableDrift)..where((u) => u.email.equals(email));
+    return await query.getSingleOrNull();
+  }
+
+  Future<UserTableDriftG?> getUserByName(String name) async {
+    final query = select(userTableDrift)..where((u) => u.email.equals(name));
+    return await query.getSingleOrNull();
+  }
 }

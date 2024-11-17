@@ -18,6 +18,10 @@ abstract class UserLocalDataSource {
 
   Future<UserTableDriftG?> getUserByEmailAndPassword(String email, String password);
 
+  Future<UserTableDriftG?> getUserByEmail(String email);
+
+  Future<UserTableDriftG?> getUserByName(String name);
+
   Future<List<UserTableDriftG?>?> getUserItemsByIdSet(IdSet idSet);
 
   Future<List<UserTableDriftG?>?> getConnectedUserIdsByUserId(int userId);

@@ -7,12 +7,11 @@ create like user_presentation_export.dart for all
 
 == Now
 
-* update add user not dupicate
-
 == Nice
 
 == Done
 
+* update add user not dupicate
 * update all Auth with Authv
 * update AuthEntity
 * increment of usedCount

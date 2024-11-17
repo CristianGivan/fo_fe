@@ -48,7 +48,7 @@ class UserBloc extends Bloc<UserBlocEvent, UserBlocState> {
     final failureOrSuccess = await addUser(UserParams(user: event.user));
     failureOrSuccess.fold(
       (failure) => emit(UserErrorBlocState(_mapFailureToMessage(failure))),
-      (success) => emit(UserSuccessBlocState(success)),
+      (success) => emit(UserSuccessBlocState(success.id)),
     );
   }
 

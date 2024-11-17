@@ -4,7 +4,7 @@ import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 abstract class UserRepository {
-  Future<Either<Failure, int>> addUser(UserEntity user);
+  Future<Either<Failure, UserEntity>> addUser(UserEntity user);
 
   Future<Either<Failure, bool>> updateUser(UserEntity user);
 
@@ -19,6 +19,10 @@ abstract class UserRepository {
   Future<Either<Failure, int>> deleteUserFromUser(int userLinkedId, int userId);
 
   Future<Either<Failure, UserEntity>> getUserByEmailAndPassword(String email, String password);
+
+  Future<Either<Failure, UserEntity>> getUserByEmail(String email);
+
+  Future<Either<Failure, UserEntity>> getUserByName(String name);
 
   Future<Either<Failure, OrganizerItems<UserEntity>>> getUserItemsByIdSet(IdSet idSet);
 

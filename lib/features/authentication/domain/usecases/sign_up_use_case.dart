@@ -16,7 +16,7 @@ class SignUpUseCase extends UseCase<AuthEntity, AuthSignUpParams> {
     final userIdResult = await userRepository.addUser(params.user);
     return userIdResult.fold(
       (failure) => Left(failure),
-      (userId) async => await _handleAuth(userId, params.isAutoSignIn),
+      (user) async => await _handleAuth(user.id, params.isAutoSignIn),
     );
   }
 

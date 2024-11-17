@@ -11,11 +11,19 @@ class UserRepositoryDrift implements UserRepository {
 
   // User CRUD operations
   @override
-  Future<Either<Failure, int>> addUser(UserEntity user) async {
-    return _executeDatabaseOperation(() {
+  Future<Either<Failure, UserEntity>> addUser(UserEntity user) async {
+    return _executeDatabaseOperation(() async {
       final companion = UserMapper.entityToCompanion(user);
-      _checkItemNotNull(companion);
-      return localDataSource.addUser(companion);
+      if (user.email != "") {
+        final existingUser = await localDataSource.getUserByEmail(user.email);
+        return _getOrCreateUser(existingUser, companion);
+      } else if (user.name != "") {
+        final existingUser = await localDataSource.getUserByName(user.name);
+        return _getOrCreateUser(existingUser, companion);
+      } else {
+        final newUserId = await localDataSource.addUser(companion);
+        return _getUserOrThrow(newUserId);
+      }
     });
   }
 
@@ -66,6 +74,24 @@ class UserRepositoryDrift implements UserRepository {
   Future<Either<Failure, UserEntity>> getUserByEmailAndPassword(String email, String password) {
     return _executeDatabaseOperation(() async {
       final user = await localDataSource.getUserByEmailAndPassword(email, password);
+      _checkItemNotNull(user);
+      return UserMapper.entityFromTableDrift(user!);
+    });
+  }
+
+  @override
+  Future<Either<Failure, UserEntity>> getUserByEmail(String email) {
+    return _executeDatabaseOperation(() async {
+      final user = await localDataSource.getUserByEmail(email);
+      _checkItemNotNull(user);
+      return UserMapper.entityFromTableDrift(user!);
+    });
+  }
+
+  @override
+  Future<Either<Failure, UserEntity>> getUserByName(String name) {
+    return _executeDatabaseOperation(() async {
+      final user = await localDataSource.getUserByName(name);
       _checkItemNotNull(user);
       return UserMapper.entityFromTableDrift(user!);
     });
@@ -138,5 +164,26 @@ class UserRepositoryDrift implements UserRepository {
     }
 
     return nonNullItems;
+  }
+
+  Future<UserEntity> _getOrCreateUser(
+    UserTableDriftG? userTable,
+    UserTableDriftCompanion userCompanion,
+  ) async {
+    if (userTable != null) {
+      return UserMapper.entityFromTableDrift(userTable);
+    } else {
+      final newUserId = await localDataSource.addUser(userCompanion);
+      return _getUserOrThrow(newUserId);
+    }
+  }
+
+  Future<UserEntity> _getUserOrThrow(int userId) async {
+    final newUser = await localDataSource.getUserById(userId);
+    if (newUser == null) {
+      throw const UserNotFoundFailure("User not added");
+    } else {
+      return UserMapper.entityFromTableDrift(newUser);
+    }
   }
 }
