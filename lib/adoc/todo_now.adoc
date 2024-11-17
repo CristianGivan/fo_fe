@@ -1,5 +1,6 @@
 == Next
 
+* change    _checkItemNotNull(auth); to return empty
 create like user_presentation_export.dart for all
 * update with user type sing_up
 * todo -fix- dont hash password 2 times

@@ -151,15 +151,15 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
     return BlocBuilder<UserValidationBloc, UserValidationBlocState>(
       buildWhen: (previous, current) => current is FormValidationBlocState,
       builder: (context, state) {
-        return ElevatedButton(
-          onPressed: isEnabled
-              ? () {
-                  if (_formKey.currentState!.validate()) {
-                    // Handle sign up logic
-                  }
-                }
-              : null,
-          child: Text('Sign Up'),
+        return SignUpButtonWidget(
+          isEnabled: true,
+          formKey: _formKey,
+          nameController: nameController,
+          emailController: emailController,
+          passwordController: passwordController,
+          userType: _selectedUserType,
+          autoSignIn: _isAutoSignIn,
+          action: widget.action,
         );
       },
     );

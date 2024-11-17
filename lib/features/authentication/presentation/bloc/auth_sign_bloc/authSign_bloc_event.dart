@@ -9,11 +9,15 @@ abstract class AuthSignBlocEvent extends Equatable {
 
 class AuthSignUpBlocEvent extends AuthSignBlocEvent {
   final UserEntity user;
+  final isAutoSignIn;
 
-  const AuthSignUpBlocEvent({required this.user});
+  const AuthSignUpBlocEvent({
+    required this.user,
+    required this.isAutoSignIn,
+  });
 
   @override
-  List<Object> get props => [user];
+  List<Object> get props => [user, isAutoSignIn];
 }
 
 class AuthSignInBlocEvent extends AuthSignBlocEvent {

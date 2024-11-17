@@ -16,7 +16,7 @@ class AuthRepositoryDrift implements AuthRepository {
   });
 
   @override
-  Future<Either<Failure, AuthEntity>> addAuth(int userId) async {
+  Future<Either<Failure, AuthEntity>> addAuthWithUserId(int userId) async {
     return _handleDatabaseOperation(() async {
       final token = TokenManager.generateToken();
       final encryptedToken = tokenManager.encryptToken(token);
@@ -29,6 +29,30 @@ class AuthRepositoryDrift implements AuthRepository {
         expiredDate: DateTime.now().add(const Duration(days: 30)),
         lastUsedDate: DateTime.now(),
         isActive: true,
+      );
+      final authCompanionDrift = AuthMapper.companionFromEntity(authEntity);
+      final authId = await localDataSource.addAuth(authCompanionDrift);
+      return authEntity.copyWith(id: authId);
+    });
+  }
+
+//todo -dry-
+  @override
+  Future<Either<Failure, AuthEntity>> addAuthWithUserIdAndAutoSingIn(
+      int userId, bool isAutoSignIn) async {
+    return _handleDatabaseOperation(() async {
+      final token = TokenManager.generateToken();
+      final encryptedToken = tokenManager.encryptToken(token);
+
+      final authEntity = AuthEntity(
+        userId: userId,
+        token: encryptedToken,
+        deviceInfo: deviceInfo.getDeviceInfo(),
+        createdDate: DateTime.now(),
+        expiredDate: DateTime.now().add(const Duration(days: 30)),
+        lastUsedDate: DateTime.now(),
+        isActive: true,
+        isAutoSignIn: isAutoSignIn,
       );
       final authCompanionDrift = AuthMapper.companionFromEntity(authEntity);
       final authId = await localDataSource.addAuth(authCompanionDrift);
@@ -105,26 +129,32 @@ class AuthRepositoryDrift implements AuthRepository {
     return _handleDatabaseOperation(() async {
       final auth =
           await localDataSource.getAuthForUserAndDeviceInfo(userId, deviceInfo.getDeviceInfo());
-      _checkItemNotNull(auth);
-      return AuthMapper.entityFromTableDrift(auth!);
+      if (auth == null) {
+        return AuthEntity.empty();
+      } else {
+        return AuthMapper.entityFromTableDrift(auth);
+      }
     });
   }
 
   @override
   Future<Either<Failure, List<AuthEntity>>> getAuthItemsForDeviceInfo() async {
     return _handleDatabaseOperation(() async {
-      final auths = await localDataSource.getAuthItemsForDeviceInfo(deviceInfo.getDeviceInfo());
-      _checkItemsNotNullOrEmpty(auths);
-      return AuthMapper.entityItemsFromTableDriftItems(auths!);
+      final authItems = await localDataSource.getAuthItemsForDeviceInfo(deviceInfo.getDeviceInfo());
+      _checkItemsNotNullOrEmpty(authItems);
+      return AuthMapper.entityItemsFromTableDriftItems(authItems!);
     });
   }
 
   @override
-  Future<Either<Failure, void>> updateAuth(AuthEntity auth) async {
+  Future<Either<Failure, AuthEntity>> updateAuth(AuthEntity auth) async {
     final companion = AuthMapper.companionFromEntity(auth);
     return _handleDatabaseOperation(() async {
-      // todo -improve- in case of fail of update i didn't recive the error
       await localDataSource.updateAuth(companion);
+      return localDataSource.getAuthById(auth.id).then((value) {
+        _checkItemNotNull(value);
+        return AuthMapper.entityFromTableDrift(value!);
+      });
     });
   }
 

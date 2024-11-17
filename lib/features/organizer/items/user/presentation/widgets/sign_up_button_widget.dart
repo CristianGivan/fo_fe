@@ -10,6 +10,8 @@ class SignUpButtonWidget extends StatefulWidget {
   final TextEditingController emailController;
   final TextEditingController passwordController;
   final AddUserActionEnum action;
+  final UserTypeEnum userType;
+  final bool autoSignIn;
 
   const SignUpButtonWidget({
     Key? key,
@@ -19,6 +21,8 @@ class SignUpButtonWidget extends StatefulWidget {
     required this.emailController,
     required this.passwordController,
     required this.action,
+    required this.userType,
+    required this.autoSignIn,
   }) : super(key: key);
 
   @override
@@ -83,6 +87,7 @@ class _SignUpButtonWidgetState extends State<SignUpButtonWidget> {
       name: widget.nameController.text,
       email: widget.emailController.text,
       password: widget.passwordController.text,
+      userType: widget.userType,
     );
     switch (widget.action) {
       case AddUserActionEnum.AddUser:
@@ -90,7 +95,10 @@ class _SignUpButtonWidgetState extends State<SignUpButtonWidget> {
         context.pop();
         break;
       case AddUserActionEnum.SignUp:
-        context.read<AuthSignBloc>().add(AuthSignUpBlocEvent(user: user));
+        context.read<AuthSignBloc>().add(AuthSignUpBlocEvent(
+              user: user,
+              isAutoSignIn: widget.autoSignIn,
+            ));
         context.pushNamed(OrganizerRouterNames.organizerRoutePath);
         break;
     }

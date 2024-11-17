@@ -36,7 +36,10 @@ class AuthSignBloc extends Bloc<AuthSignBlocEvent, AuthSignBlocState> {
 
   Future<void> _signUpUseCase(AuthSignUpBlocEvent event, Emitter<AuthSignBlocState> emit) async {
     emit(AuthSignLoadingBlocState());
-    final result = await signUpUseCase(UserParams(user: event.user));
+    final result = await signUpUseCase(AuthSignUpParams(
+      user: event.user,
+      isAutoSignIn: event.isAutoSignIn,
+    ));
     emit(result.fold(
       (failure) => AuthSignErrorBlocState(_mapFailureToMessage(failure)),
       (authEntity) => AuthSignUpSuccessBlocState(authEntity: authEntity),

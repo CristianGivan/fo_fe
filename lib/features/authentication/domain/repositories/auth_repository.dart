@@ -3,7 +3,9 @@ import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/features/authentication/domain/entities/auth_entity.dart';
 
 abstract class AuthRepository {
-  Future<Either<Failure, AuthEntity>> addAuth(int userId);
+  Future<Either<Failure, AuthEntity>> addAuthWithUserId(int userId);
+
+  Future<Either<Failure, AuthEntity>> addAuthWithUserIdAndAutoSingIn(int userId, bool isAutoSignIn);
 
   Future<Either<Failure, void>> signOut(int authId);
 
@@ -17,5 +19,5 @@ abstract class AuthRepository {
 
   Future<Either<Failure, List<AuthEntity>>> getAuthItemsForDeviceInfo();
 
-  Future<Either<Failure, void>> updateAuth(AuthEntity auth);
+  Future<Either<Failure, AuthEntity>> updateAuth(AuthEntity auth);
 }

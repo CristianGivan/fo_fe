@@ -51,7 +51,7 @@ class SigInUseCase extends UseCase<AuthEntity, UserParams> {
         },
       );
     } else {
-      return await authRepository.addAuth(user.id);
+      return await authRepository.addAuthWithUserId(user.id);
     }
   }
 }
