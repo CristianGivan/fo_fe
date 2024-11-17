@@ -4,5 +4,6 @@
         "datasources",
         "objectbox",
         "usecase"
-    ]
+    ],
+    "cmake.sourceDirectory": "D:/dev/Flutter/flutterApps/fo_fe/windows"
 }

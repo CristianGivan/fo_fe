@@ -1,5 +1,6 @@
 == Next
 
+create like user_presentation_export.dart for all
 * update with user type sing_up
 * todo -fix- dont hash password 2 times
 
@@ -11,7 +12,7 @@
 
 == Done
 
-* update all Auth with Auth
+* update all Auth with Authv
 * update AuthEntity
 * increment of usedCount
 * tyo don't have the a new auth eache log in

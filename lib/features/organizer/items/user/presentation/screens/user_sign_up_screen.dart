@@ -1,5 +1,5 @@
-import '../../../../utils/organizer_exports.dart';
-import '../../utils/user_exports.dart';
+import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class UserSignUpScreen extends StatefulWidget {
   final AddUserActionEnum action;
@@ -12,51 +12,18 @@ class UserSignUpScreen extends StatefulWidget {
 
 class _UserSignUpScreenState extends State<UserSignUpScreen> {
   final _formKey = GlobalKey<FormState>();
-  final nameController = TextEditingController();
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  UserTypeEnum _selectedUserType = UserTypeEnum.Local;
+  bool _isAutoSignIn = false;
 
-  bool _wasEmailValid = true;
-  bool _wasNameValid = true;
-  bool _wasPasswordValid = true;
-
-  void _userBlocListener(BuildContext context, UserBlocState state) {
-    if (state is UserSuccessBlocState) {
-      GoRouter.of(context).go(OrganizerRouterNames.organizerRouteName);
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Sign up successful!')),
-      );
-    } else if (state is UserErrorBlocState) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(state.message)),
-      );
-    }
-  }
-
-  void _userValidationBlocListener(BuildContext context, UserValidationBlocState state) {
-    if (state is EmailValidationBlocState) {
-      if (_wasEmailValid && !state.isValid) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Invalid email format')),
-        );
-      }
-      _wasEmailValid = state.isValid;
-    } else if (state is NameValidationBlocState) {
-      if (_wasNameValid && !state.isValid) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Invalid name')),
-        );
-      }
-      _wasNameValid = state.isValid;
-    } else if (state is PasswordValidationBlocState) {
-      if (_wasPasswordValid && !state.isValid) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Invalid password')),
-        );
-      }
-      _wasPasswordValid = state.isValid;
-    }
+  @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
   }
 
   @override
@@ -65,12 +32,9 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
       appBar: AppBar(title: const Text('Sign Up')),
       body: MultiBlocListener(
         listeners: [
-          BlocListener<UserBloc, UserBlocState>(
-            listener: _userBlocListener,
-          ),
+          BlocListener<UserBloc, UserBlocState>(listener: _userBlocListener),
           BlocListener<UserValidationBloc, UserValidationBlocState>(
-            listener: _userValidationBlocListener,
-          ),
+              listener: _userValidationBlocListener),
         ],
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -80,47 +44,148 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
               child: Column(
                 children: [
                   const SizedBox(height: 20),
-                  NameFieldWidget(
-                    controller: nameController,
-                  ),
+                  _buildUserTypeDropdown(),
                   const SizedBox(height: 10),
-                  EmailFieldWidget(
-                    controller: emailController,
-                  ),
+                  _buildNameField(),
                   const SizedBox(height: 10),
-                  PasswordFieldWidget(
-                    controller: passwordController,
-                  ),
+                  _buildEmailField(),
                   const SizedBox(height: 10),
-                  BlocBuilder<UserValidationBloc, UserValidationBlocState>(
-                    buildWhen: (previous, current) => current is PasswordValidationBlocState,
-                    builder: (context, state) {
-                      if (state is PasswordValidationBlocState) {
-                        return PasswordRequirements(state: state);
-                      }
-                      return const SizedBox.shrink();
-                    },
-                  ),
+                  _buildPasswordField(),
+                  const SizedBox(height: 10),
+                  const SizedBox(height: 10),
+                  _buildAutoSignInCheckbox(),
+                  _buildPasswordRequirements(),
                   const SizedBox(height: 20),
-                  BlocBuilder<UserValidationBloc, UserValidationBlocState>(
-                    buildWhen: (previous, current) => current is FormValidationBlocState,
-                    builder: (context, state) {
-                      return SignUpButtonWidget(
-                        isEnabled: true,
-                        formKey: _formKey,
-                        nameController: nameController,
-                        emailController: emailController,
-                        passwordController: passwordController,
-                        action: widget.action,
-                      );
-                    },
-                  ),
+                  _buildSignUpButton(),
                 ],
               ),
             ),
           ),
         ),
       ),
+    );
+  }
+
+  void _userBlocListener(BuildContext context, UserBlocState state) {
+    if (state is UserSuccessBlocState) {
+      GoRouter.of(context).go(OrganizerRouterNames.organizerRouteName);
+      _showSnackBar(context, 'Sign up successful!');
+    } else if (state is UserErrorBlocState) {
+      _showSnackBar(context, state.message);
+    }
+  }
+
+  void _userValidationBlocListener(BuildContext context, UserValidationBlocState state) {
+    bool wasEmailValid = false;
+    bool wasNameValid = false;
+    bool wasPasswordValid = false;
+
+    if (state is EmailValidationBlocState) {
+      _handleValidationFeedback(
+        context,
+        wasValid: wasEmailValid,
+        isValid: state.isValid,
+        message: 'Invalid email format',
+      );
+      wasEmailValid = state.isValid;
+    } else if (state is NameValidationBlocState) {
+      _handleValidationFeedback(
+        context,
+        wasValid: wasNameValid,
+        isValid: state.isValid,
+        message: 'Invalid name',
+      );
+      wasNameValid = state.isValid;
+    } else if (state is PasswordValidationBlocState) {
+      _handleValidationFeedback(
+        context,
+        wasValid: wasPasswordValid,
+        isValid: state.isValid,
+        message: 'Invalid password',
+      );
+      wasPasswordValid = state.isValid;
+    }
+  }
+
+  void _handleValidationFeedback(
+    BuildContext context, {
+    required bool wasValid,
+    required bool isValid,
+    required String message,
+  }) {
+    if (wasValid && !isValid) {
+      _showSnackBar(context, message);
+    }
+  }
+
+  void _showSnackBar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+  }
+
+  Widget _buildUserTypeDropdown() {
+    return UserTypeDropdown(
+      selectedUserType: _selectedUserType,
+      onChanged: (UserTypeEnum? newValue) {
+        setState(() {
+          _selectedUserType = newValue!;
+        });
+      },
+    );
+  }
+
+  Widget _buildNameField() {
+    return NameFieldWidget(controller: nameController);
+  }
+
+  Widget _buildEmailField() {
+    return EmailFieldWidget(controller: emailController);
+  }
+
+  Widget _buildPasswordField() {
+    return PasswordFieldWidget(controller: passwordController);
+  }
+
+  Widget _buildSignUpButton() {
+    bool isEnabled = true;
+
+    return BlocBuilder<UserValidationBloc, UserValidationBlocState>(
+      buildWhen: (previous, current) => current is FormValidationBlocState,
+      builder: (context, state) {
+        return ElevatedButton(
+          onPressed: isEnabled
+              ? () {
+                  if (_formKey.currentState!.validate()) {
+                    // Handle sign up logic
+                  }
+                }
+              : null,
+          child: Text('Sign Up'),
+        );
+      },
+    );
+  }
+
+  Widget _buildPasswordRequirements() {
+    return BlocBuilder<UserValidationBloc, UserValidationBlocState>(
+      buildWhen: (previous, current) => current is PasswordValidationBlocState,
+      builder: (context, state) {
+        if (state is PasswordValidationBlocState) {
+          return PasswordRequirements(state: state);
+        }
+        return const SizedBox.shrink();
+      },
+    );
+  }
+
+  Widget _buildAutoSignInCheckbox() {
+    return CheckboxListTile(
+      title: const Text('Auto Sign In'),
+      value: _isAutoSignIn,
+      onChanged: (bool? value) {
+        setState(() {
+          _isAutoSignIn = value ?? false;
+        });
+      },
     );
   }
 }
