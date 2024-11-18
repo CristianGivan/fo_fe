@@ -29,7 +29,7 @@ class AuthDriftDB extends _$AuthDriftDB implements DriftDB {
   static LazyDatabase _openConnection({bool isDev = false}) {
     return LazyDatabase(() async {
       final connection = await connect(
-        'AuthDBDrift.sqlite',
+        'AuthenticationDBDrift.sqlite',
         logStatements: kDebugMode,
         isDev: isDev,
       );

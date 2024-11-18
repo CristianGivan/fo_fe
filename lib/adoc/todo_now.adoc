@@ -2,15 +2,23 @@
 
 * change    _checkItemNotNull(auth); to return empty
 create like user_presentation_export.dart for all
-* update with user type sing_up
+
 * todo -fix- dont hash password 2 times
+* if user allready exist and you wand to add it again send a message
+
+when an nre wuser is added to dont have the unneded fiedl like autosingin or userType and the
+message to be user added
 
 == Now
+
+* get all users
+* add user at user
 
 == Nice
 
 == Done
 
+* update with user type sing_up
 * update add user not dupicate
 * update all Auth with Authv
 * update AuthEntity
