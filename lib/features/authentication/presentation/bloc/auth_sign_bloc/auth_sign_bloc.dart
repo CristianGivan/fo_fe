@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/usecase/params.dart';
 import 'package:fo_fe/core/utils/exports/core_utils_exports.dart';
 import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
@@ -11,39 +10,21 @@ part 'authSign_bloc_event.dart';
 part 'auth_sign_bloc_state.dart';
 
 class AuthSignBloc extends Bloc<AuthSignBlocEvent, AuthSignBlocState> {
-  final SignUpUseCase signUpUseCase;
   final SigInUseCase sigInUseCase;
   final SignInAutoUseCase signInAutoUseCase;
-  final SignOutUseCase signOutUseCase;
   final SwitchUserUseCase switchUserUseCase;
-  final GetSignInUserIdUseCase getLoggedInUserIdUseCase;
+  final SignOutUseCase signOutUseCase;
 
   AuthSignBloc({
-    required this.signUpUseCase,
     required this.sigInUseCase,
     required this.signInAutoUseCase,
-    required this.signOutUseCase,
-    required this.getLoggedInUserIdUseCase,
     required this.switchUserUseCase,
+    required this.signOutUseCase,
   }) : super(AuthSignInitialBlocState()) {
-    on<AuthSignUpBlocEvent>(_signUpUseCase);
     on<AuthSignInBlocEvent>(_sigInUseCase);
+    on<AuthSwitchUserBlocEvent>(_onSwitchUser);
     on<AuthSignInAutoBlocEvent>(_signInAutoUseCase);
     on<AuthSignOutBlocEvent>(_signOutUseCase);
-    on<AuthSwitchUserBlocEvent>(_onSwitchUser);
-    on<AuthGetSignInUserIdBlocEvent>(_onGetLoggedInUserId);
-  }
-
-  Future<void> _signUpUseCase(AuthSignUpBlocEvent event, Emitter<AuthSignBlocState> emit) async {
-    emit(AuthSignLoadingBlocState());
-    final result = await signUpUseCase(AuthSignUpParams(
-      user: event.user,
-      isAutoSignIn: event.isAutoSignIn,
-    ));
-    emit(result.fold(
-      (failure) => AuthSignErrorBlocState(_mapFailureToMessage(failure)),
-      (authEntity) => AuthSignUpSuccessBlocState(authEntity: authEntity),
-    ));
   }
 
   Future<void> _sigInUseCase(AuthSignInBlocEvent event, Emitter<AuthSignBlocState> emit) async {
@@ -76,27 +57,6 @@ class AuthSignBloc extends Bloc<AuthSignBlocEvent, AuthSignBlocState> {
     ));
   }
 
-  Future<void> _signOutUseCase(AuthSignOutBlocEvent event, Emitter<AuthSignBlocState> emit) async {
-    emit(AuthSignLoadingBlocState());
-
-    final result = await signOutUseCase(AuthParams(authId: event.authId));
-    emit(result.fold(
-      (failure) => AuthSignErrorBlocState(_mapFailureToMessage(failure)),
-      (success) => AuthSignOutSuccessBlocState(),
-    ));
-  }
-
-  Future<void> _onGetLoggedInUserId(
-      AuthGetSignInUserIdBlocEvent event, Emitter<AuthSignBlocState> emit) async {
-    emit(AuthSignLoadingBlocState());
-
-    final result = await getLoggedInUserIdUseCase(NoParams());
-    emit(result.fold(
-      (failure) => AuthSignErrorBlocState(_mapFailureToMessage(failure)),
-      (userId) => AuthUserIdLoadedBlocState(userId: userId),
-    ));
-  }
-
   Future<void> _onSwitchUser(AuthSwitchUserBlocEvent event, Emitter<AuthSignBlocState> emit) async {
     emit(AuthSignLoadingBlocState());
 
@@ -104,6 +64,16 @@ class AuthSignBloc extends Bloc<AuthSignBlocEvent, AuthSignBlocState> {
     emit(result.fold(
       (failure) => AuthSignErrorBlocState(_mapFailureToMessage(failure)),
       (authEntity) => AuthSignInAutoSuccessBlocState(authEntity: authEntity),
+    ));
+  }
+
+  Future<void> _signOutUseCase(AuthSignOutBlocEvent event, Emitter<AuthSignBlocState> emit) async {
+    emit(AuthSignLoadingBlocState());
+
+    final result = await signOutUseCase(AuthParams(authId: event.authId));
+    emit(result.fold(
+      (failure) => AuthSignErrorBlocState(_mapFailureToMessage(failure)),
+      (success) => AuthSignOutSuccessBlocState(),
     ));
   }
 

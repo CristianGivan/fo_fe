@@ -1,5 +1,5 @@
 import 'package:fo_fe/core/db/drift/organizer_drift_db.dart';
-import 'package:fo_fe/features/organizer/items/user/domain/usecases/get_user_items_by_user_id.dart';
+import 'package:fo_fe/features/organizer/items/user/domain/usecases/get_user_items_by_user_id_use_case.dart';
 import 'package:fo_fe/features/organizer/items/user/domain/usecases/user_usecase_export.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 import 'package:get_it/get_it.dart';
@@ -37,7 +37,7 @@ void userInit() {
         deleteUserFromUser: sl(),
         getUserItemsByIdSet: sl(),
         getUserItemsByUserId: sl(),
-        getConnectedUserItems: sl(),
+        getUserAndConnectedUserItems: sl(),
       ));
 
   sl.registerFactory(() => UserValidationBloc());

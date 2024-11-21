@@ -121,10 +121,12 @@ class UserRepositoryDrift implements UserRepository {
       Future<List<UserTableDriftG?>?> fetchItemsFuture) {
     return _executeDatabaseOperation(() async {
       final items = await fetchItemsFuture;
-      _checkItemsNotNullOrEmpty(items);
-
-      final nonNullItems = _filterNonNullItems<UserTableDriftG>(items!);
-      return UserMapper.entityItemsFromTableDriftItems(nonNullItems);
+      if (items == null || items.isEmpty) {
+        return OrganizerItems.empty();
+      } else {
+        final nonNullItems = _filterNonNullItems<UserTableDriftG>(items!);
+        return UserMapper.entityItemsFromTableDriftItems(nonNullItems);
+      }
     });
   }
 
@@ -144,12 +146,6 @@ class UserRepositoryDrift implements UserRepository {
   void _checkItemNotNull(dynamic item) {
     if (item == null) {
       throw const UserNotFoundFailure("User not found");
-    }
-  }
-
-  void _checkItemsNotNullOrEmpty(List<dynamic>? items) {
-    if (items == null || items.isEmpty) {
-      throw const UserNotFoundFailure("No users found");
     }
   }
 

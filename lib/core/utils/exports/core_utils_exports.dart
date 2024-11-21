@@ -1,3 +1,5 @@
+export 'package:fo_fe/core/error/failures.dart';
+
 export '../converters/input_converter.dart';
 export '../date_time/date_time_utils.dart';
 export '../device_info/device_info.dart';

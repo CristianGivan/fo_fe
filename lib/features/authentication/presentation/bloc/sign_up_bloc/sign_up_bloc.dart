@@ -1,0 +1,41 @@
+import 'package:fo_fe/core/utils/exports/core_utils_exports.dart';
+import 'package:fo_fe/core/utils/exports/external_exports.dart';
+import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
+import 'package:fo_fe/features/authentication/utils/other/auth_params.dart';
+import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
+
+part 'sign_up_event.dart';
+part 'sign_up_state.dart';
+
+class SignUpBloc extends Bloc<SignUpBlocEvent, SignUpState> {
+  final SignUpUseCase signUpUseCase;
+
+  SignUpBloc({required this.signUpUseCase}) : super(SignUpInitialBlocState()) {
+    on<SignUpBlocEvent>(_signUpUseCase);
+  }
+
+  Future<void> _signUpUseCase(SignUpBlocEvent event, Emitter<SignUpState> emit) async {
+    emit(SignUpLoadingBlocState());
+    final result = await signUpUseCase(SignUpParams(
+      user: event.user,
+      isAutoSignIn: event.isAutoSignIn,
+    ));
+    emit(result.fold(
+      (failure) => SignUpFailedBlocState(_mapFailureToMessage(failure)),
+      (authEntity) => SignUpSuccessBlocState(authEntity: authEntity),
+    ));
+  }
+
+  String _mapFailureToMessage(Failure failure) {
+    switch (failure.runtimeType) {
+      case NetworkFailure _:
+        return 'Network error occurred';
+      case ServerFailure _:
+        return 'Server error occurred';
+      case AuthFailure _:
+        return 'Auth failed';
+      default:
+        return 'An error occurred: ${failure.message}';
+    }
+  }
+}

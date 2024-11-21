@@ -1,18 +1,6 @@
-enum AddUserActionEnum { AddUser, SignUp }
-
 enum UserTypeEnum { Local, Remote, Temporary, Synced }
 
 enum UserStatus { Pending, Accepted, Rejected, Blocked }
-
-const Map<String, AddUserActionEnum> addUserActionMap = {
-  'ADD_USER': AddUserActionEnum.AddUser,
-  'SIGN_UP': AddUserActionEnum.SignUp,
-};
-
-const Map<AddUserActionEnum, String> addUserActionMapToString = {
-  AddUserActionEnum.AddUser: 'ADD_USER',
-  AddUserActionEnum.SignUp: 'SIGN_UP',
-};
 
 const Map<String, UserTypeEnum> userTypeMap = {
   'LOCAL': UserTypeEnum.Local,

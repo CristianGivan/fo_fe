@@ -1,8 +1,6 @@
 import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-import '../../../organizer/items/user/utils/user_exports.dart';
-
 class AuthScreen extends StatelessWidget {
   const AuthScreen({super.key});
 
@@ -56,8 +54,7 @@ class AuthScreen extends StatelessWidget {
             const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {
-                context.pushNamed(AuthRouterNames.authSignUpRouteName,
-                    extra: addUserActionMapToString[AddUserActionEnum.SignUp]);
+                context.pushNamed(AuthRouterNames.authSignUpRouteName);
               },
               child: const Text('Sign Up'),
             ),

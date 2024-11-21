@@ -1,23 +1,23 @@
 == Next
 
-* change    _checkItemNotNull(auth); to return empty
+* change    _checkItemNotNull(auth); to return empty not a fail
 create like user_presentation_export.dart for all
 
-* todo -fix- dont hash password 2 times
-* if user allready exist and you wand to add it again send a message
-
-when an nre wuser is added to dont have the unneded fiedl like autosingin or userType and the
-message to be user added
-
+* todo -fix- don't hash password 2 times
+* if user already exist and you wand to add it again send a message
+* make sure that all the field are updated in the database for user and auth
+* I think that there is redundency sign up and add user and also for validations
 == Now
 
-* get all users
 * add user at user
 
 == Nice
 
 == Done
 
+* get all users
+* when an new user is added to dont have the un neded fiedl like autosingin or userType and the
+message to be user added
 * update with user type sing_up
 * update add user not dupicate
 * update all Auth with Authv

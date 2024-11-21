@@ -4,10 +4,10 @@ import 'package:fo_fe/core/usecase/params.dart';
 import 'package:fo_fe/core/usecase/usecase.dart';
 import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
 
-class GetSignInUserIdUseCase extends UseCase<int, NoParams> {
+class GetSignInUserUseCase extends UseCase<int, NoParams> {
   final AuthRepository authRepository;
 
-  GetSignInUserIdUseCase(this.authRepository);
+  GetSignInUserUseCase(this.authRepository);
 
   @override
   Future<Either<Failure, int>> call(NoParams params) async {

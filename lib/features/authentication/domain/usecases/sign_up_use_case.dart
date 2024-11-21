@@ -5,14 +5,14 @@ import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
 import 'package:fo_fe/features/authentication/utils/other/auth_params.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 
-class SignUpUseCase extends UseCase<AuthEntity, AuthSignUpParams> {
+class SignUpUseCase extends UseCase<AuthEntity, SignUpParams> {
   final AuthRepository authRepository;
   final UserRepository userRepository;
 
   SignUpUseCase(this.authRepository, this.userRepository);
 
   @override
-  Future<Either<Failure, AuthEntity>> call(AuthSignUpParams params) async {
+  Future<Either<Failure, AuthEntity>> call(SignUpParams params) async {
     final userIdResult = await userRepository.addUser(params.user);
     return userIdResult.fold(
       (failure) => Left(failure),

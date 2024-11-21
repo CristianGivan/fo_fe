@@ -20,11 +20,11 @@ class AuthParams extends Equatable {
   List<Object?> get props => [auth, authId, userId, idSet];
 }
 
-class AuthSignUpParams {
+class SignUpParams {
   final UserEntity user;
   final isAutoSignIn;
 
-  const AuthSignUpParams({
+  const SignUpParams({
     required this.user,
     required this.isAutoSignIn,
   });

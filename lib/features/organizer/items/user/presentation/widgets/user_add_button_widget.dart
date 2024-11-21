@@ -1,33 +1,27 @@
-import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
+import 'package:fo_fe/features/authentication/presentation/bloc/auth_sign_bloc/auth_sign_bloc.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/other/user_validation.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class SignUpButtonWidget extends StatefulWidget {
+class UserAddButtonWidget extends StatefulWidget {
   final bool isEnabled;
   final GlobalKey<FormState> formKey;
   final TextEditingController nameController;
   final TextEditingController emailController;
-  final TextEditingController passwordController;
-  final UserTypeEnum userType;
-  final bool autoSignIn;
 
-  const SignUpButtonWidget({
+  const UserAddButtonWidget({
     Key? key,
     required this.isEnabled,
     required this.formKey,
     required this.nameController,
     required this.emailController,
-    required this.passwordController,
-    required this.userType,
-    required this.autoSignIn,
   }) : super(key: key);
 
   @override
-  _SignUpButtonWidgetState createState() => _SignUpButtonWidgetState();
+  _UserAddButtonWidgetState createState() => _UserAddButtonWidgetState();
 }
 
-class _SignUpButtonWidgetState extends State<SignUpButtonWidget> {
+class _UserAddButtonWidgetState extends State<UserAddButtonWidget> {
   @override
   void initState() {
     super.initState();
@@ -43,7 +37,7 @@ class _SignUpButtonWidgetState extends State<SignUpButtonWidget> {
         child: const Padding(
           padding: EdgeInsets.symmetric(horizontal: 25, vertical: 5),
           child: Text(
-            'Sign Up',
+            'Add User',
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Colors.white,
@@ -65,9 +59,6 @@ class _SignUpButtonWidgetState extends State<SignUpButtonWidget> {
     if (!UserValidation.isEmailValid(widget.emailController.text)) {
       errorMessages.add('Invalid email');
     }
-    if (!UserValidation.isPasswordValid(widget.passwordController.text)) {
-      errorMessages.add('Invalid password');
-    }
 
     if (errorMessages.isEmpty) {
       _performAction();
@@ -81,17 +72,27 @@ class _SignUpButtonWidgetState extends State<SignUpButtonWidget> {
   }
 
   void _performAction() {
-    final user = UserEntity(
-      name: widget.nameController.text,
-      email: widget.emailController.text,
-      password: widget.passwordController.text,
-      userType: widget.userType,
-    );
-    context.read<AuthSignBloc>().add(AuthSignUpBlocEvent(
-          user: user,
-          isAutoSignIn: widget.autoSignIn,
-        ));
-    context.pushNamed(OrganizerRouterNames.organizerRoutePath);
+    final authState = context.read<AuthSignBloc>().state;
+
+    if (authState is AuthUserIdLoadedBlocState) {
+      final logInUserId = authState.userId;
+
+      final user = UserEntity(
+        name: widget.nameController.text,
+        email: widget.emailController.text,
+        password: '',
+        userType: UserTypeEnum.Remote,
+      );
+      context.read<UserBloc>().add(AddUserBlocEvent(user));
+      final userState = context.read<UserBloc>().state;
+      if (userState is UserSuccessBlocState) {
+        context.read<UserBloc>().add(AddUserToUserBlocEvent(
+              userLinkedId: user.id,
+              userId: logInUserId,
+            ));
+      }
+      context.pop();
+    }
   }
 
   ButtonStyle _buttonStyle(BuildContext context) {

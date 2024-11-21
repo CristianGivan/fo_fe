@@ -2,9 +2,7 @@ import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class UserSignUpScreen extends StatefulWidget {
-  final AddUserActionEnum action;
-
-  const UserSignUpScreen({super.key, required this.action});
+  const UserSignUpScreen({super.key});
 
   @override
   _UserSignUpScreenState createState() => _UserSignUpScreenState();
@@ -159,7 +157,6 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
           passwordController: passwordController,
           userType: _selectedUserType,
           autoSignIn: _isAutoSignIn,
-          action: widget.action,
         );
       },
     );

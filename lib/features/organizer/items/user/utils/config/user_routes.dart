@@ -1,3 +1,4 @@
+import 'package:fo_fe/features/organizer/items/user/presentation/screens/user_add_screen.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
@@ -18,9 +19,8 @@ class UserRoutes {
           name: UserRouterNames.userAddRouteName,
           pageBuilder: (context, state) {
             // GoRouter expects the data you pass in the extra parameter to be serializable, meaning it should ideally be simple
-            final addUserAction = addUserActionMap[state.extra]!;
-            return NoTransitionPage(
-              child: UserSignUpScreen(action: addUserAction),
+            return const NoTransitionPage(
+              child: UserAddScreen(),
             );
           },
         ),

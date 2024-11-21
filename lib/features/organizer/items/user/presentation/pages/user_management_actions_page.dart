@@ -18,10 +18,7 @@ class UserManagementActionsPage extends StatelessWidget {
             children: [
               Expanded(
                 child: ElevatedButton(
-                  onPressed: () => context.pushNamed(
-                    UserRouterNames.userAddRouteName,
-                    extra: addUserActionMapToString[AddUserActionEnum.AddUser],
-                  ),
+                  onPressed: () => context.pushNamed(UserRouterNames.userAddRouteName),
                   child: const Text('Add User'),
                 ),
               ),

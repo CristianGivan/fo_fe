@@ -1,35 +1,30 @@
+import 'package:fo_fe/features/organizer/items/user/presentation/widgets/user_add_button_widget.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class UserSignUpScreen extends StatefulWidget {
-  final AddUserActionEnum action;
-
-  const UserSignUpScreen({super.key, required this.action});
+class UserAddScreen extends StatefulWidget {
+  const UserAddScreen({super.key});
 
   @override
-  _UserSignUpScreenState createState() => _UserSignUpScreenState();
+  _UserAddScreenState createState() => _UserAddScreenState();
 }
 
-class _UserSignUpScreenState extends State<UserSignUpScreen> {
+class _UserAddScreenState extends State<UserAddScreen> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  UserTypeEnum _selectedUserType = UserTypeEnum.Temporary;
-  bool _isAutoSignIn = false;
 
   @override
   void dispose() {
     nameController.dispose();
     emailController.dispose();
-    passwordController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Sign Up')),
+      appBar: AppBar(title: const Text('Add User')),
       body: MultiBlocListener(
         listeners: [
           BlocListener<UserBloc, UserBlocState>(listener: _userBlocListener),
@@ -44,19 +39,11 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
               child: Column(
                 children: [
                   const SizedBox(height: 20),
-                  _buildUserTypeDropdown(),
-                  const SizedBox(height: 10),
                   _buildNameField(),
                   const SizedBox(height: 10),
                   _buildEmailField(),
-                  const SizedBox(height: 10),
-                  _buildPasswordField(),
-                  const SizedBox(height: 10),
-                  const SizedBox(height: 10),
-                  _buildAutoSignInCheckbox(),
-                  _buildPasswordRequirements(),
                   const SizedBox(height: 20),
-                  _buildSignUpButton(),
+                  _buildAddButton(),
                 ],
               ),
             ),
@@ -68,8 +55,8 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
 
   void _userBlocListener(BuildContext context, UserBlocState state) {
     if (state is UserSuccessBlocState) {
-      GoRouter.of(context).go(OrganizerRouterNames.organizerRouteName);
-      _showSnackBar(context, 'Sign up successful!');
+      context.pop();
+      _showSnackBar(context, 'User added successfully!');
     } else if (state is UserErrorBlocState) {
       _showSnackBar(context, state.message);
     }
@@ -78,7 +65,6 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
   void _userValidationBlocListener(BuildContext context, UserValidationBlocState state) {
     bool wasEmailValid = false;
     bool wasNameValid = false;
-    bool wasPasswordValid = false;
 
     if (state is EmailValidationBlocState) {
       _handleValidationFeedback(
@@ -96,14 +82,6 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
         message: 'Invalid name',
       );
       wasNameValid = state.isValid;
-    } else if (state is PasswordValidationBlocState) {
-      _handleValidationFeedback(
-        context,
-        wasValid: wasPasswordValid,
-        isValid: state.isValid,
-        message: 'Invalid password',
-      );
-      wasPasswordValid = state.isValid;
     }
   }
 
@@ -122,17 +100,6 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
   }
 
-  Widget _buildUserTypeDropdown() {
-    return UserTypeDropdown(
-      selectedUserType: _selectedUserType,
-      onChanged: (UserTypeEnum? newValue) {
-        setState(() {
-          _selectedUserType = newValue!;
-        });
-      },
-    );
-  }
-
   Widget _buildNameField() {
     return NameFieldWidget(controller: nameController);
   }
@@ -141,50 +108,18 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
     return EmailFieldWidget(controller: emailController);
   }
 
-  Widget _buildPasswordField() {
-    return PasswordFieldWidget(controller: passwordController);
-  }
-
-  Widget _buildSignUpButton() {
+  Widget _buildAddButton() {
     bool isEnabled = true;
 
     return BlocBuilder<UserValidationBloc, UserValidationBlocState>(
       buildWhen: (previous, current) => current is FormValidationBlocState,
       builder: (context, state) {
-        return SignUpButtonWidget(
+        return UserAddButtonWidget(
           isEnabled: true,
           formKey: _formKey,
           nameController: nameController,
           emailController: emailController,
-          passwordController: passwordController,
-          userType: _selectedUserType,
-          autoSignIn: _isAutoSignIn,
-          action: widget.action,
         );
-      },
-    );
-  }
-
-  Widget _buildPasswordRequirements() {
-    return BlocBuilder<UserValidationBloc, UserValidationBlocState>(
-      buildWhen: (previous, current) => current is PasswordValidationBlocState,
-      builder: (context, state) {
-        if (state is PasswordValidationBlocState) {
-          return PasswordRequirements(state: state);
-        }
-        return const SizedBox.shrink();
-      },
-    );
-  }
-
-  Widget _buildAutoSignInCheckbox() {
-    return CheckboxListTile(
-      title: const Text('Auto Sign In'),
-      value: _isAutoSignIn,
-      onChanged: (bool? value) {
-        setState(() {
-          _isAutoSignIn = value ?? false;
-        });
       },
     );
   }
