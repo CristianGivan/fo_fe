@@ -13,32 +13,28 @@ class AppBarWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        BlocBuilder<AuthSignBloc, AuthSignBlocState>(
+        BlocBuilder<AuthLogBloc, AuthSignBlocState>(
           builder: (context, state) {
-            if (state is AuthSignInAutoSuccessBlocState) {
+            if (state is AuthLogInAutoSuccessBlocState) {
               return _buildAuthenticatedTitle(context, state.authEntity);
-            } else if (state is AuthSignInSuccessBlocState) {
+            } else if (state is AuthLogInSuccessBlocState) {
               return _buildAuthenticatedTitle(context, state.authEntity);
-            } else if (state is AuthSignUpSuccessBlocState) {
-              return _buildAuthenticatedTitle(context, state.authEntity);
-            } else if (state is AuthSignLoadingBlocState) {
+            } else if (state is AuthLogLoadingBlocState) {
               return const CircularProgressIndicator();
             } else {
               return Text(title);
             }
           },
         ),
-        BlocBuilder<AuthSignBloc, AuthSignBlocState>(
+        BlocBuilder<AuthLogBloc, AuthSignBlocState>(
           builder: (context, state) {
-            if (state is AuthSignInAutoSuccessBlocState ||
-                state is AuthSignInSuccessBlocState ||
-                state is AuthSignUpSuccessBlocState) {
+            if (state is AuthLogInAutoSuccessBlocState || state is AuthLogInSuccessBlocState) {
               final authEntity = (state as dynamic).authEntity;
               return IconButton(
                 icon: const Icon(Icons.logout),
                 onPressed: () {
-                  context.read<AuthSignBloc>().add(
-                        AuthSignOutBlocEvent(authId: authEntity.id),
+                  context.read<AuthLogBloc>().add(
+                        AuthLogOutBlocEvent(authId: authEntity.id),
                       );
                   context.pushNamed(AuthRouterNames.authRouteName);
                 },

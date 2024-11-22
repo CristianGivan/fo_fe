@@ -5,13 +5,13 @@ class AuthScreen extends StatelessWidget {
   const AuthScreen({super.key});
 
   void _checkAutoLogin(BuildContext context) async {
-    final authBloc = context.read<AuthSignBloc>();
-    authBloc.add(AuthSignInAutoBlocEvent());
+    final authBloc = context.read<AuthLogBloc>();
+    authBloc.add(AuthLogInAutoBlocEvent());
 
     authBloc.stream.listen((state) {
-      if (state is AuthSignInAutoSuccessBlocState) {
+      if (state is AuthLogInAutoSuccessBlocState) {
         context.pushNamed(AuthRouterNames.authWithAutoLogInRouteName);
-      } else if (state is AuthSignFailedBlocState) {
+      } else if (state is AuthLogFailedBlocState) {
         Center(
           child: ElevatedButton(
             onPressed: () {
@@ -20,7 +20,7 @@ class AuthScreen extends StatelessWidget {
             child: const Text('Please sign in'),
           ),
         );
-      } else if (state is AuthSignErrorBlocState) {
+      } else if (state is AuthLogErrorBlocState) {
         Center(
           child: Text('Error: ${state.message}'),
         );

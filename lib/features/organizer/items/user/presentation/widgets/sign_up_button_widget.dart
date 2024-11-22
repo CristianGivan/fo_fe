@@ -1,4 +1,4 @@
-import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
+import 'package:fo_fe/features/authentication/presentation/bloc/sign_up_bloc/sign_up_bloc.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/other/user_validation.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
@@ -87,7 +87,7 @@ class _SignUpButtonWidgetState extends State<SignUpButtonWidget> {
       password: widget.passwordController.text,
       userType: widget.userType,
     );
-    context.read<AuthSignBloc>().add(AuthSignUpBlocEvent(
+    context.read<SignUpBloc>().add(SignUpBlocEvent(
           user: user,
           isAutoSignIn: widget.autoSignIn,
         ));

@@ -1,10 +1,6 @@
 import 'package:fo_fe/core/db/drift/auth_drift_db.dart';
 import 'package:fo_fe/core/utils/exports/core_utils_exports.dart';
 import 'package:fo_fe/features/authentication/data/repositories/auth_repository_drift.dart';
-import 'package:fo_fe/features/authentication/presentation/bloc/auth_user_bloc/auth_user_bloc.dart';
-import 'package:fo_fe/features/authentication/presentation/bloc/sign_in_auto_bloc/sign_in_auto_bloc.dart';
-import 'package:fo_fe/features/authentication/presentation/bloc/sign_in_bloc/sign_in_bloc.dart';
-import 'package:fo_fe/features/authentication/presentation/bloc/sign_out_bloc/sign_out_bloc.dart';
 import 'package:fo_fe/features/authentication/presentation/bloc/sign_up_bloc/sign_up_bloc.dart';
 import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
 import 'package:get_it/get_it.dart';
@@ -27,38 +23,26 @@ void authInit() {
   );
 
   // Register UseCases
-  sl.registerLazySingleton(() => SigInUseCase(sl(), sl()));
-  sl.registerLazySingleton(() => SignOutUseCase(sl()));
+  sl.registerLazySingleton(() => LogInUseCase(sl(), sl()));
+  sl.registerLazySingleton(() => LogOutUseCase(sl()));
   sl.registerLazySingleton(() => RefreshTokenUseCase(sl()));
-  sl.registerLazySingleton(() => SignInAutoUseCase(sl()));
+  sl.registerLazySingleton(() => LogInAutoUseCase(sl()));
   sl.registerLazySingleton(() => GetSignInUserUseCase(sl()));
-  sl.registerLazySingleton(() => SwitchUserUseCase(sl()));
+  sl.registerLazySingleton(() => LogSwitchUseCase(sl()));
   sl.registerLazySingleton(() => SignUpUseCase(sl(), sl()));
 
   // Register BLoCs
-  sl.registerFactory(() => AuthSignBloc(
-        sigInUseCase: sl<SigInUseCase>(),
-        signInAutoUseCase: sl<SignInAutoUseCase>(),
-        signOutUseCase: sl<SignOutUseCase>(),
-        switchUserUseCase: sl<SwitchUserUseCase>(),
+  sl.registerFactory(() => AuthLogBloc(
+        logInUseCase: sl<LogInUseCase>(),
+        logInAutoUseCase: sl<LogInAutoUseCase>(),
+        logOutUseCase: sl<LogOutUseCase>(),
+        logSwitchUseCase: sl<LogSwitchUseCase>(),
       ));
   sl.registerFactory(() => AuthTokenBloc(
-        logoutUseCase: sl<SignOutUseCase>(),
+        logoutUseCase: sl<LogOutUseCase>(),
         refreshTokenUseCase: sl<RefreshTokenUseCase>(),
       ));
-  sl.registerFactory(() => AuthUserBloc(
-        getSignInUserUseCase: sl<GetSignInUserUseCase>(),
-      ));
 
-  sl.registerFactory(() => SignInAutoBloc(
-        signInAutoUseCase: sl<SignInAutoUseCase>(),
-      ));
-  sl.registerFactory(() => SignInBloc(
-        sigInUseCase: sl<SigInUseCase>(),
-      ));
-  sl.registerFactory(() => SignOutBloc(
-        signOutUseCase: sl<SignOutUseCase>(),
-      ));
   sl.registerFactory(() => SignUpBloc(
         signUpUseCase: sl<SignUpUseCase>(),
       ));

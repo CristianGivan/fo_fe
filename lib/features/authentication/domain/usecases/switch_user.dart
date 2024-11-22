@@ -5,10 +5,10 @@ import 'package:fo_fe/features/authentication/utils/other/auth_params.dart';
 
 import '../../../../core/error/failures.dart';
 
-class SwitchUserUseCase extends UseCase<AuthEntity, AuthParams> {
+class LogSwitchUseCase extends UseCase<AuthEntity, AuthParams> {
   final AuthRepository authRepository;
 
-  SwitchUserUseCase(this.authRepository);
+  LogSwitchUseCase(this.authRepository);
 
   @override
   Future<Either<Failure, AuthEntity>> call(AuthParams params) async {

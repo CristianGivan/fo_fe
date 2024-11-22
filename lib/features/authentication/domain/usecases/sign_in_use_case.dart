@@ -1,16 +1,15 @@
 import 'package:dartz/dartz.dart';
-import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/usecase/usecase.dart';
 import 'package:fo_fe/core/utils/exports/core_utils_exports.dart';
 import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/other/user_validation.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 
-class SigInUseCase extends UseCase<AuthEntity, UserParams> {
+class LogInUseCase extends UseCase<AuthEntity, UserParams> {
   final AuthRepository authRepository;
   final UserRepository userRepository;
 
-  SigInUseCase(this.authRepository, this.userRepository);
+  LogInUseCase(this.authRepository, this.userRepository);
 
   @override
   Future<Either<Failure, AuthEntity>> call(UserParams params) async {

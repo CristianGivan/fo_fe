@@ -4,10 +4,10 @@ import 'package:fo_fe/core/usecase/params.dart';
 import 'package:fo_fe/core/usecase/usecase.dart';
 import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
 
-class SignInAutoUseCase extends UseCase<AuthEntity, NoParams> {
+class LogInAutoUseCase extends UseCase<AuthEntity, NoParams> {
   final AuthRepository authRepository;
 
-  SignInAutoUseCase(this.authRepository);
+  LogInAutoUseCase(this.authRepository);
 
   @override
   Future<Either<Failure, AuthEntity>> call(NoParams params) async {

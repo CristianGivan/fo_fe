@@ -12,7 +12,7 @@ export '../domain/usecases/sign_in_use_case.dart';
 export '../domain/usecases/sign_out_use_case.dart';
 export '../domain/usecases/sign_up_use_case.dart';
 export '../domain/usecases/switch_user.dart';
-export '../presentation/bloc/auth_sign_bloc/auth_sign_bloc.dart';
+export '../presentation/bloc/auth_sign_bloc/auth_log_bloc.dart';
 export '../presentation/bloc/auth_token_bloc/auth_token_bloc.dart';
 export '../presentation/screens/auth_screen.dart';
 export '../presentation/screens/auth_sign_in_screen.dart';

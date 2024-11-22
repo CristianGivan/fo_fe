@@ -45,16 +45,16 @@ class _SignInScreenState extends State<SignInScreen> {
                 },
               ),
               const SizedBox(height: 20),
-              BlocBuilder<AuthSignBloc, AuthSignBlocState>(
+              BlocBuilder<AuthLogBloc, AuthSignBlocState>(
                 builder: (context, state) {
-                  if (state is AuthSignLoadingBlocState) {
+                  if (state is AuthLogLoadingBlocState) {
                     return const CircularProgressIndicator();
                   }
                   return ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        context.read<AuthSignBloc>().add(
-                              AuthSignInBlocEvent(
+                        context.read<AuthLogBloc>().add(
+                              AuthLogInBlocEvent(
                                 email: _emailController.text,
                                 password: _passwordController.text,
                               ),
@@ -65,13 +65,13 @@ class _SignInScreenState extends State<SignInScreen> {
                   );
                 },
               ),
-              BlocListener<AuthSignBloc, AuthSignBlocState>(
+              BlocListener<AuthLogBloc, AuthSignBlocState>(
                 listener: (context, state) {
-                  if (state is AuthSignErrorBlocState) {
+                  if (state is AuthLogErrorBlocState) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text(state.message)),
                     );
-                  } else if (state is AuthSignInSuccessBlocState) {
+                  } else if (state is AuthLogInSuccessBlocState) {
                     context.pushNamed(OrganizerRouterNames.organizerRouteName);
                   }
                 },

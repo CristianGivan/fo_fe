@@ -8,7 +8,7 @@ part 'auth_token_bloc_event.dart';
 part 'auth_token_bloc_state.dart';
 
 class AuthTokenBloc extends Bloc<AuthTokenBlocEvent, AuthTokenBlocState> {
-  final SignOutUseCase logoutUseCase;
+  final LogOutUseCase logoutUseCase;
   final RefreshTokenUseCase refreshTokenUseCase;
 
   AuthTokenBloc({

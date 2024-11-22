@@ -4,10 +4,10 @@ import 'package:fo_fe/core/usecase/usecase.dart';
 import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
 import 'package:fo_fe/features/authentication/utils/other/auth_params.dart';
 
-class SignOutUseCase extends UseCase<void, AuthParams> {
+class LogOutUseCase extends UseCase<void, AuthParams> {
   final AuthRepository authRepository;
 
-  SignOutUseCase(this.authRepository);
+  LogOutUseCase(this.authRepository);
 
   @override
   @override

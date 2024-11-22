@@ -17,14 +17,14 @@ class _AuthScreenWithAutoLogInState extends State<AuthScreenWithAutoLogIn> {
 
   void _checkAutoLogin() async {
     // Check auto-login when the screen is initialized
-    final authBloc = context.read<AuthSignBloc>();
-    authBloc.add(AuthSignInAutoBlocEvent());
+    final authBloc = context.read<AuthLogBloc>();
+    authBloc.add(AuthLogInAutoBlocEvent());
 
     // Handle navigation based on auth state
     authBloc.stream.listen((state) {
-      if (state is AuthSignInAutoSuccessBlocState) {
+      if (state is AuthLogInAutoSuccessBlocState) {
         context.pushNamed(OrganizerRouterNames.organizerRouteName);
-      } else if (state is AuthSignErrorBlocState) {
+      } else if (state is AuthLogErrorBlocState) {
         // Handle the error case or show an error message if necessary
         print('Error: ${state.message}');
       }

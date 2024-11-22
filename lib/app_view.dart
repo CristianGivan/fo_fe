@@ -10,7 +10,7 @@ class AppView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<AuthSignBloc>().add(AuthSignInAutoBlocEvent());
+    context.read<AuthLogBloc>().add(AuthLogInAutoBlocEvent());
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       theme: AppThemes.darkTheme(),

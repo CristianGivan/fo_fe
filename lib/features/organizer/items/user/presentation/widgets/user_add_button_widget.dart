@@ -1,4 +1,4 @@
-import 'package:fo_fe/features/authentication/presentation/bloc/auth_sign_bloc/auth_sign_bloc.dart';
+import 'package:fo_fe/features/authentication/presentation/bloc/auth_sign_bloc/auth_log_bloc.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/other/user_validation.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
@@ -72,7 +72,7 @@ class _UserAddButtonWidgetState extends State<UserAddButtonWidget> {
   }
 
   void _performAction() {
-    final authState = context.read<AuthSignBloc>().state;
+    final authState = context.read<AuthLogBloc>().state;
 
     if (authState is AuthUserIdLoadedBlocState) {
       final logInUserId = authState.userId;
