@@ -18,7 +18,7 @@ String _mapFailureToMessage(Failure failure) {
     case LocalFailure e:
       return e.message.toString();
     default:
-      return 'An error occurred: ${failure.message}';
+      return 'An error occurred: \n ${failure.message}';
   }
 }
 

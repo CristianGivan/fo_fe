@@ -1,17 +1,17 @@
 part of 'sign_up_bloc.dart';
 
-abstract class SignUpState extends Equatable {
-  const SignUpState();
+abstract class SignUpBlocState extends Equatable {
+  const SignUpBlocState();
 
   @override
   List<Object> get props => [];
 }
 
-class SignUpInitialBlocState extends SignUpState {}
+class SignUpInitialBlocState extends SignUpBlocState {}
 
-class SignUpLoadingBlocState extends SignUpState {}
+class SignUpLoadingBlocState extends SignUpBlocState {}
 
-class SignUpSuccessBlocState extends SignUpState {
+class SignUpSuccessBlocState extends SignUpBlocState {
   final AuthEntity authEntity;
   final UserEntity userEntity;
 
@@ -21,7 +21,7 @@ class SignUpSuccessBlocState extends SignUpState {
   List<Object> get props => [authEntity, userEntity];
 }
 
-class SignUpFailedBlocState extends SignUpState {
+class SignUpFailedBlocState extends SignUpBlocState {
   final String error;
 
   const SignUpFailedBlocState(this.error);

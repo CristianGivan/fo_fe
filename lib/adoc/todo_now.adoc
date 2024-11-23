@@ -7,9 +7,19 @@ create like user_presentation_export.dart for all
 * if user already exist and you wand to add it again send a message
 * make sure that all the field are updated in the database for user and auth
 * I think that there is redundency sign up and add user and also for validations
+* move user_sign_up_screen  to auth
+* after pessing log in or sing up or add to add loading state
+
+* shall I have a fold as in add user or not for usecases?
+
+* understand better statless and stafull widget
+
 == Now
 
+* resolve user password
+* after singup to send a log in event in signup screen
 * Shall I add validation in the in bloc or  in screen
+* should I add a validation on user entity and base on some type of user thake the mandatory fyeld
 * add user at user
 
 == Nice

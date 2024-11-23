@@ -4,17 +4,17 @@ import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
 import 'package:fo_fe/features/authentication/utils/other/auth_params.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 
-part 'sign_up_event.dart';
-part 'sign_up_state.dart';
+part 'sign_up_bloc_event.dart';
+part 'sign_up_bloc_state.dart';
 
-class SignUpBloc extends Bloc<SignUpBlocEvent, SignUpState> {
+class SignUpBloc extends Bloc<SignUpRequestBlocEvent, SignUpBlocState> {
   final SignUpUseCase signUpUseCase;
 
   SignUpBloc({required this.signUpUseCase}) : super(SignUpInitialBlocState()) {
-    on<SignUpBlocEvent>(_signUpUseCase);
+    on<SignUpRequestBlocEvent>(_signUpUseCase);
   }
 
-  Future<void> _signUpUseCase(SignUpBlocEvent event, Emitter<SignUpState> emit) async {
+  Future<void> _signUpUseCase(SignUpRequestBlocEvent event, Emitter<SignUpBlocState> emit) async {
     emit(SignUpLoadingBlocState());
     final result = await signUpUseCase(SignUpParams(
       user: event.user,
@@ -36,7 +36,7 @@ class SignUpBloc extends Bloc<SignUpBlocEvent, SignUpState> {
       case AuthFailure _:
         return 'Auth failed';
       default:
-        return 'An error occurred: ${failure.message}';
+        return 'An error occurred:\n ${failure.message}';
     }
   }
 }

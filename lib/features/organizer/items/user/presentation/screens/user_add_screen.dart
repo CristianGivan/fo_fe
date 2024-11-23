@@ -13,6 +13,8 @@ class _UserAddScreenState extends State<UserAddScreen> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
+  bool wasEmailValid = false;
+  bool wasNameValid = false;
 
   @override
   void dispose() {
@@ -58,14 +60,12 @@ class _UserAddScreenState extends State<UserAddScreen> {
       context.pop();
       _showSnackBar(context, 'User added successfully!');
     } else if (state is UserErrorBlocState) {
-      _showSnackBar(context, state.message);
+      _showSnackBar(context, state.errorMessage);
     }
   }
 
+//todo -dry- sinUp
   void _userValidationBlocListener(BuildContext context, UserValidationBlocState state) {
-    bool wasEmailValid = false;
-    bool wasNameValid = false;
-
     if (state is EmailValidationBlocState) {
       _handleValidationFeedback(
         context,

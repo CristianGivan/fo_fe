@@ -31,7 +31,7 @@ String _mapFailureToMessage(Failure failure) {
     case CacheFailure:
       return 'Cache error occurred';
     default:
-      return 'An error occurred: ${failure.message}';
+      return 'An error occurred: \n ${failure.message}';
   }
 }
 

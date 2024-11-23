@@ -49,7 +49,7 @@ class TaskUserLinkBloc extends Bloc<TaskUserLinkBlocEvent, TaskUserLinkBlocState
     } else if (failure is ServerFailure) {
       return 'Server error: ${failure.message}';
     } else {
-      return 'An error occurred: ${failure.message}';
+      return 'An error occurred: \n ${failure.message}';
     }
   }
 

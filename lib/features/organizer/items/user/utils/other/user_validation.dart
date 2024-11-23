@@ -20,6 +20,20 @@ class UserValidation {
     return isNameEmailPasswordValid(name: user.name, email: user.email, password: user.password);
   }
 
+  static List<String> getInvalidFields(UserEntity user) {
+    List<String> invalidFields = [];
+    if (!isNameValid(user.name)) {
+      invalidFields.add('Invalid name');
+    }
+    if (!isEmailValid(user.email)) {
+      invalidFields.add('Invalid email');
+    }
+    if (!isPasswordValid(user.password)) {
+      invalidFields.add('Invalid password');
+    }
+    return invalidFields;
+  }
+
   static isNameEmailPasswordValid(
       {required String name, required String email, required String password}) {
     return isNameValid(name) && isEmailValid(email) && isPasswordValid(password);

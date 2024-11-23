@@ -1,6 +1,5 @@
 import 'package:fo_fe/features/authentication/presentation/bloc/auth_log_bloc/auth_log_bloc.dart';
 import 'package:fo_fe/features/authentication/presentation/bloc/sign_up_bloc/sign_up_bloc.dart';
-import 'package:fo_fe/features/organizer/items/user/utils/other/user_validation.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
@@ -24,7 +23,7 @@ class SignUpButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<SignUpBloc, SignUpState>(
+    return BlocListener<SignUpBloc, SignUpBlocState>(
       listener: (context, state) {
         if (state is SignUpFailedBlocState) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -40,34 +39,11 @@ class SignUpButtonWidget extends StatelessWidget {
         }
       },
       child: TextButton(
-        onPressed: isEnabled ? () => _validateAndSubmit(context) : null,
+        onPressed: isEnabled ? () => _performAction(context) : null,
         style: _buttonStyle(context),
         child: const Text('Sign Up'),
       ),
     );
-  }
-
-  void _validateAndSubmit(BuildContext context) {
-    List<String> errorMessages = [];
-
-    if (!UserValidation.isNameValid(nameController.text)) {
-      errorMessages.add('Invalid name');
-    }
-    if (!UserValidation.isEmailValid(emailController.text)) {
-      errorMessages.add('Invalid email');
-    }
-    if (!UserValidation.isPasswordValid(passwordController.text)) {
-      errorMessages.add('Invalid password');
-    }
-    if (errorMessages.isEmpty) {
-      _performAction(context);
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(errorMessages.join('\n')),
-        ),
-      );
-    }
   }
 
   void _performAction(BuildContext context) {
@@ -77,7 +53,7 @@ class SignUpButtonWidget extends StatelessWidget {
       password: passwordController.text,
       userType: userType,
     );
-    context.read<SignUpBloc>().add(SignUpBlocEvent(
+    context.read<SignUpBloc>().add(SignUpRequestBlocEvent(
           user: user,
           isAutoSignIn: autoSignIn,
         ));

@@ -1,5 +1,5 @@
-export 'add_user.dart';
 export 'add_user_to_user.dart';
+export 'add_user_use_case.dart';
 export 'delete_user.dart';
 export 'delete_user_from_user.dart';
 export 'get_user_and_connected_user_items.dart';

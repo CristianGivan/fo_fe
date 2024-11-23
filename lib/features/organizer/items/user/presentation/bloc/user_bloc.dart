@@ -11,7 +11,7 @@ part 'user_bloc_event.dart';
 part 'user_bloc_state.dart';
 
 class UserBloc extends Bloc<UserBlocEvent, UserBlocState> {
-  final AddUser addUser;
+  final AddUserUseCase addUser;
   final AddUserToUser addUserToUser;
   final UpdateUser updateUser;
   final DeleteUser deleteUser;
@@ -142,7 +142,7 @@ class UserBloc extends Bloc<UserBlocEvent, UserBlocState> {
       case CacheFailure:
         return 'Cache error occurred';
       default:
-        return 'An error occurred: ${failure.message}';
+        return 'An error occurred: \n ${failure.message}';
     }
   }
 }

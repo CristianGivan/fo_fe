@@ -49,7 +49,7 @@ class AuthTokenBloc extends Bloc<AuthTokenBlocEvent, AuthTokenBlocState> {
       case AuthFailure _:
         return 'Auth failed';
       default:
-        return 'An error occurred: ${failure.message}';
+        return 'An error occurred: \n ${failure.message}';
     }
   }
 }

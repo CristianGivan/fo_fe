@@ -24,7 +24,7 @@ void userInit() {
   sl.registerLazySingleton(() => GetConnectedUserItems(sl(), sl()));
   sl.registerLazySingleton(() => GetUserItemsByIdSet(sl()));
   sl.registerLazySingleton(() => GetUserItemsByUserId(sl()));
-  sl.registerLazySingleton(() => AddUser(sl()));
+  sl.registerLazySingleton(() => AddUserUseCase(sl()));
   sl.registerLazySingleton(() => UpdateUser(sl()));
 
   // User BLoCs

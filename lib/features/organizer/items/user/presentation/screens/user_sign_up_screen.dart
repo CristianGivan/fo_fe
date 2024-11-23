@@ -72,7 +72,7 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
       GoRouter.of(context).go(OrganizerRouterNames.organizerRouteName);
       _showSnackBar(context, 'Sign up successful!');
     } else if (state is UserErrorBlocState) {
-      _showSnackBar(context, state.message);
+      _showSnackBar(context, state.errorMessage);
     }
   }
 

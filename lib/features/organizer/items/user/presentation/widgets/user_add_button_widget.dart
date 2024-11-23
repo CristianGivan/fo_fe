@@ -1,9 +1,8 @@
 import 'package:fo_fe/features/authentication/presentation/bloc/auth_log_bloc/auth_log_bloc.dart';
-import 'package:fo_fe/features/organizer/items/user/utils/other/user_validation.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class UserAddButtonWidget extends StatefulWidget {
+class UserAddButtonWidget extends StatelessWidget {
   final bool isEnabled;
   final GlobalKey<FormState> formKey;
   final TextEditingController nameController;
@@ -18,31 +17,43 @@ class UserAddButtonWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _UserAddButtonWidgetState createState() => _UserAddButtonWidgetState();
-}
-
-class _UserAddButtonWidgetState extends State<UserAddButtonWidget> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.5,
-      child: TextButton(
-        onPressed: widget.isEnabled ? _validateAndSubmit : null,
-        style: _buttonStyle(context),
-        child: const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 25, vertical: 5),
-          child: Text(
-            'Add User',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
+    return BlocListener<UserBloc, UserBlocState>(
+      listener: (context, state) {
+        if (state is UserSuccessBlocState) {
+          // Show success message or navigate if needed
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('User added successfully!'),
+              backgroundColor: Colors.green,
+            ),
+          );
+          context.pop();
+        } else if (state is UserErrorBlocState) {
+          // Show error message
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Error: ${state.errorMessage}'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      },
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width * 0.5,
+        child: TextButton(
+          onPressed: isEnabled ? () => _performAction(context) : null,
+          style: _buttonStyle(context),
+          child: const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+            child: Text(
+              'Add User',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
         ),
@@ -50,55 +61,31 @@ class _UserAddButtonWidgetState extends State<UserAddButtonWidget> {
     );
   }
 
-  void _validateAndSubmit() {
-    List<String> errorMessages = [];
-
-    if (!UserValidation.isNameValid(widget.nameController.text)) {
-      errorMessages.add('Invalid name');
-    }
-    if (!UserValidation.isEmailValid(widget.emailController.text)) {
-      errorMessages.add('Invalid email');
-    }
-
-    if (errorMessages.isEmpty) {
-      _performAction();
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(errorMessages.join('\n')),
-        ),
-      );
-    }
-  }
-
-  void _performAction() {
+  void _performAction(BuildContext context) {
     final authState = context.read<AuthLogBloc>().state;
 
     if (authState is AuthAuthenticatedBlocState) {
       final logInUserId = authState.authEntity.userId;
 
       final user = UserEntity(
-        name: widget.nameController.text,
-        email: widget.emailController.text,
+        name: nameController.text,
+        email: emailController.text,
         password: '',
         userType: UserTypeEnum.Remote,
       );
+
       context.read<UserBloc>().add(AddUserBlocEvent(user));
-      final userState = context.read<UserBloc>().state;
-      if (userState is UserSuccessBlocState) {
-        context.read<UserBloc>().add(AddUserToUserBlocEvent(
-              userLinkedId: user.id,
-              userId: logInUserId,
-            ));
-      }
-      context.pop();
+      context.read<UserBloc>().add(AddUserToUserBlocEvent(
+            userLinkedId: user.id,
+            userId: logInUserId,
+          ));
     }
   }
 
   ButtonStyle _buttonStyle(BuildContext context) {
     return TextButton.styleFrom(
       elevation: 3.0,
-      backgroundColor: widget.isEnabled ? Theme.of(context).colorScheme.primary : Colors.grey,
+      backgroundColor: isEnabled ? Theme.of(context).colorScheme.primary : Colors.grey,
       foregroundColor: Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(60),

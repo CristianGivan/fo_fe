@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
@@ -53,7 +51,7 @@ class UserListPage extends StatelessWidget {
   }
 
   Widget _buildErrorMessage(UserErrorBlocState state) {
-    return Center(child: Text(state.message));
+    return Center(child: Text(state.errorMessage));
   }
 
   Widget _buildNoUsersMessage() {

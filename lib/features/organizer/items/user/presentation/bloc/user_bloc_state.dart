@@ -21,12 +21,12 @@ class UserItemsLoadedBlocState extends UserBlocState {
 }
 
 class UserErrorBlocState extends UserBlocState {
-  final String message;
+  final String errorMessage;
 
-  UserErrorBlocState(this.message);
+  UserErrorBlocState(this.errorMessage);
 
   @override
-  List<Object> get props => [message];
+  List<Object> get props => [errorMessage];
 }
 
 class UserSuccessBlocState extends UserBlocState {

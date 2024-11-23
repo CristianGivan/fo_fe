@@ -93,7 +93,7 @@ class AuthLogBloc extends Bloc<AuthLogBlocEvent, AuthSignBlocState> {
       case AuthFailure _:
         return 'Auth failed';
       default:
-        return 'An error occurred: ${failure.message}';
+        return 'An error occurred: \n ${failure.message}';
     }
   }
 }
