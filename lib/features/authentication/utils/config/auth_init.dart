@@ -3,6 +3,7 @@ import 'package:fo_fe/core/utils/exports/core_utils_exports.dart';
 import 'package:fo_fe/features/authentication/data/repositories/auth_repository_drift.dart';
 import 'package:fo_fe/features/authentication/presentation/bloc/sign_up_bloc/sign_up_bloc.dart';
 import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
+import 'package:fo_fe/features/organizer/items/user/domain/usecases/user_usecase_export.dart';
 import 'package:get_it/get_it.dart';
 
 final sl = GetIt.instance;
@@ -13,7 +14,7 @@ void authInit() {
     () => AuthLocalDataSourceDrift(database: sl<AuthDriftDB>()),
   );
 
-  // Register AuthRepository
+  // Register Repositories
   sl.registerLazySingleton<AuthRepository>(
     () => AuthRepositoryDrift(
       localDataSource: sl<AuthLocalDataSource>(),
@@ -27,7 +28,6 @@ void authInit() {
   sl.registerLazySingleton(() => LogOutUseCase(sl()));
   sl.registerLazySingleton(() => RefreshTokenUseCase(sl()));
   sl.registerLazySingleton(() => LogInAutoUseCase(sl()));
-  sl.registerLazySingleton(() => GetSignInUserUseCase(sl()));
   sl.registerLazySingleton(() => LogSwitchUseCase(sl()));
   sl.registerLazySingleton(() => SignUpUseCase(sl(), sl()));
 
@@ -35,14 +35,14 @@ void authInit() {
   sl.registerFactory(() => AuthLogBloc(
         logInUseCase: sl<LogInUseCase>(),
         logInAutoUseCase: sl<LogInAutoUseCase>(),
-        logOutUseCase: sl<LogOutUseCase>(),
         logSwitchUseCase: sl<LogSwitchUseCase>(),
+        logOutUseCase: sl<LogOutUseCase>(),
+        getUserByIdUseCase: sl<GetUserByIdUseCase>(),
       ));
   sl.registerFactory(() => AuthTokenBloc(
         logoutUseCase: sl<LogOutUseCase>(),
         refreshTokenUseCase: sl<RefreshTokenUseCase>(),
       ));
-
   sl.registerFactory(() => SignUpBloc(
         signUpUseCase: sl<SignUpUseCase>(),
       ));

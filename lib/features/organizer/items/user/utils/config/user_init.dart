@@ -20,7 +20,7 @@ void userInit() {
   sl.registerLazySingleton(() => AddUserToUser(sl()));
   sl.registerLazySingleton(() => DeleteUser(sl()));
   sl.registerLazySingleton(() => DeleteUserFromUser(sl()));
-  sl.registerLazySingleton(() => GetUserById(sl()));
+  sl.registerLazySingleton(() => GetUserByIdUseCase(sl()));
   sl.registerLazySingleton(() => GetConnectedUserItems(sl(), sl()));
   sl.registerLazySingleton(() => GetUserItemsByIdSet(sl()));
   sl.registerLazySingleton(() => GetUserItemsByUserId(sl()));

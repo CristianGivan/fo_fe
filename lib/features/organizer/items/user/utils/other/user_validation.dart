@@ -1,6 +1,7 @@
 // validation_utils.dart
 
 import 'package:fo_fe/core/const/regexp.dart';
+import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 
 class UserValidation {
   static bool isNameValid(String name) {
@@ -15,7 +16,11 @@ class UserValidation {
     return password.isNotEmpty && passwordRegExp.hasMatch(password);
   }
 
-  static isUserNameEmailPasswordValid(
+  static isUserNameEmailPasswordValidValid(UserEntity user) {
+    return isNameEmailPasswordValid(name: user.name, email: user.email, password: user.password);
+  }
+
+  static isNameEmailPasswordValid(
       {required String name, required String email, required String password}) {
     return isNameValid(name) && isEmailValid(email) && isPasswordValid(password);
   }

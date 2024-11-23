@@ -9,7 +9,7 @@ class AuthScreen extends StatelessWidget {
     authBloc.add(AuthLogInAutoBlocEvent());
 
     authBloc.stream.listen((state) {
-      if (state is AuthLogInAutoSuccessBlocState) {
+      if (state is AuthAuthenticatedBlocState) {
         context.pushNamed(AuthRouterNames.authWithAutoLogInRouteName);
       } else if (state is AuthLogFailedBlocState) {
         Center(
@@ -22,7 +22,7 @@ class AuthScreen extends StatelessWidget {
         );
       } else if (state is AuthLogErrorBlocState) {
         Center(
-          child: Text('Error: ${state.message}'),
+          child: Text('Error: ${state.errorMessage}'),
         );
       }
     });

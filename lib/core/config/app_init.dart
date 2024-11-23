@@ -14,9 +14,9 @@ void appInit({bool isDev = false}) {
   if (isDev) {
     Bloc.observer = SimpleBlocObserver();
   }
+  driftDbInit(isDev: isDev);
   coreInit();
   externalsInit();
-  driftDbInit(isDev: isDev);
   authInit();
   organizerInit();
 }

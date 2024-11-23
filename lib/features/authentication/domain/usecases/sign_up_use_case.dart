@@ -20,7 +20,7 @@ class SignUpUseCase extends UseCase<AuthEntity, SignUpParams> {
     );
   }
 
-// todo not eliminating duplicate auth
+// todo eliminating duplicate auth
 
   Future<Either<Failure, AuthEntity>> _handleAuth(int userId, bool isAutoSignIn) async {
     final existingAuthResult = await authRepository.getAuthForUserAndDeviceInfo(userId);

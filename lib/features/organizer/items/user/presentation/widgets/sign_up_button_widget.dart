@@ -1,76 +1,66 @@
+import 'package:fo_fe/features/authentication/presentation/bloc/auth_log_bloc/auth_log_bloc.dart';
 import 'package:fo_fe/features/authentication/presentation/bloc/sign_up_bloc/sign_up_bloc.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/other/user_validation.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class SignUpButtonWidget extends StatefulWidget {
-  final bool isEnabled;
-  final GlobalKey<FormState> formKey;
+class SignUpButtonWidget extends StatelessWidget {
   final TextEditingController nameController;
   final TextEditingController emailController;
   final TextEditingController passwordController;
   final UserTypeEnum userType;
   final bool autoSignIn;
+  final bool isEnabled;
 
   const SignUpButtonWidget({
     Key? key,
-    required this.isEnabled,
-    required this.formKey,
     required this.nameController,
     required this.emailController,
     required this.passwordController,
     required this.userType,
     required this.autoSignIn,
+    required this.isEnabled,
   }) : super(key: key);
 
   @override
-  _SignUpButtonWidgetState createState() => _SignUpButtonWidgetState();
-}
-
-class _SignUpButtonWidgetState extends State<SignUpButtonWidget> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.5,
-      child: TextButton(
-        onPressed: widget.isEnabled ? _validateAndSubmit : null,
-        style: _buttonStyle(context),
-        child: const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 25, vertical: 5),
-          child: Text(
-            'Sign Up',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
+    return BlocListener<SignUpBloc, SignUpState>(
+      listener: (context, state) {
+        if (state is SignUpFailedBlocState) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Error: ${state.error}'),
+              backgroundColor: Colors.red,
             ),
-          ),
-        ),
+          );
+        } else if (state is SignUpSuccessBlocState) {
+          context.read<AuthLogBloc>().add(AuthLogInBlocEvent(
+              email: state.userEntity.email, password: state.userEntity.password));
+          context.pushNamed(OrganizerRouterNames.organizerRoutePath);
+        }
+      },
+      child: TextButton(
+        onPressed: isEnabled ? () => _validateAndSubmit(context) : null,
+        style: _buttonStyle(context),
+        child: const Text('Sign Up'),
       ),
     );
   }
 
-  void _validateAndSubmit() {
+  void _validateAndSubmit(BuildContext context) {
     List<String> errorMessages = [];
 
-    if (!UserValidation.isNameValid(widget.nameController.text)) {
+    if (!UserValidation.isNameValid(nameController.text)) {
       errorMessages.add('Invalid name');
     }
-    if (!UserValidation.isEmailValid(widget.emailController.text)) {
+    if (!UserValidation.isEmailValid(emailController.text)) {
       errorMessages.add('Invalid email');
     }
-    if (!UserValidation.isPasswordValid(widget.passwordController.text)) {
+    if (!UserValidation.isPasswordValid(passwordController.text)) {
       errorMessages.add('Invalid password');
     }
-
     if (errorMessages.isEmpty) {
-      _performAction();
+      _performAction(context);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -80,28 +70,23 @@ class _SignUpButtonWidgetState extends State<SignUpButtonWidget> {
     }
   }
 
-  void _performAction() {
+  void _performAction(BuildContext context) {
     final user = UserEntity(
-      name: widget.nameController.text,
-      email: widget.emailController.text,
-      password: widget.passwordController.text,
-      userType: widget.userType,
+      name: nameController.text,
+      email: emailController.text,
+      password: passwordController.text,
+      userType: userType,
     );
     context.read<SignUpBloc>().add(SignUpBlocEvent(
           user: user,
-          isAutoSignIn: widget.autoSignIn,
+          isAutoSignIn: autoSignIn,
         ));
-    context.pushNamed(OrganizerRouterNames.organizerRoutePath);
   }
 
   ButtonStyle _buttonStyle(BuildContext context) {
     return TextButton.styleFrom(
       elevation: 3.0,
-      backgroundColor: widget.isEnabled ? Theme.of(context).colorScheme.primary : Colors.grey,
-      foregroundColor: Colors.white,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(60),
-      ),
+      backgroundColor: isEnabled ? Theme.of(context).colorScheme.primary : Colors.grey,
     );
   }
 }

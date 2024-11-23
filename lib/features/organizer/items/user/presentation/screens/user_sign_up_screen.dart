@@ -15,6 +15,9 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
   final TextEditingController passwordController = TextEditingController();
   UserTypeEnum _selectedUserType = UserTypeEnum.Temporary;
   bool _isAutoSignIn = false;
+  bool wasEmailValid = false;
+  bool wasNameValid = false;
+  bool wasPasswordValid = false;
 
   @override
   void dispose() {
@@ -74,10 +77,6 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
   }
 
   void _userValidationBlocListener(BuildContext context, UserValidationBlocState state) {
-    bool wasEmailValid = false;
-    bool wasNameValid = false;
-    bool wasPasswordValid = false;
-
     if (state is EmailValidationBlocState) {
       _handleValidationFeedback(
         context,
@@ -151,7 +150,6 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
       builder: (context, state) {
         return SignUpButtonWidget(
           isEnabled: true,
-          formKey: _formKey,
           nameController: nameController,
           emailController: emailController,
           passwordController: passwordController,

@@ -12,10 +12,10 @@ class LogOutUseCase extends UseCase<void, AuthParams> {
   @override
   @override
   Future<Either<Failure, void>> call(AuthParams params) async {
-    final result = await authRepository.getActiveAuthForDeviceInfo();
-    return await result.fold(
-      (failure) async => Left(failure),
-      (auth) async => await authRepository.signOut(auth.id),
+    final result = await authRepository.signOut(params.authId);
+    return result.fold(
+      (failure) => Left(failure),
+      (success) async => Right(success),
     );
   }
 }

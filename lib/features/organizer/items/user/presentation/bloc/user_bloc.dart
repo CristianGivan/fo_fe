@@ -16,7 +16,7 @@ class UserBloc extends Bloc<UserBlocEvent, UserBlocState> {
   final UpdateUser updateUser;
   final DeleteUser deleteUser;
   final DeleteUserFromUser deleteUserFromUser;
-  final GetUserById getUserById;
+  final GetUserByIdUseCase getUserById;
   final GetUserItemsByIdSet getUserItemsByIdSet;
   final GetUserItemsByUserId getUserItemsByUserId;
   final GetConnectedUserItems getUserAndConnectedUserItems;
@@ -73,7 +73,7 @@ class UserBloc extends Bloc<UserBlocEvent, UserBlocState> {
 
   Future<void> _onGetUserById(GetUserByIdBlocEvent event, Emitter<UserBlocState> emit) async {
     emit(UserLoadingBlocState());
-    final failureOrUser = await getUserById(GetUserByIdParams(id: event.id));
+    final failureOrUser = await getUserById(UserParams(userId: event.id));
     failureOrUser.fold(
       (failure) => emit(UserErrorBlocState(_mapFailureToMessage(failure))),
       (user) => user != null

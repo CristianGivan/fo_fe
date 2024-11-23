@@ -69,9 +69,9 @@ class _SignInScreenState extends State<SignInScreen> {
                 listener: (context, state) {
                   if (state is AuthLogErrorBlocState) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text(state.message)),
+                      SnackBar(content: Text(state.errorMessage)),
                     );
-                  } else if (state is AuthLogInSuccessBlocState) {
+                  } else if (state is AuthAuthenticatedBlocState) {
                     context.pushNamed(OrganizerRouterNames.organizerRouteName);
                   }
                 },

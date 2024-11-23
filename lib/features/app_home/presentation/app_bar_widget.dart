@@ -15,12 +15,10 @@ class AppBarWidget extends StatelessWidget {
       children: [
         BlocBuilder<AuthLogBloc, AuthSignBlocState>(
           builder: (context, state) {
-            if (state is AuthLogInAutoSuccessBlocState) {
-              return _buildAuthenticatedTitle(context, state.authEntity);
-            } else if (state is AuthLogInSuccessBlocState) {
-              return _buildAuthenticatedTitle(context, state.authEntity);
-            } else if (state is AuthLogLoadingBlocState) {
+            if (state is AuthLogLoadingBlocState) {
               return const CircularProgressIndicator();
+            } else if (state is AuthAuthenticatedBlocState) {
+              return _buildAuthenticatedTitle(context, state.authEntity);
             } else {
               return Text(title);
             }
@@ -28,7 +26,7 @@ class AppBarWidget extends StatelessWidget {
         ),
         BlocBuilder<AuthLogBloc, AuthSignBlocState>(
           builder: (context, state) {
-            if (state is AuthLogInAutoSuccessBlocState || state is AuthLogInSuccessBlocState) {
+            if (state is AuthAuthenticatedBlocState) {
               final authEntity = (state as dynamic).authEntity;
               return IconButton(
                 icon: const Icon(Icons.logout),

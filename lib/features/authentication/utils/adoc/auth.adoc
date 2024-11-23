@@ -2,6 +2,7 @@
 
 * shall be used all the time short form auth
 
+
 ==== AuthSignFailedBlocState
 
 * AuthSignFailedBlocState is a new state you can create to represent a specific failure in the
@@ -44,3 +45,11 @@ increased by 1
 
 * to don't increment usles the view count use get auth
 ?? is the state from app_bar_widget incrising the coutn or is just reading from the latest state?
+
+== Log from Sign
+
+* I change the name from log to sign because it is more clear what is the purpose of the class.
+* I grouped all the log bloc in one bloc and let out the sign up
+* I use stats like LogInSuccess for a more specific state and AuthenticatedState  for a global
+state . I need this distinction so that I know how many auto log in I have and to use it in _usedCountMax
+

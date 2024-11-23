@@ -9,9 +9,12 @@ create like user_presentation_export.dart for all
 * I think that there is redundency sign up and add user and also for validations
 == Now
 
+* Shall I add validation in the in bloc or  in screen
 * add user at user
 
 == Nice
+
+debounce see todo code
 
 == Done
 

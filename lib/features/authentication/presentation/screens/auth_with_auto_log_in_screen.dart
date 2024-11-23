@@ -22,11 +22,14 @@ class _AuthScreenWithAutoLogInState extends State<AuthScreenWithAutoLogIn> {
 
     // Handle navigation based on auth state
     authBloc.stream.listen((state) {
-      if (state is AuthLogInAutoSuccessBlocState) {
+      if (state is AuthAuthenticatedBlocState) {
         context.pushNamed(OrganizerRouterNames.organizerRouteName);
       } else if (state is AuthLogErrorBlocState) {
-        // Handle the error case or show an error message if necessary
-        print('Error: ${state.message}');
+        final snackBar = SnackBar(
+          content: Text('Error: ${state.errorMessage}'),
+          backgroundColor: Colors.red,
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
     });
   }

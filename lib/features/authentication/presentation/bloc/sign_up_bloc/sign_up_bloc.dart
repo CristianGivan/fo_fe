@@ -22,7 +22,8 @@ class SignUpBloc extends Bloc<SignUpBlocEvent, SignUpState> {
     ));
     emit(result.fold(
       (failure) => SignUpFailedBlocState(_mapFailureToMessage(failure)),
-      (authEntity) => SignUpSuccessBlocState(authEntity: authEntity),
+      (authEntity) => SignUpSuccessBlocState(
+          authEntity: authEntity, userEntity: event.user.copyWith(id: authEntity.userId)),
     ));
   }
 

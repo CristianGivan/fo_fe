@@ -1,4 +1,5 @@
 part of 'sign_up_bloc.dart';
+
 abstract class SignUpState extends Equatable {
   const SignUpState();
 
@@ -12,11 +13,12 @@ class SignUpLoadingBlocState extends SignUpState {}
 
 class SignUpSuccessBlocState extends SignUpState {
   final AuthEntity authEntity;
+  final UserEntity userEntity;
 
-  const SignUpSuccessBlocState({required this.authEntity});
+  const SignUpSuccessBlocState({required this.authEntity, required this.userEntity});
 
   @override
-  List<Object> get props => [authEntity];
+  List<Object> get props => [authEntity, userEntity];
 }
 
 class SignUpFailedBlocState extends SignUpState {
