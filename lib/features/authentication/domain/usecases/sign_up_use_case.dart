@@ -16,23 +16,7 @@ class SignUpUseCase extends UseCase<AuthEntity, SignUpParams> {
     final userIdResult = await userRepository.addUser(params.user);
     return userIdResult.fold(
       (failure) => Left(failure),
-      (user) async => await _handleAuth(user.id, params.isAutoSignIn),
-    );
-  }
-
-// todo eliminating duplicate auth
-
-  Future<Either<Failure, AuthEntity>> _handleAuth(int userId, bool isAutoSignIn) async {
-    final existingAuthResult = await authRepository.getAuthForUserAndDeviceInfo(userId);
-    return existingAuthResult.fold(
-      (failure) async => Left(failure),
-      (existingAuthResult) async {
-        if (existingAuthResult.isEmpty()) {
-          return await _addNewAuth(userId, isAutoSignIn);
-        } else {
-          return await _updateExistingAuth(existingAuthResult, isAutoSignIn);
-        }
-      },
+      (user) async => await _addNewAuth(user.id, params.isAutoSignIn),
     );
   }
 
@@ -44,19 +28,6 @@ class SignUpUseCase extends UseCase<AuthEntity, SignUpParams> {
         return Left(failure);
       },
       (authEntity) => Right(authEntity),
-    );
-  }
-
-  Future<Either<Failure, AuthEntity>> _updateExistingAuth(
-      AuthEntity existingAuth, bool isAutoSignIn) async {
-    final updatedAuthResult =
-        await authRepository.updateAuth(existingAuth.copyWith(isAutoSignIn: isAutoSignIn));
-    return updatedAuthResult.fold(
-      (failure) async {
-        await userRepository.deleteUser(existingAuth.userId);
-        return Left(failure);
-      },
-      (updatedAuth) => Right(updatedAuth),
     );
   }
 }

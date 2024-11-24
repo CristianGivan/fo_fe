@@ -3,7 +3,7 @@
 * change    _checkItemNotNull(auth); to return empty not a fail
 create like user_presentation_export.dart for all
 
-* todo -fix- don't hash password 2 times
+
 * if user already exist and you wand to add it again send a message
 * make sure that all the field are updated in the database for user and auth
 * I think that there is redundency sign up and add user and also for validations
@@ -17,7 +17,7 @@ create like user_presentation_export.dart for all
 
 * chck if flow of adiig and authenticating is ok
 * establish UserStatus logic
-* decide use linmked or connected users
+
 * handel user state make a difference betwee users in userscreen
 
 * establis a convention for enums
@@ -25,11 +25,9 @@ create like user_presentation_export.dart for all
 
 == Now
 
-* resolve user password
+* // todo eliminating duplicate auth  do a second authen if is allready
 * after singup to send a log in event in signup screen
 * Shall I add validation in the in bloc or  in screen
-* should I add a validation on user entity and base on some type of user thake the mandatory fyeld
-* add user at user
 
 == Nice
 
@@ -37,6 +35,12 @@ debounce see todo code
 
 == Done
 
+* resolve user password
+
+* should I add a validation on user entity and base on some type of user thake the mandatory fyeld
+* add user at user
+* todo -fix- don't hash password 2 times
+* decide use linmked or connected users
 * get all users
 * when an new user is added to dont have the un neded fiedl like autosingin or userType and the
 message to be user added

@@ -45,7 +45,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 },
               ),
               const SizedBox(height: 20),
-              BlocBuilder<AuthLogBloc, AuthSignBlocState>(
+              BlocBuilder<AuthLogBloc, AuthLogBlocState>(
                 builder: (context, state) {
                   if (state is AuthLogLoadingBlocState) {
                     return const CircularProgressIndicator();
@@ -65,7 +65,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   );
                 },
               ),
-              BlocListener<AuthLogBloc, AuthSignBlocState>(
+              BlocListener<AuthLogBloc, AuthLogBlocState>(
                 listener: (context, state) {
                   if (state is AuthLogErrorBlocState) {
                     ScaffoldMessenger.of(context).showSnackBar(

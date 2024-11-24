@@ -13,7 +13,7 @@ class AppBarWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        BlocBuilder<AuthLogBloc, AuthSignBlocState>(
+        BlocBuilder<AuthLogBloc, AuthLogBlocState>(
           builder: (context, state) {
             if (state is AuthLogLoadingBlocState) {
               return const CircularProgressIndicator();
@@ -24,7 +24,7 @@ class AppBarWidget extends StatelessWidget {
             }
           },
         ),
-        BlocBuilder<AuthLogBloc, AuthSignBlocState>(
+        BlocBuilder<AuthLogBloc, AuthLogBlocState>(
           builder: (context, state) {
             if (state is AuthAuthenticatedBlocState) {
               final authEntity = (state as dynamic).authEntity;

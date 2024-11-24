@@ -1,15 +1,15 @@
 part of 'auth_log_bloc.dart';
 
-abstract class AuthSignBlocState extends Equatable {
-  const AuthSignBlocState();
+abstract class AuthLogBlocState extends Equatable {
+  const AuthLogBlocState();
 
   @override
   List<Object?> get props => [];
 }
 
-class AuthLogInitialBlocState extends AuthSignBlocState {}
+class AuthLogInitialBlocState extends AuthLogBlocState {}
 
-class AuthLogLoadingBlocState extends AuthSignBlocState {
+class AuthLogLoadingBlocState extends AuthLogBlocState {
   final AuthOperation operation;
 
   const AuthLogLoadingBlocState(this.operation);
@@ -18,7 +18,7 @@ class AuthLogLoadingBlocState extends AuthSignBlocState {
   List<Object?> get props => [operation];
 }
 
-class AuthAuthenticatedBlocState extends AuthSignBlocState {
+class AuthAuthenticatedBlocState extends AuthLogBlocState {
   final AuthEntity authEntity;
   final UserEntity userEntity;
   final AuthOperation operationType;
@@ -33,9 +33,9 @@ class AuthAuthenticatedBlocState extends AuthSignBlocState {
   List<Object?> get props => [authEntity, userEntity, operationType];
 }
 
-class AuthLogOutSuccessBlocState extends AuthSignBlocState {}
+class AuthLogOutSuccessBlocState extends AuthLogBlocState {}
 
-class AuthUnauthenticatedBlocState extends AuthSignBlocState {
+class AuthUnauthenticatedBlocState extends AuthLogBlocState {
   final String? reason;
 
   const AuthUnauthenticatedBlocState({this.reason});
@@ -44,7 +44,7 @@ class AuthUnauthenticatedBlocState extends AuthSignBlocState {
   List<Object?> get props => [reason];
 }
 
-class AuthLogFailedBlocState extends AuthSignBlocState {
+class AuthLogFailedBlocState extends AuthLogBlocState {
   final String error;
 
   const AuthLogFailedBlocState(this.error);
@@ -53,7 +53,7 @@ class AuthLogFailedBlocState extends AuthSignBlocState {
   List<Object> get props => [error];
 }
 
-class AuthLogErrorBlocState extends AuthSignBlocState {
+class AuthLogErrorBlocState extends AuthLogBlocState {
   final String errorMessage;
 
   const AuthLogErrorBlocState(this.errorMessage);

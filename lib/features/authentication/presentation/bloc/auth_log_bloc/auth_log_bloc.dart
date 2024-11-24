@@ -9,7 +9,7 @@ import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 part 'auth_log_bloc_event.dart';
 part 'auth_log_bloc_state.dart';
 
-class AuthLogBloc extends Bloc<AuthLogBlocEvent, AuthSignBlocState> {
+class AuthLogBloc extends Bloc<AuthLogBlocEvent, AuthLogBlocState> {
   final LogInUseCase logInUseCase;
   final LogInAutoUseCase logInAutoUseCase;
   final LogSwitchUseCase logSwitchUseCase;
@@ -28,7 +28,7 @@ class AuthLogBloc extends Bloc<AuthLogBlocEvent, AuthSignBlocState> {
     on<AuthLogOutBlocEvent>(_logOutUseCase);
   }
 
-  Future<void> _logInUseCase(AuthLogInBlocEvent event, Emitter<AuthSignBlocState> emit) async {
+  Future<void> _logInUseCase(AuthLogInBlocEvent event, Emitter<AuthLogBlocState> emit) async {
     emit(const AuthLogLoadingBlocState(AuthOperation.logIn));
 
     final result = await logInUseCase(UserParams(
@@ -44,7 +44,7 @@ class AuthLogBloc extends Bloc<AuthLogBlocEvent, AuthSignBlocState> {
   }
 
   Future<void> _logInAutoUseCase(
-      AuthLogInAutoBlocEvent event, Emitter<AuthSignBlocState> emit) async {
+      AuthLogInAutoBlocEvent event, Emitter<AuthLogBlocState> emit) async {
     emit(const AuthLogLoadingBlocState(AuthOperation.logInAuto));
     final result = await logInAutoUseCase(NoParams());
     await result.fold(
@@ -59,7 +59,7 @@ class AuthLogBloc extends Bloc<AuthLogBlocEvent, AuthSignBlocState> {
     );
   }
 
-  Future<void> _logOutUseCase(AuthLogOutBlocEvent event, Emitter<AuthSignBlocState> emit) async {
+  Future<void> _logOutUseCase(AuthLogOutBlocEvent event, Emitter<AuthLogBlocState> emit) async {
     emit(const AuthLogLoadingBlocState(AuthOperation.logOut));
     final result = await logOutUseCase(AuthParams(authId: event.authId));
     emit(result.fold(
@@ -71,7 +71,7 @@ class AuthLogBloc extends Bloc<AuthLogBlocEvent, AuthSignBlocState> {
   Future<void> _fetchUserAndEmitAuthenticatedState(
     AuthEntity authEntity,
     AuthOperation operationType,
-    Emitter<AuthSignBlocState> emit,
+    Emitter<AuthLogBlocState> emit,
   ) async {
     final userResult = await getUserByIdUseCase(UserParams(userId: authEntity.userId));
     userResult.fold(

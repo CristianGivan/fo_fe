@@ -41,6 +41,14 @@ increased by 1
 ** if yes, delete the auth
 ** if no, set active to no
 
+=== Sign Up
+
+first check if the user exist if yes an error mesage is send
+if the user do not exist add user
+if during adding an error ocure send a message
+if user added try to sign up if an error ocure send a message and delete the user
+if the user is signed up send a message
+
 === Presentation
 
 * to don't increment usles the view count use get auth

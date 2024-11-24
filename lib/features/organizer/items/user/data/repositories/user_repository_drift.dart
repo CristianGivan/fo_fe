@@ -9,20 +9,30 @@ class UserRepositoryDrift implements UserRepository {
 
   UserRepositoryDrift({required this.localDataSource});
 
-  // User CRUD operations
   @override
   Future<Either<Failure, UserEntity>> addUser(UserEntity user) async {
     return _executeDatabaseOperation(() async {
       final companion = UserMapper.entityToCompanion(user);
       if (user.email != "") {
         final existingUser = await localDataSource.getUserByEmail(user.email);
-        return _getOrCreateUser(existingUser, companion);
+        if (existingUser == null) {
+          return _addUserOrThrow(companion);
+        } else {
+          //todo -refactor- not throw return?
+          throw UserExistsFailure(
+              "User with email: ${user.email}, already exists, can you try with "
+              "another email");
+        }
       } else if (user.name != "") {
         final existingUser = await localDataSource.getUserByName(user.name);
-        return _getOrCreateUser(existingUser, companion);
+        if (existingUser == null) {
+          return _addUserOrThrow(companion);
+        } else {
+          throw UserExistsFailure("User with name: ${user.name} and no email, already "
+              "exists, can you can you try with another name");
+        }
       } else {
-        final newUserId = await localDataSource.addUser(companion);
-        return _getUserOrThrow(newUserId);
+        return _addUserOrThrow(companion);
       }
     });
   }
@@ -168,22 +178,11 @@ class UserRepositoryDrift implements UserRepository {
     return nonNullItems;
   }
 
-  Future<UserEntity> _getOrCreateUser(
-    UserTableDriftG? userTable,
-    UserTableDriftCompanion userCompanion,
-  ) async {
-    if (userTable != null) {
-      return UserMapper.entityFromTableDrift(userTable);
-    } else {
-      final newUserId = await localDataSource.addUser(userCompanion);
-      return _getUserOrThrow(newUserId);
-    }
-  }
-
-  Future<UserEntity> _getUserOrThrow(int userId) async {
+  Future<UserEntity> _addUserOrThrow(UserTableDriftCompanion userCompanion) async {
+    final userId = await localDataSource.addUser(userCompanion);
     final newUser = await localDataSource.getUserById(userId);
     if (newUser == null) {
-      throw const UserNotFoundFailure("User not added");
+      throw const UserNotFoundFailure("User could not be added not added");
     } else {
       return UserMapper.entityFromTableDrift(newUser);
     }

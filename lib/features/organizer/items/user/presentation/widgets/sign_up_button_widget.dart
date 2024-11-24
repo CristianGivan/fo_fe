@@ -25,21 +25,48 @@ class SignUpButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<SignUpBloc, SignUpBlocState>(
-      listener: (context, state) {
-        if (state is SignUpFailedBlocState) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Error: ${state.error}'),
-              backgroundColor: Colors.red,
-            ),
-          );
-        } else if (state is SignUpSuccessBlocState) {
-          context.read<AuthLogBloc>().add(AuthLogInBlocEvent(
-              email: state.userEntity.email, password: state.userEntity.password));
-          context.pushNamed(OrganizerRouterNames.organizerRoutePath);
-        }
-      },
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<SignUpBloc, SignUpBlocState>(
+          listener: (context, state) {
+            if (state is SignUpFailedBlocState) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Sign up failed: ${state.error}'),
+                  backgroundColor: Colors.red,
+                ),
+              );
+            } else if (state is SignUpSuccessBlocState) {
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content: Text('Sign up successful, now we will log you in'),
+                backgroundColor: Colors.green,
+              ));
+              context.read<AuthLogBloc>().add(AuthLogInBlocEvent(
+                  email: state.userEntity.email, password: state.userEntity.password));
+            }
+          },
+        ),
+        BlocListener<AuthLogBloc, AuthLogBlocState>(
+          listener: (context, state) {
+            if (state is AuthLogFailedBlocState) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Login failed: ${state.error}'),
+                  backgroundColor: Colors.red,
+                ),
+              );
+            } else if (state is AuthAuthenticatedBlocState) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Login successful'),
+                  backgroundColor: Colors.green,
+                ),
+              );
+              context.pushNamed(OrganizerRouterNames.organizerRoutePath);
+            }
+          },
+        ),
+      ],
       child: TextButton(
         onPressed: isEnabled ? () => _performAction(context) : null,
         style: _buttonStyle(context),

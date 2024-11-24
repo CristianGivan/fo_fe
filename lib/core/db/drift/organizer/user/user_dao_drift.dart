@@ -40,7 +40,7 @@ class UserDaoDrift extends DatabaseAccessor<OrganizerDriftDB> with _$UserDaoDrif
   }
 
   Future<UserTableDriftG?> getUserByName(String name) async {
-    final query = select(userTableDrift)..where((u) => u.email.equals(name));
+    final query = select(userTableDrift)..where((u) => u.name.equals(name));
     return await query.getSingleOrNull();
   }
 
