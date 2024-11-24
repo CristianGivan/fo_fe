@@ -27,9 +27,25 @@ mandatory name and email and password verified  and sync with remote
 
 == Decide UserUser
 
+* If it’s mostly passive (e.g., user associations stored in a database), use link.
+* If it’s mostly active (e.g., real-time connections in a social or chat app), use connected.
+
+* I will use link for userUser and connect when I will create the chat
+
+
+
 === userNameLinked
 
 * is the name that this user is setting to linked user and is the first name of the user
+
+=== userStatus
+
+* Pending, the invitation was send
+* Accepted, Rejected,  the invitation
+* Blocked the user is blocked
+
+whe you respond the invitation another line will be create d with the status and also the nikname
+that you give it to the user that you respond
 
 ==Worked
 

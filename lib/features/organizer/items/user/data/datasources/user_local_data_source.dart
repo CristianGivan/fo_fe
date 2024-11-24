@@ -10,7 +10,7 @@ abstract class UserLocalDataSource {
 
   Future<UserTableDriftG?> getUserById(int id);
 
-  Future<int> addUserToUser(int userLinkedId, int userId);
+  Future<int> addUserToUser(int userLinkedId, int userId, String name, String status);
 
   Future<bool> updateUserUser(int userLinkedId, int userId);
 
@@ -24,7 +24,7 @@ abstract class UserLocalDataSource {
 
   Future<List<UserTableDriftG?>?> getUserItemsByIdSet(IdSet idSet);
 
-  Future<List<UserTableDriftG?>?> getConnectedUserIdsByUserId(int userId);
+  Future<List<UserTableDriftG?>?> getPendingAndAcceptedUserItems(int userId);
 
   Future<List<UserTableDriftG?>?> getPendingInvitations(int userId);
 

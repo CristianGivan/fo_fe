@@ -8,7 +8,7 @@ class UserMapper {
     return UserEntity(
       id: user.id,
       name: user.name,
-      password: user.hashedPassword,
+      hashedPassword: user.hashedPassword,
       email: user.email,
       createdDate: user.createdDate,
       userType: userTypeMap[user.userType]!,
@@ -51,6 +51,19 @@ class UserMapper {
       createdDate: Value(entity.createdDate),
       creatorId: Value(entity.creatorId),
       userType: Value(userTypeMapToString[entity.userType]!),
+    );
+  }
+
+  // Method to map row data to UserTableDriftG
+  static UserTableDriftG fromUserJoinUserUser(Map<String, dynamic> data, GeneratedDatabase db) {
+    return UserTableDriftG(
+      id: data['id'] as int,
+      name: data['user_name_linked'] as String,
+      hashedPassword: data['hashed_password'] as String,
+      email: data['email'] as String,
+      createdDate: DateTime.fromMillisecondsSinceEpoch(data['created_date'] as int),
+      userType: data['user_type'] as String,
+      creatorId: data['creator_id'] as int,
     );
   }
 }

@@ -1,9 +1,10 @@
 import 'package:drift/drift.dart';
 import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
+import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 
 part 'user_dao_drift.g.dart';
 
-@DriftAccessor(tables: [UserTableDrift])
+@DriftAccessor(tables: [UserTableDrift, UserUserTableDrift])
 class UserDaoDrift extends DatabaseAccessor<OrganizerDriftDB> with _$UserDaoDriftMixin {
   final OrganizerDriftDB db;
 
@@ -16,7 +17,7 @@ class UserDaoDrift extends DatabaseAccessor<OrganizerDriftDB> with _$UserDaoDrif
 
   // Stream<List<UserTableDriftG>> watchAllUsers() => select(userTableDrift).watch();
 
-  Future<List<UserTableDriftG>> getUserItemsByIdSet(Set<int> ids) async {
+  Future<List<UserTableDriftG?>?> getUserItemsByIdSet(Set<int> ids) async {
     return (select(userTableDrift)..where((tbl) => tbl.id.isIn(ids))).get();
   }
 
@@ -41,5 +42,24 @@ class UserDaoDrift extends DatabaseAccessor<OrganizerDriftDB> with _$UserDaoDrif
   Future<UserTableDriftG?> getUserByName(String name) async {
     final query = select(userTableDrift)..where((u) => u.email.equals(name));
     return await query.getSingleOrNull();
+  }
+
+  Future<List<UserTableDriftG>> getPendingAndAcceptedUsers(int userId) {
+    final query = customSelect(
+      'SELECT user_table_drift.*, user_user_table_drift.* '
+      'FROM user_user_table_drift '
+      'JOIN user_table_drift ON user_user_table_drift.user_id = user_table_drift.id '
+      'WHERE user_user_table_drift.user_id = ? AND (user_user_table_drift.status = ? OR user_user_table_drift.status = ?)',
+      variables: [
+        Variable.withInt(userId),
+        Variable.withString('PENDING'),
+        Variable.withString('ACCEPTED'),
+      ],
+      readsFrom: {userUserTableDrift, userTableDrift},
+    );
+
+    return query.map((row) {
+      return UserMapper.fromUserJoinUserUser(row.data, db);
+    }).get();
   }
 }

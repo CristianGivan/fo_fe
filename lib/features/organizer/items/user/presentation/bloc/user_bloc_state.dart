@@ -47,10 +47,10 @@ class SingleUserLoadedBlocState extends UserBlocState {
   List<Object> get props => [user];
 }
 
-class UserAddedBlocState extends UserBlocState {
+class UserAddedToUserBlocState extends UserBlocState {
   final int id;
 
-  const UserAddedBlocState({required this.id});
+  const UserAddedToUserBlocState({required this.id});
 
   @override
   List<Object> get props => [id];

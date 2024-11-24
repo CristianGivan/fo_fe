@@ -43,7 +43,7 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
   }
 
   @override
-  Future<List<UserTableDriftG>?> getUserItemsByTaskId(int taskId) async {
+  Future<List<UserTableDriftG?>?> getUserItemsByTaskId(int taskId) async {
     final userIds = await db.taskUserLinkDaoDrift.getUserIdsByTaskId(taskId);
     return await db.userDaoDrift.getUserItemsByIdSet(userIds);
   }

@@ -9,7 +9,8 @@ class UserRepositoryImpl implements UserRepository {
   UserRepositoryImpl({required this.localDataSource});
 
   @override
-  Future<Either<Failure, int>> addUserToUser(int userLinkedId, int userId) {
+  Future<Either<Failure, int>> addUserToUser(
+      int userLinkedId, int userId, String name, UserStatus status) {
     // TODO: implement addUserToUser
     throw UnimplementedError();
   }
@@ -45,7 +46,7 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<Either<Failure, OrganizerItems<UserEntity>>> getConnectedUserItemsByUserId(int userId) {
+  Future<Either<Failure, OrganizerItems<UserEntity>>> getPendingAndAcceptedUserItems(int userId) {
     // TODO: implement getUserItemsByUserId
     throw UnimplementedError();
   }

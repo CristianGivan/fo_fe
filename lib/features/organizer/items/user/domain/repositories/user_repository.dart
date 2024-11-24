@@ -14,7 +14,8 @@ abstract class UserRepository {
 
   // Future<Either<Failure, OrganizerItems<UserEntity>>> getUserItemsAll();
 
-  Future<Either<Failure, int>> addUserToUser(int userLinkedId, int userId);
+  Future<Either<Failure, int>> addUserToUser(
+      int userLinkedId, int userId, String name, UserStatus status);
 
   Future<Either<Failure, int>> deleteUserFromUser(int userLinkedId, int userId);
 
@@ -26,7 +27,7 @@ abstract class UserRepository {
 
   Future<Either<Failure, OrganizerItems<UserEntity>>> getUserItemsByIdSet(IdSet idSet);
 
-  Future<Either<Failure, OrganizerItems<UserEntity>>> getConnectedUserItemsByUserId(int userId);
+  Future<Either<Failure, OrganizerItems<UserEntity>>> getPendingAndAcceptedUserItems(int userId);
 
   Future<Either<Failure, OrganizerItems<UserEntity>>> getPendingInvitations(int userId);
 

@@ -1,0 +1,49 @@
+class UserUserEntity {
+  final int id;
+  final int userId;
+  final int userIdLinked;
+  final String userNameLinked;
+  final String status;
+  final DateTime muteUntilDate;
+  final DateTime createdDate;
+  final DateTime updatedDate;
+
+  UserUserEntity({
+    required this.id,
+    required this.userId,
+    required this.userIdLinked,
+    required this.userNameLinked,
+    required this.status,
+    required this.muteUntilDate,
+    required this.createdDate,
+    required this.updatedDate,
+  });
+
+  // Factory method to create a UserUserEntity from a UserUserTableDriftG
+  factory UserUserEntity.fromTable(UserUserTableDriftG table) {
+    return UserUserEntity(
+      id: table.id,
+      userId: table.userId,
+      userIdLinked: table.userIdLinked,
+      userNameLinked: table.userNameLinked,
+      status: table.status,
+      muteUntilDate: table.muteUntilDate,
+      createdDate: table.createdDate,
+      updatedDate: table.updatedDate,
+    );
+  }
+
+  // Method to convert UserUserEntity to a map for database insertion
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'userId': userId,
+      'userIdLinked': userIdLinked,
+      'userNameLinked': userNameLinked,
+      'status': status,
+      'muteUntilDate': muteUntilDate.toIso8601String(),
+      'createdDate': createdDate.toIso8601String(),
+      'updatedDate': updatedDate.toIso8601String(),
+    };
+  }
+}

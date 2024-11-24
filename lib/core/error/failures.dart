@@ -28,6 +28,9 @@ class InvalidInputFailure extends Failure {
 class UserNotFoundFailure extends Failure {
   const UserNotFoundFailure(String super.message);
 }
+class UserNotAddedFailure extends Failure {
+  const UserNotAddedFailure(String super.message);
+}
 
 class TagNotFoundFailure extends Failure {
   const TagNotFoundFailure(String super.message);

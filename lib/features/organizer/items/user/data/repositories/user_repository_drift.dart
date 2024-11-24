@@ -60,8 +60,14 @@ class UserRepositoryDrift implements UserRepository {
   // }
 
   @override
-  Future<Either<Failure, int>> addUserToUser(int userLinkedId, int userId) {
-    return _executeDatabaseOperation(() => localDataSource.addUserToUser(userLinkedId, userId));
+  Future<Either<Failure, int>> addUserToUser(
+      int userLinkedId, int userId, String name, UserStatus status) {
+    return _executeDatabaseOperation(() => localDataSource.addUserToUser(
+          userLinkedId,
+          userId,
+          name,
+          userStatusMapToString[status] ?? 'PENDING',
+        ));
   }
 
   @override
@@ -103,8 +109,8 @@ class UserRepositoryDrift implements UserRepository {
   }
 
   @override
-  Future<Either<Failure, OrganizerItems<UserEntity>>> getConnectedUserItemsByUserId(int userId) {
-    return _processUserItems(localDataSource.getConnectedUserIdsByUserId(userId));
+  Future<Either<Failure, OrganizerItems<UserEntity>>> getPendingAndAcceptedUserItems(int userId) {
+    return _processUserItems(localDataSource.getPendingAndAcceptedUserItems(userId));
   }
 
   @override

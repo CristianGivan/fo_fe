@@ -13,6 +13,15 @@ create like user_presentation_export.dart for all
 * shall I have a fold as in add user or not for usecases?
 
 * understand better statless and stafull widget
+* //todo -fix- delete user if auth fails
+
+* chck if flow of adiig and authenticating is ok
+* establish UserStatus logic
+* decide use linmked or connected users
+* handel user state make a difference betwee users in userscreen
+
+* establis a convention for enums
+* before adding user to user check if iti exist
 
 == Now
 

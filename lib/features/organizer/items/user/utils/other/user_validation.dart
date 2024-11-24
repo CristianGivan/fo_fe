@@ -20,7 +20,18 @@ class UserValidation {
     return isNameEmailPasswordValid(name: user.name, email: user.email, password: user.password);
   }
 
+// todo -refactor-
   static List<String> getInvalidFields(UserEntity user) {
+    if (user.userType == UserTypeEnum.Local) {
+      return validateLocalUser(user);
+    } else if (user.userType == UserTypeEnum.Remote) {
+      return validateRemoteUser(user);
+    } else {
+      return [];
+    }
+  }
+
+  static List<String> validateLocalUser(UserEntity user) {
     List<String> invalidFields = [];
     if (!isNameValid(user.name)) {
       invalidFields.add('Invalid name');
@@ -30,6 +41,17 @@ class UserValidation {
     }
     if (!isPasswordValid(user.password)) {
       invalidFields.add('Invalid password');
+    }
+    return invalidFields;
+  }
+
+  static List<String> validateRemoteUser(UserEntity user) {
+    List<String> invalidFields = [];
+    if (!isNameValid(user.name)) {
+      invalidFields.add('Invalid name');
+    }
+    if (!isEmailValid(user.email)) {
+      invalidFields.add('Invalid email');
     }
     return invalidFields;
   }

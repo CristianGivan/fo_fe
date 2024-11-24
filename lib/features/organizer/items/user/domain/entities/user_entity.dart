@@ -7,6 +7,7 @@ import '../../../../../../core/utils/date_time/date_time_constants.dart';
 class UserEntity extends OrganizerItemEntity with EquatableMixin {
   final String name;
   final String email;
+  final String password;
   final String hashedPassword;
   final UserTypeEnum userType;
 
@@ -15,10 +16,14 @@ class UserEntity extends OrganizerItemEntity with EquatableMixin {
     required this.name,
     String? email,
     String? password,
+    String? hashedPassword,
     DateTime? createdDate,
     UserTypeEnum? userType,
   })  : email = email ?? "",
-        hashedPassword = HashingService.hashPassword(password ?? name),
+        password = password ?? "",
+        hashedPassword =
+            hashedPassword ?? (password == "" ? "" : HashingService.hashPassword(password ?? "")),
+        //to receive hashed pasword if I create the user from DB
         userType = userType ?? UserTypeEnum.Temporary,
         super(
           id: id ?? 0,
@@ -26,9 +31,6 @@ class UserEntity extends OrganizerItemEntity with EquatableMixin {
         );
 
   factory UserEntity.empty() => UserEntity(name: "", email: "", password: "");
-
-//todo -update- to uncased password
-  String get password => HashingService.hashPassword(password);
 
   UserEntity copyWith({
     int? id,
@@ -42,8 +44,7 @@ class UserEntity extends OrganizerItemEntity with EquatableMixin {
       id: id ?? this.id,
       name: name ?? this.name,
       email: email ?? this.email,
-      //todo -fix- dont hash password 2 times
-      // password: password ?? this.password,
+      password: password ?? this.password,
       createdDate: createdDate ?? this.createdDate,
       userType: userType ?? this.userType,
     );

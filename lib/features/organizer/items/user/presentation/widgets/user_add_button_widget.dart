@@ -1,4 +1,5 @@
 import 'package:fo_fe/features/authentication/presentation/bloc/auth_log_bloc/auth_log_bloc.dart';
+import 'package:fo_fe/features/organizer/items/user/utils/other/user_validation.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
@@ -20,8 +21,7 @@ class UserAddButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<UserBloc, UserBlocState>(
       listener: (context, state) {
-        if (state is UserSuccessBlocState) {
-          // Show success message or navigate if needed
+        if (state is UserAddedToUserBlocState) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('User added successfully!'),
@@ -30,7 +30,6 @@ class UserAddButtonWidget extends StatelessWidget {
           );
           context.pop();
         } else if (state is UserErrorBlocState) {
-          // Show error message
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text('Error: ${state.errorMessage}'),
@@ -61,24 +60,31 @@ class UserAddButtonWidget extends StatelessWidget {
     );
   }
 
+// todo -refactor- maybe include in bloc
   void _performAction(BuildContext context) {
     final authState = context.read<AuthLogBloc>().state;
 
     if (authState is AuthAuthenticatedBlocState) {
-      final logInUserId = authState.authEntity.userId;
-
       final user = UserEntity(
         name: nameController.text,
         email: emailController.text,
         password: '',
         userType: UserTypeEnum.Remote,
       );
-
-      context.read<UserBloc>().add(AddUserBlocEvent(user));
-      context.read<UserBloc>().add(AddUserToUserBlocEvent(
-            userLinkedId: user.id,
-            userId: logInUserId,
-          ));
+      List<String> invalidFields = UserValidation.getInvalidFields(user);
+      if (invalidFields.isEmpty) {
+        context.read<UserBloc>().add(AddUserToUserBlocEvent(
+              userLinked: user,
+              authUserId: authState.userEntity.id,
+            ));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error: ${invalidFields.join(',\n ')}'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
     }
   }
 

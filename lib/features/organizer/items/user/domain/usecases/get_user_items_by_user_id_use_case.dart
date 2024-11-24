@@ -11,6 +11,6 @@ class GetUserItemsByUserId extends UseCase<OrganizerItems<UserEntity>, UserParam
 
   @override
   Future<Either<Failure, OrganizerItems<UserEntity>>> call(UserParams params) async {
-    return await userRepository.getConnectedUserItemsByUserId(params.userId);
+    return await userRepository.getPendingAndAcceptedUserItems(params.userId);
   }
 }

@@ -3,6 +3,8 @@ import 'package:fo_fe/features/authentication/presentation/bloc/sign_up_bloc/sig
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
+import '../../utils/other/user_validation.dart';
+
 class SignUpButtonWidget extends StatelessWidget {
   final TextEditingController nameController;
   final TextEditingController emailController;
@@ -53,10 +55,21 @@ class SignUpButtonWidget extends StatelessWidget {
       password: passwordController.text,
       userType: userType,
     );
-    context.read<SignUpBloc>().add(SignUpRequestBlocEvent(
-          user: user,
-          isAutoSignIn: autoSignIn,
-        ));
+// todo -refactor- check this even earlier
+    List<String> invalidFields = UserValidation.getInvalidFields(user);
+    if (invalidFields.isEmpty) {
+      context.read<SignUpBloc>().add(SignUpRequestBlocEvent(
+            user: user,
+            isAutoSignIn: autoSignIn,
+          ));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error: ${invalidFields.join(',\n ')}'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
   }
 
   ButtonStyle _buttonStyle(BuildContext context) {

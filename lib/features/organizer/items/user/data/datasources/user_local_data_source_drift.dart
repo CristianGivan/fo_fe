@@ -33,17 +33,10 @@ class UserLocalDataSourceDrift implements UserLocalDataSource {
     return await db.userDaoDrift.getUserById(id);
   }
 
-  // // Get all user items
-  // @override
-  // Future<List<UserTableDriftG>?> getUserItemsAll() async {
-  //   return await db.userDaoDrift.getUserItemsAll();
-  // }
-
-  // Get user items by ID set
-
   @override
-  Future<int> addUserToUser(int userLinkedId, int userId) async {
-    return db.userUserDaoDrift.addUserUser(_createUserUserCompanion(userLinkedId, userId));
+  Future<int> addUserToUser(int userLinkedId, int userId, String name, String status) async {
+    return db.userUserDaoDrift
+        .addUserUser(_createUserUserCompanion(userLinkedId, userId, name, status));
   }
 
   @override
@@ -72,9 +65,8 @@ class UserLocalDataSourceDrift implements UserLocalDataSource {
   }
 
   @override
-  Future<List<UserTableDriftG?>?> getConnectedUserIdsByUserId(int userId) async {
-    return _returnUserTableDriftByIdSet(
-        await db.userUserDaoDrift.getConnectedUserIdsByUserId(userId));
+  Future<List<UserTableDriftG?>?> getPendingAndAcceptedUserItems(int userId) async {
+    return await db.userDaoDrift.getPendingAndAcceptedUsers(userId);
   }
 
   @override
@@ -87,10 +79,13 @@ class UserLocalDataSourceDrift implements UserLocalDataSource {
     return _returnUserTableDriftByIdSet(await db.userUserDaoDrift.getPendingInvitations(userId));
   }
 
-  UserUserTableDriftCompanion _createUserUserCompanion(int userLinkedId, int userId) {
+  UserUserTableDriftCompanion _createUserUserCompanion(
+      int userLinkedId, int userId, String name, String status) {
     return UserUserTableDriftCompanion(
       userIdLinked: Value(userLinkedId),
       userId: Value(userId),
+      userNameLinked: Value(name),
+      status: Value(status),
     );
   }
 

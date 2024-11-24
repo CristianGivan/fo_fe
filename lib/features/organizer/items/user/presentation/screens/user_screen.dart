@@ -1,4 +1,4 @@
-import 'package:fo_fe/features/organizer/items/user/presentation/pages/user_list_page.dart';
+import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
 import 'package:fo_fe/features/organizer/items/user/presentation/pages/user_management_actions_page.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
@@ -46,7 +46,10 @@ class _UserScreenState extends State<UserScreen> {
   }
 
   void _loadUsers(BuildContext context) {
-    context.read<UserBloc>().add(GetConnectedUserItemsBlocEvent());
+    final auth = context.read<AuthLogBloc>().state;
+    if (auth is AuthAuthenticatedBlocState) {
+      context.read<UserBloc>().add(GetLinkedUserItemsBlocEvent(user: auth.userEntity));
+    }
   }
 
   Widget _buildUserList(BuildContext context) {
