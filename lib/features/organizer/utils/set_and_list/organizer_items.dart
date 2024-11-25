@@ -1,4 +1,3 @@
-import 'package:equatable/equatable.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class OrganizerItems<T extends OrganizerItemEntity> extends Equatable {
@@ -8,12 +7,10 @@ class OrganizerItems<T extends OrganizerItemEntity> extends Equatable {
 
   factory OrganizerItems.empty() => OrganizerItems._(<T>[]);
 
-  factory OrganizerItems.of(Iterable<T> organizerItems,
-          {SortedBy sortedBy = SortedBy.none}) =>
+  factory OrganizerItems.of(Iterable<T> organizerItems, {SortedBy sortedBy = SortedBy.none}) =>
       OrganizerItems._(organizerItems.whereType<T>().toList());
 
-  OrganizerItemsBuilder<T> toBuilder() =>
-      OrganizerItemsBuilder.of(_organizerItems);
+  OrganizerItemsBuilder<T> toBuilder() => OrganizerItemsBuilder.of(_organizerItems);
 
   // SortedBy get sortedBy => _sortedBy;
 
@@ -31,19 +28,17 @@ class OrganizerItems<T extends OrganizerItemEntity> extends Equatable {
     if (newItems == null) {
       return OrganizerItems.empty();
     }
-    return OrganizerItems.of(
-        newItems.where((element) => !_organizerItems.contains(element)));
+    return OrganizerItems.of(newItems.where((element) => !_organizerItems.contains(element)));
   }
 
   OrganizerItems<T> getRemovedItems(OrganizerItems<T>? newItems) {
     if (newItems == null) {
       return OrganizerItems.empty();
     }
-    return OrganizerItems.of(
-        _organizerItems.where((element) => !newItems.contains(element)));
+    return OrganizerItems.of(_organizerItems.where((element) => !newItems.contains(element)));
   }
 
-  bool isEmpty() {
+  bool get isEmpty {
     return _organizerItems.isEmpty;
   }
 
@@ -64,8 +59,7 @@ class OrganizerItems<T extends OrganizerItemEntity> extends Equatable {
 
 // todo to be moved in builder
   OrganizerItems filterByIdSet(IdSet idSet) {
-    final filteredItems =
-        _organizerItems.where((element) => idSet.contains(element.id)).toList();
+    final filteredItems = _organizerItems.where((element) => idSet.contains(element.id)).toList();
     return OrganizerItems.of(filteredItems);
   }
 

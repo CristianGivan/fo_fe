@@ -1,4 +1,3 @@
-import 'package:equatable/equatable.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class OrganizerItemsBuilder<T extends OrganizerItemEntity> extends Equatable {
@@ -10,19 +9,15 @@ class OrganizerItemsBuilder<T extends OrganizerItemEntity> extends Equatable {
 
   final Map<SortedBy, Function(List<T>)> _sortingFunctions = {
     SortedBy.none: (items) => {},
-    SortedBy.remoteIdAscending: (items) =>
-        items.sort((a, b) => a.remoteId.compareTo(b.remoteId)),
-    SortedBy.remoteIdDescending: (items) =>
-        items.sort((a, b) => b.remoteId.compareTo(a.remoteId)),
+    SortedBy.remoteIdAscending: (items) => items.sort((a, b) => a.remoteId.compareTo(b.remoteId)),
+    SortedBy.remoteIdDescending: (items) => items.sort((a, b) => b.remoteId.compareTo(a.remoteId)),
   };
 
   OrganizerItemsBuilder._(this._organizerItems, this._sortedBy);
 
-  factory OrganizerItemsBuilder.empty() =>
-      OrganizerItemsBuilder._(const [], SortedBy.none);
+  factory OrganizerItemsBuilder.empty() => OrganizerItemsBuilder._(const [], SortedBy.none);
 
-  factory OrganizerItemsBuilder.of(List<T> organizerItems,
-          {SortedBy sortedBy = SortedBy.none}) =>
+  factory OrganizerItemsBuilder.of(List<T> organizerItems, {SortedBy sortedBy = SortedBy.none}) =>
       OrganizerItemsBuilder._(organizerItems.whereType<T>().toList(), sortedBy);
 
   SortedBy get sortedBy => _sortedBy;
@@ -87,7 +82,7 @@ class OrganizerItemsBuilder<T extends OrganizerItemEntity> extends Equatable {
 
   OrganizerItemsBuilder<T> updateItems(OrganizerItems<T> updatedAndNewItem) {
     List<T> result = [];
-    if (updatedAndNewItem.isEmpty()) {
+    if (updatedAndNewItem.isEmpty) {
       return this;
     }
 
@@ -101,8 +96,7 @@ class OrganizerItemsBuilder<T extends OrganizerItemEntity> extends Equatable {
     for (int i = 0; i < updatedAndNewItem.size(); i++) {
       if (k <= _organizerItems.length - 1) {
         for (int j = k; j < _organizerItems.length; j++) {
-          if (updatedAndNewItem.getAt(i).remoteId ==
-              _organizerItems[j].remoteId) {
+          if (updatedAndNewItem.getAt(i).remoteId == _organizerItems[j].remoteId) {
             result.add(updatedAndNewItem.getAt(i));
             k = j + 1;
             break;

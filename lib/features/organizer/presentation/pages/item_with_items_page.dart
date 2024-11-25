@@ -21,7 +21,7 @@ class ItemWithItemsPage<T extends OrganizerItemEntity, E extends OrganizerItemEn
     final itemsType = ItemsTypeSelection.getItemType(type);
     return Column(
       children: [
-        if (items.isEmpty())
+        if (items.isEmpty)
           Center(child: Text('No ${itemsType.type} Available'))
         else
           ItemListLinkPage<E>(

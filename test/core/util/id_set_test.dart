@@ -5,7 +5,7 @@ void main() {
   group('IdSet Tests', () {
     test('IdSet.empty creates an empty set', () {
       const idSet = IdSet.empty();
-      expect(idSet.isEmpty(), isTrue);
+      expect(idSet.isEmpty, isTrue);
       expect(idSet.size, equals(0));
     });
 

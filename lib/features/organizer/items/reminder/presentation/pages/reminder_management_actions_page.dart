@@ -1,12 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:fo_fe/features/organizer/items/reminder/utils/reminder_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class ReminderManagementActionsPage extends StatelessWidget {
   final OrganizerItems<ReminderEntity> selectedReminders;
 
-  ReminderManagementActionsPage(
-      {super.key, OrganizerItems<ReminderEntity>? selectedReminders})
+  ReminderManagementActionsPage({super.key, OrganizerItems<ReminderEntity>? selectedReminders})
       : selectedReminders = selectedReminders ?? OrganizerItems.empty();
 
   @override
@@ -18,11 +16,10 @@ class ReminderManagementActionsPage extends StatelessWidget {
         children: [
           _buildButtonRow(
             context,
-            onPressed1: () =>
-                context.pushNamed(ReminderRouterNames.reminderAddRouteName),
+            onPressed1: () => context.pushNamed(ReminderRouterNames.reminderAddRouteName),
             label1: 'Add Reminder',
             onPressed2: () {
-              if (!selectedReminders.isEmpty()) {
+              if (!selectedReminders.isEmpty) {
                 context.pop(selectedReminders);
               }
             },

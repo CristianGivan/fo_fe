@@ -1,0 +1,4 @@
+==== Empty
+
+* use isEmpty as a state not at a method
+* use singleton to define a empty object

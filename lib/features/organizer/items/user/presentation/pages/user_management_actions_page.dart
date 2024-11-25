@@ -26,7 +26,7 @@ class UserManagementActionsPage extends StatelessWidget {
               Expanded(
                 child: ElevatedButton(
                   onPressed: () {
-                    if (!selectedUsers.isEmpty()) {
+                    if (!selectedUsers.isEmpty) {
                       context.pop(selectedUsers);
                     } else {
                       context.pop();

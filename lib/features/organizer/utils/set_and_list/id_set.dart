@@ -19,7 +19,7 @@ class IdSet extends Equatable {
 
   bool contains(int? id) => _ids.contains(id);
 
-  bool isEmpty() => _ids.isEmpty;
+  bool get isEmpty => _ids.isEmpty;
 
   int get size => _ids.length;
 

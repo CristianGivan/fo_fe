@@ -47,14 +47,14 @@ void main() {
     group('isEmpty', () {
       test('returns true for empty list', () {
         final organizerItems = OrganizerItems.empty();
-        expect(organizerItems.isEmpty(), equals(true));
+        expect(organizerItems.isEmpty, equals(true));
       });
 
       test('returns false for non-empty list', () {
         final organizerItems = OrganizerItems.of([
           OrganizerItemEntity(id: 1),
         ]);
-        expect(organizerItems.isEmpty(), equals(false));
+        expect(organizerItems.isEmpty, equals(false));
       });
     });
 

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
@@ -19,8 +18,7 @@ class TagManagementActionsPage extends StatelessWidget {
             children: [
               Expanded(
                 child: ElevatedButton(
-                  onPressed: () =>
-                      context.pushNamed(TagRouterNames.tagAddRouteName),
+                  onPressed: () => context.pushNamed(TagRouterNames.tagAddRouteName),
                   child: const Text('Add Tag'),
                 ),
               ),
@@ -28,7 +26,7 @@ class TagManagementActionsPage extends StatelessWidget {
               Expanded(
                 child: ElevatedButton(
                   onPressed: () {
-                    if (!selectedTags.isEmpty()) {
+                    if (!selectedTags.isEmpty) {
                       context.pop(selectedTags);
                     } else {
                       context.pop();
