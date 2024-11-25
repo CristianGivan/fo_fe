@@ -54,15 +54,7 @@ class AuthEntity extends Equatable {
 
   factory AuthEntity.empty() => _emptyInstance;
 
-  bool get isEmpty =>
-      id == 0 &&
-      userId == 0 &&
-      token.isEmpty &&
-      deviceInfo.isEmpty &&
-      usedCount == 0 &&
-      usedCountMax == 0 &&
-      !isActive &&
-      !isAutoSignIn;
+  bool get isEmpty => this == _emptyInstance;
 
   bool isTokenExpired() =>
       isEmpty || usedCount >= usedCountMax || expiredDate.isBefore(DateTime.now());

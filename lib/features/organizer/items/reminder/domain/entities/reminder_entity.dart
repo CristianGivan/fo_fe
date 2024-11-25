@@ -33,7 +33,11 @@ class ReminderEntity extends OrganizerItemEntity with EquatableMixin {
           checksum: checksum ?? '',
         );
 
-  factory ReminderEntity.empty() => ReminderEntity(remindAt: INITIAL_EPOCH_DATE, subject: '');
+  static final ReminderEntity _emptyInstance = ReminderEntity(remindAt: INITIAL_EPOCH_DATE, subject: '');
+
+  factory ReminderEntity.empty() => _emptyInstance;
+
+  bool get isEmpty => this == _emptyInstance;
 
   String get subject => _subject;
 

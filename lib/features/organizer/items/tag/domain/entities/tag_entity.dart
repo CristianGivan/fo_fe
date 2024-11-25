@@ -5,6 +5,7 @@ import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 class TagEntity extends OrganizerItemEntity with EquatableMixin {
   final String _subject;
 
+
   TagEntity({
     int? id,
     DateTime? createdDate,
@@ -28,8 +29,11 @@ class TagEntity extends OrganizerItemEntity with EquatableMixin {
           accesses: views ?? 0,
           checksum: checksum ?? '',
         );
+  static final TagEntity _emptyInstance = TagEntity(subject: "");
 
-  factory TagEntity.empty() => TagEntity(subject: "");
+  factory TagEntity.empty() => _emptyInstance;
+
+  bool get isEmpty => this == _emptyInstance;
 
   String get subject => _subject;
 

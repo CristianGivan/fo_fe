@@ -30,9 +30,12 @@ class UserEntity extends OrganizerItemEntity with EquatableMixin {
           createdDate: createdDate ?? INITIAL_EPOCH_DATE,
         );
 
-  factory UserEntity.empty() => UserEntity(name: "", email: "", password: "");
+  static final UserEntity _emptyInstance = UserEntity(name: "", email: "", password: "");
 
-  bool get isEmpty => name.isEmpty && email.isEmpty && password.isEmpty;
+  factory UserEntity.empty() => _emptyInstance;
+
+  bool get isEmpty => this == _emptyInstance;
+
 
   UserEntity copyWith({
     int? id,

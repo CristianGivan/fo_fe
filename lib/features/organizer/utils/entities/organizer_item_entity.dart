@@ -1,5 +1,5 @@
-import 'package:equatable/equatable.dart';
 import 'package:fo_fe/core/utils/date_time/date_time_constants.dart';
+import 'package:fo_fe/core/utils/exports/external_exports.dart';
 
 class OrganizerItemEntity extends Equatable {
   final int _id;
@@ -12,7 +12,6 @@ class OrganizerItemEntity extends Equatable {
   final int? _views;
   final String? _checksum;
 
-//todo why constructor cannot be const with INITIAL_EPOCH_DATE
   OrganizerItemEntity({
     int? id,
     DateTime? createdDate,
@@ -32,6 +31,23 @@ class OrganizerItemEntity extends Equatable {
         _remoteViews = remoteAccesses,
         _views = accesses,
         _checksum = checksum;
+
+  // Factory for an "empty" instance
+  static final OrganizerItemEntity _emptyInstance = OrganizerItemEntity(
+    id: 0,
+    createdDate: INITIAL_EPOCH_DATE,
+    creatorId: 0,
+    remoteId: 0,
+    lastUpdate: INITIAL_EPOCH_DATE,
+    lastAccessedDate: INITIAL_EPOCH_DATE,
+    remoteAccesses: 0,
+    accesses: 0,
+    checksum: "",
+  );
+
+  factory OrganizerItemEntity.empty() => _emptyInstance;
+  
+  bool get isEmpty => this == _emptyInstance;
 
   @override
   List<Object?> get props => [
@@ -64,7 +80,6 @@ class OrganizerItemEntity extends Equatable {
 
   String? get checksum => _checksum;
 
-//  todo tests
   Map<String, dynamic> jsonToCheckForUpdates() {
     return {
       "remoteId": remoteId,
