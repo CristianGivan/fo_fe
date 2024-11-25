@@ -41,7 +41,6 @@ class UserRepositoryDrift implements UserRepository {
   Future<Either<Failure, bool>> updateUser(UserEntity user) async {
     return _executeDatabaseOperation(() {
       final companion = UserMapper.entityToCompanion(user);
-      _checkItemNotNull(companion);
       return localDataSource.updateUser(companion);
     });
   }
@@ -54,9 +53,8 @@ class UserRepositoryDrift implements UserRepository {
   @override
   Future<Either<Failure, UserEntity>> getUserById(int id) {
     return _executeDatabaseOperation(() async {
-      final item = await localDataSource.getUserById(id);
-      _checkItemNotNull(item);
-      return UserMapper.entityFromTableDrift(item!);
+      final user = await localDataSource.getUserById(id);
+      return _checkForNullAndReturnUser(user);
     });
   }
 
@@ -90,8 +88,7 @@ class UserRepositoryDrift implements UserRepository {
   Future<Either<Failure, UserEntity>> getUserByEmailAndPassword(String email, String password) {
     return _executeDatabaseOperation(() async {
       final user = await localDataSource.getUserByEmailAndPassword(email, password);
-      _checkItemNotNull(user);
-      return UserMapper.entityFromTableDrift(user!);
+      return _checkForNullAndReturnUser(user);
     });
   }
 
@@ -99,8 +96,7 @@ class UserRepositoryDrift implements UserRepository {
   Future<Either<Failure, UserEntity>> getUserByEmail(String email) {
     return _executeDatabaseOperation(() async {
       final user = await localDataSource.getUserByEmail(email);
-      _checkItemNotNull(user);
-      return UserMapper.entityFromTableDrift(user!);
+      return _checkForNullAndReturnUser(user);
     });
   }
 
@@ -108,8 +104,7 @@ class UserRepositoryDrift implements UserRepository {
   Future<Either<Failure, UserEntity>> getUserByName(String name) {
     return _executeDatabaseOperation(() async {
       final user = await localDataSource.getUserByName(name);
-      _checkItemNotNull(user);
-      return UserMapper.entityFromTableDrift(user!);
+      return _checkForNullAndReturnUser(user);
     });
   }
 
@@ -159,9 +154,11 @@ class UserRepositoryDrift implements UserRepository {
     }
   }
 
-  void _checkItemNotNull(dynamic item) {
+  UserEntity _checkForNullAndReturnUser(UserTableDriftG? item) {
     if (item == null) {
-      throw const UserNotFoundFailure("User not found");
+      return UserEntity.empty();
+    } else {
+      return UserMapper.entityFromTableDrift(item);
     }
   }
 

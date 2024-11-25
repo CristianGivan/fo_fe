@@ -50,7 +50,7 @@ class AuthLogBloc extends Bloc<AuthLogBlocEvent, AuthLogBlocState> {
     await result.fold(
       (failure) async => emit(AuthLogErrorBlocState(_mapFailureToMessage(failure))),
       (authEntity) async {
-        if (authEntity.isEmpty()) {
+        if (authEntity.isEmpty) {
           emit(const AuthLogErrorBlocState('Token Expired'));
         } else {
           await _fetchUserAndEmitAuthenticatedState(authEntity, AuthOperation.logInAuto, emit);

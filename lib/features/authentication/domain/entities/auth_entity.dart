@@ -38,26 +38,34 @@ class AuthEntity extends Equatable {
         _isActive = isActive ?? false,
         _isAutoSignIn = isAutoSignIn ?? false;
 
-  factory AuthEntity.empty() {
-    return AuthEntity(
-      id: 0,
-      userId: 0,
-      token: "",
-      deviceInfo: "",
-      createdDate: INITIAL_EPOCH_DATE,
-      expiredDate: INITIAL_EPOCH_DATE,
-      lastUsedDate: INITIAL_EPOCH_DATE,
-      usedCount: 0,
-      usedCountMax: 0,
-      isActive: false,
-      isAutoSignIn: false,
-    );
-  }
+  static final AuthEntity _emptyInstance = AuthEntity(
+    id: 0,
+    userId: 0,
+    token: "",
+    deviceInfo: "",
+    createdDate: INITIAL_EPOCH_DATE,
+    expiredDate: INITIAL_EPOCH_DATE,
+    lastUsedDate: INITIAL_EPOCH_DATE,
+    usedCount: 0,
+    usedCountMax: 0,
+    isActive: false,
+    isAutoSignIn: false,
+  );
 
-  bool isEmpty() => this == AuthEntity.empty();
+  factory AuthEntity.empty() => _emptyInstance;
+
+  bool get isEmpty =>
+      id == 0 &&
+      userId == 0 &&
+      token.isEmpty &&
+      deviceInfo.isEmpty &&
+      usedCount == 0 &&
+      usedCountMax == 0 &&
+      !isActive &&
+      !isAutoSignIn;
 
   bool isTokenExpired() =>
-      isEmpty() || usedCount >= usedCountMax || expiredDate.isBefore(DateTime.now());
+      isEmpty || usedCount >= usedCountMax || expiredDate.isBefore(DateTime.now());
 
   int get id => _id;
 

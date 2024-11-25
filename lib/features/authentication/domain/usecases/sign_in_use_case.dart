@@ -2,7 +2,6 @@ import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/usecase/usecase.dart';
 import 'package:fo_fe/core/utils/exports/core_utils_exports.dart';
 import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
-import 'package:fo_fe/features/organizer/items/user/utils/other/user_validation.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 
 class LogInUseCase extends UseCase<AuthEntity, UserParams> {
@@ -13,44 +12,56 @@ class LogInUseCase extends UseCase<AuthEntity, UserParams> {
 
   @override
   Future<Either<Failure, AuthEntity>> call(UserParams params) async {
-    final Either<Failure, UserEntity> userResult = await _getUser(params);
+    final hashingPassword = HashingService.hashPassword(params.password);
+    final Either<Failure, UserEntity> userResult =
+        await userRepository.getUserByEmailAndPassword(params.email, hashingPassword);
     return userResult.fold(
       (failure) => Left(failure),
       //todo -update- add increment view
-      (user) async => await _getAuthForUser(user),
+      (user) async => await _getOrAddAuthForUser(user),
     );
   }
 
-  Future<Either<Failure, UserEntity>> _getUser(UserParams params) async {
-    if (UserValidation.isEmailValid(params.email) &&
-        UserValidation.isPasswordValid(params.password)) {
-      final hashingPassword = HashingService.hashPassword(params.password);
-      return await userRepository.getUserByEmailAndPassword(params.email, hashingPassword);
-    } else if (params.user != UserEntity.empty()) {
-      return Right(params.user);
-    } else {
-      return const Left(InvalidInputFailure("InvalidInputFailure"));
+  Future<Either<Failure, AuthEntity>> _getOrAddAuthForUser(UserEntity user) async {
+    if (user.isEmpty) {
+      return _addAuthForUser(user.id);
     }
+
+    final existingAuth = await authRepository.getAuthForUserAndDeviceInfo(user.id);
+    return existingAuth.fold(
+      (failure) => Left(failure),
+      (auth) async => await _handleExistingAuth(auth, user.id),
+    );
   }
 
-  Future<Either<Failure, AuthEntity>> _getAuthForUser(UserEntity user) async {
-    final existingAuth = await authRepository.getAuthForUserAndDeviceInfo(user.id);
-    if (existingAuth.isRight()) {
-      // todo -improve- in case of fail of update
-      return existingAuth.fold(
-        (failure) => Left(failure),
-        (auth) async {
-          final updatedAuth = auth.copyWith(
-            usedCount: auth.usedCount + 1,
-            lastUsedDate: DateTime.now(),
-            isActive: true,
-          );
-          await authRepository.updateAuth(updatedAuth);
-          return Right(updatedAuth);
-        },
-      );
-    } else {
-      return await authRepository.addAuthWithUserId(user.id);
+  Future<Either<Failure, AuthEntity>> _handleExistingAuth(AuthEntity auth, int userId) async {
+    if (auth.isEmpty) {
+      return _addAuthForUser(userId);
     }
+
+    if (auth.isTokenExpired()) {
+      // TODO: Implement token refresh logic
+      return Right(AuthEntity.empty());
+    }
+
+    return await _updateAuth(auth);
+  }
+
+  Future<Either<Failure, AuthEntity>> _addAuthForUser(int userId) {
+    return authRepository.addAuthWithUserId(userId);
+  }
+
+  Future<Either<Failure, AuthEntity>> _updateAuth(AuthEntity auth) async {
+    final updatedAuth = await authRepository.updateAuth(
+      auth.copyWith(
+        usedCount: auth.usedCount + 1,
+        lastUsedDate: DateTime.now(),
+      ),
+    );
+
+    return updatedAuth.fold(
+      (failure) => Left(failure),
+      (updatedAuth) => Right(updatedAuth),
+    );
   }
 }

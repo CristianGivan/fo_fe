@@ -32,6 +32,8 @@ class UserEntity extends OrganizerItemEntity with EquatableMixin {
 
   factory UserEntity.empty() => UserEntity(name: "", email: "", password: "");
 
+  bool get isEmpty => name.isEmpty && email.isEmpty && password.isEmpty;
+
   UserEntity copyWith({
     int? id,
     String? name,
