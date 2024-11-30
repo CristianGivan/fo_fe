@@ -3,39 +3,28 @@
 * change    _checkItemNotNull(auth); to return empty not a fail
 create like user_presentation_export.dart for all
 
-
-* if user already exist and you wand to add it again send a message
-* make sure that all the field are updated in the database for user and auth
-* I think that there is redundency sign up and add user and also for validations
-* move user_sign_up_screen  to auth
-* after pessing log in or sing up or add to add loading state
-
-* shall I have a fold as in add user or not for usecases?
-
-* understand better statless and stafull widget
-* //todo -fix- delete user if auth fails
-
-* check if flow of adding and authenticating is ok
-* establish UserStatus logic
-
-* handel user state make a difference betwee users in userscreen
+===User
+* see todo
 
 * establis a convention for enums
-* before adding user to user check if iti exist
-
-* add sigaltone for .empty as in authEntity
-* use bool get isEmpty =>
 
 == Now
 
-* Shall I add validation in the in bloc or  in screen
+* continue with tasks
 
 == Nice
 
+* understand better statless and stafull widget
 debounce see todo code
 
 == Done
 
+* //todo -fix- delete user if auth fails
+* if user already exist and you wand to add it again send a message
+* shall I have a fold as in add user or not for usecases?
+* before adding user to user check if iti exist
+* add sigaltone for .empty as in authEntity
+* use bool get isEmpty =>
 * after singup to send a log in event in signup screen
 * resolve user password
 * // todo eliminating duplicate auth  do a second authen if is allready

@@ -14,27 +14,33 @@ class UserRepositoryDrift implements UserRepository {
     return _executeDatabaseOperation(() async {
       final companion = UserMapper.entityToCompanion(user);
       if (user.email != "") {
-        final existingUser = await localDataSource.getUserByEmail(user.email);
-        if (existingUser == null) {
-          return _addUserOrThrow(companion);
-        } else {
-          //todo -refactor- not throw return?
-          throw UserExistsFailure(
-              "User with email: ${user.email}, already exists, can you try with "
-              "another email");
-        }
+        return await checkUserWithMailAndAddUser(user, companion);
       } else if (user.name != "") {
-        final existingUser = await localDataSource.getUserByName(user.name);
-        if (existingUser == null) {
-          return _addUserOrThrow(companion);
-        } else {
-          throw UserExistsFailure("User with name: ${user.name} and no email, already "
-              "exists, can you can you try with another name");
-        }
+        return await checkUserWithNameAndAddUser(user, companion);
       } else {
         return _addUserOrThrow(companion);
       }
     });
+  }
+
+  checkUserWithNameAndAddUser(UserEntity user, UserTableDriftCompanion companion) async {
+    final existingUser = await localDataSource.getUserByName(user.name);
+    if (existingUser == null) {
+      return _addUserOrThrow(companion);
+    } else {
+      throw UserExistsFailure("User with name: ${user.name} and no email, already "
+          "exists, can you can you try with another name");
+    }
+  }
+
+  checkUserWithMailAndAddUser(UserEntity user, UserTableDriftCompanion companion) async {
+    final existingUser = await localDataSource.getUserByEmail(user.email);
+    if (existingUser == null) {
+      return _addUserOrThrow(companion);
+    } else {
+      throw UserExistsFailure("User with email: ${user.email}, already exists, can you try with "
+          "another email");
+    }
   }
 
   @override
@@ -88,7 +94,7 @@ class UserRepositoryDrift implements UserRepository {
   Future<Either<Failure, UserEntity>> getUserByEmailAndPassword(String email, String password) {
     return _executeDatabaseOperation(() async {
       final user = await localDataSource.getUserByEmailAndPassword(email, password);
-      return _checkForNullAndReturnUser(user);
+      return _isUserOrThrow(user);
     });
   }
 
@@ -157,6 +163,14 @@ class UserRepositoryDrift implements UserRepository {
   UserEntity _checkForNullAndReturnUser(UserTableDriftG? item) {
     if (item == null) {
       return UserEntity.empty();
+    } else {
+      return UserMapper.entityFromTableDrift(item);
+    }
+  }
+
+  UserEntity _isUserOrThrow(UserTableDriftG? item) {
+    if (item == null) {
+      throw const UserNotFoundFailure("User not found");
     } else {
       return UserMapper.entityFromTableDrift(item);
     }

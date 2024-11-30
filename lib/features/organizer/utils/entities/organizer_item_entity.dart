@@ -23,7 +23,7 @@ class OrganizerItemEntity extends Equatable {
     int? accesses,
     String? checksum,
   })  : _id = id ?? 0,
-        _createdDate = createdDate ?? INITIAL_EPOCH_DATE,
+        _createdDate = createdDate ?? DateTime.now(),
         _creatorId = creatorId ?? 0,
         _remoteId = remoteId ?? 0,
         _lastUpdate = lastUpdate,
@@ -46,7 +46,7 @@ class OrganizerItemEntity extends Equatable {
   );
 
   factory OrganizerItemEntity.empty() => _emptyInstance;
-  
+
   bool get isEmpty => this == _emptyInstance;
 
   @override

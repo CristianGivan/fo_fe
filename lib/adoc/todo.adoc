@@ -21,6 +21,15 @@
 - [ ] update all state.extra GoRouter expects the data you pass in the extra parameter to be  serializable, meaning it should ideally be simple types like String, int, double, or basic collections (e.g., Map or List).
 - [ ] update the navigations authentification
 
-=== Authentification
+=== User and Authentification
+* make sure that all the field are updated in the database for user and auth
+* I think that there is redundency sign up and add user and also for validations
+* move user_sign_up_screen  to auth
+* after pessing log in or sing up or add to add loading state
+* check if flow of adding and authenticating is ok
+* establish UserStatus logic
+* handel user state make a difference betwee users in userscreen
+* to many authentications pop up for failed auth
+* Shall I add validation in the in bloc or  in screen
 
 - [ ] dont increment the count if you are authenticated and try to reauthenticate with the same user
