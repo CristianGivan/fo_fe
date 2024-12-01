@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
@@ -56,14 +54,12 @@ class _SortDialogState extends State<SortDialog> {
       criteria: _selectedCriteria,
     );
 
-    context
-        .read<TaskBlocTask>()
-        .add(TaskItemsSortBlocEvent(sortParams: sortParams));
+    context.read<TaskBloc>().add(TaskItemsSortBlocEvent(sortParams: sortParams));
     context.pop();
   }
 
   OrganizerItems<TaskEntity> _getTasksFromState() {
-    final state = context.read<TaskBlocTask>().state;
+    final state = context.read<TaskBloc>().state;
     if (state is TaskLoadedBlocState) {
       return state.displayedTasks;
     }

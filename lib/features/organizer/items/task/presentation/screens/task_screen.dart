@@ -23,14 +23,12 @@ class TaskScreen extends StatelessWidget {
         builder: (context, state) {
           if (state is AuthAuthenticatedBlocState) {
             final userId = state.userEntity.id;
-            context.read<TaskBlocTask>().add(GetTaskItemsFromLogInUserBlocEvent(userId));
+            context.read<TaskBloc>().add(GetTaskItemsFromLogInUserBlocEvent(userId));
 
             return const Column(
               children: [
                 Center(child: Text('All Tasks:')),
-                Expanded(
-                  child: TaskListPage(),
-                ),
+                Expanded(child: TaskListPage()),
                 TaskManagementActionsPage(),
               ],
             );

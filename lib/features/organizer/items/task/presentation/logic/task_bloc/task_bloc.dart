@@ -23,20 +23,7 @@ part 'task_user_link/task_user_link_bloc.dart';
 part 'task_user_link/task_user_link_bloc_event.dart';
 part 'task_user_link/task_user_link_bloc_state.dart';
 
-String _mapFailureToMessage(Failure failure) {
-  switch (failure.runtimeType) {
-    case NetworkFailure:
-      return 'Network error occurred';
-    case ServerFailure:
-      return 'Server error occurred';
-    case CacheFailure:
-      return 'Cache error occurred';
-    default:
-      return 'An error occurred: \n ${failure.message}';
-  }
-}
-
-class TaskBlocTask extends Bloc<TaskBlocTaskEvent, TaskBlocState> {
+class TaskBloc extends Bloc<TaskBlocEvent, TaskBlocState> {
   final GetTaskByIdUseCase getTaskById;
   final GetTaskItemsAllUseCase getTaskItemsAll;
   final GetTaskItemsFromLogInUserUseCase getTaskItemsFromLogInUser;
@@ -47,7 +34,7 @@ class TaskBlocTask extends Bloc<TaskBlocTaskEvent, TaskBlocState> {
   final TaskSortUseCase sortTasksUseCase;
   final TaskFilterUseCase filterTasksUseCase;
 
-  TaskBlocTask({
+  TaskBloc({
     required this.getTaskById,
     required this.getTaskItemsAll,
     required this.getTaskItemsFromLogInUser,
@@ -198,5 +185,18 @@ class TaskBlocTask extends Bloc<TaskBlocTaskEvent, TaskBlocState> {
       (success) => TaskDeletedBlocState(),
     ));
     add(TaskItemsGetAllBlocEvent()); // Refresh the task list
+  }
+
+  String _mapFailureToMessage(Failure failure) {
+    switch (failure.runtimeType) {
+      case NetworkFailure:
+        return 'Network error occurred';
+      case ServerFailure:
+        return 'Server error occurred';
+      case CacheFailure:
+        return 'Cache error occurred';
+      default:
+        return 'An error occurred: \n ${failure.message}';
+    }
   }
 }

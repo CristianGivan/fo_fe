@@ -14,8 +14,6 @@ shall I return non nullable from local data source at list for lists?
 
 == Now
 
-* continue with tasks
-
 == Nice
 
 * understand better statless and stafull widget
@@ -23,6 +21,7 @@ debounce see todo code
 
 == Done
 
+* continue with tasks
 * //todo -fix- delete user if auth fails
 * if user already exist and you wand to add it again send a message
 * shall I have a fold as in add user or not for usecases?

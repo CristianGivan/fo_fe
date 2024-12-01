@@ -8,68 +8,80 @@ class $AuthTableDriftTable extends AuthTableDrift
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-
   $AuthTableDriftTable(this.attachedDatabase, [this._alias]);
-
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>('id', aliasedName, false,
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
       hasAutoIncrement: true,
       type: DriftSqlType.int,
       requiredDuringInsert: false,
-      defaultConstraints: GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
   static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
   @override
-  late final GeneratedColumn<int> userId = GeneratedColumn<int>('user_id', aliasedName, false,
+  late final GeneratedColumn<int> userId = GeneratedColumn<int>(
+      'user_id', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
   static const VerificationMeta _tokenMeta = const VerificationMeta('token');
   @override
-  late final GeneratedColumn<String> token = GeneratedColumn<String>('token', aliasedName, false,
+  late final GeneratedColumn<String> token = GeneratedColumn<String>(
+      'token', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _deviceInfoMeta = const VerificationMeta('deviceInfo');
+  static const VerificationMeta _deviceInfoMeta =
+      const VerificationMeta('deviceInfo');
   @override
   late final GeneratedColumn<String> deviceInfo = GeneratedColumn<String>(
       'device_info', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _createdDateMeta = const VerificationMeta('createdDate');
+  static const VerificationMeta _createdDateMeta =
+      const VerificationMeta('createdDate');
   @override
   late final GeneratedColumn<DateTime> createdDate = GeneratedColumn<DateTime>(
       'created_date', aliasedName, false,
       type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  static const VerificationMeta _expiredDateMeta = const VerificationMeta('expiredDate');
+  static const VerificationMeta _expiredDateMeta =
+      const VerificationMeta('expiredDate');
   @override
   late final GeneratedColumn<DateTime> expiredDate = GeneratedColumn<DateTime>(
       'expired_date', aliasedName, false,
       type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  static const VerificationMeta _lastUsedDateMeta = const VerificationMeta('lastUsedDate');
+  static const VerificationMeta _lastUsedDateMeta =
+      const VerificationMeta('lastUsedDate');
   @override
   late final GeneratedColumn<DateTime> lastUsedDate = GeneratedColumn<DateTime>(
       'last_used_date', aliasedName, false,
       type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  static const VerificationMeta _usedCountMeta = const VerificationMeta('usedCount');
+  static const VerificationMeta _usedCountMeta =
+      const VerificationMeta('usedCount');
   @override
-  late final GeneratedColumn<int> usedCount = GeneratedColumn<int>('used_count', aliasedName, false,
+  late final GeneratedColumn<int> usedCount = GeneratedColumn<int>(
+      'used_count', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _usedCountMaxMeta = const VerificationMeta('usedCountMax');
+  static const VerificationMeta _usedCountMaxMeta =
+      const VerificationMeta('usedCountMax');
   @override
   late final GeneratedColumn<int> usedCountMax = GeneratedColumn<int>(
       'used_count_max', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _isActiveMeta = const VerificationMeta('isActive');
+  static const VerificationMeta _isActiveMeta =
+      const VerificationMeta('isActive');
   @override
-  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>('is_active', aliasedName, false,
+  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
+      'is_active', aliasedName, false,
       type: DriftSqlType.bool,
       requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways('CHECK ("is_active" IN (0, 1))'));
-  static const VerificationMeta _isAutoSignInMeta = const VerificationMeta('isAutoSignIn');
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('CHECK ("is_active" IN (0, 1))'));
+  static const VerificationMeta _isAutoSignInMeta =
+      const VerificationMeta('isAutoSignIn');
   @override
   late final GeneratedColumn<bool> isAutoSignIn = GeneratedColumn<bool>(
       'is_auto_sign_in', aliasedName, false,
       type: DriftSqlType.bool,
       requiredDuringInsert: true,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('CHECK ("is_auto_sign_in" IN (0, 1))'));
-
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("is_auto_sign_in" IN (0, 1))'));
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -84,14 +96,11 @@ class $AuthTableDriftTable extends AuthTableDrift
         isActive,
         isAutoSignIn
       ];
-
   @override
   String get aliasedName => _alias ?? actualTableName;
-
   @override
   String get actualTableName => $name;
   static const String $name = 'auth_table_drift';
-
   @override
   VerificationContext validateIntegrity(Insertable<AuthTableDriftG> instance,
       {bool isInserting = false}) {
@@ -101,60 +110,74 @@ class $AuthTableDriftTable extends AuthTableDrift
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
     if (data.containsKey('user_id')) {
-      context.handle(_userIdMeta, userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
     } else if (isInserting) {
       context.missing(_userIdMeta);
     }
     if (data.containsKey('token')) {
-      context.handle(_tokenMeta, token.isAcceptableOrUnknown(data['token']!, _tokenMeta));
+      context.handle(
+          _tokenMeta, token.isAcceptableOrUnknown(data['token']!, _tokenMeta));
     } else if (isInserting) {
       context.missing(_tokenMeta);
     }
     if (data.containsKey('device_info')) {
       context.handle(
-          _deviceInfoMeta, deviceInfo.isAcceptableOrUnknown(data['device_info']!, _deviceInfoMeta));
+          _deviceInfoMeta,
+          deviceInfo.isAcceptableOrUnknown(
+              data['device_info']!, _deviceInfoMeta));
     } else if (isInserting) {
       context.missing(_deviceInfoMeta);
     }
     if (data.containsKey('created_date')) {
-      context.handle(_createdDateMeta,
-          createdDate.isAcceptableOrUnknown(data['created_date']!, _createdDateMeta));
+      context.handle(
+          _createdDateMeta,
+          createdDate.isAcceptableOrUnknown(
+              data['created_date']!, _createdDateMeta));
     } else if (isInserting) {
       context.missing(_createdDateMeta);
     }
     if (data.containsKey('expired_date')) {
-      context.handle(_expiredDateMeta,
-          expiredDate.isAcceptableOrUnknown(data['expired_date']!, _expiredDateMeta));
+      context.handle(
+          _expiredDateMeta,
+          expiredDate.isAcceptableOrUnknown(
+              data['expired_date']!, _expiredDateMeta));
     } else if (isInserting) {
       context.missing(_expiredDateMeta);
     }
     if (data.containsKey('last_used_date')) {
-      context.handle(_lastUsedDateMeta,
-          lastUsedDate.isAcceptableOrUnknown(data['last_used_date']!, _lastUsedDateMeta));
+      context.handle(
+          _lastUsedDateMeta,
+          lastUsedDate.isAcceptableOrUnknown(
+              data['last_used_date']!, _lastUsedDateMeta));
     } else if (isInserting) {
       context.missing(_lastUsedDateMeta);
     }
     if (data.containsKey('used_count')) {
-      context.handle(
-          _usedCountMeta, usedCount.isAcceptableOrUnknown(data['used_count']!, _usedCountMeta));
+      context.handle(_usedCountMeta,
+          usedCount.isAcceptableOrUnknown(data['used_count']!, _usedCountMeta));
     } else if (isInserting) {
       context.missing(_usedCountMeta);
     }
     if (data.containsKey('used_count_max')) {
-      context.handle(_usedCountMaxMeta,
-          usedCountMax.isAcceptableOrUnknown(data['used_count_max']!, _usedCountMaxMeta));
+      context.handle(
+          _usedCountMaxMeta,
+          usedCountMax.isAcceptableOrUnknown(
+              data['used_count_max']!, _usedCountMaxMeta));
     } else if (isInserting) {
       context.missing(_usedCountMaxMeta);
     }
     if (data.containsKey('is_active')) {
-      context.handle(
-          _isActiveMeta, isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta));
+      context.handle(_isActiveMeta,
+          isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta));
     } else if (isInserting) {
       context.missing(_isActiveMeta);
     }
     if (data.containsKey('is_auto_sign_in')) {
-      context.handle(_isAutoSignInMeta,
-          isAutoSignIn.isAcceptableOrUnknown(data['is_auto_sign_in']!, _isAutoSignInMeta));
+      context.handle(
+          _isAutoSignInMeta,
+          isAutoSignIn.isAcceptableOrUnknown(
+              data['is_auto_sign_in']!, _isAutoSignInMeta));
     } else if (isInserting) {
       context.missing(_isAutoSignInMeta);
     }
@@ -163,24 +186,24 @@ class $AuthTableDriftTable extends AuthTableDrift
 
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
-
   @override
   AuthTableDriftG map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return AuthTableDriftG(
-      id: attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      userId:
-          attachedDatabase.typeMapping.read(DriftSqlType.int, data['${effectivePrefix}user_id'])!,
-      token:
-          attachedDatabase.typeMapping.read(DriftSqlType.string, data['${effectivePrefix}token'])!,
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}user_id'])!,
+      token: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}token'])!,
       deviceInfo: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}device_info'])!,
       createdDate: attachedDatabase.typeMapping
           .read(DriftSqlType.dateTime, data['${effectivePrefix}created_date'])!,
       expiredDate: attachedDatabase.typeMapping
           .read(DriftSqlType.dateTime, data['${effectivePrefix}expired_date'])!,
-      lastUsedDate: attachedDatabase.typeMapping
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}last_used_date'])!,
+      lastUsedDate: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}last_used_date'])!,
       usedCount: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}used_count'])!,
       usedCountMax: attachedDatabase.typeMapping
@@ -210,7 +233,6 @@ class AuthTableDriftG extends DataClass implements Insertable<AuthTableDriftG> {
   final int usedCountMax;
   final bool isActive;
   final bool isAutoSignIn;
-
   const AuthTableDriftG(
       {required this.id,
       required this.userId,
@@ -223,7 +245,6 @@ class AuthTableDriftG extends DataClass implements Insertable<AuthTableDriftG> {
       required this.usedCountMax,
       required this.isActive,
       required this.isAutoSignIn});
-
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -257,7 +278,8 @@ class AuthTableDriftG extends DataClass implements Insertable<AuthTableDriftG> {
     );
   }
 
-  factory AuthTableDriftG.fromJson(Map<String, dynamic> json, {ValueSerializer? serializer}) {
+  factory AuthTableDriftG.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return AuthTableDriftG(
       id: serializer.fromJson<int>(json['id']),
@@ -273,7 +295,6 @@ class AuthTableDriftG extends DataClass implements Insertable<AuthTableDriftG> {
       isAutoSignIn: serializer.fromJson<bool>(json['isAutoSignIn']),
     );
   }
-
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
@@ -317,20 +338,28 @@ class AuthTableDriftG extends DataClass implements Insertable<AuthTableDriftG> {
         isActive: isActive ?? this.isActive,
         isAutoSignIn: isAutoSignIn ?? this.isAutoSignIn,
       );
-
   AuthTableDriftG copyWithCompanion(AuthTableDriftCompanion data) {
     return AuthTableDriftG(
       id: data.id.present ? data.id.value : this.id,
       userId: data.userId.present ? data.userId.value : this.userId,
       token: data.token.present ? data.token.value : this.token,
-      deviceInfo: data.deviceInfo.present ? data.deviceInfo.value : this.deviceInfo,
-      createdDate: data.createdDate.present ? data.createdDate.value : this.createdDate,
-      expiredDate: data.expiredDate.present ? data.expiredDate.value : this.expiredDate,
-      lastUsedDate: data.lastUsedDate.present ? data.lastUsedDate.value : this.lastUsedDate,
+      deviceInfo:
+          data.deviceInfo.present ? data.deviceInfo.value : this.deviceInfo,
+      createdDate:
+          data.createdDate.present ? data.createdDate.value : this.createdDate,
+      expiredDate:
+          data.expiredDate.present ? data.expiredDate.value : this.expiredDate,
+      lastUsedDate: data.lastUsedDate.present
+          ? data.lastUsedDate.value
+          : this.lastUsedDate,
       usedCount: data.usedCount.present ? data.usedCount.value : this.usedCount,
-      usedCountMax: data.usedCountMax.present ? data.usedCountMax.value : this.usedCountMax,
+      usedCountMax: data.usedCountMax.present
+          ? data.usedCountMax.value
+          : this.usedCountMax,
       isActive: data.isActive.present ? data.isActive.value : this.isActive,
-      isAutoSignIn: data.isAutoSignIn.present ? data.isAutoSignIn.value : this.isAutoSignIn,
+      isAutoSignIn: data.isAutoSignIn.present
+          ? data.isAutoSignIn.value
+          : this.isAutoSignIn,
     );
   }
 
@@ -353,9 +382,18 @@ class AuthTableDriftG extends DataClass implements Insertable<AuthTableDriftG> {
   }
 
   @override
-  int get hashCode => Object.hash(id, userId, token, deviceInfo, createdDate, expiredDate,
-      lastUsedDate, usedCount, usedCountMax, isActive, isAutoSignIn);
-
+  int get hashCode => Object.hash(
+      id,
+      userId,
+      token,
+      deviceInfo,
+      createdDate,
+      expiredDate,
+      lastUsedDate,
+      usedCount,
+      usedCountMax,
+      isActive,
+      isAutoSignIn);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -385,7 +423,6 @@ class AuthTableDriftCompanion extends UpdateCompanion<AuthTableDriftG> {
   final Value<int> usedCountMax;
   final Value<bool> isActive;
   final Value<bool> isAutoSignIn;
-
   const AuthTableDriftCompanion({
     this.id = const Value.absent(),
     this.userId = const Value.absent(),
@@ -399,7 +436,6 @@ class AuthTableDriftCompanion extends UpdateCompanion<AuthTableDriftG> {
     this.isActive = const Value.absent(),
     this.isAutoSignIn = const Value.absent(),
   });
-
   AuthTableDriftCompanion.insert({
     this.id = const Value.absent(),
     required int userId,
@@ -422,7 +458,6 @@ class AuthTableDriftCompanion extends UpdateCompanion<AuthTableDriftG> {
         usedCountMax = Value(usedCountMax),
         isActive = Value(isActive),
         isAutoSignIn = Value(isAutoSignIn);
-
   static Insertable<AuthTableDriftG> custom({
     Expression<int>? id,
     Expression<int>? userId,
@@ -538,20 +573,18 @@ class AuthTableDriftCompanion extends UpdateCompanion<AuthTableDriftG> {
 
 abstract class _$AuthDriftDB extends GeneratedDatabase {
   _$AuthDriftDB(QueryExecutor e) : super(e);
-
   $AuthDriftDBManager get managers => $AuthDriftDBManager(this);
   late final $AuthTableDriftTable authTableDrift = $AuthTableDriftTable(this);
   late final AuthDaoDrift authDaoDrift = AuthDaoDrift(this as AuthDriftDB);
-
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
-
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [authTableDrift];
 }
 
-typedef $$AuthTableDriftTableCreateCompanionBuilder = AuthTableDriftCompanion Function({
+typedef $$AuthTableDriftTableCreateCompanionBuilder = AuthTableDriftCompanion
+    Function({
   Value<int> id,
   required int userId,
   required String token,
@@ -564,7 +597,8 @@ typedef $$AuthTableDriftTableCreateCompanionBuilder = AuthTableDriftCompanion Fu
   required bool isActive,
   required bool isAutoSignIn,
 });
-typedef $$AuthTableDriftTableUpdateCompanionBuilder = AuthTableDriftCompanion Function({
+typedef $$AuthTableDriftTableUpdateCompanionBuilder = AuthTableDriftCompanion
+    Function({
   Value<int> id,
   Value<int> userId,
   Value<String> token,
@@ -578,20 +612,164 @@ typedef $$AuthTableDriftTableUpdateCompanionBuilder = AuthTableDriftCompanion Fu
   Value<bool> isAutoSignIn,
 });
 
+class $$AuthTableDriftTableFilterComposer
+    extends Composer<_$AuthDriftDB, $AuthTableDriftTable> {
+  $$AuthTableDriftTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get token => $composableBuilder(
+      column: $table.token, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get deviceInfo => $composableBuilder(
+      column: $table.deviceInfo, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createdDate => $composableBuilder(
+      column: $table.createdDate, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get expiredDate => $composableBuilder(
+      column: $table.expiredDate, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get lastUsedDate => $composableBuilder(
+      column: $table.lastUsedDate, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get usedCount => $composableBuilder(
+      column: $table.usedCount, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get usedCountMax => $composableBuilder(
+      column: $table.usedCountMax, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isActive => $composableBuilder(
+      column: $table.isActive, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get isAutoSignIn => $composableBuilder(
+      column: $table.isAutoSignIn, builder: (column) => ColumnFilters(column));
+}
+
+class $$AuthTableDriftTableOrderingComposer
+    extends Composer<_$AuthDriftDB, $AuthTableDriftTable> {
+  $$AuthTableDriftTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get token => $composableBuilder(
+      column: $table.token, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get deviceInfo => $composableBuilder(
+      column: $table.deviceInfo, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdDate => $composableBuilder(
+      column: $table.createdDate, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get expiredDate => $composableBuilder(
+      column: $table.expiredDate, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get lastUsedDate => $composableBuilder(
+      column: $table.lastUsedDate,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get usedCount => $composableBuilder(
+      column: $table.usedCount, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get usedCountMax => $composableBuilder(
+      column: $table.usedCountMax,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isActive => $composableBuilder(
+      column: $table.isActive, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get isAutoSignIn => $composableBuilder(
+      column: $table.isAutoSignIn,
+      builder: (column) => ColumnOrderings(column));
+}
+
+class $$AuthTableDriftTableAnnotationComposer
+    extends Composer<_$AuthDriftDB, $AuthTableDriftTable> {
+  $$AuthTableDriftTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<String> get token =>
+      $composableBuilder(column: $table.token, builder: (column) => column);
+
+  GeneratedColumn<String> get deviceInfo => $composableBuilder(
+      column: $table.deviceInfo, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdDate => $composableBuilder(
+      column: $table.createdDate, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get expiredDate => $composableBuilder(
+      column: $table.expiredDate, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get lastUsedDate => $composableBuilder(
+      column: $table.lastUsedDate, builder: (column) => column);
+
+  GeneratedColumn<int> get usedCount =>
+      $composableBuilder(column: $table.usedCount, builder: (column) => column);
+
+  GeneratedColumn<int> get usedCountMax => $composableBuilder(
+      column: $table.usedCountMax, builder: (column) => column);
+
+  GeneratedColumn<bool> get isActive =>
+      $composableBuilder(column: $table.isActive, builder: (column) => column);
+
+  GeneratedColumn<bool> get isAutoSignIn => $composableBuilder(
+      column: $table.isAutoSignIn, builder: (column) => column);
+}
+
 class $$AuthTableDriftTableTableManager extends RootTableManager<
     _$AuthDriftDB,
     $AuthTableDriftTable,
     AuthTableDriftG,
     $$AuthTableDriftTableFilterComposer,
     $$AuthTableDriftTableOrderingComposer,
+    $$AuthTableDriftTableAnnotationComposer,
     $$AuthTableDriftTableCreateCompanionBuilder,
-    $$AuthTableDriftTableUpdateCompanionBuilder> {
-  $$AuthTableDriftTableTableManager(_$AuthDriftDB db, $AuthTableDriftTable table)
+    $$AuthTableDriftTableUpdateCompanionBuilder,
+    (
+      AuthTableDriftG,
+      BaseReferences<_$AuthDriftDB, $AuthTableDriftTable, AuthTableDriftG>
+    ),
+    AuthTableDriftG,
+    PrefetchHooks Function()> {
+  $$AuthTableDriftTableTableManager(
+      _$AuthDriftDB db, $AuthTableDriftTable table)
       : super(TableManagerState(
           db: db,
           table: table,
-          filteringComposer: $$AuthTableDriftTableFilterComposer(ComposerState(db, table)),
-          orderingComposer: $$AuthTableDriftTableOrderingComposer(ComposerState(db, table)),
+          createFilteringComposer: () =>
+              $$AuthTableDriftTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$AuthTableDriftTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$AuthTableDriftTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<int> userId = const Value.absent(),
@@ -644,112 +822,32 @@ class $$AuthTableDriftTableTableManager extends RootTableManager<
             isActive: isActive,
             isAutoSignIn: isAutoSignIn,
           ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
         ));
 }
 
-class $$AuthTableDriftTableFilterComposer
-    extends FilterComposer<_$AuthDriftDB, $AuthTableDriftTable> {
-  $$AuthTableDriftTableFilterComposer(super.$state);
-
-  ColumnFilters<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) => ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get userId => $state.composableBuilder(
-      column: $state.table.userId,
-      builder: (column, joinBuilders) => ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get token => $state.composableBuilder(
-      column: $state.table.token,
-      builder: (column, joinBuilders) => ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get deviceInfo => $state.composableBuilder(
-      column: $state.table.deviceInfo,
-      builder: (column, joinBuilders) => ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<DateTime> get createdDate => $state.composableBuilder(
-      column: $state.table.createdDate,
-      builder: (column, joinBuilders) => ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<DateTime> get expiredDate => $state.composableBuilder(
-      column: $state.table.expiredDate,
-      builder: (column, joinBuilders) => ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<DateTime> get lastUsedDate => $state.composableBuilder(
-      column: $state.table.lastUsedDate,
-      builder: (column, joinBuilders) => ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get usedCount => $state.composableBuilder(
-      column: $state.table.usedCount,
-      builder: (column, joinBuilders) => ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get usedCountMax => $state.composableBuilder(
-      column: $state.table.usedCountMax,
-      builder: (column, joinBuilders) => ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<bool> get isActive => $state.composableBuilder(
-      column: $state.table.isActive,
-      builder: (column, joinBuilders) => ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<bool> get isAutoSignIn => $state.composableBuilder(
-      column: $state.table.isAutoSignIn,
-      builder: (column, joinBuilders) => ColumnFilters(column, joinBuilders: joinBuilders));
-}
-
-class $$AuthTableDriftTableOrderingComposer
-    extends OrderingComposer<_$AuthDriftDB, $AuthTableDriftTable> {
-  $$AuthTableDriftTableOrderingComposer(super.$state);
-
-  ColumnOrderings<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) => ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get userId => $state.composableBuilder(
-      column: $state.table.userId,
-      builder: (column, joinBuilders) => ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get token => $state.composableBuilder(
-      column: $state.table.token,
-      builder: (column, joinBuilders) => ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get deviceInfo => $state.composableBuilder(
-      column: $state.table.deviceInfo,
-      builder: (column, joinBuilders) => ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<DateTime> get createdDate => $state.composableBuilder(
-      column: $state.table.createdDate,
-      builder: (column, joinBuilders) => ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<DateTime> get expiredDate => $state.composableBuilder(
-      column: $state.table.expiredDate,
-      builder: (column, joinBuilders) => ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<DateTime> get lastUsedDate => $state.composableBuilder(
-      column: $state.table.lastUsedDate,
-      builder: (column, joinBuilders) => ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get usedCount => $state.composableBuilder(
-      column: $state.table.usedCount,
-      builder: (column, joinBuilders) => ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get usedCountMax => $state.composableBuilder(
-      column: $state.table.usedCountMax,
-      builder: (column, joinBuilders) => ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<bool> get isActive => $state.composableBuilder(
-      column: $state.table.isActive,
-      builder: (column, joinBuilders) => ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<bool> get isAutoSignIn => $state.composableBuilder(
-      column: $state.table.isAutoSignIn,
-      builder: (column, joinBuilders) => ColumnOrderings(column, joinBuilders: joinBuilders));
-}
+typedef $$AuthTableDriftTableProcessedTableManager = ProcessedTableManager<
+    _$AuthDriftDB,
+    $AuthTableDriftTable,
+    AuthTableDriftG,
+    $$AuthTableDriftTableFilterComposer,
+    $$AuthTableDriftTableOrderingComposer,
+    $$AuthTableDriftTableAnnotationComposer,
+    $$AuthTableDriftTableCreateCompanionBuilder,
+    $$AuthTableDriftTableUpdateCompanionBuilder,
+    (
+      AuthTableDriftG,
+      BaseReferences<_$AuthDriftDB, $AuthTableDriftTable, AuthTableDriftG>
+    ),
+    AuthTableDriftG,
+    PrefetchHooks Function()>;
 
 class $AuthDriftDBManager {
   final _$AuthDriftDB _db;
-
   $AuthDriftDBManager(this._db);
-
   $$AuthTableDriftTableTableManager get authTableDrift =>
       $$AuthTableDriftTableTableManager(_db, _db.authTableDrift);
 }

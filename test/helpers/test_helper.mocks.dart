@@ -273,6 +273,18 @@ class MockTaskLocalDataSourceDrift extends _i1.Mock
       ) as _i8.Future<List<_i3.TaskTableDriftG>?>);
 
   @override
+  _i8.Future<List<_i3.TaskTableDriftG>?> getTaskItemsFromUser(int? userId) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getTaskItemsFromUser,
+          [userId],
+        ),
+        returnValue: _i8.Future<List<_i3.TaskTableDriftG>?>.value(),
+        returnValueForMissingStub:
+            _i8.Future<List<_i3.TaskTableDriftG>?>.value(),
+      ) as _i8.Future<List<_i3.TaskTableDriftG>?>);
+
+  @override
   _i8.Future<List<_i3.TaskTableDriftG?>?> getTaskItemsByIdSet(
           _i12.IdSet? idSet) =>
       (super.noSuchMethod(
@@ -286,18 +298,6 @@ class MockTaskLocalDataSourceDrift extends _i1.Mock
       ) as _i8.Future<List<_i3.TaskTableDriftG?>?>);
 
   @override
-  _i8.Future<List<_i3.UserTableDriftG>?> getUserItemsByTaskId(int? taskId) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #getUserItemsByTaskId,
-          [taskId],
-        ),
-        returnValue: _i8.Future<List<_i3.UserTableDriftG>?>.value(),
-        returnValueForMissingStub:
-            _i8.Future<List<_i3.UserTableDriftG>?>.value(),
-      ) as _i8.Future<List<_i3.UserTableDriftG>?>);
-
-  @override
   _i8.Future<_i3.UserTableDriftG?> getCreatorById(int? creatorId) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -307,6 +307,18 @@ class MockTaskLocalDataSourceDrift extends _i1.Mock
         returnValue: _i8.Future<_i3.UserTableDriftG?>.value(),
         returnValueForMissingStub: _i8.Future<_i3.UserTableDriftG?>.value(),
       ) as _i8.Future<_i3.UserTableDriftG?>);
+
+  @override
+  _i8.Future<List<_i3.UserTableDriftG?>?> getUserItemsByTaskId(int? taskId) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getUserItemsByTaskId,
+          [taskId],
+        ),
+        returnValue: _i8.Future<List<_i3.UserTableDriftG?>?>.value(),
+        returnValueForMissingStub:
+            _i8.Future<List<_i3.UserTableDriftG?>?>.value(),
+      ) as _i8.Future<List<_i3.UserTableDriftG?>?>);
 
   @override
   _i8.Future<void> addUserItemsToTask(
@@ -604,6 +616,36 @@ class MockTaskRepository extends _i1.Mock implements _i6.TaskRepository {
         )),
       ) as _i8.Future<
           _i4.Either<_i13.Failure, _i12.OrganizerItems<_i14.TaskEntity>>>);
+
+  @override
+  _i8.Future<_i4.Either<_i13.Failure, _i12.OrganizerItems<_i14.TaskEntity>>>
+      getTaskItemsFromUser(int? userId) => (super.noSuchMethod(
+            Invocation.method(
+              #getTaskItemsFromUser,
+              [userId],
+            ),
+            returnValue: _i8.Future<
+                _i4.Either<_i13.Failure,
+                    _i12.OrganizerItems<_i14.TaskEntity>>>.value(_FakeEither_2<
+                _i13.Failure, _i12.OrganizerItems<_i14.TaskEntity>>(
+              this,
+              Invocation.method(
+                #getTaskItemsFromUser,
+                [userId],
+              ),
+            )),
+            returnValueForMissingStub: _i8.Future<
+                _i4.Either<_i13.Failure,
+                    _i12.OrganizerItems<_i14.TaskEntity>>>.value(_FakeEither_2<
+                _i13.Failure, _i12.OrganizerItems<_i14.TaskEntity>>(
+              this,
+              Invocation.method(
+                #getTaskItemsFromUser,
+                [userId],
+              ),
+            )),
+          ) as _i8.Future<
+              _i4.Either<_i13.Failure, _i12.OrganizerItems<_i14.TaskEntity>>>);
 
   @override
   _i8.Future<_i4.Either<_i13.Failure, _i12.OrganizerItems<_i14.TaskEntity>>>
@@ -912,6 +954,13 @@ class MockTaskRepository extends _i1.Mock implements _i6.TaskRepository {
 /// See the documentation for Mockito's code generation for more information.
 class MockOrganizerItemEntity extends _i1.Mock
     implements _i12.OrganizerItemEntity {
+  @override
+  bool get isEmpty => (super.noSuchMethod(
+        Invocation.getter(#isEmpty),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
   @override
   List<Object?> get props => (super.noSuchMethod(
         Invocation.getter(#props),

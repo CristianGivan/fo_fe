@@ -1,13 +1,13 @@
 part of 'task_bloc.dart';
 
-abstract class TaskBlocTaskEvent extends Equatable {
-  const TaskBlocTaskEvent();
+abstract class TaskBlocEvent extends Equatable {
+  const TaskBlocEvent();
 
   @override
   List<Object> get props => [];
 }
 
-class TaskGetByIdBlocEvent extends TaskBlocTaskEvent {
+class TaskGetByIdBlocEvent extends TaskBlocEvent {
   final int taskId;
 
   TaskGetByIdBlocEvent(this.taskId);
@@ -16,9 +16,9 @@ class TaskGetByIdBlocEvent extends TaskBlocTaskEvent {
   List<Object> get props => [taskId];
 }
 
-class TaskItemsGetAllBlocEvent extends TaskBlocTaskEvent {}
+class TaskItemsGetAllBlocEvent extends TaskBlocEvent {}
 
-class GetTaskItemsFromLogInUserBlocEvent extends TaskBlocTaskEvent {
+class GetTaskItemsFromLogInUserBlocEvent extends TaskBlocEvent {
   final int userId;
 
   const GetTaskItemsFromLogInUserBlocEvent(this.userId);
@@ -27,7 +27,7 @@ class GetTaskItemsFromLogInUserBlocEvent extends TaskBlocTaskEvent {
   List<Object> get props => [userId];
 }
 
-class TaskLoadItemsByIdSetBlocEvent extends TaskBlocTaskEvent {
+class TaskLoadItemsByIdSetBlocEvent extends TaskBlocEvent {
   final IdSet idSet;
 
   TaskLoadItemsByIdSetBlocEvent(this.idSet);
@@ -36,7 +36,7 @@ class TaskLoadItemsByIdSetBlocEvent extends TaskBlocTaskEvent {
   List<Object> get props => [idSet];
 }
 
-class TaskItemsSortBlocEvent extends TaskBlocTaskEvent {
+class TaskItemsSortBlocEvent extends TaskBlocEvent {
   final SortTasksParams sortParams;
 
   TaskItemsSortBlocEvent({
@@ -47,7 +47,7 @@ class TaskItemsSortBlocEvent extends TaskBlocTaskEvent {
   List<Object> get props => [sortParams];
 }
 
-class TaskItemsFilterBlocEvent extends TaskBlocTaskEvent {
+class TaskItemsFilterBlocEvent extends TaskBlocEvent {
   final FilterTasksParams filterParams;
 
   TaskItemsFilterBlocEvent({
@@ -58,7 +58,7 @@ class TaskItemsFilterBlocEvent extends TaskBlocTaskEvent {
   List<Object> get props => [filterParams];
 }
 
-class TaskAddBlocEvent extends TaskBlocTaskEvent {
+class TaskAddBlocEvent extends TaskBlocEvent {
   final TaskEntity task;
 
   TaskAddBlocEvent(this.task);
@@ -67,7 +67,7 @@ class TaskAddBlocEvent extends TaskBlocTaskEvent {
   List<Object> get props => [task];
 }
 
-class TaskUpdateBlocEvent extends TaskBlocTaskEvent {
+class TaskUpdateBlocEvent extends TaskBlocEvent {
   final TaskEntity task;
 
   TaskUpdateBlocEvent(this.task);
@@ -76,7 +76,7 @@ class TaskUpdateBlocEvent extends TaskBlocTaskEvent {
   List<Object> get props => [task];
 }
 
-class TaskDeleteBlocEvent extends TaskBlocTaskEvent {
+class TaskDeleteBlocEvent extends TaskBlocEvent {
   final int taskId;
 
   TaskDeleteBlocEvent(this.taskId);

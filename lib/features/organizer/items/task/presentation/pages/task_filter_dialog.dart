@@ -109,7 +109,7 @@ class _FilterDialogState extends State<FilterDialog> {
 
   void _applyFilter() {
     final filterParams = _buildFilterParams();
-    context.read<TaskBlocTask>().add(TaskItemsFilterBlocEvent(filterParams: filterParams));
+    context.read<TaskBloc>().add(TaskItemsFilterBlocEvent(filterParams: filterParams));
     context.pop();
   }
 
@@ -130,7 +130,7 @@ class _FilterDialogState extends State<FilterDialog> {
   }
 
   OrganizerItems<TaskEntity> _getTasksFromState(bool getDisplayed) {
-    final state = context.read<TaskBlocTask>().state;
+    final state = context.read<TaskBloc>().state;
     if (state is TaskLoadedBlocState) {
       return getDisplayed ? state.displayedTasks : state.originalTasks;
     }

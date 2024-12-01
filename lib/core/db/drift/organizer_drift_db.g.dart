@@ -4381,23 +4381,151 @@ typedef $$OrganizerItemTableDriftTableUpdateCompanionBuilder
   Value<String?> checksum,
 });
 
+class $$OrganizerItemTableDriftTableFilterComposer
+    extends Composer<_$OrganizerDriftDB, $OrganizerItemTableDriftTable> {
+  $$OrganizerItemTableDriftTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createdDate => $composableBuilder(
+      column: $table.createdDate, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get creatorId => $composableBuilder(
+      column: $table.creatorId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get remoteId => $composableBuilder(
+      column: $table.remoteId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get lastUpdate => $composableBuilder(
+      column: $table.lastUpdate, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get lastAccessedDate => $composableBuilder(
+      column: $table.lastAccessedDate,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get remoteAccesses => $composableBuilder(
+      column: $table.remoteAccesses,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get accesses => $composableBuilder(
+      column: $table.accesses, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get checksum => $composableBuilder(
+      column: $table.checksum, builder: (column) => ColumnFilters(column));
+}
+
+class $$OrganizerItemTableDriftTableOrderingComposer
+    extends Composer<_$OrganizerDriftDB, $OrganizerItemTableDriftTable> {
+  $$OrganizerItemTableDriftTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdDate => $composableBuilder(
+      column: $table.createdDate, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get creatorId => $composableBuilder(
+      column: $table.creatorId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get remoteId => $composableBuilder(
+      column: $table.remoteId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get lastUpdate => $composableBuilder(
+      column: $table.lastUpdate, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get lastAccessedDate => $composableBuilder(
+      column: $table.lastAccessedDate,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get remoteAccesses => $composableBuilder(
+      column: $table.remoteAccesses,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get accesses => $composableBuilder(
+      column: $table.accesses, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get checksum => $composableBuilder(
+      column: $table.checksum, builder: (column) => ColumnOrderings(column));
+}
+
+class $$OrganizerItemTableDriftTableAnnotationComposer
+    extends Composer<_$OrganizerDriftDB, $OrganizerItemTableDriftTable> {
+  $$OrganizerItemTableDriftTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdDate => $composableBuilder(
+      column: $table.createdDate, builder: (column) => column);
+
+  GeneratedColumn<int> get creatorId =>
+      $composableBuilder(column: $table.creatorId, builder: (column) => column);
+
+  GeneratedColumn<int> get remoteId =>
+      $composableBuilder(column: $table.remoteId, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get lastUpdate => $composableBuilder(
+      column: $table.lastUpdate, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get lastAccessedDate => $composableBuilder(
+      column: $table.lastAccessedDate, builder: (column) => column);
+
+  GeneratedColumn<int> get remoteAccesses => $composableBuilder(
+      column: $table.remoteAccesses, builder: (column) => column);
+
+  GeneratedColumn<int> get accesses =>
+      $composableBuilder(column: $table.accesses, builder: (column) => column);
+
+  GeneratedColumn<String> get checksum =>
+      $composableBuilder(column: $table.checksum, builder: (column) => column);
+}
+
 class $$OrganizerItemTableDriftTableTableManager extends RootTableManager<
     _$OrganizerDriftDB,
     $OrganizerItemTableDriftTable,
     OrganizerItemTableDriftG,
     $$OrganizerItemTableDriftTableFilterComposer,
     $$OrganizerItemTableDriftTableOrderingComposer,
+    $$OrganizerItemTableDriftTableAnnotationComposer,
     $$OrganizerItemTableDriftTableCreateCompanionBuilder,
-    $$OrganizerItemTableDriftTableUpdateCompanionBuilder> {
+    $$OrganizerItemTableDriftTableUpdateCompanionBuilder,
+    (
+      OrganizerItemTableDriftG,
+      BaseReferences<_$OrganizerDriftDB, $OrganizerItemTableDriftTable,
+          OrganizerItemTableDriftG>
+    ),
+    OrganizerItemTableDriftG,
+    PrefetchHooks Function()> {
   $$OrganizerItemTableDriftTableTableManager(
       _$OrganizerDriftDB db, $OrganizerItemTableDriftTable table)
       : super(TableManagerState(
           db: db,
           table: table,
-          filteringComposer: $$OrganizerItemTableDriftTableFilterComposer(
-              ComposerState(db, table)),
-          orderingComposer: $$OrganizerItemTableDriftTableOrderingComposer(
-              ComposerState(db, table)),
+          createFilteringComposer: () =>
+              $$OrganizerItemTableDriftTableFilterComposer(
+                  $db: db, $table: table),
+          createOrderingComposer: () =>
+              $$OrganizerItemTableDriftTableOrderingComposer(
+                  $db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$OrganizerItemTableDriftTableAnnotationComposer(
+                  $db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<DateTime> createdDate = const Value.absent(),
@@ -4442,107 +4570,30 @@ class $$OrganizerItemTableDriftTableTableManager extends RootTableManager<
             accesses: accesses,
             checksum: checksum,
           ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
         ));
 }
 
-class $$OrganizerItemTableDriftTableFilterComposer
-    extends FilterComposer<_$OrganizerDriftDB, $OrganizerItemTableDriftTable> {
-  $$OrganizerItemTableDriftTableFilterComposer(super.$state);
-  ColumnFilters<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<DateTime> get createdDate => $state.composableBuilder(
-      column: $state.table.createdDate,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get creatorId => $state.composableBuilder(
-      column: $state.table.creatorId,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get remoteId => $state.composableBuilder(
-      column: $state.table.remoteId,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<DateTime> get lastUpdate => $state.composableBuilder(
-      column: $state.table.lastUpdate,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<DateTime> get lastAccessedDate => $state.composableBuilder(
-      column: $state.table.lastAccessedDate,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get remoteAccesses => $state.composableBuilder(
-      column: $state.table.remoteAccesses,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get accesses => $state.composableBuilder(
-      column: $state.table.accesses,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get checksum => $state.composableBuilder(
-      column: $state.table.checksum,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-}
-
-class $$OrganizerItemTableDriftTableOrderingComposer extends OrderingComposer<
-    _$OrganizerDriftDB, $OrganizerItemTableDriftTable> {
-  $$OrganizerItemTableDriftTableOrderingComposer(super.$state);
-  ColumnOrderings<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<DateTime> get createdDate => $state.composableBuilder(
-      column: $state.table.createdDate,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get creatorId => $state.composableBuilder(
-      column: $state.table.creatorId,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get remoteId => $state.composableBuilder(
-      column: $state.table.remoteId,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<DateTime> get lastUpdate => $state.composableBuilder(
-      column: $state.table.lastUpdate,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<DateTime> get lastAccessedDate => $state.composableBuilder(
-      column: $state.table.lastAccessedDate,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get remoteAccesses => $state.composableBuilder(
-      column: $state.table.remoteAccesses,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get accesses => $state.composableBuilder(
-      column: $state.table.accesses,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get checksum => $state.composableBuilder(
-      column: $state.table.checksum,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-}
-
+typedef $$OrganizerItemTableDriftTableProcessedTableManager
+    = ProcessedTableManager<
+        _$OrganizerDriftDB,
+        $OrganizerItemTableDriftTable,
+        OrganizerItemTableDriftG,
+        $$OrganizerItemTableDriftTableFilterComposer,
+        $$OrganizerItemTableDriftTableOrderingComposer,
+        $$OrganizerItemTableDriftTableAnnotationComposer,
+        $$OrganizerItemTableDriftTableCreateCompanionBuilder,
+        $$OrganizerItemTableDriftTableUpdateCompanionBuilder,
+        (
+          OrganizerItemTableDriftG,
+          BaseReferences<_$OrganizerDriftDB, $OrganizerItemTableDriftTable,
+              OrganizerItemTableDriftG>
+        ),
+        OrganizerItemTableDriftG,
+        PrefetchHooks Function()>;
 typedef $$TaskTableDriftTableCreateCompanionBuilder = TaskTableDriftCompanion
     Function({
   Value<int> id,
@@ -4584,23 +4635,224 @@ typedef $$TaskTableDriftTableUpdateCompanionBuilder = TaskTableDriftCompanion
   Value<String?> taskStatus,
 });
 
+class $$TaskTableDriftTableFilterComposer
+    extends Composer<_$OrganizerDriftDB, $TaskTableDriftTable> {
+  $$TaskTableDriftTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createdDate => $composableBuilder(
+      column: $table.createdDate, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get creatorId => $composableBuilder(
+      column: $table.creatorId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get remoteId => $composableBuilder(
+      column: $table.remoteId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get lastUpdate => $composableBuilder(
+      column: $table.lastUpdate, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get lastAccessedDate => $composableBuilder(
+      column: $table.lastAccessedDate,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get remoteAccesses => $composableBuilder(
+      column: $table.remoteAccesses,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get accesses => $composableBuilder(
+      column: $table.accesses, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get checksum => $composableBuilder(
+      column: $table.checksum, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get subject => $composableBuilder(
+      column: $table.subject, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get startDate => $composableBuilder(
+      column: $table.startDate, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get endDate => $composableBuilder(
+      column: $table.endDate, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get workingTime => $composableBuilder(
+      column: $table.workingTime, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get estimatedTime => $composableBuilder(
+      column: $table.estimatedTime, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get estimatedLeftTime => $composableBuilder(
+      column: $table.estimatedLeftTime,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get workingProgress => $composableBuilder(
+      column: $table.workingProgress,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get taskStatus => $composableBuilder(
+      column: $table.taskStatus, builder: (column) => ColumnFilters(column));
+}
+
+class $$TaskTableDriftTableOrderingComposer
+    extends Composer<_$OrganizerDriftDB, $TaskTableDriftTable> {
+  $$TaskTableDriftTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdDate => $composableBuilder(
+      column: $table.createdDate, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get creatorId => $composableBuilder(
+      column: $table.creatorId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get remoteId => $composableBuilder(
+      column: $table.remoteId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get lastUpdate => $composableBuilder(
+      column: $table.lastUpdate, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get lastAccessedDate => $composableBuilder(
+      column: $table.lastAccessedDate,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get remoteAccesses => $composableBuilder(
+      column: $table.remoteAccesses,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get accesses => $composableBuilder(
+      column: $table.accesses, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get checksum => $composableBuilder(
+      column: $table.checksum, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get subject => $composableBuilder(
+      column: $table.subject, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get startDate => $composableBuilder(
+      column: $table.startDate, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get endDate => $composableBuilder(
+      column: $table.endDate, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get workingTime => $composableBuilder(
+      column: $table.workingTime, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get estimatedTime => $composableBuilder(
+      column: $table.estimatedTime,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get estimatedLeftTime => $composableBuilder(
+      column: $table.estimatedLeftTime,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get workingProgress => $composableBuilder(
+      column: $table.workingProgress,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get taskStatus => $composableBuilder(
+      column: $table.taskStatus, builder: (column) => ColumnOrderings(column));
+}
+
+class $$TaskTableDriftTableAnnotationComposer
+    extends Composer<_$OrganizerDriftDB, $TaskTableDriftTable> {
+  $$TaskTableDriftTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdDate => $composableBuilder(
+      column: $table.createdDate, builder: (column) => column);
+
+  GeneratedColumn<int> get creatorId =>
+      $composableBuilder(column: $table.creatorId, builder: (column) => column);
+
+  GeneratedColumn<int> get remoteId =>
+      $composableBuilder(column: $table.remoteId, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get lastUpdate => $composableBuilder(
+      column: $table.lastUpdate, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get lastAccessedDate => $composableBuilder(
+      column: $table.lastAccessedDate, builder: (column) => column);
+
+  GeneratedColumn<int> get remoteAccesses => $composableBuilder(
+      column: $table.remoteAccesses, builder: (column) => column);
+
+  GeneratedColumn<int> get accesses =>
+      $composableBuilder(column: $table.accesses, builder: (column) => column);
+
+  GeneratedColumn<String> get checksum =>
+      $composableBuilder(column: $table.checksum, builder: (column) => column);
+
+  GeneratedColumn<String> get subject =>
+      $composableBuilder(column: $table.subject, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get startDate =>
+      $composableBuilder(column: $table.startDate, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get endDate =>
+      $composableBuilder(column: $table.endDate, builder: (column) => column);
+
+  GeneratedColumn<double> get workingTime => $composableBuilder(
+      column: $table.workingTime, builder: (column) => column);
+
+  GeneratedColumn<double> get estimatedTime => $composableBuilder(
+      column: $table.estimatedTime, builder: (column) => column);
+
+  GeneratedColumn<double> get estimatedLeftTime => $composableBuilder(
+      column: $table.estimatedLeftTime, builder: (column) => column);
+
+  GeneratedColumn<double> get workingProgress => $composableBuilder(
+      column: $table.workingProgress, builder: (column) => column);
+
+  GeneratedColumn<String> get taskStatus => $composableBuilder(
+      column: $table.taskStatus, builder: (column) => column);
+}
+
 class $$TaskTableDriftTableTableManager extends RootTableManager<
     _$OrganizerDriftDB,
     $TaskTableDriftTable,
     TaskTableDriftG,
     $$TaskTableDriftTableFilterComposer,
     $$TaskTableDriftTableOrderingComposer,
+    $$TaskTableDriftTableAnnotationComposer,
     $$TaskTableDriftTableCreateCompanionBuilder,
-    $$TaskTableDriftTableUpdateCompanionBuilder> {
+    $$TaskTableDriftTableUpdateCompanionBuilder,
+    (
+      TaskTableDriftG,
+      BaseReferences<_$OrganizerDriftDB, $TaskTableDriftTable, TaskTableDriftG>
+    ),
+    TaskTableDriftG,
+    PrefetchHooks Function()> {
   $$TaskTableDriftTableTableManager(
       _$OrganizerDriftDB db, $TaskTableDriftTable table)
       : super(TableManagerState(
           db: db,
           table: table,
-          filteringComposer:
-              $$TaskTableDriftTableFilterComposer(ComposerState(db, table)),
-          orderingComposer:
-              $$TaskTableDriftTableOrderingComposer(ComposerState(db, table)),
+          createFilteringComposer: () =>
+              $$TaskTableDriftTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$TaskTableDriftTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$TaskTableDriftTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<DateTime> createdDate = const Value.absent(),
@@ -4677,187 +4929,28 @@ class $$TaskTableDriftTableTableManager extends RootTableManager<
             workingProgress: workingProgress,
             taskStatus: taskStatus,
           ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
         ));
 }
 
-class $$TaskTableDriftTableFilterComposer
-    extends FilterComposer<_$OrganizerDriftDB, $TaskTableDriftTable> {
-  $$TaskTableDriftTableFilterComposer(super.$state);
-  ColumnFilters<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<DateTime> get createdDate => $state.composableBuilder(
-      column: $state.table.createdDate,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get creatorId => $state.composableBuilder(
-      column: $state.table.creatorId,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get remoteId => $state.composableBuilder(
-      column: $state.table.remoteId,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<DateTime> get lastUpdate => $state.composableBuilder(
-      column: $state.table.lastUpdate,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<DateTime> get lastAccessedDate => $state.composableBuilder(
-      column: $state.table.lastAccessedDate,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get remoteAccesses => $state.composableBuilder(
-      column: $state.table.remoteAccesses,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get accesses => $state.composableBuilder(
-      column: $state.table.accesses,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get checksum => $state.composableBuilder(
-      column: $state.table.checksum,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get subject => $state.composableBuilder(
-      column: $state.table.subject,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<DateTime> get startDate => $state.composableBuilder(
-      column: $state.table.startDate,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<DateTime> get endDate => $state.composableBuilder(
-      column: $state.table.endDate,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<double> get workingTime => $state.composableBuilder(
-      column: $state.table.workingTime,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<double> get estimatedTime => $state.composableBuilder(
-      column: $state.table.estimatedTime,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<double> get estimatedLeftTime => $state.composableBuilder(
-      column: $state.table.estimatedLeftTime,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<double> get workingProgress => $state.composableBuilder(
-      column: $state.table.workingProgress,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get taskStatus => $state.composableBuilder(
-      column: $state.table.taskStatus,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-}
-
-class $$TaskTableDriftTableOrderingComposer
-    extends OrderingComposer<_$OrganizerDriftDB, $TaskTableDriftTable> {
-  $$TaskTableDriftTableOrderingComposer(super.$state);
-  ColumnOrderings<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<DateTime> get createdDate => $state.composableBuilder(
-      column: $state.table.createdDate,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get creatorId => $state.composableBuilder(
-      column: $state.table.creatorId,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get remoteId => $state.composableBuilder(
-      column: $state.table.remoteId,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<DateTime> get lastUpdate => $state.composableBuilder(
-      column: $state.table.lastUpdate,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<DateTime> get lastAccessedDate => $state.composableBuilder(
-      column: $state.table.lastAccessedDate,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get remoteAccesses => $state.composableBuilder(
-      column: $state.table.remoteAccesses,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get accesses => $state.composableBuilder(
-      column: $state.table.accesses,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get checksum => $state.composableBuilder(
-      column: $state.table.checksum,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get subject => $state.composableBuilder(
-      column: $state.table.subject,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<DateTime> get startDate => $state.composableBuilder(
-      column: $state.table.startDate,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<DateTime> get endDate => $state.composableBuilder(
-      column: $state.table.endDate,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<double> get workingTime => $state.composableBuilder(
-      column: $state.table.workingTime,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<double> get estimatedTime => $state.composableBuilder(
-      column: $state.table.estimatedTime,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<double> get estimatedLeftTime => $state.composableBuilder(
-      column: $state.table.estimatedLeftTime,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<double> get workingProgress => $state.composableBuilder(
-      column: $state.table.workingProgress,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get taskStatus => $state.composableBuilder(
-      column: $state.table.taskStatus,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-}
-
+typedef $$TaskTableDriftTableProcessedTableManager = ProcessedTableManager<
+    _$OrganizerDriftDB,
+    $TaskTableDriftTable,
+    TaskTableDriftG,
+    $$TaskTableDriftTableFilterComposer,
+    $$TaskTableDriftTableOrderingComposer,
+    $$TaskTableDriftTableAnnotationComposer,
+    $$TaskTableDriftTableCreateCompanionBuilder,
+    $$TaskTableDriftTableUpdateCompanionBuilder,
+    (
+      TaskTableDriftG,
+      BaseReferences<_$OrganizerDriftDB, $TaskTableDriftTable, TaskTableDriftG>
+    ),
+    TaskTableDriftG,
+    PrefetchHooks Function()>;
 typedef $$TaskTagLinkTableDriftTableCreateCompanionBuilder
     = TaskTagLinkTableDriftCompanion Function({
   Value<int> id,
@@ -4873,23 +4966,102 @@ typedef $$TaskTagLinkTableDriftTableUpdateCompanionBuilder
   Value<int> tagId,
 });
 
+class $$TaskTagLinkTableDriftTableFilterComposer
+    extends Composer<_$OrganizerDriftDB, $TaskTagLinkTableDriftTable> {
+  $$TaskTagLinkTableDriftTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get linkingDate => $composableBuilder(
+      column: $table.linkingDate, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get taskId => $composableBuilder(
+      column: $table.taskId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get tagId => $composableBuilder(
+      column: $table.tagId, builder: (column) => ColumnFilters(column));
+}
+
+class $$TaskTagLinkTableDriftTableOrderingComposer
+    extends Composer<_$OrganizerDriftDB, $TaskTagLinkTableDriftTable> {
+  $$TaskTagLinkTableDriftTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get linkingDate => $composableBuilder(
+      column: $table.linkingDate, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get taskId => $composableBuilder(
+      column: $table.taskId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get tagId => $composableBuilder(
+      column: $table.tagId, builder: (column) => ColumnOrderings(column));
+}
+
+class $$TaskTagLinkTableDriftTableAnnotationComposer
+    extends Composer<_$OrganizerDriftDB, $TaskTagLinkTableDriftTable> {
+  $$TaskTagLinkTableDriftTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get linkingDate => $composableBuilder(
+      column: $table.linkingDate, builder: (column) => column);
+
+  GeneratedColumn<int> get taskId =>
+      $composableBuilder(column: $table.taskId, builder: (column) => column);
+
+  GeneratedColumn<int> get tagId =>
+      $composableBuilder(column: $table.tagId, builder: (column) => column);
+}
+
 class $$TaskTagLinkTableDriftTableTableManager extends RootTableManager<
     _$OrganizerDriftDB,
     $TaskTagLinkTableDriftTable,
     TaskTagTableDriftG,
     $$TaskTagLinkTableDriftTableFilterComposer,
     $$TaskTagLinkTableDriftTableOrderingComposer,
+    $$TaskTagLinkTableDriftTableAnnotationComposer,
     $$TaskTagLinkTableDriftTableCreateCompanionBuilder,
-    $$TaskTagLinkTableDriftTableUpdateCompanionBuilder> {
+    $$TaskTagLinkTableDriftTableUpdateCompanionBuilder,
+    (
+      TaskTagTableDriftG,
+      BaseReferences<_$OrganizerDriftDB, $TaskTagLinkTableDriftTable,
+          TaskTagTableDriftG>
+    ),
+    TaskTagTableDriftG,
+    PrefetchHooks Function()> {
   $$TaskTagLinkTableDriftTableTableManager(
       _$OrganizerDriftDB db, $TaskTagLinkTableDriftTable table)
       : super(TableManagerState(
           db: db,
           table: table,
-          filteringComposer: $$TaskTagLinkTableDriftTableFilterComposer(
-              ComposerState(db, table)),
-          orderingComposer: $$TaskTagLinkTableDriftTableOrderingComposer(
-              ComposerState(db, table)),
+          createFilteringComposer: () =>
+              $$TaskTagLinkTableDriftTableFilterComposer(
+                  $db: db, $table: table),
+          createOrderingComposer: () =>
+              $$TaskTagLinkTableDriftTableOrderingComposer(
+                  $db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$TaskTagLinkTableDriftTableAnnotationComposer(
+                  $db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<DateTime> linkingDate = const Value.absent(),
@@ -4914,57 +5086,30 @@ class $$TaskTagLinkTableDriftTableTableManager extends RootTableManager<
             taskId: taskId,
             tagId: tagId,
           ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
         ));
 }
 
-class $$TaskTagLinkTableDriftTableFilterComposer
-    extends FilterComposer<_$OrganizerDriftDB, $TaskTagLinkTableDriftTable> {
-  $$TaskTagLinkTableDriftTableFilterComposer(super.$state);
-  ColumnFilters<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<DateTime> get linkingDate => $state.composableBuilder(
-      column: $state.table.linkingDate,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get taskId => $state.composableBuilder(
-      column: $state.table.taskId,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get tagId => $state.composableBuilder(
-      column: $state.table.tagId,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-}
-
-class $$TaskTagLinkTableDriftTableOrderingComposer
-    extends OrderingComposer<_$OrganizerDriftDB, $TaskTagLinkTableDriftTable> {
-  $$TaskTagLinkTableDriftTableOrderingComposer(super.$state);
-  ColumnOrderings<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<DateTime> get linkingDate => $state.composableBuilder(
-      column: $state.table.linkingDate,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get taskId => $state.composableBuilder(
-      column: $state.table.taskId,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get tagId => $state.composableBuilder(
-      column: $state.table.tagId,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-}
-
+typedef $$TaskTagLinkTableDriftTableProcessedTableManager
+    = ProcessedTableManager<
+        _$OrganizerDriftDB,
+        $TaskTagLinkTableDriftTable,
+        TaskTagTableDriftG,
+        $$TaskTagLinkTableDriftTableFilterComposer,
+        $$TaskTagLinkTableDriftTableOrderingComposer,
+        $$TaskTagLinkTableDriftTableAnnotationComposer,
+        $$TaskTagLinkTableDriftTableCreateCompanionBuilder,
+        $$TaskTagLinkTableDriftTableUpdateCompanionBuilder,
+        (
+          TaskTagTableDriftG,
+          BaseReferences<_$OrganizerDriftDB, $TaskTagLinkTableDriftTable,
+              TaskTagTableDriftG>
+        ),
+        TaskTagTableDriftG,
+        PrefetchHooks Function()>;
 typedef $$TaskReminderLinkTableDriftTableCreateCompanionBuilder
     = TaskReminderLinkTableDriftCompanion Function({
   Value<int> id,
@@ -4980,23 +5125,102 @@ typedef $$TaskReminderLinkTableDriftTableUpdateCompanionBuilder
   Value<int> reminderId,
 });
 
+class $$TaskReminderLinkTableDriftTableFilterComposer
+    extends Composer<_$OrganizerDriftDB, $TaskReminderLinkTableDriftTable> {
+  $$TaskReminderLinkTableDriftTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get linkingDate => $composableBuilder(
+      column: $table.linkingDate, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get taskId => $composableBuilder(
+      column: $table.taskId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get reminderId => $composableBuilder(
+      column: $table.reminderId, builder: (column) => ColumnFilters(column));
+}
+
+class $$TaskReminderLinkTableDriftTableOrderingComposer
+    extends Composer<_$OrganizerDriftDB, $TaskReminderLinkTableDriftTable> {
+  $$TaskReminderLinkTableDriftTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get linkingDate => $composableBuilder(
+      column: $table.linkingDate, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get taskId => $composableBuilder(
+      column: $table.taskId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get reminderId => $composableBuilder(
+      column: $table.reminderId, builder: (column) => ColumnOrderings(column));
+}
+
+class $$TaskReminderLinkTableDriftTableAnnotationComposer
+    extends Composer<_$OrganizerDriftDB, $TaskReminderLinkTableDriftTable> {
+  $$TaskReminderLinkTableDriftTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get linkingDate => $composableBuilder(
+      column: $table.linkingDate, builder: (column) => column);
+
+  GeneratedColumn<int> get taskId =>
+      $composableBuilder(column: $table.taskId, builder: (column) => column);
+
+  GeneratedColumn<int> get reminderId => $composableBuilder(
+      column: $table.reminderId, builder: (column) => column);
+}
+
 class $$TaskReminderLinkTableDriftTableTableManager extends RootTableManager<
     _$OrganizerDriftDB,
     $TaskReminderLinkTableDriftTable,
     TaskReminderTableDriftG,
     $$TaskReminderLinkTableDriftTableFilterComposer,
     $$TaskReminderLinkTableDriftTableOrderingComposer,
+    $$TaskReminderLinkTableDriftTableAnnotationComposer,
     $$TaskReminderLinkTableDriftTableCreateCompanionBuilder,
-    $$TaskReminderLinkTableDriftTableUpdateCompanionBuilder> {
+    $$TaskReminderLinkTableDriftTableUpdateCompanionBuilder,
+    (
+      TaskReminderTableDriftG,
+      BaseReferences<_$OrganizerDriftDB, $TaskReminderLinkTableDriftTable,
+          TaskReminderTableDriftG>
+    ),
+    TaskReminderTableDriftG,
+    PrefetchHooks Function()> {
   $$TaskReminderLinkTableDriftTableTableManager(
       _$OrganizerDriftDB db, $TaskReminderLinkTableDriftTable table)
       : super(TableManagerState(
           db: db,
           table: table,
-          filteringComposer: $$TaskReminderLinkTableDriftTableFilterComposer(
-              ComposerState(db, table)),
-          orderingComposer: $$TaskReminderLinkTableDriftTableOrderingComposer(
-              ComposerState(db, table)),
+          createFilteringComposer: () =>
+              $$TaskReminderLinkTableDriftTableFilterComposer(
+                  $db: db, $table: table),
+          createOrderingComposer: () =>
+              $$TaskReminderLinkTableDriftTableOrderingComposer(
+                  $db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$TaskReminderLinkTableDriftTableAnnotationComposer(
+                  $db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<DateTime> linkingDate = const Value.absent(),
@@ -5021,58 +5245,30 @@ class $$TaskReminderLinkTableDriftTableTableManager extends RootTableManager<
             taskId: taskId,
             reminderId: reminderId,
           ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
         ));
 }
 
-class $$TaskReminderLinkTableDriftTableFilterComposer extends FilterComposer<
-    _$OrganizerDriftDB, $TaskReminderLinkTableDriftTable> {
-  $$TaskReminderLinkTableDriftTableFilterComposer(super.$state);
-  ColumnFilters<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<DateTime> get linkingDate => $state.composableBuilder(
-      column: $state.table.linkingDate,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get taskId => $state.composableBuilder(
-      column: $state.table.taskId,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get reminderId => $state.composableBuilder(
-      column: $state.table.reminderId,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-}
-
-class $$TaskReminderLinkTableDriftTableOrderingComposer
-    extends OrderingComposer<_$OrganizerDriftDB,
-        $TaskReminderLinkTableDriftTable> {
-  $$TaskReminderLinkTableDriftTableOrderingComposer(super.$state);
-  ColumnOrderings<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<DateTime> get linkingDate => $state.composableBuilder(
-      column: $state.table.linkingDate,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get taskId => $state.composableBuilder(
-      column: $state.table.taskId,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get reminderId => $state.composableBuilder(
-      column: $state.table.reminderId,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-}
-
+typedef $$TaskReminderLinkTableDriftTableProcessedTableManager
+    = ProcessedTableManager<
+        _$OrganizerDriftDB,
+        $TaskReminderLinkTableDriftTable,
+        TaskReminderTableDriftG,
+        $$TaskReminderLinkTableDriftTableFilterComposer,
+        $$TaskReminderLinkTableDriftTableOrderingComposer,
+        $$TaskReminderLinkTableDriftTableAnnotationComposer,
+        $$TaskReminderLinkTableDriftTableCreateCompanionBuilder,
+        $$TaskReminderLinkTableDriftTableUpdateCompanionBuilder,
+        (
+          TaskReminderTableDriftG,
+          BaseReferences<_$OrganizerDriftDB, $TaskReminderLinkTableDriftTable,
+              TaskReminderTableDriftG>
+        ),
+        TaskReminderTableDriftG,
+        PrefetchHooks Function()>;
 typedef $$TaskUserLinkTableDriftTableCreateCompanionBuilder
     = TaskUserLinkTableDriftCompanion Function({
   Value<int> id,
@@ -5088,23 +5284,102 @@ typedef $$TaskUserLinkTableDriftTableUpdateCompanionBuilder
   Value<int> userId,
 });
 
+class $$TaskUserLinkTableDriftTableFilterComposer
+    extends Composer<_$OrganizerDriftDB, $TaskUserLinkTableDriftTable> {
+  $$TaskUserLinkTableDriftTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get linkingDate => $composableBuilder(
+      column: $table.linkingDate, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get taskId => $composableBuilder(
+      column: $table.taskId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnFilters(column));
+}
+
+class $$TaskUserLinkTableDriftTableOrderingComposer
+    extends Composer<_$OrganizerDriftDB, $TaskUserLinkTableDriftTable> {
+  $$TaskUserLinkTableDriftTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get linkingDate => $composableBuilder(
+      column: $table.linkingDate, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get taskId => $composableBuilder(
+      column: $table.taskId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnOrderings(column));
+}
+
+class $$TaskUserLinkTableDriftTableAnnotationComposer
+    extends Composer<_$OrganizerDriftDB, $TaskUserLinkTableDriftTable> {
+  $$TaskUserLinkTableDriftTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get linkingDate => $composableBuilder(
+      column: $table.linkingDate, builder: (column) => column);
+
+  GeneratedColumn<int> get taskId =>
+      $composableBuilder(column: $table.taskId, builder: (column) => column);
+
+  GeneratedColumn<int> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+}
+
 class $$TaskUserLinkTableDriftTableTableManager extends RootTableManager<
     _$OrganizerDriftDB,
     $TaskUserLinkTableDriftTable,
     TaskUserTableDriftG,
     $$TaskUserLinkTableDriftTableFilterComposer,
     $$TaskUserLinkTableDriftTableOrderingComposer,
+    $$TaskUserLinkTableDriftTableAnnotationComposer,
     $$TaskUserLinkTableDriftTableCreateCompanionBuilder,
-    $$TaskUserLinkTableDriftTableUpdateCompanionBuilder> {
+    $$TaskUserLinkTableDriftTableUpdateCompanionBuilder,
+    (
+      TaskUserTableDriftG,
+      BaseReferences<_$OrganizerDriftDB, $TaskUserLinkTableDriftTable,
+          TaskUserTableDriftG>
+    ),
+    TaskUserTableDriftG,
+    PrefetchHooks Function()> {
   $$TaskUserLinkTableDriftTableTableManager(
       _$OrganizerDriftDB db, $TaskUserLinkTableDriftTable table)
       : super(TableManagerState(
           db: db,
           table: table,
-          filteringComposer: $$TaskUserLinkTableDriftTableFilterComposer(
-              ComposerState(db, table)),
-          orderingComposer: $$TaskUserLinkTableDriftTableOrderingComposer(
-              ComposerState(db, table)),
+          createFilteringComposer: () =>
+              $$TaskUserLinkTableDriftTableFilterComposer(
+                  $db: db, $table: table),
+          createOrderingComposer: () =>
+              $$TaskUserLinkTableDriftTableOrderingComposer(
+                  $db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$TaskUserLinkTableDriftTableAnnotationComposer(
+                  $db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<DateTime> linkingDate = const Value.absent(),
@@ -5129,57 +5404,30 @@ class $$TaskUserLinkTableDriftTableTableManager extends RootTableManager<
             taskId: taskId,
             userId: userId,
           ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
         ));
 }
 
-class $$TaskUserLinkTableDriftTableFilterComposer
-    extends FilterComposer<_$OrganizerDriftDB, $TaskUserLinkTableDriftTable> {
-  $$TaskUserLinkTableDriftTableFilterComposer(super.$state);
-  ColumnFilters<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<DateTime> get linkingDate => $state.composableBuilder(
-      column: $state.table.linkingDate,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get taskId => $state.composableBuilder(
-      column: $state.table.taskId,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get userId => $state.composableBuilder(
-      column: $state.table.userId,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-}
-
-class $$TaskUserLinkTableDriftTableOrderingComposer
-    extends OrderingComposer<_$OrganizerDriftDB, $TaskUserLinkTableDriftTable> {
-  $$TaskUserLinkTableDriftTableOrderingComposer(super.$state);
-  ColumnOrderings<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<DateTime> get linkingDate => $state.composableBuilder(
-      column: $state.table.linkingDate,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get taskId => $state.composableBuilder(
-      column: $state.table.taskId,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get userId => $state.composableBuilder(
-      column: $state.table.userId,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-}
-
+typedef $$TaskUserLinkTableDriftTableProcessedTableManager
+    = ProcessedTableManager<
+        _$OrganizerDriftDB,
+        $TaskUserLinkTableDriftTable,
+        TaskUserTableDriftG,
+        $$TaskUserLinkTableDriftTableFilterComposer,
+        $$TaskUserLinkTableDriftTableOrderingComposer,
+        $$TaskUserLinkTableDriftTableAnnotationComposer,
+        $$TaskUserLinkTableDriftTableCreateCompanionBuilder,
+        $$TaskUserLinkTableDriftTableUpdateCompanionBuilder,
+        (
+          TaskUserTableDriftG,
+          BaseReferences<_$OrganizerDriftDB, $TaskUserLinkTableDriftTable,
+              TaskUserTableDriftG>
+        ),
+        TaskUserTableDriftG,
+        PrefetchHooks Function()>;
 typedef $$UserTableDriftTableCreateCompanionBuilder = UserTableDriftCompanion
     Function({
   Value<int> id,
@@ -5213,23 +5461,185 @@ typedef $$UserTableDriftTableUpdateCompanionBuilder = UserTableDriftCompanion
   Value<String> userType,
 });
 
+class $$UserTableDriftTableFilterComposer
+    extends Composer<_$OrganizerDriftDB, $UserTableDriftTable> {
+  $$UserTableDriftTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createdDate => $composableBuilder(
+      column: $table.createdDate, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get creatorId => $composableBuilder(
+      column: $table.creatorId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get remoteId => $composableBuilder(
+      column: $table.remoteId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get lastUpdate => $composableBuilder(
+      column: $table.lastUpdate, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get lastAccessedDate => $composableBuilder(
+      column: $table.lastAccessedDate,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get remoteAccesses => $composableBuilder(
+      column: $table.remoteAccesses,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get accesses => $composableBuilder(
+      column: $table.accesses, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get checksum => $composableBuilder(
+      column: $table.checksum, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get name => $composableBuilder(
+      column: $table.name, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get hashedPassword => $composableBuilder(
+      column: $table.hashedPassword,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get email => $composableBuilder(
+      column: $table.email, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get userType => $composableBuilder(
+      column: $table.userType, builder: (column) => ColumnFilters(column));
+}
+
+class $$UserTableDriftTableOrderingComposer
+    extends Composer<_$OrganizerDriftDB, $UserTableDriftTable> {
+  $$UserTableDriftTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdDate => $composableBuilder(
+      column: $table.createdDate, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get creatorId => $composableBuilder(
+      column: $table.creatorId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get remoteId => $composableBuilder(
+      column: $table.remoteId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get lastUpdate => $composableBuilder(
+      column: $table.lastUpdate, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get lastAccessedDate => $composableBuilder(
+      column: $table.lastAccessedDate,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get remoteAccesses => $composableBuilder(
+      column: $table.remoteAccesses,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get accesses => $composableBuilder(
+      column: $table.accesses, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get checksum => $composableBuilder(
+      column: $table.checksum, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get name => $composableBuilder(
+      column: $table.name, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get hashedPassword => $composableBuilder(
+      column: $table.hashedPassword,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get email => $composableBuilder(
+      column: $table.email, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get userType => $composableBuilder(
+      column: $table.userType, builder: (column) => ColumnOrderings(column));
+}
+
+class $$UserTableDriftTableAnnotationComposer
+    extends Composer<_$OrganizerDriftDB, $UserTableDriftTable> {
+  $$UserTableDriftTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdDate => $composableBuilder(
+      column: $table.createdDate, builder: (column) => column);
+
+  GeneratedColumn<int> get creatorId =>
+      $composableBuilder(column: $table.creatorId, builder: (column) => column);
+
+  GeneratedColumn<int> get remoteId =>
+      $composableBuilder(column: $table.remoteId, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get lastUpdate => $composableBuilder(
+      column: $table.lastUpdate, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get lastAccessedDate => $composableBuilder(
+      column: $table.lastAccessedDate, builder: (column) => column);
+
+  GeneratedColumn<int> get remoteAccesses => $composableBuilder(
+      column: $table.remoteAccesses, builder: (column) => column);
+
+  GeneratedColumn<int> get accesses =>
+      $composableBuilder(column: $table.accesses, builder: (column) => column);
+
+  GeneratedColumn<String> get checksum =>
+      $composableBuilder(column: $table.checksum, builder: (column) => column);
+
+  GeneratedColumn<String> get name =>
+      $composableBuilder(column: $table.name, builder: (column) => column);
+
+  GeneratedColumn<String> get hashedPassword => $composableBuilder(
+      column: $table.hashedPassword, builder: (column) => column);
+
+  GeneratedColumn<String> get email =>
+      $composableBuilder(column: $table.email, builder: (column) => column);
+
+  GeneratedColumn<String> get userType =>
+      $composableBuilder(column: $table.userType, builder: (column) => column);
+}
+
 class $$UserTableDriftTableTableManager extends RootTableManager<
     _$OrganizerDriftDB,
     $UserTableDriftTable,
     UserTableDriftG,
     $$UserTableDriftTableFilterComposer,
     $$UserTableDriftTableOrderingComposer,
+    $$UserTableDriftTableAnnotationComposer,
     $$UserTableDriftTableCreateCompanionBuilder,
-    $$UserTableDriftTableUpdateCompanionBuilder> {
+    $$UserTableDriftTableUpdateCompanionBuilder,
+    (
+      UserTableDriftG,
+      BaseReferences<_$OrganizerDriftDB, $UserTableDriftTable, UserTableDriftG>
+    ),
+    UserTableDriftG,
+    PrefetchHooks Function()> {
   $$UserTableDriftTableTableManager(
       _$OrganizerDriftDB db, $UserTableDriftTable table)
       : super(TableManagerState(
           db: db,
           table: table,
-          filteringComposer:
-              $$UserTableDriftTableFilterComposer(ComposerState(db, table)),
-          orderingComposer:
-              $$UserTableDriftTableOrderingComposer(ComposerState(db, table)),
+          createFilteringComposer: () =>
+              $$UserTableDriftTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$UserTableDriftTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$UserTableDriftTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<DateTime> createdDate = const Value.absent(),
@@ -5290,147 +5700,28 @@ class $$UserTableDriftTableTableManager extends RootTableManager<
             email: email,
             userType: userType,
           ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
         ));
 }
 
-class $$UserTableDriftTableFilterComposer
-    extends FilterComposer<_$OrganizerDriftDB, $UserTableDriftTable> {
-  $$UserTableDriftTableFilterComposer(super.$state);
-  ColumnFilters<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<DateTime> get createdDate => $state.composableBuilder(
-      column: $state.table.createdDate,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get creatorId => $state.composableBuilder(
-      column: $state.table.creatorId,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get remoteId => $state.composableBuilder(
-      column: $state.table.remoteId,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<DateTime> get lastUpdate => $state.composableBuilder(
-      column: $state.table.lastUpdate,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<DateTime> get lastAccessedDate => $state.composableBuilder(
-      column: $state.table.lastAccessedDate,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get remoteAccesses => $state.composableBuilder(
-      column: $state.table.remoteAccesses,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get accesses => $state.composableBuilder(
-      column: $state.table.accesses,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get checksum => $state.composableBuilder(
-      column: $state.table.checksum,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get name => $state.composableBuilder(
-      column: $state.table.name,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get hashedPassword => $state.composableBuilder(
-      column: $state.table.hashedPassword,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get email => $state.composableBuilder(
-      column: $state.table.email,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get userType => $state.composableBuilder(
-      column: $state.table.userType,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-}
-
-class $$UserTableDriftTableOrderingComposer
-    extends OrderingComposer<_$OrganizerDriftDB, $UserTableDriftTable> {
-  $$UserTableDriftTableOrderingComposer(super.$state);
-  ColumnOrderings<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<DateTime> get createdDate => $state.composableBuilder(
-      column: $state.table.createdDate,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get creatorId => $state.composableBuilder(
-      column: $state.table.creatorId,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get remoteId => $state.composableBuilder(
-      column: $state.table.remoteId,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<DateTime> get lastUpdate => $state.composableBuilder(
-      column: $state.table.lastUpdate,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<DateTime> get lastAccessedDate => $state.composableBuilder(
-      column: $state.table.lastAccessedDate,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get remoteAccesses => $state.composableBuilder(
-      column: $state.table.remoteAccesses,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get accesses => $state.composableBuilder(
-      column: $state.table.accesses,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get checksum => $state.composableBuilder(
-      column: $state.table.checksum,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get name => $state.composableBuilder(
-      column: $state.table.name,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get hashedPassword => $state.composableBuilder(
-      column: $state.table.hashedPassword,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get email => $state.composableBuilder(
-      column: $state.table.email,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get userType => $state.composableBuilder(
-      column: $state.table.userType,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-}
-
+typedef $$UserTableDriftTableProcessedTableManager = ProcessedTableManager<
+    _$OrganizerDriftDB,
+    $UserTableDriftTable,
+    UserTableDriftG,
+    $$UserTableDriftTableFilterComposer,
+    $$UserTableDriftTableOrderingComposer,
+    $$UserTableDriftTableAnnotationComposer,
+    $$UserTableDriftTableCreateCompanionBuilder,
+    $$UserTableDriftTableUpdateCompanionBuilder,
+    (
+      UserTableDriftG,
+      BaseReferences<_$OrganizerDriftDB, $UserTableDriftTable, UserTableDriftG>
+    ),
+    UserTableDriftG,
+    PrefetchHooks Function()>;
 typedef $$UserUserTableDriftTableCreateCompanionBuilder
     = UserUserTableDriftCompanion Function({
   Value<int> id,
@@ -5454,23 +5745,140 @@ typedef $$UserUserTableDriftTableUpdateCompanionBuilder
   Value<DateTime> updatedDate,
 });
 
+class $$UserUserTableDriftTableFilterComposer
+    extends Composer<_$OrganizerDriftDB, $UserUserTableDriftTable> {
+  $$UserUserTableDriftTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get userIdLinked => $composableBuilder(
+      column: $table.userIdLinked, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get userNameLinked => $composableBuilder(
+      column: $table.userNameLinked,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get status => $composableBuilder(
+      column: $table.status, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get muteUntilDate => $composableBuilder(
+      column: $table.muteUntilDate, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createdDate => $composableBuilder(
+      column: $table.createdDate, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get updatedDate => $composableBuilder(
+      column: $table.updatedDate, builder: (column) => ColumnFilters(column));
+}
+
+class $$UserUserTableDriftTableOrderingComposer
+    extends Composer<_$OrganizerDriftDB, $UserUserTableDriftTable> {
+  $$UserUserTableDriftTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get userIdLinked => $composableBuilder(
+      column: $table.userIdLinked,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get userNameLinked => $composableBuilder(
+      column: $table.userNameLinked,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get status => $composableBuilder(
+      column: $table.status, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get muteUntilDate => $composableBuilder(
+      column: $table.muteUntilDate,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdDate => $composableBuilder(
+      column: $table.createdDate, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get updatedDate => $composableBuilder(
+      column: $table.updatedDate, builder: (column) => ColumnOrderings(column));
+}
+
+class $$UserUserTableDriftTableAnnotationComposer
+    extends Composer<_$OrganizerDriftDB, $UserUserTableDriftTable> {
+  $$UserUserTableDriftTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<int> get userIdLinked => $composableBuilder(
+      column: $table.userIdLinked, builder: (column) => column);
+
+  GeneratedColumn<String> get userNameLinked => $composableBuilder(
+      column: $table.userNameLinked, builder: (column) => column);
+
+  GeneratedColumn<String> get status =>
+      $composableBuilder(column: $table.status, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get muteUntilDate => $composableBuilder(
+      column: $table.muteUntilDate, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdDate => $composableBuilder(
+      column: $table.createdDate, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get updatedDate => $composableBuilder(
+      column: $table.updatedDate, builder: (column) => column);
+}
+
 class $$UserUserTableDriftTableTableManager extends RootTableManager<
     _$OrganizerDriftDB,
     $UserUserTableDriftTable,
     UserUserTableDriftG,
     $$UserUserTableDriftTableFilterComposer,
     $$UserUserTableDriftTableOrderingComposer,
+    $$UserUserTableDriftTableAnnotationComposer,
     $$UserUserTableDriftTableCreateCompanionBuilder,
-    $$UserUserTableDriftTableUpdateCompanionBuilder> {
+    $$UserUserTableDriftTableUpdateCompanionBuilder,
+    (
+      UserUserTableDriftG,
+      BaseReferences<_$OrganizerDriftDB, $UserUserTableDriftTable,
+          UserUserTableDriftG>
+    ),
+    UserUserTableDriftG,
+    PrefetchHooks Function()> {
   $$UserUserTableDriftTableTableManager(
       _$OrganizerDriftDB db, $UserUserTableDriftTable table)
       : super(TableManagerState(
           db: db,
           table: table,
-          filteringComposer:
-              $$UserUserTableDriftTableFilterComposer(ComposerState(db, table)),
-          orderingComposer: $$UserUserTableDriftTableOrderingComposer(
-              ComposerState(db, table)),
+          createFilteringComposer: () =>
+              $$UserUserTableDriftTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$UserUserTableDriftTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$UserUserTableDriftTableAnnotationComposer(
+                  $db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<int> userId = const Value.absent(),
@@ -5511,97 +5919,29 @@ class $$UserUserTableDriftTableTableManager extends RootTableManager<
             createdDate: createdDate,
             updatedDate: updatedDate,
           ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
         ));
 }
 
-class $$UserUserTableDriftTableFilterComposer
-    extends FilterComposer<_$OrganizerDriftDB, $UserUserTableDriftTable> {
-  $$UserUserTableDriftTableFilterComposer(super.$state);
-  ColumnFilters<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get userId => $state.composableBuilder(
-      column: $state.table.userId,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get userIdLinked => $state.composableBuilder(
-      column: $state.table.userIdLinked,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get userNameLinked => $state.composableBuilder(
-      column: $state.table.userNameLinked,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get status => $state.composableBuilder(
-      column: $state.table.status,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<DateTime> get muteUntilDate => $state.composableBuilder(
-      column: $state.table.muteUntilDate,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<DateTime> get createdDate => $state.composableBuilder(
-      column: $state.table.createdDate,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<DateTime> get updatedDate => $state.composableBuilder(
-      column: $state.table.updatedDate,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-}
-
-class $$UserUserTableDriftTableOrderingComposer
-    extends OrderingComposer<_$OrganizerDriftDB, $UserUserTableDriftTable> {
-  $$UserUserTableDriftTableOrderingComposer(super.$state);
-  ColumnOrderings<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get userId => $state.composableBuilder(
-      column: $state.table.userId,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get userIdLinked => $state.composableBuilder(
-      column: $state.table.userIdLinked,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get userNameLinked => $state.composableBuilder(
-      column: $state.table.userNameLinked,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get status => $state.composableBuilder(
-      column: $state.table.status,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<DateTime> get muteUntilDate => $state.composableBuilder(
-      column: $state.table.muteUntilDate,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<DateTime> get createdDate => $state.composableBuilder(
-      column: $state.table.createdDate,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<DateTime> get updatedDate => $state.composableBuilder(
-      column: $state.table.updatedDate,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-}
-
+typedef $$UserUserTableDriftTableProcessedTableManager = ProcessedTableManager<
+    _$OrganizerDriftDB,
+    $UserUserTableDriftTable,
+    UserUserTableDriftG,
+    $$UserUserTableDriftTableFilterComposer,
+    $$UserUserTableDriftTableOrderingComposer,
+    $$UserUserTableDriftTableAnnotationComposer,
+    $$UserUserTableDriftTableCreateCompanionBuilder,
+    $$UserUserTableDriftTableUpdateCompanionBuilder,
+    (
+      UserUserTableDriftG,
+      BaseReferences<_$OrganizerDriftDB, $UserUserTableDriftTable,
+          UserUserTableDriftG>
+    ),
+    UserUserTableDriftG,
+    PrefetchHooks Function()>;
 typedef $$ReminderTableDriftTableCreateCompanionBuilder
     = ReminderTableDriftCompanion Function({
   Value<int> id,
@@ -5631,23 +5971,167 @@ typedef $$ReminderTableDriftTableUpdateCompanionBuilder
   Value<DateTime> remindAt,
 });
 
+class $$ReminderTableDriftTableFilterComposer
+    extends Composer<_$OrganizerDriftDB, $ReminderTableDriftTable> {
+  $$ReminderTableDriftTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createdDate => $composableBuilder(
+      column: $table.createdDate, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get creatorId => $composableBuilder(
+      column: $table.creatorId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get remoteId => $composableBuilder(
+      column: $table.remoteId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get lastUpdate => $composableBuilder(
+      column: $table.lastUpdate, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get lastAccessedDate => $composableBuilder(
+      column: $table.lastAccessedDate,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get remoteAccesses => $composableBuilder(
+      column: $table.remoteAccesses,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get accesses => $composableBuilder(
+      column: $table.accesses, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get checksum => $composableBuilder(
+      column: $table.checksum, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get subject => $composableBuilder(
+      column: $table.subject, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get remindAt => $composableBuilder(
+      column: $table.remindAt, builder: (column) => ColumnFilters(column));
+}
+
+class $$ReminderTableDriftTableOrderingComposer
+    extends Composer<_$OrganizerDriftDB, $ReminderTableDriftTable> {
+  $$ReminderTableDriftTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdDate => $composableBuilder(
+      column: $table.createdDate, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get creatorId => $composableBuilder(
+      column: $table.creatorId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get remoteId => $composableBuilder(
+      column: $table.remoteId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get lastUpdate => $composableBuilder(
+      column: $table.lastUpdate, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get lastAccessedDate => $composableBuilder(
+      column: $table.lastAccessedDate,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get remoteAccesses => $composableBuilder(
+      column: $table.remoteAccesses,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get accesses => $composableBuilder(
+      column: $table.accesses, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get checksum => $composableBuilder(
+      column: $table.checksum, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get subject => $composableBuilder(
+      column: $table.subject, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get remindAt => $composableBuilder(
+      column: $table.remindAt, builder: (column) => ColumnOrderings(column));
+}
+
+class $$ReminderTableDriftTableAnnotationComposer
+    extends Composer<_$OrganizerDriftDB, $ReminderTableDriftTable> {
+  $$ReminderTableDriftTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdDate => $composableBuilder(
+      column: $table.createdDate, builder: (column) => column);
+
+  GeneratedColumn<int> get creatorId =>
+      $composableBuilder(column: $table.creatorId, builder: (column) => column);
+
+  GeneratedColumn<int> get remoteId =>
+      $composableBuilder(column: $table.remoteId, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get lastUpdate => $composableBuilder(
+      column: $table.lastUpdate, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get lastAccessedDate => $composableBuilder(
+      column: $table.lastAccessedDate, builder: (column) => column);
+
+  GeneratedColumn<int> get remoteAccesses => $composableBuilder(
+      column: $table.remoteAccesses, builder: (column) => column);
+
+  GeneratedColumn<int> get accesses =>
+      $composableBuilder(column: $table.accesses, builder: (column) => column);
+
+  GeneratedColumn<String> get checksum =>
+      $composableBuilder(column: $table.checksum, builder: (column) => column);
+
+  GeneratedColumn<String> get subject =>
+      $composableBuilder(column: $table.subject, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get remindAt =>
+      $composableBuilder(column: $table.remindAt, builder: (column) => column);
+}
+
 class $$ReminderTableDriftTableTableManager extends RootTableManager<
     _$OrganizerDriftDB,
     $ReminderTableDriftTable,
     ReminderTableDriftG,
     $$ReminderTableDriftTableFilterComposer,
     $$ReminderTableDriftTableOrderingComposer,
+    $$ReminderTableDriftTableAnnotationComposer,
     $$ReminderTableDriftTableCreateCompanionBuilder,
-    $$ReminderTableDriftTableUpdateCompanionBuilder> {
+    $$ReminderTableDriftTableUpdateCompanionBuilder,
+    (
+      ReminderTableDriftG,
+      BaseReferences<_$OrganizerDriftDB, $ReminderTableDriftTable,
+          ReminderTableDriftG>
+    ),
+    ReminderTableDriftG,
+    PrefetchHooks Function()> {
   $$ReminderTableDriftTableTableManager(
       _$OrganizerDriftDB db, $ReminderTableDriftTable table)
       : super(TableManagerState(
           db: db,
           table: table,
-          filteringComposer:
-              $$ReminderTableDriftTableFilterComposer(ComposerState(db, table)),
-          orderingComposer: $$ReminderTableDriftTableOrderingComposer(
-              ComposerState(db, table)),
+          createFilteringComposer: () =>
+              $$ReminderTableDriftTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ReminderTableDriftTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ReminderTableDriftTableAnnotationComposer(
+                  $db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<DateTime> createdDate = const Value.absent(),
@@ -5700,127 +6184,29 @@ class $$ReminderTableDriftTableTableManager extends RootTableManager<
             subject: subject,
             remindAt: remindAt,
           ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
         ));
 }
 
-class $$ReminderTableDriftTableFilterComposer
-    extends FilterComposer<_$OrganizerDriftDB, $ReminderTableDriftTable> {
-  $$ReminderTableDriftTableFilterComposer(super.$state);
-  ColumnFilters<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<DateTime> get createdDate => $state.composableBuilder(
-      column: $state.table.createdDate,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get creatorId => $state.composableBuilder(
-      column: $state.table.creatorId,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get remoteId => $state.composableBuilder(
-      column: $state.table.remoteId,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<DateTime> get lastUpdate => $state.composableBuilder(
-      column: $state.table.lastUpdate,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<DateTime> get lastAccessedDate => $state.composableBuilder(
-      column: $state.table.lastAccessedDate,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get remoteAccesses => $state.composableBuilder(
-      column: $state.table.remoteAccesses,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get accesses => $state.composableBuilder(
-      column: $state.table.accesses,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get checksum => $state.composableBuilder(
-      column: $state.table.checksum,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get subject => $state.composableBuilder(
-      column: $state.table.subject,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<DateTime> get remindAt => $state.composableBuilder(
-      column: $state.table.remindAt,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-}
-
-class $$ReminderTableDriftTableOrderingComposer
-    extends OrderingComposer<_$OrganizerDriftDB, $ReminderTableDriftTable> {
-  $$ReminderTableDriftTableOrderingComposer(super.$state);
-  ColumnOrderings<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<DateTime> get createdDate => $state.composableBuilder(
-      column: $state.table.createdDate,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get creatorId => $state.composableBuilder(
-      column: $state.table.creatorId,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get remoteId => $state.composableBuilder(
-      column: $state.table.remoteId,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<DateTime> get lastUpdate => $state.composableBuilder(
-      column: $state.table.lastUpdate,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<DateTime> get lastAccessedDate => $state.composableBuilder(
-      column: $state.table.lastAccessedDate,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get remoteAccesses => $state.composableBuilder(
-      column: $state.table.remoteAccesses,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get accesses => $state.composableBuilder(
-      column: $state.table.accesses,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get checksum => $state.composableBuilder(
-      column: $state.table.checksum,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get subject => $state.composableBuilder(
-      column: $state.table.subject,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<DateTime> get remindAt => $state.composableBuilder(
-      column: $state.table.remindAt,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-}
-
+typedef $$ReminderTableDriftTableProcessedTableManager = ProcessedTableManager<
+    _$OrganizerDriftDB,
+    $ReminderTableDriftTable,
+    ReminderTableDriftG,
+    $$ReminderTableDriftTableFilterComposer,
+    $$ReminderTableDriftTableOrderingComposer,
+    $$ReminderTableDriftTableAnnotationComposer,
+    $$ReminderTableDriftTableCreateCompanionBuilder,
+    $$ReminderTableDriftTableUpdateCompanionBuilder,
+    (
+      ReminderTableDriftG,
+      BaseReferences<_$OrganizerDriftDB, $ReminderTableDriftTable,
+          ReminderTableDriftG>
+    ),
+    ReminderTableDriftG,
+    PrefetchHooks Function()>;
 typedef $$TagTableDriftTableCreateCompanionBuilder = TagTableDriftCompanion
     Function({
   Value<int> id,
@@ -5848,23 +6234,156 @@ typedef $$TagTableDriftTableUpdateCompanionBuilder = TagTableDriftCompanion
   Value<String> subject,
 });
 
+class $$TagTableDriftTableFilterComposer
+    extends Composer<_$OrganizerDriftDB, $TagTableDriftTable> {
+  $$TagTableDriftTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get createdDate => $composableBuilder(
+      column: $table.createdDate, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get creatorId => $composableBuilder(
+      column: $table.creatorId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get remoteId => $composableBuilder(
+      column: $table.remoteId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get lastUpdate => $composableBuilder(
+      column: $table.lastUpdate, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get lastAccessedDate => $composableBuilder(
+      column: $table.lastAccessedDate,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get remoteAccesses => $composableBuilder(
+      column: $table.remoteAccesses,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get accesses => $composableBuilder(
+      column: $table.accesses, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get checksum => $composableBuilder(
+      column: $table.checksum, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get subject => $composableBuilder(
+      column: $table.subject, builder: (column) => ColumnFilters(column));
+}
+
+class $$TagTableDriftTableOrderingComposer
+    extends Composer<_$OrganizerDriftDB, $TagTableDriftTable> {
+  $$TagTableDriftTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get createdDate => $composableBuilder(
+      column: $table.createdDate, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get creatorId => $composableBuilder(
+      column: $table.creatorId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get remoteId => $composableBuilder(
+      column: $table.remoteId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get lastUpdate => $composableBuilder(
+      column: $table.lastUpdate, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get lastAccessedDate => $composableBuilder(
+      column: $table.lastAccessedDate,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get remoteAccesses => $composableBuilder(
+      column: $table.remoteAccesses,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get accesses => $composableBuilder(
+      column: $table.accesses, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get checksum => $composableBuilder(
+      column: $table.checksum, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get subject => $composableBuilder(
+      column: $table.subject, builder: (column) => ColumnOrderings(column));
+}
+
+class $$TagTableDriftTableAnnotationComposer
+    extends Composer<_$OrganizerDriftDB, $TagTableDriftTable> {
+  $$TagTableDriftTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get createdDate => $composableBuilder(
+      column: $table.createdDate, builder: (column) => column);
+
+  GeneratedColumn<int> get creatorId =>
+      $composableBuilder(column: $table.creatorId, builder: (column) => column);
+
+  GeneratedColumn<int> get remoteId =>
+      $composableBuilder(column: $table.remoteId, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get lastUpdate => $composableBuilder(
+      column: $table.lastUpdate, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get lastAccessedDate => $composableBuilder(
+      column: $table.lastAccessedDate, builder: (column) => column);
+
+  GeneratedColumn<int> get remoteAccesses => $composableBuilder(
+      column: $table.remoteAccesses, builder: (column) => column);
+
+  GeneratedColumn<int> get accesses =>
+      $composableBuilder(column: $table.accesses, builder: (column) => column);
+
+  GeneratedColumn<String> get checksum =>
+      $composableBuilder(column: $table.checksum, builder: (column) => column);
+
+  GeneratedColumn<String> get subject =>
+      $composableBuilder(column: $table.subject, builder: (column) => column);
+}
+
 class $$TagTableDriftTableTableManager extends RootTableManager<
     _$OrganizerDriftDB,
     $TagTableDriftTable,
     TagTableDriftG,
     $$TagTableDriftTableFilterComposer,
     $$TagTableDriftTableOrderingComposer,
+    $$TagTableDriftTableAnnotationComposer,
     $$TagTableDriftTableCreateCompanionBuilder,
-    $$TagTableDriftTableUpdateCompanionBuilder> {
+    $$TagTableDriftTableUpdateCompanionBuilder,
+    (
+      TagTableDriftG,
+      BaseReferences<_$OrganizerDriftDB, $TagTableDriftTable, TagTableDriftG>
+    ),
+    TagTableDriftG,
+    PrefetchHooks Function()> {
   $$TagTableDriftTableTableManager(
       _$OrganizerDriftDB db, $TagTableDriftTable table)
       : super(TableManagerState(
           db: db,
           table: table,
-          filteringComposer:
-              $$TagTableDriftTableFilterComposer(ComposerState(db, table)),
-          orderingComposer:
-              $$TagTableDriftTableOrderingComposer(ComposerState(db, table)),
+          createFilteringComposer: () =>
+              $$TagTableDriftTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$TagTableDriftTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$TagTableDriftTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<DateTime> createdDate = const Value.absent(),
@@ -5913,116 +6432,28 @@ class $$TagTableDriftTableTableManager extends RootTableManager<
             checksum: checksum,
             subject: subject,
           ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
         ));
 }
 
-class $$TagTableDriftTableFilterComposer
-    extends FilterComposer<_$OrganizerDriftDB, $TagTableDriftTable> {
-  $$TagTableDriftTableFilterComposer(super.$state);
-  ColumnFilters<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<DateTime> get createdDate => $state.composableBuilder(
-      column: $state.table.createdDate,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get creatorId => $state.composableBuilder(
-      column: $state.table.creatorId,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get remoteId => $state.composableBuilder(
-      column: $state.table.remoteId,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<DateTime> get lastUpdate => $state.composableBuilder(
-      column: $state.table.lastUpdate,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<DateTime> get lastAccessedDate => $state.composableBuilder(
-      column: $state.table.lastAccessedDate,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get remoteAccesses => $state.composableBuilder(
-      column: $state.table.remoteAccesses,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get accesses => $state.composableBuilder(
-      column: $state.table.accesses,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get checksum => $state.composableBuilder(
-      column: $state.table.checksum,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get subject => $state.composableBuilder(
-      column: $state.table.subject,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-}
-
-class $$TagTableDriftTableOrderingComposer
-    extends OrderingComposer<_$OrganizerDriftDB, $TagTableDriftTable> {
-  $$TagTableDriftTableOrderingComposer(super.$state);
-  ColumnOrderings<int> get id => $state.composableBuilder(
-      column: $state.table.id,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<DateTime> get createdDate => $state.composableBuilder(
-      column: $state.table.createdDate,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get creatorId => $state.composableBuilder(
-      column: $state.table.creatorId,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get remoteId => $state.composableBuilder(
-      column: $state.table.remoteId,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<DateTime> get lastUpdate => $state.composableBuilder(
-      column: $state.table.lastUpdate,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<DateTime> get lastAccessedDate => $state.composableBuilder(
-      column: $state.table.lastAccessedDate,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get remoteAccesses => $state.composableBuilder(
-      column: $state.table.remoteAccesses,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get accesses => $state.composableBuilder(
-      column: $state.table.accesses,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get checksum => $state.composableBuilder(
-      column: $state.table.checksum,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get subject => $state.composableBuilder(
-      column: $state.table.subject,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-}
+typedef $$TagTableDriftTableProcessedTableManager = ProcessedTableManager<
+    _$OrganizerDriftDB,
+    $TagTableDriftTable,
+    TagTableDriftG,
+    $$TagTableDriftTableFilterComposer,
+    $$TagTableDriftTableOrderingComposer,
+    $$TagTableDriftTableAnnotationComposer,
+    $$TagTableDriftTableCreateCompanionBuilder,
+    $$TagTableDriftTableUpdateCompanionBuilder,
+    (
+      TagTableDriftG,
+      BaseReferences<_$OrganizerDriftDB, $TagTableDriftTable, TagTableDriftG>
+    ),
+    TagTableDriftG,
+    PrefetchHooks Function()>;
 
 class $OrganizerDriftDBManager {
   final _$OrganizerDriftDB _db;

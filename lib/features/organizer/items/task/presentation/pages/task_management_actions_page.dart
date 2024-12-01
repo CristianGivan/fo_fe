@@ -14,41 +14,51 @@ class TaskManagementActionsPage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () =>
-                  context.pushNamed(TaskRouterNames.taskAddRouteName),
-              child: const Text('Add Task'),
-            ),
-          ),
+          const AddTaskButton(),
           const SizedBox(height: 16.0),
-          Row(
-            children: [
-              Expanded(
-                child: ElevatedButton(
-                  onPressed: () => showFilterDialog(context),
-                  child: const Text('Filter Tasks'),
-                ),
-              ),
-              const SizedBox(width: 16.0),
-              Expanded(
-                child: ElevatedButton(
-                  onPressed: () => showSortDialog(context),
-                  child: const Text('Sort Tasks'),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16.0),
-          const TextField(
-            decoration: InputDecoration(
-              labelText: 'Enter task description',
-              border: OutlineInputBorder(),
-            ),
-          ),
+          const TaskActionButtons(),
         ],
       ),
+    );
+  }
+}
+
+class AddTaskButton extends StatelessWidget {
+  const AddTaskButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: () => context.pushNamed(TaskRouterNames.taskAddRouteName),
+        child: const Text('Add Task'),
+      ),
+    );
+  }
+}
+
+class TaskActionButtons extends StatelessWidget {
+  const TaskActionButtons({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: ElevatedButton(
+            onPressed: () => showFilterDialog(context),
+            child: const Text('Filter Tasks'),
+          ),
+        ),
+        const SizedBox(width: 16.0),
+        Expanded(
+          child: ElevatedButton(
+            onPressed: () => showSortDialog(context),
+            child: const Text('Sort Tasks'),
+          ),
+        ),
+      ],
     );
   }
 }
