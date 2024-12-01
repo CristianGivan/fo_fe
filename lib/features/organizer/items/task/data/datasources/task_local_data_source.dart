@@ -12,6 +12,8 @@ abstract class TaskLocalDataSource {
 
   Future<List<TaskTableDriftG>?> getTaskItemsAll();
 
+  Future<List<TaskTableDriftG>?> getTaskItemsFromUser(int userId);
+
   Future<List<TaskTableDriftG?>?> getTaskItemsByIdSet(IdSet idSet);
 
   Future<List<UserTableDriftG?>?> getUserItemsByTaskId(int taskId);

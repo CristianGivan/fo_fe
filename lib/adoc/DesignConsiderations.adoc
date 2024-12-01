@@ -2,3 +2,13 @@
 
 * use isEmpty as a state not at a method
 * use singleton to define a empty object
+
+==== GetAllItems
+
+* this is refacing to the log in user because I don't want to add "ForLogInUser" in all this
+cases. I see from user point of view
+* for other cases hat to be explicitly mentioned
+
+== Local data source
+
+* Start with db.transaction if you’re still building out the core functionality. Once your app starts scaling and performance becomes a concern, optimize with customSelect. This keeps your implementation flexible and adaptable to future needs.

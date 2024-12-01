@@ -1,3 +1,4 @@
+import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/presentation/pages/task_list_page.dart';
 import 'package:fo_fe/features/organizer/items/task/presentation/pages/task_management_actions_page.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
@@ -8,8 +9,6 @@ class TaskScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<TaskBlocTask>().add(TaskGetItemsAllBlocEvent());
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Task Management'),
@@ -20,14 +19,25 @@ class TaskScreen extends StatelessWidget {
           },
         ),
       ),
-      body: const Column(
-        children: [
-          Center(child: Text('All Tasks:')),
-          Expanded(
-            child: TaskListPage(),
-          ),
-          TaskManagementActionsPage(),
-        ],
+      body: BlocBuilder<AuthLogBloc, AuthLogBlocState>(
+        builder: (context, state) {
+          if (state is AuthAuthenticatedBlocState) {
+            final userId = state.userEntity.id;
+            context.read<TaskBlocTask>().add(GetTaskItemsFromLogInUserBlocEvent(userId));
+
+            return const Column(
+              children: [
+                Center(child: Text('All Tasks:')),
+                Expanded(
+                  child: TaskListPage(),
+                ),
+                TaskManagementActionsPage(),
+              ],
+            );
+          } else {
+            return const Center(child: CircularProgressIndicator());
+          }
+        },
       ),
     );
   }

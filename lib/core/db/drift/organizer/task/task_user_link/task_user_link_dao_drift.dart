@@ -35,4 +35,10 @@ class TaskUserLinkDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
         await (select(taskUserLinkTableDrift)..where((tbl) => tbl.taskId.equals(taskId))).get();
     return result.map((row) => row.userId).toSet();
   }
+
+  Future<Set<int>> getTaskIdsByUserId(int userId) async {
+    final result =
+        await (select(taskUserLinkTableDrift)..where((tbl) => tbl.userId.equals(userId))).get();
+    return result.map((row) => row.taskId).toSet();
+  }
 }

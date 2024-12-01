@@ -38,19 +38,28 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
   }
 
   @override
+  Future<List<TaskTableDriftG>?> getTaskItemsFromUser(int userId) async {
+    return await db.transaction(() async {
+      final taskIds = await db.taskUserLinkDaoDrift.getTaskIdsByUserId(userId);
+      final tasks = await db.taskDaoDrift.getTaskItemsByIdSet(taskIds);
+      return tasks?.whereType<TaskTableDriftG>().toList();
+    });
+  }
+
+  @override
   Future<List<TaskTableDriftG?>?> getTaskItemsByIdSet(IdSet idSet) async {
     return await db.taskDaoDrift.getTaskItemsByIdSet(idSet.toSet());
+  }
+
+  @override
+  Future<UserTableDriftG?> getCreatorById(int creatorId) async {
+    return await db.userDaoDrift.getUserById(creatorId);
   }
 
   @override
   Future<List<UserTableDriftG?>?> getUserItemsByTaskId(int taskId) async {
     final userIds = await db.taskUserLinkDaoDrift.getUserIdsByTaskId(taskId);
     return await db.userDaoDrift.getUserItemsByIdSet(userIds);
-  }
-
-  @override
-  Future<UserTableDriftG?> getCreatorById(int creatorId) async {
-    return await db.userDaoDrift.getUserById(creatorId);
   }
 
   @override
@@ -72,7 +81,6 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
   }
 
   //Reminder
-
   @override
   Future<List<ReminderTableDriftG>?> getReminderItemsByTaskId(int taskId) async {
     final reminderIds = await db.taskReminderLinkDaoDrift.getReminderIdsByTaskId(taskId);

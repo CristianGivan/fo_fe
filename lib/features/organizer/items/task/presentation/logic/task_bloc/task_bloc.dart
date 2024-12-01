@@ -4,6 +4,7 @@ import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/usecase/params.dart';
 import 'package:fo_fe/features/organizer/items/reminder/utils/reminder_exports.dart';
 import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
+import 'package:fo_fe/features/organizer/items/task/domain/usecases/get_task_itemsFromLogInUser_use_case.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/usecases/update_reminder_items_of_task_use_case.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/usecases/update_user_items_of_task_use_case.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
@@ -38,6 +39,7 @@ String _mapFailureToMessage(Failure failure) {
 class TaskBlocTask extends Bloc<TaskBlocTaskEvent, TaskBlocState> {
   final GetTaskByIdUseCase getTaskById;
   final GetTaskItemsAllUseCase getTaskItemsAll;
+  final GetTaskItemsFromLogInUserUseCase getTaskItemsFromLogInUser;
   final GetTaskItemsByIdSetUseCase getTaskItemsByIdSet;
   final AddTaskUseCase addTask;
   final UpdateTaskUseCase updateTask;
@@ -48,6 +50,7 @@ class TaskBlocTask extends Bloc<TaskBlocTaskEvent, TaskBlocState> {
   TaskBlocTask({
     required this.getTaskById,
     required this.getTaskItemsAll,
+    required this.getTaskItemsFromLogInUser,
     required this.getTaskItemsByIdSet,
     required this.addTask,
     required this.updateTask,
@@ -56,7 +59,8 @@ class TaskBlocTask extends Bloc<TaskBlocTaskEvent, TaskBlocState> {
     required this.filterTasksUseCase,
   }) : super(TaskInitialBlocState()) {
     on<TaskGetByIdBlocEvent>(_onGetTaskByIdBlocEvent);
-    on<TaskGetItemsAllBlocEvent>(_onLoadTaskItemsAllBlocEvent);
+    on<TaskItemsGetAllBlocEvent>(_onLoadTaskItemsAllBlocEvent);
+    on<GetTaskItemsFromLogInUserBlocEvent>(_onTaskItemsFromLogInUserBlocEvent);
     on<TaskItemsSortBlocEvent>(_onTaskItemsSortBlocEvent);
     on<TaskItemsFilterBlocEvent>(_onTaskItemsFilterBlocEvent);
     on<TaskLoadItemsByIdSetBlocEvent>(_onLoadTaskItemsByIdSetBlocEvent);
@@ -79,11 +83,23 @@ class TaskBlocTask extends Bloc<TaskBlocTaskEvent, TaskBlocState> {
   }
 
   void _onLoadTaskItemsAllBlocEvent(
-    TaskGetItemsAllBlocEvent event,
+    TaskItemsGetAllBlocEvent event,
     Emitter<TaskBlocState> emit,
   ) async {
     emit(TaskLoadingBlocState());
     final failureOrTasks = await getTaskItemsAll(NoParams());
+    emit(failureOrTasks.fold(
+      (failure) => TaskErrorBlocState(message: _mapFailureToMessage(failure)),
+      (tasks) => TaskLoadedBlocState(originalTasks: tasks, displayedTasks: tasks),
+    ));
+  }
+
+  void _onTaskItemsFromLogInUserBlocEvent(
+    GetTaskItemsFromLogInUserBlocEvent event,
+    Emitter<TaskBlocState> emit,
+  ) async {
+    emit(TaskLoadingBlocState());
+    final failureOrTasks = await getTaskItemsFromLogInUser(UserParams(userId: event.userId));
     emit(failureOrTasks.fold(
       (failure) => TaskErrorBlocState(message: _mapFailureToMessage(failure)),
       (tasks) => TaskLoadedBlocState(originalTasks: tasks, displayedTasks: tasks),
@@ -155,7 +171,7 @@ class TaskBlocTask extends Bloc<TaskBlocTaskEvent, TaskBlocState> {
       (failure) => TaskErrorBlocState(message: _mapFailureToMessage(failure)),
       (success) => TaskAddedBlocState(),
     ));
-    add(TaskGetItemsAllBlocEvent()); // Refresh the task list
+    add(TaskItemsGetAllBlocEvent()); // Refresh the task list
   }
 
   void _onUpdateTaskBlocEvent(
@@ -168,7 +184,7 @@ class TaskBlocTask extends Bloc<TaskBlocTaskEvent, TaskBlocState> {
       (failure) => TaskErrorBlocState(message: _mapFailureToMessage(failure)),
       (success) => TaskUpdatedBlocState(),
     ));
-    add(TaskGetItemsAllBlocEvent()); // Refresh the task list
+    add(TaskItemsGetAllBlocEvent()); // Refresh the task list
   }
 
   void _onDeleteTaskBlocEvent(
@@ -181,6 +197,6 @@ class TaskBlocTask extends Bloc<TaskBlocTaskEvent, TaskBlocState> {
       (failure) => TaskErrorBlocState(message: _mapFailureToMessage(failure)),
       (success) => TaskDeletedBlocState(),
     ));
-    add(TaskGetItemsAllBlocEvent()); // Refresh the task list
+    add(TaskItemsGetAllBlocEvent()); // Refresh the task list
   }
 }

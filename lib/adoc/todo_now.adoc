@@ -1,4 +1,4 @@
-== Next
+== Old
 
 * change    _checkItemNotNull(auth); to return empty not a fail
 create like user_presentation_export.dart for all
@@ -7,6 +7,10 @@ create like user_presentation_export.dart for all
 * see todo
 
 * establis a convention for enums
+
+== Next
+
+shall I return non nullable from local data source at list for lists?
 
 == Now
 

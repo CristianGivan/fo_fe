@@ -53,10 +53,15 @@ class TaskRepositoryDrift implements TaskRepository {
   Future<Either<Failure, OrganizerItems<TaskEntity>>> getTaskItemsAll() {
     return _handleDatabaseOperation(() async {
       final items = await localDataSource.getTaskItemsAll();
-      if (items == null || items.isEmpty) {
-        return OrganizerItems<TaskEntity>.empty();
-      }
-      return TaskMapper.entityItemsFromTableDriftItems(items);
+      return _returnEmptyOrOrganizerItemsFromTableDriftList(items);
+    });
+  }
+
+  @override
+  Future<Either<Failure, OrganizerItems<TaskEntity>>> getTaskItemsFromUser(int userId) {
+    return _handleDatabaseOperation(() async {
+      final items = await localDataSource.getTaskItemsFromUser(userId);
+      return _returnEmptyOrOrganizerItemsFromTableDriftList(items);
     });
   }
 
@@ -72,7 +77,6 @@ class TaskRepositoryDrift implements TaskRepository {
   }
 
   // User operations related to tasks
-
   @override
   Future<Either<Failure, UserEntity>> getCreatorTaskById(int creatorId) {
     return _handleDatabaseOperation(() async {
@@ -111,7 +115,6 @@ class TaskRepositoryDrift implements TaskRepository {
   }
 
   // Tag operations related to tasks
-
   @override
   Future<Either<Failure, OrganizerItems<TagEntity>>> getTagItemsByTaskId(int taskId) {
     return _handleDatabaseOperation(() async {
@@ -173,6 +176,15 @@ class TaskRepositoryDrift implements TaskRepository {
   Future<Either<Failure, TaskEntityLazyLoaded>> getTaskByIdLazyLoaded(int id) {
     // TODO: implement getTaskByIdLazyLoaded
     throw UnimplementedError();
+  }
+
+  OrganizerItems<TaskEntity> _returnEmptyOrOrganizerItemsFromTableDriftList(
+      List<TaskTableDriftG>? items) {
+    if (items == null || items.isEmpty) {
+      return OrganizerItems<TaskEntity>.empty();
+    } else {
+      return TaskMapper.entityItemsFromTableDriftItems(items);
+    }
   }
 
   Future<Either<Failure, T>> _handleDatabaseOperation<T>(Future<T> Function() operation) async {
