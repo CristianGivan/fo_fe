@@ -10,9 +10,11 @@ create like user_presentation_export.dart for all
 
 == Next
 
-shall I return non nullable from local data source at list for lists?
+* clean up adocs
 
 == Now
+
+* presentation on task
 
 == Nice
 

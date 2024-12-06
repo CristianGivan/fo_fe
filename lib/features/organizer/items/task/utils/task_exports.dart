@@ -14,6 +14,7 @@ export '../domain/usecases/task_sort_use_case.dart';
 export '../domain/usecases/update_tag_items_of_task_use_case.dart';
 export '../domain/usecases/update_task_use_case.dart';
 export '../presentation/logic/task_bloc/task_bloc.dart';
+export '../presentation/pages/task_list_page.dart';
 export '../presentation/screens/task_add_screen.dart';
 export '../presentation/screens/task_screen.dart';
 export 'config/task_init.dart';

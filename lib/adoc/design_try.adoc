@@ -1,0 +1,7 @@
+= Try
+
+== Presentation
+
+ Between Single Main Screen and Separate Screens with Reused AppBar/BottomNav I chose to start
+with Separate Screens with Reused AppBar/BottomNav to have the flexibility to change and to find
+the best aproach for each screen and the decide if I will go to Single Main Screen or not

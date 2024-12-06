@@ -1,4 +1,4 @@
-import 'package:fo_fe/features/app_home/presentation/app_bar_widget.dart';
+import 'package:fo_fe/features/app_home/presentation/pages/app_bar_page.dart';
 import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 import 'package:fo_fe/features/practice/presentation/utils/practice_exports.dart';
@@ -11,7 +11,7 @@ class AppHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const AppBarWidget(title: 'Organizer'),
+        title: const AppBarPage(title: 'Organizer'),
       ),
       body: Column(
         children: [

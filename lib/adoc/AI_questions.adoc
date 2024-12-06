@@ -24,5 +24,11 @@ Can you help me with an screen with that will look like in the image attached
 
 What is the best aproche to create a single datasource for Task where I have addTagToTask addRemindeToTask  addUserToTask or shall I create a datasource for each of them,
 
-241007
+241202
+
+how shall I do if I want that my app shall have a top menu what is on a one row with back arrow a
+text with some details of the window where I am and a menu icon that will open a menu with some
+options. A bottom manu with a button in the left of the screen and in the right of the screen as
+a menu where I can select som actions depending on the screen where I am and in between a search
+where I can type to filter.what will be the best aproach to do this in flutter
 

@@ -1,0 +1,32 @@
+== External Libraries
+
+* don't use external libraries unless you have to, keep the dependencies to a minimum
+** don't use Freezed  Equitable is enough for the moment
+
+== Domain
+
+=== Empty
+
+* use isEmpty as a state not at a method
+* use singleton to define a empty object
+
+== Data
+
+=== Local data source
+
+* Start with db.transaction if you’re still building out the core functionality. Once your app starts scaling and performance becomes a concern, optimize with customSelect. This keeps your implementation flexible and adaptable to future needs.
+
+== Presentation
+
+=== Screen
+
+* everything that is display o a screen with the scope of serving one thing like display all task
+or add new task
+
+=== Page
+
+* is a section of the screen that is dedicated to a specific task like a list of tasks or a form to
+
+=== Widget
+
+* every other thing that is displayed on the screen like a button or a text
