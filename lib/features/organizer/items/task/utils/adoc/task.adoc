@@ -1,0 +1,8 @@
+== Todo
+
+* the task can be added also to other users beside the creator shared task everioane can take it
+
+=== Add task
+
+* the task will be added to the creator
+

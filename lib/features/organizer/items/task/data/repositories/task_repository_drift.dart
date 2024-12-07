@@ -96,6 +96,18 @@ class TaskRepositoryDrift implements TaskRepository {
   }
 
   @override
+  Future<Either<Failure, int>> addUserItemToTask(int taskId, int userId) async {
+    return _handleDatabaseOperation(() async {
+      final taskUserId = await localDataSource.addUserItemToTask(taskId, userId);
+      if (taskUserId == null) {
+        throw const TaskFailure("User not found");
+      } else {
+        return taskUserId;
+      }
+    });
+  }
+
+  @override
   Future<Either<Failure, OrganizerItems<UserEntity>>> updateUserItemOfTask(
     int taskId,
     List<int> addedUserItems,
@@ -202,7 +214,7 @@ class TaskRepositoryDrift implements TaskRepository {
 
   void _checkItemNotNull(dynamic item) {
     if (item == null) {
-      throw const TaskNotFoundFailure("Task not found");
+      throw const TaskFailure("Task not found");
     }
   }
 

@@ -57,6 +57,10 @@ class AuthNotFoundFailure extends Failure {
   const AuthNotFoundFailure(String super.message);
 }
 
+class TaskFailure extends Failure {
+  const TaskFailure(String super.message);
+}
+
 class TaskNotFoundFailure extends Failure {
   const TaskNotFoundFailure(String super.message);
 }

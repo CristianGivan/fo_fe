@@ -13,8 +13,17 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
   });
 
   @override
-  Future<int> addTask(TaskTableDriftCompanion taskCompanion) {
-    return db.taskDaoDrift.addTask(taskCompanion);
+  Future<int> addTask(TaskTableDriftCompanion taskCompanion) async {
+    return await db.transaction(() async {
+      final userId = taskCompanion.creatorId.value;
+      final taskId = await db.taskDaoDrift.addTask(taskCompanion);
+      final taskUserLinkCompanion = TaskUserLinkTableDriftCompanion(
+        taskId: Value(taskId),
+        userId: Value(userId!),
+      );
+      await db.taskUserLinkDaoDrift.addTaskUser(taskUserLinkCompanion);
+      return taskId;
+    });
   }
 
   @override
@@ -66,9 +75,14 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
   Future<void> addUserItemsToTask(int taskId, List<int> userItems) async {
     await db.transaction(() async {
       for (final tagId in userItems) {
-        await db.taskUserLinkDaoDrift.addTaskUser(_createTaskUserCompanion(taskId, tagId));
+        await addUserItemToTask(taskId, tagId);
       }
     });
+  }
+
+  @override
+  Future<int?> addUserItemToTask(int taskId, int tagId) async {
+    return await db.taskUserLinkDaoDrift.addTaskUser(_createTaskUserCompanion(taskId, tagId));
   }
 
   @override

@@ -5,6 +5,10 @@
 
 == Domain
 
+=== Use Case
+
+* linking
+
 === Empty
 
 * use isEmpty as a state not at a method
