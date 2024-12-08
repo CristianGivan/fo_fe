@@ -1,3 +1,4 @@
+import 'package:fo_fe/core/widgets/core_widget_exports.dart';
 import 'package:fo_fe/features/app_home/utils/app_home_exports.dart';
 import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/presentation/widgets/task_screen_actions_menu.dart';
@@ -19,11 +20,19 @@ class TaskScreen extends StatelessWidget {
             return Expanded(
               child: TaskListPage(), // TaskListPage dynamically adjusts height
             );
-
-            //todo -improve- else should be a error maybe
           } else {
-            // Show a loader if not authenticated
-            return const Center(child: CircularProgressIndicator());
+            return FutureBuilder<void>(
+              future: DialogManager.showConfirmationDialog(
+                context: context,
+                title: "Authentication Required",
+                content: "Do you want to sign up or log in?",
+                confirmButtonText: "Authenticate",
+                onConfirm: () => context.pushNamed(AuthRouterNames.authRouteName),
+              ),
+              builder: (context, snapshot) {
+                return Text("You are not authenticated so no items could be fo♦und"); 
+              },
+            );
           }
         },
       ),
