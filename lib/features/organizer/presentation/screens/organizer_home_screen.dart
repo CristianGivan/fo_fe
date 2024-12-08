@@ -5,6 +5,7 @@ import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/config/user_route_names.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
+import 'package:fo_fe/features/organizer/utils/other/organizer_strings.dart';
 
 class OrganizerHomeScreen extends StatelessWidget {
   const OrganizerHomeScreen({super.key});
@@ -12,9 +13,7 @@ class OrganizerHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const AppBarPage(title: 'Organizer'),
-      ),
+      appBar: AppBarPage(title: OrganizerStrings().screenTitle),
       body: Column(
         children: [
           const SizedBox(height: 10),

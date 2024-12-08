@@ -1,4 +1,5 @@
 import 'package:fo_fe/features/app_home/presentation/pages/app_bar_page.dart';
+import 'package:fo_fe/features/app_home/utils/other/app_strings.dart';
 import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 import 'package:fo_fe/features/practice/presentation/utils/practice_exports.dart';
@@ -10,9 +11,7 @@ class AppHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const AppBarPage(title: 'Organizer'),
-      ),
+      appBar: AppBarPage(title: AppStrings().screenTitle),
       body: Column(
         children: [
           const SizedBox(height: 10),

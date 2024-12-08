@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 class AppBarPage extends StatelessWidget implements PreferredSizeWidget {
   final String title;
 
-  const AppBarPage({Key? key, required this.title}) : super(key: key);
+  const AppBarPage({super.key, this.title = "test"});
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class AppBarPage extends StatelessWidget implements PreferredSizeWidget {
   }
 
   Widget _buildAuthenticatedTitle(BuildContext context, AuthEntity authEntity) {
-    return Text('Welcome, authId: ${authEntity.id}, userId: ${authEntity.userId}');
+    return Text('$title, authId: ${authEntity.id}, userId: ${authEntity.userId}');
   }
 
   @override

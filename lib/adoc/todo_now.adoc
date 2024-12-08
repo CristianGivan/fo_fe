@@ -20,11 +20,12 @@ debounce see todo code
 
 == Now
 
-* update with TaskStrings
 * ajust snack bar to be at bottom when I don't have a bottomNavigationBar
 
 == Done
 
+* update screens title names
+* update with TaskStrings
 * added item_strings to task_strings
 * switch (state.runtimeType) {
 * update dialog_manager
