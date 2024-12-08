@@ -1,6 +1,6 @@
 import 'package:fo_fe/features/app_home/utils/app_home_exports.dart';
 import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
-import 'package:fo_fe/features/organizer/items/task/presentation/pages/task_management_actions_page.dart';
+import 'package:fo_fe/features/organizer/items/task/presentation/widgets/task_screen_actions_menu.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
@@ -16,16 +16,8 @@ class TaskScreen extends StatelessWidget {
           if (state is AuthAuthenticatedBlocState) {
             final userId = state.userEntity.id;
             context.read<TaskBloc>().add(GetTaskItemsFromLogInUserBlocEvent(userId));
-            return Column(
-              children: [
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Center(child: Text('All Tasks:')),
-                ),
-                Expanded(
-                  child: TaskListPage(), // TaskListPage dynamically adjusts height
-                ),
-              ],
+            return Expanded(
+              child: TaskListPage(), // TaskListPage dynamically adjusts height
             );
 
             //todo -improve- else should be a error maybe
@@ -38,11 +30,11 @@ class TaskScreen extends StatelessWidget {
       bottomNavigationBar: SizedBox(
         height: 56.0, // Fixed height for AppBottomBarPage
         child: AppBottomBarPage(
-          leftMenuOptions: TaskManagementActionsPage.getMenuItems(context),
+          leftMenuOptions: TaskScreenActionsMenu.getMenuItems(context),
           onSearchSubmitted: () {
             // Handle search action
           },
-          rightMenuOptions: TaskManagementActionsPage.getMenuItems(context),
+          rightMenuOptions: TaskScreenActionsMenu.getMenuItems(context),
         ),
       ),
     );

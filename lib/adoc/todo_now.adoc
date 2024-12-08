@@ -18,6 +18,8 @@ debounce see todo code
 * clean up adocs
 * can be removed extra  final task = state.extra as TaskEntity?;
 
+* update dialog_manager
+
 == Now
 
 * ajust snack bar to be at bottom when I don't have a bottomNavigationBar

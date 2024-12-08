@@ -57,27 +57,12 @@ class TaskCardPage extends StatelessWidget {
   }
 
   void _showDeleteConfirmation(BuildContext context) {
-    showDialog(
+    DialogManager.showConfirmationDialog(
       context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text("Delete Task"),
-          content: const Text("Are you sure you want to delete this task?"),
-          actions: <Widget>[
-            TextButton(
-              child: const Text("Cancel"),
-              onPressed: () => context.pop(),
-            ),
-            TextButton(
-              child: const Text("Delete"),
-              onPressed: () {
-                onDeleteTask(task);
-                context.pop();
-              },
-            ),
-          ],
-        );
-      },
+      title: "Delete Task",
+      content: "Are you sure you want to delete this task?",
+      confirmButtonText: "Delete",
+      onConfirm: () => onDeleteTask(task),
     );
   }
 

@@ -2,7 +2,7 @@ import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/items/user/presentation/pages/user_management_actions_page.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class TaskManagementActionsPage {
+class TaskScreenActionsMenu {
   static List<PopupMenuEntry> getMenuItems(BuildContext context) {
     return [
       PopupMenuItem(
