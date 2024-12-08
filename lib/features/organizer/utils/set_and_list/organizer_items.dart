@@ -83,6 +83,14 @@ class OrganizerItems<T extends OrganizerItemEntity> extends Equatable {
 
   Iterable<T> where(bool Function(T) test) => _organizerItems.where(test);
 
+  OrganizerItems<T> copyWithUpdatedItem(T updatedItem) {
+    return toBuilder().updateItem(updatedItem).build();
+  }
+
+  OrganizerItems<T> copyWithAddedItem(T newItem) {
+    return toBuilder().add(newItem).build();
+  }
+
   @override
   List<Object> get props => [_organizerItems];
 }

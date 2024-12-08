@@ -2,9 +2,9 @@ import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 abstract class TaskLocalDataSource {
-  Future<int> addTask(TaskTableDriftCompanion taskCompanion);
+  Future<TaskTableDriftG?> addTaskAndLinkCreator(TaskTableDriftCompanion taskCompanion);
 
-  Future<bool> updateTask(TaskTableDriftCompanion taskCompanion);
+  Future<TaskTableDriftG?> updateTask(TaskTableDriftCompanion taskCompanion);
 
   Future<int> deleteTask(int taskId);
 

@@ -36,18 +36,10 @@ class TaskListPage extends StatelessWidget {
   TaskCardPage _taskCardPage(BuildContext context, TaskEntity task) {
     return TaskCardPage(
       task: task,
-      onUpdateTask: (updatedTask) {
-        context.read<TaskBloc>().add(TaskUpdateBlocEvent(updatedTask));
-      },
-      onViewTask: () {
-        context.pushNamed(TaskRouterNames.taskViewRouteName, extra: task);
-      },
-      onEditTask: () {
-        context.pushNamed(TaskRouterNames.taskEditRouteName, extra: task);
-      },
-      onDeleteTask: (task) {
-        context.read<TaskBloc>().add(TaskDeleteBlocEvent(task.id));
-      },
+      onUpdateTask: (updatedTask) => context.read<TaskBloc>().add(TaskUpdateBlocEvent(updatedTask)),
+      onViewTask: () => context.pushNamed(TaskRouterNames.taskViewRouteName, extra: task),
+      onEditTask: () => context.pushNamed(TaskRouterNames.taskEditRouteName, extra: task),
+      onDeleteTask: (task) => context.read<TaskBloc>().add(TaskDeleteBlocEvent(task.id)),
     );
   }
 }

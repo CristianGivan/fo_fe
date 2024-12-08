@@ -28,10 +28,8 @@ class OrganizerItemsBuilder<T extends OrganizerItemEntity> extends Equatable {
     return _organizerItems.contains(organizerItem);
   }
 
-  OrganizerItemsBuilder add(T organizerItem) {
-    _organizerItems.add(organizerItem);
-    //todo tests
-    _sortedBy = SortedBy.none; // todo maybe I add it and left the items sorted
+  OrganizerItemsBuilder<T> add(T item) {
+    _organizerItems.add(item);
     return this;
   }
 
@@ -71,7 +69,13 @@ class OrganizerItemsBuilder<T extends OrganizerItemEntity> extends Equatable {
   }
 
   //todo implement and tests
-  OrganizerItemsBuilder<T> updateItem(T optimizerItem) {
+  OrganizerItemsBuilder<T> updateItem(T organizerItem) {
+    final index = _organizerItems.indexWhere((item) => item.id == organizerItem.id);
+    if (index != -1) {
+      _organizerItems[index] = organizerItem;
+    } else {
+      throw ArgumentError('Item with id ${organizerItem.id} not found');
+    }
     return this;
   }
 

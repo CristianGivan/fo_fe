@@ -18,20 +18,22 @@ class TaskRepositoryDrift implements TaskRepository {
 
   // Task CRUD operations
   @override
-  Future<Either<Failure, int>> addTask(TaskEntity task) async {
-    return _handleDatabaseOperation(() {
+  Future<Either<Failure, TaskEntity>> addTaskAndLinkCreator(TaskEntity task) async {
+    return _handleDatabaseOperation(() async {
       final companion = TaskMapper.entityToCompanion(task);
-      _checkItemNotNull(companion);
-      return localDataSource.addTask(companion);
+      final addTask = await localDataSource.addTaskAndLinkCreator(companion);
+      if (addTask == null) throw const TaskFailure("Task not added");
+      return TaskMapper.entityFromTableDrift(addTask);
     });
   }
 
   @override
-  Future<Either<Failure, bool>> updateTask(TaskEntity task) async {
-    return _handleDatabaseOperation(() {
+  Future<Either<Failure, TaskEntity>> updateTask(TaskEntity task) async {
+    return _handleDatabaseOperation(() async {
       final companion = TaskMapper.entityToCompanion(task);
-      _checkItemNotNull(companion);
-      return localDataSource.updateTask(companion);
+      final updatedTask = await localDataSource.updateTask(companion);
+      if (updatedTask == null) throw const TaskFailure("Task not updated");
+      return TaskMapper.entityFromTableDrift(updatedTask);
     });
   }
 

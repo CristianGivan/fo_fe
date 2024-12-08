@@ -13,7 +13,7 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
   });
 
   @override
-  Future<int> addTask(TaskTableDriftCompanion taskCompanion) async {
+  Future<TaskTableDriftG?> addTaskAndLinkCreator(TaskTableDriftCompanion taskCompanion) async {
     return await db.transaction(() async {
       final userId = taskCompanion.creatorId.value;
       final taskId = await db.taskDaoDrift.addTask(taskCompanion);
@@ -22,13 +22,14 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
         userId: Value(userId!),
       );
       await db.taskUserLinkDaoDrift.addTaskUser(taskUserLinkCompanion);
-      return taskId;
+      return getTaskById(taskId);
     });
   }
 
   @override
-  Future<bool> updateTask(TaskTableDriftCompanion taskCompanion) {
-    return db.taskDaoDrift.updateTask(taskCompanion);
+  Future<TaskTableDriftG?> updateTask(TaskTableDriftCompanion taskCompanion) async {
+    await db.taskDaoDrift.updateTask(taskCompanion);
+    return getTaskById(taskCompanion.id.value);
   }
 
   @override

@@ -5,13 +5,13 @@ import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 
 import '../repositories/task_repository.dart';
 
-class AddTaskUseCase extends UseCase<int, TaskParams> {
+class AddTaskUseCase extends UseCase<TaskEntity, TaskParams> {
   final TaskRepository repository;
 
   AddTaskUseCase(this.repository);
 
   @override
-  Future<Either<Failure, int>> call(TaskParams params) {
-    return repository.addTask(params.task);
+  Future<Either<Failure, TaskEntity>> call(TaskParams params) {
+    return repository.addTaskAndLinkCreator(params.task);
   }
 }

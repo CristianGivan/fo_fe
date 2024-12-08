@@ -1,3 +1,7 @@
+== Design
+=== DB
+* a task is light it can be return the entity from db wen added or updated
+
 == Todo
 
 * the task can be added also to other users beside the creator shared task everioane can take it

@@ -11,10 +11,13 @@ create like user_presentation_export.dart for all
 == Next
 
 * clean up adocs
+* can be removed extra  final task = state.extra as TaskEntity?;
 
 == Now
 
-* presentation on task
+* ScaffoldMessenger to rise the bottomNavigationBar ot shall be above it
+
+* switch (state.runtimeType) {
 
 == Nice
 
@@ -23,6 +26,8 @@ debounce see todo code
 
 == Done
 
+* when add a task and want to change the tatus I get an erros
+* presentation on task
 * continue with tasks
 * //todo -fix- delete user if auth fails
 * if user already exist and you wand to add it again send a message

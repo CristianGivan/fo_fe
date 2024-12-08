@@ -20,7 +20,17 @@
 
 * Start with db.transaction if you’re still building out the core functionality. Once your app starts scaling and performance becomes a concern, optimize with customSelect. This keeps your implementation flexible and adaptable to future needs.
 
+=== Repository
+
+* in the repository I don't modify the data, I just converted from and to local  datasource and get it and send it to the use case
+
+*
+
 == Presentation
+
+=== Stateless and Stateful Widgets
+
+* I should strive to use stateless widgets as much as possible
 
 === Screen
 

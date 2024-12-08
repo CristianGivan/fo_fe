@@ -15,10 +15,7 @@ class TaskScreen extends StatelessWidget {
         builder: (context, state) {
           if (state is AuthAuthenticatedBlocState) {
             final userId = state.userEntity.id;
-
-            // Trigger the task loading
             context.read<TaskBloc>().add(GetTaskItemsFromLogInUserBlocEvent(userId));
-
             return Column(
               children: [
                 const Padding(
@@ -30,6 +27,8 @@ class TaskScreen extends StatelessWidget {
                 ),
               ],
             );
+
+            //todo -improve- else should be a error maybe
           } else {
             // Show a loader if not authenticated
             return const Center(child: CircularProgressIndicator());

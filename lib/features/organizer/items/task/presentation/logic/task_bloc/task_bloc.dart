@@ -152,26 +152,47 @@ class TaskBloc extends Bloc<TaskBlocEvent, TaskBlocState> {
     TaskAddBlocEvent event,
     Emitter<TaskBlocState> emit,
   ) async {
-    emit(TaskLoadingBlocState());
-    final failureOrSuccess = await addTask(TaskParams(task: event.task));
-    emit(failureOrSuccess.fold(
-      (failure) => TaskErrorBlocState(message: _mapFailureToMessage(failure)),
-      (success) => TaskAddedBlocState(),
-    ));
-    add(TaskItemsGetAllBlocEvent()); // Refresh the task list
+    if (state is TaskLoadedBlocState) {
+      final currentState = state as TaskLoadedBlocState;
+      emit(TaskLoadingBlocState());
+      final failureOrSuccess = await addTask(TaskParams(task: event.task));
+      failureOrSuccess.fold(
+        (failure) => emit(TaskErrorBlocState(message: _mapFailureToMessage(failure))),
+        (newTask) {
+          final updatedOriginalTasks = currentState.originalTasks;
+          final updatedDisplayedTasks = currentState.displayedTasks.copyWithAddedItem(newTask);
+          emit(TaskAddedBlocState());
+          emit(TaskLoadedBlocState(
+            originalTasks: updatedOriginalTasks,
+            displayedTasks: updatedDisplayedTasks,
+          ));
+        },
+      );
+    }
   }
 
   void _onUpdateTaskBlocEvent(
     TaskUpdateBlocEvent event,
     Emitter<TaskBlocState> emit,
   ) async {
-    emit(TaskLoadingBlocState());
-    final failureOrSuccess = await updateTask(TaskParams(task: event.task));
-    emit(failureOrSuccess.fold(
-      (failure) => TaskErrorBlocState(message: _mapFailureToMessage(failure)),
-      (success) => TaskUpdatedBlocState(),
-    ));
-    add(TaskItemsGetAllBlocEvent()); // Refresh the task list
+    if (state is TaskLoadedBlocState) {
+      final currentState = state as TaskLoadedBlocState;
+      emit(TaskLoadingBlocState());
+      final failureOrSuccess = await updateTask(TaskParams(task: event.task));
+      failureOrSuccess.fold(
+        (failure) => emit(TaskErrorBlocState(message: _mapFailureToMessage(failure))),
+        (updatedTask) {
+          final updatedOriginalTasks = currentState.originalTasks;
+          final updatedDisplayedTasks =
+              currentState.displayedTasks.copyWithUpdatedItem(updatedTask);
+          emit(TaskUpdatedBlocState());
+          emit(TaskLoadedBlocState(
+            originalTasks: updatedOriginalTasks,
+            displayedTasks: updatedDisplayedTasks,
+          ));
+        },
+      );
+    }
   }
 
   void _onDeleteTaskBlocEvent(

@@ -8,9 +8,9 @@ import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 abstract class TaskRepository {
   // Task CRUD operations
-  Future<Either<Failure, int>> addTask(TaskEntity task);
+  Future<Either<Failure, TaskEntity>> addTaskAndLinkCreator(TaskEntity task);
 
-  Future<Either<Failure, bool>> updateTask(TaskEntity task);
+  Future<Either<Failure, TaskEntity>> updateTask(TaskEntity task);
 
   Future<Either<Failure, int>> deleteTask(int taskId);
 
