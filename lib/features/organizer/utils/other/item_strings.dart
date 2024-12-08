@@ -3,7 +3,14 @@ class ItemStrings {
 
   ItemStrings(this.item);
 
+  //screens
+
+  String get screenTitle => "$itemPascalCase items";
+
+  // other
+
   String get itemPascalCase => item[0].toUpperCase() + item.substring(1);
+
   String get noItemsAvailable => 'No $itemPascalCase Available';
 
   String get noItemsToDisplay => 'No $item to display';

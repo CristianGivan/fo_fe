@@ -21,4 +21,6 @@ export 'config/auth_providers_bloc.dart';
 export 'config/auth_router.dart';
 export 'config/auth_router_names.dart';
 export 'other/auth_enums.dart';
+export 'other/auth_params.dart';
+export 'other/auth_strings.dart';
 export 'token_manager.dart';

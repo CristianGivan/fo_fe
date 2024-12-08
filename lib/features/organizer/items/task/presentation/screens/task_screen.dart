@@ -11,7 +11,7 @@ class TaskScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarPage(title: 'Task Management'),
+      appBar: AppBarPage(title: TaskStrings().screenTitle),
       body: BlocBuilder<AuthLogBloc, AuthLogBlocState>(
         builder: (context, state) {
           if (state is AuthAuthenticatedBlocState) {
@@ -24,13 +24,13 @@ class TaskScreen extends StatelessWidget {
             return FutureBuilder<void>(
               future: DialogManager.showConfirmationDialog(
                 context: context,
-                title: "Authentication Required",
-                content: "Do you want to sign up or log in?",
-                confirmButtonText: "Authenticate",
+                title: AuthStrings().authenticationRequired,
+                content: AuthStrings().authenticationRequiredContent,
+                confirmButtonText: AuthStrings().authenticateButtonText,
                 onConfirm: () => context.pushNamed(AuthRouterNames.authRouteName),
               ),
               builder: (context, snapshot) {
-                return Text("You are not authenticated so no items could be fo♦und"); 
+                return Text(AuthStrings().notAuthenticatedNoItems);
               },
             );
           }
