@@ -20,11 +20,13 @@ debounce see todo code
 
 == Now
 
+* update with TaskStrings
 * ajust snack bar to be at bottom when I don't have a bottomNavigationBar
-* switch (state.runtimeType) {
 
 == Done
 
+* added item_strings to task_strings
+* switch (state.runtimeType) {
 * update dialog_manager
 * ScaffoldMessenger to rise the bottomNavigationBar ot shall be above it
 * when add a task and want to change the tatus I get an erros
