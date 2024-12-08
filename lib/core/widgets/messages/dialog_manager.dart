@@ -12,7 +12,7 @@ class DialogManager {
     return showDialog(
         context: context,
         builder: (BuildContext dialogContext) {
-          return ConfirmActionPage(
+          return ConfirmActionDialog(
             title: title,
             content: content,
             actionButtonText: confirmButtonText,
@@ -30,15 +30,13 @@ class DialogManager {
     return showDialog(
       context: context,
       builder: (BuildContext dialogContext) {
-        return AlertDialog(
-          title: Text(title),
-          content: Text(content),
-          actions: [
-            TextButton(
-              child: Text(buttonText),
-              onPressed: () => Navigator.of(dialogContext).pop(),
-            ),
-          ],
+        return CustomAlertDialog(
+          title: title,
+          content: content,
+          buttonText: buttonText,
+          onButtonPressed: () => Navigator.of(dialogContext).pop(),
+          titleStyle: TextStyle(color: Colors.black),
+          contentStyle: TextStyle(color: Colors.black),
         );
       },
     );
@@ -53,15 +51,13 @@ class DialogManager {
     return showDialog(
       context: context,
       builder: (BuildContext dialogContext) {
-        return AlertDialog(
-          title: Text(title, style: TextStyle(color: Colors.red)),
-          content: Text(errorMessage),
-          actions: [
-            TextButton(
-              child: Text(buttonText),
-              onPressed: () => Navigator.of(dialogContext).pop(),
-            ),
-          ],
+        return CustomAlertDialog(
+          title: title,
+          content: errorMessage,
+          buttonText: buttonText,
+          onButtonPressed: () => Navigator.of(dialogContext).pop(),
+          titleStyle: TextStyle(color: Colors.red),
+          contentStyle: TextStyle(color: Colors.red),
         );
       },
     );

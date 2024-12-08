@@ -1,6 +1,6 @@
 import 'package:fo_fe/core/utils/exports/external_exports.dart';
 
-class ConfirmActionPage extends StatelessWidget {
+class ConfirmActionDialog extends StatelessWidget {
   final String title;
   final String content;
   final String actionButtonText;
@@ -8,7 +8,7 @@ class ConfirmActionPage extends StatelessWidget {
   final String? cancelButtonText;
   final VoidCallback? cancelButtonAction;
 
-  const ConfirmActionPage({
+  const ConfirmActionDialog({
     required this.title,
     required this.content,
     required this.actionButtonText,

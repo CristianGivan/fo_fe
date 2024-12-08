@@ -18,8 +18,6 @@ debounce see todo code
 * clean up adocs
 * can be removed extra  final task = state.extra as TaskEntity?;
 
-* update dialog_manager
-
 == Now
 
 * ajust snack bar to be at bottom when I don't have a bottomNavigationBar
@@ -27,6 +25,7 @@ debounce see todo code
 
 == Done
 
+* update dialog_manager
 * ScaffoldMessenger to rise the bottomNavigationBar ot shall be above it
 * when add a task and want to change the tatus I get an erros
 * presentation on task
