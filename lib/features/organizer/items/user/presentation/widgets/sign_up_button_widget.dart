@@ -1,3 +1,4 @@
+import 'package:fo_fe/core/widgets/core_widget_exports.dart';
 import 'package:fo_fe/features/authentication/presentation/bloc/auth_log_bloc/auth_log_bloc.dart';
 import 'package:fo_fe/features/authentication/presentation/bloc/sign_up_bloc/sign_up_bloc.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
@@ -30,17 +31,12 @@ class SignUpButtonWidget extends StatelessWidget {
         BlocListener<SignUpBloc, SignUpBlocState>(
           listener: (context, state) {
             if (state is SignUpFailedBlocState) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('Sign up failed: ${state.error}'),
-                  backgroundColor: Colors.red,
-                ),
-              );
+              SnackBarWidget.showAboveBottomNavBar(context,
+                  content: 'Sign up failed: ${state.error}', backgroundColor: Colors.red);
             } else if (state is SignUpSuccessBlocState) {
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                content: Text('Sign up successful, now we will log you in'),
-                backgroundColor: Colors.green,
-              ));
+              SnackBarWidget.showAboveBottomNavBar(context,
+                  content: 'Sign up successful, now we will log you in',
+                  backgroundColor: Colors.green);
               context.read<AuthLogBloc>().add(AuthLogInBlocEvent(
                   email: state.userEntity.email, password: state.userEntity.password));
             }
@@ -49,19 +45,11 @@ class SignUpButtonWidget extends StatelessWidget {
         BlocListener<AuthLogBloc, AuthLogBlocState>(
           listener: (context, state) {
             if (state is AuthLogFailedBlocState) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('Login failed: ${state.error}'),
-                  backgroundColor: Colors.red,
-                ),
-              );
+              SnackBarWidget.showAboveBottomNavBar(context,
+                  content: 'Login failed: ${state.error}', backgroundColor: Colors.red);
             } else if (state is AuthAuthenticatedBlocState) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Login successful'),
-                  backgroundColor: Colors.green,
-                ),
-              );
+              SnackBarWidget.showAboveBottomNavBar(context,
+                  content: 'Login successful', backgroundColor: Colors.green);
               context.pushNamed(OrganizerRouterNames.organizerRoutePath);
             }
           },
@@ -90,12 +78,8 @@ class SignUpButtonWidget extends StatelessWidget {
             isAutoSignIn: autoSignIn,
           ));
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Error: ${invalidFields.join(',\n ')}'),
-          backgroundColor: Colors.red,
-        ),
-      );
+      SnackBarWidget.showAboveBottomNavBar(context,
+          content: 'Error: ${invalidFields.join(',\n ')}', backgroundColor: Colors.red);
     }
   }
 

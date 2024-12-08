@@ -1,6 +1,5 @@
 // lib/features/organizer/items/tag/presentation/screen/tag_add_screen.dart
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fo_fe/core/widgets/core_widget_exports.dart';
 import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
@@ -49,14 +48,10 @@ class _TagAddScreenState extends State<TagAddScreen> {
             BlocConsumer<TagBlocTag, TagBlocState>(
               listener: (context, state) {
                 if (state is TagSuccessBlocState) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Tag saved successfully')),
-                  );
+                  SnackBarWidget.showAboveBottomNavBar(context, content: 'Tag saved successfully');
                   context.pop();
                 } else if (state is TagErrorBlocState) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(state.message)),
-                  );
+                  SnackBarWidget.showAboveBottomNavBar(context, content: state.message);
                 }
               },
               builder: (context, state) {

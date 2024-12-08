@@ -1,3 +1,4 @@
+import 'package:fo_fe/core/widgets/core_widget_exports.dart';
 import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
@@ -68,9 +69,7 @@ class _SignInScreenState extends State<SignInScreen> {
               BlocListener<AuthLogBloc, AuthLogBlocState>(
                 listener: (context, state) {
                   if (state is AuthLogErrorBlocState) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text(state.errorMessage)),
-                    );
+                    SnackBarWidget.showAtBottom(context, content: state.errorMessage);
                   } else if (state is AuthAuthenticatedBlocState) {
                     context.pushNamed(OrganizerRouterNames.organizerRouteName);
                   }

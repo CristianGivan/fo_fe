@@ -1,3 +1,4 @@
+import 'package:fo_fe/core/widgets/core_widget_exports.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
@@ -116,7 +117,7 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
   }
 
   void _showSnackBar(BuildContext context, String message) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+    SnackBarWidget.showAboveBottomNavBar(context, content: message);
   }
 
   Widget _buildUserTypeDropdown() {

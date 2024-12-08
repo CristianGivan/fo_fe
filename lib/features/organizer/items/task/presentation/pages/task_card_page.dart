@@ -1,4 +1,4 @@
-import 'package:fo_fe/features/app_home/presentation/widgets/snack_bar_widget.dart';
+import 'package:fo_fe/core/widgets/core_widget_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/presentation/task_card_widget.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
@@ -51,7 +51,7 @@ class TaskCardPage extends StatelessWidget {
     final updatedTask = task.copyWith(taskStatus: newStatus);
     onUpdateTask(updatedTask);
 
-    SnackBarWidget.show(context, 'Task status updated to $newStatus');
+    SnackBarWidget.showAboveBottomNavBar(context, content: 'Task status updated to $newStatus');
 
     return false;
   }

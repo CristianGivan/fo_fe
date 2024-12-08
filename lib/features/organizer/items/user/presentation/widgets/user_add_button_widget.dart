@@ -1,3 +1,4 @@
+import 'package:fo_fe/core/widgets/core_widget_exports.dart';
 import 'package:fo_fe/features/authentication/presentation/bloc/auth_log_bloc/auth_log_bloc.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/other/user_validation.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
@@ -22,20 +23,12 @@ class UserAddButtonWidget extends StatelessWidget {
     return BlocListener<UserBloc, UserBlocState>(
       listener: (context, state) {
         if (state is UserAddedToUserBlocState) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('User added successfully!'),
-              backgroundColor: Colors.green,
-            ),
-          );
+          SnackBarWidget.showAboveBottomNavBar(context,
+              content: 'User added successfully!', backgroundColor: Colors.green);
           context.pop();
         } else if (state is UserErrorBlocState) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Error: ${state.errorMessage}'),
-              backgroundColor: Colors.red,
-            ),
-          );
+          SnackBarWidget.showAboveBottomNavBar(context,
+              content: 'Error: ${state.errorMessage}', backgroundColor: Colors.red);
         }
       },
       child: SizedBox(
@@ -78,12 +71,8 @@ class UserAddButtonWidget extends StatelessWidget {
               authUserId: authState.userEntity.id,
             ));
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Error: ${invalidFields.join(',\n ')}'),
-            backgroundColor: Colors.red,
-          ),
-        );
+        SnackBarWidget.showAboveBottomNavBar(context,
+            content: 'Error: ${invalidFields.join(',\n ')}', backgroundColor: Colors.red);
       }
     }
   }

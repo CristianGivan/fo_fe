@@ -1,3 +1,4 @@
+import 'package:fo_fe/core/widgets/core_widget_exports.dart';
 import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
@@ -25,11 +26,8 @@ class _AuthScreenWithAutoLogInState extends State<AuthScreenWithAutoLogIn> {
       if (state is AuthAuthenticatedBlocState) {
         context.pushNamed(OrganizerRouterNames.organizerRouteName);
       } else if (state is AuthLogErrorBlocState) {
-        final snackBar = SnackBar(
-          content: Text('Error: ${state.errorMessage}'),
-          backgroundColor: Colors.red,
-        );
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        SnackBarWidget.showAtBottom(context,
+            content: 'Error: ${state.errorMessage}', backgroundColor: Colors.red);
       }
     });
   }

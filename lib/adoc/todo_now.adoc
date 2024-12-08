@@ -8,6 +8,11 @@ create like user_presentation_export.dart for all
 
 * establis a convention for enums
 
+== Nice
+
+* understand better statless and stafull widget
+debounce see todo code
+
 == Next
 
 * clean up adocs
@@ -15,17 +20,12 @@ create like user_presentation_export.dart for all
 
 == Now
 
-* ScaffoldMessenger to rise the bottomNavigationBar ot shall be above it
-
+* ajust snack bar to be at bottom when I don't have a bottomNavigationBar
 * switch (state.runtimeType) {
-
-== Nice
-
-* understand better statless and stafull widget
-debounce see todo code
 
 == Done
 
+* ScaffoldMessenger to rise the bottomNavigationBar ot shall be above it
 * when add a task and want to change the tatus I get an erros
 * presentation on task
 * continue with tasks

@@ -1,7 +1,5 @@
-// lib/features/organizer/items/reminder/presentation/screen/reminder_add_screen.dart
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fo_fe/core/utils/exports/external_exports.dart';
+import 'package:fo_fe/core/widgets/core_widget_exports.dart';
 import 'package:fo_fe/features/organizer/items/reminder/utils/reminder_exports.dart';
 
 class ReminderAddScreen extends StatefulWidget {
@@ -30,13 +28,10 @@ class _ReminderAddScreenState extends State<ReminderAddScreen> {
         subject: reminderName,
         remindAt: _remindAt!, // Use the selected date
       );
-      BlocProvider.of<ReminderBloc>(context)
-          .add(AddReminderBlocEvent(reminder));
+      BlocProvider.of<ReminderBloc>(context).add(AddReminderBlocEvent(reminder));
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-            content: Text('Please enter a title and select a date.')),
-      );
+      SnackBarWidget.showAboveBottomNavBar(context,
+          content: 'Please enter a title and select a date.');
     }
   }
 
@@ -94,16 +89,13 @@ class _ReminderAddScreenState extends State<ReminderAddScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  _remindAt == null
-                      ? 'Select a Date'
-                      : 'Date: ${_remindAt!.toLocal()}',
+                  _remindAt == null ? 'Select a Date' : 'Date: ${_remindAt!.toLocal()}',
                   // Display the selected date
                   style: const TextStyle(fontSize: 16),
                 ),
                 IconButton(
                   icon: const Icon(Icons.calendar_today),
-                  onPressed: () =>
-                      _selectDateTime(context), // Open the date picker
+                  onPressed: () => _selectDateTime(context), // Open the date picker
                 ),
               ],
             ),
@@ -111,14 +103,11 @@ class _ReminderAddScreenState extends State<ReminderAddScreen> {
             BlocConsumer<ReminderBloc, ReminderBlocState>(
               listener: (context, state) {
                 if (state is ReminderSuccessBlocState) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Reminder saved successfully')),
-                  );
+                  SnackBarWidget.showAboveBottomNavBar(context,
+                      content: 'Reminder saved successfully');
                   context.pop();
                 } else if (state is ReminderErrorBlocState) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(state.message)),
-                  );
+                  SnackBarWidget.showAboveBottomNavBar(context, content: state.message);
                 }
               },
               builder: (context, state) {
