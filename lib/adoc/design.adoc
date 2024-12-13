@@ -34,6 +34,8 @@
 
 === Screen
 
+*I will not use the Dynamic Layout + Factory + Delegation pattern for now because the trade off
+is not worth it
 * everything that is display o a screen with the scope of serving one thing like display all task
 or add new task
 

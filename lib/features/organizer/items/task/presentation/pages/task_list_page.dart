@@ -26,27 +26,28 @@ class TaskListPage extends StatelessWidget {
 
   Widget _buildErrorState(String message) => Center(child: Text(message));
 
-  Widget _buildEmptyState() => const Center(child: Text('No Tasks Available'));
+  Widget _buildEmptyState() => Center(child: Text(TaskStrings().noItemsToDisplay));
 
   Widget _buildTaskList(BuildContext context, OrganizerItems<TaskEntity> tasks) {
     if (tasks.isEmpty) {
-      _buildEmptyState();
+      return _buildEmptyState();
+    } else {
+      return ListView.builder(
+        itemCount: tasks.size(),
+        itemBuilder: (context, index) {
+          final task = tasks.getAt(index);
+          return _buildTaskCard(context, task);
+        },
+      );
     }
-    return ListView.builder(
-      itemCount: tasks.size(),
-      itemBuilder: (context, index) {
-        final task = tasks.getAt(index);
-        return _buildTaskCard(context, task);
-      },
-    );
   }
 
   TaskCardPage _buildTaskCard(BuildContext context, TaskEntity task) {
     return TaskCardPage(
       task: task,
       onUpdateTask: (updatedTask) => context.read<TaskBloc>().add(TaskUpdateBlocEvent(updatedTask)),
-      onViewTask: () => context.pushNamed(TaskRouterNames.taskViewRouteName, extra: task),
-      onEditTask: () => context.pushNamed(TaskRouterNames.taskEditRouteName, extra: task),
+      onViewTask: () => context.pushNamed(TaskRouterNames.taskViewRouteName, extra: task.id),
+      onEditTask: () => context.pushNamed(TaskRouterNames.taskEditRouteName, extra: task.id),
       onDeleteTask: (task) => context.read<TaskBloc>().add(TaskDeleteBlocEvent(task.id)),
     );
   }

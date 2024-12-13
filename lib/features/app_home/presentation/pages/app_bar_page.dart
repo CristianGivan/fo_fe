@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 class AppBarPage extends StatelessWidget implements PreferredSizeWidget {
   final String title;
 
-  const AppBarPage({super.key, this.title = "test"});
+  const AppBarPage({super.key, this.title = "Title"});
 
   @override
   Widget build(BuildContext context) {

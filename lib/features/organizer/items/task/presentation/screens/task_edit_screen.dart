@@ -1,33 +1,38 @@
-import 'package:fo_fe/features/organizer/items/task/presentation/pages/task_edit_action_buttons_page.dart';
+import 'package:fo_fe/features/app_home/utils/app_home_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/presentation/pages/task_form_fields_page.dart';
+import 'package:fo_fe/features/organizer/items/task/presentation/widgets/task_edit_screen_actions_menu.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-// Main TaskEditScreen with modular widgets
-class TaskEditScreen extends StatefulWidget {
-  final TaskEntity task;
+class TaskEditScreen extends StatelessWidget {
+  final int taskId;
 
-  const TaskEditScreen({super.key, required this.task});
+  const TaskEditScreen({super.key, required this.taskId});
 
-  @override
-  _TaskEditScreenState createState() => _TaskEditScreenState();
-}
-
-class _TaskEditScreenState extends State<TaskEditScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Edit Task')),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            TaskFormFieldsPage(task: widget.task),
-            const SizedBox(height: 20),
-            const TaskEditActionButtonsPage(),
-          ],
-        ),
+      appBar: AppBarPage(title: TaskStrings().screenEditTitle),
+      body: BlocBuilder<TaskBloc, TaskBlocState>(
+        builder: (context, state) {
+          if (state is TaskLoadingBlocState) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is TaskLoadedBlocState) {
+            final task = state.displayedTasks.getById(taskId);
+            return TaskFormFieldsPage(task: task);
+          } else {
+            return Center(child: Text(TaskStrings().noItemsAvailable));
+          }
+        },
       ),
+      bottomNavigationBar: AppBottomBarPage(
+        leftMenuOptions: TaskEditScreenActionsMenu.getMenuItems(context),
+        onSearchSubmitted: () {
+          // Handle search action
+        },
+        rightMenuOptions: TaskEditScreenActionsMenu.getMenuItems(context),
+      ),
+      // const TaskEditActionButtonsPage(),
     );
   }
 }

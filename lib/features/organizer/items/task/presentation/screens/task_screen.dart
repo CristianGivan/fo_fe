@@ -17,8 +17,12 @@ class TaskScreen extends StatelessWidget {
           if (state is AuthAuthenticatedBlocState) {
             final userId = state.userEntity.id;
             context.read<TaskBloc>().add(GetTaskItemsFromLogInUserBlocEvent(userId));
-            return Expanded(
-              child: TaskListPage(), // TaskListPage dynamically adjusts height
+            return Column(
+              children: [
+                Expanded(
+                  child: TaskListPage(), // TaskListPage dynamically adjusts height
+                ),
+              ],
             );
           } else {
             return FutureBuilder<void>(
@@ -36,15 +40,12 @@ class TaskScreen extends StatelessWidget {
           }
         },
       ),
-      bottomNavigationBar: SizedBox(
-        height: 56.0, // Fixed height for AppBottomBarPage
-        child: AppBottomBarPage(
-          leftMenuOptions: TaskScreenActionsMenu.getMenuItems(context),
-          onSearchSubmitted: () {
-            // Handle search action
-          },
-          rightMenuOptions: TaskScreenActionsMenu.getMenuItems(context),
-        ),
+      bottomNavigationBar: AppBottomBarPage(
+        leftMenuOptions: TaskScreenActionsMenu.getMenuItems(context),
+        onSearchSubmitted: () {
+          // Handle search action
+        },
+        rightMenuOptions: TaskScreenActionsMenu.getMenuItems(context),
       ),
     );
   }

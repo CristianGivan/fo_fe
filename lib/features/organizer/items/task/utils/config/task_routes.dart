@@ -8,25 +8,19 @@ class TaskRoutes {
     return GoRoute(
       path: TaskRouterNames.taskRoutePath,
       name: TaskRouterNames.taskRouteName,
-      pageBuilder: (context, state) => const NoTransitionPage(
-        child: TaskScreen(),
-      ),
+      pageBuilder: (context, state) => const NoTransitionPage(child: TaskScreen()),
       routes: [
         GoRoute(
           path: TaskRouterNames.taskAddRoutePath,
           name: TaskRouterNames.taskAddRouteName,
-          pageBuilder: (context, state) => const NoTransitionPage(
-            child: TaskAddScreen(),
-          ),
+          pageBuilder: (context, state) => const NoTransitionPage(child: TaskAddScreen()),
         ),
         GoRoute(
           path: TaskRouterNames.taskEditRoutePath,
           name: TaskRouterNames.taskEditRouteName,
           pageBuilder: (context, state) {
-            final task = state.extra as TaskEntity?;
-            return NoTransitionPage(
-              child: TaskEditScreen(task: task!),
-            );
+            final task = state.extra as int;
+            return NoTransitionPage(child: TaskEditScreen(taskId: task));
           },
         ),
         GoRoute(
@@ -34,9 +28,7 @@ class TaskRoutes {
           name: TaskRouterNames.taskViewRouteName,
           pageBuilder: (context, state) {
             final task = state.extra as TaskEntity?;
-            return NoTransitionPage(
-              child: TaskViewScreen(task: task!),
-            );
+            return NoTransitionPage(child: TaskViewScreen(task: task!));
           },
         ),
       ],

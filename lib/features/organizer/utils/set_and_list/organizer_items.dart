@@ -24,6 +24,8 @@ class OrganizerItems<T extends OrganizerItemEntity> extends Equatable {
 
   T getAt(int index) => _organizerItems[index];
 
+  T getById(int id) => _organizerItems.firstWhere((element) => element.id == id);
+
   OrganizerItems<T> getAddedItems(OrganizerItems<T>? newItems) {
     if (newItems == null) {
       return OrganizerItems.empty();

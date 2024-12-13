@@ -37,6 +37,7 @@ class _AppBottomBarPageState extends State<AppBottomBarPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 50.0,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Row(
         children: [

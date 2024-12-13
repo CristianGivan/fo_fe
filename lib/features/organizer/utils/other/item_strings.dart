@@ -7,6 +7,8 @@ class ItemStrings {
 
   String get screenTitle => "$itemPascalCase items";
 
+  String get screenEditTitle => 'Edit Task';
+
   // other
 
   String get itemPascalCase => item[0].toUpperCase() + item.substring(1);
