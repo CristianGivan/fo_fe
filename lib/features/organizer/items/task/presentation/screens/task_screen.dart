@@ -15,38 +15,44 @@ class TaskScreen extends StatelessWidget {
       body: BlocBuilder<AuthLogBloc, AuthLogBlocState>(
         builder: (context, state) {
           if (state is AuthAuthenticatedBlocState) {
-            final userId = state.userEntity.id;
-            context.read<TaskBloc>().add(GetTaskItemsFromLogInUserBlocEvent(userId));
-            return Column(
-              children: [
-                Expanded(
-                  child: TaskListPage(), // TaskListPage dynamically adjusts height
-                ),
-              ],
-            );
+            return _buildTaskList(state, context);
           } else {
-            return FutureBuilder<void>(
-              future: DialogManager.showConfirmationDialog(
-                context: context,
-                title: AuthStrings().authenticationRequired,
-                content: AuthStrings().authenticationRequiredContent,
-                confirmButtonText: AuthStrings().authenticateButtonText,
-                onConfirm: () => context.pushNamed(AuthRouterNames.authRouteName),
-              ),
-              builder: (context, snapshot) {
-                return Text(AuthStrings().notAuthenticatedNoItems);
-              },
-            );
+            return _showNotAuthenticatedDialog(context);
           }
         },
       ),
       bottomNavigationBar: AppBottomBarPage(
         leftMenuOptions: TaskScreenActionsMenu.getMenuItems(context),
-        onSearchSubmitted: () {
-          // Handle search action
-        },
+        onSearchSubmitted: () {},
         rightMenuOptions: TaskScreenActionsMenu.getMenuItems(context),
       ),
+    );
+  }
+
+  Column _buildTaskList(AuthAuthenticatedBlocState state, BuildContext context) {
+    final userId = state.userEntity.id;
+    context.read<TaskBloc>().add(GetTaskItemsFromLogInUserBlocEvent(userId));
+    return Column(
+      children: [
+        Expanded(
+          child: TaskListPage(),
+        ),
+      ],
+    );
+  }
+
+  FutureBuilder<void> _showNotAuthenticatedDialog(BuildContext context) {
+    return FutureBuilder<void>(
+      future: DialogManager.showConfirmationDialog(
+        context: context,
+        title: AuthStrings().authenticationRequired,
+        content: AuthStrings().authenticationRequiredContent,
+        confirmButtonText: AuthStrings().authenticateButtonText,
+        onConfirm: () => context.pushNamed(AuthRouterNames.authRouteName),
+      ),
+      builder: (context, snapshot) {
+        return Text(AuthStrings().notAuthenticatedNoItems);
+      },
     );
   }
 }

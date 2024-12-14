@@ -16,14 +16,18 @@ debounce see todo code
 == Next
 
 * clean up adocs
-* can be removed extra  final task = state.extra as TaskEntity?;
+* can be removed extra  for all not only for  final task = state.extra as TaskEntity?;
 
 == Now
 
+* add delete at task
+* add select at task
+* add task is done only at user 1
 * ajust snack bar to be at bottom when I don't have a bottomNavigationBar
 
 == Done
 
+* can be removed extra  final task = state.extra as TaskEntity?;
 * update screens title names
 * update with TaskStrings
 * added item_strings to task_strings

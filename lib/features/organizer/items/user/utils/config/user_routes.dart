@@ -18,7 +18,6 @@ class UserRoutes {
           path: UserRouterNames.userAddRoutePath,
           name: UserRouterNames.userAddRouteName,
           pageBuilder: (context, state) {
-            // GoRouter expects the data you pass in the extra parameter to be serializable, meaning it should ideally be simple
             return const NoTransitionPage(
               child: UserAddScreen(),
             );

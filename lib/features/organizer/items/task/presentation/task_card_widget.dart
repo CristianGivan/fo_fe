@@ -3,15 +3,9 @@ import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 
 class TaskCardWidget extends StatelessWidget {
   final TaskEntity task;
-  final VoidCallback onViewTask;
-  final VoidCallback onEditTask;
-  final VoidCallback onDeleteTask;
 
   const TaskCardWidget({
     required this.task,
-    required this.onViewTask,
-    required this.onEditTask,
-    required this.onDeleteTask,
     super.key,
   });
 
@@ -32,10 +26,6 @@ class TaskCardWidget extends StatelessWidget {
                     task.subject,
                     style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.delete, color: Colors.red),
-                  onPressed: onDeleteTask,
                 ),
               ],
             ),

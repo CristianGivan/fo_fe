@@ -1,46 +1,32 @@
+import 'package:fo_fe/core/utils/exports/external_exports.dart';
 import 'package:fo_fe/core/widgets/core_widget_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/presentation/task_card_widget.dart';
+import 'package:fo_fe/features/organizer/items/task/presentation/widgets/ItemCard.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
-import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class TaskCardPage extends StatelessWidget {
+class TaskCard extends StatelessWidget {
   final TaskEntity task;
-  final Function(TaskEntity) onUpdateTask;
   final Function() onViewTask;
   final Function() onEditTask;
-  final Function(TaskEntity) onDeleteTask;
 
-  const TaskCardPage({
+  const TaskCard({
     super.key,
     required this.task,
-    required this.onUpdateTask,
     required this.onViewTask,
     required this.onEditTask,
-    required this.onDeleteTask,
   });
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return ItemCardContainer(
       onTap: onViewTask,
       onLongPress: onEditTask,
-      child: Dismissible(
-        key: Key(task.id.toString()),
-        direction: DismissDirection.horizontal,
-        confirmDismiss: (direction) async => _changeStatus(direction, context),
-        background: _buildSwipeActionBackground(Icons.arrow_forward, Colors.green),
-        secondaryBackground: _buildSwipeActionBackground(Icons.arrow_back, Colors.red),
-        child: TaskCardWidget(
-          task: task,
-          onViewTask: onViewTask,
-          onEditTask: onEditTask,
-          onDeleteTask: () => _showDeleteConfirmation(context),
-        ),
-      ),
+      onConfirmDismiss: (direction, context) => _changeStatus(direction, context),
+      child: TaskCardWidget(task: task),
     );
   }
 
-  bool _changeStatus(DismissDirection direction, BuildContext context) {
+  Future<bool> _changeStatus(DismissDirection direction, BuildContext context) async {
     TaskStatus newStatus = task.taskStatus!;
     if (direction == DismissDirection.startToEnd) {
       newStatus = _incrementStatus(task.taskStatus!);
@@ -49,29 +35,11 @@ class TaskCardPage extends StatelessWidget {
     }
 
     final updatedTask = task.copyWith(taskStatus: newStatus);
-    onUpdateTask(updatedTask);
+    context.read<TaskBloc>().add(TaskUpdateBlocEvent(updatedTask));
 
     SnackBarWidget.showAboveBottomNavBar(context, content: 'Task status updated to $newStatus');
 
     return false;
-  }
-
-  void _showDeleteConfirmation(BuildContext context) {
-    DialogManager.showConfirmationDialog(
-      context: context,
-      title: "Delete Task",
-      content: "Are you sure you want to delete this task?",
-      confirmButtonText: "Delete",
-      onConfirm: () => onDeleteTask(task),
-    );
-  }
-
-  Widget _buildSwipeActionBackground(IconData icon, Color color) {
-    return Container(
-      color: color,
-      alignment: Alignment.center,
-      child: Icon(icon, color: Colors.white, size: 30),
-    );
   }
 
   TaskStatus _incrementStatus(TaskStatus currentStatus) {

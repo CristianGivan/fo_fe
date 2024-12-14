@@ -42,13 +42,11 @@ class TaskListPage extends StatelessWidget {
     }
   }
 
-  TaskCardPage _buildTaskCard(BuildContext context, TaskEntity task) {
-    return TaskCardPage(
+  Widget _buildTaskCard(BuildContext context, TaskEntity task) {
+    return TaskCard(
       task: task,
-      onUpdateTask: (updatedTask) => context.read<TaskBloc>().add(TaskUpdateBlocEvent(updatedTask)),
       onViewTask: () => context.pushNamed(TaskRouterNames.taskViewRouteName, extra: task.id),
       onEditTask: () => context.pushNamed(TaskRouterNames.taskEditRouteName, extra: task.id),
-      onDeleteTask: (task) => context.read<TaskBloc>().add(TaskDeleteBlocEvent(task.id)),
     );
   }
 }
