@@ -19,16 +19,16 @@ class TaskRoutes {
           path: TaskRouterNames.taskEditRoutePath,
           name: TaskRouterNames.taskEditRouteName,
           pageBuilder: (context, state) {
-            final task = state.extra as int;
-            return NoTransitionPage(child: TaskEditScreen(taskId: task));
+            final taskId = state.extra as int;
+            return NoTransitionPage(child: TaskEditScreen(taskId: taskId));
           },
         ),
         GoRoute(
           path: TaskRouterNames.taskViewRoutePath,
           name: TaskRouterNames.taskViewRouteName,
           pageBuilder: (context, state) {
-            final task = state.extra as TaskEntity?;
-            return NoTransitionPage(child: TaskViewScreen(task: task!));
+            final taskId = state.extra as int;
+            return NoTransitionPage(child: TaskViewScreen(taskId: taskId!));
           },
         ),
       ],

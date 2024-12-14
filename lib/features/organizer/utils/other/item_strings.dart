@@ -7,7 +7,9 @@ class ItemStrings {
 
   String get screenTitle => "$itemPascalCase items";
 
-  String get screenEditTitle => 'Edit Task';
+  String get screenEditTitle => 'Edit $itemPascalCase';
+
+  String get screenViewTitle => 'View $itemPascalCase';
 
   // other
 
