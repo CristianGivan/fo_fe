@@ -1,26 +1,22 @@
 import 'package:fo_fe/core/utils/exports/external_exports.dart';
 import 'package:fo_fe/core/widgets/core_widget_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/presentation/task_card_widget.dart';
-import 'package:fo_fe/features/organizer/items/task/presentation/widgets/ItemCard.dart';
+import 'package:fo_fe/features/organizer/items/task/presentation/widgets/item_card_container.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 
 class TaskCard extends StatelessWidget {
   final TaskEntity task;
-  final Function() onViewTask;
-  final Function() onEditTask;
 
-  const TaskCard({
+  const TaskCard(
+    this.task, {
     super.key,
-    required this.task,
-    required this.onViewTask,
-    required this.onEditTask,
   });
 
   @override
   Widget build(BuildContext context) {
     return ItemCardContainer(
-      onTap: onViewTask,
-      onLongPress: onEditTask,
+      onTap: () => context.pushNamed(TaskRouterNames.taskViewRouteName, extra: task.id),
+      onLongPress: () => context.pushNamed(TaskRouterNames.taskEditRouteName, extra: task.id),
       onConfirmDismiss: (direction, context) => _changeStatus(direction, context),
       child: TaskCardWidget(task: task),
     );

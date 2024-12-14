@@ -36,17 +36,9 @@ class TaskListPage extends StatelessWidget {
         itemCount: tasks.size(),
         itemBuilder: (context, index) {
           final task = tasks.getAt(index);
-          return _buildTaskCard(context, task);
+          return TaskCard(task);
         },
       );
     }
-  }
-
-  Widget _buildTaskCard(BuildContext context, TaskEntity task) {
-    return TaskCard(
-      task: task,
-      onViewTask: () => context.pushNamed(TaskRouterNames.taskViewRouteName, extra: task.id),
-      onEditTask: () => context.pushNamed(TaskRouterNames.taskEditRouteName, extra: task.id),
-    );
   }
 }

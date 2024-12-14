@@ -11,6 +11,8 @@ class ItemStrings {
 
   String get screenViewTitle => 'View $itemPascalCase';
 
+  get screenAddTitle => 'Add $itemPascalCase';
+
   // other
 
   String get itemPascalCase => item[0].toUpperCase() + item.substring(1);
