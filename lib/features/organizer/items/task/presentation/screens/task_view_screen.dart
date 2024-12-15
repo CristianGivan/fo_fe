@@ -24,7 +24,7 @@ class TaskViewScreen extends StatelessWidget {
           }
         },
       ),
-      bottomNavigationBar: AppBottomBarPage(
+      bottomNavigationBar: AppBottomBarMenu(
         leftMenuOptions: TaskEditScreenActionsMenu.getMenuItems(context),
         onSearchSubmitted: () {
           // Handle search action

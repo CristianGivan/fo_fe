@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class AppBottomBarPage extends StatefulWidget {
+class AppBottomBarMenu extends StatefulWidget {
   final List<PopupMenuEntry> leftMenuOptions;
   final VoidCallback onSearchSubmitted;
   final List<PopupMenuEntry> rightMenuOptions;
 
-  const AppBottomBarPage({
+  const AppBottomBarMenu({
     required this.leftMenuOptions,
     required this.onSearchSubmitted,
     required this.rightMenuOptions,
@@ -13,10 +13,10 @@ class AppBottomBarPage extends StatefulWidget {
   });
 
   @override
-  _AppBottomBarPageState createState() => _AppBottomBarPageState();
+  _AppBottomBarMenuState createState() => _AppBottomBarMenuState();
 }
 
-class _AppBottomBarPageState extends State<AppBottomBarPage> {
+class _AppBottomBarMenuState extends State<AppBottomBarMenu> {
   bool _isLeftMenuOpen = false;
   bool _isRightMenuOpen = false;
 
@@ -43,7 +43,7 @@ class _AppBottomBarPageState extends State<AppBottomBarPage> {
         children: [
           // Left Menu Button
           PopupMenuButton(
-            icon: const Icon(Icons.menu),
+            icon: const Icon(Icons.more_vert),
             itemBuilder: (context) => widget.leftMenuOptions,
             onCanceled: () => _toggleLeftMenu(false),
             onSelected: (_) => _toggleLeftMenu(false),

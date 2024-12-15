@@ -1,3 +1,4 @@
+import 'package:fo_fe/features/app_home/presentation/pages/app_bottom_bar_same_menu.dart';
 import 'package:fo_fe/features/app_home/utils/app_home_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/presentation/pages/task_form_fields_page.dart';
 import 'package:fo_fe/features/organizer/items/task/presentation/widgets/task_edit_screen_actions_menu.dart';
@@ -25,12 +26,11 @@ class TaskEditScreen extends StatelessWidget {
           }
         },
       ),
-      bottomNavigationBar: AppBottomBarPage(
-        leftMenuOptions: TaskEditScreenActionsMenu.getMenuItems(context),
+      bottomNavigationBar: AppBottomBarSameMenu(
+        menuOptions: TaskEditScreenActionsMenu.getMenuItems(context),
         onSearchSubmitted: () {
           // Handle search action
         },
-        rightMenuOptions: TaskEditScreenActionsMenu.getMenuItems(context),
       ),
     );
   }

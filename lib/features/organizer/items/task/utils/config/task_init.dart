@@ -7,6 +7,7 @@ import 'package:fo_fe/features/organizer/items/task/domain/repositories/task_rep
 import 'package:fo_fe/features/organizer/items/task/domain/usecases/get_task_itemsFromLogInUser_use_case.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/usecases/update_reminder_items_of_task_use_case.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/usecases/update_user_items_of_task_use_case.dart';
+import 'package:fo_fe/features/organizer/items/task/presentation/logic/task_cubit/task_form_cubit.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:get_it/get_it.dart';
 
@@ -56,6 +57,7 @@ void taskInit() {
         sortTasksUseCase: sl(),
         filterTasksUseCase: sl(),
       ));
+  sl.registerFactory(() => TaskFormCubit());
   sl.registerFactory(() => TaskUserLinkBloc(
         getUserItemsByTaskId: sl(),
         getCreatorByTaskId: sl(),

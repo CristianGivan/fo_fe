@@ -1,7 +1,9 @@
-import 'package:fo_fe/features/app_home/presentation/pages/app_bar_page.dart';
+import 'package:fo_fe/features/app_home/presentation/pages/app_bottom_bar_same_menu.dart';
+import 'package:fo_fe/features/app_home/utils/app_home_exports.dart';
 import 'package:fo_fe/features/authentication/presentation/bloc/auth_log_bloc/auth_log_bloc.dart';
 import 'package:fo_fe/features/authentication/presentation/widget/auth_content_widget.dart';
 import 'package:fo_fe/features/organizer/items/task/presentation/pages/task_add_form.dart';
+import 'package:fo_fe/features/organizer/items/task/presentation/widgets/task_add_screen_actions_menu.dart';
 
 import '../../../../../../core/utils/exports/external_exports.dart';
 import '../../utils/task_exports.dart';
@@ -11,14 +13,23 @@ class TaskAddScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBarPage(title: TaskStrings().screenAddTitle),
-      body: AuthenticatedContentWidget(contentBuilder: _buildTaskAddForm),
+    return AuthenticatedContentWidget(
+      appBarTitle: TaskStrings().screenAddTitle,
+      body: (context, userId) => _buildTaskAddForm(userId, context),
+      menuOptions: (context,userId) => TaskAddScreenActionsMenu.getMenuItems(context, userId),
+      onSearchSubmitted: () {
+        // Define the search functionality here
+      },
     );
   }
 
-  Widget _buildTaskAddForm(AuthAuthenticatedBlocState state, BuildContext context) {
-    final userId = state.userEntity.id;
-    return TaskAddForm(loggedInUserId: userId);
+  Widget _buildTaskAddForm(userId, BuildContext context) {
+    return TaskAddForm(
+      loggedInUserId: userId,
+      onAddTask: (context, task) {
+        BlocProvider.of<TaskBloc>(context).add(TaskAddBlocEvent(task));
+        context.pop();
+      },
+    );
   }
 }

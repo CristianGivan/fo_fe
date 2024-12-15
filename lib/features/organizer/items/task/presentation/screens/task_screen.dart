@@ -1,6 +1,4 @@
-import 'package:fo_fe/features/app_home/utils/app_home_exports.dart';
 import 'package:fo_fe/features/authentication/presentation/widget/auth_content_widget.dart';
-import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/presentation/widgets/task_screen_actions_menu.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
@@ -10,21 +8,17 @@ class TaskScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBarPage(title: TaskStrings().screenTitle),
-      body: AuthenticatedContentWidget(
-        contentBuilder: _buildTaskList,
-      ),
-      bottomNavigationBar: AppBottomBarPage(
-        leftMenuOptions: TaskScreenActionsMenu.getMenuItems(context),
-        onSearchSubmitted: () {},
-        rightMenuOptions: TaskScreenActionsMenu.getMenuItems(context),
-      ),
+    return AuthenticatedContentWidget(
+      appBarTitle: TaskStrings().screenTitle,
+      body: (context, userId) => _buildTaskList(userId, context),
+      menuOptions: (context, userId) => TaskScreenActionsMenu.getMenuItems(context),
+      onSearchSubmitted: () {
+        // Define the search functionality here
+      },
     );
   }
 
-  Column _buildTaskList(AuthAuthenticatedBlocState state, BuildContext context) {
-    final userId = state.userEntity.id;
+  Widget _buildTaskList(int userId, BuildContext context) {
     context.read<TaskBloc>().add(GetTaskItemsFromLogInUserBlocEvent(userId));
     return Column(
       children: [
