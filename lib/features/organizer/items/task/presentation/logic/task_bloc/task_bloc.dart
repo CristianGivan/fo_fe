@@ -54,6 +54,20 @@ class TaskBloc extends Bloc<TaskBlocEvent, TaskBlocState> {
     on<TaskAddBlocEvent>(_onAddTaskBlocEvent);
     on<TaskUpdateBlocEvent>(_onUpdateTaskBlocEvent);
     on<TaskDeleteBlocEvent>(_onDeleteTaskBlocEvent);
+    on<ToggleTaskSelectionBlocEvent>(_onToggleTaskSelectionBlocEvent);
+  }
+
+  void _onToggleTaskSelectionBlocEvent(event, emit) {
+    if (state is TaskLoadedBlocState) {
+      final currentState = state as TaskLoadedBlocState;
+      final newSelectedTasks = currentState.selectedTasks.toBuilder();
+      if (currentState.selectedTasks.contains(event.taskId)) {
+        newSelectedTasks.remove(event.taskId);
+      } else {
+        newSelectedTasks.add(event.taskId);
+      }
+      emit(currentState.copyWith(selectedTasks: newSelectedTasks.build()));
+    }
   }
 
   void _onGetTaskByIdBlocEvent(

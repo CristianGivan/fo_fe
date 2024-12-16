@@ -36,7 +36,21 @@ class TaskListPage extends StatelessWidget {
         itemCount: tasks.size(),
         itemBuilder: (context, index) {
           final task = tasks.getAt(index);
-          return TaskCard(task);
+          return BlocBuilder<TaskBloc, TaskBlocState>(
+            builder: (context, state) {
+              if (state is TaskLoadedBlocState) {
+                final isSelected = state.selectedTasks.contains(task.id);
+                return CheckboxListTile(
+                  title: TaskCard(task),
+                  value: isSelected,
+                  onChanged: (bool? value) {
+                    context.read<TaskBloc>().add(ToggleTaskSelectionBlocEvent(task.id));
+                  },
+                );
+              }
+              return const SizedBox.shrink();
+            },
+          );
         },
       );
     }

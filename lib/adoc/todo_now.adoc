@@ -25,11 +25,11 @@ debounce see todo code
 == Now
 
 * add delete at task
-* add select at task
 * ajust snack bar to be at bottom when I don't have a bottomNavigationBar
 
 == Done
 
+* add select at task
 * add task is done only at user 1
 * can be removed extra  final task = state.extra as TaskEntity?;
 * update screens title names
