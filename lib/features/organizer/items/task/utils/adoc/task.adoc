@@ -1,6 +1,15 @@
 == Design
+
 === DB
+
 * a task is light it can be return the entity from db wen added or updated
+* the taskUser table shal contain information like if a user had select the task or what is th
+orther of the task for that user. This information shall be selved to db only when pop the
+task list
+
+==Presentation
+* create a pop method where to add all the things that shall happen during the pop of several
+screens like pop task list to save the selected and the order of the task list
 
 == Todo
 

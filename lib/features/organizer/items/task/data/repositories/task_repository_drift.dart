@@ -68,6 +68,14 @@ class TaskRepositoryDrift implements TaskRepository {
   }
 
   @override
+  Future<Either<Failure, OrganizerItems<TaskDTO>>> getTaskDtoItemsFromUser(int userId) {
+    return _handleDatabaseOperation(() async {
+      final items = await localDataSource.getTaskItemsFromUser(userId);
+      return _filterNonNullItems<TaskDTO, TaskTableDriftG>(
+    });
+  }
+
+  @override
   Future<Either<Failure, OrganizerItems<TaskEntity>>> getTaskItemsByIdSet(IdSet idSet) {
     return _handleDatabaseOperation<OrganizerItems<TaskEntity>>(
       () async {

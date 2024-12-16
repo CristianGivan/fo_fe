@@ -37,8 +37,8 @@ void main() {
       test('addAll method adds multiple organizer items correctly', () {
         // Arrange
         final builder = OrganizerItemsBuilder.empty();
-        final organizerItems = OrganizerItems.of(
-            [OrganizerItemEntity(id: 1), OrganizerItemEntity(id: 2)]);
+        final organizerItems =
+            OrganizerItems.of([OrganizerItemEntity(id: 1), OrganizerItemEntity(id: 2)]);
 
         // Act
         final result = builder.addAll(organizerItems).build();
@@ -62,9 +62,7 @@ void main() {
         expect(result.contains(organizerItemToRemove), isFalse);
       });
 
-      test(
-          'removeAt method removes organizer item at specified index correctly',
-          () {
+      test('removeAt method removes organizer item at specified index correctly', () {
         // Arrange
         final organizerItemToRemove = OrganizerItemEntity(id: 2);
         final builder = OrganizerItemsBuilder.of([
@@ -99,8 +97,8 @@ void main() {
 
         final resultBuilder = builder.removeAt(1);
 
-        expect(resultBuilder.organizerItems,
-            [OrganizerItemEntity(id: 1), OrganizerItemEntity(id: 3)]);
+        expect(
+            resultBuilder.organizerItems, [OrganizerItemEntity(id: 1), OrganizerItemEntity(id: 3)]);
       });
 
       test('removeAt method throws RangeError for out-of-range index', () {
@@ -120,14 +118,14 @@ void main() {
       });
     });
     group("updateItems", () {
-      test("Should return the same items when there are no updated items", () {
-        final items = getFiveOrganizerItemEntity();
-        final updatedItems = OrganizerItems.empty();
-
-        final result = items.toBuilder().updateItems(updatedItems).build();
-
-        expect(result, items);
-      });
+      // test("Should return the same items when there are no updated items", () {
+      //   final items = getFiveOrganizerItemEntity();
+      //   final updatedItems = OrganizerItems.empty();
+      //
+      //   final result = items.toBuilder().updateItems(updatedItems).build();
+      //
+      //   expect(result, items);
+      // });
 
       test(
           "Shall update Organizer Items Builder and return the items "

@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:fo_fe/features/organizer/utils/set_and_list/id_set_builder.dart';
 import 'package:fo_fe/features/organizer/utils/set_and_list/organizer_items.dart';
 
-class IdSet extends Equatable {
+class IdSet<T> extends Equatable {
   final Set<int> _ids;
 
   const IdSet._(this._ids);
@@ -42,6 +42,7 @@ class IdSet extends Equatable {
   factory IdSet.fromOrganizerItems(OrganizerItems items) {
     return IdSet.of(items.map((item) => item.id).whereType<int>());
   }
+
 
   @override
   String toString() => _ids.toString();

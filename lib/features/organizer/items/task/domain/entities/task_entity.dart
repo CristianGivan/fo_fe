@@ -12,7 +12,6 @@ class TaskEntity extends OrganizerItemEntity with EquatableMixin {
   final double? _workingProgress;
   final TaskStatus? _taskStatus;
 
-
   TaskEntity({
     int? id,
     DateTime? createdDate,
@@ -55,6 +54,7 @@ class TaskEntity extends OrganizerItemEntity with EquatableMixin {
         );
 
   static final TaskEntity _emptyInstance = TaskEntity();
+
   factory TaskEntity.empty() => _emptyInstance;
 
   bool get isEmpty => this == _emptyInstance;

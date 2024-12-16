@@ -1,5 +1,7 @@
+export '../domain/entities/task_dto.dart';
 export '../domain/entities/task_entity.dart';
 export '../domain/entities/task_entity_lazy_loaded.dart';
+export '../domain/entities/task_user_entity.dart';
 export '../domain/usecases/add_task_use_case.dart';
 export '../domain/usecases/delete_task_use_case.dart';
 export '../domain/usecases/get_reminder_list_by_task_id_use_case.dart';

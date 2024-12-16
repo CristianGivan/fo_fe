@@ -1,6 +1,6 @@
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class OrganizerItems<T extends OrganizerItemEntity> extends Equatable {
+class OrganizerItems<T extends OrganizerItemBase> extends Equatable {
   final List<T> _organizerItems;
 
   const OrganizerItems._(this._organizerItems);
@@ -76,10 +76,10 @@ class OrganizerItems<T extends OrganizerItemEntity> extends Equatable {
     return _organizerItems.firstWhere(test, orElse: orElse);
   }
 
-//todo tests
-  Iterable<Map<String, dynamic>> createJsonToCheckForUpdates() {
-    return _organizerItems.map((e) => e.jsonToCheckForUpdates());
-  }
+// //todo tests
+//   Iterable<Map<String, dynamic>> createJsonToCheckForUpdates() {
+//     return _organizerItems.map((e) => e.jsonToCheckForUpdates());
+//   }
 
   void sort(Comparator<T> comparator) => _organizerItems.sort(comparator);
 

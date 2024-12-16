@@ -12,4 +12,8 @@ class TaskUserLinkTableDrift extends Table {
 
   IntColumn get userId =>
       integer().customConstraint('REFERENCES UserTableDrift(id)')();
+
+  BoolColumn get selectedByUser => boolean().nullable()();
+
+  IntColumn get orderedByUser => integer().nullable()();
 }
