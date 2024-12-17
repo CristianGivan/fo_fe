@@ -4,7 +4,7 @@ import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 import '../../../../../../core/utils/date_time/date_time_constants.dart';
 
-class UserEntity extends OrganizerItemEntity with EquatableMixin {
+class UserEntity extends OrganizerItemEntity {
   final String name;
   final String email;
   final String password;
@@ -35,7 +35,6 @@ class UserEntity extends OrganizerItemEntity with EquatableMixin {
   factory UserEntity.empty() => _emptyInstance;
 
   bool get isEmpty => this == _emptyInstance;
-
 
   UserEntity copyWith({
     int? id,

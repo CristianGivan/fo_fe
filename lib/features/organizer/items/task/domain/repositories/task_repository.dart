@@ -20,7 +20,8 @@ abstract class TaskRepository {
 
   Future<Either<Failure, OrganizerItems<TaskEntity>>> getTaskItemsAll();
 
-  Future<Either<Failure, OrganizerItems<TaskEntity>>> getTaskItemsFromUser(int userId);
+  Future<Either<Failure, OrganizerItems<OrganizerItemBase>>> getTaskItemsFromUser(
+      TaskParams params);
 
   Future<Either<Failure, OrganizerItems<TaskDTO>>> getTaskDtoItemsFromUser(int userId);
 

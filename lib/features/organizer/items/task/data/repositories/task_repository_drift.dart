@@ -59,19 +59,34 @@ class TaskRepositoryDrift implements TaskRepository {
     });
   }
 
+
   @override
-  Future<Either<Failure, OrganizerItems<TaskEntity>>> getTaskItemsFromUser(int userId) {
+  Future<Either<Failure, OrganizerItems<OrganizerItemBase>>> getTaskItemsFromUser(
+      TaskParams params) {
     return _handleDatabaseOperation(() async {
-      final items = await localDataSource.getTaskItemsFromUser(userId);
-      return _returnEmptyOrOrganizerItemsFromTableDriftList(items);
+      if (params.itemReturnType == ItemReturn.entity) {
+        final items = await localDataSource.getTaskItemsFromUser(params.forUserId);
+        return _returnEmptyOrOrganizerItemsFromTableDriftList(items);
+      } else {
+        final items = await localDataSource.getTaskDtoItemsFromUser(params.forUserId);
+        if (items == null || items.isEmpty) {
+          return OrganizerItems<TaskDTO>.empty();
+        } else {
+          return OrganizerItems.of(items);
+        }
+      }
     });
   }
 
   @override
   Future<Either<Failure, OrganizerItems<TaskDTO>>> getTaskDtoItemsFromUser(int userId) {
     return _handleDatabaseOperation(() async {
-      final items = await localDataSource.getTaskItemsFromUser(userId);
-      return _filterNonNullItems<TaskDTO, TaskTableDriftG>(
+      final items = await localDataSource.getTaskDtoItemsFromUser(userId);
+      if (items == null || items.isEmpty) {
+        return OrganizerItems<TaskDTO>.empty();
+      } else {
+        return OrganizerItems.of(items);
+      }
     });
   }
 

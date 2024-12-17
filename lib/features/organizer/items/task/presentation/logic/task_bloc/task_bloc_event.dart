@@ -27,6 +27,15 @@ class GetTaskItemsFromLogInUserBlocEvent extends TaskBlocEvent {
   List<Object> get props => [userId];
 }
 
+class GetTaskItemsFromLogInUserBlocEvent extends TaskBlocEvent {
+  final int userId;
+
+  const GetTaskItemsFromLogInUserBlocEvent(this.userId);
+
+  @override
+  List<Object> get props => [userId];
+}
+
 class TaskLoadItemsByIdSetBlocEvent extends TaskBlocEvent {
   final IdSet idSet;
 

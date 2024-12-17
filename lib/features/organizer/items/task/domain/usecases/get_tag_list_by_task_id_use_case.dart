@@ -14,6 +14,6 @@ class GetTagItemsByTaskIdUseCase extends UseCase<OrganizerItems<TagEntity>, Task
 
   @override
   Future<Either<Failure, OrganizerItems<TagEntity>>> call(TaskParams params) {
-    return repository.getTagItemsByTaskId(params.taskId);
+    return repository.getTagItemsByTaskId(params.id);
   }
 }

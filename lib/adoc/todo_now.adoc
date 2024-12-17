@@ -17,6 +17,7 @@ debounce see todo code
 
 == Next
 
+* delete implementeation for _onToggleTaskSelectionBlocEent
 * scafold for the task edit and view
 * update with task strings
 * clean up adocs

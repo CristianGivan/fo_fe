@@ -14,6 +14,6 @@ class GetUserItemsByTaskIdUseCase extends UseCase<OrganizerItems<UserEntity>, Ta
 
   @override
   Future<Either<Failure, OrganizerItems<UserEntity>>> call(TaskParams params) {
-    return repository.getUserItemsByTaskId(params.taskId);
+    return repository.getUserItemsByTaskId(params.id);
   }
 }

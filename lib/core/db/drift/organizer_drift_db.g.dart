@@ -1897,8 +1897,24 @@ class $TaskUserLinkTableDriftTable extends TaskUserLinkTableDrift
       type: DriftSqlType.int,
       requiredDuringInsert: true,
       $customConstraints: 'REFERENCES UserTableDrift(id)');
+  static const VerificationMeta _selectedByUserMeta =
+      const VerificationMeta('selectedByUser');
   @override
-  List<GeneratedColumn> get $columns => [id, linkingDate, taskId, userId];
+  late final GeneratedColumn<bool> selectedByUser = GeneratedColumn<bool>(
+      'selected_by_user', aliasedName, true,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("selected_by_user" IN (0, 1))'));
+  static const VerificationMeta _orderedByUserMeta =
+      const VerificationMeta('orderedByUser');
+  @override
+  late final GeneratedColumn<int> orderedByUser = GeneratedColumn<int>(
+      'ordered_by_user', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, linkingDate, taskId, userId, selectedByUser, orderedByUser];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -1931,6 +1947,18 @@ class $TaskUserLinkTableDriftTable extends TaskUserLinkTableDrift
     } else if (isInserting) {
       context.missing(_userIdMeta);
     }
+    if (data.containsKey('selected_by_user')) {
+      context.handle(
+          _selectedByUserMeta,
+          selectedByUser.isAcceptableOrUnknown(
+              data['selected_by_user']!, _selectedByUserMeta));
+    }
+    if (data.containsKey('ordered_by_user')) {
+      context.handle(
+          _orderedByUserMeta,
+          orderedByUser.isAcceptableOrUnknown(
+              data['ordered_by_user']!, _orderedByUserMeta));
+    }
     return context;
   }
 
@@ -1948,6 +1976,10 @@ class $TaskUserLinkTableDriftTable extends TaskUserLinkTableDrift
           .read(DriftSqlType.int, data['${effectivePrefix}task_id'])!,
       userId: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}user_id'])!,
+      selectedByUser: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}selected_by_user']),
+      orderedByUser: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}ordered_by_user']),
     );
   }
 
@@ -1963,11 +1995,15 @@ class TaskUserTableDriftG extends DataClass
   final DateTime linkingDate;
   final int taskId;
   final int userId;
+  final bool? selectedByUser;
+  final int? orderedByUser;
   const TaskUserTableDriftG(
       {required this.id,
       required this.linkingDate,
       required this.taskId,
-      required this.userId});
+      required this.userId,
+      this.selectedByUser,
+      this.orderedByUser});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -1975,6 +2011,12 @@ class TaskUserTableDriftG extends DataClass
     map['linking_date'] = Variable<DateTime>(linkingDate);
     map['task_id'] = Variable<int>(taskId);
     map['user_id'] = Variable<int>(userId);
+    if (!nullToAbsent || selectedByUser != null) {
+      map['selected_by_user'] = Variable<bool>(selectedByUser);
+    }
+    if (!nullToAbsent || orderedByUser != null) {
+      map['ordered_by_user'] = Variable<int>(orderedByUser);
+    }
     return map;
   }
 
@@ -1984,6 +2026,12 @@ class TaskUserTableDriftG extends DataClass
       linkingDate: Value(linkingDate),
       taskId: Value(taskId),
       userId: Value(userId),
+      selectedByUser: selectedByUser == null && nullToAbsent
+          ? const Value.absent()
+          : Value(selectedByUser),
+      orderedByUser: orderedByUser == null && nullToAbsent
+          ? const Value.absent()
+          : Value(orderedByUser),
     );
   }
 
@@ -1995,6 +2043,8 @@ class TaskUserTableDriftG extends DataClass
       linkingDate: serializer.fromJson<DateTime>(json['linkingDate']),
       taskId: serializer.fromJson<int>(json['taskId']),
       userId: serializer.fromJson<int>(json['userId']),
+      selectedByUser: serializer.fromJson<bool?>(json['selectedByUser']),
+      orderedByUser: serializer.fromJson<int?>(json['orderedByUser']),
     );
   }
   @override
@@ -2005,16 +2055,27 @@ class TaskUserTableDriftG extends DataClass
       'linkingDate': serializer.toJson<DateTime>(linkingDate),
       'taskId': serializer.toJson<int>(taskId),
       'userId': serializer.toJson<int>(userId),
+      'selectedByUser': serializer.toJson<bool?>(selectedByUser),
+      'orderedByUser': serializer.toJson<int?>(orderedByUser),
     };
   }
 
   TaskUserTableDriftG copyWith(
-          {int? id, DateTime? linkingDate, int? taskId, int? userId}) =>
+          {int? id,
+          DateTime? linkingDate,
+          int? taskId,
+          int? userId,
+          Value<bool?> selectedByUser = const Value.absent(),
+          Value<int?> orderedByUser = const Value.absent()}) =>
       TaskUserTableDriftG(
         id: id ?? this.id,
         linkingDate: linkingDate ?? this.linkingDate,
         taskId: taskId ?? this.taskId,
         userId: userId ?? this.userId,
+        selectedByUser:
+            selectedByUser.present ? selectedByUser.value : this.selectedByUser,
+        orderedByUser:
+            orderedByUser.present ? orderedByUser.value : this.orderedByUser,
       );
   TaskUserTableDriftG copyWithCompanion(TaskUserLinkTableDriftCompanion data) {
     return TaskUserTableDriftG(
@@ -2023,6 +2084,12 @@ class TaskUserTableDriftG extends DataClass
           data.linkingDate.present ? data.linkingDate.value : this.linkingDate,
       taskId: data.taskId.present ? data.taskId.value : this.taskId,
       userId: data.userId.present ? data.userId.value : this.userId,
+      selectedByUser: data.selectedByUser.present
+          ? data.selectedByUser.value
+          : this.selectedByUser,
+      orderedByUser: data.orderedByUser.present
+          ? data.orderedByUser.value
+          : this.orderedByUser,
     );
   }
 
@@ -2032,13 +2099,16 @@ class TaskUserTableDriftG extends DataClass
           ..write('id: $id, ')
           ..write('linkingDate: $linkingDate, ')
           ..write('taskId: $taskId, ')
-          ..write('userId: $userId')
+          ..write('userId: $userId, ')
+          ..write('selectedByUser: $selectedByUser, ')
+          ..write('orderedByUser: $orderedByUser')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, linkingDate, taskId, userId);
+  int get hashCode => Object.hash(
+      id, linkingDate, taskId, userId, selectedByUser, orderedByUser);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -2046,7 +2116,9 @@ class TaskUserTableDriftG extends DataClass
           other.id == this.id &&
           other.linkingDate == this.linkingDate &&
           other.taskId == this.taskId &&
-          other.userId == this.userId);
+          other.userId == this.userId &&
+          other.selectedByUser == this.selectedByUser &&
+          other.orderedByUser == this.orderedByUser);
 }
 
 class TaskUserLinkTableDriftCompanion
@@ -2055,17 +2127,23 @@ class TaskUserLinkTableDriftCompanion
   final Value<DateTime> linkingDate;
   final Value<int> taskId;
   final Value<int> userId;
+  final Value<bool?> selectedByUser;
+  final Value<int?> orderedByUser;
   const TaskUserLinkTableDriftCompanion({
     this.id = const Value.absent(),
     this.linkingDate = const Value.absent(),
     this.taskId = const Value.absent(),
     this.userId = const Value.absent(),
+    this.selectedByUser = const Value.absent(),
+    this.orderedByUser = const Value.absent(),
   });
   TaskUserLinkTableDriftCompanion.insert({
     this.id = const Value.absent(),
     this.linkingDate = const Value.absent(),
     required int taskId,
     required int userId,
+    this.selectedByUser = const Value.absent(),
+    this.orderedByUser = const Value.absent(),
   })  : taskId = Value(taskId),
         userId = Value(userId);
   static Insertable<TaskUserTableDriftG> custom({
@@ -2073,12 +2151,16 @@ class TaskUserLinkTableDriftCompanion
     Expression<DateTime>? linkingDate,
     Expression<int>? taskId,
     Expression<int>? userId,
+    Expression<bool>? selectedByUser,
+    Expression<int>? orderedByUser,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (linkingDate != null) 'linking_date': linkingDate,
       if (taskId != null) 'task_id': taskId,
       if (userId != null) 'user_id': userId,
+      if (selectedByUser != null) 'selected_by_user': selectedByUser,
+      if (orderedByUser != null) 'ordered_by_user': orderedByUser,
     });
   }
 
@@ -2086,12 +2168,16 @@ class TaskUserLinkTableDriftCompanion
       {Value<int>? id,
       Value<DateTime>? linkingDate,
       Value<int>? taskId,
-      Value<int>? userId}) {
+      Value<int>? userId,
+      Value<bool?>? selectedByUser,
+      Value<int?>? orderedByUser}) {
     return TaskUserLinkTableDriftCompanion(
       id: id ?? this.id,
       linkingDate: linkingDate ?? this.linkingDate,
       taskId: taskId ?? this.taskId,
       userId: userId ?? this.userId,
+      selectedByUser: selectedByUser ?? this.selectedByUser,
+      orderedByUser: orderedByUser ?? this.orderedByUser,
     );
   }
 
@@ -2110,6 +2196,12 @@ class TaskUserLinkTableDriftCompanion
     if (userId.present) {
       map['user_id'] = Variable<int>(userId.value);
     }
+    if (selectedByUser.present) {
+      map['selected_by_user'] = Variable<bool>(selectedByUser.value);
+    }
+    if (orderedByUser.present) {
+      map['ordered_by_user'] = Variable<int>(orderedByUser.value);
+    }
     return map;
   }
 
@@ -2119,7 +2211,9 @@ class TaskUserLinkTableDriftCompanion
           ..write('id: $id, ')
           ..write('linkingDate: $linkingDate, ')
           ..write('taskId: $taskId, ')
-          ..write('userId: $userId')
+          ..write('userId: $userId, ')
+          ..write('selectedByUser: $selectedByUser, ')
+          ..write('orderedByUser: $orderedByUser')
           ..write(')'))
         .toString();
   }
@@ -5275,6 +5369,8 @@ typedef $$TaskUserLinkTableDriftTableCreateCompanionBuilder
   Value<DateTime> linkingDate,
   required int taskId,
   required int userId,
+  Value<bool?> selectedByUser,
+  Value<int?> orderedByUser,
 });
 typedef $$TaskUserLinkTableDriftTableUpdateCompanionBuilder
     = TaskUserLinkTableDriftCompanion Function({
@@ -5282,6 +5378,8 @@ typedef $$TaskUserLinkTableDriftTableUpdateCompanionBuilder
   Value<DateTime> linkingDate,
   Value<int> taskId,
   Value<int> userId,
+  Value<bool?> selectedByUser,
+  Value<int?> orderedByUser,
 });
 
 class $$TaskUserLinkTableDriftTableFilterComposer
@@ -5304,6 +5402,13 @@ class $$TaskUserLinkTableDriftTableFilterComposer
 
   ColumnFilters<int> get userId => $composableBuilder(
       column: $table.userId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get selectedByUser => $composableBuilder(
+      column: $table.selectedByUser,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get orderedByUser => $composableBuilder(
+      column: $table.orderedByUser, builder: (column) => ColumnFilters(column));
 }
 
 class $$TaskUserLinkTableDriftTableOrderingComposer
@@ -5326,6 +5431,14 @@ class $$TaskUserLinkTableDriftTableOrderingComposer
 
   ColumnOrderings<int> get userId => $composableBuilder(
       column: $table.userId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get selectedByUser => $composableBuilder(
+      column: $table.selectedByUser,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get orderedByUser => $composableBuilder(
+      column: $table.orderedByUser,
+      builder: (column) => ColumnOrderings(column));
 }
 
 class $$TaskUserLinkTableDriftTableAnnotationComposer
@@ -5348,6 +5461,12 @@ class $$TaskUserLinkTableDriftTableAnnotationComposer
 
   GeneratedColumn<int> get userId =>
       $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<bool> get selectedByUser => $composableBuilder(
+      column: $table.selectedByUser, builder: (column) => column);
+
+  GeneratedColumn<int> get orderedByUser => $composableBuilder(
+      column: $table.orderedByUser, builder: (column) => column);
 }
 
 class $$TaskUserLinkTableDriftTableTableManager extends RootTableManager<
@@ -5385,24 +5504,32 @@ class $$TaskUserLinkTableDriftTableTableManager extends RootTableManager<
             Value<DateTime> linkingDate = const Value.absent(),
             Value<int> taskId = const Value.absent(),
             Value<int> userId = const Value.absent(),
+            Value<bool?> selectedByUser = const Value.absent(),
+            Value<int?> orderedByUser = const Value.absent(),
           }) =>
               TaskUserLinkTableDriftCompanion(
             id: id,
             linkingDate: linkingDate,
             taskId: taskId,
             userId: userId,
+            selectedByUser: selectedByUser,
+            orderedByUser: orderedByUser,
           ),
           createCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<DateTime> linkingDate = const Value.absent(),
             required int taskId,
             required int userId,
+            Value<bool?> selectedByUser = const Value.absent(),
+            Value<int?> orderedByUser = const Value.absent(),
           }) =>
               TaskUserLinkTableDriftCompanion.insert(
             id: id,
             linkingDate: linkingDate,
             taskId: taskId,
             userId: userId,
+            selectedByUser: selectedByUser,
+            orderedByUser: orderedByUser,
           ),
           withReferenceMapper: (p0) => p0
               .map((e) => (e.readTable(table), BaseReferences(db, table, e)))

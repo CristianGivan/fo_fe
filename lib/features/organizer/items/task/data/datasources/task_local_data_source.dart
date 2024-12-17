@@ -1,4 +1,5 @@
 import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
+import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 abstract class TaskLocalDataSource {
@@ -13,6 +14,8 @@ abstract class TaskLocalDataSource {
   Future<List<TaskTableDriftG>?> getTaskItemsAll();
 
   Future<List<TaskTableDriftG>?> getTaskItemsFromUser(int userId);
+
+  Future<List<TaskDTO>?> getTaskDtoItemsFromUser(int userId);
 
   Future<List<TaskTableDriftG?>?> getTaskItemsByIdSet(IdSet idSet);
 

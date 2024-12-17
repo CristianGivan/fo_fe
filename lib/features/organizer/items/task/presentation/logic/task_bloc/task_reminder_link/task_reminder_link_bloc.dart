@@ -17,7 +17,7 @@ class TaskReminderLinkBloc extends Bloc<TaskReminderLinkBlocEvent, TaskReminderL
     Emitter<TaskReminderLinkBlocState> emit,
   ) async {
     emit(TaskReminderLoadingBlocState());
-    final failureOrReminders = await getRemindersByTaskId(TaskParams(taskId: event.taskId));
+    final failureOrReminders = await getRemindersByTaskId(TaskParams(id: event.taskId));
     emit(failureOrReminders.fold(
       (failure) => TaskReminderErrorBlocState(_mapFailureToMessage(failure)),
       (reminders) => TaskReminderLoadedBlocState(reminders),

@@ -1,10 +1,11 @@
 import 'dart:async';
 
+import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/usecase/params.dart';
 import 'package:fo_fe/features/organizer/items/reminder/utils/reminder_exports.dart';
 import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
-import 'package:fo_fe/features/organizer/items/task/domain/usecases/get_task_itemsFromLogInUser_use_case.dart';
+import 'package:fo_fe/features/organizer/items/task/domain/usecases/get_task_items_from_logIn_user_use_case.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/usecases/update_reminder_items_of_task_use_case.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/usecases/update_user_items_of_task_use_case.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
@@ -75,7 +76,7 @@ class TaskBloc extends Bloc<TaskBlocEvent, TaskBlocState> {
     Emitter<TaskBlocState> emit,
   ) async {
     emit(TaskLoadingBlocState());
-    final failureOrTask = await getTaskById(TaskParams(taskId: event.taskId));
+    final failureOrTask = await getTaskById(TaskParams(id: event.taskId));
     emit(failureOrTask.fold(
       (failure) => TaskErrorBlocState(message: _mapFailureToMessage(failure)),
       (task) => TaskLoadedBlocState(
@@ -91,7 +92,9 @@ class TaskBloc extends Bloc<TaskBlocEvent, TaskBlocState> {
     final failureOrTasks = await getTaskItemsAll(NoParams());
     emit(failureOrTasks.fold(
       (failure) => TaskErrorBlocState(message: _mapFailureToMessage(failure)),
-      (tasks) => TaskLoadedBlocState(originalTasks: tasks, displayedTasks: tasks),
+      (tasks) => TaskLoadedBlocState(
+          originalTasks: tasks as OrganizerItems<TaskEntity>,
+          displayedTasks: tasks as OrganizerItems<TaskEntity>),
     ));
   }
 
@@ -100,10 +103,14 @@ class TaskBloc extends Bloc<TaskBlocEvent, TaskBlocState> {
     Emitter<TaskBlocState> emit,
   ) async {
     emit(TaskLoadingBlocState());
-    final failureOrTasks = await getTaskItemsFromLogInUser(UserParams(userId: event.userId));
+    final Either<Failure, OrganizerItems<OrganizerItemBase>> failureOrTasks =
+        await (getTaskItemsFromLogInUser(
+            TaskParams(forUserId: event.userId, itemReturn: ItemReturn.entity)));
     emit(failureOrTasks.fold(
       (failure) => TaskErrorBlocState(message: _mapFailureToMessage(failure)),
-      (tasks) => TaskLoadedBlocState(originalTasks: tasks, displayedTasks: tasks),
+      (tasks) => TaskLoadedBlocState(
+          originalTasks: tasks as OrganizerItems<TaskEntity>,
+          displayedTasks: tasks as OrganizerItems<TaskEntity>),
     ));
   }
 
@@ -214,7 +221,7 @@ class TaskBloc extends Bloc<TaskBlocEvent, TaskBlocState> {
     Emitter<TaskBlocState> emit,
   ) async {
     emit(TaskLoadingBlocState());
-    final failureOrSuccess = await deleteTask(TaskParams(taskId: event.taskId));
+    final failureOrSuccess = await deleteTask(TaskParams(id: event.taskId));
     emit(failureOrSuccess.fold(
       (failure) => TaskErrorBlocState(message: _mapFailureToMessage(failure)),
       (success) => TaskDeletedBlocState(),

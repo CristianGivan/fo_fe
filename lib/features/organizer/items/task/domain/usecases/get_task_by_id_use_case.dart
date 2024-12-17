@@ -13,7 +13,7 @@ class GetTaskByIdUseCase extends UseCase<TaskEntity, TaskParams> {
 
   @override
   Future<Either<Failure, TaskEntity>> call(TaskParams params) {
-    return repository.getTaskById(params.taskId);
+    return repository.getTaskById(params.id);
   }
 }
 

@@ -2,7 +2,7 @@ import 'package:fo_fe/core/utils/date_time/date_time_constants.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class TaskEntity extends OrganizerItemEntity with EquatableMixin {
+class TaskEntity extends OrganizerItemEntity {
   final String _subject;
   final DateTime? _startDate;
   final DateTime? _endDate;

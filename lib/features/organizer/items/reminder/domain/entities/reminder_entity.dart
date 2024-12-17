@@ -1,8 +1,7 @@
-import 'package:equatable/equatable.dart';
 import 'package:fo_fe/core/utils/date_time/date_time_constants.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class ReminderEntity extends OrganizerItemEntity with EquatableMixin {
+class ReminderEntity extends OrganizerItemEntity {
   final String _subject;
   final DateTime _remindAt;
 
@@ -33,7 +32,8 @@ class ReminderEntity extends OrganizerItemEntity with EquatableMixin {
           checksum: checksum ?? '',
         );
 
-  static final ReminderEntity _emptyInstance = ReminderEntity(remindAt: INITIAL_EPOCH_DATE, subject: '');
+  static final ReminderEntity _emptyInstance =
+      ReminderEntity(remindAt: INITIAL_EPOCH_DATE, subject: '');
 
   factory ReminderEntity.empty() => _emptyInstance;
 

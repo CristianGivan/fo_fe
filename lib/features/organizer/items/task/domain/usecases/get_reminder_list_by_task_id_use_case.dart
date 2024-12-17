@@ -14,6 +14,6 @@ class GetReminderItemsByTaskIdUseCase extends UseCase<OrganizerItems<ReminderEnt
 
   @override
   Future<Either<Failure, OrganizerItems<ReminderEntity>>> call(TaskParams params) {
-    return repository.getRemindersByTaskId(params.taskId);
+    return repository.getRemindersByTaskId(params.id);
   }
 }

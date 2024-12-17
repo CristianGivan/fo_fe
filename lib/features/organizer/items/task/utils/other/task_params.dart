@@ -1,30 +1,21 @@
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class TaskParams extends Equatable {
+class TaskParams extends ItemParams {
   final TaskEntity task;
-  final int taskId;
-  final IdSet idSet;
 
-  TaskParams({TaskEntity? task, this.taskId = 0, IdSet? idSet})
-      : task = task ?? TaskEntity.empty(),
-        idSet = idSet ?? IdSet.empty();
-
-  @override
-  List<Object> get props => [task, taskId];
-}
-
-class AddItemsToTaskParams extends Equatable {
-  final int taskId;
-  final IdSet itemsIds;
-
-  const AddItemsToTaskParams({
-    required this.taskId,
-    required this.itemsIds,
-  });
+  TaskParams({
+    TaskEntity? task,
+    super.id,
+    super.idSet,
+    super.forUserId,
+    super.itemReturn,
+  }) : task = task ?? TaskEntity.empty();
 
   @override
-  List<Object> get props => [taskId, itemsIds];
+  List<Object> get props => [task, ...super.props];
+
+  get itemReturnType => super.itemReturn;
 }
 
 class UpdateItemsToTaskParams<T extends OrganizerItemEntity> extends Equatable {

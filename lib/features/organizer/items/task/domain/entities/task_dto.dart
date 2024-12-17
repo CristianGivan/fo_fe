@@ -1,7 +1,7 @@
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class TaskDTO extends OrganizerItemBase with EquatableMixin {
+class TaskDTO extends OrganizerItemBase {
   final TaskEntity task;
   final TaskUserLinkEntity? taskUserData;
 

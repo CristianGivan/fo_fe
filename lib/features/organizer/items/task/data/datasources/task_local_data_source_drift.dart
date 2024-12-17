@@ -5,6 +5,8 @@ import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/data/datasources/task_local_data_source.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
+import '../../utils/task_exports.dart';
+
 class TaskLocalDataSourceDrift implements TaskLocalDataSource {
   final OrganizerDriftDB db;
 
@@ -53,6 +55,25 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
       final taskIds = await db.taskUserLinkDaoDrift.getTaskIdsByUserId(userId);
       final tasks = await db.taskDaoDrift.getTaskItemsByIdSet(taskIds);
       return tasks?.whereType<TaskTableDriftG>().toList();
+    });
+  }
+
+  @override
+  Future<List<TaskDTO>> getTaskDtoItemsFromUser(int userId) async {
+    return await db.transaction(() async {
+      final query = db.select(db.taskTableDrift).join([
+        leftOuterJoin(
+          db.taskUserLinkTableDrift,
+          db.taskUserLinkTableDrift.taskId.equalsExp(db.taskTableDrift.id) &
+              db.taskUserLinkTableDrift.userId.equals(userId),
+        ),
+      ]);
+      final result = await query.get();
+      if (result.isEmpty) {
+        return [];
+      } else {
+        return dtoItemsFromQueryResult(result);
+      }
     });
   }
 
@@ -165,5 +186,37 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
       taskId: Value(taskId),
       userId: Value(userId),
     );
+  }
+
+  List<TaskDTO> dtoItemsFromQueryResult(List<TypedResult> items) {
+    return items.map((row) {
+      final taskRow = row.readTable(db.taskTableDrift);
+      final taskUserLinkRow = row.readTableOrNull(db.taskUserLinkTableDrift);
+
+      return TaskDTO(
+        task: TaskEntity(
+          id: taskRow.id,
+          remoteId: taskRow.remoteId,
+          subject: taskRow.subject,
+          startDate: taskRow.startDate,
+          endDate: taskRow.endDate,
+          workingTime: taskRow.workingTime,
+          estimatedTime: taskRow.estimatedTime,
+          estimatedLeftTime: taskRow.estimatedLeftTime,
+          workingProgress: taskRow.workingProgress,
+          taskStatus: taskStatusMap[taskRow.taskStatus],
+        ),
+        taskUserData: taskUserLinkRow != null
+            ? TaskUserLinkEntity(
+                id: taskUserLinkRow.id,
+                linkingDate: taskUserLinkRow.linkingDate,
+                taskId: taskUserLinkRow.taskId,
+                userId: taskUserLinkRow.userId,
+                selectedByUser: taskUserLinkRow.selectedByUser ?? false,
+                orderedByUser: taskUserLinkRow.orderedByUser ?? double.maxFinite.toInt(),
+              )
+            : null,
+      );
+    }).toList();
   }
 }

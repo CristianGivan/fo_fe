@@ -13,6 +13,6 @@ class GetCreatorByTaskIdUseCase extends UseCase<UserEntity, TaskParams> {
 
   @override
   Future<Either<Failure, UserEntity>> call(TaskParams params) {
-    return repository.getCreatorTaskById(params.taskId);
+    return repository.getCreatorTaskById(params.id);
   }
 }
