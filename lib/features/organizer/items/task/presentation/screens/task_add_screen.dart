@@ -12,20 +12,10 @@ class TaskAddScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return AuthenticatedContentWidget(
       appBarTitle: TaskStrings().screenAddTitle,
-      body: (context, userId) => _buildTaskAddForm(userId, context),
+      body: (userId) => TaskAddForm(userId: userId),
       menuOptions: (context, userId) => TaskAddScreenActionsMenu.getMenuItems(context, userId),
       onSearchSubmitted: () {
         // Define the search functionality here
-      },
-    );
-  }
-
-  Widget _buildTaskAddForm(userId, BuildContext context) {
-    return TaskAddForm(
-      loggedInUserId: userId,
-      onAddTask: (context, task) {
-        BlocProvider.of<TaskBloc>(context).add(TaskAddBlocEvent(task));
-        context.pop();
       },
     );
   }

@@ -9,23 +9,13 @@ class TaskScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AuthenticatedContentWidget(
+      fetchItemsForLoggedInUser: _getTaskItemsFromLoggedInUser,
       appBarTitle: TaskStrings().screenTitle,
-      body: (context, userId) => _buildTaskList(context, userId),
+      body: TaskListPage(),
       menuOptions: (context, userId) => TaskScreenActionsMenu.getMenuItems(context),
       onSearchSubmitted: () {
         // Define the search functionality here
       },
-    );
-  }
-
-  Widget _buildTaskList(BuildContext context, int userId) {
-    _getTaskItemsFromLoggedInUser(context, userId);
-    return Column(
-      children: [
-        Expanded(
-          child: TaskListPage(),
-        ),
-      ],
     );
   }
 

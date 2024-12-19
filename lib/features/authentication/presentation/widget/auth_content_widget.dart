@@ -1,16 +1,19 @@
+import 'package:fo_fe/features/app_home/presentation/pages/app_body_page.dart';
 import 'package:fo_fe/features/app_home/presentation/pages/app_bottom_bar_same_menu.dart';
 import 'package:fo_fe/features/app_home/utils/app_home_exports.dart';
 import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class AuthenticatedContentWidget extends StatelessWidget {
+  final void Function(BuildContext context, int userId)? fetchItemsForLoggedInUser;
   final String appBarTitle;
-  final Widget Function(BuildContext context, int userId) body;
+  final dynamic body;
   final List<PopupMenuEntry> Function(BuildContext context, int userId) menuOptions;
   final VoidCallback onSearchSubmitted;
 
   const AuthenticatedContentWidget({
     super.key,
+    this.fetchItemsForLoggedInUser,
     required this.appBarTitle,
     required this.body,
     required this.menuOptions,
@@ -23,9 +26,10 @@ class AuthenticatedContentWidget extends StatelessWidget {
       builder: (context, state) {
         if (state is AuthAuthenticatedBlocState) {
           final userId = state.userEntity.id;
+          fetchItemsForLoggedInUser?.call(context, userId);
           return Scaffold(
             appBar: AppBarPage(title: appBarTitle),
-            body: body(context, userId),
+            body: AppBodyPage(body: body, context: context, userId: userId),
             bottomNavigationBar: AppBottomBarSameMenu(
               menuOptions: menuOptions(context, userId),
               onSearchSubmitted: onSearchSubmitted,

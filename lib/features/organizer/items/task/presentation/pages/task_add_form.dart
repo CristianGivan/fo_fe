@@ -3,10 +3,9 @@ import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class TaskAddForm extends StatelessWidget {
-  final int loggedInUserId;
-  final Function(BuildContext, TaskEntity) onAddTask;
+  final int userId;
 
-  const TaskAddForm({super.key, required this.loggedInUserId, required this.onAddTask});
+  const TaskAddForm({super.key, required this.userId});
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +61,7 @@ class TaskAddForm extends StatelessWidget {
       id: 0,
       subject: formState.subject,
       createdDate: DateTime.now(),
-      creatorId: loggedInUserId,
+      creatorId: userId,
       checksum: formState.checksum.isNotEmpty ? formState.checksum : null,
       startDate: formState.startDate,
       endDate: formState.endDate,
@@ -73,7 +72,8 @@ class TaskAddForm extends StatelessWidget {
       taskStatus: formState.taskStatus,
     );
 
-    onAddTask(context, task);
+    BlocProvider.of<TaskBloc>(context).add(TaskAddBlocEvent(task));
+    context.pop();
   }
 
   Future<void> _selectDateTime(BuildContext context, Function(DateTime) onUpdate) async {

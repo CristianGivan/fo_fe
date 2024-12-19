@@ -90,25 +90,4 @@ class TaskListPage extends StatelessWidget {
       );
     }
   }
-
-  void _handleTaskDtoSelectionChange(BuildContext context, TaskDto taskDto, bool? value) {
-    final updatedTaskUserLink = taskDto.taskUserLink.copyWith(selectedByUser: value!);
-    context.read<TaskBloc>().add(UpdateTaskUserLinkBlocEvent(TaskParams(
-          taskDto: taskDto.copyWith(taskUserLink: updatedTaskUserLink),
-          taskUserLinkEntity: updatedTaskUserLink,
-        )));
-  }
-
-  Widget _buildTaskCheckboxListTile(
-    BuildContext context, {
-    required TaskEntity task,
-    required bool isSelected,
-    required ValueChanged<bool?> onChanged,
-  }) {
-    return CheckboxListTile(
-      title: TaskCard(task),
-      value: isSelected,
-      onChanged: onChanged,
-    );
-  }
 }
