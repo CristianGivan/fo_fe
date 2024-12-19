@@ -1861,7 +1861,7 @@ class TaskReminderLinkTableDriftCompanion
 }
 
 class $TaskUserLinkTableDriftTable extends TaskUserLinkTableDrift
-    with TableInfo<$TaskUserLinkTableDriftTable, TaskUserTableDriftG> {
+    with TableInfo<$TaskUserLinkTableDriftTable, TaskUserLinkTableDriftG> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
@@ -1922,7 +1922,7 @@ class $TaskUserLinkTableDriftTable extends TaskUserLinkTableDrift
   static const String $name = 'task_user_link_table_drift';
   @override
   VerificationContext validateIntegrity(
-      Insertable<TaskUserTableDriftG> instance,
+      Insertable<TaskUserLinkTableDriftG> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -1965,9 +1965,10 @@ class $TaskUserLinkTableDriftTable extends TaskUserLinkTableDrift
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  TaskUserTableDriftG map(Map<String, dynamic> data, {String? tablePrefix}) {
+  TaskUserLinkTableDriftG map(Map<String, dynamic> data,
+      {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return TaskUserTableDriftG(
+    return TaskUserLinkTableDriftG(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       linkingDate: attachedDatabase.typeMapping
@@ -1989,15 +1990,15 @@ class $TaskUserLinkTableDriftTable extends TaskUserLinkTableDrift
   }
 }
 
-class TaskUserTableDriftG extends DataClass
-    implements Insertable<TaskUserTableDriftG> {
+class TaskUserLinkTableDriftG extends DataClass
+    implements Insertable<TaskUserLinkTableDriftG> {
   final int id;
   final DateTime linkingDate;
   final int taskId;
   final int userId;
   final bool? selectedByUser;
   final int? orderedByUser;
-  const TaskUserTableDriftG(
+  const TaskUserLinkTableDriftG(
       {required this.id,
       required this.linkingDate,
       required this.taskId,
@@ -2035,10 +2036,10 @@ class TaskUserTableDriftG extends DataClass
     );
   }
 
-  factory TaskUserTableDriftG.fromJson(Map<String, dynamic> json,
+  factory TaskUserLinkTableDriftG.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return TaskUserTableDriftG(
+    return TaskUserLinkTableDriftG(
       id: serializer.fromJson<int>(json['id']),
       linkingDate: serializer.fromJson<DateTime>(json['linkingDate']),
       taskId: serializer.fromJson<int>(json['taskId']),
@@ -2060,14 +2061,14 @@ class TaskUserTableDriftG extends DataClass
     };
   }
 
-  TaskUserTableDriftG copyWith(
+  TaskUserLinkTableDriftG copyWith(
           {int? id,
           DateTime? linkingDate,
           int? taskId,
           int? userId,
           Value<bool?> selectedByUser = const Value.absent(),
           Value<int?> orderedByUser = const Value.absent()}) =>
-      TaskUserTableDriftG(
+      TaskUserLinkTableDriftG(
         id: id ?? this.id,
         linkingDate: linkingDate ?? this.linkingDate,
         taskId: taskId ?? this.taskId,
@@ -2077,8 +2078,9 @@ class TaskUserTableDriftG extends DataClass
         orderedByUser:
             orderedByUser.present ? orderedByUser.value : this.orderedByUser,
       );
-  TaskUserTableDriftG copyWithCompanion(TaskUserLinkTableDriftCompanion data) {
-    return TaskUserTableDriftG(
+  TaskUserLinkTableDriftG copyWithCompanion(
+      TaskUserLinkTableDriftCompanion data) {
+    return TaskUserLinkTableDriftG(
       id: data.id.present ? data.id.value : this.id,
       linkingDate:
           data.linkingDate.present ? data.linkingDate.value : this.linkingDate,
@@ -2095,7 +2097,7 @@ class TaskUserTableDriftG extends DataClass
 
   @override
   String toString() {
-    return (StringBuffer('TaskUserTableDriftG(')
+    return (StringBuffer('TaskUserLinkTableDriftG(')
           ..write('id: $id, ')
           ..write('linkingDate: $linkingDate, ')
           ..write('taskId: $taskId, ')
@@ -2112,7 +2114,7 @@ class TaskUserTableDriftG extends DataClass
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is TaskUserTableDriftG &&
+      (other is TaskUserLinkTableDriftG &&
           other.id == this.id &&
           other.linkingDate == this.linkingDate &&
           other.taskId == this.taskId &&
@@ -2122,7 +2124,7 @@ class TaskUserTableDriftG extends DataClass
 }
 
 class TaskUserLinkTableDriftCompanion
-    extends UpdateCompanion<TaskUserTableDriftG> {
+    extends UpdateCompanion<TaskUserLinkTableDriftG> {
   final Value<int> id;
   final Value<DateTime> linkingDate;
   final Value<int> taskId;
@@ -2146,7 +2148,7 @@ class TaskUserLinkTableDriftCompanion
     this.orderedByUser = const Value.absent(),
   })  : taskId = Value(taskId),
         userId = Value(userId);
-  static Insertable<TaskUserTableDriftG> custom({
+  static Insertable<TaskUserLinkTableDriftG> custom({
     Expression<int>? id,
     Expression<DateTime>? linkingDate,
     Expression<int>? taskId,
@@ -5472,18 +5474,18 @@ class $$TaskUserLinkTableDriftTableAnnotationComposer
 class $$TaskUserLinkTableDriftTableTableManager extends RootTableManager<
     _$OrganizerDriftDB,
     $TaskUserLinkTableDriftTable,
-    TaskUserTableDriftG,
+    TaskUserLinkTableDriftG,
     $$TaskUserLinkTableDriftTableFilterComposer,
     $$TaskUserLinkTableDriftTableOrderingComposer,
     $$TaskUserLinkTableDriftTableAnnotationComposer,
     $$TaskUserLinkTableDriftTableCreateCompanionBuilder,
     $$TaskUserLinkTableDriftTableUpdateCompanionBuilder,
     (
-      TaskUserTableDriftG,
+      TaskUserLinkTableDriftG,
       BaseReferences<_$OrganizerDriftDB, $TaskUserLinkTableDriftTable,
-          TaskUserTableDriftG>
+          TaskUserLinkTableDriftG>
     ),
-    TaskUserTableDriftG,
+    TaskUserLinkTableDriftG,
     PrefetchHooks Function()> {
   $$TaskUserLinkTableDriftTableTableManager(
       _$OrganizerDriftDB db, $TaskUserLinkTableDriftTable table)
@@ -5542,18 +5544,18 @@ typedef $$TaskUserLinkTableDriftTableProcessedTableManager
     = ProcessedTableManager<
         _$OrganizerDriftDB,
         $TaskUserLinkTableDriftTable,
-        TaskUserTableDriftG,
+        TaskUserLinkTableDriftG,
         $$TaskUserLinkTableDriftTableFilterComposer,
         $$TaskUserLinkTableDriftTableOrderingComposer,
         $$TaskUserLinkTableDriftTableAnnotationComposer,
         $$TaskUserLinkTableDriftTableCreateCompanionBuilder,
         $$TaskUserLinkTableDriftTableUpdateCompanionBuilder,
         (
-          TaskUserTableDriftG,
+          TaskUserLinkTableDriftG,
           BaseReferences<_$OrganizerDriftDB, $TaskUserLinkTableDriftTable,
-              TaskUserTableDriftG>
+              TaskUserLinkTableDriftG>
         ),
-        TaskUserTableDriftG,
+        TaskUserLinkTableDriftG,
         PrefetchHooks Function()>;
 typedef $$UserTableDriftTableCreateCompanionBuilder = UserTableDriftCompanion
     Function({

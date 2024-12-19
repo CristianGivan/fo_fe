@@ -11,7 +11,21 @@ class AddTaskUseCase extends UseCase<TaskEntity, TaskParams> {
   AddTaskUseCase(this.repository);
 
   @override
-  Future<Either<Failure, TaskEntity>> call(TaskParams params) {
-    return repository.addTaskAndLinkCreator(params.task);
+  Future<Either<Failure, TaskEntity>> call(TaskParams params) async {
+    final task = await repository.addTask(params.taskEntity);
+    return task.fold(
+      (failure) => Left(failure),
+      (task) {
+        repository.addTaskUserLink(TaskUserLinkEntity(
+          id: 0,
+          taskId: task.id,
+          userId: task.creatorId,
+          selectedByUser: false,
+          orderedByUser: 0,
+          linkingDate: DateTime.now(),
+        ));
+        return Right(task);
+      },
+    );
   }
 }

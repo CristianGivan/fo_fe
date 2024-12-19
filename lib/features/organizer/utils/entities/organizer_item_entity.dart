@@ -1,8 +1,8 @@
 import 'package:fo_fe/core/utils/date_time/date_time_constants.dart';
 import 'package:fo_fe/core/utils/exports/external_exports.dart';
-import 'package:fo_fe/features/organizer/utils/entities/organizer_item_base.dart';
+import 'package:fo_fe/features/organizer/utils/entities/item_entity.dart';
 
-class OrganizerItemEntity extends OrganizerItemBase with EquatableMixin {
+class OrganizerItemEntity extends ItemEntity with EquatableMixin {
   final DateTime _createdDate;
   final int _creatorId;
   final DateTime? _lastUpdate;

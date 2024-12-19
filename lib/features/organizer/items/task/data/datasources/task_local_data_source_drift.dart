@@ -3,7 +3,7 @@
 import 'package:drift/drift.dart';
 import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/data/datasources/task_local_data_source.dart';
-import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
+import 'package:fo_fe/features/organizer/utils/set_and_list/id_set.dart';
 
 import '../../utils/task_exports.dart';
 
@@ -15,23 +15,29 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
   });
 
   @override
-  Future<TaskTableDriftG?> addTaskAndLinkCreator(TaskTableDriftCompanion taskCompanion) async {
-    return await db.transaction(() async {
-      final userId = taskCompanion.creatorId.value;
-      final taskId = await db.taskDaoDrift.addTask(taskCompanion);
-      final taskUserLinkCompanion = TaskUserLinkTableDriftCompanion(
-        taskId: Value(taskId),
-        userId: Value(userId!),
-      );
-      await db.taskUserLinkDaoDrift.addTaskUser(taskUserLinkCompanion);
-      return getTaskById(taskId);
-    });
+  Future<TaskTableDriftG?> addTask(TaskTableDriftCompanion taskCompanion) async {
+    final taskId = await db.taskDaoDrift.addTask(taskCompanion);
+    return getTaskById(taskId);
+  }
+
+  @override
+  Future<TaskUserLinkTableDriftG?> addTaskUserLink(
+      TaskUserLinkTableDriftCompanion companion) async {
+    final taskUserLinkId = await db.taskUserLinkDaoDrift.addTaskUser(companion);
+    return _getTaskUserLinkById(taskUserLinkId);
   }
 
   @override
   Future<TaskTableDriftG?> updateTask(TaskTableDriftCompanion taskCompanion) async {
     await db.taskDaoDrift.updateTask(taskCompanion);
     return getTaskById(taskCompanion.id.value);
+  }
+
+  @override
+  Future<TaskUserLinkTableDriftG?> updateTaskUserLink(
+      TaskUserLinkTableDriftCompanion companion) async {
+    await db.taskUserLinkDaoDrift.updateTaskUserLink(companion);
+    return _getTaskUserLinkById(companion.id.value);
   }
 
   @override
@@ -59,22 +65,14 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
   }
 
   @override
-  Future<List<TaskDTO>> getTaskDtoItemsFromUser(int userId) async {
-    return await db.transaction(() async {
-      final query = db.select(db.taskTableDrift).join([
-        leftOuterJoin(
-          db.taskUserLinkTableDrift,
-          db.taskUserLinkTableDrift.taskId.equalsExp(db.taskTableDrift.id) &
-              db.taskUserLinkTableDrift.userId.equals(userId),
-        ),
-      ]);
-      final result = await query.get();
-      if (result.isEmpty) {
-        return [];
-      } else {
-        return dtoItemsFromQueryResult(result);
-      }
-    });
+  Future<List<TaskDto>?> getTaskDtoItemsFromUser(int userId) async {
+    final taskList = await db.taskDaoDrift.getTaskDtoItemsFromUser(userId);
+    return taskList
+        ?.map((row) => TaskDto(
+              task: rowToTaskEntity(row),
+              taskUserLink: rowToTaskUserEntity(row),
+            ))
+        .toList();
   }
 
   @override
@@ -91,20 +89,6 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
   Future<List<UserTableDriftG?>?> getUserItemsByTaskId(int taskId) async {
     final userIds = await db.taskUserLinkDaoDrift.getUserIdsByTaskId(taskId);
     return await db.userDaoDrift.getUserItemsByIdSet(userIds);
-  }
-
-  @override
-  Future<void> addUserItemsToTask(int taskId, List<int> userItems) async {
-    await db.transaction(() async {
-      for (final tagId in userItems) {
-        await addUserItemToTask(taskId, tagId);
-      }
-    });
-  }
-
-  @override
-  Future<int?> addUserItemToTask(int taskId, int tagId) async {
-    return await db.taskUserLinkDaoDrift.addTaskUser(_createTaskUserCompanion(taskId, tagId));
   }
 
   @override
@@ -188,12 +172,12 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
     );
   }
 
-  List<TaskDTO> dtoItemsFromQueryResult(List<TypedResult> items) {
+  List<TaskDto> dtoItemsFromQueryResult(List<TypedResult> items) {
     return items.map((row) {
       final taskRow = row.readTable(db.taskTableDrift);
       final taskUserLinkRow = row.readTableOrNull(db.taskUserLinkTableDrift);
 
-      return TaskDTO(
+      return TaskDto(
         task: TaskEntity(
           id: taskRow.id,
           remoteId: taskRow.remoteId,
@@ -206,17 +190,52 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
           workingProgress: taskRow.workingProgress,
           taskStatus: taskStatusMap[taskRow.taskStatus],
         ),
-        taskUserData: taskUserLinkRow != null
-            ? TaskUserLinkEntity(
-                id: taskUserLinkRow.id,
-                linkingDate: taskUserLinkRow.linkingDate,
-                taskId: taskUserLinkRow.taskId,
-                userId: taskUserLinkRow.userId,
-                selectedByUser: taskUserLinkRow.selectedByUser ?? false,
-                orderedByUser: taskUserLinkRow.orderedByUser ?? double.maxFinite.toInt(),
-              )
-            : null,
+        taskUserLink: TaskUserLinkEntity(
+          id: taskUserLinkRow?.id ?? 0,
+          linkingDate: taskUserLinkRow?.linkingDate ?? DateTime.now(),
+          taskId: taskUserLinkRow?.taskId ?? 0,
+          userId: taskUserLinkRow?.userId ?? 0,
+          selectedByUser: taskUserLinkRow?.selectedByUser ?? false,
+          orderedByUser: taskUserLinkRow?.orderedByUser ?? double.maxFinite.toInt(),
+        ),
       );
     }).toList();
+  }
+
+  TaskEntity rowToTaskEntity(QueryRow row) {
+    return TaskEntity(
+      id: row.read<int>('id'),
+      subject: row.read<String>('subject'),
+      startDate: row.read<DateTime>('start_date'),
+      endDate: row.read<DateTime>('end_date'),
+      workingTime: row.read<double>('working_time'),
+      estimatedTime: row.read<double>('estimated_time'),
+      estimatedLeftTime: row.read<double>('estimated_left_time'),
+      workingProgress: row.read<double>('working_progress'),
+      taskStatus: taskStatusMap[row.read<String>('task_status')],
+      createdDate: row.read<DateTime>('created_date'),
+      creatorId: row.read<int>('creator_id'),
+      remoteId: row.read<int>('remote_id'),
+      lastUpdate: row.read<DateTime>('last_update'),
+      lastAccessedDate: row.read<DateTime>('last_accessed_date'),
+      remoteAccesses: row.read<int>('remote_accesses'),
+      accesses: row.read<int>('accesses'),
+      checksum: row.read<String>('checksum'),
+    );
+  }
+
+  TaskUserLinkEntity rowToTaskUserEntity(QueryRow row) {
+    return TaskUserLinkEntity(
+      id: row.read<int>('id'),
+      linkingDate: row.read<DateTime>('linking_date'),
+      taskId: row.read<int>('task_id'),
+      userId: row.read<int>('user_id'),
+      selectedByUser: row.read<bool>('selected_by_user'),
+      orderedByUser: row.read<int>('ordered_by_user'),
+    );
+  }
+
+  Future<TaskUserLinkTableDriftG?> _getTaskUserLinkById(int taskUserLinkId) async {
+    return await db.taskUserLinkDaoDrift.getTaskUserById(taskUserLinkId);
   }
 }

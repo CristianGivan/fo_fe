@@ -1,6 +1,6 @@
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class OrganizerItems<T extends OrganizerItemBase> extends Equatable {
+class OrganizerItems<T extends ItemEntity> extends Equatable {
   final List<T> _organizerItems;
 
   const OrganizerItems._(this._organizerItems);

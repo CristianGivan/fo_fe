@@ -10,14 +10,15 @@ class TaskUserLinkDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
 
   TaskUserLinkDaoDrift(this.db) : super(db);
 
-  Future<List<TaskUserTableDriftG>> getAllTaskUsers() => select(taskUserLinkTableDrift).get();
+  Future<List<TaskUserLinkTableDriftG>> getAllTaskUsers() => select(taskUserLinkTableDrift).get();
 
-  Stream<List<TaskUserTableDriftG>> watchAllTaskUsers() => select(taskUserLinkTableDrift).watch();
+  Stream<List<TaskUserLinkTableDriftG>> watchAllTaskUsers() =>
+      select(taskUserLinkTableDrift).watch();
 
-  Future<int> addTaskUser(Insertable<TaskUserTableDriftG> taskUser) =>
+  Future<int> addTaskUser(Insertable<TaskUserLinkTableDriftG> taskUser) =>
       into(taskUserLinkTableDrift).insert(taskUser);
 
-  Future<bool> updateTaskUser(Insertable<TaskUserTableDriftG> taskUser) =>
+  Future<bool> updateTaskUserLink(Insertable<TaskUserLinkTableDriftG> taskUser) =>
       update(taskUserLinkTableDrift).replace(taskUser);
 
   Future<int> deleteTaskUserByTaskId(int taskId) async {
@@ -40,5 +41,9 @@ class TaskUserLinkDaoDrift extends DatabaseAccessor<OrganizerDriftDB>
     final result =
         await (select(taskUserLinkTableDrift)..where((tbl) => tbl.userId.equals(userId))).get();
     return result.map((row) => row.taskId).toSet();
+  }
+
+  Future<TaskUserLinkTableDriftG?> getTaskUserById(int id) async {
+    return await (select(taskUserLinkTableDrift)..where((tbl) => tbl.id.equals(id))).getSingle();
   }
 }

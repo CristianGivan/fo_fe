@@ -1,4 +1,3 @@
-import 'package:fo_fe/core/utils/date_time/date_time_constants.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
@@ -57,6 +56,7 @@ class TaskEntity extends OrganizerItemEntity {
 
   factory TaskEntity.empty() => _emptyInstance;
 
+  @override
   bool get isEmpty => this == _emptyInstance;
 
   @override

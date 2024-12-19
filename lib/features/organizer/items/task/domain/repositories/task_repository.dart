@@ -8,9 +8,13 @@ import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 abstract class TaskRepository {
   // Task CRUD operations
-  Future<Either<Failure, TaskEntity>> addTaskAndLinkCreator(TaskEntity task);
+  Future<Either<Failure, TaskEntity>> addTask(TaskEntity task);
+
+  Future<Either<Failure, TaskUserLinkEntity>> addTaskUserLink(TaskUserLinkEntity taskUserEntity);
 
   Future<Either<Failure, TaskEntity>> updateTask(TaskEntity task);
+
+  Future<Either<Failure, TaskUserLinkEntity>> updateTaskUserLink(TaskUserLinkEntity task);
 
   Future<Either<Failure, int>> deleteTask(int taskId);
 
@@ -20,10 +24,9 @@ abstract class TaskRepository {
 
   Future<Either<Failure, OrganizerItems<TaskEntity>>> getTaskItemsAll();
 
-  Future<Either<Failure, OrganizerItems<OrganizerItemBase>>> getTaskItemsFromUser(
-      TaskParams params);
+  Future<Either<Failure, OrganizerItems<ItemEntity>>> getTaskItemsFromUser(TaskParams params);
 
-  Future<Either<Failure, OrganizerItems<TaskDTO>>> getTaskDtoItemsFromUser(int userId);
+  Future<Either<Failure, OrganizerItems<TaskDto>>> getTaskDtoItemsFromUser(int userId);
 
   Future<Either<Failure, OrganizerItems<TaskEntity>>> getTaskItemsByIdSet(IdSet idSet);
 
@@ -34,8 +37,6 @@ abstract class TaskRepository {
 
   Future<Either<Failure, OrganizerItems<UserEntity>>> updateUserItemOfTask(
       int taskId, List<int> userItems, List<int> updatedUserItems);
-
-  Future<Either<Failure, int>> addUserItemToTask(int taskId, int userId);
 
   // Tag operations related to tasks
   Future<Either<Failure, OrganizerItems<TagEntity>>> getTagItemsByTaskId(int taskId);

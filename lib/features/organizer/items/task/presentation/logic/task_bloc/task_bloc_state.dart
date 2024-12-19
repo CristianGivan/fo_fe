@@ -38,6 +38,29 @@ class TaskLoadedBlocState extends TaskBlocState {
   List<Object> get props => [originalTasks, displayedTasks, selectedTasks];
 }
 
+class TaskLoadedDtoBlocState extends TaskBlocState {
+  final OrganizerItems<ItemEntity> originalTasks;
+  final OrganizerItems<ItemEntity> displayedTasks;
+
+  const TaskLoadedDtoBlocState({
+    required this.originalTasks,
+    required this.displayedTasks,
+  });
+
+  TaskLoadedDtoBlocState copyWith({
+    OrganizerItems<ItemEntity>? originalTasks,
+    OrganizerItems<ItemEntity>? displayedTasks,
+  }) {
+    return TaskLoadedDtoBlocState(
+      originalTasks: originalTasks ?? this.originalTasks,
+      displayedTasks: displayedTasks ?? this.displayedTasks,
+    );
+  }
+
+  @override
+  List<Object> get props => [originalTasks, displayedTasks];
+}
+
 class TaskAddedBlocState extends TaskBlocState {}
 
 class TaskUpdatedBlocState extends TaskBlocState {}

@@ -1,8 +1,7 @@
-import 'package:fo_fe/core/utils/exports/external_exports.dart';
 import 'package:fo_fe/features/app_home/presentation/pages/app_bottom_bar_same_menu.dart';
 import 'package:fo_fe/features/app_home/utils/app_home_exports.dart';
 import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
-import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class AuthenticatedContentWidget extends StatelessWidget {
   final String appBarTitle;
@@ -24,7 +23,6 @@ class AuthenticatedContentWidget extends StatelessWidget {
       builder: (context, state) {
         if (state is AuthAuthenticatedBlocState) {
           final userId = state.userEntity.id;
-          context.read<TaskBloc>().add(GetTaskItemsFromLogInUserBlocEvent(userId));
           return Scaffold(
             appBar: AppBarPage(title: appBarTitle),
             body: body(context, userId),
@@ -48,7 +46,7 @@ class AuthenticatedContentWidget extends StatelessWidget {
         TextButton(
           child: const Text('OK'),
           onPressed: () {
-            Navigator.of(context).pop();
+            context.pushNamed(AuthRouterNames.authRouteName);
           },
         ),
       ],

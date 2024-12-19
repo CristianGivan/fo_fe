@@ -14,16 +14,20 @@ create like user_presentation_export.dart for all
 * understand better statless and stafull widget
 debounce see todo code
 * when you search you can type : and then specified the action
+* make sense to make it constant INITIAL_EPOCH_DATE,
 
 == Next
 
+* return TaskUserLinkEntity(id: row.read<int>('id'),
+* update Future<int?> addUserItemToTask(int taskId, int tagId) async {
 * delete implementeation for _onToggleTaskSelectionBlocEent
 * scafold for the task edit and view
 * update with task strings
 * clean up adocs
 * can be removed extra  for all not only for  final task = state.extra as TaskEntity?;
 * refactor the task add form
-
+* void addUserItemsToTask(int taskId, List<int> addedUserItems) {
+* add also else for  if (state is TaskLoadedBlocState) {
 == Now
 
 * create a pop method where to add all the things that shall happen during the pop of several

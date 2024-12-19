@@ -19,21 +19,12 @@ class TaskGetByIdBlocEvent extends TaskBlocEvent {
 class TaskItemsGetAllBlocEvent extends TaskBlocEvent {}
 
 class GetTaskItemsFromLogInUserBlocEvent extends TaskBlocEvent {
-  final int userId;
+  final TaskParams taskParams;
 
-  const GetTaskItemsFromLogInUserBlocEvent(this.userId);
-
-  @override
-  List<Object> get props => [userId];
-}
-
-class GetTaskItemsFromLogInUserBlocEvent extends TaskBlocEvent {
-  final int userId;
-
-  const GetTaskItemsFromLogInUserBlocEvent(this.userId);
+  const GetTaskItemsFromLogInUserBlocEvent(this.taskParams);
 
   @override
-  List<Object> get props => [userId];
+  List<Object> get props => [taskParams];
 }
 
 class TaskLoadItemsByIdSetBlocEvent extends TaskBlocEvent {
@@ -101,4 +92,13 @@ class ToggleTaskSelectionBlocEvent extends TaskBlocEvent {
 
   @override
   List<Object> get props => [taskId];
+}
+
+class UpdateTaskUserLinkBlocEvent extends TaskBlocEvent {
+  final TaskParams taskParams;
+
+  const UpdateTaskUserLinkBlocEvent(this.taskParams);
+
+  @override
+  List<Object> get props => [taskParams];
 }

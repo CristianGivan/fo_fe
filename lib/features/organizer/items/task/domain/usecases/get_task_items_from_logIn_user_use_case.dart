@@ -7,15 +7,14 @@ import 'package:fo_fe/features/organizer/items/task/domain/repositories/task_rep
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class GetTaskItemsFromLogInUserUseCase
-    extends UseCase<OrganizerItems<OrganizerItemBase>, ItemParams> {
+class GetTaskItemsFromLogInUserUseCase extends UseCase<OrganizerItems<ItemEntity>, ItemParams> {
   final TaskRepository taskRepository;
   final TagRepository tagRepository;
 
   GetTaskItemsFromLogInUserUseCase(this.tagRepository, this.taskRepository);
 
   @override
-  Future<Either<Failure, OrganizerItems<OrganizerItemBase>>> call(ItemParams params) {
+  Future<Either<Failure, OrganizerItems<ItemEntity>>> call(ItemParams params) {
     if (params is TaskParams) {
       return taskRepository.getTaskItemsFromUser(params);
     } else if (params is TagParams) {

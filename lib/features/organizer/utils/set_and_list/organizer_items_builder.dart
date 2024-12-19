@@ -1,6 +1,6 @@
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class OrganizerItemsBuilder<T extends OrganizerItemBase> extends Equatable {
+class OrganizerItemsBuilder<T extends ItemEntity> extends Equatable {
   // I don't know if it is a good decision but:
   // this class is immutable because I don't want to many copies of an object
   // I will if I have to change it but lets start so.

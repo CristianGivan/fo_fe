@@ -3,9 +3,15 @@ import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 abstract class TaskLocalDataSource {
-  Future<TaskTableDriftG?> addTaskAndLinkCreator(TaskTableDriftCompanion taskCompanion);
+  Future<TaskTableDriftG?> addTask(TaskTableDriftCompanion taskCompanion);
+
+  Future<TaskUserLinkTableDriftG?> addTaskUserLink(
+      TaskUserLinkTableDriftCompanion taskUserLinkCompanion);
 
   Future<TaskTableDriftG?> updateTask(TaskTableDriftCompanion taskCompanion);
+
+  Future<TaskUserLinkTableDriftG?> updateTaskUserLink(
+      TaskUserLinkTableDriftCompanion taskCompanion);
 
   Future<int> deleteTask(int taskId);
 
@@ -15,17 +21,13 @@ abstract class TaskLocalDataSource {
 
   Future<List<TaskTableDriftG>?> getTaskItemsFromUser(int userId);
 
-  Future<List<TaskDTO>?> getTaskDtoItemsFromUser(int userId);
+  Future<List<TaskDto>?> getTaskDtoItemsFromUser(int userId);
 
   Future<List<TaskTableDriftG?>?> getTaskItemsByIdSet(IdSet idSet);
 
   Future<List<UserTableDriftG?>?> getUserItemsByTaskId(int taskId);
 
   Future<UserTableDriftG?> getCreatorById(int creatorId);
-
-  Future<void> addUserItemsToTask(int taskId, List<int> userIds);
-
-  Future<int?> addUserItemToTask(int taskId, int userId);
 
   Future<void> deleteUserItemsFromTask(int taskId, List<int> userId);
 

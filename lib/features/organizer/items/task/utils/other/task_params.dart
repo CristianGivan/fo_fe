@@ -2,18 +2,51 @@ import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class TaskParams extends ItemParams {
-  final TaskEntity task;
+  final TaskEntity taskEntity;
+  final TaskUserLinkEntity taskUserLinkEntity;
+  final TaskDto taskDto;
 
   TaskParams({
     TaskEntity? task,
-    super.id,
-    super.idSet,
-    super.forUserId,
-    super.itemReturn,
-  }) : task = task ?? TaskEntity.empty();
+    TaskUserLinkEntity? taskUserLinkEntity,
+    TaskDto? taskDto,
+    int? id,
+    IdSet? idSet,
+    int? forUserId,
+    ItemReturn? itemReturn,
+  })  : taskEntity = task ?? TaskEntity.empty(),
+        taskUserLinkEntity = taskUserLinkEntity ?? TaskUserLinkEntity.empty(),
+        taskDto =
+            taskDto ?? TaskDto(task: TaskEntity.empty(), taskUserLink: TaskUserLinkEntity.empty()),
+        super(
+          id: id ?? 0,
+          idSet: idSet ?? IdSet.empty(),
+          forUserId: forUserId ?? 0,
+          itemReturn: itemReturn ?? ItemReturn.entity,
+        );
+
+  TaskParams copyWith({
+    TaskEntity? task,
+    TaskUserLinkEntity? taskUserLinkEntity,
+    TaskDto? taskDto,
+    int? id,
+    IdSet? idSet,
+    int? forUserId,
+    ItemReturn? itemReturn,
+  }) {
+    return TaskParams(
+      task: task ?? this.taskEntity,
+      taskUserLinkEntity: taskUserLinkEntity ?? this.taskUserLinkEntity,
+      taskDto: taskDto ?? this.taskDto,
+      id: id ?? this.id,
+      idSet: idSet ?? this.idSet,
+      forUserId: forUserId ?? this.forUserId,
+      itemReturn: itemReturn ?? this.itemReturn,
+    );
+  }
 
   @override
-  List<Object> get props => [task, ...super.props];
+  List<Object> get props => [taskEntity, taskUserLinkEntity, taskDto, ...super.props];
 
   get itemReturnType => super.itemReturn;
 }

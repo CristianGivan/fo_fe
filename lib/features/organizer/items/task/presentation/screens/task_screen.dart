@@ -10,7 +10,7 @@ class TaskScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return AuthenticatedContentWidget(
       appBarTitle: TaskStrings().screenTitle,
-      body: (context, userId) => _buildTaskList(userId, context),
+      body: (context, userId) => _buildTaskList(context, userId),
       menuOptions: (context, userId) => TaskScreenActionsMenu.getMenuItems(context),
       onSearchSubmitted: () {
         // Define the search functionality here
@@ -18,8 +18,8 @@ class TaskScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTaskList(int userId, BuildContext context) {
-    context.read<TaskBloc>().add(GetTaskItemsFromLogInUserBlocEvent(userId));
+  Widget _buildTaskList(BuildContext context, int userId) {
+    _getTaskItemsFromLoggedInUser(context, userId);
     return Column(
       children: [
         Expanded(
@@ -27,5 +27,10 @@ class TaskScreen extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  void _getTaskItemsFromLoggedInUser(BuildContext context, int userId) {
+    context.read<TaskBloc>().add(GetTaskItemsFromLogInUserBlocEvent(
+        TaskParams(forUserId: userId, itemReturn: ItemReturn.dto)));
   }
 }

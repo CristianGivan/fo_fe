@@ -13,6 +13,8 @@ class TaskListPage extends StatelessWidget {
           return _buildLoadingState();
         } else if (state is TaskLoadedBlocState) {
           return _buildTaskList(context, state.displayedTasks);
+        } else if (state is TaskLoadedDtoBlocState) {
+          return _buildTaskListDto(context, state.displayedTasks);
         } else if (state is TaskErrorBlocState) {
           return _buildErrorState(state.message);
         } else {
@@ -28,6 +30,7 @@ class TaskListPage extends StatelessWidget {
 
   Widget _buildEmptyState() => Center(child: Text(TaskStrings().noItemsToDisplay));
 
+//todo -improve- this
   Widget _buildTaskList(BuildContext context, OrganizerItems<TaskEntity> tasks) {
     if (tasks.isEmpty) {
       return _buildEmptyState();
@@ -54,5 +57,58 @@ class TaskListPage extends StatelessWidget {
         },
       );
     }
+  }
+
+  Widget _buildTaskListDto(BuildContext context, OrganizerItems<ItemEntity> taskDtoList) {
+    if (taskDtoList.isEmpty) {
+      return _buildEmptyState();
+    } else {
+      return ListView.builder(
+        itemCount: taskDtoList.size(),
+        itemBuilder: (context, index) {
+          final taskDto = taskDtoList.getAt(index) as TaskDto;
+          return BlocBuilder<TaskBloc, TaskBlocState>(
+            builder: (context, state) {
+              if (state is TaskLoadedDtoBlocState) {
+                final isSelected = taskDto.taskUserLink.isSelectedByUser;
+                return CheckboxListTile(
+                  title: TaskCard(taskDto.task),
+                  value: isSelected,
+                  onChanged: (bool? value) {
+                    final updatedTaskUserLink =
+                        taskDto.taskUserLink.copyWith(selectedByUser: value!);
+                    context.read<TaskBloc>().add(UpdateTaskUserLinkBlocEvent(TaskParams(
+                        taskDto: taskDto.copyWith(taskUserLink: updatedTaskUserLink),
+                        taskUserLinkEntity: updatedTaskUserLink)));
+                  },
+                );
+              }
+              return const SizedBox.shrink();
+            },
+          );
+        },
+      );
+    }
+  }
+
+  void _handleTaskDtoSelectionChange(BuildContext context, TaskDto taskDto, bool? value) {
+    final updatedTaskUserLink = taskDto.taskUserLink.copyWith(selectedByUser: value!);
+    context.read<TaskBloc>().add(UpdateTaskUserLinkBlocEvent(TaskParams(
+          taskDto: taskDto.copyWith(taskUserLink: updatedTaskUserLink),
+          taskUserLinkEntity: updatedTaskUserLink,
+        )));
+  }
+
+  Widget _buildTaskCheckboxListTile(
+    BuildContext context, {
+    required TaskEntity task,
+    required bool isSelected,
+    required ValueChanged<bool?> onChanged,
+  }) {
+    return CheckboxListTile(
+      title: TaskCard(task),
+      value: isSelected,
+      onChanged: onChanged,
+    );
   }
 }

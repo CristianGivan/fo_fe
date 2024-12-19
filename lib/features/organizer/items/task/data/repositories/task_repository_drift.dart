@@ -6,6 +6,7 @@ import 'package:fo_fe/features/organizer/items/reminder/utils/reminder_exports.d
 import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/data/datasources/task_local_data_source.dart';
 import 'package:fo_fe/features/organizer/items/task/data/models/task_mapper.dart';
+import 'package:fo_fe/features/organizer/items/task/data/models/task_user_link_mapper.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/repositories/task_repository.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
@@ -18,12 +19,23 @@ class TaskRepositoryDrift implements TaskRepository {
 
   // Task CRUD operations
   @override
-  Future<Either<Failure, TaskEntity>> addTaskAndLinkCreator(TaskEntity task) async {
+  Future<Either<Failure, TaskEntity>> addTask(TaskEntity task) async {
     return _handleDatabaseOperation(() async {
       final companion = TaskMapper.entityToCompanion(task);
-      final addTask = await localDataSource.addTaskAndLinkCreator(companion);
+      final addTask = await localDataSource.addTask(companion);
       if (addTask == null) throw const TaskFailure("Task not added");
       return TaskMapper.entityFromTableDrift(addTask);
+    });
+  }
+
+  @override
+  Future<Either<Failure, TaskUserLinkEntity>> addTaskUserLink(
+      TaskUserLinkEntity taskUserLinkEntity) async {
+    return _handleDatabaseOperation(() async {
+      final companion = TaskUserLinkMapper.companionFromEntity(taskUserLinkEntity);
+      final addTask = await localDataSource.addTaskUserLink(companion);
+      if (addTask == null) throw const TaskFailure("Task not added");
+      return TaskUserLinkMapper.entityFromTableDrift(addTask);
     });
   }
 
@@ -34,6 +46,17 @@ class TaskRepositoryDrift implements TaskRepository {
       final updatedTask = await localDataSource.updateTask(companion);
       if (updatedTask == null) throw const TaskFailure("Task not updated");
       return TaskMapper.entityFromTableDrift(updatedTask);
+    });
+  }
+
+  @override
+  Future<Either<Failure, TaskUserLinkEntity>> updateTaskUserLink(
+      TaskUserLinkEntity taskUserLink) async {
+    return _handleDatabaseOperation(() async {
+      final companion = TaskUserLinkMapper.entityToCompanion(taskUserLink);
+      final updatedTask = await localDataSource.updateTaskUserLink(companion);
+      if (updatedTask == null) throw const TaskFailure("Task not updated");
+      return TaskUserLinkMapper.entityFromTableDrift(updatedTask);
     });
   }
 
@@ -59,10 +82,8 @@ class TaskRepositoryDrift implements TaskRepository {
     });
   }
 
-
   @override
-  Future<Either<Failure, OrganizerItems<OrganizerItemBase>>> getTaskItemsFromUser(
-      TaskParams params) {
+  Future<Either<Failure, OrganizerItems<ItemEntity>>> getTaskItemsFromUser(TaskParams params) {
     return _handleDatabaseOperation(() async {
       if (params.itemReturnType == ItemReturn.entity) {
         final items = await localDataSource.getTaskItemsFromUser(params.forUserId);
@@ -70,7 +91,7 @@ class TaskRepositoryDrift implements TaskRepository {
       } else {
         final items = await localDataSource.getTaskDtoItemsFromUser(params.forUserId);
         if (items == null || items.isEmpty) {
-          return OrganizerItems<TaskDTO>.empty();
+          return OrganizerItems<TaskDto>.empty();
         } else {
           return OrganizerItems.of(items);
         }
@@ -79,11 +100,11 @@ class TaskRepositoryDrift implements TaskRepository {
   }
 
   @override
-  Future<Either<Failure, OrganizerItems<TaskDTO>>> getTaskDtoItemsFromUser(int userId) {
+  Future<Either<Failure, OrganizerItems<TaskDto>>> getTaskDtoItemsFromUser(int userId) {
     return _handleDatabaseOperation(() async {
       final items = await localDataSource.getTaskDtoItemsFromUser(userId);
       if (items == null || items.isEmpty) {
-        return OrganizerItems<TaskDTO>.empty();
+        return OrganizerItems<TaskDto>.empty();
       } else {
         return OrganizerItems.of(items);
       }
@@ -121,18 +142,6 @@ class TaskRepositoryDrift implements TaskRepository {
   }
 
   @override
-  Future<Either<Failure, int>> addUserItemToTask(int taskId, int userId) async {
-    return _handleDatabaseOperation(() async {
-      final taskUserId = await localDataSource.addUserItemToTask(taskId, userId);
-      if (taskUserId == null) {
-        throw const TaskFailure("User not found");
-      } else {
-        return taskUserId;
-      }
-    });
-  }
-
-  @override
   Future<Either<Failure, OrganizerItems<UserEntity>>> updateUserItemOfTask(
     int taskId,
     List<int> addedUserItems,
@@ -140,7 +149,7 @@ class TaskRepositoryDrift implements TaskRepository {
   ) {
     return _handleDatabaseOperation(() async {
       if (addedUserItems != []) {
-        localDataSource.addUserItemsToTask(taskId, addedUserItems);
+        addUserItemsToTask(taskId, addedUserItems);
       }
       if (removedUserItems != []) {
         localDataSource.deleteUserItemsFromTask(taskId, removedUserItems);
@@ -149,6 +158,11 @@ class TaskRepositoryDrift implements TaskRepository {
           await localDataSource.getUserItemsByTaskId(taskId),
           UserMapper.entityItemsFromTableDriftItems);
     });
+  }
+
+  // todo -implement- when I have time
+  void addUserItemsToTask(int taskId, List<int> addedUserItems) {
+    throw UnimplementedError("Method not implemented");
   }
 
   // Tag operations related to tasks

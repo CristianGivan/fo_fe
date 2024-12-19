@@ -6,6 +6,7 @@ import 'package:fo_fe/features/organizer/items/task/data/repositories/task_repos
 import 'package:fo_fe/features/organizer/items/task/domain/repositories/task_repository.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/usecases/get_task_items_from_logIn_user_use_case.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/usecases/update_reminder_items_of_task_use_case.dart';
+import 'package:fo_fe/features/organizer/items/task/domain/usecases/update_task_dto_use_case.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/usecases/update_user_items_of_task_use_case.dart';
 import 'package:fo_fe/features/organizer/items/task/presentation/logic/task_cubit/task_form_cubit.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
@@ -34,6 +35,7 @@ void taskInit() {
   sl.registerLazySingleton(() => GetTaskItemsByIdSetUseCase(sl()));
   sl.registerLazySingleton(() => AddTaskUseCase(sl()));
   sl.registerLazySingleton(() => UpdateTaskUseCase(sl()));
+  sl.registerLazySingleton(() => UpdateTaskDtoUseCase(sl()));
   sl.registerLazySingleton(() => DeleteTaskUseCase(sl()));
   sl.registerLazySingleton(() => GetUserItemsByTaskIdUseCase(sl()));
   sl.registerLazySingleton(() => GetCreatorByTaskIdUseCase(sl()));
@@ -56,6 +58,7 @@ void taskInit() {
         deleteTask: sl(),
         sortTasksUseCase: sl(),
         filterTasksUseCase: sl(),
+        updateTaskDto: sl(),
       ));
   sl.registerFactory(() => TaskFormCubit());
   sl.registerFactory(() => TaskUserLinkBloc(

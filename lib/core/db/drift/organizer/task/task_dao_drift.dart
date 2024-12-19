@@ -28,4 +28,18 @@ class TaskDaoDrift extends DatabaseAccessor<OrganizerDriftDB> with _$TaskDaoDrif
 
   Future<int> deleteTask(int id) =>
       (delete(taskTableDrift)..where((tbl) => tbl.id.equals(id))).go();
+
+  Future<List<QueryRow>?> getTaskDtoItemsFromUser(int userId) async {
+    final query = customSelect(
+      'SELECT task_table_drift.*, task_user_link_table_drift.* '
+      'FROM task_table_drift '
+      'LEFT OUTER JOIN task_user_link_table_drift '
+      'ON task_user_link_table_drift.task_id = task_table_drift.id '
+      'AND task_user_link_table_drift.user_id = ?',
+      variables: [Variable.withInt(userId)],
+    );
+
+    final result = await query.get();
+    return result;
+  }
 }

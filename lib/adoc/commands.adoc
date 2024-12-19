@@ -3,6 +3,21 @@
 ----
 dart run build_runner build
 dart run build_runner watch
+
+
+----
+
+Sqlite
+
+----
+D:\dev\tools\SQLite\sqlite3.exe D:\dev\Flutter\flutterApps\fo_fe\lib\core\db\test_db\OrganizerDBDrift.sqlite
+
+SELECT task_table_drift.*, task_user_link_table_drift.*
+FROM task_table_drift
+LEFT OUTER JOIN task_user_link_table_drift
+ON task_user_link_table_drift.task_id = task_table_drift.id
+AND task_user_link_table_drift.user_id = 2;
+
 ----
 
 objectbox
