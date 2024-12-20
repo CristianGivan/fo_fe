@@ -22,7 +22,7 @@ class TaskParams extends ItemParams {
           id: id ?? 0,
           idSet: idSet ?? IdSet.empty(),
           forUserId: forUserId ?? 0,
-          itemReturn: itemReturn ?? ItemReturn.entity,
+          itemReturn: itemReturn ?? ItemReturn.dto,
         );
 
   TaskParams copyWith({

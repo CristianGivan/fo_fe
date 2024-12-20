@@ -58,6 +58,7 @@ void taskInit() {
         sortTasksUseCase: sl(),
         filterTasksUseCase: sl(),
         updateTaskDto: sl(),
+        updateTask: sl(),
       ));
   sl.registerFactory(() => TaskFormCubit());
   sl.registerFactory(() => TaskUserLinkBloc(

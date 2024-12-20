@@ -13,7 +13,7 @@ class TaskListPage extends StatelessWidget {
           return _buildLoadingState();
         } else if (state is TaskLoadedBlocState) {
           return _buildErrorState(TaskStrings().noTaskDtoLoaded);
-        } else if (state is TaskItemsLoadedDtoBlocState) {
+        } else if (state is TaskDtoItemsLoadedBlocState) {
           return _buildTaskListDto(context, state.displayedTasks);
         } else if (state is TaskErrorBlocState) {
           return _buildErrorState(state.message);
@@ -40,7 +40,7 @@ class TaskListPage extends StatelessWidget {
           final taskDto = taskDtoList.getAt(index) as TaskDto;
           return BlocBuilder<TaskBloc, TaskBlocState>(
             builder: (context, state) {
-              if (state is TaskItemsLoadedDtoBlocState) {
+              if (state is TaskDtoItemsLoadedBlocState) {
                 final isSelected = taskDto.taskUserLink.isSelectedByUser;
                 return CheckboxListTile(
                   title: TaskCard(taskDto.task),
