@@ -12,8 +12,8 @@ class TaskListPage extends StatelessWidget {
         if (state is TaskLoadingBlocState) {
           return _buildLoadingState();
         } else if (state is TaskLoadedBlocState) {
-          return _buildTaskList(context, state.displayedTasks);
-        } else if (state is TaskLoadedDtoBlocState) {
+          return _buildErrorState(TaskStrings().noTaskDtoLoaded);
+        } else if (state is TaskItemsLoadedDtoBlocState) {
           return _buildTaskListDto(context, state.displayedTasks);
         } else if (state is TaskErrorBlocState) {
           return _buildErrorState(state.message);
@@ -30,35 +30,6 @@ class TaskListPage extends StatelessWidget {
 
   Widget _buildEmptyState() => Center(child: Text(TaskStrings().noItemsToDisplay));
 
-//todo -improve- this
-  Widget _buildTaskList(BuildContext context, OrganizerItems<TaskEntity> tasks) {
-    if (tasks.isEmpty) {
-      return _buildEmptyState();
-    } else {
-      return ListView.builder(
-        itemCount: tasks.size(),
-        itemBuilder: (context, index) {
-          final task = tasks.getAt(index);
-          return BlocBuilder<TaskBloc, TaskBlocState>(
-            builder: (context, state) {
-              if (state is TaskLoadedBlocState) {
-                final isSelected = state.selectedTasks.contains(task.id);
-                return CheckboxListTile(
-                  title: TaskCard(task),
-                  value: isSelected,
-                  onChanged: (bool? value) {
-                    context.read<TaskBloc>().add(ToggleTaskSelectionBlocEvent(task.id));
-                  },
-                );
-              }
-              return const SizedBox.shrink();
-            },
-          );
-        },
-      );
-    }
-  }
-
   Widget _buildTaskListDto(BuildContext context, OrganizerItems<ItemEntity> taskDtoList) {
     if (taskDtoList.isEmpty) {
       return _buildEmptyState();
@@ -69,7 +40,7 @@ class TaskListPage extends StatelessWidget {
           final taskDto = taskDtoList.getAt(index) as TaskDto;
           return BlocBuilder<TaskBloc, TaskBlocState>(
             builder: (context, state) {
-              if (state is TaskLoadedDtoBlocState) {
+              if (state is TaskItemsLoadedDtoBlocState) {
                 final isSelected = taskDto.taskUserLink.isSelectedByUser;
                 return CheckboxListTile(
                   title: TaskCard(taskDto.task),

@@ -6,4 +6,6 @@ class TaskStrings extends ItemStrings {
   TaskStrings()
       : itemName = 'task',
         super('task');
+
+  String get noTaskDtoLoaded => 'No taskDto loaded';
 }

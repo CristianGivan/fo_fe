@@ -54,7 +54,6 @@ void taskInit() {
         getTaskItemsFromLogInUser: sl(),
         getTaskItemsByIdSet: sl(),
         addTask: sl(),
-        updateTask: sl(),
         deleteTask: sl(),
         sortTasksUseCase: sl(),
         filterTasksUseCase: sl(),
