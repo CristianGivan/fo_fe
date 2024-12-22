@@ -17,13 +17,12 @@ class UpdateTaskDtoUseCase extends UseCase<TaskDto, TaskParams> {
       return Future.value(Left(TaskFailure("Task is empty")));
     } else {
       TaskDto result = params.taskDto;
-      late TaskEntity updatedTask;
       if (!params.taskEntity.isEmpty) {
         final updateTaskRepo = await repository.updateTask(params.taskEntity);
         if (updateTaskRepo.isLeft()) {
           return Future.value(Left(TaskFailure("Unexpected error")));
         } else {
-          updatedTask = updateTaskRepo.getOrElse(() => TaskEntity.empty());
+          final updatedTask = updateTaskRepo.getOrElse(() => TaskEntity.empty());
           result = params.taskDto.copyWith(task: updatedTask);
         }
       }

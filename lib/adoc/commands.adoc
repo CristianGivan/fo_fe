@@ -18,6 +18,12 @@ LEFT OUTER JOIN task_user_link_table_drift
 ON task_user_link_table_drift.task_id = task_table_drift.id
 AND task_user_link_table_drift.user_id = 2;
 
+SELECT task_table_drift.*, task_user_link_table_drift.*  FROM task_table_drift  LEFT OUTER JOIN
+task_user_link_table_drift  ON task_user_link_table_drift.task_id = task_table_drift.id WHERE task_user_link_table_drift.user_id = 2;
+
+SELECT * FROM task_table_drift;
+SELECT * FROM task_user_link_table_drift;
+
 ----
 
 objectbox

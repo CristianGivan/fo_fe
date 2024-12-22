@@ -5,9 +5,10 @@ import 'package:fo_fe/features/organizer/items/task/data/datasources/task_remote
 import 'package:fo_fe/features/organizer/items/task/data/repositories/task_repository_drift.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/repositories/task_repository.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/usecases/get_task_items_from_logIn_user_use_case.dart';
-import 'package:fo_fe/features/organizer/items/task/domain/usecases/update_reminder_items_of_task_use_case.dart';
+import 'package:fo_fe/features/organizer/items/task/domain/usecases/task_reminder_link/update_reminder_items_of_task_use_case.dart';
+import 'package:fo_fe/features/organizer/items/task/domain/usecases/task_user_link/update_task_user_link_usecase.dart';
+import 'package:fo_fe/features/organizer/items/task/domain/usecases/task_user_link/update_user_items_of_task_use_case.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/usecases/update_task_dto_use_case.dart';
-import 'package:fo_fe/features/organizer/items/task/domain/usecases/update_user_items_of_task_use_case.dart';
 import 'package:fo_fe/features/organizer/items/task/presentation/logic/task_cubit/task_form_cubit.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:get_it/get_it.dart';
@@ -28,6 +29,20 @@ void taskInit() {
         localDataSource: sl<TaskLocalDataSourceDrift>(),
       ));
 
+  // Task Reminder Use cases
+  sl.registerLazySingleton(() => GetReminderItemsByTaskIdUseCase(sl()));
+  sl.registerLazySingleton(() => UpdateReminderItemsOfTaskUseCase(sl()));
+
+  // Task Tag Use cases
+  sl.registerLazySingleton(() => GetTagItemsByTaskIdUseCase(sl()));
+  sl.registerLazySingleton(() => UpdateTagItemsOfTaskUseCase(sl()));
+
+  // Task User Use cases
+  sl.registerLazySingleton(() => GetCreatorByTaskIdUseCase(sl()));
+  sl.registerLazySingleton(() => GetUserItemsByTaskIdUseCase(sl()));
+  sl.registerLazySingleton(() => UpdateTaskUserLinkUseCase(sl()));
+  sl.registerLazySingleton(() => UpdateUserItemsOfTaskUseCase(sl()));
+
   // Task Use cases
   sl.registerLazySingleton(() => GetTaskByIdUseCase(sl()));
   sl.registerLazySingleton(() => GetTaskItemsAllUseCase(sl()));
@@ -37,13 +52,6 @@ void taskInit() {
   sl.registerLazySingleton(() => UpdateTaskUseCase(sl()));
   sl.registerLazySingleton(() => UpdateTaskDtoUseCase(sl()));
   sl.registerLazySingleton(() => DeleteTaskUseCase(sl()));
-  sl.registerLazySingleton(() => GetUserItemsByTaskIdUseCase(sl()));
-  sl.registerLazySingleton(() => GetCreatorByTaskIdUseCase(sl()));
-  sl.registerLazySingleton(() => UpdateUserItemsOfTaskUseCase(sl()));
-  sl.registerLazySingleton(() => UpdateTagItemsOfTaskUseCase(sl()));
-  sl.registerLazySingleton(() => UpdateReminderItemsOfTaskUseCase(sl()));
-  sl.registerLazySingleton(() => GetTagItemsByTaskIdUseCase(sl()));
-  sl.registerLazySingleton(() => GetReminderItemsByTaskIdUseCase(sl()));
   sl.registerLazySingleton(() => TaskFilterUseCase());
   sl.registerLazySingleton(() => TaskSortUseCase());
 
@@ -65,6 +73,7 @@ void taskInit() {
         getUserItemsByTaskId: sl(),
         getCreatorByTaskId: sl(),
         updateUserItemsOfTask: sl(),
+        updateTaskUserLink: sl(),
       ));
   sl.registerFactory(() => TaskTagLinkBloc(
         getTagsByTaskId: sl(),

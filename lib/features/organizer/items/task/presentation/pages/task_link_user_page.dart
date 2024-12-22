@@ -1,7 +1,6 @@
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/presentation/pages/item_with_items_page.dart';
-import 'package:fo_fe/features/organizer/utils/other/items_type_selection.dart';
 
 import '../../../../utils/organizer_exports.dart';
 

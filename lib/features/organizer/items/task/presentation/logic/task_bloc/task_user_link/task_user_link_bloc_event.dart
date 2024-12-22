@@ -39,3 +39,12 @@ class UpdateUserItemsOfTaskBlocEvent extends TaskUserLinkBlocEvent {
   @override
   List<Object> get props => [taskId, userItems, updatedUserItems];
 }
+
+class UpdateTaskUserLinkBlocEvent extends TaskUserLinkBlocEvent {
+  final TaskUserLinkEntity taskUserLink;
+
+  const UpdateTaskUserLinkBlocEvent(this.taskUserLink);
+
+  @override
+  List<Object> get props => [taskUserLink];
+}

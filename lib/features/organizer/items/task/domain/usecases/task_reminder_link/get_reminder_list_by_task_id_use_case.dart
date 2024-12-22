@@ -5,7 +5,7 @@ import 'package:fo_fe/features/organizer/items/reminder/utils/reminder_exports.d
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-import '../repositories/task_repository.dart';
+import '../../repositories/task_repository.dart';
 
 class GetReminderItemsByTaskIdUseCase extends UseCase<OrganizerItems<ReminderEntity>, TaskParams> {
   final TaskRepository repository;

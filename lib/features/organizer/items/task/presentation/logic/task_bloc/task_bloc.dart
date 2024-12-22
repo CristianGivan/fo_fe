@@ -4,9 +4,10 @@ import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/features/organizer/items/reminder/utils/reminder_exports.dart';
 import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/usecases/get_task_items_from_logIn_user_use_case.dart';
-import 'package:fo_fe/features/organizer/items/task/domain/usecases/update_reminder_items_of_task_use_case.dart';
+import 'package:fo_fe/features/organizer/items/task/domain/usecases/task_reminder_link/update_reminder_items_of_task_use_case.dart';
+import 'package:fo_fe/features/organizer/items/task/domain/usecases/task_user_link/update_task_user_link_usecase.dart';
+import 'package:fo_fe/features/organizer/items/task/domain/usecases/task_user_link/update_user_items_of_task_use_case.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/usecases/update_task_dto_use_case.dart';
-import 'package:fo_fe/features/organizer/items/task/domain/usecases/update_user_items_of_task_use_case.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
@@ -55,7 +56,7 @@ class TaskBloc extends Bloc<TaskBlocEvent, TaskBlocState> {
     // on<TaskLoadItemsByIdSetBlocEvent>(_onLoadTaskItemsByIdSetBlocEvent);
     on<TaskAddBlocEvent>(_onAddTaskBlocEvent);
     on<TaskUpdateBlocEvent>(_onUpdateTaskBlocEvent);
-    on<UpdateTaskUserLinkBlocEvent>(_onUpdateTaskUserLinkBlocEvent);
+    // on<UpdateTaskUserLinkBlocEvent>(_onUpdateTaskUserLinkBlocEvent);
     // on<TaskDeleteBlocEvent>(_onDeleteTaskBlocEvent);
     // on<ToggleTaskSelectionBlocEvent>(_onToggleTaskSelectionBlocEvent);
   }
@@ -75,15 +76,14 @@ class TaskBloc extends Bloc<TaskBlocEvent, TaskBlocState> {
   void _onAddTaskBlocEvent(TaskAddBlocEvent event, Emitter<TaskBlocState> emit) async {
     final oldState = state;
     emit(TaskLoadingBlocState());
-    final failureOrSuccess = await addTask(TaskParams(task: event.task));
-    failureOrSuccess.fold(
+    final failureOrTask = await addTask(TaskParams(task: event.task));
+    failureOrTask.fold(
       (failure) => emit(TaskErrorBlocState(message: _mapFailureToMessage(failure))),
       (newTask) => emitAddAndLoadedState(oldState, newTask, emit),
     );
   }
 
-  void emitAddAndLoadedState(
-      TaskBlocState oldState, TaskEntity newTask, Emitter<TaskBlocState> emit) {
+  void emitAddAndLoadedState(TaskBlocState oldState, TaskDto newTask, Emitter<TaskBlocState> emit) {
     final OrganizerItems<ItemEntity> updatedOriginalTasks;
     final OrganizerItems<ItemEntity> updatedDisplayedTasks;
 
@@ -126,28 +126,28 @@ class TaskBloc extends Bloc<TaskBlocEvent, TaskBlocState> {
     }
   }
 
-  Future<void> _onUpdateTaskUserLinkBlocEvent(
-    UpdateTaskUserLinkBlocEvent event,
-    Emitter<TaskBlocState> emit,
-  ) async {
-    if (state is TaskDtoItemsLoadedBlocState) {
-      final currentState = state as TaskDtoItemsLoadedBlocState;
-      final updatedTaskDto = await updateTaskDto(event.taskParams);
-      updatedTaskDto.fold(
-        (failure) => emit(TaskErrorBlocState(message: _mapFailureToMessage(failure))),
-        (taskDto) {
-          final updatedOriginalTasks = currentState.originalTasks;
-          final updatedDisplayedTasks = currentState.displayedTasks.copyWithUpdatedItem(taskDto);
-          emit(TaskDtoItemsLoadedBlocState(
-            originalTasks: updatedOriginalTasks,
-            displayedTasks: updatedDisplayedTasks,
-          ));
-        },
-      );
-    } else {
-      emit(TaskErrorBlocState(message: 'TaskLoadedBlocState is required'));
-    }
-  }
+  // Future<void> _onUpdateTaskUserLinkBlocEvent(
+  //   UpdateTaskUserLinkBlocEvent event,
+  //   Emitter<TaskBlocState> emit,
+  // ) async {
+  //   if (state is TaskDtoItemsLoadedBlocState) {
+  //     final currentState = state as TaskDtoItemsLoadedBlocState;
+  //     final updatedTaskDto = await updateTaskDto(event.taskParams);
+  //     updatedTaskDto.fold(
+  //       (failure) => emit(TaskErrorBlocState(message: _mapFailureToMessage(failure))),
+  //       (taskDto) {
+  //         final updatedOriginalTasks = currentState.originalTasks;
+  //         final updatedDisplayedTasks = currentState.displayedTasks.copyWithUpdatedItem(taskDto);
+  //         emit(TaskDtoItemsLoadedBlocState(
+  //           originalTasks: updatedOriginalTasks,
+  //           displayedTasks: updatedDisplayedTasks,
+  //         ));
+  //       },
+  //     );
+  //   } else {
+  //     emit(TaskErrorBlocState(message: 'TaskLoadedBlocState is required'));
+  //   }
+  // }
 
   String _mapFailureToMessage(Failure failure) {
     switch (failure.runtimeType) {

@@ -84,21 +84,12 @@ class TaskDeleteBlocEvent extends TaskBlocEvent {
   @override
   List<Object> get props => [taskId];
 }
-
-class ToggleTaskSelectionBlocEvent extends TaskBlocEvent {
-  final int taskId;
-
-  ToggleTaskSelectionBlocEvent(this.taskId);
-
-  @override
-  List<Object> get props => [taskId];
-}
-
-class UpdateTaskUserLinkBlocEvent extends TaskBlocEvent {
-  final TaskParams taskParams;
-
-  const UpdateTaskUserLinkBlocEvent(this.taskParams);
-
-  @override
-  List<Object> get props => [taskParams];
-}
+//
+// class ToggleTaskSelectionBlocEvent extends TaskBlocEvent {
+//   final int taskId;
+//
+//   ToggleTaskSelectionBlocEvent(this.taskId);
+//
+//   @override
+//   List<Object> get props => [taskId];
+// }

@@ -35,7 +35,7 @@ class TaskDaoDrift extends DatabaseAccessor<OrganizerDriftDB> with _$TaskDaoDrif
       'FROM task_table_drift '
       'LEFT OUTER JOIN task_user_link_table_drift '
       'ON task_user_link_table_drift.task_id = task_table_drift.id '
-      'AND task_user_link_table_drift.user_id = ?',
+      'WHERE task_user_link_table_drift.user_id = ?',
       variables: [Variable.withInt(userId)],
     );
 

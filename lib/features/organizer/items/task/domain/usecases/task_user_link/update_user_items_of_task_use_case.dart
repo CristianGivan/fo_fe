@@ -5,7 +5,7 @@ import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/items/user/domain/entities/user_entity.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-import '../repositories/task_repository.dart';
+import '../../repositories/task_repository.dart';
 
 class UpdateUserItemsOfTaskUseCase
     extends UseCase<OrganizerItems<UserEntity>, UpdateItemsToTaskParams<UserEntity>> {

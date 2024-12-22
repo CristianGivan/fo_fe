@@ -3,8 +3,8 @@ import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/usecase/usecase.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 
-import '../../../user/domain/entities/user_entity.dart';
-import '../repositories/task_repository.dart';
+import '../../../../user/domain/entities/user_entity.dart';
+import '../../repositories/task_repository.dart';
 
 class GetCreatorByTaskIdUseCase extends UseCase<UserEntity, TaskParams> {
   final TaskRepository repository;

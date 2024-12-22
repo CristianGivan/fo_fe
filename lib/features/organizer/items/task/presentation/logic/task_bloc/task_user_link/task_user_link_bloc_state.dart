@@ -9,10 +9,19 @@ abstract class TaskUserLinkBlocState extends Equatable {
 
 class TaskUserLoadingBlocState extends TaskUserLinkBlocState {}
 
+class TaskUserLinkLoadedBlocState extends TaskUserLinkBlocState {
+  final TaskUserLinkEntity taskUserLink;
+
+  const TaskUserLinkLoadedBlocState(this.taskUserLink);
+
+  @override
+  List<Object> get props => [taskUserLink];
+}
+
 class TaskUserLoadedBlocState extends TaskUserLinkBlocState {
   final OrganizerItems<UserEntity> userItems;
 
-  TaskUserLoadedBlocState(this.userItems);
+  const TaskUserLoadedBlocState(this.userItems);
 
   @override
   List<Object> get props => [userItems];
@@ -21,7 +30,7 @@ class TaskUserLoadedBlocState extends TaskUserLinkBlocState {
 class UserItemsUpdatedToTaskBlocState extends TaskUserLinkBlocState {
   final OrganizerItems<UserEntity> userItemsUpdated;
 
-  UserItemsUpdatedToTaskBlocState(this.userItemsUpdated);
+  const UserItemsUpdatedToTaskBlocState(this.userItemsUpdated);
 
   @override
   List<Object> get props => [userItemsUpdated];
@@ -30,7 +39,7 @@ class UserItemsUpdatedToTaskBlocState extends TaskUserLinkBlocState {
 class TaskUserErrorBlocState extends TaskUserLinkBlocState {
   final String message;
 
-  TaskUserErrorBlocState(this.message);
+  const TaskUserErrorBlocState(this.message);
 
   @override
   List<Object> get props => [message];
