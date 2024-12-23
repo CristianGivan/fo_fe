@@ -11,10 +11,8 @@ class TaskListPage extends StatelessWidget {
       builder: (context, state) {
         if (state is TaskLoadingBlocState) {
           return _buildLoadingState();
-        } else if (state is TaskLoadedBlocState) {
-          return _buildErrorState(TaskStrings().noTaskDtoLoaded);
         } else if (state is TaskDtoItemsLoadedBlocState) {
-          return _buildTaskListDto(context, state.displa9yedTasks);
+          return _buildTaskListDto(context, state.displayedTasks);
         } else if (state is TaskErrorBlocState) {
           return _buildErrorState(state.message);
         } else {
@@ -38,24 +36,35 @@ class TaskListPage extends StatelessWidget {
         itemCount: taskDtoList.size(),
         itemBuilder: (context, index) {
           final taskDto = taskDtoList.getAt(index) as TaskDto;
-          return BlocBuilder<TaskUserLinkBloc, TaskUserLinkBlocState>(builder: (context, state) {
-            return CheckboxListTile(
+
+          return StreamBuilder<Map<int, bool>>(
+            stream: context.read<TaskUserLinkBloc>().taskUpdatesStream,
+            builder: (context, snapshot) {
+              return CheckboxListTile(
+                key: ValueKey(taskDto.id),
                 title: TaskCard(taskDto.task),
-                value: getValue(taskDto),
-                onChanged: (bool? value) => updateTaskUserLink(context, taskDto, value!));
-          });
+                value: getValue(taskDto, snapshot),
+                onChanged: (bool? value) => updateTaskUserLink(taskDto, value, context),
+              );
+            },
+          );
         },
       );
     }
   }
 
-  bool getValue(TaskDto taskDto) {
-    return taskDto.taskUserLink.isSelectedByUser ?? false;
+  bool getValue(TaskDto taskDto, AsyncSnapshot<Map<int, bool>> snapshot) {
+    bool isSelected = taskDto.taskUserLink.isSelectedByUser;
+
+    if (snapshot.hasData && snapshot.data!.containsKey(taskDto.id)) {
+      isSelected = snapshot.data![taskDto.id]!;
+    }
+
+    return isSelected;
   }
 
-  bool updateTaskUserLink(BuildContext context, TaskDto taskDto, bool value) {
-    final updatedTaskUserLink = taskDto.taskUserLink.copyWith(selectedByUser: value!);
+  void updateTaskUserLink(TaskDto taskDto, bool? value, BuildContext context) {
+    final updatedTaskUserLink = taskDto.taskUserLink.copyWith(isSelectedByUser: value);
     context.read<TaskUserLinkBloc>().add(UpdateTaskUserLinkBlocEvent(updatedTaskUserLink));
-    return value;
   }
 }

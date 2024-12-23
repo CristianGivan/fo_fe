@@ -1,17 +1,17 @@
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class TaskUserLinkEntity extends ItemEntity {
+  final int _taskId;
+  final int _userId;
   final DateTime? _linkingDate;
-  final int? _taskId;
-  final int? _userId;
-  final bool? _selectedByUser;
+  final bool _selectedByUser;
   final int? _orderedByUser;
 
   TaskUserLinkEntity({
     int? id,
-    DateTime? linkingDate,
     int? taskId,
     int? userId,
+    DateTime? linkingDate,
     bool? selectedByUser,
     int? orderedByUser,
   })  : _linkingDate = linkingDate ?? INITIAL_EPOCH_DATE,
@@ -30,11 +30,11 @@ class TaskUserLinkEntity extends ItemEntity {
 
   DateTime? get linkingDate => _linkingDate;
 
-  int? get taskId => _taskId;
+  int get taskId => _taskId;
 
-  int? get userId => _userId;
+  int get userId => _userId;
 
-  bool? get isSelectedByUser => _selectedByUser;
+  bool get isSelectedByUser => _selectedByUser;
 
   int? get orderedByUser => _orderedByUser;
 
@@ -53,7 +53,7 @@ class TaskUserLinkEntity extends ItemEntity {
     DateTime? linkingDate,
     int? taskId,
     int? userId,
-    bool? selectedByUser,
+    bool? isSelectedByUser,
     int? orderedByUser,
   }) {
     return TaskUserLinkEntity(
@@ -61,7 +61,7 @@ class TaskUserLinkEntity extends ItemEntity {
       linkingDate: linkingDate ?? _linkingDate,
       taskId: taskId ?? _taskId,
       userId: userId ?? _userId,
-      selectedByUser: selectedByUser ?? _selectedByUser,
+      selectedByUser: isSelectedByUser ?? _selectedByUser,
       orderedByUser: orderedByUser ?? _orderedByUser,
     );
   }

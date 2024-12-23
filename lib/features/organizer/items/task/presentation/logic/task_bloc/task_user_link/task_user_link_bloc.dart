@@ -6,6 +6,11 @@ class TaskUserLinkBloc extends Bloc<TaskUserLinkBlocEvent, TaskUserLinkBlocState
   final UpdateUserItemsOfTaskUseCase updateUserItemsOfTask;
   final UpdateTaskUserLinkUseCase updateTaskUserLink;
 
+  final StreamController<Map<int, bool>> _taskUpdatesController =
+      StreamController<Map<int, bool>>.broadcast();
+
+  Stream<Map<int, bool>> get taskUpdatesStream => _taskUpdatesController.stream;
+
   TaskUserLinkBloc({
     required this.getUserItemsByTaskId,
     required this.getCreatorByTaskId,
@@ -49,13 +54,21 @@ class TaskUserLinkBloc extends Bloc<TaskUserLinkBlocEvent, TaskUserLinkBlocState
   FutureOr<void> _onGetCreatorByTaskId(event, Emitter<TaskUserLinkBlocState> emit) {}
 
   Future<void> _onUpdateTaskUserLink(
-      UpdateTaskUserLinkBlocEvent event, Emitter<TaskUserLinkBlocState> emit) async {
+    UpdateTaskUserLinkBlocEvent event,
+    Emitter<TaskUserLinkBlocState> emit,
+  ) async {
     emit(TaskUserLoadingBlocState());
     final failureOrTaskUserLink =
         await updateTaskUserLink(TaskParams(taskUserLinkEntity: event.taskUserLink));
-    emit(
-      failureOrTaskUserLink.fold((failure) => TaskUserErrorBlocState(_mapFailureToMessage(failure)),
-          (taskUserLink) => TaskUserLinkLoadedBlocState(taskUserLink)),
+
+    failureOrTaskUserLink.fold(
+      (failure) => emit(TaskUserErrorBlocState(_mapFailureToMessage(failure))),
+      (updatedTaskUserLink) {
+        _taskUpdatesController.add({
+          updatedTaskUserLink.taskId: updatedTaskUserLink.isSelectedByUser,
+        });
+        emit(TaskUserLinkLoadedBlocState(updatedTaskUserLink));
+      },
     );
   }
 
@@ -67,5 +80,11 @@ class TaskUserLinkBloc extends Bloc<TaskUserLinkBlocEvent, TaskUserLinkBlocState
     } else {
       return 'An error occurred: \n ${failure.message}';
     }
+  }
+
+  @override
+  Future<void> close() {
+    _taskUpdatesController.close();
+    return super.close();
   }
 }
