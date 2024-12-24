@@ -126,29 +126,6 @@ class TaskBloc extends Bloc<TaskBlocEvent, TaskBlocState> {
     }
   }
 
-  // Future<void> _onUpdateTaskUserLinkBlocEvent(
-  //   UpdateTaskUserLinkBlocEvent event,
-  //   Emitter<TaskBlocState> emit,
-  // ) async {
-  //   if (state is TaskDtoItemsLoadedBlocState) {
-  //     final currentState = state as TaskDtoItemsLoadedBlocState;
-  //     final updatedTaskDto = await updateTaskDto(event.taskParams);
-  //     updatedTaskDto.fold(
-  //       (failure) => emit(TaskErrorBlocState(message: _mapFailureToMessage(failure))),
-  //       (taskDto) {
-  //         final updatedOriginalTasks = currentState.originalTasks;
-  //         final updatedDisplayedTasks = currentState.displayedTasks.copyWithUpdatedItem(taskDto);
-  //         emit(TaskDtoItemsLoadedBlocState(
-  //           originalTasks: updatedOriginalTasks,
-  //           displayedTasks: updatedDisplayedTasks,
-  //         ));
-  //       },
-  //     );
-  //   } else {
-  //     emit(TaskErrorBlocState(message: 'TaskLoadedBlocState is required'));
-  //   }
-  // }
-
   String _mapFailureToMessage(Failure failure) {
     switch (failure.runtimeType) {
       case NetworkFailure:
