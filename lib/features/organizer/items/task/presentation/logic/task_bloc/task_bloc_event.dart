@@ -76,6 +76,15 @@ class TaskUpdateBlocEvent extends TaskBlocEvent {
   List<Object> get props => [task];
 }
 
+class TaskDtoUpdateDisplayItemsBlocEvent extends TaskBlocEvent {
+  final ItemEntity updatedDisplayedTasks;
+
+  TaskDtoUpdateDisplayItemsBlocEvent(this.updatedDisplayedTasks);
+
+  @override
+  List<Object> get props => [updatedDisplayedTasks];
+}
+
 class TaskDeleteBlocEvent extends TaskBlocEvent {
   final int taskId;
 

@@ -4,7 +4,7 @@ class TaskUserLinkEntity extends ItemEntity {
   final int _taskId;
   final int _userId;
   final DateTime? _linkingDate;
-  final bool _selectedByUser;
+  final bool _isSelectedByUser;
   final int? _orderedByUser;
 
   TaskUserLinkEntity({
@@ -17,7 +17,7 @@ class TaskUserLinkEntity extends ItemEntity {
   })  : _linkingDate = linkingDate ?? INITIAL_EPOCH_DATE,
         _taskId = taskId ?? 0,
         _userId = userId ?? 0,
-        _selectedByUser = selectedByUser ?? false,
+        _isSelectedByUser = selectedByUser ?? false,
         _orderedByUser = orderedByUser ?? 0,
         super(id: id ?? 0);
 
@@ -34,7 +34,7 @@ class TaskUserLinkEntity extends ItemEntity {
 
   int get userId => _userId;
 
-  bool get isSelectedByUser => _selectedByUser;
+  bool get isSelectedByUser => _isSelectedByUser;
 
   int? get orderedByUser => _orderedByUser;
 
@@ -44,7 +44,7 @@ class TaskUserLinkEntity extends ItemEntity {
         _linkingDate,
         _taskId,
         _userId,
-        _selectedByUser,
+        _isSelectedByUser,
         _orderedByUser,
       ];
 
@@ -61,7 +61,7 @@ class TaskUserLinkEntity extends ItemEntity {
       linkingDate: linkingDate ?? _linkingDate,
       taskId: taskId ?? _taskId,
       userId: userId ?? _userId,
-      selectedByUser: isSelectedByUser ?? _selectedByUser,
+      selectedByUser: isSelectedByUser ?? _isSelectedByUser,
       orderedByUser: orderedByUser ?? _orderedByUser,
     );
   }

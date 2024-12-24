@@ -56,6 +56,7 @@ class TaskBloc extends Bloc<TaskBlocEvent, TaskBlocState> {
     // on<TaskLoadItemsByIdSetBlocEvent>(_onLoadTaskItemsByIdSetBlocEvent);
     on<TaskAddBlocEvent>(_onAddTaskBlocEvent);
     on<TaskUpdateBlocEvent>(_onUpdateTaskBlocEvent);
+    on<TaskDtoUpdateDisplayItemsBlocEvent>(_onUpdateTaskDtoDisplayItemsBlocEvent);
     // on<UpdateTaskUserLinkBlocEvent>(_onUpdateTaskUserLinkBlocEvent);
     // on<TaskDeleteBlocEvent>(_onDeleteTaskBlocEvent);
     // on<ToggleTaskSelectionBlocEvent>(_onToggleTaskSelectionBlocEvent);
@@ -265,4 +266,17 @@ class TaskBloc extends Bloc<TaskBlocEvent, TaskBlocState> {
 //         displayedTasks: tasks as OrganizerItems<TaskEntity>),
 //   ));
 // }
+
+  FutureOr<void> _onUpdateTaskDtoDisplayItemsBlocEvent(
+      TaskDtoUpdateDisplayItemsBlocEvent event, Emitter<TaskBlocState> emit) async {
+    if (state is TaskDtoItemsLoadedBlocState) {
+      final currentState = state as TaskDtoItemsLoadedBlocState;
+      final updatedDisplayedTasks =
+          currentState.displayedTasks.copyWithUpdatedItem(event.updatedDisplayedTasks);
+      emit(TaskDtoItemsLoadedBlocState(
+        originalTasks: currentState.originalTasks,
+        displayedTasks: updatedDisplayedTasks,
+      ));
+    }
+  }
 }
