@@ -24,7 +24,7 @@ part 'task_user_link/task_user_link_bloc.dart';
 part 'task_user_link/task_user_link_bloc_event.dart';
 part 'task_user_link/task_user_link_bloc_state.dart';
 
-class TaskBloc extends Bloc<TaskBlocEvent, TaskBlocState> {
+class TaskBloc extends Bloc<OrganizerBlocEvent, TaskBlocState> {
   final GetTaskByIdUseCase getTaskById;
   final GetTaskItemsAllUseCase getTaskItemsAll;
   final GetTaskItemsFromLogInUserUseCase getTaskItemsFromLogInUser;
@@ -50,13 +50,13 @@ class TaskBloc extends Bloc<TaskBlocEvent, TaskBlocState> {
   }) : super(TaskInitialBlocState()) {
     // on<TaskGetByIdBlocEvent>(_onGetTaskByIdBlocEvent);
     // on<TaskItemsGetAllBlocEvent>(_onLoadTaskItemsAllBlocEvent);
-    on<GetTaskItemsFromLogInUserBlocEvent>(_onGetTaskItemsFromLogInUserBlocEvent);
+    on<GetItemsFromLogInUserBlocEvent>(_onGetTaskItemsFromLogInUserBlocEvent);
     // on<TaskItemsSortBlocEvent>(_onTaskItemsSortBlocEvent);
     // on<TaskItemsFilterBlocEvent>(_onTaskItemsFilterBlocEvent);
     // on<TaskLoadItemsByIdSetBlocEvent>(_onLoadTaskItemsByIdSetBlocEvent);
-    on<TaskAddBlocEvent>(_onAddTaskBlocEvent);
-    on<TaskUpdateBlocEvent>(_onUpdateTaskBlocEvent);
-    on<TaskDisplayItemsUpdatedBlocEvent>(_onUpdateTaskDtoDisplayItemsBlocEvent);
+    on<AddItemBlocEvent>(_onAddTaskBlocEvent);
+    on<UpdateItemBlocEvent>(_onUpdateTaskBlocEvent);
+    on<UpdateDisplayItemsWithItemBlocEvent>(_onUpdateTaskDtoDisplayItemsBlocEvent);
     // on<UpdateTaskUserLinkBlocEvent>(_onUpdateTaskUserLinkBlocEvent);
     // on<TaskDeleteBlocEvent>(_onDeleteTaskBlocEvent);
     // on<ToggleTaskSelectionBlocEvent>(_onToggleTaskSelectionBlocEvent);
@@ -65,19 +65,19 @@ class TaskBloc extends Bloc<TaskBlocEvent, TaskBlocState> {
   //
 
   void _onGetTaskItemsFromLogInUserBlocEvent(
-      GetTaskItemsFromLogInUserBlocEvent event, Emitter<TaskBlocState> emit) async {
+      GetItemsFromLogInUserBlocEvent event, Emitter<TaskBlocState> emit) async {
     emit(TaskLoadingBlocState());
-    final failureOrTasks = await (getTaskItemsFromLogInUser(event.taskParams));
+    final failureOrTasks = await (getTaskItemsFromLogInUser(event.param));
     emit(failureOrTasks.fold(
       (failure) => TaskErrorBlocState(message: _mapFailureToMessage(failure)),
       (tasks) => TaskDtoItemsLoadedBlocState(originalTaskItems: tasks, displayedTaskItems: tasks),
     ));
   }
 
-  void _onAddTaskBlocEvent(TaskAddBlocEvent event, Emitter<TaskBlocState> emit) async {
+  void _onAddTaskBlocEvent(AddItemBlocEvent event, Emitter<TaskBlocState> emit) async {
     final oldState = state;
     emit(TaskLoadingBlocState());
-    final failureOrTask = await addTask(TaskParams(task: event.task));
+    final failureOrTask = await addTask(TaskParams(task: event.item));
     failureOrTask.fold(
       (failure) => emit(TaskErrorBlocState(message: _mapFailureToMessage(failure))),
       (newTask) => emitAddAndLoadedState(oldState, newTask, emit),
@@ -102,13 +102,13 @@ class TaskBloc extends Bloc<TaskBlocEvent, TaskBlocState> {
   }
 
   void _onUpdateTaskBlocEvent(
-    TaskUpdateBlocEvent event,
+    UpdateItemBlocEvent event,
     Emitter<TaskBlocState> emit,
   ) async {
     if (state is TaskDtoItemsLoadedBlocState) {
       final currentState = state as TaskDtoItemsLoadedBlocState;
       emit(TaskLoadingBlocState());
-      final failureOrSuccess = await updateTask(TaskParams(task: event.task));
+      final failureOrSuccess = await updateTask(TaskParams(task: event.item));
       failureOrSuccess.fold(
         (failure) => emit(TaskErrorBlocState(message: _mapFailureToMessage(failure))),
         (updatedTask) {
@@ -268,7 +268,7 @@ class TaskBloc extends Bloc<TaskBlocEvent, TaskBlocState> {
 // }
 
   FutureOr<void> _onUpdateTaskDtoDisplayItemsBlocEvent(
-      TaskDisplayItemsUpdatedBlocEvent event, Emitter<TaskBlocState> emit) async {
+      UpdateDisplayItemsWithItemBlocEvent event, Emitter<TaskBlocState> emit) async {
     if (state is TaskDtoItemsLoadedBlocState) {
       final currentState = state as TaskDtoItemsLoadedBlocState;
       final updatedDisplayedTasks =

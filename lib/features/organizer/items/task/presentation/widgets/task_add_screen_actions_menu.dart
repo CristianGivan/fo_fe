@@ -39,7 +39,7 @@ class TaskAddScreenActionsMenu {
       taskStatus: taskFormState.taskStatus,
     );
 
-    BlocProvider.of<TaskBloc>(context).add(TaskAddBlocEvent(task));
+    BlocProvider.of<TaskBloc>(context).add(AddItemBlocEvent(task));
     context.pop();
   }
 }

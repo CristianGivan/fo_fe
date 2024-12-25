@@ -1,3 +1,12 @@
+== Nume
+
+ALO
+ALOR
+AFLO
+OLA
+OLF
+ALF
+
 == Old
 
 * change    _checkItemNotNull(auth); to return empty not a fail

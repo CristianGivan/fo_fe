@@ -1,8 +1,8 @@
-import 'package:fo_fe/core/utils/exports/external_exports.dart';
 import 'package:fo_fe/core/widgets/core_widget_exports.dart';
 import 'package:fo_fe/features/organizer/items/task/presentation/task_card_widget.dart';
 import 'package:fo_fe/features/organizer/items/task/presentation/widgets/item_card_container.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class TaskCard extends StatelessWidget {
   final TaskEntity task;
@@ -31,7 +31,7 @@ class TaskCard extends StatelessWidget {
     }
 
     final updatedTask = task.copyWith(taskStatus: newStatus);
-    context.read<TaskBloc>().add(TaskUpdateBlocEvent(updatedTask));
+    context.read<TaskBloc>().add(UpdateItemBlocEvent(updatedTask));
 
     SnackBarWidget.showAboveBottomNavBar(context, content: 'Task status updated to $newStatus');
 
