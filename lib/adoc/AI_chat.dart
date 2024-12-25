@@ -1,204 +1,140 @@
-// import 'package:flutter/material.dart';
+// Entity-Specific Customizations Using Shared Base Classes
+// Shared Event and State Classes
+//
+// Define a base event and state that can be extended for each entity.
+//
+// // shared_event.dart
+// abstract class EntityEvent {}
+//
+// class LoadEntities extends EntityEvent {}
+//
+// // shared_state.dart
+// abstract class EntityState {}
+//
+// class EntitiesLoading extends EntityState {}
+//
+// class EntitiesLoaded<T> extends EntityState {
+//   final List<T> entities;
+//
+//   EntitiesLoaded(this.entities);
+// }
+//
+// Entity-Specific Extensions
+//
+// Extend the shared event and state classes for entity-specific logic.
+//
+// // task_event.dart
+// import 'shared_event.dart';
+//
+// class MarkTaskAsCompleted extends EntityEvent {
+//   final String taskId;
+//
+//   MarkTaskAsCompleted(this.taskId);
+// }
+//
+// // note_event.dart
+// import 'shared_event.dart';
+//
+// class AddTagToNote extends EntityEvent {
+//   final String noteId;
+//   final String tag;
+//
+//   AddTagToNote(this.noteId, this.tag);
+// }
+//
+// Generic Bloc with Dynamic Handling
+//
+// The TaskBloc or NoteBloc can extend Bloc<EntityEvent, EntityState> and handle both shared and specific events dynamically using is checks.
+//
+// // task_bloc.dart
 // import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:fo_fe/core/config/app_init.dart';
-// import 'package:fo_fe/core/del/stateful_route_shell_old.dart';
-// import 'package:fo_fe/core/themes/app_themes.dart';
-// import 'package:fo_fe/features/auth/config/auth_exports.dart';
-// import 'package:fo_fe/features/organizer/config/organizer_exports.dart';
-// import 'package:fo_fe/features/organizer/items/task/presentation/logic/task_bloc/task_user_link_bloc.dart';
-// import 'package:fo_fe/try/UI/add_task_screen.dart';
-// import 'package:fo_fe/try/UI/task_screen.dart';
-// import 'package:get_it/get_it.dart';
-// import 'package:go_router/go_router.dart';
+// import 'shared_event.dart';
+// import 'shared_state.dart';
+// import 'task_event.dart';
 //
-// import '../functions/simple_bloc_observer.dart';
-//
-// Future<void> main() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-//   appInit();
-//   Bloc.observer = SimpleBlocObserver();
-//   runApp(const AppMain());
+// class TaskBloc extends Bloc<EntityEvent, EntityState> {
+//   TaskBloc() : super(EntitiesLoading()) {
+//     on<EntityEvent>((event, emit) {
+//       if (event is LoadEntities) {
+//         // Handle shared loading logic
+//         emit(EntitiesLoading());
+//         emit(EntitiesLoaded([
+//           Task('1', 'Write Documentation'),
+//           Task('2', 'Review PRs'),
+//         ]));
+//       } else if (event is MarkTaskAsCompleted) {
+//         // Handle task-specific logic
+//         if (state is EntitiesLoaded<Task>) {
+//           final tasks = (state as EntitiesLoaded<Task>).entities.map((task) {
+//             return task.id == event.taskId
+//                 ? Task(task.id, '${task.title} (Completed)')
+//                 : task;
+//           }).toList();
+//           emit(EntitiesLoaded(tasks));
+//         }
+//       }
+//     });
+//   }
 // }
 //
-// class AppMain extends StatelessWidget {
-//   const AppMain({super.key});
+// class Task {
+//   final String id;
+//   final String title;
+//
+//   Task(this.id, this.title);
+// }
+//
+// NoteBloc Example
+//
+// // note_bloc.dart
+// import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'shared_event.dart';
+// import 'shared_state.dart';
+// import 'note_event.dart';
+//
+// class NoteBloc extends Bloc<EntityEvent, EntityState> {
+//   NoteBloc() : super(EntitiesLoading()) {
+//     on<EntityEvent>((event, emit) {
+//       if (event is LoadEntities) {
+//         // Handle shared loading logic
+//         emit(EntitiesLoading());
+//         emit(EntitiesLoaded([
+//           Note('1', 'Meeting Notes'),
+//           Note('2', 'Project Ideas'),
+//         ]));
+//       } else if (event is AddTagToNote) {
+//         // Handle note-specific logic
+//         if (state is EntitiesLoaded<Note>) {
+//           final notes = (state as EntitiesLoaded<Note>).entities.map((note) {
+//             return note.id == event.noteId
+//                 ? Note(note.id, '${note.content} (Tagged: ${event.tag})')
+//                 : note;
+//           }).toList();
+//           emit(EntitiesLoaded(notes));
+//         }
+//       }
+//     });
+//   }
+// }
+//
+// class Note {
+//   final String id;
+//   final String content;
+//
+//   Note(this.id, this.content);
+// }
+//
+//
+// ---------------------------------------------------------------
+//
+// abstract class BaseState extends Equatable {
+//   final BlocStatus status;
+//   final String? errorMessage;
+//
+//   const BaseState({this.status = BlocStatus.initial, this.errorMessage});
 //
 //   @override
-//   Widget build(BuildContext context) {
-//     return appBlocProviders(child: const AppView());
-//   }
+//   List<Object?> get props => [status, errorMessage];
 // }
 //
-// class AppView extends StatelessWidget {
-//   const AppView({super.key});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp.router(
-//       debugShowCheckedModeBanner: false,
-//       theme: AppThemes.darkTheme(),
-//       routerConfig: AppRouter.returnRouter(),
-//     );
-//   }
-// }
-//
-// MultiBlocProvider appBlocProviders({
-//   required Widget child,
-// }) {
-//   return MultiBlocProvider(
-//     providers: [
-//       ...getOrganizerBlocProviders(),
-//       ...getAuthBlocProviders()
-//     ],
-//     child: child,
-//   );
-// }
-//
-// List<BlocProvider> getOrganizerBlocProviders() {
-//   return [
-//     BlocProvider<TaskBlocTask>(
-//       create: (_) => GetIt.instance<TaskBlocTask>(),
-//     ),
-//     BlocProvider<TaskBlocUser>(
-//       create: (_) => GetIt.instance<TaskBlocUser>(),
-//     ),
-//     BlocProvider<TaskBlocTag>(
-//       create: (_) => GetIt.instance<TaskBlocTag>(),
-//     ),
-//     BlocProvider<TaskBlocReminder>(
-//       create: (_) => GetIt.instance<TaskBlocReminder>(),
-//     ),
-//     // Add more BlocProviders as needed
-//   ];
-// }
-//
-// List<BlocProvider> getAuthBlocProviders() {
-//   return [
-//     BlocProvider<AuthBlocSession>(
-//       create: (_) => GetIt.instance<AuthBlocSession>(),
-//     ),
-//     BlocProvider<AuthBlocToken>(
-//       create: (_) => GetIt.instance<AuthBlocToken>(),
-//     ),
-//     BlocProvider<AuthBlocSignUp>(
-//       create: (_) => GetIt.instance<AuthBlocSignUp>(),
-//     ),
-//     BlocProvider<AuthSignBloc>(
-//       create: (_) => GetIt.instance<AuthSignBloc>(),
-//     ),
-//   ];
-// }
-//
-// // app_route_try.dart
-//
-// final _organizerShellNavigatorKey =
-//     GlobalKey<NavigatorState>(debugLabel: 'organizer');
-// final _authShellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'auth');
-//
-// class AppRouter {
-//   static GoRouter returnRouter() {
-//     GoRouter router = GoRouter(
-//       initialLocation:
-//           AuthRouterNames.authWithAutoLogInRoute,
-//       debugLogDiagnostics: true,
-//       routes: [
-//         StatefulShellRoute.indexedStack(
-//           builder: (context, state, navigationShell) {
-//             return ScaffoldWithNestedNavigation(
-//                 //todo cg is needed?
-//                 navigationShell: navigationShell);
-//           },
-//           branches: [
-//             OrganizerAppBranch.branch(_organizerShellNavigatorKey),
-//             AuthAppBranch.branch(_authShellNavigatorKey),
-//           ],
-//         ),
-//       ],
-//     );
-//     return router;
-//   }
-// }
-//
-// class OrganizerAppBranch {
-//   static StatefulShellBranch branch(GlobalKey<NavigatorState> navigatorKey) {
-//     return StatefulShellBranch(
-//       navigatorKey: navigatorKey,
-//       routes: [
-//         route(),
-//       ],
-//     );
-//   }
-//
-//   static GoRoute route() {
-//     return GoRoute(
-//       name: OrganizerRouterNames.organizerRoute,
-//       path: '/organizer',
-//       pageBuilder: (context, state) => NoTransitionPage(
-//         child: OrganizerHome(),
-//         // This is the root screen for the organizer
-//       ),
-//       routes: [
-//         GoRoute(
-//           name: OrganizerRouterNames.organizerTaskRoute,
-//           path: 'task', // Relative path for nesting
-//           pageBuilder: (context, state) => NoTransitionPage(
-//             child: TaskScreen(),
-//           ),
-//           routes: [
-//             GoRoute(
-//               name: OrganizerRouterNames.organizerTaskAddTaskRoute,
-//               path: OrganizerRouterNames.organizerTaskAddTaskName,
-//               pageBuilder: (context, state) => NoTransitionPage(
-//                 child: AddTaskScreen(),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ],
-//     );
-//   }
-// }
-//
-// class AuthAppBranch {
-//   static StatefulShellBranch branch(GlobalKey<NavigatorState> navigatorKey) {
-//     return StatefulShellBranch(
-//       navigatorKey: navigatorKey,
-//       routes: [
-//         route(),
-//       ],
-//     );
-//   }
-//
-//   static GoRoute route() {
-//     return GoRoute(
-//       name: AuthRouterNames.authRoute,
-//       path: '/auth',
-//       pageBuilder: (context, state) => NoTransitionPage(
-//         child: AuthScreen(),
-//       ),
-//       routes: [
-//         GoRoute(
-//           name: AuthRouterNames.signInRoute,
-//           path: 'sign-in',
-//           pageBuilder: (context, state) => NoTransitionPage(
-//             child: SignInScreen(),
-//           ),
-//         ),
-//         GoRoute(
-//           name: AuthRouterNames.signUpRoute,
-//           path: 'sign-up',
-//           pageBuilder: (context, state) => NoTransitionPage(
-//             child: SignUpScreen(),
-//           ),
-//         ),
-//         GoRoute(
-//           name: AuthRouterNames.authWithAutoLogInRoute,
-//           path: 'authWithAutoLogIn',
-//           pageBuilder: (context, state) => NoTransitionPage(
-//             child: AuthScreenWithAutoLogIn(),
-//           ),
-//         )
-//       ],
-//     );
-//   }
-// }
+// enum BlocStatus { initial, loading, loaded, error }
