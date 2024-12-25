@@ -18,9 +18,9 @@ class TaskEditScreen extends StatelessWidget {
         builder: (context, state) {
           if (state is TaskLoadingBlocState) {
             return const Center(child: CircularProgressIndicator());
-          } else if (state is TaskLoadedBlocState) {
-            final task = state.displayedTasks.getById(taskId);
-            return TaskFormFieldsPage(task: task);
+          } else if (state is TaskDtoItemsLoadedBlocState) {
+            final taskDto = state.displayedTaskItems.getById(taskId) as TaskDto;
+            return TaskFormFieldsPage(task: taskDto.task);
           } else {
             return Center(child: Text(TaskStrings().noItemsAvailable));
           }

@@ -114,12 +114,12 @@ class _FilterDialogState extends State<FilterDialog> {
   }
 
   FilterTasksParams _buildFilterParams() {
-    final displayedTasks = _getTasksFromState(true);
-    final originalTasks = _getTasksFromState(false);
+    final displayedTasks = _getDisplayedTaskItems();
+    final originalTasks = _getOriginalTaskItems();
 
     return FilterTasksParams(
-      displayedTasks: displayedTasks,
-      originalTasks: originalTasks,
+      displayedTaskItems: displayedTasks,
+      originalTaskItems: originalTasks,
       criteria: _selectedCriteria == TaskFilterCriteria.reset
           ? 'reset'
           : _selectedCriteria.toString().split('.').last,
@@ -129,12 +129,20 @@ class _FilterDialogState extends State<FilterDialog> {
     );
   }
 
-  OrganizerItems<TaskEntity> _getTasksFromState(bool getDisplayed) {
+  OrganizerItems<TaskDto> _getDisplayedTaskItems() {
     final state = context.read<TaskBloc>().state;
-    if (state is TaskLoadedBlocState) {
-      return getDisplayed ? state.displayedTasks : state.originalTasks;
+    if (state is TaskDtoItemsLoadedBlocState) {
+      return state.displayedTaskItems as OrganizerItems<TaskDto>;
     }
-    return OrganizerItems<TaskEntity>.empty();
+    return OrganizerItems<TaskDto>.empty();
+  }
+
+  OrganizerItems<TaskDto> _getOriginalTaskItems() {
+    final state = context.read<TaskBloc>().state;
+    if (state is TaskDtoItemsLoadedBlocState) {
+      return state.originalTaskItems as OrganizerItems<TaskDto>;
+    }
+    return OrganizerItems<TaskDto>.empty();
   }
 }
 

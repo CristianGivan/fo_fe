@@ -56,7 +56,7 @@ class TaskBloc extends Bloc<TaskBlocEvent, TaskBlocState> {
     // on<TaskLoadItemsByIdSetBlocEvent>(_onLoadTaskItemsByIdSetBlocEvent);
     on<TaskAddBlocEvent>(_onAddTaskBlocEvent);
     on<TaskUpdateBlocEvent>(_onUpdateTaskBlocEvent);
-    on<TaskDtoUpdateDisplayItemsBlocEvent>(_onUpdateTaskDtoDisplayItemsBlocEvent);
+    on<TaskDisplayItemsUpdatedBlocEvent>(_onUpdateTaskDtoDisplayItemsBlocEvent);
     // on<UpdateTaskUserLinkBlocEvent>(_onUpdateTaskUserLinkBlocEvent);
     // on<TaskDeleteBlocEvent>(_onDeleteTaskBlocEvent);
     // on<ToggleTaskSelectionBlocEvent>(_onToggleTaskSelectionBlocEvent);
@@ -70,7 +70,7 @@ class TaskBloc extends Bloc<TaskBlocEvent, TaskBlocState> {
     final failureOrTasks = await (getTaskItemsFromLogInUser(event.taskParams));
     emit(failureOrTasks.fold(
       (failure) => TaskErrorBlocState(message: _mapFailureToMessage(failure)),
-      (tasks) => TaskDtoItemsLoadedBlocState(originalTasks: tasks, displayedTasks: tasks),
+      (tasks) => TaskDtoItemsLoadedBlocState(originalTaskItems: tasks, displayedTaskItems: tasks),
     ));
   }
 
@@ -89,8 +89,8 @@ class TaskBloc extends Bloc<TaskBlocEvent, TaskBlocState> {
     final OrganizerItems<ItemEntity> updatedDisplayedTasks;
 
     if (oldState is TaskDtoItemsLoadedBlocState) {
-      updatedOriginalTasks = oldState.originalTasks;
-      updatedDisplayedTasks = oldState.displayedTasks.copyWithAddedItem(newTask);
+      updatedOriginalTasks = oldState.originalTaskItems;
+      updatedDisplayedTasks = oldState.displayedTaskItems.copyWithAddedItem(newTask);
     } else {
       updatedOriginalTasks = OrganizerItems.of([newTask]);
       updatedDisplayedTasks = OrganizerItems.of([newTask]);
@@ -98,27 +98,27 @@ class TaskBloc extends Bloc<TaskBlocEvent, TaskBlocState> {
 
     emit(TaskAddedBlocState());
     emit(TaskDtoItemsLoadedBlocState(
-        originalTasks: updatedOriginalTasks, displayedTasks: updatedDisplayedTasks));
+        originalTaskItems: updatedOriginalTasks, displayedTaskItems: updatedDisplayedTasks));
   }
 
   void _onUpdateTaskBlocEvent(
     TaskUpdateBlocEvent event,
     Emitter<TaskBlocState> emit,
   ) async {
-    if (state is TaskLoadedBlocState) {
-      final currentState = state as TaskLoadedBlocState;
+    if (state is TaskDtoItemsLoadedBlocState) {
+      final currentState = state as TaskDtoItemsLoadedBlocState;
       emit(TaskLoadingBlocState());
       final failureOrSuccess = await updateTask(TaskParams(task: event.task));
       failureOrSuccess.fold(
         (failure) => emit(TaskErrorBlocState(message: _mapFailureToMessage(failure))),
         (updatedTask) {
-          final updatedOriginalTasks = currentState.originalTasks;
+          final updatedOriginalTasks = currentState.originalTaskItems;
           final updatedDisplayedTasks =
-              currentState.displayedTasks.copyWithUpdatedItem(updatedTask);
+              currentState.displayedTaskItems.copyWithUpdatedItem(updatedTask);
           emit(TaskUpdatedBlocState());
-          emit(TaskLoadedBlocState(
-            originalTasks: updatedOriginalTasks,
-            displayedTasks: updatedDisplayedTasks,
+          emit(TaskDtoItemsLoadedBlocState(
+            originalTaskItems: updatedOriginalTasks,
+            displayedTaskItems: updatedDisplayedTasks,
           ));
         },
       );
@@ -268,14 +268,14 @@ class TaskBloc extends Bloc<TaskBlocEvent, TaskBlocState> {
 // }
 
   FutureOr<void> _onUpdateTaskDtoDisplayItemsBlocEvent(
-      TaskDtoUpdateDisplayItemsBlocEvent event, Emitter<TaskBlocState> emit) async {
+      TaskDisplayItemsUpdatedBlocEvent event, Emitter<TaskBlocState> emit) async {
     if (state is TaskDtoItemsLoadedBlocState) {
       final currentState = state as TaskDtoItemsLoadedBlocState;
       final updatedDisplayedTasks =
-          currentState.displayedTasks.copyWithUpdatedItem(event.updatedDisplayedTasks);
+          currentState.displayedTaskItems.copyWithUpdatedItem(event.updatedDisplayedTasks);
       emit(TaskDtoItemsLoadedBlocState(
-        originalTasks: currentState.originalTasks,
-        displayedTasks: updatedDisplayedTasks,
+        originalTaskItems: currentState.originalTaskItems,
+        displayedTaskItems: updatedDisplayedTasks,
       ));
     }
   }

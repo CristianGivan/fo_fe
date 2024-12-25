@@ -7,17 +7,6 @@ abstract class TaskBlocEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class TaskGetByIdBlocEvent extends TaskBlocEvent {
-  final int taskId;
-
-  TaskGetByIdBlocEvent(this.taskId);
-
-  @override
-  List<Object> get props => [taskId];
-}
-
-class TaskItemsGetAllBlocEvent extends TaskBlocEvent {}
-
 class GetTaskItemsFromLogInUserBlocEvent extends TaskBlocEvent {
   final TaskParams taskParams;
 
@@ -27,19 +16,10 @@ class GetTaskItemsFromLogInUserBlocEvent extends TaskBlocEvent {
   List<Object> get props => [taskParams];
 }
 
-class TaskLoadItemsByIdSetBlocEvent extends TaskBlocEvent {
-  final IdSet idSet;
-
-  TaskLoadItemsByIdSetBlocEvent(this.idSet);
-
-  @override
-  List<Object> get props => [idSet];
-}
-
 class TaskItemsSortBlocEvent extends TaskBlocEvent {
   final SortTasksParams sortParams;
 
-  TaskItemsSortBlocEvent({
+  const TaskItemsSortBlocEvent({
     required this.sortParams,
   });
 
@@ -50,7 +30,7 @@ class TaskItemsSortBlocEvent extends TaskBlocEvent {
 class TaskItemsFilterBlocEvent extends TaskBlocEvent {
   final FilterTasksParams filterParams;
 
-  TaskItemsFilterBlocEvent({
+  const TaskItemsFilterBlocEvent({
     required this.filterParams,
   });
 
@@ -61,7 +41,7 @@ class TaskItemsFilterBlocEvent extends TaskBlocEvent {
 class TaskAddBlocEvent extends TaskBlocEvent {
   final TaskEntity task;
 
-  TaskAddBlocEvent(this.task);
+  const TaskAddBlocEvent(this.task);
 
   @override
   List<Object> get props => [task];
@@ -70,16 +50,16 @@ class TaskAddBlocEvent extends TaskBlocEvent {
 class TaskUpdateBlocEvent extends TaskBlocEvent {
   final TaskEntity task;
 
-  TaskUpdateBlocEvent(this.task);
+  const TaskUpdateBlocEvent(this.task);
 
   @override
   List<Object> get props => [task];
 }
 
-class TaskDtoUpdateDisplayItemsBlocEvent extends TaskBlocEvent {
+class TaskDisplayItemsUpdatedBlocEvent extends TaskBlocEvent {
   final ItemEntity updatedDisplayedTasks;
 
-  TaskDtoUpdateDisplayItemsBlocEvent(this.updatedDisplayedTasks);
+  const TaskDisplayItemsUpdatedBlocEvent(this.updatedDisplayedTasks);
 
   @override
   List<Object> get props => [updatedDisplayedTasks];
@@ -88,7 +68,7 @@ class TaskDtoUpdateDisplayItemsBlocEvent extends TaskBlocEvent {
 class TaskDeleteBlocEvent extends TaskBlocEvent {
   final int taskId;
 
-  TaskDeleteBlocEvent(this.taskId);
+  const TaskDeleteBlocEvent(this.taskId);
 
   @override
   List<Object> get props => [taskId];

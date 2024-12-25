@@ -4,21 +4,21 @@ import 'package:fo_fe/core/usecase/usecase.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class TaskFilterUseCase extends UseCase<OrganizerItems<TaskEntity>, FilterTasksParams> {
+class TaskFilterUseCase extends UseCase<OrganizerItems<TaskDto>, FilterTasksParams> {
   @override
-  Future<Either<Failure, OrganizerItems<TaskEntity>>> call(FilterTasksParams params) async {
-    final List<TaskEntity> filteredTasks;
+  Future<Either<Failure, OrganizerItems<TaskDto>>> call(FilterTasksParams params) async {
+    final List<TaskDto> filteredTasks;
     // Implement filtering logic based on the criteria provided in params
     if (params.criteria == "reset") {
-      filteredTasks = params.originalTasks.toList();
+      filteredTasks = params.originalTaskItems.toList();
     } else {
-      filteredTasks = params.displayedTasks.where((task) {
+      filteredTasks = params.displayedTaskItems.where((taskDto) {
         switch (params.criteria) {
           case 'status':
-            return task.taskStatus == params.status;
+            return taskDto.task.taskStatus == params.status;
           case 'startingDateRange':
-            return task.startDate!.isAfter(params.startDate!) &&
-                task.startDate!.isBefore(params.endDate!);
+            return taskDto.task.startDate!.isAfter(params.startDate!) &&
+                taskDto.task.startDate!.isBefore(params.endDate!);
           default:
             return true;
         }

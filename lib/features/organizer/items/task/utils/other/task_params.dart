@@ -67,16 +67,16 @@ class UpdateItemsToTaskParams<T extends OrganizerItemEntity> extends Equatable {
 }
 
 class FilterTasksParams extends Equatable {
-  final OrganizerItems<TaskEntity> originalTasks;
-  final OrganizerItems<TaskEntity> displayedTasks;
+  final OrganizerItems<TaskDto> originalTaskItems;
+  final OrganizerItems<TaskDto> displayedTaskItems;
   final String criteria;
   final TaskStatus? status;
   final DateTime? startDate;
   final DateTime? endDate;
 
   const FilterTasksParams({
-    required this.originalTasks,
-    required this.displayedTasks,
+    required this.originalTaskItems,
+    required this.displayedTaskItems,
     required this.criteria,
     this.status,
     this.startDate,
@@ -84,16 +84,16 @@ class FilterTasksParams extends Equatable {
   });
 
   FilterTasksParams copyWith({
-    OrganizerItems<TaskEntity>? originalTasks,
-    OrganizerItems<TaskEntity>? displayedTasks,
+    OrganizerItems<TaskDto>? originalTaskItems,
+    OrganizerItems<TaskDto>? displayedTaskItems,
     String? criteria,
     TaskStatus? status,
     DateTime? startDate,
     DateTime? endDate,
   }) {
     return FilterTasksParams(
-      originalTasks: originalTasks ?? this.originalTasks,
-      displayedTasks: displayedTasks ?? this.displayedTasks,
+      originalTaskItems: originalTaskItems ?? this.originalTaskItems,
+      displayedTaskItems: displayedTaskItems ?? this.displayedTaskItems,
       criteria: criteria ?? this.criteria,
       status: status ?? this.status,
       startDate: startDate ?? this.startDate,
@@ -102,17 +102,18 @@ class FilterTasksParams extends Equatable {
   }
 
   @override
-  List<Object?> get props => [originalTasks, displayedTasks, criteria, status, startDate, endDate];
+  List<Object?> get props =>
+      [originalTaskItems, displayedTaskItems, criteria, status, startDate, endDate];
 }
 
 class SortTasksParams {
-  final OrganizerItems<TaskEntity> tasks;
+  final OrganizerItems<TaskDto> tasks;
   final String criteria;
 
   SortTasksParams({required this.tasks, required this.criteria});
 
   SortTasksParams copyWith({
-    OrganizerItems<TaskEntity>? tasks,
+    OrganizerItems<TaskDto>? tasks,
     String? criteria,
   }) {
     return SortTasksParams(

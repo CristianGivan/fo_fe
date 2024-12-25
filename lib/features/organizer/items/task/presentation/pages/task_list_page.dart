@@ -12,7 +12,7 @@ class TaskListPage extends StatelessWidget {
         if (state is TaskLoadingBlocState) {
           return _buildLoadingState();
         } else if (state is TaskDtoItemsLoadedBlocState) {
-          return _buildTaskListDto(context, state.displayedTasks);
+          return _buildTaskListDto(context, state.displayedTaskItems);
         } else if (state is TaskErrorBlocState) {
           return _buildErrorState(state.message);
         } else {
@@ -61,6 +61,6 @@ class TaskListPage extends StatelessWidget {
     final updatedTaskUserLink = taskDto.taskUserLink.copyWith(isSelectedByUser: value);
     final updatedTaskDto = taskDto.copyWith(taskUserLink: updatedTaskUserLink);
     context.read<TaskUserLinkBloc>().add(UpdateTaskUserLinkBlocEvent(updatedTaskUserLink));
-    context.read<TaskBloc>().add(TaskDtoUpdateDisplayItemsBlocEvent(updatedTaskDto));
+    context.read<TaskBloc>().add(TaskDisplayItemsUpdatedBlocEvent(updatedTaskDto));
   }
 }

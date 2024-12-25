@@ -28,6 +28,8 @@ debounce see todo code
 * refactor the task add form
 * void addUserItemsToTask(int taskId, List<int> addedUserItems) {
 * add also else for  if (state is TaskLoadedBlocState) {
+* there is a wait to not have every time as TaskDto
+
 == Now
 
 * create a pop method where to add all the things that shall happen during the pop of several

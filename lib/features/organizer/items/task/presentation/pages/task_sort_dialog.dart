@@ -48,7 +48,7 @@ class _SortDialogState extends State<SortDialog> {
   }
 
   void _applySort() {
-    final tasks = _getTasksFromState();
+    final tasks = _getTaskItemsFromState();
     final sortParams = SortTasksParams(
       tasks: tasks,
       criteria: _selectedCriteria,
@@ -58,12 +58,12 @@ class _SortDialogState extends State<SortDialog> {
     context.pop();
   }
 
-  OrganizerItems<TaskEntity> _getTasksFromState() {
+  OrganizerItems<TaskDto> _getTaskItemsFromState() {
     final state = context.read<TaskBloc>().state;
-    if (state is TaskLoadedBlocState) {
-      return state.displayedTasks;
+    if (state is TaskDtoItemsLoadedBlocState) {
+      return state.displayedTaskItems as OrganizerItems<TaskDto>;
     }
-    return OrganizerItems<TaskEntity>.empty();
+    return OrganizerItems<TaskDto>.empty();
   }
 }
 
