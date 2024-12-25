@@ -12,6 +12,7 @@ import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
+part 'organizer_bloc_event.dart';
 part 'task_bloc_event.dart';
 part 'task_bloc_state.dart';
 part 'task_reminder_link/task_reminder_link_bloc.dart';
@@ -24,7 +25,7 @@ part 'task_user_link/task_user_link_bloc.dart';
 part 'task_user_link/task_user_link_bloc_event.dart';
 part 'task_user_link/task_user_link_bloc_state.dart';
 
-class TaskBloc extends Bloc<TaskBlocEvent, TaskBlocState> {
+class TaskBloc extends Bloc<OrganizerBlocEvent, TaskBlocState> {
   final GetTaskByIdUseCase getTaskById;
   final GetTaskItemsAllUseCase getTaskItemsAll;
   final GetTaskItemsFromLogInUserUseCase getTaskItemsFromLogInUser;
@@ -50,7 +51,7 @@ class TaskBloc extends Bloc<TaskBlocEvent, TaskBlocState> {
   }) : super(TaskInitialBlocState()) {
     // on<TaskGetByIdBlocEvent>(_onGetTaskByIdBlocEvent);
     // on<TaskItemsGetAllBlocEvent>(_onLoadTaskItemsAllBlocEvent);
-    on<GetTaskItemsFromLogInUserBlocEvent>(_onGetTaskItemsFromLogInUserBlocEvent);
+    on<GetItemsFromLogInUserBlocEvent>(_onGetTaskItemsFromLogInUserBlocEvent);
     // on<TaskItemsSortBlocEvent>(_onTaskItemsSortBlocEvent);
     // on<TaskItemsFilterBlocEvent>(_onTaskItemsFilterBlocEvent);
     // on<TaskLoadItemsByIdSetBlocEvent>(_onLoadTaskItemsByIdSetBlocEvent);
@@ -65,9 +66,9 @@ class TaskBloc extends Bloc<TaskBlocEvent, TaskBlocState> {
   //
 
   void _onGetTaskItemsFromLogInUserBlocEvent(
-      GetTaskItemsFromLogInUserBlocEvent event, Emitter<TaskBlocState> emit) async {
+      GetItemsFromLogInUserBlocEvent event, Emitter<TaskBlocState> emit) async {
     emit(TaskLoadingBlocState());
-    final failureOrTasks = await (getTaskItemsFromLogInUser(event.taskParams));
+    final failureOrTasks = await (getTaskItemsFromLogInUser(event.param));
     emit(failureOrTasks.fold(
       (failure) => TaskErrorBlocState(message: _mapFailureToMessage(failure)),
       (tasks) => TaskDtoItemsLoadedBlocState(originalTaskItems: tasks, displayedTaskItems: tasks),

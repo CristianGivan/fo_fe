@@ -1,14 +1,14 @@
-part of 'task_bloc_try.dart';
+part of 'task_bloc.dart';
 
-abstract class OrganizerBlocEvent<Type> extends Equatable {
+abstract class OrganizerBlocEvent extends Equatable {
   const OrganizerBlocEvent();
 
   @override
   List<Object> get props => [];
 }
 
-class GetItemsFromLogInUserBlocEvent<Type, ItemParams> extends OrganizerBlocEvent<Type> {
-  final ItemParams param;
+class GetItemsFromLogInUserBlocEvent<Type> extends OrganizerBlocEvent {
+  final Type param;
 
   const GetItemsFromLogInUserBlocEvent(this.param);
 

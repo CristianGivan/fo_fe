@@ -1,50 +1,50 @@
-part of 'task_bloc_try.dart';
-
-abstract class TaskBlocState extends Equatable {
-  const TaskBlocState();
-
-  @override
-  List<Object> get props => [];
-}
-
-class TaskInitialBlocState extends TaskBlocState {}
-
-class TaskLoadingBlocState extends TaskBlocState {}
-
-class TaskDtoItemsLoadedBlocState extends TaskBlocState {
-  final OrganizerItems<ItemEntity> originalTaskItems;
-  final OrganizerItems<ItemEntity> displayedTaskItems;
-
-  const TaskDtoItemsLoadedBlocState({
-    required this.originalTaskItems,
-    required this.displayedTaskItems,
-  });
-
-  TaskDtoItemsLoadedBlocState copyWith({
-    OrganizerItems<ItemEntity>? originalTaskItems,
-    OrganizerItems<ItemEntity>? displayedTaskItems,
-  }) {
-    return TaskDtoItemsLoadedBlocState(
-      originalTaskItems: originalTaskItems ?? this.originalTaskItems,
-      displayedTaskItems: displayedTaskItems ?? this.displayedTaskItems,
-    );
-  }
-
-  @override
-  List<Object> get props => [originalTaskItems, displayedTaskItems];
-}
-
-class TaskAddedBlocState extends TaskBlocState {}
-
-class TaskUpdatedBlocState extends TaskBlocState {}
-
-class TaskDeletedBlocState extends TaskBlocState {}
-
-class TaskErrorBlocState extends TaskBlocState {
-  final String message;
-
-  const TaskErrorBlocState({this.message = "default error message"});
-
-  @override
-  List<Object> get props => [message];
-}
+// part of 'task_bloc_try.dart';
+//
+// abstract class TaskBlocStateTry extends Equatable {
+//   const TaskBlocStateTry();
+//
+//   @override
+//   List<Object> get props => [];
+// }
+//
+// class TaskInitialBlocStateTry extends TaskBlocStateTry {}
+//
+// class TaskLoadingBlocStateTry extends TaskBlocStateTry {}
+//
+// class TaskDtoItemsLoadedBlocStateTry extends TaskBlocStateTry {
+//   final OrganizerItems<ItemEntity> originalTaskItems;
+//   final OrganizerItems<ItemEntity> displayedTaskItems;
+//
+//   const TaskDtoItemsLoadedBlocStateTry({
+//     required this.originalTaskItems,
+//     required this.displayedTaskItems,
+//   });
+//
+//   TaskDtoItemsLoadedBlocStateTry copyWith({
+//     OrganizerItems<ItemEntity>? originalTaskItems,
+//     OrganizerItems<ItemEntity>? displayedTaskItems,
+//   }) {
+//     return TaskDtoItemsLoadedBlocStateTry(
+//       originalTaskItems: originalTaskItems ?? this.originalTaskItems,
+//       displayedTaskItems: displayedTaskItems ?? this.displayedTaskItems,
+//     );
+//   }
+//
+//   @override
+//   List<Object> get props => [originalTaskItems, displayedTaskItems];
+// }
+//
+// class TaskAddedBlocState extends TaskBlocStateTry {}
+//
+// class TaskUpdatedBlocState extends TaskBlocStateTry {}
+//
+// class TaskDeletedBlocState extends TaskBlocStateTry {}
+//
+// class TaskErrorBlocStateTry extends TaskBlocStateTry {
+//   final String message;
+//
+//   const TaskErrorBlocStateTry({this.message = "default error message"});
+//
+//   @override
+//   List<Object> get props => [message];
+// }

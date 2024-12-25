@@ -1,22 +1,6 @@
 part of 'task_bloc.dart';
 
-abstract class TaskBlocEvent extends Equatable {
-  const TaskBlocEvent();
-
-  @override
-  List<Object> get props => [];
-}
-
-class GetTaskItemsFromLogInUserBlocEvent extends TaskBlocEvent {
-  final TaskParams taskParams;
-
-  const GetTaskItemsFromLogInUserBlocEvent(this.taskParams);
-
-  @override
-  List<Object> get props => [taskParams];
-}
-
-class TaskItemsSortBlocEvent extends TaskBlocEvent {
+class TaskItemsSortBlocEvent extends OrganizerBlocEvent {
   final SortTasksParams sortParams;
 
   const TaskItemsSortBlocEvent({
@@ -27,7 +11,7 @@ class TaskItemsSortBlocEvent extends TaskBlocEvent {
   List<Object> get props => [sortParams];
 }
 
-class TaskItemsFilterBlocEvent extends TaskBlocEvent {
+class TaskItemsFilterBlocEvent extends OrganizerBlocEvent {
   final FilterTasksParams filterParams;
 
   const TaskItemsFilterBlocEvent({
@@ -38,7 +22,7 @@ class TaskItemsFilterBlocEvent extends TaskBlocEvent {
   List<Object> get props => [filterParams];
 }
 
-class TaskAddBlocEvent extends TaskBlocEvent {
+class TaskAddBlocEvent extends OrganizerBlocEvent {
   final TaskEntity task;
 
   const TaskAddBlocEvent(this.task);
@@ -47,7 +31,7 @@ class TaskAddBlocEvent extends TaskBlocEvent {
   List<Object> get props => [task];
 }
 
-class TaskUpdateBlocEvent extends TaskBlocEvent {
+class TaskUpdateBlocEvent extends OrganizerBlocEvent {
   final TaskEntity task;
 
   const TaskUpdateBlocEvent(this.task);
@@ -56,7 +40,7 @@ class TaskUpdateBlocEvent extends TaskBlocEvent {
   List<Object> get props => [task];
 }
 
-class TaskDisplayItemsUpdatedBlocEvent extends TaskBlocEvent {
+class TaskDisplayItemsUpdatedBlocEvent extends OrganizerBlocEvent {
   final ItemEntity updatedDisplayedTasks;
 
   const TaskDisplayItemsUpdatedBlocEvent(this.updatedDisplayedTasks);
@@ -65,7 +49,7 @@ class TaskDisplayItemsUpdatedBlocEvent extends TaskBlocEvent {
   List<Object> get props => [updatedDisplayedTasks];
 }
 
-class TaskDeleteBlocEvent extends TaskBlocEvent {
+class TaskDeleteBlocEvent extends OrganizerBlocEvent {
   final int taskId;
 
   const TaskDeleteBlocEvent(this.taskId);

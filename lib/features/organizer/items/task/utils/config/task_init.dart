@@ -68,6 +68,7 @@ void taskInit() {
         updateTaskDto: sl(),
         updateTask: sl(),
       ));
+
   sl.registerFactory(() => TaskFormCubit());
   sl.registerFactory(() => TaskUserLinkBloc(
         getUserItemsByTaskId: sl(),
