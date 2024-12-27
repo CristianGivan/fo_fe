@@ -7,14 +7,14 @@ class TaskListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TaskBloc, TaskBlocState>(
+    return BlocBuilder<TaskBloc, OrganizerBlocState>(
       builder: (context, state) {
-        if (state is TaskLoadingBlocState) {
+        if (state.status == OrganizerBlocStatus.loading) {
           return _buildLoadingState();
-        } else if (state is TaskDtoItemsLoadedBlocState) {
-          return _buildTaskListDto(context, state.displayedTaskItems);
-        } else if (state is TaskErrorBlocState) {
-          return _buildErrorState(state.message);
+        } else if (state is TaskBlocState && state.status == OrganizerBlocStatus.loaded) {
+          return _buildTaskListDto(context, state.displayedItems);
+        } else if (state.status == OrganizerBlocStatus.error) {
+          return _buildErrorState(state.errorMessage);
         } else {
           return _buildEmptyState();
         }

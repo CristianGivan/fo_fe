@@ -59,11 +59,12 @@ class _SortDialogState extends State<SortDialog> {
   }
 
   OrganizerItems<TaskDto> _getTaskItemsFromState() {
-    final state = context.read<TaskBloc>().state;
-    if (state is TaskDtoItemsLoadedBlocState) {
-      return state.displayedTaskItems as OrganizerItems<TaskDto>;
-    }
-    return OrganizerItems<TaskDto>.empty();
+    //   final state = context.read<TaskBloc>().state;
+    //   if (state is TaskDtoItemsLoadedBlocState) {
+    //     return state.displayedTaskItems as OrganizerItems<TaskDto>;
+    //   }
+    //   return OrganizerItems<TaskDto>.empty();
+    return OrganizerItems.empty();
   }
 }
 

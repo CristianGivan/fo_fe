@@ -24,7 +24,7 @@ class _FilterDialogState extends State<FilterDialog> {
         children: [
           _buildCriteriaDropdown(),
           const SizedBox(height: 16),
-          _buildSecondaryDropdown(),
+          _buildSecondaryWidget(),
         ],
       ),
       actions: [
@@ -36,6 +36,7 @@ class _FilterDialogState extends State<FilterDialog> {
     );
   }
 
+  /// Dropdown for selecting criteria
   Widget _buildCriteriaDropdown() {
     return DropdownButton<TaskFilterCriteria>(
       hint: const Text('Select Criteria'),
@@ -43,20 +44,20 @@ class _FilterDialogState extends State<FilterDialog> {
       onChanged: (TaskFilterCriteria? newValue) {
         setState(() {
           _selectedCriteria = newValue;
-          _selectedStatus = null;
-          _selectedDateRange = null;
+          _resetFilters();
         });
       },
-      items: TaskFilterCriteria.values.map((TaskFilterCriteria criteria) {
+      items: TaskFilterCriteria.values.map((criteria) {
         return DropdownMenuItem<TaskFilterCriteria>(
           value: criteria,
-          child: Text(criteria.toString().split('.').last),
+          child: Text(_criteriaToString(criteria)),
         );
       }).toList(),
     );
   }
 
-  Widget _buildSecondaryDropdown() {
+  /// Builds a widget based on the selected filter criteria
+  Widget _buildSecondaryWidget() {
     switch (_selectedCriteria) {
       case TaskFilterCriteria.status:
         return _buildStatusDropdown();
@@ -69,6 +70,7 @@ class _FilterDialogState extends State<FilterDialog> {
     }
   }
 
+  /// Dropdown for selecting task status
   Widget _buildStatusDropdown() {
     return DropdownButton<TaskStatus>(
       hint: const Text('Select Status'),
@@ -78,7 +80,7 @@ class _FilterDialogState extends State<FilterDialog> {
           _selectedStatus = newValue;
         });
       },
-      items: TaskStatus.values.map((TaskStatus status) {
+      items: TaskStatus.values.map((status) {
         return DropdownMenuItem<TaskStatus>(
           value: status,
           child: Text(taskStatusMapToString[status]!),
@@ -87,6 +89,7 @@ class _FilterDialogState extends State<FilterDialog> {
     );
   }
 
+  /// Button for selecting a date range
   Widget _buildDateRangePicker() {
     return ElevatedButton(
       onPressed: () async {
@@ -101,48 +104,74 @@ class _FilterDialogState extends State<FilterDialog> {
           });
         }
       },
-      child: Text(_selectedDateRange == null
-          ? 'Select Date Range'
-          : '${_selectedDateRange!.start.toLocal()} - ${_selectedDateRange!.end.toLocal()}'),
+      child: Text(
+        _selectedDateRange == null
+            ? 'Select Date Range'
+            : '${_formatDate(_selectedDateRange!.start)} - ${_formatDate(_selectedDateRange!.end)}',
+      ),
     );
   }
 
+  /// Applies the selected filter
   void _applyFilter() {
     final filterParams = _buildFilterParams();
     context.read<TaskBloc>().add(TaskItemsFilterBlocEvent(filterParams: filterParams));
-    context.pop();
+    Navigator.of(context).pop();
   }
 
+  /// Builds the filter parameters
   FilterTasksParams _buildFilterParams() {
-    final displayedTasks = _getDisplayedTaskItems();
-    final originalTasks = _getOriginalTaskItems();
-
     return FilterTasksParams(
-      displayedTaskItems: displayedTasks,
-      originalTaskItems: originalTasks,
+      displayedTaskItems: _getDisplayedTaskItems(),
+      originalTaskItems: _getOriginalTaskItems(),
       criteria: _selectedCriteria == TaskFilterCriteria.reset
           ? 'reset'
-          : _selectedCriteria.toString().split('.').last,
+          : _criteriaToString(_selectedCriteria),
       status: _selectedStatus,
       startDate: _selectedDateRange?.start,
       endDate: _selectedDateRange?.end,
     );
   }
 
+  /// Gets the currently displayed task items from the TaskBloc state
   OrganizerItems<TaskDto> _getDisplayedTaskItems() {
     final state = context.read<TaskBloc>().state;
-    if (state is TaskDtoItemsLoadedBlocState) {
-      return state.displayedTaskItems as OrganizerItems<TaskDto>;
-    }
-    return OrganizerItems<TaskDto>.empty();
+    return OrganizerItems.empty();
+    // return state.displayedTaskItems as OrganizerItems<TaskDto>;
   }
 
+  /// Gets the original task items from the TaskBloc state
   OrganizerItems<TaskDto> _getOriginalTaskItems() {
     final state = context.read<TaskBloc>().state;
-    if (state is TaskDtoItemsLoadedBlocState) {
-      return state.originalTaskItems as OrganizerItems<TaskDto>;
+    return OrganizerItems.empty();
+    // return state.originalTaskItems as OrganizerItems<TaskDto>;
+  }
+
+  /// Resets the filters
+  void _resetFilters() {
+    setState(() {
+      _selectedStatus = null;
+      _selectedDateRange = null;
+    });
+  }
+
+  /// Converts criteria enum to string
+  String _criteriaToString(TaskFilterCriteria? criteria) {
+    switch (criteria) {
+      case TaskFilterCriteria.status:
+        return 'Status';
+      case TaskFilterCriteria.dateRange:
+        return 'Date Range';
+      case TaskFilterCriteria.reset:
+        return 'Reset';
+      default:
+        return '';
     }
-    return OrganizerItems<TaskDto>.empty();
+  }
+
+  /// Formats a date for display
+  String _formatDate(DateTime date) {
+    return '${date.day}/${date.month}/${date.year}';
   }
 }
 

@@ -7,18 +7,23 @@ import 'package:fo_fe/features/organizer/items/task/domain/repositories/task_rep
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class GetTaskItemsFromLogInUserUseCase extends UseCase<OrganizerItems<ItemEntity>, ItemParams> {
+class GetItemsFromLogInUserUseCase<T extends ItemEntity, P extends ItemParams>
+    extends UseCase<OrganizerItems<T>, P> {
   final TaskRepository taskRepository;
   final TagRepository tagRepository;
 
-  GetTaskItemsFromLogInUserUseCase(this.tagRepository, this.taskRepository);
+  GetItemsFromLogInUserUseCase(this.tagRepository, this.taskRepository);
 
   @override
-  Future<Either<Failure, OrganizerItems<ItemEntity>>> call(ItemParams params) {
+  Future<Either<Failure, OrganizerItems<T>>> call(P params) {
     if (params is TaskParams) {
-      return taskRepository.getTaskItemsFromUser(params);
+      return taskRepository
+          .getTaskItemsFromUser(params)
+          .then((result) => result as Either<Failure, OrganizerItems<T>>);
     } else if (params is TagParams) {
-      return tagRepository.getTagItemsAll();
+      return tagRepository
+          .getTagItemsAll()
+          .then((result) => result as Either<Failure, OrganizerItems<T>>);
     } else {
       return Future.value(Left(UnexpectedFailure("Invalid params")));
     }

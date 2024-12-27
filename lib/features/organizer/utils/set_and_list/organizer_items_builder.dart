@@ -40,8 +40,13 @@ class OrganizerItemsBuilder<T extends ItemEntity> extends Equatable {
     return this;
   }
 
-  OrganizerItemsBuilder remove(T organizerItem) {
+  OrganizerItemsBuilder<T> remove(T organizerItem) {
     _organizerItems.remove(organizerItem);
+    return this;
+  }
+
+  OrganizerItemsBuilder<T> removeItemWithId(int id) {
+    _organizerItems.removeWhere((element) => element.id == id);
     return this;
   }
 

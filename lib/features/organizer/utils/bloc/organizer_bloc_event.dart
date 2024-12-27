@@ -1,14 +1,14 @@
-import 'package:fo_fe/core/utils/exports/external_exports.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-abstract class OrganizerBlocEvent extends Equatable {
+abstract class OrganizerBlocEvent<T> extends Equatable {
   const OrganizerBlocEvent();
 
   @override
   List<Object> get props => [];
 }
 
-class AddItemBlocEvent<ItemEntity> extends OrganizerBlocEvent {
-  final ItemEntity item;
+class AddItemBlocEvent<T, P> extends OrganizerBlocEvent<T> {
+  final P item;
 
   const AddItemBlocEvent(this.item);
 
@@ -16,8 +16,8 @@ class AddItemBlocEvent<ItemEntity> extends OrganizerBlocEvent {
   List<Object> get props => [item as Object];
 }
 
-class UpdateItemBlocEvent<ItemEntity> extends OrganizerBlocEvent {
-  final ItemEntity item;
+class UpdateItemBlocEvent<T, P> extends OrganizerBlocEvent<T> {
+  final P item;
 
   const UpdateItemBlocEvent(this.item);
 
@@ -25,17 +25,17 @@ class UpdateItemBlocEvent<ItemEntity> extends OrganizerBlocEvent {
   List<Object> get props => [item as Object];
 }
 
-class UpdateDisplayItemsWithItemBlocEvent<ItemEntity> extends OrganizerBlocEvent {
-  final ItemEntity updatedDisplayedTasks;
+class UpdateDisplayItemsWithItemBlocEvent<T, P> extends OrganizerBlocEvent<T> {
+  final P updatedItem;
 
-  const UpdateDisplayItemsWithItemBlocEvent(this.updatedDisplayedTasks);
+  const UpdateDisplayItemsWithItemBlocEvent(this.updatedItem);
 
   @override
-  List<Object> get props => [updatedDisplayedTasks as Object];
+  List<Object> get props => [updatedItem as Object];
 }
 
-class GetItemsFromLogInUserBlocEvent<Type> extends OrganizerBlocEvent {
-  final Type param;
+class GetItemsFromLogInUserBlocEvent<T, P> extends OrganizerBlocEvent<T> {
+  final P param;
 
   const GetItemsFromLogInUserBlocEvent(this.param);
 
@@ -43,11 +43,11 @@ class GetItemsFromLogInUserBlocEvent<Type> extends OrganizerBlocEvent {
   List<Object> get props => [param as Object];
 }
 
-class DeleteItemBlocEvent<int> extends OrganizerBlocEvent {
-  final int taskId;
+class DeleteItemBlocEvent<T, P> extends OrganizerBlocEvent<T> {
+  final P id;
 
-  const DeleteItemBlocEvent(this.taskId);
+  const DeleteItemBlocEvent(this.id);
 
   @override
-  List<Object> get props => [taskId as Object];
+  List<Object> get props => [id as Object];
 }

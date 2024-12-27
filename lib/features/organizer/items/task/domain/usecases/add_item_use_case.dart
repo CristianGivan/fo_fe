@@ -2,21 +2,26 @@ import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/usecase/usecase.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 import '../repositories/task_repository.dart';
 
-class AddTaskUseCase extends UseCase<TaskDto, TaskParams> {
+class AddItemUseCase<T extends ItemEntity, P extends ItemParams> extends UseCase<T, P> {
   final TaskRepository repository;
 
-  AddTaskUseCase(this.repository);
+  AddItemUseCase(this.repository);
 
   @override
-  Future<Either<Failure, TaskDto>> call(TaskParams params) async {
-    final failureOrTask = await repository.addTask(params.taskEntity);
-    return failureOrTask.fold(
-      (failure) => Left(failure),
-      (task) => addTaskUserLinkAndReturnTaskDto(task),
-    );
+  Future<Either<Failure, T>> call(P params) async {
+    if (params is TaskParams) {
+      final failureOrTask = await repository.addTask(params.taskEntity);
+      return failureOrTask.fold(
+        (failure) => Left(failure),
+        (task) => addTaskUserLinkAndReturnTaskDto(task) as Either<Failure, T>,
+      );
+    } else {
+      return Future.value(Left(UnexpectedFailure("Invalid params")));
+    }
   }
 
   Future<Either<Failure, TaskDto>> addTaskUserLinkAndReturnTaskDto(TaskEntity task) async {

@@ -2,16 +2,23 @@ import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/usecase/usecase.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 import '../repositories/task_repository.dart';
 
-class UpdateTaskUseCase extends UseCase<TaskEntity, TaskParams> {
+class UpdateTaskUseCase<T extends ItemEntity, P extends ItemParams> extends UseCase<T, P> {
   final TaskRepository repository;
 
   UpdateTaskUseCase(this.repository);
 
   @override
-  Future<Either<Failure, TaskEntity>> call(TaskParams params) {
-    return repository.updateTask(params.taskEntity);
+  Future<Either<Failure, T>> call(P params) {
+    if (params is TaskParams) {
+      return repository
+          .updateTask(params.taskEntity)
+          .then((result) => result as Either<Failure, T>);
+    } else {
+      return Future.value(Left(UnexpectedFailure("Invalid params")));
+    }
   }
 }

@@ -93,6 +93,14 @@ class OrganizerItems<T extends ItemEntity> extends Equatable {
     return toBuilder().add(newItem).build();
   }
 
+  OrganizerItems<T> copyWithRemovedItem(T deletedItem) {
+    return toBuilder().remove(deletedItem).build();
+  }
+
+  OrganizerItems<T> copyWithRemovedItemWitId(int id) {
+    return toBuilder().removeItemWithId(id).build();
+  }
+
   @override
   List<Object> get props => [_organizerItems];
 }

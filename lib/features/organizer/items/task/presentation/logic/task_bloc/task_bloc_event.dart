@@ -1,23 +1,23 @@
 part of 'task_bloc.dart';
 
-class TaskItemsSortBlocEvent extends OrganizerBlocEvent {
-  final SortTasksParams sortParams;
+class TaskItemsSortBlocEvent<T, P> extends OrganizerBlocEvent<T> {
+  final P sortParams;
 
   const TaskItemsSortBlocEvent({
     required this.sortParams,
   });
 
   @override
-  List<Object> get props => [sortParams];
+  List<Object> get props => [sortParams as Object];
 }
 
-class TaskItemsFilterBlocEvent extends OrganizerBlocEvent {
-  final FilterTasksParams filterParams;
+class TaskItemsFilterBlocEvent<T, P> extends OrganizerBlocEvent<T> {
+  final P filterParams;
 
   const TaskItemsFilterBlocEvent({
     required this.filterParams,
   });
 
   @override
-  List<Object> get props => [filterParams];
+  List<Object> get props => [filterParams as Object];
 }

@@ -4,7 +4,7 @@ import 'package:fo_fe/features/organizer/items/task/data/datasources/task_remote
 import 'package:fo_fe/features/organizer/items/task/data/datasources/task_remote_data_source_impl.dart';
 import 'package:fo_fe/features/organizer/items/task/data/repositories/task_repository_drift.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/repositories/task_repository.dart';
-import 'package:fo_fe/features/organizer/items/task/domain/usecases/get_task_items_from_logIn_user_use_case.dart';
+import 'package:fo_fe/features/organizer/items/task/domain/usecases/get_items_from_logIn_user_use_case.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/usecases/task_reminder_link/update_reminder_items_of_task_use_case.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/usecases/task_user_link/update_task_user_link_usecase.dart';
 import 'package:fo_fe/features/organizer/items/task/domain/usecases/task_user_link/update_user_items_of_task_use_case.dart';
@@ -46,9 +46,9 @@ void taskInit() {
   // Task Use cases
   sl.registerLazySingleton(() => GetTaskByIdUseCase(sl()));
   sl.registerLazySingleton(() => GetTaskItemsAllUseCase(sl()));
-  sl.registerLazySingleton(() => GetTaskItemsFromLogInUserUseCase(sl(), sl()));
+  sl.registerLazySingleton(() => GetItemsFromLogInUserUseCase(sl(), sl()));
   sl.registerLazySingleton(() => GetTaskItemsByIdSetUseCase(sl()));
-  sl.registerLazySingleton(() => AddTaskUseCase(sl()));
+  sl.registerLazySingleton(() => AddItemUseCase(sl()));
   sl.registerLazySingleton(() => UpdateTaskUseCase(sl()));
   sl.registerLazySingleton(() => UpdateTaskDtoUseCase(sl()));
   sl.registerLazySingleton(() => DeleteTaskUseCase(sl()));
@@ -57,16 +57,12 @@ void taskInit() {
 
   // Task BLoCs
   sl.registerFactory(() => TaskBloc(
-        getTaskById: sl(),
-        getTaskItemsAll: sl(),
-        getTaskItemsFromLogInUser: sl(),
-        getTaskItemsByIdSet: sl(),
         addTask: sl(),
         deleteTask: sl(),
         sortTasksUseCase: sl(),
         filterTasksUseCase: sl(),
-        updateTaskDto: sl(),
         updateTask: sl(),
+        fetchTasks: sl(),
       ));
 
   sl.registerFactory(() => TaskFormCubit());

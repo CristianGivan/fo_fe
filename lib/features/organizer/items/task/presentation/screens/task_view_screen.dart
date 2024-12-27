@@ -12,12 +12,12 @@ class TaskViewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarPage(title: TaskStrings().screenViewTitle),
-      body: BlocBuilder<TaskBloc, TaskBlocState>(
+      body: BlocBuilder<TaskBloc, OrganizerBlocState>(
         builder: (context, state) {
-          if (state is TaskLoadingBlocState) {
+          if (state.status == OrganizerBlocStatus.loading) {
             return const Center(child: CircularProgressIndicator());
-          } else if (state is TaskDtoItemsLoadedBlocState) {
-            final taskDto = state.displayedTaskItems.getById(taskId) as TaskDto;
+          } else if (state is TaskBlocState && state.status == OrganizerBlocStatus.loaded) {
+            final taskDto = state.displayedItems?.getById(taskId) as TaskDto;
             return _buildTaskView(context, taskDto.task);
           } else {
             return Center(child: Text(TaskStrings().noItemsAvailable));

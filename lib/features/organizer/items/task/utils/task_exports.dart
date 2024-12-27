@@ -2,7 +2,7 @@ export '../domain/entities/task_dto.dart';
 export '../domain/entities/task_entity.dart';
 export '../domain/entities/task_entity_lazy_loaded.dart';
 export '../domain/entities/task_user_entity.dart';
-export '../domain/usecases/add_task_use_case.dart';
+export '../domain/usecases/add_item_use_case.dart';
 export '../domain/usecases/delete_task_use_case.dart';
 export '../domain/usecases/get_task_by_id_use_case.dart';
 export '../domain/usecases/get_task_items_all_use_case.dart';
