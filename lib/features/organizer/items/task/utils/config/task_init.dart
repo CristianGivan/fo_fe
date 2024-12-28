@@ -52,7 +52,7 @@ void taskInit() {
   sl.registerLazySingleton(() => AddItemUseCase<ItemEntity, TaskParams>(sl()));
   sl.registerLazySingleton(() => UpdateItemUseCase<ItemEntity, TaskParams>(sl()));
   sl.registerLazySingleton(() => UpdateTaskDtoUseCase(sl()));
-  sl.registerLazySingleton(() => DeleteItemUseCase(sl()));
+  sl.registerLazySingleton(() => DeleteItemUseCase<ItemEntity, TaskParams>(sl()));
   sl.registerLazySingleton(() => TaskFilterUseCase());
   sl.registerLazySingleton(() => TaskSortUseCase());
 

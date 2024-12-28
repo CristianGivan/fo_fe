@@ -26,12 +26,12 @@ class UpdateItemBlocEvent<ItemEntity, P> extends OrganizerBlocEvent<ItemEntity> 
 }
 
 class UpdateDisplayItemsWithItemBlocEvent<ItemEntity, P> extends OrganizerBlocEvent<ItemEntity> {
-  final P updatedItem;
+  final P params;
 
-  const UpdateDisplayItemsWithItemBlocEvent(this.updatedItem);
+  const UpdateDisplayItemsWithItemBlocEvent(this.params);
 
   @override
-  List<Object> get props => [updatedItem as Object];
+  List<Object> get props => [params as Object];
 }
 
 class GetItemsFromLogInUserBlocEvent<ItemEntity, P> extends OrganizerBlocEvent<ItemEntity> {

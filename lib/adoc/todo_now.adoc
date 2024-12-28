@@ -46,6 +46,7 @@ debounce see todo code
 
 == Now
 
+* // todo not ok
 * create a pop method where to add all the things that shall happen during the pop of several
 screens like poptask list to save the selecte and the order of the tasklist
 * add delete at task

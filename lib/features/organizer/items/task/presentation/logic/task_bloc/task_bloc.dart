@@ -32,7 +32,7 @@ class TaskBloc extends OrganizerBloc<ItemEntity, TaskParams> {
     required GetItemsFromLogInUserUseCase<ItemEntity, TaskParams> fetchTasks,
     required AddItemUseCase<ItemEntity, TaskParams> addTask,
     required UpdateItemUseCase<ItemEntity, TaskParams> updateTask,
-    required DeleteItemUseCase deleteTask,
+    required DeleteItemUseCase<ItemEntity, TaskParams> deleteTask,
     required this.sortTasksUseCase,
     required this.filterTasksUseCase,
   }) : super(

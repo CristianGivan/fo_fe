@@ -1,17 +1,17 @@
 import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/usecase/usecase.dart';
-import 'package:fo_fe/features/organizer/items/task/utils/other/task_params.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 import '../repositories/task_repository.dart';
 
-class DeleteItemUseCase extends UseCase<int, TaskParams> {
+class DeleteItemUseCase<T extends ItemEntity, P extends ItemParams> extends UseCase<int, P> {
   final TaskRepository repository;
 
   DeleteItemUseCase(this.repository);
 
   @override
-  Future<Either<Failure, int>> call(TaskParams params) {
+  Future<Either<Failure, int>> call(P params) {
     return repository.deleteTask(params.id);
   }
 }
