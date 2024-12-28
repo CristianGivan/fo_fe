@@ -17,6 +17,11 @@ create like user_presentation_export.dart for all
 
 * establis a convention for enums
 
+== Try
+
+if a TagBlocState will emit a loaded stat becasue I have a OrganizerBlocState Task View will
+be reloaded?
+
 == Nice
 
 * do I need OrganizerItemBaseEntity and OtganizerItems tho have T extends OrganizerItemBaseEntity?

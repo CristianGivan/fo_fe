@@ -1,7 +1,7 @@
 part of 'task_bloc.dart';
 
 class TaskBlocState extends OrganizerBlocState<TaskEntity> {
-  const TaskBlocState({
+  TaskBlocState({
     required super.status,
     this.errorMessage,
   });

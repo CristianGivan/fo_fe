@@ -4,16 +4,17 @@ enum OrganizerBlocStatus { initial, loading, loaded, error }
 
 class OrganizerBlocState<T extends ItemEntity> extends Equatable {
   final OrganizerBlocStatus status;
-  final OrganizerItems<T>? originalItems;
-  final OrganizerItems<T>? displayedItems;
+  final OrganizerItems<T> originalItems;
+  final OrganizerItems<T> displayedItems;
   final String? errorMessage;
 
-  const OrganizerBlocState({
+  OrganizerBlocState({
     required this.status,
-    this.originalItems,
-    this.displayedItems,
+    OrganizerItems<T>? originalItems,
+    OrganizerItems<T>? displayedItems,
     this.errorMessage,
-  });
+  })  : originalItems = originalItems ?? OrganizerItems<T>.empty(),
+        displayedItems = displayedItems ?? OrganizerItems<T>.empty();
 
   OrganizerBlocState<T> copyWith({
     OrganizerBlocStatus? status,
@@ -30,5 +31,10 @@ class OrganizerBlocState<T extends ItemEntity> extends Equatable {
   }
 
   @override
-  List<Object?> get props => [status, originalItems, displayedItems, errorMessage];
+  List<Object?> get props => [
+        status,
+        originalItems,
+        displayedItems,
+        errorMessage,
+      ];
 }

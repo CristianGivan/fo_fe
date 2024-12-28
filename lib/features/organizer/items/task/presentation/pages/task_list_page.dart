@@ -11,7 +11,7 @@ class TaskListPage extends StatelessWidget {
       builder: (context, state) {
         if (state.status == OrganizerBlocStatus.loading) {
           return _buildLoadingState();
-        } else if (state is TaskBlocState && state.status == OrganizerBlocStatus.loaded) {
+        } else if (state.status == OrganizerBlocStatus.loaded) {
           return _buildTaskListDto(context, state.displayedItems);
         } else if (state.status == OrganizerBlocStatus.error) {
           return _buildErrorState(state.errorMessage);
@@ -24,7 +24,8 @@ class TaskListPage extends StatelessWidget {
 
   Widget _buildLoadingState() => const Center(child: CircularProgressIndicator());
 
-  Widget _buildErrorState(String message) => Center(child: Text(message));
+  Widget _buildErrorState(String? message) =>
+      Center(child: Text(message ?? "Unknown error occurred"));
 
   Widget _buildEmptyState() => Center(child: Text(TaskStrings().noItemsToDisplay));
 

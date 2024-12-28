@@ -46,12 +46,12 @@ void taskInit() {
   // Task Use cases
   sl.registerLazySingleton(() => GetTaskByIdUseCase(sl()));
   sl.registerLazySingleton(() => GetTaskItemsAllUseCase(sl()));
-  sl.registerLazySingleton(() => GetItemsFromLogInUserUseCase(sl(), sl()));
+  sl.registerLazySingleton(() => GetItemsFromLogInUserUseCase<TaskDto, TaskParams>(sl(), sl()));
   sl.registerLazySingleton(() => GetTaskItemsByIdSetUseCase(sl()));
-  sl.registerLazySingleton(() => AddItemUseCase(sl()));
-  sl.registerLazySingleton(() => UpdateTaskUseCase(sl()));
+  sl.registerLazySingleton(() => AddItemUseCase<TaskDto, TaskParams>(sl()));
+  sl.registerLazySingleton(() => UpdateItemUseCase<TaskDto, TaskParams>(sl()));
   sl.registerLazySingleton(() => UpdateTaskDtoUseCase(sl()));
-  sl.registerLazySingleton(() => DeleteTaskUseCase(sl()));
+  sl.registerLazySingleton(() => DeleteItemUseCase(sl()));
   sl.registerLazySingleton(() => TaskFilterUseCase());
   sl.registerLazySingleton(() => TaskSortUseCase());
 

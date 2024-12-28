@@ -16,13 +16,15 @@ class TaskEditScreen extends StatelessWidget {
       appBar: AppBarPage(title: TaskStrings().screenEditTitle),
       body: BlocBuilder<TaskBloc, OrganizerBlocState>(
         builder: (context, state) {
-          if (state.status == OrganizerBlocStatus.loading) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (state is TaskBlocState && state.status == OrganizerBlocStatus.loaded) {
-            final taskDto = state.displayedItems.getById(taskId) as TaskDto;
-            return TaskFormFieldsPage(task: taskDto.task);
-          } else {
-            return Center(child: Text(TaskStrings().noItemsAvailable));
+          switch (state.status) {
+            case OrganizerBlocStatus.loading:
+              return _buildLoadingState();
+            case OrganizerBlocStatus.loaded:
+              return _buildEditPage(context, state);
+            case OrganizerBlocStatus.error:
+              return _buildErrorState(state.errorMessage);
+            default:
+              return _noStateAvailable();
           }
         },
       ),
@@ -33,5 +35,17 @@ class TaskEditScreen extends StatelessWidget {
         },
       ),
     );
+  }
+
+  Widget _buildLoadingState() => const Center(child: CircularProgressIndicator());
+
+  Widget _buildErrorState(String? message) =>
+      Center(child: Text(message ?? "Unknown error occurred"));
+
+  Widget _noStateAvailable() => Center(child: Text(TaskStrings().noItemsAvailable));
+
+  Widget _buildEditPage(BuildContext context, OrganizerBlocState state) {
+    final task = (state.displayedItems?.getById(taskId) as TaskDto).task;
+    return TaskFormFieldsPage(task: task);
   }
 }

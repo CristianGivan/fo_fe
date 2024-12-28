@@ -14,27 +14,35 @@ class TaskViewScreen extends StatelessWidget {
       appBar: AppBarPage(title: TaskStrings().screenViewTitle),
       body: BlocBuilder<TaskBloc, OrganizerBlocState>(
         builder: (context, state) {
-          if (state.status == OrganizerBlocStatus.loading) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (state is TaskBlocState && state.status == OrganizerBlocStatus.loaded) {
-            final taskDto = state.displayedItems?.getById(taskId) as TaskDto;
-            return _buildTaskView(context, taskDto.task);
-          } else {
-            return Center(child: Text(TaskStrings().noItemsAvailable));
+          switch (state.status) {
+            case OrganizerBlocStatus.loading:
+              return _buildLoadingState();
+            case OrganizerBlocStatus.loaded:
+              return _buildTaskView(context, state);
+            case OrganizerBlocStatus.error:
+              return _buildErrorState(state.errorMessage);
+            default:
+              return _noStateAvailable();
           }
         },
       ),
       bottomNavigationBar: AppBottomBarMenu(
         leftMenuOptions: TaskEditScreenActionsMenu.getMenuItems(context),
-        onSearchSubmitted: () {
-          // Handle search action
-        },
+        onSearchSubmitted: () {},
         rightMenuOptions: TaskEditScreenActionsMenu.getMenuItems(context),
       ),
     );
   }
 
-  Widget _buildTaskView(BuildContext context, TaskEntity task) {
+  Widget _buildLoadingState() => const Center(child: CircularProgressIndicator());
+
+  Widget _buildErrorState(String? message) =>
+      Center(child: Text(message ?? "Unknown error occurred"));
+
+  Widget _noStateAvailable() => Center(child: Text(TaskStrings().noItemsAvailable));
+
+  Widget _buildTaskView(BuildContext context, OrganizerBlocState state) {
+    final task = (state.displayedItems?.getById(taskId) as TaskDto).task;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

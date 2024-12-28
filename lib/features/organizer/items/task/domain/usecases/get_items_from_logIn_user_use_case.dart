@@ -15,11 +15,16 @@ class GetItemsFromLogInUserUseCase<T extends ItemEntity, P extends ItemParams>
   GetItemsFromLogInUserUseCase(this.tagRepository, this.taskRepository);
 
   @override
-  Future<Either<Failure, OrganizerItems<T>>> call(P params) {
+  Future<Either<Failure, OrganizerItems<T>>> call(P params) async {
     if (params is TaskParams) {
-      return taskRepository
-          .getTaskItemsFromUser(params)
-          .then((result) => result as Either<Failure, OrganizerItems<T>>);
+      // return taskRepository
+      //     .getTaskItemsFromUser(params)
+      //     .then((result) => result as Either<Failure, OrganizerItems<T>>);
+      final taskItems = await taskRepository.getTaskItemsFromUser(params);
+      print(taskItems);
+      final taskItemsDto =
+          taskItems.map((items) => OrganizerItems<T>.of(items.toList().whereType<T>()));
+      return taskItemsDto;
     } else if (params is TagParams) {
       return tagRepository
           .getTagItemsAll()
