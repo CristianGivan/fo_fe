@@ -6,22 +6,17 @@ abstract class OrganizerBloc<T extends ItemEntity, P extends ItemParams>
     extends Bloc<OrganizerBlocEvent<ItemEntity>, OrganizerBlocState<ItemEntity>> {
   final Future<Either<Failure, ItemEntity>> Function(P) addItem;
   final Future<Either<Failure, OrganizerItems<ItemEntity>>> Function(P) getItems;
-  final Future<Either<Failure, ItemEntity>> Function(P) updateItem;
   final Future<Either<Failure, void>> Function(P) deleteItem;
 
   OrganizerBloc({
     required this.addItem,
     required this.getItems,
-    required this.updateItem,
     required this.deleteItem,
   }) : super(OrganizerBlocState<T>(status: OrganizerBlocStatus.initial));
 
   void setupEventHandlers() {
     on<AddItemBlocEvent<T, P>>(_onAddItem);
     on<GetItemsFromLogInUserBlocEvent<T, P>>(_onGetItems);
-    on<UpdateItemBlocEvent<T, P>>(_onUpdateItem);
-    on<UpdateDisplayItemsWithItemBlocEvent<ItemEntity, ItemParams>>(
-        _onUpdateDisplayItemsWithItemBlocEvent);
     on<DeleteItemBlocEvent<T, P>>(_onDeleteItem);
   }
 
@@ -54,44 +49,6 @@ abstract class OrganizerBloc<T extends ItemEntity, P extends ItemParams>
       (items) => emit(state.copyWith(
           status: OrganizerBlocStatus.loaded, originalItems: items, displayedItems: items)),
     );
-  }
-
-  Future<void> _onUpdateItem(UpdateItemBlocEvent<ItemEntity, P> event,
-      Emitter<OrganizerBlocState<ItemEntity>> emit) async {
-    emit(state.copyWith(status: OrganizerBlocStatus.loading));
-    final result = await updateItem(event.item);
-    result.fold(
-      (failure) => emit(state.copyWith(
-          status: OrganizerBlocStatus.error, errorMessage: _mapFailureToMessage(failure))),
-      (updatedItem) {
-        final updatedOriginalItems = state.originalItems.copyWithUpdatedItem(updatedItem);
-        final updatedDisplayedItems = state.displayedItems.copyWithUpdatedItem(updatedItem);
-        emit(state.copyWith(
-          status: OrganizerBlocStatus.loaded,
-          originalItems: updatedOriginalItems,
-          displayedItems: updatedDisplayedItems,
-        ));
-      },
-    );
-  }
-
-  Future<void> _onUpdateDisplayItemsWithItemBlocEvent(UpdateDisplayItemsWithItemBlocEvent event,
-      Emitter<OrganizerBlocState<ItemEntity>> emit) async {
-    if (state.status == OrganizerBlocStatus.loaded) {
-      final currentState = state;
-      final updatedDisplayedTasks =
-          currentState.displayedItems.copyWithUpdatedItem(event.params.taskDto); // todo not ok
-      emit(OrganizerBlocState(
-        status: OrganizerBlocStatus.loaded,
-        originalItems: currentState.originalItems,
-        displayedItems: updatedDisplayedTasks,
-      ));
-    } else {
-      emit(OrganizerBlocState(
-        status: OrganizerBlocStatus.error,
-        errorMessage: 'Error updating item',
-      ));
-    }
   }
 
   Future<void> _onDeleteItem(DeleteItemBlocEvent<ItemEntity, P> event,

@@ -60,10 +60,9 @@ class TaskListPage extends StatelessWidget {
 
   void updateTaskUserLink(BuildContext context, TaskDto taskDto, bool value) {
     final updatedTaskUserLink = taskDto.taskUserLink.copyWith(isSelectedByUser: value);
-    final updatedTaskDto = taskDto.copyWith(taskUserLink: updatedTaskUserLink);
-    context.read<TaskUserLinkBloc>().add(UpdateTaskUserLinkBlocEvent(updatedTaskUserLink));
-    context
-        .read<TaskBloc>()
-        .add(UpdateDisplayItemsWithItemBlocEvent(TaskParams(taskDto: updatedTaskDto)));
+    context.read<TaskBloc>().add(UpdateTaskBlocEvent(TaskParams(
+          taskDto: taskDto,
+          taskUserLinkEntity: updatedTaskUserLink,
+        )));
   }
 }

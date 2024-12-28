@@ -4,7 +4,6 @@ import 'package:fo_fe/features/organizer/all_items/task/data/datasources/task_re
 import 'package:fo_fe/features/organizer/all_items/task/data/datasources/task_remote_data_source_impl.dart';
 import 'package:fo_fe/features/organizer/all_items/task/data/repositories/task_repository_drift.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/repositories/task_repository.dart';
-import 'package:fo_fe/features/organizer/domain/usecases/get_items_from_logIn_user_use_case.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_reminder_link/update_reminder_items_of_task_use_case.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_user_link/update_task_user_link_usecase.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_user_link/update_user_items_of_task_use_case.dart';
@@ -64,6 +63,7 @@ void taskInit() {
         filterTasksUseCase: sl(),
         updateTask: sl(),
         fetchTasks: sl(),
+        updateTaskDtoUseCase: sl(),
       ));
 
   sl.registerFactory(() => TaskFormCubit());

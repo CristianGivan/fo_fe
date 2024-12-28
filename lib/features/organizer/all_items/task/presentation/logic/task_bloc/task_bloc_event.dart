@@ -21,3 +21,12 @@ class TaskItemsFilterBlocEvent<T, P> extends OrganizerBlocEvent<T> {
   @override
   List<Object> get props => [filterParams as Object];
 }
+
+class UpdateTaskBlocEvent<ItemEntity, P> extends OrganizerBlocEvent<ItemEntity> {
+  final P params;
+
+  const UpdateTaskBlocEvent(this.params);
+
+  @override
+  List<Object> get props => [params as Object];
+}
