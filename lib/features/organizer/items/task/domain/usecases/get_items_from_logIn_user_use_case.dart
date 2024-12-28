@@ -8,23 +8,16 @@ import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class GetItemsFromLogInUserUseCase<T extends ItemEntity, P extends ItemParams>
-    extends UseCase<OrganizerItems<T>, P> {
+    extends UseCase<OrganizerItems<ItemEntity>, P> {
   final TaskRepository taskRepository;
   final TagRepository tagRepository;
 
   GetItemsFromLogInUserUseCase(this.tagRepository, this.taskRepository);
 
   @override
-  Future<Either<Failure, OrganizerItems<T>>> call(P params) async {
+  Future<Either<Failure, OrganizerItems<ItemEntity>>> call(P params) {
     if (params is TaskParams) {
-      // return taskRepository
-      //     .getTaskItemsFromUser(params)
-      //     .then((result) => result as Either<Failure, OrganizerItems<T>>);
-      final taskItems = await taskRepository.getTaskItemsFromUser(params);
-      print(taskItems);
-      final taskItemsDto =
-          taskItems.map((items) => OrganizerItems<T>.of(items.toList().whereType<T>()));
-      return taskItemsDto;
+      return taskRepository.getTaskItemsFromUser(params);
     } else if (params is TagParams) {
       return tagRepository
           .getTagItemsAll()

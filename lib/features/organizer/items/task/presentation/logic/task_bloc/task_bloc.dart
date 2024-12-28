@@ -24,14 +24,14 @@ part 'task_user_link/task_user_link_bloc.dart';
 part 'task_user_link/task_user_link_bloc_event.dart';
 part 'task_user_link/task_user_link_bloc_state.dart';
 
-class TaskBloc extends OrganizerBloc<TaskDto, TaskParams> {
+class TaskBloc extends OrganizerBloc<ItemEntity, TaskParams> {
   final TaskSortUseCase sortTasksUseCase;
   final TaskFilterUseCase filterTasksUseCase;
 
   TaskBloc({
-    required GetItemsFromLogInUserUseCase<TaskDto, TaskParams> fetchTasks,
-    required AddItemUseCase<TaskDto, TaskParams> addTask,
-    required UpdateItemUseCase<TaskDto, TaskParams> updateTask,
+    required GetItemsFromLogInUserUseCase<ItemEntity, TaskParams> fetchTasks,
+    required AddItemUseCase<ItemEntity, TaskParams> addTask,
+    required UpdateItemUseCase<ItemEntity, TaskParams> updateTask,
     required DeleteItemUseCase deleteTask,
     required this.sortTasksUseCase,
     required this.filterTasksUseCase,
@@ -42,13 +42,13 @@ class TaskBloc extends OrganizerBloc<TaskDto, TaskParams> {
           deleteItem: deleteTask,
         ) {
     setupEventHandlers();
-    on<TaskItemsSortBlocEvent<TaskDto, SortTasksParams>>(_onSortTasks as EventHandler<
-        TaskItemsSortBlocEvent<TaskDto, SortTasksParams>, OrganizerBlocState<TaskDto>>);
-    on<TaskItemsFilterBlocEvent<TaskDto, FilterTasksParams>>(_onFilterTasks as EventHandler<
-        TaskItemsFilterBlocEvent<TaskDto, FilterTasksParams>, OrganizerBlocState<TaskDto>>);
+    on<TaskItemsSortBlocEvent<ItemEntity, SortTasksParams>>(_onSortTasks as EventHandler<
+        TaskItemsSortBlocEvent<ItemEntity, SortTasksParams>, OrganizerBlocState<ItemEntity>>);
+    on<TaskItemsFilterBlocEvent<ItemEntity, FilterTasksParams>>(_onFilterTasks as EventHandler<
+        TaskItemsFilterBlocEvent<ItemEntity, FilterTasksParams>, OrganizerBlocState<ItemEntity>>);
   }
 
-  Future<void> _onSortTasks(TaskItemsSortBlocEvent<TaskDto, SortTasksParams> event,
+  Future<void> _onSortTasks(TaskItemsSortBlocEvent<ItemEntity, SortTasksParams> event,
       Emitter<OrganizerBlocState<ItemEntity>> emit) async {
     // if (state.status == OrganizerBlocStatus.loaded && state.displayedItems != null) {
     //   final result = await sortTasksUseCase(event.sortParams);
@@ -60,7 +60,7 @@ class TaskBloc extends OrganizerBloc<TaskDto, TaskParams> {
     // }
   }
 
-  Future<void> _onFilterTasks(TaskItemsFilterBlocEvent<TaskDto, FilterTasksParams> event,
+  Future<void> _onFilterTasks(TaskItemsFilterBlocEvent<ItemEntity, FilterTasksParams> event,
       Emitter<OrganizerBlocState<ItemEntity>> emit) async {
     // if (state.status == OrganizerBlocStatus.loaded && state.displayedItems != null) {
     //   final result = await filterTasksUseCase(event.filterParams);

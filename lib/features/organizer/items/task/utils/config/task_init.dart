@@ -11,6 +11,7 @@ import 'package:fo_fe/features/organizer/items/task/domain/usecases/task_user_li
 import 'package:fo_fe/features/organizer/items/task/domain/usecases/update_task_dto_use_case.dart';
 import 'package:fo_fe/features/organizer/items/task/presentation/logic/task_cubit/task_form_cubit.dart';
 import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 import 'package:get_it/get_it.dart';
 
 final sl = GetIt.instance;
@@ -46,10 +47,10 @@ void taskInit() {
   // Task Use cases
   sl.registerLazySingleton(() => GetTaskByIdUseCase(sl()));
   sl.registerLazySingleton(() => GetTaskItemsAllUseCase(sl()));
-  sl.registerLazySingleton(() => GetItemsFromLogInUserUseCase<TaskDto, TaskParams>(sl(), sl()));
+  sl.registerLazySingleton(() => GetItemsFromLogInUserUseCase<ItemEntity, TaskParams>(sl(), sl()));
   sl.registerLazySingleton(() => GetTaskItemsByIdSetUseCase(sl()));
-  sl.registerLazySingleton(() => AddItemUseCase<TaskDto, TaskParams>(sl()));
-  sl.registerLazySingleton(() => UpdateItemUseCase<TaskDto, TaskParams>(sl()));
+  sl.registerLazySingleton(() => AddItemUseCase<ItemEntity, TaskParams>(sl()));
+  sl.registerLazySingleton(() => UpdateItemUseCase<ItemEntity, TaskParams>(sl()));
   sl.registerLazySingleton(() => UpdateTaskDtoUseCase(sl()));
   sl.registerLazySingleton(() => DeleteItemUseCase(sl()));
   sl.registerLazySingleton(() => TaskFilterUseCase());

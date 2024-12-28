@@ -4,25 +4,25 @@ enum OrganizerBlocStatus { initial, loading, loaded, error }
 
 class OrganizerBlocState<T extends ItemEntity> extends Equatable {
   final OrganizerBlocStatus status;
-  final OrganizerItems<T> originalItems;
-  final OrganizerItems<T> displayedItems;
+  final OrganizerItems<ItemEntity> originalItems;
+  final OrganizerItems<ItemEntity> displayedItems;
   final String? errorMessage;
 
   OrganizerBlocState({
     required this.status,
-    OrganizerItems<T>? originalItems,
-    OrganizerItems<T>? displayedItems,
+    OrganizerItems<ItemEntity>? originalItems,
+    OrganizerItems<ItemEntity>? displayedItems,
     this.errorMessage,
-  })  : originalItems = originalItems ?? OrganizerItems<T>.empty(),
-        displayedItems = displayedItems ?? OrganizerItems<T>.empty();
+  })  : originalItems = originalItems ?? OrganizerItems<ItemEntity>.empty(),
+        displayedItems = displayedItems ?? OrganizerItems<ItemEntity>.empty();
 
-  OrganizerBlocState<T> copyWith({
+  OrganizerBlocState<ItemEntity> copyWith({
     OrganizerBlocStatus? status,
-    OrganizerItems<T>? originalItems,
-    OrganizerItems<T>? displayedItems,
+    OrganizerItems<ItemEntity>? originalItems,
+    OrganizerItems<ItemEntity>? displayedItems,
     String? errorMessage,
   }) {
-    return OrganizerBlocState<T>(
+    return OrganizerBlocState<ItemEntity>(
       status: status ?? this.status,
       originalItems: originalItems ?? this.originalItems,
       displayedItems: displayedItems ?? this.displayedItems,
