@@ -3,36 +3,25 @@ import 'package:fo_fe/core/utils/exports/core_utils_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 abstract class OrganizerBloc<T extends ItemEntity, P>
-    extends Bloc<OrganizerBlocEvent<ItemEntity>, OrganizerBlocState<T>> {
-  final Future<Either<Failure, OrganizerItems<ItemEntity>>> Function(P) fetchItems;
-  final Future<Either<Failure, T>> Function(P) addItem;
-  final Future<Either<Failure, T>> Function(P) updateItem;
+    extends Bloc<OrganizerBlocEvent<ItemEntity>, OrganizerBlocState<ItemEntity>> {
+  final Future<Either<Failure, ItemEntity>> Function(P) addItem;
+  final Future<Either<Failure, OrganizerItems<ItemEntity>>> Function(P) getItems;
+  final Future<Either<Failure, ItemEntity>> Function(P) updateItem;
   final Future<Either<Failure, void>> Function(P) deleteItem;
 
   OrganizerBloc({
-    required this.fetchItems,
     required this.addItem,
+    required this.getItems,
     required this.updateItem,
     required this.deleteItem,
   }) : super(OrganizerBlocState<T>(status: OrganizerBlocStatus.initial));
 
   void setupEventHandlers() {
-    on<GetItemsFromLogInUserBlocEvent<ItemEntity, P>>(_onFetchItems);
-    on<AddItemBlocEvent<T, P>>(_onAddItem);
-    on<UpdateItemBlocEvent<T, P>>(_onUpdateItem);
-    on<DeleteItemBlocEvent<T, P>>(_onDeleteItem);
-  }
-
-  Future<void> _onFetchItems(GetItemsFromLogInUserBlocEvent<ItemEntity, P> event,
-      Emitter<OrganizerBlocState<ItemEntity>> emit) async {
-    emit(state.copyWith(status: OrganizerBlocStatus.loading));
-    final result = await fetchItems(event.param);
-    result.fold(
-      (failure) => emit(state.copyWith(
-          status: OrganizerBlocStatus.error, errorMessage: _mapFailureToMessage(failure))),
-      (items) => emit(state.copyWith(
-          status: OrganizerBlocStatus.loaded, originalItems: items, displayedItems: items)),
-    );
+    on<AddItemBlocEvent<ItemEntity, P>>(_onAddItem);
+    on<GetItemsFromLogInUserBlocEvent<ItemEntity, P>>(_onGetItems);
+    on<UpdateItemBlocEvent<ItemEntity, P>>(_onUpdateItem);
+    on<UpdateDisplayItemsWithItemBlocEvent<ItemEntity, T>>(_onUpdateDisplayItemsWithItemBlocEvent);
+    on<DeleteItemBlocEvent<ItemEntity, P>>(_onDeleteItem);
   }
 
   Future<void> _onAddItem(
@@ -43,14 +32,26 @@ abstract class OrganizerBloc<T extends ItemEntity, P>
       (failure) => emit(state.copyWith(
           status: OrganizerBlocStatus.error, errorMessage: _mapFailureToMessage(failure))),
       (newItem) {
-        final updatedOriginalItems = state.originalItems?.copyWithAddedItem(newItem);
-        final updatedDisplayedItems = state.displayedItems?.copyWithAddedItem(newItem);
+        final updatedOriginalItems = state.originalItems.copyWithAddedItem(newItem);
+        final updatedDisplayedItems = state.displayedItems.copyWithAddedItem(newItem);
         emit(state.copyWith(
           status: OrganizerBlocStatus.loaded,
           originalItems: updatedOriginalItems,
           displayedItems: updatedDisplayedItems,
         ));
       },
+    );
+  }
+
+  Future<void> _onGetItems(GetItemsFromLogInUserBlocEvent<ItemEntity, P> event,
+      Emitter<OrganizerBlocState<ItemEntity>> emit) async {
+    emit(state.copyWith(status: OrganizerBlocStatus.loading));
+    final result = await getItems(event.param);
+    result.fold(
+      (failure) => emit(state.copyWith(
+          status: OrganizerBlocStatus.error, errorMessage: _mapFailureToMessage(failure))),
+      (items) => emit(state.copyWith(
+          status: OrganizerBlocStatus.loaded, originalItems: items, displayedItems: items)),
     );
   }
 
@@ -62,8 +63,8 @@ abstract class OrganizerBloc<T extends ItemEntity, P>
       (failure) => emit(state.copyWith(
           status: OrganizerBlocStatus.error, errorMessage: _mapFailureToMessage(failure))),
       (updatedItem) {
-        final updatedOriginalItems = state.originalItems?.copyWithUpdatedItem(updatedItem);
-        final updatedDisplayedItems = state.displayedItems?.copyWithUpdatedItem(updatedItem);
+        final updatedOriginalItems = state.originalItems.copyWithUpdatedItem(updatedItem);
+        final updatedDisplayedItems = state.displayedItems.copyWithUpdatedItem(updatedItem);
         emit(state.copyWith(
           status: OrganizerBlocStatus.loaded,
           originalItems: updatedOriginalItems,
@@ -71,6 +72,25 @@ abstract class OrganizerBloc<T extends ItemEntity, P>
         ));
       },
     );
+  }
+
+  Future<void> _onUpdateDisplayItemsWithItemBlocEvent(UpdateDisplayItemsWithItemBlocEvent event,
+      Emitter<OrganizerBlocState<ItemEntity>> emit) async {
+    if (state.status == OrganizerBlocStatus.loaded) {
+      final currentState = state;
+      final updatedDisplayedTasks =
+          currentState.displayedItems.copyWithUpdatedItem(event.updatedItem);
+      emit(OrganizerBlocState(
+        status: OrganizerBlocStatus.loaded,
+        originalItems: currentState.originalItems,
+        displayedItems: updatedDisplayedTasks,
+      ));
+    } else {
+      emit(OrganizerBlocState(
+        status: OrganizerBlocStatus.error,
+        errorMessage: 'Error updating item',
+      ));
+    }
   }
 
   Future<void> _onDeleteItem(DeleteItemBlocEvent<ItemEntity, P> event,
@@ -81,9 +101,9 @@ abstract class OrganizerBloc<T extends ItemEntity, P>
       (failure) => emit(state.copyWith(
           status: OrganizerBlocStatus.error, errorMessage: _mapFailureToMessage(failure))),
       (_) {
-        final updatedOriginalItems = state.originalItems?.copyWithRemovedItemWitId(event.id as int);
+        final updatedOriginalItems = state.originalItems.copyWithRemovedItemWitId(event.id as int);
         final updatedDisplayedItems =
-            state.displayedItems?.copyWithRemovedItemWitId(event.id as int);
+            state.displayedItems.copyWithRemovedItemWitId(event.id as int);
         emit(state.copyWith(
           status: OrganizerBlocStatus.loaded,
           originalItems: updatedOriginalItems,
