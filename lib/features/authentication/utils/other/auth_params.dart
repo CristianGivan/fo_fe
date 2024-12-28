@@ -1,5 +1,5 @@
 import 'package:fo_fe/features/authentication/domain/entities/auth_entity.dart';
-import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
+import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class AuthParams extends Equatable {

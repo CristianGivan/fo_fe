@@ -1,9 +1,9 @@
-import 'package:fo_fe/features/organizer/items/reminder/domain/entities/reminder_entity.dart';
-import 'package:fo_fe/features/organizer/items/reminder/utils/config/reminder_route_names.dart';
-import 'package:fo_fe/features/organizer/items/tag/domain/entities/tag_entity.dart';
-import 'package:fo_fe/features/organizer/items/tag/utils/config/tag_route_names.dart';
-import 'package:fo_fe/features/organizer/items/user/domain/entities/user_entity.dart';
-import 'package:fo_fe/features/organizer/items/user/utils/config/user_route_names.dart';
+import 'package:fo_fe/features/organizer/all_items/reminder/domain/entities/reminder_entity.dart';
+import 'package:fo_fe/features/organizer/all_items/reminder/utils/config/reminder_route_names.dart';
+import 'package:fo_fe/features/organizer/all_items/tag/domain/entities/tag_entity.dart';
+import 'package:fo_fe/features/organizer/all_items/tag/utils/config/tag_route_names.dart';
+import 'package:fo_fe/features/organizer/all_items/user/domain/entities/user_entity.dart';
+import 'package:fo_fe/features/organizer/all_items/user/utils/config/user_route_names.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 import 'package:fo_fe/features/organizer/utils/other/items_type.dart';
 

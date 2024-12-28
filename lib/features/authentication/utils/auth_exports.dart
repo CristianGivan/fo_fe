@@ -1,5 +1,5 @@
-export '../../organizer/items/user/presentation/screens/user_sign_up_screen.dart';
-export '../../organizer/items/user/presentation/widgets/my_text_field_widget.dart';
+export '../../organizer/all_items/user/presentation/screens/user_sign_up_screen.dart';
+export '../../organizer/all_items/user/presentation/widgets/my_text_field_widget.dart';
 export '../data/datasources/auth_local_data_source.dart';
 export '../data/datasources/auth_local_data_source_drift.dart';
 export '../data/models/auth_mapper.dart';

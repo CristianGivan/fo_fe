@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/usecase/usecase.dart';
 import 'package:fo_fe/core/utils/exports/core_utils_exports.dart';
 import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
-import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
+import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart';
 
 class LogInUseCase extends UseCase<AuthEntity, UserParams> {
   final AuthRepository authRepository;

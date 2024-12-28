@@ -3,7 +3,7 @@ import 'package:fo_fe/core/utils/exports/core_utils_exports.dart';
 import 'package:fo_fe/features/authentication/data/repositories/auth_repository_drift.dart';
 import 'package:fo_fe/features/authentication/presentation/bloc/sign_up_bloc/sign_up_bloc.dart';
 import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
-import 'package:fo_fe/features/organizer/items/user/domain/usecases/user_usecase_export.dart';
+import 'package:fo_fe/features/organizer/all_items/user/domain/usecases/user_usecase_export.dart';
 import 'package:get_it/get_it.dart';
 
 final sl = GetIt.instance;

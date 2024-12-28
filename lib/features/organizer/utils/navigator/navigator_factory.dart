@@ -1,8 +1,8 @@
 // lib/utils/navigator_factory.dart
-import 'package:fo_fe/features/organizer/items/reminder/utils/reminder_exports.dart';
-import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart';
-import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
-import 'package:fo_fe/features/organizer/utils/entities/organizer_item_entity.dart';
+import 'package:fo_fe/features/organizer/all_items/reminder/utils/reminder_exports.dart';
+import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
+import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart';
+import 'package:fo_fe/features/organizer/domain/entities/organizer_item_entity.dart';
 import 'package:fo_fe/features/organizer/utils/navigator/user_item_navigator.dart';
 
 import 'base_item_navigator.dart';

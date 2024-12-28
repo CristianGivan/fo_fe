@@ -3,8 +3,8 @@ import 'package:fo_fe/core/utils/exports/core_utils_exports.dart';
 import 'package:fo_fe/core/utils/exports/external_exports.dart';
 import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
 import 'package:fo_fe/features/authentication/utils/other/auth_params.dart';
-import 'package:fo_fe/features/organizer/items/user/domain/usecases/user_usecase_export.dart';
-import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
+import 'package:fo_fe/features/organizer/all_items/user/domain/usecases/user_usecase_export.dart';
+import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart';
 
 part 'auth_log_bloc_event.dart';
 part 'auth_log_bloc_state.dart';

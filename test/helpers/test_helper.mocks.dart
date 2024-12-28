@@ -15,19 +15,19 @@ import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart' as _i3;
 import 'package:fo_fe/core/error/failures.dart' as _i15;
 import 'package:fo_fe/core/utils/converters/input_converter.dart' as _i22;
 import 'package:fo_fe/core/utils/network/network_info.dart' as _i8;
-import 'package:fo_fe/features/organizer/items/reminder/domain/entities/reminder_entity.dart'
+import 'package:fo_fe/features/organizer/all_items/reminder/domain/entities/reminder_entity.dart'
     as _i19;
-import 'package:fo_fe/features/organizer/items/tag/utils/tag_exports.dart'
+import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart'
     as _i18;
-import 'package:fo_fe/features/organizer/items/task/data/datasources/task_local_data_source_drift.dart'
+import 'package:fo_fe/features/organizer/all_items/task/data/datasources/task_local_data_source_drift.dart'
     as _i12;
-import 'package:fo_fe/features/organizer/items/task/data/datasources/task_remote_data_source_impl.dart'
+import 'package:fo_fe/features/organizer/all_items/task/data/datasources/task_remote_data_source_impl.dart'
     as _i10;
-import 'package:fo_fe/features/organizer/items/task/domain/repositories/task_repository.dart'
+import 'package:fo_fe/features/organizer/all_items/task/domain/repositories/task_repository.dart'
     as _i7;
-import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart'
+import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart'
     as _i4;
-import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart'
+import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart'
     as _i17;
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart' as _i16;
 import 'package:fo_fe/features/organizer/utils/set_and_list/id_set.dart'

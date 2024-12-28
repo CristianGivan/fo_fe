@@ -3,7 +3,7 @@ import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/usecase/usecase.dart';
 import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
 import 'package:fo_fe/features/authentication/utils/other/auth_params.dart';
-import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
+import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart';
 
 class SignUpUseCase extends UseCase<AuthEntity, SignUpParams> {
   final AuthRepository authRepository;

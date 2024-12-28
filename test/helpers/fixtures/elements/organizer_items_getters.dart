@@ -1,4 +1,4 @@
-import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
+import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 OrganizerItems<TaskEntity> getOrganizerItems3TaskEntity() {

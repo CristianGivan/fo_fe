@@ -1,6 +1,6 @@
 // lib/utils/user_item_navigator.dart
-import 'package:fo_fe/features/organizer/items/task/utils/task_exports.dart';
-import 'package:fo_fe/features/organizer/items/user/utils/user_exports.dart';
+import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
+import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 import 'base_item_navigator.dart';

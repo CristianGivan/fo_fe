@@ -1,15 +1,19 @@
 export 'package:fo_fe/core/utils/date_time/date_time_constants.dart';
 export 'package:fo_fe/core/utils/exports/external_exports.dart';
-export 'package:fo_fe/features/organizer/utils/bloc/organizer_bloc_event.dart';
-export 'package:fo_fe/features/organizer/utils/bloc/organizer_bloc_state.dart';
-export 'package:fo_fe/features/organizer/utils/entities/item_entity.dart';
+export 'package:fo_fe/features/organizer/domain/entities/item_entity.dart';
+export 'package:fo_fe/features/organizer/presentation/bloc/organizer_bloc_event.dart';
+export 'package:fo_fe/features/organizer/presentation/bloc/organizer_bloc_state.dart';
 
+export '../domain/entities/organizer_item_entity.dart';
+export '../domain/usecases/add_item_use_case.dart';
+export '../domain/usecases/delete_item_use_case.dart';
+export '../domain/usecases/get_items_from_logIn_user_use_case.dart';
+export '../domain/usecases/update_item_use_case.dart';
 export '../presentation/screens/organizer_home_screen.dart';
 export '../utils/navigator/navigator_factory.dart';
 export 'config/organizer_init.dart';
 export 'config/organizer_router.dart';
 export 'config/organizer_router_names.dart';
-export 'entities/organizer_item_entity.dart';
 export 'filter_and_sorting/organizer_sorting.dart';
 export 'other/item_params.dart';
 export 'other/item_strings.dart';
