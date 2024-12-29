@@ -72,7 +72,7 @@ class TaskAddForm extends StatelessWidget {
       taskStatus: formState.taskStatus,
     );
 
-    BlocProvider.of<TaskBloc>(context).add(AddItemBlocEvent(task));
+    BlocProvider.of<TaskBloc>(context).add(AddItemBlocEvent(TaskParams(task: task)));
     context.pop();
   }
 

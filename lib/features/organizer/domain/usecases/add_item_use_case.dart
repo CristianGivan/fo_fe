@@ -14,17 +14,21 @@ class AddItemUseCase<T extends ItemEntity, P extends ItemParams> extends UseCase
   @override
   Future<Either<Failure, T>> call(P params) async {
     if (params is TaskParams) {
-      final failureOrTask = await repository.addTask(params.taskEntity);
-      return failureOrTask.fold(
-        (failure) => Left(failure),
-        (task) => addTaskUserLinkAndReturnTaskDto(task) as Either<Failure, T>,
-      );
+      return _handleAddTask(params.taskEntity);
     } else {
-      return Future.value(Left(UnexpectedFailure("Invalid params")));
+      return Left(UnexpectedFailure("Invalid params"));
     }
   }
 
-  Future<Either<Failure, TaskDto>> addTaskUserLinkAndReturnTaskDto(TaskEntity task) async {
+  Future<Either<Failure, T>> _handleAddTask(TaskEntity taskEntity) async {
+    final failureOrTask = await repository.addTask(taskEntity);
+    return failureOrTask.fold(
+      (failure) => Left(failure),
+      (task) => addTaskUserLinkAndReturnTaskDto(task),
+    );
+  }
+
+  Future<Either<Failure, T>> addTaskUserLinkAndReturnTaskDto(TaskEntity task) async {
     final failureOrTaskUserLink = await repository.addTaskUserLink(TaskUserLinkEntity(
       id: 0,
       taskId: task.id,
@@ -35,7 +39,7 @@ class AddItemUseCase<T extends ItemEntity, P extends ItemParams> extends UseCase
     ));
     return failureOrTaskUserLink.fold(
       (failure) => Left(failure),
-      (taskUserLink) => Right(TaskDto(task: task, taskUserLink: taskUserLink)),
+      (taskUserLink) => Right(TaskDto(task: task, taskUserLink: taskUserLink) as T),
     );
   }
 }

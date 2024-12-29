@@ -30,9 +30,8 @@ class TaskBloc extends OrganizerBloc<ItemEntity, TaskParams> {
   final UpdateTaskDtoUseCase updateTaskDtoUseCase;
 
   TaskBloc({
-    required GetItemsFromLogInUserUseCase<ItemEntity, TaskParams> fetchTasks,
     required AddItemUseCase<ItemEntity, TaskParams> addTask,
-    required UpdateItemUseCase<ItemEntity, TaskParams> updateTask,
+    required GetItemsFromLogInUserUseCase<ItemEntity, TaskParams> fetchTasks,
     required DeleteItemUseCase<ItemEntity, TaskParams> deleteTask,
     required this.sortTasksUseCase,
     required this.filterTasksUseCase,

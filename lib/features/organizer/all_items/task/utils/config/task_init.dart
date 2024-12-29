@@ -61,9 +61,8 @@ void taskInit() {
         deleteTask: sl(),
         sortTasksUseCase: sl(),
         filterTasksUseCase: sl(),
-        updateTask: sl(),
-        fetchTasks: sl(),
         updateTaskDtoUseCase: sl(),
+        fetchTasks: sl(),
       ));
 
   sl.registerFactory(() => TaskFormCubit());
