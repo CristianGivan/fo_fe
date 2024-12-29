@@ -7,7 +7,7 @@ import 'package:fo_fe/features/practice/presentation/utils/practice_exports.dart
 import 'package:fo_fe/features/settings/utils/settings_exports.dart';
 
 class AppHomeScreen extends StatelessWidget {
-  AppHomeScreen({super.key});
+  const AppHomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
