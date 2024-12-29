@@ -46,8 +46,6 @@ debounce see todo code
 
 == Now
 
-* delete ScreenBarPage
-* // todo not ok
 * create a pop method where to add all the things that shall happen during the pop of several
 screens like poptask list to save the selecte and the order of the tasklist
 * add delete at task
@@ -55,6 +53,8 @@ screens like poptask list to save the selecte and the order of the tasklist
 
 == Done
 
+* delete ScreenBarPage
+* // todo not ok
 * add select at task
 * add task is done only at user 1
 * can be removed extra  final task = state.extra as TaskEntity?;

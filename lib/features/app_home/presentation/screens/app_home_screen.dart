@@ -11,9 +11,11 @@ class AppHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBarPage(title: AppStrings().screenTitle),
+    return AppContentScreen(
+      appBarTitle: AppStrings().screenTitle,
       body: NavigationMenu(buttons: _buildButtons(context)),
+      menuOptions: (context, userId) => [],
+      onSearchSubmitted: () {},
     );
   }
 

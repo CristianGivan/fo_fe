@@ -13,9 +13,11 @@ class OrganizerHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBarPage(title: OrganizerStrings().screenTitle),
-      body: NavigationMenu(buttons: _buildButtons(context)),
+    return AppContentScreen(
+      appBarTitle: OrganizerStrings().screenTitle,
+      body: (userId) => NavigationMenu(buttons: _buildButtons(context)),
+      menuOptions: (context, userId) => [],
+      onSearchSubmitted: () {},
     );
   }
 
