@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
 import 'package:go_router/go_router.dart';
 
-class ScreenBarPage extends StatelessWidget implements PreferredSizeWidget {
+class AppBarPage extends StatelessWidget implements PreferredSizeWidget {
   final String title;
 
-  const ScreenBarPage({super.key, this.title = "Title"});
+  const AppBarPage({super.key, this.title = "Title"});
 
   @override
   Widget build(BuildContext context) {

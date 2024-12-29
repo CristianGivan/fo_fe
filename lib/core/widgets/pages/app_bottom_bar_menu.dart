@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class AppBottomBarMenu extends StatefulWidget {
+class AppBottomBarPage extends StatefulWidget {
   final List<PopupMenuEntry> leftMenuOptions;
   final VoidCallback onSearchSubmitted;
   final List<PopupMenuEntry> rightMenuOptions;
 
-  const AppBottomBarMenu({
+  const AppBottomBarPage({
     required this.leftMenuOptions,
     required this.onSearchSubmitted,
     required this.rightMenuOptions,
@@ -13,10 +13,10 @@ class AppBottomBarMenu extends StatefulWidget {
   });
 
   @override
-  _AppBottomBarMenuState createState() => _AppBottomBarMenuState();
+  _AppBottomBarPageState createState() => _AppBottomBarPageState();
 }
 
-class _AppBottomBarMenuState extends State<AppBottomBarMenu> {
+class _AppBottomBarPageState extends State<AppBottomBarPage> {
   bool _isLeftMenuOpen = false;
   bool _isRightMenuOpen = false;
 

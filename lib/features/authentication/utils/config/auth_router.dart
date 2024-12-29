@@ -38,7 +38,7 @@ class AuthAppBranch {
         GoRoute(
           path: AuthRouterNames.authWithAutoLogInRoutePath,
           name: AuthRouterNames.authWithAutoLogInRouteName,
-          pageBuilder: (context, state) => const NoTransitionPage(
+          pageBuilder: (context, state) => NoTransitionPage(
             child: AppHomeScreen(),
           ),
         )

@@ -1,17 +1,15 @@
-import 'package:fo_fe/features/app_home/presentation/pages/app_body_page.dart';
-import 'package:fo_fe/features/app_home/presentation/pages/app_bottom_bar_same_menu.dart';
-import 'package:fo_fe/features/app_home/utils/app_home_exports.dart';
+import 'package:fo_fe/core/widgets/core_widget_exports.dart';
 import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class AuthContentScreen extends StatelessWidget {
+class AppContentScreen extends StatelessWidget {
   final void Function(BuildContext context, int userId)? fetchItemsForLoggedInUser;
   final String appBarTitle;
   final dynamic body;
   final List<PopupMenuEntry> Function(BuildContext context, int userId) menuOptions;
   final VoidCallback onSearchSubmitted;
 
-  const AuthContentScreen({
+  const AppContentScreen({
     super.key,
     this.fetchItemsForLoggedInUser,
     required this.appBarTitle,
@@ -28,8 +26,8 @@ class AuthContentScreen extends StatelessWidget {
           final userId = state.userEntity.id;
           fetchItemsForLoggedInUser?.call(context, userId);
           return Scaffold(
-            appBar: ScreenBarPage(title: appBarTitle),
-            body: ScreenBodyPage(body: body, context: context, userId: userId),
+            appBar: AppBarPage(title: appBarTitle),
+            body: AppBodyPage(body: body, context: context, userId: userId),
             bottomNavigationBar: ScreenBottomBarSameMenu(
               menuOptions: menuOptions(context, userId),
               onSearchSubmitted: onSearchSubmitted,

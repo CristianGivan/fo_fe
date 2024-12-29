@@ -9,7 +9,7 @@ class AppHomeBranch {
       routes: [
         GoRoute(
           path: '/',
-          pageBuilder: (context, state) => const NoTransitionPage(
+          pageBuilder: (context, state) => NoTransitionPage(
             child: AppHomeScreen(), // Main Home Screen
           ),
         ),

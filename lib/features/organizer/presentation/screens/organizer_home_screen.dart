@@ -1,4 +1,4 @@
-import 'package:fo_fe/features/app_home/presentation/pages/app_bar_page.dart';
+import 'package:fo_fe/core/widgets/pages/app_bar_page.dart';
 import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/reminder/utils/config/reminder_route_names.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
@@ -13,7 +13,7 @@ class OrganizerHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ScreenBarPage(title: OrganizerStrings().screenTitle),
+      appBar: AppBarPage(title: OrganizerStrings().screenTitle),
       body: Column(
         children: [
           const SizedBox(height: 10),

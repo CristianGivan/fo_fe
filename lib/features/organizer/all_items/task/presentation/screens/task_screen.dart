@@ -1,4 +1,4 @@
-import 'package:fo_fe/features/authentication/presentation/widget/auth_content_screen.dart';
+import 'package:fo_fe/core/widgets/core_widget_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/widgets/task_screen_actions_menu.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
@@ -8,7 +8,7 @@ class TaskScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AuthContentScreen(
+    return AppContentScreen(
       fetchItemsForLoggedInUser: _getTaskItemsFromLoggedInUser,
       appBarTitle: TaskStrings().screenTitle,
       body: TaskListPage(),

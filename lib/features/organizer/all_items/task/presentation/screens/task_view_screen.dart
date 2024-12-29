@@ -1,4 +1,4 @@
-import 'package:fo_fe/features/app_home/utils/app_home_exports.dart';
+import 'package:fo_fe/core/widgets/core_widget_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/widgets/task_edit_screen_actions_menu.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
@@ -10,27 +10,30 @@ class TaskViewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: ScreenBarPage(title: TaskStrings().screenViewTitle),
-      body: BlocBuilder<TaskBloc, OrganizerBlocState>(
-        builder: (context, state) {
-          switch (state.status) {
-            case OrganizerBlocStatus.loading:
-              return _buildLoadingState();
-            case OrganizerBlocStatus.loaded:
-              return _buildTaskView(context, state);
-            case OrganizerBlocStatus.error:
-              return _buildErrorState(state.errorMessage);
-            default:
-              return _noStateAvailable();
-          }
-        },
-      ),
-      bottomNavigationBar: AppBottomBarMenu(
-        leftMenuOptions: TaskEditScreenActionsMenu.getMenuItems(context),
-        onSearchSubmitted: () {},
-        rightMenuOptions: TaskEditScreenActionsMenu.getMenuItems(context),
-      ),
+    return AppContentScreen(
+      appBarTitle: TaskStrings().screenViewTitle,
+      body: _buildStateWidget(),
+      menuOptions: (context, userId) => TaskEditScreenActionsMenu.getMenuItems(context),
+      onSearchSubmitted: () {
+        // Define the search functionality here
+      },
+    );
+  }
+
+  _buildStateWidget() {
+    return BlocBuilder<TaskBloc, OrganizerBlocState>(
+      builder: (context, state) {
+        switch (state.status) {
+          case OrganizerBlocStatus.loading:
+            return _buildLoadingState();
+          case OrganizerBlocStatus.loaded:
+            return _buildTaskView(context, state);
+          case OrganizerBlocStatus.error:
+            return _buildErrorState(state.errorMessage);
+          default:
+            return _noStateAvailable();
+        }
+      },
     );
   }
 

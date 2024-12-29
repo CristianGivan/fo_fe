@@ -1,4 +1,4 @@
-import 'package:fo_fe/features/authentication/presentation/widget/auth_content_screen.dart';
+import 'package:fo_fe/core/widgets/core_widget_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/pages/task_form_fields_page.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/widgets/task_edit_screen_actions_menu.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
@@ -11,7 +11,7 @@ class TaskEditScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AuthContentScreen(
+    return AppContentScreen(
       appBarTitle: TaskStrings().screenEditTitle,
       body: _buildStateWidget(),
       menuOptions: (context, userId) => TaskEditScreenActionsMenu.getMenuItems(context),

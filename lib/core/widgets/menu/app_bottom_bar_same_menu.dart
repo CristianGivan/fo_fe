@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fo_fe/features/app_home/presentation/pages/app_bottom_bar_menu.dart';
+import 'package:fo_fe/core/widgets/pages/app_bottom_bar_menu.dart';
 
 class ScreenBottomBarSameMenu extends StatelessWidget {
   final List<PopupMenuEntry> menuOptions;
@@ -13,7 +13,7 @@ class ScreenBottomBarSameMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBottomBarMenu(
+    return AppBottomBarPage(
         leftMenuOptions: menuOptions,
         onSearchSubmitted: onSearchSubmitted,
         rightMenuOptions: menuOptions);
