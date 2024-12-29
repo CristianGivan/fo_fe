@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class AppBodyPage extends StatelessWidget {
+class ScreenBodyPage extends StatelessWidget {
   final dynamic body;
   final BuildContext context;
   final int userId;
 
-  const AppBodyPage({
+  const ScreenBodyPage({
     super.key,
     required this.body,
     required this.context,

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:fo_fe/features/app_home/presentation/pages/app_bottom_bar_menu.dart';
 
-class AppBottomBarSameMenu extends StatelessWidget {
+class ScreenBottomBarSameMenu extends StatelessWidget {
   final List<PopupMenuEntry> menuOptions;
   final VoidCallback onSearchSubmitted;
 
-  const AppBottomBarSameMenu({
+  const ScreenBottomBarSameMenu({
     required this.menuOptions,
     required this.onSearchSubmitted,
     super.key,

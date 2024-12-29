@@ -11,7 +11,7 @@ class TaskViewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarPage(title: TaskStrings().screenViewTitle),
+      appBar: ScreenBarPage(title: TaskStrings().screenViewTitle),
       body: BlocBuilder<TaskBloc, OrganizerBlocState>(
         builder: (context, state) {
           switch (state.status) {

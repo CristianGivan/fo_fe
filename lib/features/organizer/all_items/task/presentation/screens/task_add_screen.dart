@@ -1,4 +1,4 @@
-import 'package:fo_fe/features/authentication/presentation/widget/auth_content_widget.dart';
+import 'package:fo_fe/features/authentication/presentation/widget/auth_content_screen.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/pages/task_add_form.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/widgets/task_add_screen_actions_menu.dart';
 
@@ -10,7 +10,7 @@ class TaskAddScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AuthenticatedContentWidget(
+    return AuthContentScreen(
       appBarTitle: TaskStrings().screenAddTitle,
       body: (userId) => TaskAddForm(userId: userId),
       menuOptions: (context, userId) => TaskAddScreenActionsMenu.getMenuItems(context, userId),

@@ -13,7 +13,7 @@ class OrganizerHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarPage(title: OrganizerStrings().screenTitle),
+      appBar: ScreenBarPage(title: OrganizerStrings().screenTitle),
       body: Column(
         children: [
           const SizedBox(height: 10),

@@ -11,7 +11,7 @@ class AppHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarPage(title: AppStrings().screenTitle),
+      appBar: ScreenBarPage(title: AppStrings().screenTitle),
       body: Column(
         children: [
           const SizedBox(height: 10),
