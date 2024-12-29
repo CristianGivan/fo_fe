@@ -32,27 +32,28 @@ debounce see todo code
 
 == Next
 
-* return TaskUserLinkEntity(id: row.read<int>('id'),
-* update Future<int?> addUserItemToTask(int taskId, int tagId) async {
-* delete implementeation for _onToggleTaskSelectionBlocEent
-* scafold for the task edit and view
 * update with task strings
 * clean up adocs
 * can be removed extra  for all not only for  final task = state.extra as TaskEntity?;
 * refactor the task add form
 * void addUserItemsToTask(int taskId, List<int> addedUserItems) {
-* add also else for  if (state is TaskLoadedBlocState) {
 * there is a wait to not have every time as TaskDto
 
 == Now
 
-* create a pop method where to add all the things that shall happen during the pop of several
-screens like poptask list to save the selecte and the order of the tasklist
 * add delete at task
-* ajust snack bar to be at bottom when I don't have a bottomNavigationBar
 
 == Done
 
+* add also else for  if (state is TaskLoadedBlocState) {
+* scafold for the task edit and view
+* delete implementeation for _onToggleTaskSelectionBlocEent
+* update Future<int?> addUserItemToTask(int taskId, int tagId) async {
+* return TaskUserLinkEntity(id: row.read<int>('id'),
+* check the SnackBarWidget
+* create a pop method where to add all the things that shall happen during the pop of several
+screens like poptask list to save the selecte and the order of the tasklist
+* ajust snack bar to be at bottom when I don't have a bottomNavigationBar
 * delete ScreenBarPage
 * // todo not ok
 * add select at task

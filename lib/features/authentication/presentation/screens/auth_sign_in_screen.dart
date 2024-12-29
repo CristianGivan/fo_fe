@@ -69,7 +69,11 @@ class _SignInScreenState extends State<SignInScreen> {
               BlocListener<AuthLogBloc, AuthLogBlocState>(
                 listener: (context, state) {
                   if (state is AuthLogErrorBlocState) {
-                    SnackBarWidget.showAtBottom(context, content: state.errorMessage);
+                    SnackBarWidget.showAtBottom(
+                      context,
+                      content: state.errorMessage,
+                      backgroundColor: Colors.red,
+                    );
                   } else if (state is AuthAuthenticatedBlocState) {
                     context.pushNamed(OrganizerRouterNames.organizerRouteName);
                   }
