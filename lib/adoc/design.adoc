@@ -46,3 +46,9 @@ or add new task
 === Widget
 
 * every other thing that is displayed on the screen like a button or a text
+
+== Reminder
+
+=== New link between items
+
+* don't forget to delete also this link in local data source

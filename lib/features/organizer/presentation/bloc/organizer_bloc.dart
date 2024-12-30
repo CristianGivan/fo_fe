@@ -6,12 +6,12 @@ abstract class OrganizerBloc<T extends ItemEntity, P extends ItemParams>
     extends Bloc<OrganizerBlocEvent<ItemEntity>, OrganizerBlocState<ItemEntity>> {
   final Future<Either<Failure, ItemEntity>> Function(P) addItem;
   final Future<Either<Failure, OrganizerItems<ItemEntity>>> Function(P) getItems;
-  final Future<Either<Failure, void>> Function(P) deleteItem;
+  final Future<Either<Failure, void>> Function(P) deleteItems;
 
   OrganizerBloc({
     required this.addItem,
     required this.getItems,
-    required this.deleteItem,
+    required this.deleteItems,
   }) : super(OrganizerBlocState<T>(status: OrganizerBlocStatus.initial));
 
   void setupEventHandlers() {
@@ -28,6 +28,7 @@ abstract class OrganizerBloc<T extends ItemEntity, P extends ItemParams>
       (failure) => emit(state.copyWith(
           status: OrganizerBlocStatus.error, errorMessage: _mapFailureToMessage(failure))),
       (newItem) {
+        newItem as T;
         final updatedOriginalItems = state.originalItems.copyWithAddedItem(newItem);
         final updatedDisplayedItems = state.displayedItems.copyWithAddedItem(newItem);
         emit(state.copyWith(
@@ -54,14 +55,15 @@ abstract class OrganizerBloc<T extends ItemEntity, P extends ItemParams>
   Future<void> _onDeleteItem(DeleteItemBlocEvent<ItemEntity, P> event,
       Emitter<OrganizerBlocState<ItemEntity>> emit) async {
     emit(state.copyWith(status: OrganizerBlocStatus.loading));
-    final result = await deleteItem(event.id);
+    final result = await deleteItems(event.params);
     result.fold(
       (failure) => emit(state.copyWith(
           status: OrganizerBlocStatus.error, errorMessage: _mapFailureToMessage(failure))),
       (_) {
-        final updatedOriginalItems = state.originalItems.copyWithRemovedItemWitId(event.id as int);
+        final updatedOriginalItems =
+            state.originalItems.copyWithRemovedItemWitId(event.params as int);
         final updatedDisplayedItems =
-            state.displayedItems.copyWithRemovedItemWitId(event.id as int);
+            state.displayedItems.copyWithRemovedItemWitId(event.params as int);
         emit(state.copyWith(
           status: OrganizerBlocStatus.loaded,
           originalItems: updatedOriginalItems,

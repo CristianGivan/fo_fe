@@ -32,14 +32,14 @@ class TaskBloc extends OrganizerBloc<ItemEntity, TaskParams> {
   TaskBloc({
     required AddItemUseCase<ItemEntity, TaskParams> addTask,
     required GetItemsFromLogInUserUseCase<ItemEntity, TaskParams> fetchTasks,
-    required DeleteItemUseCase<ItemEntity, TaskParams> deleteTask,
+    required DeleteItemsUseCase<ItemEntity, TaskParams> deleteTask,
     required this.sortTasksUseCase,
     required this.filterTasksUseCase,
     required this.updateTaskDtoUseCase,
   }) : super(
           getItems: fetchTasks,
           addItem: addTask,
-          deleteItem: deleteTask,
+          deleteItems: deleteTask,
         ) {
     setupEventHandlers();
     on<TaskItemsSortBlocEvent<ItemEntity, SortTasksParams>>(_onSortTasks as EventHandler<

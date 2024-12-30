@@ -18,6 +18,8 @@ abstract class TaskRepository {
 
   Future<Either<Failure, int>> deleteTask(int taskId);
 
+  Future<Either<Failure, IdSet>> deleteTaskItems(IdSet idSet);
+
   Future<Either<Failure, TaskEntity>> getTaskById(int id);
 
   Future<Either<Failure, TaskEntityLazyLoaded>> getTaskByIdLazyLoaded(int id);

@@ -23,17 +23,17 @@ Widget buildStateWidget({
 
 class OrganizerBlocState<T extends ItemEntity> extends Equatable {
   final OrganizerBlocStatus status;
-  final OrganizerItems<ItemEntity> originalItems;
-  final OrganizerItems<ItemEntity> displayedItems;
+  final OrganizerItems<T> originalItems;
+  final OrganizerItems<T> displayedItems;
   final String? errorMessage;
 
   OrganizerBlocState({
     required this.status,
-    OrganizerItems<ItemEntity>? originalItems,
-    OrganizerItems<ItemEntity>? displayedItems,
+    OrganizerItems<T>? originalItems,
+    OrganizerItems<T>? displayedItems,
     this.errorMessage,
-  })  : originalItems = originalItems ?? OrganizerItems<ItemEntity>.empty(),
-        displayedItems = displayedItems ?? OrganizerItems<ItemEntity>.empty();
+  })  : originalItems = originalItems ?? OrganizerItems<T>.empty(),
+        displayedItems = displayedItems ?? OrganizerItems<T>.empty();
 
   OrganizerBlocState<ItemEntity> copyWith({
     OrganizerBlocStatus? status,

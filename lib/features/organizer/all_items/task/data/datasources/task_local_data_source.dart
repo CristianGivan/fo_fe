@@ -15,6 +15,8 @@ abstract class TaskLocalDataSource {
 
   Future<int> deleteTask(int taskId);
 
+  Future<Set<int>?> deleteTaskItems(Set<int> taskIds);
+
   Future<TaskTableDriftG?> getTaskById(int id);
 
   Future<List<TaskTableDriftG>?> getTaskItemsAll();

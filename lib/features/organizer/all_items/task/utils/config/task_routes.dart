@@ -1,3 +1,4 @@
+import 'package:fo_fe/features/organizer/all_items/task/presentation/screens/task_delete_screen.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/screens/task_edit_screen.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/screens/task_view_screen.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
@@ -21,6 +22,13 @@ class TaskRoutes {
           pageBuilder: (context, state) {
             final taskId = state.extra as int;
             return NoTransitionPage(child: TaskEditScreen(taskId: taskId));
+          },
+        ),
+        GoRoute(
+          path: TaskRouterNames.taskDeleteRoutePath,
+          name: TaskRouterNames.taskDeleteRouteName,
+          pageBuilder: (context, state) {
+            return NoTransitionPage(child: TaskDeleteScreen());
           },
         ),
         GoRoute(

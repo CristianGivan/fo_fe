@@ -3,8 +3,8 @@ import 'package:fo_fe/features/organizer/all_items/task/presentation/pages/task_
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class TaskListPage extends StatelessWidget {
-  const TaskListPage({super.key});
+class TaskDeleteScreen extends StatelessWidget {
+  const TaskDeleteScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +25,8 @@ class TaskListPage extends StatelessWidget {
 
   Widget _buildTaskListDto(BuildContext context, OrganizerItems<ItemEntity> taskDtoList) {
     return ItemDtoListViewPage<TaskDto>(
-      itemDtoList: taskDtoList,
-      itemCardBuilder: (taskDto) => TaskCard(taskDto.task),
+      itemDtoList: taskDtoList as OrganizerItems<TaskDto>,
+      itemCardBuilder: (itemDto) => TaskCard(itemDto.task),
       getValue: _getValue,
       updateItemUserLink: _updateTaskUserLink,
     );

@@ -9,6 +9,7 @@ class IdSet<T> extends Equatable {
 
   const IdSet.empty() : _ids = const {};
 
+  //todo -implement- what happens whern I get a null list
   factory IdSet.of(Iterable<int?> ids) => IdSet._(ids.whereType<int>().toSet());
 
   Set<int> toSet() => _ids.toSet();
@@ -42,7 +43,6 @@ class IdSet<T> extends Equatable {
   factory IdSet.fromOrganizerItems(OrganizerItems items) {
     return IdSet.of(items.map((item) => item.id).whereType<int>());
   }
-
 
   @override
   String toString() => _ids.toString();
