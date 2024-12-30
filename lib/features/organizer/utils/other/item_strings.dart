@@ -9,6 +9,8 @@ class ItemStrings {
 
   String get screenEditTitle => 'Edit $itemPascalCase';
 
+  String get screenDeleteTitle => 'Delete $itemPascalCase Items';
+
   String get screenViewTitle => 'View $itemPascalCase';
 
   get screenAddTitle => 'Add $itemPascalCase';

@@ -15,6 +15,7 @@ class TaskDeleteScreen extends StatefulWidget {
 class _TaskDeleteScreenState extends State<TaskDeleteScreen> {
   late IdSet selectedIds;
   late OrganizerItems<TaskDto> selectedTaskDtoList;
+  bool isFirstLoad = true;
 
   @override
   void initState() {
@@ -26,23 +27,26 @@ class _TaskDeleteScreenState extends State<TaskDeleteScreen> {
   @override
   Widget build(BuildContext context) {
     return AppContentScreen(
-      appBarTitle: TaskStrings().screenEditTitle,
-      body: _buildStateWidget(),
+      appBarTitle: TaskStrings().screenDeleteTitle,
+      body: BlocBuilder<TaskBloc, OrganizerBlocState>(
+        builder: (context, state) {
+          if ((state.status == OrganizerBlocStatus.loaded) && isFirstLoad) {
+            selectedTaskDtoList = state.displayedItems.convertWithSelected<TaskDto>();
+            isFirstLoad = false;
+          }
+
+          return buildStateWidget(
+            state: state,
+            buildErrorState: _buildErrorState,
+            buildLoadingState: _buildLoadingState,
+            buildLoadedState: () => _buildTaskListDto(context, state.displayedItems),
+          );
+        },
+      ),
       menuOptions: (context, userId) =>
           TaskDeleteScreenActionsMenu.getMenuItems(context, selectedIds),
       onSearchSubmitted: () {},
     );
-  }
-
-  Widget _buildStateWidget() {
-    return BlocBuilder<TaskBloc, OrganizerBlocState>(builder: (context, state) {
-      return buildStateWidget(
-        state: state,
-        buildErrorState: _buildErrorState,
-        buildLoadingState: _buildLoadingState,
-        buildLoadedState: () => _buildTaskListDto(context, state.displayedItems),
-      );
-    });
   }
 
   Widget _buildErrorState(String? message) =>
@@ -51,7 +55,6 @@ class _TaskDeleteScreenState extends State<TaskDeleteScreen> {
   Widget _buildLoadingState() => const Center(child: CircularProgressIndicator());
 
   Widget _buildTaskListDto(BuildContext context, OrganizerItems<ItemEntity> itemList) {
-    selectedTaskDtoList = itemList.convertWithSelected<TaskDto>();
     if (selectedTaskDtoList.isEmpty) {
       return Center(child: Text('No items to display'));
     } else {
