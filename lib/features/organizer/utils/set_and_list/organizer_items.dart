@@ -6,13 +6,14 @@ class OrganizerItems<T extends ItemEntity> extends Equatable {
   const OrganizerItems._(this._organizerItems);
 
   factory OrganizerItems.empty() => OrganizerItems._(<T>[]);
+  factory OrganizerItems.ofList(List<T> items) => OrganizerItems._(items);
 
   factory OrganizerItems.of(Iterable<T> organizerItems, {SortedBy sortedBy = SortedBy.none}) =>
       OrganizerItems._(organizerItems.whereType<T>().toList());
 
   OrganizerItemsBuilder<T> toBuilder() => OrganizerItemsBuilder.of(_organizerItems);
 
-  // SortedBy get sortedBy => _sortedBy;
+  List<T> get items => _organizerItems;
 
   List<T> toList() => _organizerItems.toList();
 

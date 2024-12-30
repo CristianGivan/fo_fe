@@ -17,7 +17,7 @@ abstract class OrganizerBloc<T extends ItemEntity, P extends ItemParams>
   void setupEventHandlers() {
     on<AddItemBlocEvent<T, P>>(_onAddItem);
     on<GetItemsFromLogInUserBlocEvent<T, P>>(_onGetItems);
-    on<DeleteItemBlocEvent<T, P>>(_onDeleteItem);
+    on<DeleteItemsBlocEvent<T, P>>(_onDeleteItems);
   }
 
   Future<void> _onAddItem(AddItemBlocEvent<ItemEntity, ItemParams> event,
@@ -52,7 +52,7 @@ abstract class OrganizerBloc<T extends ItemEntity, P extends ItemParams>
     );
   }
 
-  Future<void> _onDeleteItem(DeleteItemBlocEvent<ItemEntity, P> event,
+  Future<void> _onDeleteItems(DeleteItemsBlocEvent<ItemEntity, P> event,
       Emitter<OrganizerBlocState<ItemEntity>> emit) async {
     emit(state.copyWith(status: OrganizerBlocStatus.loading));
     final result = await deleteItems(event.params);

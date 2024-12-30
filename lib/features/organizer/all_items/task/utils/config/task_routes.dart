@@ -36,7 +36,7 @@ class TaskRoutes {
           name: TaskRouterNames.taskViewRouteName,
           pageBuilder: (context, state) {
             final taskId = state.extra as int;
-            return NoTransitionPage(child: TaskViewScreen(taskId: taskId!));
+            return NoTransitionPage(child: TaskViewScreen(taskId: taskId));
           },
         ),
       ],

@@ -2,6 +2,7 @@ import 'package:fo_fe/core/widgets/pages/item_dto_list_view_page.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/pages/task_card_page.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
+import 'package:fo_fe/features/organizer/utils/set_and_list/organizer_items_transform.dart';
 
 class TaskListPage extends StatelessWidget {
   const TaskListPage({super.key});
@@ -23,13 +24,18 @@ class TaskListPage extends StatelessWidget {
 
   Widget _buildLoadingState() => const Center(child: CircularProgressIndicator());
 
-  Widget _buildTaskListDto(BuildContext context, OrganizerItems<ItemEntity> taskDtoList) {
-    return ItemDtoListViewPage<TaskDto>(
-      itemDtoList: taskDtoList,
-      itemCardBuilder: (taskDto) => TaskCard(taskDto.task),
-      getValue: _getValue,
-      updateItemUserLink: _updateTaskUserLink,
-    );
+  Widget _buildTaskListDto(BuildContext context, OrganizerItems<ItemEntity> itemList) {
+    final taskDtoList = itemList.convertTo<TaskDto>();
+    if (taskDtoList.isEmpty) {
+      return Center(child: Text('No items to display'));
+    } else {
+      return ItemDtoListViewPage<TaskDto>(
+        itemDtoList: taskDtoList,
+        itemCardBuilder: (taskDto) => TaskCard(taskDto.task),
+        getValue: _getValue,
+        updateItemUserLink: _updateTaskUserLink,
+      );
+    }
   }
 
   bool _getValue(TaskDto taskDto) {

@@ -43,10 +43,10 @@ class GetItemsFromLogInUserBlocEvent<ItemEntity, P> extends OrganizerBlocEvent<I
   List<Object> get props => [param as Object];
 }
 
-class DeleteItemBlocEvent<ItemEntity, P> extends OrganizerBlocEvent<ItemEntity> {
+class DeleteItemsBlocEvent<ItemEntity, P> extends OrganizerBlocEvent<ItemEntity> {
   final P params;
 
-  const DeleteItemBlocEvent(this.params);
+  const DeleteItemsBlocEvent(this.params);
 
   @override
   List<Object> get props => [params as Object];

@@ -1,7 +1,7 @@
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
-import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
+import 'package:fo_fe/features/organizer/domain/entities/dto_entity.dart';
 
-class TaskDto extends ItemEntity {
+class TaskDto extends DtoEntity {
   final TaskEntity task;
   final TaskUserLinkEntity taskUserLink;
 
@@ -11,6 +11,7 @@ class TaskDto extends ItemEntity {
   }) : super(
           id: task.id,
           remoteId: task.remoteId,
+          isSelectedByUser: taskUserLink.isSelectedByUser,
         );
 
   TaskDto copyWith({
