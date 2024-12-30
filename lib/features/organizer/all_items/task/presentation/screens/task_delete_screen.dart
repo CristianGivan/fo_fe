@@ -25,7 +25,7 @@ class TaskDeleteScreen extends StatelessWidget {
 
   Widget _buildTaskListDto(BuildContext context, OrganizerItems<ItemEntity> taskDtoList) {
     return ItemDtoListViewPage<TaskDto>(
-      itemDtoList: taskDtoList as OrganizerItems<TaskDto>,
+      itemDtoList: taskDtoList,
       itemCardBuilder: (itemDto) => TaskCard(itemDto.task),
       getValue: _getValue,
       updateItemUserLink: _updateTaskUserLink,
