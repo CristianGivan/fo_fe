@@ -32,6 +32,7 @@ class _TaskDeleteScreenState extends State<TaskDeleteScreen> {
         builder: (context, state) {
           if ((state.status == OrganizerBlocStatus.loaded) && isFirstLoad) {
             selectedTaskDtoList = state.displayedItems.convertWithSelected<TaskDto>();
+            selectedIds = IdSet.fromOrganizerItems(selectedTaskDtoList);
             isFirstLoad = false;
           }
 
@@ -74,10 +75,11 @@ class _TaskDeleteScreenState extends State<TaskDeleteScreen> {
   void _updateTaskUserLink(BuildContext context, TaskDto taskDto, bool value) {
     setState(() {
       if (value) {
-        selectedIds = (selectedIds.toBuilder()..add(taskDto.task.id)).build();
+        selectedTaskDtoList = selectedTaskDtoList.copyWithAddedItem(taskDto);
+        selectedIds = IdSet.fromOrganizerItems(selectedTaskDtoList);
       } else {
-        selectedIds = (selectedIds.toBuilder()..remove(taskDto.task.id)).build();
         selectedTaskDtoList = selectedTaskDtoList.copyWithRemovedItem(taskDto);
+        selectedIds = IdSet.fromOrganizerItems(selectedTaskDtoList);
       }
     });
   }
