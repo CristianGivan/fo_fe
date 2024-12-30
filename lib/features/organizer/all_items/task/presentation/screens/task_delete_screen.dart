@@ -5,10 +5,23 @@ import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart'
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 import 'package:fo_fe/features/organizer/utils/set_and_list/organizer_items_transform.dart';
 
-class TaskDeleteScreen extends StatelessWidget {
-  IdSet selectedIds;
+class TaskDeleteScreen extends StatefulWidget {
+  const TaskDeleteScreen({super.key});
 
-  TaskDeleteScreen({this.selectedIds = const IdSet.empty(), super.key});
+  @override
+  _TaskDeleteScreenState createState() => _TaskDeleteScreenState();
+}
+
+class _TaskDeleteScreenState extends State<TaskDeleteScreen> {
+  late IdSet selectedIds;
+  late OrganizerItems<TaskDto> selectedTaskDtoList;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedIds = IdSet.empty();
+    selectedTaskDtoList = OrganizerItems.empty();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +51,7 @@ class TaskDeleteScreen extends StatelessWidget {
   Widget _buildLoadingState() => const Center(child: CircularProgressIndicator());
 
   Widget _buildTaskListDto(BuildContext context, OrganizerItems<ItemEntity> itemList) {
-    final selectedTaskDtoList = itemList.convertWithSelected<TaskDto>();
+    selectedTaskDtoList = itemList.convertWithSelected<TaskDto>();
     if (selectedTaskDtoList.isEmpty) {
       return Center(child: Text('No items to display'));
     } else {
@@ -55,5 +68,14 @@ class TaskDeleteScreen extends StatelessWidget {
     return taskDto.taskUserLink.isSelectedByUser;
   }
 
-  void _updateTaskUserLink(BuildContext context, TaskDto taskDto, bool value) {}
+  void _updateTaskUserLink(BuildContext context, TaskDto taskDto, bool value) {
+    setState(() {
+      if (value) {
+        selectedIds = (selectedIds.toBuilder()..add(taskDto.task.id)).build();
+      } else {
+        selectedIds = (selectedIds.toBuilder()..remove(taskDto.task.id)).build();
+        selectedTaskDtoList = selectedTaskDtoList.copyWithRemovedItem(taskDto);
+      }
+    });
+  }
 }
