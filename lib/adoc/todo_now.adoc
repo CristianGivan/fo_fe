@@ -41,13 +41,14 @@ debounce see todo code
 
 == Now
 
-* add delete at task
 * refactor TaskAddForm
 * refactor OrganizerBloc
-* extract _buildCheckboxListTitle to a widget
 
 == Done
 
+* extract _buildCheckboxListTitle to a widget
+
+* add delete at task
 [log] onError -- bloc: TaskBloc, error: type 'Future<Either<Failure, TaskDto>>' is not a subtype of type 'Either<Failure, ItemEntity>' in type cast
 why I don't have a message
 fix the problemll

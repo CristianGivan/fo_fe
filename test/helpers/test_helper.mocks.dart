@@ -303,6 +303,17 @@ class MockTaskLocalDataSourceDrift extends _i1.Mock
       ) as _i9.Future<int>);
 
   @override
+  _i9.Future<List<int>?> deleteTaskItems(List<int>? taskIds) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #deleteTaskItems,
+          [taskIds],
+        ),
+        returnValue: _i9.Future<List<int>?>.value(),
+        returnValueForMissingStub: _i9.Future<List<int>?>.value(),
+      ) as _i9.Future<List<int>?>);
+
+  @override
   _i9.Future<_i3.TaskTableDriftG?> getTaskById(int? id) => (super.noSuchMethod(
         Invocation.method(
           #getTaskById,
@@ -349,7 +360,7 @@ class MockTaskLocalDataSourceDrift extends _i1.Mock
 
   @override
   _i9.Future<List<_i3.TaskTableDriftG?>?> getTaskItemsByIdSet(
-          _i13.IdSet<dynamic>? idSet) =>
+          _i13.IdSet? idSet) =>
       (super.noSuchMethod(
         Invocation.method(
           #getTaskItemsByIdSet,
@@ -692,6 +703,33 @@ class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
       ) as _i9.Future<_i5.Either<_i15.Failure, int>>);
 
   @override
+  _i9.Future<_i5.Either<_i15.Failure, _i13.IdSet>> deleteTaskItems(
+          _i13.IdSet? idSet) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #deleteTaskItems,
+          [idSet],
+        ),
+        returnValue: _i9.Future<_i5.Either<_i15.Failure, _i13.IdSet>>.value(
+            _FakeEither_4<_i15.Failure, _i13.IdSet>(
+          this,
+          Invocation.method(
+            #deleteTaskItems,
+            [idSet],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i9.Future<_i5.Either<_i15.Failure, _i13.IdSet>>.value(
+                _FakeEither_4<_i15.Failure, _i13.IdSet>(
+          this,
+          Invocation.method(
+            #deleteTaskItems,
+            [idSet],
+          ),
+        )),
+      ) as _i9.Future<_i5.Either<_i15.Failure, _i13.IdSet>>);
+
+  @override
   _i9.Future<_i5.Either<_i15.Failure, _i4.TaskEntity>> getTaskById(int? id) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -840,7 +878,7 @@ class MockTaskRepository extends _i1.Mock implements _i7.TaskRepository {
 
   @override
   _i9.Future<_i5.Either<_i15.Failure, _i16.OrganizerItems<_i4.TaskEntity>>>
-      getTaskItemsByIdSet(_i13.IdSet<dynamic>? idSet) => (super.noSuchMethod(
+      getTaskItemsByIdSet(_i13.IdSet? idSet) => (super.noSuchMethod(
             Invocation.method(
               #getTaskItemsByIdSet,
               [idSet],

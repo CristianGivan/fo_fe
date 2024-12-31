@@ -15,47 +15,32 @@ class TaskDeleteScreen extends StatefulWidget {
 class _TaskDeleteScreenState extends State<TaskDeleteScreen> {
   late IdSet selectedIds;
   late OrganizerItems<TaskDto> selectedTaskDtoList;
-  bool isFirstLoad = true;
 
   @override
   void initState() {
     super.initState();
-    selectedIds = IdSet.empty();
-    selectedTaskDtoList = OrganizerItems.empty();
+    final state = context.read<TaskBloc>().state;
+    if (state.status == OrganizerBlocStatus.loaded) {
+      selectedTaskDtoList = state.displayedItems.convertWithSelected<TaskDto>();
+      selectedIds = IdSet.fromOrganizerItems(selectedTaskDtoList);
+    } else {
+      selectedIds = IdSet.empty();
+      selectedTaskDtoList = OrganizerItems.empty();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return AppContentScreen(
       appBarTitle: TaskStrings().screenDeleteTitle,
-      body: BlocBuilder<TaskBloc, OrganizerBlocState>(
-        builder: (context, state) {
-          if ((state.status == OrganizerBlocStatus.loaded) && isFirstLoad) {
-            selectedTaskDtoList = state.displayedItems.convertWithSelected<TaskDto>();
-            selectedIds = IdSet.fromOrganizerItems(selectedTaskDtoList);
-            isFirstLoad = false;
-          }
-
-          return buildStateWidget(
-            state: state,
-            buildErrorState: _buildErrorState,
-            buildLoadingState: _buildLoadingState,
-            buildLoadedState: () => _buildTaskListDto(context, state.displayedItems),
-          );
-        },
-      ),
+      body: _buildTaskListDto(),
       menuOptions: (context, userId) =>
           TaskDeleteScreenActionsMenu.getMenuItems(context, selectedIds),
       onSearchSubmitted: () {},
     );
   }
 
-  Widget _buildErrorState(String? message) =>
-      Center(child: Text(message ?? "Unknown error occurred"));
-
-  Widget _buildLoadingState() => const Center(child: CircularProgressIndicator());
-
-  Widget _buildTaskListDto(BuildContext context, OrganizerItems<ItemEntity> itemList) {
+  Widget _buildTaskListDto() {
     if (selectedTaskDtoList.isEmpty) {
       return Center(child: Text('No items to display'));
     } else {

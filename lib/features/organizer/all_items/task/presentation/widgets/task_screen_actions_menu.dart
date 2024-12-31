@@ -11,8 +11,7 @@ class TaskScreenActionsMenu {
       ),
       PopupMenuItem(
         child: Text('Delete Task'),
-        onTap: () => context
-            .pushNamed(TaskRouterNames.taskDeleteRouteName), //_confirmAndDelete        (context),
+        onTap: () => context.pushNamed(TaskRouterNames.taskDeleteRouteName),
       ),
       PopupMenuItem(
         child: Text('Filter Tasks'),

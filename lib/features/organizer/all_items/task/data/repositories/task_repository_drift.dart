@@ -67,8 +67,10 @@ class TaskRepositoryDrift implements TaskRepository {
 
   @override
   Future<Either<Failure, IdSet>> deleteTaskItems(IdSet idSet) {
-    return _handleDatabaseOperation(
-        () async => IdSet.of(localDataSource.deleteTaskItems(idSet.toSet()) as Iterable<int?>));
+    return _handleDatabaseOperation(() async {
+      final deletedItemsIds = await localDataSource.deleteTaskItems(idSet.toList());
+      return IdSet.of(deletedItemsIds as List<int>);
+    });
   }
 
   @override

@@ -46,9 +46,10 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
   }
 
   @override
-  Future<Set<int>?> deleteTaskItems(Set<int> taskIds) async {
+  Future<List<int>?> deleteTaskItems(List<int> taskIds) async {
     return await db.transaction(() async {
-      //find all related taskUserLinks, taskTagLinks, taskReminderLinks and delete them first
+      //find all related taskUserLinks, taskTagLinks, taskReminderLinks and delete them first and
+      // return the relevant ids
       for (final taskId in taskIds) {
         await db.taskUserLinkDaoDrift.deleteTaskUserByTaskId(taskId);
         await db.taskTagLinkDaoDrift.deleteTaskTagByTaskId(taskId);

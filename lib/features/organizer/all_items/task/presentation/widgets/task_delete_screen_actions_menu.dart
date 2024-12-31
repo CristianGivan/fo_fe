@@ -14,12 +14,13 @@ class TaskDeleteScreenActionsMenu {
 
   static void _confirmAndDelete(BuildContext context, IdSet selectedIds) {
     DialogManager.showConfirmationDialog(
-      context: context,
-      title: "Delete Tasks",
-      content: "Are you sure you want to delete the selected tasks?",
-      confirmButtonText: "Delete",
-      onConfirm: () =>
-          context.read<TaskBloc>().add(DeleteItemsBlocEvent(TaskParams(idSet: selectedIds))),
-    );
+        context: context,
+        title: "Delete Tasks",
+        content: "Are you sure you want to delete the selected tasks?",
+        confirmButtonText: "Delete",
+        onConfirm: () {
+          context.read<TaskBloc>().add(DeleteItemsBlocEvent(TaskParams(idSet: selectedIds)));
+          context.pop();
+        });
   }
 }

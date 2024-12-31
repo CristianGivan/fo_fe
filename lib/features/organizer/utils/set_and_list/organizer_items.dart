@@ -6,6 +6,7 @@ class OrganizerItems<T extends ItemEntity> extends Equatable {
   const OrganizerItems._(this._organizerItems);
 
   factory OrganizerItems.empty() => OrganizerItems._(<T>[]);
+
   factory OrganizerItems.ofList(List<T> items) => OrganizerItems._(items);
 
   factory OrganizerItems.of(Iterable<T> organizerItems, {SortedBy sortedBy = SortedBy.none}) =>
@@ -100,6 +101,10 @@ class OrganizerItems<T extends ItemEntity> extends Equatable {
 
   OrganizerItems<T> copyWithRemovedItemWitId(int id) {
     return toBuilder().removeItemWithId(id).build();
+  }
+
+  OrganizerItems<T> copyWithRemovedItemsWitIds(IdSet ids) {
+    return toBuilder().removeItemsWithIds(ids).build();
   }
 
   @override

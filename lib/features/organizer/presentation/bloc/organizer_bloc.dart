@@ -61,9 +61,9 @@ abstract class OrganizerBloc<T extends ItemEntity, P extends ItemParams>
           status: OrganizerBlocStatus.error, errorMessage: _mapFailureToMessage(failure))),
       (_) {
         final updatedOriginalItems =
-            state.originalItems.copyWithRemovedItemWitId(event.params as int);
+            state.originalItems.copyWithRemovedItemsWitIds(event.params.idSet);
         final updatedDisplayedItems =
-            state.displayedItems.copyWithRemovedItemWitId(event.params as int);
+            state.displayedItems.copyWithRemovedItemsWitIds(event.params.idSet);
         emit(state.copyWith(
           status: OrganizerBlocStatus.loaded,
           originalItems: updatedOriginalItems,

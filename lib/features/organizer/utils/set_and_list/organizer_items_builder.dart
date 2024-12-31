@@ -50,6 +50,11 @@ class OrganizerItemsBuilder<T extends ItemEntity> extends Equatable {
     return this;
   }
 
+  OrganizerItemsBuilder<T> removeItemsWithIds(IdSet ids) {
+    _organizerItems.removeWhere((element) => ids.contains(element.id));
+    return this;
+  }
+
   OrganizerItemsBuilder removeAt(int index) {
     if (_organizerItems.isEmpty) {
       throw StateError('Cannot remove item from an empty list');
