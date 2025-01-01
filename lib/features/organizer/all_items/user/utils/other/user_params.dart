@@ -1,10 +1,9 @@
 import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class UserParams extends Equatable {
+class UserParams extends ItemParams {
   final UserEntity user;
   final int userId;
-  final IdSet idSet;
   final String name;
   final String email;
   final String password;
@@ -20,9 +19,10 @@ class UserParams extends Equatable {
     this.password = '',
     this.userType = UserTypeEnum.Temporary,
     this.isEmailVerified = false,
-  })  : user = user ?? UserEntity.empty(),
-        idSet = idSet ?? IdSet.empty();
+  }) : user = user ?? UserEntity.empty();
 
   @override
-  List<Object?> get props => [user, userId, idSet, email, password];
+  List<Object> get props {
+    return [user, userId, name, email, password, userType, isEmailVerified, ...super.props];
+  }
 }

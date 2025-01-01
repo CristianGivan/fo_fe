@@ -9,4 +9,6 @@ class TaskRouterNames {
   static const String taskDeleteRouteName = '$taskRouteName/$taskDeleteRoutePath';
   static const String taskViewRoutePath = 'view';
   static const String taskViewRouteName = '$taskRouteName/$taskViewRoutePath';
+  static const String taskExportRoutePath = 'export';
+  static const String taskExportRouteName = '$taskRouteName/$taskExportRoutePath';
 }

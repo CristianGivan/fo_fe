@@ -9,6 +9,7 @@ import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_use
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_user_link/update_user_items_of_task_use_case.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/update_task_dto_use_case.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/logic/task_cubit/task_form_cubit.dart';
+import 'package:fo_fe/features/organizer/all_items/task/utils/other/task_export_to_excel_service.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 import 'package:get_it/get_it.dart';
@@ -80,4 +81,7 @@ void taskInit() {
         getRemindersByTaskId: sl(),
         updateReminderItemsOfTask: sl(),
       ));
+
+  // Task Export Service
+  sl.registerLazySingleton(() => TaskExportService<ItemEntity, TaskParams>(sl()));
 }

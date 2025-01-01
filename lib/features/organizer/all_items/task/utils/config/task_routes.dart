@@ -1,5 +1,6 @@
 import 'package:fo_fe/features/organizer/all_items/task/presentation/screens/task_delete_screen.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/screens/task_edit_screen.dart';
+import 'package:fo_fe/features/organizer/all_items/task/presentation/screens/task_export_to_excel_screen.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/screens/task_view_screen.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
@@ -37,6 +38,13 @@ class TaskRoutes {
           pageBuilder: (context, state) {
             final taskId = state.extra as int;
             return NoTransitionPage(child: TaskViewScreen(taskId: taskId));
+          },
+        ),
+        GoRoute(
+          path: TaskRouterNames.taskExportRoutePath,
+          name: TaskRouterNames.taskExportRouteName,
+          pageBuilder: (context, state) {
+            return NoTransitionPage(child: TaskExportScreen());
           },
         ),
       ],

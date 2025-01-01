@@ -21,6 +21,10 @@ class TaskScreenActionsMenu {
         child: Text('Sort Tasks'),
         onTap: () => showSortDialog(context),
       ),
+      PopupMenuItem(
+        child: Text('Export Tasks'),
+        onTap: () => context.pushNamed(TaskRouterNames.taskExportRouteName),
+      ),
     ];
   }
 }
