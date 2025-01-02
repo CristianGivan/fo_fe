@@ -24,21 +24,21 @@ part 'task_user_link/task_user_link_bloc.dart';
 part 'task_user_link/task_user_link_bloc_event.dart';
 part 'task_user_link/task_user_link_bloc_state.dart';
 
-class TaskBloc extends OrganizerBloc<ItemEntity, TaskParams> {
+class TaskBloc extends OrganizerBloc<TaskDto, TaskParams> {
   final TaskSortUseCase sortTasksUseCase;
   final TaskFilterUseCase filterTasksUseCase;
   final UpdateTaskDtoUseCase updateTaskDtoUseCase;
 
   TaskBloc({
-    required AddItemUseCase<ItemEntity, TaskParams> addTask,
-    required GetItemsFromLogInUserUseCase<ItemEntity, TaskParams> fetchTasks,
-    required DeleteItemsUseCase<ItemEntity, TaskParams> deleteTask,
+    required AddItemUseCase<TaskDto, TaskParams> addTask,
+    required GetItemsFromLogInUserUseCase<TaskDto, TaskParams> getTasks,
+    required DeleteItemsUseCase<TaskDto, TaskParams> deleteTask,
     required this.sortTasksUseCase,
     required this.filterTasksUseCase,
     required this.updateTaskDtoUseCase,
   }) : super(
-          getItems: fetchTasks,
           addItem: addTask,
+          getItems: getTasks,
           deleteItems: deleteTask,
         ) {
     setupEventHandlers();

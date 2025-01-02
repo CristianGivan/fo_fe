@@ -47,12 +47,12 @@ void taskInit() {
   // Task Use cases
   sl.registerLazySingleton(() => GetTaskByIdUseCase(sl()));
   sl.registerLazySingleton(() => GetTaskItemsAllUseCase(sl()));
-  sl.registerLazySingleton(() => GetItemsFromLogInUserUseCase<ItemEntity, TaskParams>(sl(), sl()));
+  sl.registerLazySingleton(() => GetItemsFromLogInUserUseCase<TaskDto, TaskParams>(sl(), sl()));
   sl.registerLazySingleton(() => GetTaskItemsByIdSetUseCase(sl()));
-  sl.registerLazySingleton(() => AddItemUseCase<ItemEntity, TaskParams>(sl()));
-  sl.registerLazySingleton(() => UpdateItemUseCase<ItemEntity, TaskParams>(sl()));
+  sl.registerLazySingleton(() => AddItemUseCase<TaskDto, TaskParams>(sl()));
+  sl.registerLazySingleton(() => UpdateItemUseCase<TaskDto, TaskParams>(sl()));
   sl.registerLazySingleton(() => UpdateTaskDtoUseCase(sl()));
-  sl.registerLazySingleton(() => DeleteItemsUseCase<ItemEntity, TaskParams>(sl()));
+  sl.registerLazySingleton(() => DeleteItemsUseCase<TaskDto, TaskParams>(sl()));
   sl.registerLazySingleton(() => TaskFilterUseCase());
   sl.registerLazySingleton(() => TaskSortUseCase());
 
@@ -63,7 +63,7 @@ void taskInit() {
         sortTasksUseCase: sl(),
         filterTasksUseCase: sl(),
         updateTaskDtoUseCase: sl(),
-        fetchTasks: sl(),
+        getTasks: sl(),
       ));
 
   sl.registerFactory(() => TaskFormCubit());
@@ -83,5 +83,5 @@ void taskInit() {
       ));
 
   // Task Export Service
-  sl.registerLazySingleton(() => TaskExportService<ItemEntity, TaskParams>(sl()));
+  sl.registerLazySingleton(() => TaskExportService(sl()));
 }

@@ -4,23 +4,28 @@ import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart'
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 import 'package:fo_fe/features/organizer/utils/set_and_list/organizer_items_transform.dart';
 
-class TaskExportService<T extends ItemEntity, P extends TaskParams> {
-  final GetItemsFromLogInUserUseCase<T, P> getTaskItemsFromLogInUserUseCase;
+class TaskExportService {
+  final GetItemsFromLogInUserUseCase<TaskDto, TaskParams> getTaskItemsFromLogInUserUseCase;
 
   TaskExportService(this.getTaskItemsFromLogInUserUseCase);
 
   Future<void> exportTasksToExcel(int userId) async {
     final sheetName = 'Tasks';
     final params = TaskParams(forUserId: userId);
-    final result = await getTaskItemsFromLogInUserUseCase(params as P);
+    final result = await getTaskItemsFromLogInUserUseCase(params);
     result.fold(
       (failure) => throw Exception('Failed to fetch tasks'),
       (taskItems) async => ExportToExcel.exportItemsToExcel(
         sheetName,
-        _tableHeader(),
         _tableRows(taskItems.convertTo<TaskDto>()),
       ),
     );
+  }
+
+  List<List<CellValue?>> _tableRows(OrganizerItems<TaskDto> taskItems) {
+    List<List<CellValue?>> rows = taskItems.map((taskDto) => _tableRow(taskDto)).toList();
+    rows.insert(0, _tableHeader());
+    return rows;
   }
 
   List<CellValue?> _tableHeader() {
@@ -42,7 +47,4 @@ class TaskExportService<T extends ItemEntity, P extends TaskParams> {
       BoolCellValue(taskDto.taskUserLink.isSelectedByUser),
     ];
   }
-
-  List<List<CellValue?>> _tableRows(OrganizerItems<TaskDto> taskItems) =>
-      taskItems.map((taskDto) => _tableRow(taskDto)).toList();
 }
