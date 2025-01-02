@@ -1,11 +1,15 @@
 // lib/presentation/screens/task_export_screen.dart
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fo_fe/core/widgets/core_widget_exports.dart';
-import 'package:fo_fe/features/organizer/all_items/task/utils/other/task_export_to_excel_service.dart';
+import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/export_task_to_excel_use_case.dart';
+import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:get_it/get_it.dart';
 
 class TaskExportScreen extends StatelessWidget {
-  final TaskExportService _taskExportService = GetIt.instance<TaskExportService>();
+  final ExportTaskToExcelUseCase _taskExportService = GetIt.instance<ExportTaskToExcelUseCase>();
+
+  TaskExportScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +25,7 @@ class TaskExportScreen extends StatelessWidget {
     return Center(
       child: ElevatedButton(
         onPressed: () async {
-          await _taskExportService.exportTasksToExcel(userId);
+          context.read<TaskBloc>().add(ExportTaskToExcelBlocEvent(TaskParams(forUserId: userId)));
           SnackBarWidget.showAboveBottomNavBar(
             context,
             content: 'Export completed',

@@ -30,3 +30,12 @@ class UpdateTaskBlocEvent<ItemEntity, P> extends OrganizerBlocEvent<ItemEntity> 
   @override
   List<Object> get props => [params as Object];
 }
+
+class ExportTaskToExcelBlocEvent extends OrganizerBlocEvent<ItemEntity> {
+  final TaskParams params;
+
+  ExportTaskToExcelBlocEvent(this.params);
+
+  @override
+  List<Object> get props => [params as Object];
+}

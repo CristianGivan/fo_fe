@@ -1,25 +1,38 @@
+import 'package:dartz/dartz.dart';
 import 'package:excel/excel.dart';
+import 'package:fo_fe/core/error/failures.dart';
+import 'package:fo_fe/core/usecase/usecase.dart';
 import 'package:fo_fe/core/utils/backup/export_to_excel/export_itmes_to_excel.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 import 'package:fo_fe/features/organizer/utils/set_and_list/organizer_items_transform.dart';
 
-class TaskExportService {
+class ExportTaskToExcelUseCase extends UseCase<bool, TaskParams> {
   final GetItemsFromLogInUserUseCase<TaskDto, TaskParams> getTaskItemsFromLogInUserUseCase;
 
-  TaskExportService(this.getTaskItemsFromLogInUserUseCase);
+  ExportTaskToExcelUseCase(this.getTaskItemsFromLogInUserUseCase);
 
-  Future<void> exportTasksToExcel(int userId) async {
+  @override
+  Future<Either<Failure, bool>> call(TaskParams params) async {
     final sheetName = 'Tasks';
-    final params = TaskParams(forUserId: userId);
     final result = await getTaskItemsFromLogInUserUseCase(params);
-    result.fold(
+    return result.fold(
       (failure) => throw Exception('Failed to fetch tasks'),
-      (taskItems) async => ExportToExcel.exportItemsToExcel(
+      (taskItems) async => await _exportTaskItemsToExcel(sheetName, taskItems),
+    );
+  }
+
+  Future<Either<Failure, bool>> _exportTaskItemsToExcel(
+      String sheetName, OrganizerItems<TaskDto> taskItems) async {
+    try {
+      final exportResult = await ExportToExcel.exportItemsToExcel(
         sheetName,
         _tableRows(taskItems.convertTo<TaskDto>()),
-      ),
-    );
+      );
+      return Right(exportResult);
+    } catch (e) {
+      return Left(UnexpectedFailure(e.toString()));
+    }
   }
 
   List<List<CellValue?>> _tableRows(OrganizerItems<TaskDto> taskItems) {

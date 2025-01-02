@@ -41,11 +41,15 @@ debounce see todo code
 
 == Now
 
+* reduce more the Type on bloc and event
+* check if I can pass the Items that are in fatched allready and not not to feache them again see
+final state = context.read<TaskBloc>().state;
 * refactor TaskAddForm
 * refactor OrganizerBloc
 
 == Done
 
+* export Task Excel
 * extract _buildCheckboxListTitle to a widget
 
 * add delete at task

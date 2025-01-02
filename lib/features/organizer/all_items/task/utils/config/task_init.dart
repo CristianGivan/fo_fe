@@ -4,12 +4,12 @@ import 'package:fo_fe/features/organizer/all_items/task/data/datasources/task_re
 import 'package:fo_fe/features/organizer/all_items/task/data/datasources/task_remote_data_source_impl.dart';
 import 'package:fo_fe/features/organizer/all_items/task/data/repositories/task_repository_drift.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/repositories/task_repository.dart';
+import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/export_task_to_excel_use_case.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_reminder_link/update_reminder_items_of_task_use_case.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_user_link/update_task_user_link_usecase.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_user_link/update_user_items_of_task_use_case.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/update_task_dto_use_case.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/logic/task_cubit/task_form_cubit.dart';
-import 'package:fo_fe/features/organizer/all_items/task/utils/other/task_export_to_excel_service.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 import 'package:get_it/get_it.dart';
@@ -62,6 +62,7 @@ void taskInit() {
         filterTasksUseCase: sl(),
         updateTaskDtoUseCase: sl(),
         getTasks: sl(),
+        exportTaskToExcelUseCase: sl(),
       ));
 
   sl.registerFactory(() => TaskFormCubit());
@@ -81,5 +82,5 @@ void taskInit() {
       ));
 
   // Task Export Service
-  sl.registerLazySingleton(() => TaskExportService(sl()));
+  sl.registerLazySingleton(() => ExportTaskToExcelUseCase(sl()));
 }

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/features/organizer/all_items/reminder/utils/reminder_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
+import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/export_task_to_excel_use_case.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_reminder_link/update_reminder_items_of_task_use_case.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_user_link/update_task_user_link_usecase.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_user_link/update_user_items_of_task_use_case.dart';
@@ -28,11 +29,13 @@ class TaskBloc extends OrganizerBloc<TaskDto, TaskParams> {
   final TaskSortUseCase sortTasksUseCase;
   final TaskFilterUseCase filterTasksUseCase;
   final UpdateTaskDtoUseCase updateTaskDtoUseCase;
+  final ExportTaskToExcelUseCase exportTaskToExcelUseCase;
 
   TaskBloc({
     required AddItemUseCase<TaskDto, TaskParams> addTask,
     required GetItemsFromLogInUserUseCase<TaskDto, TaskParams> getTasks,
     required DeleteItemsUseCase<TaskDto, TaskParams> deleteTask,
+    required this.exportTaskToExcelUseCase,
     required this.sortTasksUseCase,
     required this.filterTasksUseCase,
     required this.updateTaskDtoUseCase,
@@ -48,6 +51,19 @@ class TaskBloc extends OrganizerBloc<TaskDto, TaskParams> {
         TaskItemsFilterBlocEvent<ItemEntity, FilterTasksParams>, OrganizerBlocState<ItemEntity>>);
     on<UpdateTaskBlocEvent<ItemEntity, TaskParams>>(_onUpdateTask as EventHandler<
         UpdateTaskBlocEvent<ItemEntity, TaskParams>, OrganizerBlocState<ItemEntity>>);
+    on<ExportTaskToExcelBlocEvent>(_onExportTaskToExcel as EventHandler<ExportTaskToExcelBlocEvent, OrganizerBlocState<ItemEntity>>);
+  }
+
+Future<void> _onExportTaskToExcel(ExportTaskToExcelBlocEvent event, Emitter<OrganizerBlocState<ItemEntity>> emit) async {
+    emit(state.copyWith(status: OrganizerBlocStatus.loading));
+    final result = await exportTaskToExcelUseCase(event.params);
+    result.fold(
+      (failure) => emit(state.copyWith(
+        status: OrganizerBlocStatus.error,
+        errorMessage: _mapFailureToMessage(failure),
+      )),
+      (success) => emit(state.copyWith(status: OrganizerBlocStatus.loaded)),
+    );
   }
 
   Future<void> _onUpdateTask(UpdateTaskBlocEvent<ItemEntity, TaskParams> event,
