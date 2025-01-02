@@ -1,9 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/utils/exports/core_utils_exports.dart';
-import 'package:fo_fe/features/organizer/domain/entities/dto_entity.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-abstract class OrganizerBloc<T extends DtoEntity>
+abstract class OrganizerBloc<T extends ItemEntity>
     extends Bloc<OrganizerBlocEvent, OrganizerBlocState<T>> {
   final Future<Either<Failure, T>> Function(ItemEntity) addItem;
   final Future<Either<Failure, OrganizerItems<T>>> Function(int) getItems;
@@ -13,9 +12,7 @@ abstract class OrganizerBloc<T extends DtoEntity>
     required this.addItem,
     required this.getItems,
     required this.deleteItems,
-  }) : super(OrganizerBlocState<T>(status: OrganizerBlocStatus.initial)) {
-    setupEventHandlers();
-  }
+  }) : super(OrganizerBlocState<T>(status: OrganizerBlocStatus.initial));
 
   void setupEventHandlers() {
     on<AddItemBlocEvent>(_onAddItem);
