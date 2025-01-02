@@ -39,7 +39,7 @@ class AppBarPage extends StatelessWidget implements PreferredSizeWidget {
                   icon: const Icon(Icons.logout),
                   onPressed: () {
                     context.read<AuthLogBloc>().add(
-                          AuthLogOutBlocEvent(authId: authEntity.params),
+                          AuthLogOutBlocEvent(authId: authEntity.idSet),
                         );
                     context.pushNamed(AuthRouterNames.authRouteName);
                   },

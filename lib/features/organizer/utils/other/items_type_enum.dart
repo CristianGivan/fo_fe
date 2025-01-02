@@ -1,1 +1,1 @@
-enum ItemsTypeEnum { tag, reminder, user }
+enum ItemsTypeEnum { task, tag, reminder, user }

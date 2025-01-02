@@ -17,6 +17,7 @@ import 'package:get_it/get_it.dart';
 final sl = GetIt.instance;
 
 void taskInit() {
+  final ItemsTypeEnum itemsType = ItemsTypeEnum.task;
   // Task Data Sources
   sl.registerLazySingleton<TaskRemoteDataSource>(() => TaskRemoteDataSourceImpl(
         httpClient: sl(),
@@ -45,12 +46,12 @@ void taskInit() {
   sl.registerLazySingleton(() => UpdateUserItemsOfTaskUseCase(sl()));
 
   // Task Use cases
-  sl.registerLazySingleton(() => GetItemsFromLogInUserUseCase<TaskDto, TaskParams>(sl(), sl()));
+  sl.registerLazySingleton(() => GetItemsFromLogInUserUseCase<TaskDto>(sl(), sl(), itemsType));
   sl.registerLazySingleton(() => GetTaskItemsByIdSetUseCase(sl()));
-  sl.registerLazySingleton(() => AddItemUseCase<TaskDto, TaskParams>(sl()));
+  sl.registerLazySingleton(() => AddItemUseCase<TaskDto>(sl(), itemsType));
   sl.registerLazySingleton(() => UpdateItemUseCase<TaskDto, TaskParams>(sl()));
   sl.registerLazySingleton(() => UpdateTaskDtoUseCase(sl()));
-  sl.registerLazySingleton(() => DeleteItemsUseCase<TaskDto, TaskParams>(sl()));
+  sl.registerLazySingleton(() => DeleteItemsUseCase<TaskDto>(sl(), itemsType));
   sl.registerLazySingleton(() => TaskFilterUseCase());
   sl.registerLazySingleton(() => TaskSortUseCase());
 

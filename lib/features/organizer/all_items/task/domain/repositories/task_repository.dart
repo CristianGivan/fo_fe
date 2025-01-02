@@ -26,7 +26,7 @@ abstract class TaskRepository {
 
   Future<Either<Failure, OrganizerItems<TaskEntity>>> getTaskItemsAll();
 
-  Future<Either<Failure, OrganizerItems<TaskDto>>> getTaskItemsFromUser(TaskParams params);
+  Future<Either<Failure, OrganizerItems<TaskDto>>> getTaskItemsFromUser(int userId);
 
   Future<Either<Failure, OrganizerItems<TaskDto>>> getTaskDtoItemsFromUser(int userId);
 

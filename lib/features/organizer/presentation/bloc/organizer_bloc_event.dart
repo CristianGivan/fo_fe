@@ -1,53 +1,44 @@
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-abstract class OrganizerBlocEvent<ItemEntity> extends Equatable {
+abstract class OrganizerBlocEvent extends Equatable {
   const OrganizerBlocEvent();
 
   @override
   List<Object> get props => [];
 }
 
-class AddItemBlocEvent<ItemEntity, P> extends OrganizerBlocEvent<ItemEntity> {
-  final P item;
+class AddItemBlocEvent extends OrganizerBlocEvent {
+  final ItemEntity item;
 
   const AddItemBlocEvent(this.item);
 
   @override
-  List<Object> get props => [item as Object];
+  List<Object> get props => [item];
 }
 
-class UpdateItemBlocEvent<ItemEntity, P> extends OrganizerBlocEvent<ItemEntity> {
-  final P item;
+class UpdateItemBlocEvent extends OrganizerBlocEvent {
+  final ItemEntity item;
 
   const UpdateItemBlocEvent(this.item);
 
   @override
-  List<Object> get props => [item as Object];
+  List<Object> get props => [item];
 }
 
-class UpdateDisplayItemsWithItemBlocEvent<ItemEntity, P> extends OrganizerBlocEvent<ItemEntity> {
-  final P params;
+class GetItemsFromLogInUserBlocEvent extends OrganizerBlocEvent {
+  final int userId;
 
-  const UpdateDisplayItemsWithItemBlocEvent(this.params);
+  const GetItemsFromLogInUserBlocEvent(this.userId);
 
   @override
-  List<Object> get props => [params as Object];
+  List<Object> get props => [userId];
 }
 
-class GetItemsFromLogInUserBlocEvent<ItemEntity, P> extends OrganizerBlocEvent<ItemEntity> {
-  final P param;
+class DeleteItemsBlocEvent extends OrganizerBlocEvent {
+  final IdSet idSet;
 
-  const GetItemsFromLogInUserBlocEvent(this.param);
-
-  @override
-  List<Object> get props => [param as Object];
-}
-
-class DeleteItemsBlocEvent<ItemEntity, P> extends OrganizerBlocEvent<ItemEntity> {
-  final P params;
-
-  const DeleteItemsBlocEvent(this.params);
+  const DeleteItemsBlocEvent(this.idSet);
 
   @override
-  List<Object> get props => [params as Object];
+  List<Object> get props => [idSet];
 }

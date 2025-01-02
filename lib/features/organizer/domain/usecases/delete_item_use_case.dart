@@ -1,20 +1,21 @@
 import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/usecase/usecase.dart';
-import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
+import 'package:fo_fe/features/organizer/domain/entities/dto_entity.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 import '../../all_items/task/domain/repositories/task_repository.dart';
 
-class DeleteItemsUseCase<T extends ItemEntity, P extends ItemParams> extends UseCase<IdSet, P> {
+class DeleteItemsUseCase<T extends DtoEntity> extends UseCase<IdSet, IdSet> {
   final TaskRepository repository;
+  final ItemsTypeEnum itemsType;
 
-  DeleteItemsUseCase(this.repository);
+  DeleteItemsUseCase(this.repository, this.itemsType);
 
   @override
-  Future<Either<Failure, IdSet>> call(P params) {
-    if (params is TaskParams) {
-      return repository.deleteTaskItems(params.idSet);
+  Future<Either<Failure, IdSet>> call(IdSet idSet) {
+    if (itemsType == ItemsTypeEnum.task) {
+      return repository.deleteTaskItems(idSet);
     } else {
       return Future.value(Left(UnexpectedFailure("Invalid params")));
     }

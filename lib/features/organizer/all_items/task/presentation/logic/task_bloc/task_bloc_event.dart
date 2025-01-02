@@ -1,6 +1,6 @@
 part of 'task_bloc.dart';
 
-class TaskItemsSortBlocEvent<T, P> extends OrganizerBlocEvent<T> {
+class TaskItemsSortBlocEvent<P> extends OrganizerBlocEvent {
   final P sortParams;
 
   const TaskItemsSortBlocEvent({
@@ -11,7 +11,7 @@ class TaskItemsSortBlocEvent<T, P> extends OrganizerBlocEvent<T> {
   List<Object> get props => [sortParams as Object];
 }
 
-class TaskItemsFilterBlocEvent<T, P> extends OrganizerBlocEvent<T> {
+class TaskItemsFilterBlocEvent<P> extends OrganizerBlocEvent {
   final P filterParams;
 
   const TaskItemsFilterBlocEvent({
@@ -22,7 +22,7 @@ class TaskItemsFilterBlocEvent<T, P> extends OrganizerBlocEvent<T> {
   List<Object> get props => [filterParams as Object];
 }
 
-class UpdateTaskBlocEvent<ItemEntity, P> extends OrganizerBlocEvent<ItemEntity> {
+class UpdateTaskBlocEvent<P> extends OrganizerBlocEvent {
   final P params;
 
   const UpdateTaskBlocEvent(this.params);
@@ -31,11 +31,11 @@ class UpdateTaskBlocEvent<ItemEntity, P> extends OrganizerBlocEvent<ItemEntity> 
   List<Object> get props => [params as Object];
 }
 
-class ExportTaskToExcelBlocEvent extends OrganizerBlocEvent<ItemEntity> {
-  final TaskParams params;
+class ExportTaskToExcelBlocEvent extends OrganizerBlocEvent {
+  final int forUserId;
 
-  ExportTaskToExcelBlocEvent(this.params);
+  const ExportTaskToExcelBlocEvent(this.forUserId);
 
   @override
-  List<Object> get props => [params as Object];
+  List<Object> get props => [forUserId];
 }

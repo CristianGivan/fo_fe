@@ -646,15 +646,15 @@ class MockTaskRepository extends _i1.Mock implements _i14.TaskRepository {
 
   @override
   _i8.Future<_i5.Either<_i15.Failure, _i16.OrganizerItems<_i4.TaskDto>>>
-  getTaskItemsFromUser(_i4.TaskParams? params) =>
+  getTaskItemsFromUser(int? userId) =>
       (super.noSuchMethod(
-            Invocation.method(#getTaskItemsFromUser, [params]),
+            Invocation.method(#getTaskItemsFromUser, [userId]),
             returnValue: _i8.Future<
               _i5.Either<_i15.Failure, _i16.OrganizerItems<_i4.TaskDto>>
             >.value(
               _FakeEither_4<_i15.Failure, _i16.OrganizerItems<_i4.TaskDto>>(
                 this,
-                Invocation.method(#getTaskItemsFromUser, [params]),
+                Invocation.method(#getTaskItemsFromUser, [userId]),
               ),
             ),
             returnValueForMissingStub: _i8.Future<
@@ -662,7 +662,7 @@ class MockTaskRepository extends _i1.Mock implements _i14.TaskRepository {
             >.value(
               _FakeEither_4<_i15.Failure, _i16.OrganizerItems<_i4.TaskDto>>(
                 this,
-                Invocation.method(#getTaskItemsFromUser, [params]),
+                Invocation.method(#getTaskItemsFromUser, [userId]),
               ),
             ),
           )

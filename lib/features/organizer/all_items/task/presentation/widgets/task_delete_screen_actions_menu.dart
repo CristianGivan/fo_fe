@@ -19,7 +19,7 @@ class TaskDeleteScreenActionsMenu {
         content: "Are you sure you want to delete the selected tasks?",
         confirmButtonText: "Delete",
         onConfirm: () {
-          context.read<TaskBloc>().add(DeleteItemsBlocEvent(TaskParams(idSet: selectedIds)));
+          context.read<TaskBloc>().add(DeleteItemsBlocEvent(selectedIds));
           context.pop();
         });
   }

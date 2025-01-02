@@ -2,19 +2,21 @@ import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/usecase/usecase.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
+import 'package:fo_fe/features/organizer/domain/entities/dto_entity.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 import '../../all_items/task/domain/repositories/task_repository.dart';
 
-class AddItemUseCase<T extends ItemEntity, P extends ItemParams> extends UseCase<T, P> {
+class AddItemUseCase<T extends DtoEntity> extends UseCase<T, ItemEntity> {
   final TaskRepository repository;
+  final ItemsTypeEnum itemsType;
 
-  AddItemUseCase(this.repository);
+  AddItemUseCase(this.repository, this.itemsType);
 
   @override
-  Future<Either<Failure, T>> call(P params) async {
-    if (params is TaskParams) {
-      return _handleAddTask(params.taskEntity);
+  Future<Either<Failure, T>> call(ItemEntity item) async {
+    if (itemsType == ItemsTypeEnum.task) {
+      return _handleAddTask(item as TaskEntity);
     } else {
       return Left(UnexpectedFailure("Invalid params"));
     }

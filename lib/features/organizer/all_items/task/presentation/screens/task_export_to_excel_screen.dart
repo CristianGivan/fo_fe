@@ -21,11 +21,11 @@ class TaskExportScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildExportExcel(BuildContext context, int userId) {
+  Widget _buildExportExcel(BuildContext context, int forUserId) {
     return Center(
       child: ElevatedButton(
         onPressed: () async {
-          context.read<TaskBloc>().add(ExportTaskToExcelBlocEvent(TaskParams(forUserId: userId)));
+          context.read<TaskBloc>().add(ExportTaskToExcelBlocEvent(forUserId));
           SnackBarWidget.showAboveBottomNavBar(
             context,
             content: 'Export completed',

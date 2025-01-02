@@ -25,16 +25,16 @@ part 'task_user_link/task_user_link_bloc.dart';
 part 'task_user_link/task_user_link_bloc_event.dart';
 part 'task_user_link/task_user_link_bloc_state.dart';
 
-class TaskBloc extends OrganizerBloc<TaskDto, TaskParams> {
+class TaskBloc extends OrganizerBloc<TaskDto> {
   final TaskSortUseCase sortTasksUseCase;
   final TaskFilterUseCase filterTasksUseCase;
   final UpdateTaskDtoUseCase updateTaskDtoUseCase;
   final ExportTaskToExcelUseCase exportTaskToExcelUseCase;
 
   TaskBloc({
-    required AddItemUseCase<TaskDto, TaskParams> addTask,
-    required GetItemsFromLogInUserUseCase<TaskDto, TaskParams> getTasks,
-    required DeleteItemsUseCase<TaskDto, TaskParams> deleteTask,
+    required AddItemUseCase<TaskDto> addTask,
+    required GetItemsFromLogInUserUseCase<TaskDto> getTasks,
+    required DeleteItemsUseCase<TaskDto> deleteTask,
     required this.exportTaskToExcelUseCase,
     required this.sortTasksUseCase,
     required this.filterTasksUseCase,
@@ -45,18 +45,16 @@ class TaskBloc extends OrganizerBloc<TaskDto, TaskParams> {
           deleteItems: deleteTask,
         ) {
     setupEventHandlers();
-    on<TaskItemsSortBlocEvent<ItemEntity, SortTasksParams>>(_onSortTasks as EventHandler<
-        TaskItemsSortBlocEvent<ItemEntity, SortTasksParams>, OrganizerBlocState<ItemEntity>>);
-    on<TaskItemsFilterBlocEvent<ItemEntity, FilterTasksParams>>(_onFilterTasks as EventHandler<
-        TaskItemsFilterBlocEvent<ItemEntity, FilterTasksParams>, OrganizerBlocState<ItemEntity>>);
-    on<UpdateTaskBlocEvent<ItemEntity, TaskParams>>(_onUpdateTask as EventHandler<
-        UpdateTaskBlocEvent<ItemEntity, TaskParams>, OrganizerBlocState<ItemEntity>>);
-    on<ExportTaskToExcelBlocEvent>(_onExportTaskToExcel as EventHandler<ExportTaskToExcelBlocEvent, OrganizerBlocState<ItemEntity>>);
+    on<TaskItemsSortBlocEvent<SortTasksParams>>(_onSortTasks);
+    on<TaskItemsFilterBlocEvent<FilterTasksParams>>(_onFilterTasks);
+    on<UpdateTaskBlocEvent<TaskParams>>(_onUpdateTask);
+    on<ExportTaskToExcelBlocEvent>(_onExportTaskToExcel);
   }
 
-Future<void> _onExportTaskToExcel(ExportTaskToExcelBlocEvent event, Emitter<OrganizerBlocState<ItemEntity>> emit) async {
+  Future<void> _onExportTaskToExcel(
+      ExportTaskToExcelBlocEvent event, Emitter<OrganizerBlocState<ItemEntity>> emit) async {
     emit(state.copyWith(status: OrganizerBlocStatus.loading));
-    final result = await exportTaskToExcelUseCase(event.params);
+    final result = await exportTaskToExcelUseCase(event.forUserId);
     result.fold(
       (failure) => emit(state.copyWith(
         status: OrganizerBlocStatus.error,
@@ -66,8 +64,8 @@ Future<void> _onExportTaskToExcel(ExportTaskToExcelBlocEvent event, Emitter<Orga
     );
   }
 
-  Future<void> _onUpdateTask(UpdateTaskBlocEvent<ItemEntity, TaskParams> event,
-      Emitter<OrganizerBlocState<ItemEntity>> emit) async {
+  Future<void> _onUpdateTask(
+      UpdateTaskBlocEvent<TaskParams> event, Emitter<OrganizerBlocState<ItemEntity>> emit) async {
     emit(state.copyWith(status: OrganizerBlocStatus.loading));
     final result = await updateTaskDtoUseCase(event.params);
     result.fold(
@@ -82,7 +80,7 @@ Future<void> _onExportTaskToExcel(ExportTaskToExcelBlocEvent event, Emitter<Orga
             )));
   }
 
-  Future<void> _onSortTasks(TaskItemsSortBlocEvent<ItemEntity, SortTasksParams> event,
+  Future<void> _onSortTasks(TaskItemsSortBlocEvent<SortTasksParams> event,
       Emitter<OrganizerBlocState<ItemEntity>> emit) async {
     // if (state.status == OrganizerBlocStatus.loaded && state.displayedItems != null) {
     //   final result = await sortTasksUseCase(event.sortParams);
@@ -94,7 +92,7 @@ Future<void> _onExportTaskToExcel(ExportTaskToExcelBlocEvent event, Emitter<Orga
     // }
   }
 
-  Future<void> _onFilterTasks(TaskItemsFilterBlocEvent<ItemEntity, FilterTasksParams> event,
+  Future<void> _onFilterTasks(TaskItemsFilterBlocEvent<FilterTasksParams> event,
       Emitter<OrganizerBlocState<ItemEntity>> emit) async {
     // if (state.status == OrganizerBlocStatus.loaded && state.displayedItems != null) {
     //   final result = await filterTasksUseCase(event.filterParams);
