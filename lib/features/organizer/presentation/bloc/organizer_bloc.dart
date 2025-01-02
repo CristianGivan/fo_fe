@@ -1,12 +1,13 @@
 import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/utils/exports/core_utils_exports.dart';
+import 'package:fo_fe/features/organizer/domain/entities/dto_entity.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-abstract class OrganizerBloc<T extends ItemEntity>
-    extends Bloc<OrganizerBlocEvent, OrganizerBlocState<ItemEntity>> {
+abstract class OrganizerBloc<T extends DtoEntity>
+    extends Bloc<OrganizerBlocEvent, OrganizerBlocState<T>> {
   final Future<Either<Failure, T>> Function(ItemEntity) addItem;
   final Future<Either<Failure, OrganizerItems<T>>> Function(int) getItems;
-  final Future<Either<Failure, void>> Function(IdSet) deleteItems;
+  final Future<Either<Failure, IdSet>> Function(IdSet) deleteItems;
 
   OrganizerBloc({
     required this.addItem,
@@ -48,7 +49,10 @@ abstract class OrganizerBloc<T extends ItemEntity>
       (failure) => emit(state.copyWith(
           status: OrganizerBlocStatus.error, errorMessage: _mapFailureToMessage(failure))),
       (items) => emit(state.copyWith(
-          status: OrganizerBlocStatus.loaded, originalItems: items, displayedItems: items)),
+        status: OrganizerBlocStatus.loaded,
+        originalItems: items,
+        displayedItems: items,
+      )),
     );
   }
 
@@ -59,9 +63,9 @@ abstract class OrganizerBloc<T extends ItemEntity>
     result.fold(
       (failure) => emit(state.copyWith(
           status: OrganizerBlocStatus.error, errorMessage: _mapFailureToMessage(failure))),
-      (_) {
-        final updatedOriginalItems = state.originalItems.copyWithRemovedItemsWitIds(event.idSet);
-        final updatedDisplayedItems = state.displayedItems.copyWithRemovedItemsWitIds(event.idSet);
+      (result) {
+        final updatedOriginalItems = state.originalItems.copyWithRemovedItemsWitIds(result);
+        final updatedDisplayedItems = state.displayedItems.copyWithRemovedItemsWitIds(result);
         emit(state.copyWith(
           status: OrganizerBlocStatus.loaded,
           originalItems: updatedOriginalItems,
