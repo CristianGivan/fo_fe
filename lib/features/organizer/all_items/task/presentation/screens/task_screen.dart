@@ -13,9 +13,7 @@ class TaskScreen extends StatelessWidget {
       appBarTitle: TaskStrings().screenTitle,
       body: TaskListPage(),
       menuOptions: (context, userId) => TaskScreenActionsMenu.getMenuItems(context),
-      onSearchSubmitted: () {
-        // Define the search functionality here
-      },
+      onSearchSubmitted: () {},
     );
   }
 
