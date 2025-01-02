@@ -35,13 +35,13 @@ class OrganizerBlocState<T extends ItemEntity> extends Equatable {
   })  : originalItems = originalItems ?? OrganizerItems<T>.empty(),
         displayedItems = displayedItems ?? OrganizerItems<T>.empty();
 
-  OrganizerBlocState<ItemEntity> copyWith({
+  OrganizerBlocState<T> copyWith({
     OrganizerBlocStatus? status,
-    OrganizerItems<ItemEntity>? originalItems,
-    OrganizerItems<ItemEntity>? displayedItems,
+    OrganizerItems<T>? originalItems,
+    OrganizerItems<T>? displayedItems,
     String? errorMessage,
   }) {
-    return OrganizerBlocState<ItemEntity>(
+    return OrganizerBlocState<T>(
       status: status ?? this.status,
       originalItems: originalItems ?? this.originalItems,
       displayedItems: displayedItems ?? this.displayedItems,
