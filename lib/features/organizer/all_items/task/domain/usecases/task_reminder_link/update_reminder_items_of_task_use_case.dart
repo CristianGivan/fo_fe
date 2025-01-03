@@ -18,6 +18,6 @@ class UpdateReminderItemsOfTaskUseCase
     List<int> addedTagItems = params.items.getAddedItems(params.updatedItems).getIdList();
     List<int> removedTagItems = params.items.getRemovedItems(params.updatedItems).getIdList();
 
-    return repository.updateReminderItemOfTask(params.taskId, addedTagItems, removedTagItems);
+    return repository.updateTaskReminderItems(params.taskId, addedTagItems, removedTagItems);
   }
 }

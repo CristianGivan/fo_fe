@@ -17,6 +17,6 @@ class UpdateTagItemsOfTaskUseCase
   Future<Either<Failure, OrganizerItems<TagEntity>>> call(UpdateItemsToTaskParams params) {
     List<int> addedTagItems = params.items.getAddedItems(params.updatedItems).getIdList();
     List<int> removedTagItems = params.items.getRemovedItems(params.updatedItems).getIdList();
-    return repository.updateTagItemOfTask(params.taskId, addedTagItems, removedTagItems);
+    return repository.updateTaskTagItems(params.taskId, addedTagItems, removedTagItems);
   }
 }

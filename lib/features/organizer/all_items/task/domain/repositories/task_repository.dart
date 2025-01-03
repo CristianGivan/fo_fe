@@ -10,45 +10,38 @@ abstract class TaskRepository {
   // Task CRUD operations
   Future<Either<Failure, TaskEntity>> addTask(TaskEntity task);
 
-  Future<Either<Failure, TaskUserLinkEntity>> addTaskUserLink(TaskUserLinkEntity taskUserEntity);
-
   Future<Either<Failure, TaskEntity>> updateTask(TaskEntity task);
-
-  Future<Either<Failure, TaskUserLinkEntity>> updateTaskUserLink(TaskUserLinkEntity task);
 
   Future<Either<Failure, int>> deleteTask(int taskId);
 
   Future<Either<Failure, IdSet>> deleteTaskItems(IdSet idSet);
 
-  Future<Either<Failure, TaskEntity>> getTaskById(int id);
-
-  Future<Either<Failure, TaskEntityLazyLoaded>> getTaskByIdLazyLoaded(int id);
-
-  Future<Either<Failure, OrganizerItems<TaskEntity>>> getTaskItemsAll();
-
   Future<Either<Failure, OrganizerItems<TaskDto>>> getTaskItemsFromUser(int userId);
-
-  Future<Either<Failure, OrganizerItems<TaskDto>>> getTaskDtoItemsFromUser(int userId);
 
   Future<Either<Failure, OrganizerItems<TaskEntity>>> getTaskItemsByIdSet(IdSet idSet);
 
   // User operations related to tasks
+
+  Future<Either<Failure, TaskUserLinkEntity>> addTaskUserLink(TaskUserLinkEntity taskUserEntity);
+
   Future<Either<Failure, OrganizerItems<UserEntity>>> getUserItemsByTaskId(int taskId);
 
   Future<Either<Failure, UserEntity>> getCreatorTaskById(int taskId);
 
-  Future<Either<Failure, OrganizerItems<UserEntity>>> updateUserItemOfTask(
+  Future<Either<Failure, TaskUserLinkEntity>> updateTaskUserLink(TaskUserLinkEntity task);
+
+  Future<Either<Failure, OrganizerItems<UserEntity>>> updateTaskUserItems(
       int taskId, List<int> addedUserItems, List<int> removedUserItems);
 
   // Tag operations related to tasks
   Future<Either<Failure, OrganizerItems<TagEntity>>> getTagItemsByTaskId(int taskId);
 
-  Future<Either<Failure, OrganizerItems<TagEntity>>> updateTagItemOfTask(
-      int taskId, List<int> tagItems, List<int> updatedTagItems);
+  Future<Either<Failure, OrganizerItems<TagEntity>>> updateTaskTagItems(
+      int taskId, List<int> addedTagItems, List<int> removedTagItems);
 
   // Reminder operations related to tasks
   Future<Either<Failure, OrganizerItems<ReminderEntity>>> getRemindersByTaskId(int taskId);
 
-  Future<Either<Failure, OrganizerItems<ReminderEntity>>> updateReminderItemOfTask(
-      int taskId, List<int> reminderItems, List<int> updatedReminderItems);
+  Future<Either<Failure, OrganizerItems<ReminderEntity>>> updateTaskReminderItems(
+      int taskId, List<int> addedReminderItems, List<int> removedReminderItems);
 }

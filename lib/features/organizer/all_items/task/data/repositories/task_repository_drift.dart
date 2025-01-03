@@ -145,7 +145,7 @@ class TaskRepositoryDrift implements TaskRepository {
   }
 
   @override
-  Future<Either<Failure, OrganizerItems<UserEntity>>> updateUserItemOfTask(
+  Future<Either<Failure, OrganizerItems<UserEntity>>> updateTaskUserItems(
     int taskId,
     List<int> addedUserItems,
     List<int> removedUserItems,
@@ -178,7 +178,7 @@ class TaskRepositoryDrift implements TaskRepository {
   }
 
   @override
-  Future<Either<Failure, OrganizerItems<TagEntity>>> updateTagItemOfTask(
+  Future<Either<Failure, OrganizerItems<TagEntity>>> updateTaskTagItems(
     int taskId,
     List<int> addedTagItems,
     List<int> removedTagItems,
@@ -207,7 +207,7 @@ class TaskRepositoryDrift implements TaskRepository {
   }
 
   @override
-  Future<Either<Failure, OrganizerItems<ReminderEntity>>> updateReminderItemOfTask(
+  Future<Either<Failure, OrganizerItems<ReminderEntity>>> updateTaskReminderItems(
     int taskId,
     List<int> addedReminderItems,
     List<int> removedReminderItems,

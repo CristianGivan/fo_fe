@@ -17,6 +17,6 @@ class UpdateUserItemsOfTaskUseCase
   Future<Either<Failure, OrganizerItems<UserEntity>>> call(UpdateItemsToTaskParams params) {
     List<int> addedUserItems = params.items.getAddedItems(params.updatedItems).getIdList();
     List<int> removedUserItems = params.items.getRemovedItems(params.updatedItems).getIdList();
-    return repository.updateUserItemOfTask(params.taskId, addedUserItems, removedUserItems);
+    return repository.updateTaskUserItems(params.taskId, addedUserItems, removedUserItems);
   }
 }
