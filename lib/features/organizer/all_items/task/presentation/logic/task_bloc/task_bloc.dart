@@ -52,32 +52,22 @@ class TaskBloc extends OrganizerBloc<TaskDto> {
   }
 
   Future<void> _onExportTaskToExcel(
-      ExportTaskToExcelBlocEvent event, Emitter<OrganizerBlocState<ItemEntity>> emit) async {
-    emit(state.copyWith(status: OrganizerBlocStatus.loading));
-    final result = await exportTaskToExcelUseCase(event.forUserId);
-    result.fold(
-      (failure) => emit(state.copyWith(
-        status: OrganizerBlocStatus.error,
-        errorMessage: _mapFailureToMessage(failure),
-      )),
-      (success) => emit(state.copyWith(status: OrganizerBlocStatus.loaded)),
+      ExportTaskToExcelBlocEvent event, Emitter<OrganizerBlocState<TaskDto>> emit) async {
+    await handleEvent(
+      emit: emit,
+      action: () => exportTaskToExcelUseCase(event.forUserId),
+      onSuccess: (items) => emit(state.copyWith(status: OrganizerBlocStatus.loaded)),
     );
   }
 
   Future<void> _onUpdateTask(
-      UpdateTaskBlocEvent<TaskParams> event, Emitter<OrganizerBlocState<ItemEntity>> emit) async {
-    emit(state.copyWith(status: OrganizerBlocStatus.loading));
-    final result = await updateTaskDtoUseCase(event.params);
-    result.fold(
-        (failure) => emit(state.copyWith(
-              status: OrganizerBlocStatus.error,
-              errorMessage: _mapFailureToMessage(failure),
-            )),
-        (updatedTask) => emit(state.copyWith(
-              status: OrganizerBlocStatus.loaded,
-              originalItems: state.originalItems.copyWithUpdatedItem(updatedTask),
-              displayedItems: state.displayedItems.copyWithUpdatedItem(updatedTask),
-            )));
+      UpdateTaskBlocEvent<TaskParams> event, Emitter<OrganizerBlocState<TaskDto>> emit) async {
+    await handleEvent(
+      emit: emit,
+      action: () => updateTaskDtoUseCase(event.params),
+      originalItems: (updatedTask) => state.originalItems.copyWithUpdatedItem(updatedTask),
+      displayedItems: (updatedTask) => state.displayedItems.copyWithUpdatedItem(updatedTask),
+    );
   }
 
   Future<void> _onSortTasks(TaskItemsSortBlocEvent<SortTasksParams> event,
