@@ -25,7 +25,10 @@ class TaskExportScreen extends StatelessWidget {
     return Center(
       child: ElevatedButton(
         onPressed: () async {
-          context.read<TaskBloc>().add(ExportTaskToExcelBlocEvent(forUserId));
+          final displayItems = context.read<TaskBloc>().state.originalItems;
+          context
+              .read<TaskBloc>()
+              .add(ExportTaskToExcelBlocEvent(TaskParams(taskItems: displayItems)));
           SnackBarWidget.showAboveBottomNavBar(
             context,
             content: 'Export completed',

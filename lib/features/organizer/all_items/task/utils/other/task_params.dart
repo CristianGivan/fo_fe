@@ -5,6 +5,7 @@ class TaskParams extends ItemParams {
   final TaskEntity taskEntity;
   final TaskUserLinkEntity taskUserLinkEntity;
   final TaskDto taskDto;
+  final OrganizerItems<TaskDto> taskItems;
 
   TaskParams({
     TaskEntity? task,
@@ -14,10 +15,12 @@ class TaskParams extends ItemParams {
     IdSet? idSet,
     int? forUserId,
     ItemReturn? itemReturn,
+    OrganizerItems<TaskDto>? taskItems,
   })  : taskEntity = task ?? TaskEntity.empty(),
         taskUserLinkEntity = taskUserLinkEntity ?? TaskUserLinkEntity.empty(),
         taskDto =
             taskDto ?? TaskDto(task: TaskEntity.empty(), taskUserLink: TaskUserLinkEntity.empty()),
+        taskItems = taskItems ?? OrganizerItems.empty(),
         super(
           id: id ?? 0,
           idSet: idSet ?? IdSet.empty(),

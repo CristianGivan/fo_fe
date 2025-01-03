@@ -55,7 +55,7 @@ class TaskBloc extends OrganizerBloc<TaskDto> {
       ExportTaskToExcelBlocEvent event, Emitter<OrganizerBlocState<TaskDto>> emit) async {
     await handleEvent(
       emit: emit,
-      action: () => exportTaskToExcelUseCase(event.forUserId),
+      action: () => exportTaskToExcelUseCase(event.params),
       onSuccess: (items) => emit(state.copyWith(status: OrganizerBlocStatus.loaded)),
     );
   }

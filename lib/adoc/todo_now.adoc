@@ -41,17 +41,16 @@ debounce see todo code
 
 == Now
 
-* reduce more the Type on bloc and event
-* check if I can pass the Items that are in fatched allready and not not to feache them again see
-final state = context.read<TaskBloc>().state;
+* no logic in screen task delete screen     final state = context.read<TaskBloc>().state;
 * refactor TaskAddForm
-* refactor OrganizerBloc
 
 == Done
 
+* check if I can pass the Items that are in fatched allready and not not to feache them again see
+* reduce more the Type on bloc and event
+* refactor OrganizerBloc
 * export Task Excel
 * extract _buildCheckboxListTitle to a widget
-
 * add delete at task
 [log] onError -- bloc: TaskBloc, error: type 'Future<Either<Failure, TaskDto>>' is not a subtype of type 'Either<Failure, ItemEntity>' in type cast
 why I don't have a message

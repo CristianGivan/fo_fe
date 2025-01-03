@@ -32,10 +32,10 @@ class UpdateTaskBlocEvent<P> extends OrganizerBlocEvent {
 }
 
 class ExportTaskToExcelBlocEvent extends OrganizerBlocEvent {
-  final int forUserId;
+  final TaskParams params;
 
-  const ExportTaskToExcelBlocEvent(this.forUserId);
+  const ExportTaskToExcelBlocEvent(this.params);
 
   @override
-  List<Object> get props => [forUserId];
+  List<Object> get props => [params];
 }
