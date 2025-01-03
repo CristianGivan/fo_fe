@@ -43,6 +43,7 @@ debounce see todo code
 == Now
 
 * refactor repository and localdatasource with proper names
+* Update User
 
 == Done
 
