@@ -32,7 +32,6 @@ debounce see todo code
 
 == Next
 
-* refactor repository and localdatasource with proper names
 * no logic in screen task delete screen change to stateless     final state = context
 .read<TaskBloc>().state;
 * refactor TaskAddForm
@@ -43,10 +42,11 @@ debounce see todo code
 
 == Now
 
-* void addUserItemsToTask(int taskId, List<int> addedUserItems) {
+* refactor repository and localdatasource with proper names
 
 == Done
 
+* void addUserItemsToTask(int taskId, List<int> addedUserItems) {
 * check if I can pass the Items that are in fatched allready and not not to feache them again see
 * reduce more the Type on bloc and event
 * refactor OrganizerBloc

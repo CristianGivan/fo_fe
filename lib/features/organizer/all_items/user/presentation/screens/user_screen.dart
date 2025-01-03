@@ -50,7 +50,6 @@ class _UserScreenState extends State<UserScreen> {
     if (auth is AuthAuthenticatedBlocState) {
       context.read<UserBloc>().add(GetLinkedUserItemsBlocEvent(user: auth.userEntity));
       final state = context.read<UserBloc>().state;
-      print("dbg:state: $state");
     }
   }
 

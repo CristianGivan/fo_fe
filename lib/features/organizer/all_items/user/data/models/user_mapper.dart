@@ -57,7 +57,7 @@ class UserMapper {
   // Method to map row data to UserTableDriftG
   static UserTableDriftG fromUserJoinUserUser(Map<String, dynamic> data, GeneratedDatabase db) {
     return UserTableDriftG(
-      id: data['id'] as int,
+      id: data['user_id_linked'] as int,
       name: data['user_name_linked'] as String,
       hashedPassword: data['hashed_password'] as String,
       email: data['email'] as String,
