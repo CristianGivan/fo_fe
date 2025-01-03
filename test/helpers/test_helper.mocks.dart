@@ -211,7 +211,7 @@ class MockTaskLocalDataSourceDrift extends _i1.Mock implements _i11.TaskLocalDat
       ) as _i8.Future<List<int>?>);
 
   @override
-  _i8.Future<_i3.TaskTableDriftG?> getTaskById(int? id) => (super.noSuchMethod(
+  _i8.Future<_i3.TaskTableDriftG?> _getTaskById(int? id) => (super.noSuchMethod(
         Invocation.method(#getTaskById, [id]),
         returnValue: _i8.Future<_i3.TaskTableDriftG?>.value(),
         returnValueForMissingStub: _i8.Future<_i3.TaskTableDriftG?>.value(),

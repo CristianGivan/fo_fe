@@ -17,20 +17,13 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
   @override
   Future<TaskTableDriftG?> addTask(TaskTableDriftCompanion taskCompanion) async {
     final taskId = await db.taskDaoDrift.addTask(taskCompanion);
-    return getTaskById(taskId);
-  }
-
-  @override
-  Future<TaskUserLinkTableDriftG?> addTaskUserLink(
-      TaskUserLinkTableDriftCompanion companion) async {
-    final taskUserLinkId = await db.taskUserLinkDaoDrift.addTaskUser(companion);
-    return _getTaskUserLinkById(taskUserLinkId);
+    return _getTaskById(taskId);
   }
 
   @override
   Future<TaskTableDriftG?> updateTask(TaskTableDriftCompanion taskCompanion) async {
     await db.taskDaoDrift.updateTask(taskCompanion);
-    return getTaskById(taskCompanion.id.value);
+    return _getTaskById(taskCompanion.id.value);
   }
 
   @override
@@ -62,25 +55,6 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
   }
 
   @override
-  Future<TaskTableDriftG?> getTaskById(int id) async {
-    return await db.taskDaoDrift.getTaskById(id);
-  }
-
-  @override
-  Future<List<TaskTableDriftG>?> getTaskItemsAll() async {
-    return await db.taskDaoDrift.getTaskItemsAll();
-  }
-
-  @override
-  Future<List<TaskTableDriftG>?> getTaskItemsFromUser(int userId) async {
-    return await db.transaction(() async {
-      final taskIds = await db.taskUserLinkDaoDrift.getTaskIdsByUserId(userId);
-      final tasks = await db.taskDaoDrift.getTaskItemsByIdSet(taskIds);
-      return tasks?.whereType<TaskTableDriftG>().toList();
-    });
-  }
-
-  @override
   Future<List<TaskDto>?> getTaskDtoItemsFromUser(int userId) async {
     final taskList = await db.taskDaoDrift.getTaskDtoItemsFromUser(userId);
     return taskList
@@ -94,6 +68,15 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
   @override
   Future<List<TaskTableDriftG?>?> getTaskItemsByIdSet(IdSet idSet) async {
     return await db.taskDaoDrift.getTaskItemsByIdSet(idSet.toSet());
+  }
+
+// User operations related to tasks
+
+  @override
+  Future<TaskUserLinkTableDriftG?> addTaskUserLink(
+      TaskUserLinkTableDriftCompanion companion) async {
+    final taskUserLinkId = await db.taskUserLinkDaoDrift.addTaskUser(companion);
+    return _getTaskUserLinkById(taskUserLinkId);
   }
 
   @override
@@ -125,33 +108,7 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
     });
   }
 
-  //Reminder
-  @override
-  Future<List<ReminderTableDriftG>?> getReminderItemsByTaskId(int taskId) async {
-    final reminderIds = await db.taskReminderLinkDaoDrift.getReminderIdsByTaskId(taskId);
-    return await db.reminderDaoDrift.getReminderItemsByReminderIdSet(reminderIds);
-  }
-
-  @override
-  Future<void> addReminderItemsToTask(int taskId, List<int> reminderItems) async {
-    await db.transaction(() async {
-      for (final tagId in reminderItems) {
-        await db.taskReminderLinkDaoDrift
-            .addTaskReminder(_createTaskReminderCompanion(taskId, tagId));
-      }
-    });
-  }
-
-  @override
-  Future<void> deleteReminderItemsFromTask(int taskId, List<int> reminderItems) async {
-    await db.transaction(() async {
-      for (final tagId in reminderItems) {
-        await db.taskReminderLinkDaoDrift.deleteTaskReminder(taskId, tagId);
-      }
-    });
-  }
-
-// Tags of task
+  // Tags of task
   @override
   Future<List<TagTableDriftG>?> getTagItemsByTaskId(int taskId) async {
     final tagIds = await db.taskTagLinkDaoDrift.getTagIdsByTaskId(taskId);
@@ -174,6 +131,37 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
         await db.taskTagLinkDaoDrift.deleteTaskTag(taskId, tagId);
       }
     });
+  }
+
+  //Reminder operations related to tasks
+
+  @override
+  Future<List<ReminderTableDriftG>?> getReminderItemsByTaskId(int taskId) async {
+    final reminderIds = await db.taskReminderLinkDaoDrift.getReminderIdsByTaskId(taskId);
+    return await db.reminderDaoDrift.getReminderItemsByReminderIdSet(reminderIds);
+  }
+
+  @override
+  Future<void> addReminderItemsToTask(int taskId, List<int> reminderItems) async {
+    await db.transaction(() async {
+      for (final reminderId in reminderItems) {
+        await db.taskReminderLinkDaoDrift
+            .addTaskReminder(_createTaskReminderCompanion(taskId, reminderId));
+      }
+    });
+  }
+
+  @override
+  Future<void> deleteReminderItemsFromTask(int taskId, List<int> reminderItems) async {
+    await db.transaction(() async {
+      for (final reminderId in reminderItems) {
+        await db.taskReminderLinkDaoDrift.deleteTaskReminder(taskId, reminderId);
+      }
+    });
+  }
+
+  Future<TaskTableDriftG?> _getTaskById(int id) async {
+    return await db.taskDaoDrift.getTaskById(id);
   }
 
   TaskTagLinkTableDriftCompanion _createTaskTagCompanion(int taskId, int tagId) {
