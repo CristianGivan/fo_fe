@@ -46,7 +46,7 @@ class _TaskDeleteScreenState extends State<TaskDeleteScreen> {
     } else {
       return ItemListViewPage<TaskDto>(
         itemDtoList: selectedTaskDtoList,
-        itemCardBuilder: (itemDto) => TaskCard(itemDto.task),
+        itemCardBuilder: (itemDto) => TaskCard(itemDto),
         getValue: _getValue,
         updateItemUserLink: _updateTaskUserLink,
       );

@@ -1,14 +1,13 @@
 import 'package:fo_fe/features/organizer/all_items/reminder/utils/reminder_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/presentation/pages/item_with_items_page.dart';
-import 'package:fo_fe/features/organizer/utils/other/items_type_selection.dart';
 
 import '../../../../utils/organizer_exports.dart';
 
 class TaskLinkReminderPage extends StatefulWidget {
   final TaskEntity task;
 
-  const TaskLinkReminderPage({super.key, required this.task});
+  TaskLinkReminderPage({super.key, required int taskId}) : task = TaskEntity(id: taskId);
 
   @override
   State<TaskLinkReminderPage> createState() => _TaskLinkReminderPageState();

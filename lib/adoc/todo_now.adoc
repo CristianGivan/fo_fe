@@ -42,12 +42,18 @@ debounce see todo code
 
 == Now
 
-* refactor repository and localdatasource with proper names
+* Update TaskUserBlocState
+* TaskLinkUserPage to show a list with all users and update button
+* create a generic widget where to have all the items with chkbox  and the one selected to be in
+the previouse list
+
+
 * updateTagItemOfTask transfer  the logic in usecase
 * Update User
 
 == Done
 
+* refactor repository and localdatasource with proper names
 * void addUserItemsToTask(int taskId, List<int> addedUserItems) {
 * check if I can pass the Items that are in fatched allready and not not to feache them again see
 * reduce more the Type on bloc and event

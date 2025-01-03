@@ -7,10 +7,10 @@ import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 class TaskCard extends StatelessWidget {
   final TaskEntity task;
 
-  const TaskCard(
-    this.task, {
+  TaskCard(
+    TaskDto taskDto, {
     super.key,
-  });
+  }) : task = taskDto.task;
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +67,6 @@ class TaskCard extends StatelessWidget {
       case TaskStatus.pending:
         return TaskStatus.working;
       case TaskStatus.completed:
-      default:
         return TaskStatus.completed;
     }
   }
@@ -83,7 +82,6 @@ class TaskCard extends StatelessWidget {
       case TaskStatus.started:
         return TaskStatus.undefined;
       case TaskStatus.undefined:
-      default:
         return TaskStatus.undefined;
     }
   }

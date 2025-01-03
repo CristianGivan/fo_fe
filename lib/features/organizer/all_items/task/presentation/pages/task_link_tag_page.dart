@@ -1,14 +1,13 @@
 import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/presentation/pages/item_with_items_page.dart';
-import 'package:fo_fe/features/organizer/utils/other/items_type_selection.dart';
 
 import '../../../../utils/organizer_exports.dart';
 
 class TaskLinkTagPage extends StatefulWidget {
   final TaskEntity task;
 
-  const TaskLinkTagPage({super.key, required this.task});
+  TaskLinkTagPage({super.key, required int taskId}) : task = TaskEntity(id: taskId);
 
   @override
   State<TaskLinkTagPage> createState() => _TaskLinkTagPageState();

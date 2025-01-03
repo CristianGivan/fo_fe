@@ -31,7 +31,7 @@ class TaskListPage extends StatelessWidget {
     } else {
       return ItemListViewPage<TaskDto>(
         itemDtoList: taskDtoList,
-        itemCardBuilder: (taskDto) => TaskCard(taskDto.task),
+        itemCardBuilder: (taskDto) => TaskCard(taskDto),
         getValue: _getValue,
         updateItemUserLink: _updateTaskUserLink,
       );

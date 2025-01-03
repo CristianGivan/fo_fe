@@ -7,7 +7,7 @@ import '../../../../utils/organizer_exports.dart';
 class TaskLinkUserPage extends StatefulWidget {
   final TaskEntity task;
 
-  const TaskLinkUserPage({super.key, required this.task});
+  TaskLinkUserPage({super.key, required int taskId}) : task = TaskEntity(id: taskId);
 
   @override
   State<TaskLinkUserPage> createState() => _TaskLinkUserPageState();
@@ -30,13 +30,13 @@ class _TaskLinkUserPageState extends State<TaskLinkUserPage> {
             items: userItems,
             type: ItemsTypeEnum.user,
           );
-        } else if (state is UserItemsUpdatedToTaskBlocState) {
-          userItems = state.userItemsUpdated;
-          return ItemWithItemsPage<TaskEntity, UserEntity>(
-            item: widget.task,
-            items: userItems,
-            type: ItemsTypeEnum.user,
-          );
+          // } else if (state is UserItemsUpdatedToTaskBlocState) {
+          //   userItems = state.userItemsUpdated;
+          //   return ItemWithItemsPage<TaskEntity, UserEntity>(
+          //     item: widget.task,
+          //     items: userItems,
+          //     type: ItemsTypeEnum.user,
+          //   );
         } else if (state is TaskUserErrorBlocState) {
           return Center(child: Text(state.message));
         } else {

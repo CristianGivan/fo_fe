@@ -5,15 +5,15 @@ import 'package:fo_fe/features/organizer/utils/other/items_type_selection.dart';
 
 class ItemWithItemsPage<T extends OrganizerItemEntity, E extends OrganizerItemEntity>
     extends StatelessWidget {
-  final OrganizerItems<E> items;
   final T item;
   final ItemsTypeEnum type;
+  final OrganizerItems<E> items;
 
   const ItemWithItemsPage({
     super.key,
-    required this.items,
     required this.item,
     required this.type,
+    required this.items,
   });
 
   @override
