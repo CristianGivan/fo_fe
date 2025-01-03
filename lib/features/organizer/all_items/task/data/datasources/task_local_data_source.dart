@@ -5,9 +5,6 @@ import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 abstract class TaskLocalDataSource {
   Future<TaskTableDriftG?> addTask(TaskTableDriftCompanion taskCompanion);
 
-  Future<TaskUserLinkTableDriftG?> addTaskUserLink(
-      TaskUserLinkTableDriftCompanion taskUserLinkCompanion);
-
   Future<TaskTableDriftG?> updateTask(TaskTableDriftCompanion taskCompanion);
 
   Future<TaskUserLinkTableDriftG?> updateTaskUserLink(
@@ -17,33 +14,36 @@ abstract class TaskLocalDataSource {
 
   Future<List<int>?> deleteTaskItems(List<int> taskIds);
 
-  Future<TaskTableDriftG?> getTaskById(int id);
-
-  Future<List<TaskTableDriftG>?> getTaskItemsAll();
-
-  Future<List<TaskTableDriftG>?> getTaskItemsFromUser(int userId);
-
   Future<List<TaskDto>?> getTaskDtoItemsFromUser(int userId);
 
   Future<List<TaskTableDriftG?>?> getTaskItemsByIdSet(IdSet idSet);
+
+  // User operations related to tasks
+
+  Future<TaskUserLinkTableDriftG?> addTaskUserLink(
+      TaskUserLinkTableDriftCompanion taskUserLinkCompanion);
 
   Future<List<UserTableDriftG?>?> getUserItemsByTaskId(int taskId);
 
   Future<UserTableDriftG?> getCreatorById(int creatorId);
 
-  Future<void> addUserItemsFromTask(int taskId, List<int> userId);
+  Future<void> addUserItemsFromTask(int taskId, List<int> userIds);
 
-  Future<void> deleteUserItemsFromTask(int taskId, List<int> userId);
+  Future<void> deleteUserItemsFromTask(int taskId, List<int> userIds);
+
+  // Tag operations related to tasks
 
   Future<List<TagTableDriftG>?> getTagItemsByTaskId(int taskId);
 
-  Future<void> addTagItemsToTask(int taskId, List<int> tagId);
+  Future<void> addTagItemsToTask(int taskId, List<int> tagIds);
 
-  Future<void> deleteTagItemsFromTask(int taskId, List<int> tagId);
+  Future<void> deleteTagItemsFromTask(int taskId, List<int> tagIds);
+
+  // Reminder operations related to tasks
 
   Future<List<ReminderTableDriftG>?> getReminderItemsByTaskId(int taskId);
 
-  Future<void> addReminderItemsToTask(int taskId, List<int> tagId);
+  Future<void> addReminderItemsToTask(int taskId, List<int> tagIds);
 
-  Future<void> deleteReminderItemsFromTask(int taskId, List<int> reminderId);
+  Future<void> deleteReminderItemsFromTask(int taskId, List<int> reminderIds);
 }

@@ -18,6 +18,7 @@ class TaskRepositoryDrift implements TaskRepository {
   TaskRepositoryDrift({required this.localDataSource});
 
   // Task CRUD operations
+
   @override
   Future<Either<Failure, TaskEntity>> addTask(TaskEntity task) async {
     return _handleDatabaseOperation(() async {
@@ -29,13 +30,14 @@ class TaskRepositoryDrift implements TaskRepository {
   }
 
   @override
-  Future<Either<Failure, TaskUserLinkEntity>> addTaskUserLink(
-      TaskUserLinkEntity taskUserLinkEntity) async {
+  Future<Either<Failure, OrganizerItems<TaskDto>>> getTaskItemsFromUser(int forUserId) {
     return _handleDatabaseOperation(() async {
-      final companion = TaskUserLinkMapper.companionFromEntity(taskUserLinkEntity);
-      final addTask = await localDataSource.addTaskUserLink(companion);
-      if (addTask == null) throw const TaskFailure("Task not added");
-      return TaskUserLinkMapper.entityFromTableDrift(addTask);
+      final items = await localDataSource.getTaskDtoItemsFromUser(forUserId);
+      if (items == null || items.isEmpty) {
+        return OrganizerItems<TaskDto>.empty();
+      } else {
+        return OrganizerItems.of(items);
+      }
     });
   }
 
@@ -74,47 +76,6 @@ class TaskRepositoryDrift implements TaskRepository {
   }
 
   @override
-  Future<Either<Failure, TaskEntity>> getTaskById(int id) {
-    return _handleDatabaseOperation(() async {
-      final item = await localDataSource.getTaskById(id);
-      _checkItemNotNull(item);
-      return TaskMapper.entityFromTableDrift(item!);
-    });
-  }
-
-  @override
-  Future<Either<Failure, OrganizerItems<TaskEntity>>> getTaskItemsAll() {
-    return _handleDatabaseOperation(() async {
-      final items = await localDataSource.getTaskItemsAll();
-      return _returnEmptyOrOrganizerItemsFromTableDriftList(items);
-    });
-  }
-
-  @override
-  Future<Either<Failure, OrganizerItems<TaskDto>>> getTaskItemsFromUser(int forUserId) {
-    return _handleDatabaseOperation(() async {
-      final items = await localDataSource.getTaskDtoItemsFromUser(forUserId);
-      if (items == null || items.isEmpty) {
-        return OrganizerItems<TaskDto>.empty();
-      } else {
-        return OrganizerItems.of(items);
-      }
-    });
-  }
-
-  @override
-  Future<Either<Failure, OrganizerItems<TaskDto>>> getTaskDtoItemsFromUser(int userId) {
-    return _handleDatabaseOperation(() async {
-      final items = await localDataSource.getTaskDtoItemsFromUser(userId);
-      if (items == null || items.isEmpty) {
-        return OrganizerItems<TaskDto>.empty();
-      } else {
-        return OrganizerItems.of(items);
-      }
-    });
-  }
-
-  @override
   Future<Either<Failure, OrganizerItems<TaskEntity>>> getTaskItemsByIdSet(IdSet idSet) {
     return _handleDatabaseOperation<OrganizerItems<TaskEntity>>(
       () async {
@@ -126,12 +87,15 @@ class TaskRepositoryDrift implements TaskRepository {
   }
 
   // User operations related to tasks
+
   @override
-  Future<Either<Failure, UserEntity>> getCreatorTaskById(int creatorId) {
+  Future<Either<Failure, TaskUserLinkEntity>> addTaskUserLink(
+      TaskUserLinkEntity taskUserLinkEntity) async {
     return _handleDatabaseOperation(() async {
-      final userModel = await localDataSource.getCreatorById(creatorId);
-      _checkItemNotNull(userModel);
-      return UserMapper.entityFromTableDrift(userModel!);
+      final companion = TaskUserLinkMapper.companionFromEntity(taskUserLinkEntity);
+      final addTask = await localDataSource.addTaskUserLink(companion);
+      if (addTask == null) throw const TaskFailure("Task not added");
+      return TaskUserLinkMapper.entityFromTableDrift(addTask);
     });
   }
 
@@ -145,6 +109,15 @@ class TaskRepositoryDrift implements TaskRepository {
   }
 
   @override
+  Future<Either<Failure, UserEntity>> getCreatorTaskById(int creatorId) {
+    return _handleDatabaseOperation(() async {
+      final userModel = await localDataSource.getCreatorById(creatorId);
+      _checkItemNotNull(userModel);
+      return UserMapper.entityFromTableDrift(userModel!);
+    });
+  }
+
+  @override
   Future<Either<Failure, OrganizerItems<UserEntity>>> updateTaskUserItems(
     int taskId,
     List<int> addedUserItems,
@@ -152,7 +125,7 @@ class TaskRepositoryDrift implements TaskRepository {
   ) {
     return _handleDatabaseOperation(() async {
       if (addedUserItems != []) {
-        addUserItemsToTask(taskId, addedUserItems);
+        _addUserItemsToTask(taskId, addedUserItems);
       }
       if (removedUserItems != []) {
         localDataSource.deleteUserItemsFromTask(taskId, removedUserItems);
@@ -163,7 +136,7 @@ class TaskRepositoryDrift implements TaskRepository {
     });
   }
 
-  void addUserItemsToTask(int taskId, List<int> addedUserItems) {
+  void _addUserItemsToTask(int taskId, List<int> addedUserItems) {
     localDataSource.addUserItemsFromTask(taskId, addedUserItems);
   }
 
@@ -223,21 +196,6 @@ class TaskRepositoryDrift implements TaskRepository {
           await localDataSource.getReminderItemsByTaskId(taskId),
           ReminderMapper.entityItemsFromTableDriftItems);
     });
-  }
-
-  @override
-  Future<Either<Failure, TaskEntityLazyLoaded>> getTaskByIdLazyLoaded(int id) {
-    // TODO: implement getTaskByIdLazyLoaded
-    throw UnimplementedError();
-  }
-
-  OrganizerItems<TaskEntity> _returnEmptyOrOrganizerItemsFromTableDriftList(
-      List<TaskTableDriftG>? items) {
-    if (items == null || items.isEmpty) {
-      return OrganizerItems<TaskEntity>.empty();
-    } else {
-      return TaskMapper.entityItemsFromTableDriftItems(items);
-    }
   }
 
   Future<Either<Failure, T>> _handleDatabaseOperation<T>(Future<T> Function() operation) async {
