@@ -29,7 +29,7 @@ class TaskListPage extends StatelessWidget {
     if (taskDtoList.isEmpty) {
       return Center(child: Text('No items to display'));
     } else {
-      return ItemDtoListViewPage<TaskDto>(
+      return ItemListViewPage<TaskDto>(
         itemDtoList: taskDtoList,
         itemCardBuilder: (taskDto) => TaskCard(taskDto.task),
         getValue: _getValue,

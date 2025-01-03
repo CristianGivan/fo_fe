@@ -1,12 +1,12 @@
 import '../../../features/organizer/utils/organizer_exports.dart';
 
-class ItemDtoListViewPage<T extends ItemEntity> extends StatelessWidget {
+class ItemListViewPage<T extends ItemEntity> extends StatelessWidget {
   final OrganizerItems<T> itemDtoList;
   final Widget Function(T) itemCardBuilder;
   final bool Function(T) getValue;
   final void Function(BuildContext, T, bool) updateItemUserLink;
 
-  const ItemDtoListViewPage({
+  const ItemListViewPage({
     super.key,
     required this.itemDtoList,
     required this.itemCardBuilder,

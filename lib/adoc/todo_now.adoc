@@ -32,17 +32,18 @@ debounce see todo code
 
 == Next
 
-* update with task strings
+* refactor repository and localdatasource with proper names
+* no logic in screen task delete screen change to stateless     final state = context
+.read<TaskBloc>().state;
+* refactor TaskAddForm
+* update export with all relevant fields
 * clean up adocs
 * can be removed extra  for all not only for  final task = state.extra as TaskEntity?;
-* refactor the task add form
-* void addUserItemsToTask(int taskId, List<int> addedUserItems) {
-* there is a wait to not have every time as TaskDto
+* update with task strings
 
 == Now
 
-* no logic in screen task delete screen     final state = context.read<TaskBloc>().state;
-* refactor TaskAddForm
+* void addUserItemsToTask(int taskId, List<int> addedUserItems) {
 
 == Done
 
@@ -55,7 +56,6 @@ debounce see todo code
 [log] onError -- bloc: TaskBloc, error: type 'Future<Either<Failure, TaskDto>>' is not a subtype of type 'Either<Failure, ItemEntity>' in type cast
 why I don't have a message
 fix the problemll
-
 * add also else for  if (state is TaskLoadedBlocState) {
 * scafold for the task edit and view
 * delete implementeation for _onToggleTaskSelectionBlocEent

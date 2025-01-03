@@ -31,6 +31,8 @@ abstract class TaskLocalDataSource {
 
   Future<UserTableDriftG?> getCreatorById(int creatorId);
 
+  Future<void> addUserItemsFromTask(int taskId, List<int> userId);
+
   Future<void> deleteUserItemsFromTask(int taskId, List<int> userId);
 
   Future<List<TagTableDriftG>?> getTagItemsByTaskId(int taskId);

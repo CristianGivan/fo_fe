@@ -163,9 +163,8 @@ class TaskRepositoryDrift implements TaskRepository {
     });
   }
 
-  // todo -implement- when I have time
   void addUserItemsToTask(int taskId, List<int> addedUserItems) {
-    throw UnimplementedError("Method not implemented");
+    localDataSource.addUserItemsFromTask(taskId, addedUserItems);
   }
 
   // Tag operations related to tasks

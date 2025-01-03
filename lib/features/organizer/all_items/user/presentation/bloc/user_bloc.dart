@@ -19,7 +19,7 @@ class UserBloc extends Bloc<UserBlocEvent, UserBlocState> {
   final GetUserByIdUseCase getUserById;
   final GetUserItemsByIdSet getUserItemsByIdSet;
   final GetUserItemsByUserId getUserItemsByUserId;
-  final GetLinkedUserItems getUserAndLinkedUserItems;
+  final GetUserLinkedUserItems getUserAndLinkedUserItems;
 
   UserBloc({
     required this.addUser,

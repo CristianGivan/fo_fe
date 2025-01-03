@@ -38,7 +38,7 @@ abstract class TaskRepository {
   Future<Either<Failure, UserEntity>> getCreatorTaskById(int taskId);
 
   Future<Either<Failure, OrganizerItems<UserEntity>>> updateUserItemOfTask(
-      int taskId, List<int> userItems, List<int> updatedUserItems);
+      int taskId, List<int> addedUserItems, List<int> removedUserItems);
 
   // Tag operations related to tasks
   Future<Either<Failure, OrganizerItems<TagEntity>>> getTagItemsByTaskId(int taskId);

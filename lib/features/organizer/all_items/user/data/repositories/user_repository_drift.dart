@@ -14,7 +14,7 @@ class UserRepositoryDrift implements UserRepository {
     return _executeDatabaseOperation(() async {
       final companion = UserMapper.entityToCompanion(user);
       if (user.email != "") {
-        return await checkUserWithMailAndAddUser(user, companion);
+        return await returnExistingUserWithMailOrAddedUser(user, companion);
       } else if (user.name != "") {
         return await checkUserWithNameAndAddUser(user, companion);
       } else {
@@ -33,13 +33,12 @@ class UserRepositoryDrift implements UserRepository {
     }
   }
 
-  checkUserWithMailAndAddUser(UserEntity user, UserTableDriftCompanion companion) async {
+  returnExistingUserWithMailOrAddedUser(UserEntity user, UserTableDriftCompanion companion) async {
     final existingUser = await localDataSource.getUserByEmail(user.email);
     if (existingUser == null) {
       return _addUserOrThrow(companion);
     } else {
-      throw UserExistsFailure("User with email: ${user.email}, already exists, can you try with "
-          "another email");
+      return UserMapper.entityFromTableDrift(existingUser);
     }
   }
 

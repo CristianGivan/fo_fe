@@ -108,6 +108,15 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
   }
 
   @override
+  Future<void> addUserItemsFromTask(int taskId, List<int> userItems) async {
+    await db.transaction(() async {
+      for (final userId in userItems) {
+        await db.taskUserLinkDaoDrift.addTaskUser(_createTaskUserCompanion(taskId, userId));
+      }
+    });
+  }
+
+  @override
   Future<void> deleteUserItemsFromTask(int taskId, List<int> userItems) async {
     await db.transaction(() async {
       for (final tagId in userItems) {

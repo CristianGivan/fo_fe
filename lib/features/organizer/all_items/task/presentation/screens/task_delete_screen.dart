@@ -44,7 +44,7 @@ class _TaskDeleteScreenState extends State<TaskDeleteScreen> {
     if (selectedTaskDtoList.isEmpty) {
       return Center(child: Text('No items to display'));
     } else {
-      return ItemDtoListViewPage<TaskDto>(
+      return ItemListViewPage<TaskDto>(
         itemDtoList: selectedTaskDtoList,
         itemCardBuilder: (itemDto) => TaskCard(itemDto.task),
         getValue: _getValue,

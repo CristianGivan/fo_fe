@@ -5,10 +5,10 @@ import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart'
 
 import '../../../../../../core/utils/exports/external_exports.dart';
 
-class TaskFormFieldsPage extends StatelessWidget {
+class TaskEditFormFieldsPage extends StatelessWidget {
   final TaskEntity task;
 
-  const TaskFormFieldsPage({super.key, required this.task});
+  const TaskEditFormFieldsPage({super.key, required this.task});
 
   @override
   Widget build(BuildContext context) {

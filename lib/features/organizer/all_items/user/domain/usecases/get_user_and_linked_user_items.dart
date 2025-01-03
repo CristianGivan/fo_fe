@@ -5,11 +5,11 @@ import 'package:fo_fe/features/authentication/domain/repositories/auth_repositor
 import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class GetLinkedUserItems extends UseCase<OrganizerItems<UserEntity>, UserParams> {
+class GetUserLinkedUserItems extends UseCase<OrganizerItems<UserEntity>, UserParams> {
   final UserRepository userRepository;
   final AuthRepository authRepository;
 
-  GetLinkedUserItems(this.userRepository, this.authRepository);
+  GetUserLinkedUserItems(this.userRepository, this.authRepository);
 
   @override
   Future<Either<Failure, OrganizerItems<UserEntity>>> call(UserParams params) async {

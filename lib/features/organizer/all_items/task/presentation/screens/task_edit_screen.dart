@@ -1,5 +1,5 @@
 import 'package:fo_fe/core/widgets/core_widget_exports.dart';
-import 'package:fo_fe/features/organizer/all_items/task/presentation/pages/task_form_fields_page.dart';
+import 'package:fo_fe/features/organizer/all_items/task/presentation/pages/task_edit_form_fields_page.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/widgets/task_edit_screen_actions_menu.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
@@ -39,6 +39,6 @@ class TaskEditScreen extends StatelessWidget {
 
   Widget _buildEditPage(BuildContext context, OrganizerBlocState state) {
     final task = (state.displayedItems.getById(taskId) as TaskDto).task;
-    return TaskFormFieldsPage(task: task);
+    return TaskEditFormFieldsPage(task: task);
   }
 }
