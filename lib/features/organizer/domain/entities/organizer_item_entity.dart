@@ -1,12 +1,12 @@
 import 'package:fo_fe/core/utils/date_time/date_time_constants.dart';
-import 'package:fo_fe/core/utils/exports/external_exports.dart';
 import 'package:fo_fe/features/organizer/domain/entities/item_entity.dart';
 
-class OrganizerItemEntity extends ItemEntity with EquatableMixin {
-  final DateTime _createdDate;
+class OrganizerItemEntity extends ItemEntity {
   final int _creatorId;
+  final String _subject;
+  final DateTime _createdDate;
   final DateTime? _lastUpdate;
-  final DateTime? _lastViewDate;
+  final DateTime? _lastViewedDate;
   final int? _remoteViews;
   final int? _views;
   final String? _checksum;
@@ -14,61 +14,67 @@ class OrganizerItemEntity extends ItemEntity with EquatableMixin {
   OrganizerItemEntity({
     super.id,
     super.remoteId,
-    DateTime? createdDate,
     int? creatorId,
+    String? subject,
+    DateTime? createdDate,
     DateTime? lastUpdate,
-    DateTime? lastAccessedDate,
-    int? remoteAccesses,
-    int? accesses,
+    DateTime? lastViewedDate,
+    int? remoteViews,
+    int? views,
     String? checksum,
-  })  : _createdDate = createdDate ?? DateTime.now(),
-        _creatorId = creatorId ?? 0,
-        _lastUpdate = lastUpdate,
-        _lastViewDate = lastAccessedDate,
-        _remoteViews = remoteAccesses,
-        _views = accesses,
-        _checksum = checksum;
+  })  : _creatorId = creatorId ?? 0,
+        _subject = subject ?? "",
+        _createdDate = createdDate ?? INITIAL_EPOCH_DATE,
+        _lastViewedDate = lastViewedDate ?? INITIAL_EPOCH_DATE,
+        _lastUpdate = lastUpdate ?? INITIAL_EPOCH_DATE,
+        _remoteViews = remoteViews ?? 0,
+        _views = views ?? 0,
+        _checksum = checksum ?? "";
 
-  // Factory for an "empty" instance
   static final OrganizerItemEntity _emptyInstance = OrganizerItemEntity(
+    subject: "",
     id: 0,
     remoteId: 0,
-    createdDate: INITIAL_EPOCH_DATE,
     creatorId: 0,
+    createdDate: INITIAL_EPOCH_DATE,
     lastUpdate: INITIAL_EPOCH_DATE,
-    lastAccessedDate: INITIAL_EPOCH_DATE,
-    remoteAccesses: 0,
-    accesses: 0,
+    lastViewedDate: INITIAL_EPOCH_DATE,
+    remoteViews: 0,
+    views: 0,
     checksum: "",
   );
 
   factory OrganizerItemEntity.empty() => _emptyInstance;
 
+  @override
   bool get isEmpty => this == _emptyInstance;
 
   @override
   List<Object?> get props => [
         super.props,
-        createdDate,
         creatorId,
+        subject,
+        createdDate,
         lastUpdate,
-        lastAccessedDate,
-        remoteAccesses,
-        accesses,
+        lastViewedDate,
+        remoteViews,
+        views,
         checksum,
       ];
 
-  DateTime get createdDate => _createdDate;
-
   int get creatorId => _creatorId;
+
+  String get subject => _subject;
+
+  DateTime get createdDate => _createdDate;
 
   DateTime? get lastUpdate => _lastUpdate;
 
-  DateTime? get lastAccessedDate => _lastViewDate;
+  DateTime? get lastViewedDate => _lastViewedDate;
 
-  int? get remoteAccesses => _remoteViews;
+  int? get remoteViews => _remoteViews;
 
-  int? get accesses => _views;
+  int? get views => _views;
 
   String? get checksum => _checksum;
 

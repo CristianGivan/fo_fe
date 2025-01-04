@@ -29,9 +29,9 @@ class TagMapper {
       creatorId: Value(entity.creatorId),
       remoteId: Value(entity.remoteId),
       lastUpdate: Value(entity.lastUpdate),
-      lastAccessedDate: Value(entity.lastAccessedDate),
-      remoteAccesses: Value(entity.remoteAccesses),
-      accesses: Value(entity.accesses),
+      lastViewedDate: Value(entity.lastViewedDate),
+      remoteViews: Value(entity.remoteViews),
+      views: Value(entity.views),
       checksum: Value(entity.checksum),
       subject: Value(entity.subject),
     );

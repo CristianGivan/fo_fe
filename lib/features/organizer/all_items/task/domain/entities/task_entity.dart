@@ -2,7 +2,6 @@ import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart'
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class TaskEntity extends OrganizerItemEntity {
-  final String _subject;
   final DateTime? _startDate;
   final DateTime? _endDate;
   final double? _workingTime;
@@ -12,19 +11,6 @@ class TaskEntity extends OrganizerItemEntity {
   final TaskStatus? _taskStatus;
 
   TaskEntity({
-    int? id,
-    DateTime? createdDate,
-    int? creatorId,
-    int? remoteId,
-    DateTime? lastUpdate,
-    DateTime? lastViewDate,
-    int? remoteViews,
-    int? views,
-    DateTime? lastAccessedDate,
-    int? remoteAccesses,
-    int? accesses,
-    String? checksum,
-    String? subject,
     DateTime? startDate,
     DateTime? endDate,
     double? workingTime,
@@ -32,8 +18,17 @@ class TaskEntity extends OrganizerItemEntity {
     double? estimatedLeftTime,
     double? workingProgress,
     TaskStatus? taskStatus,
-  })  : _subject = subject ?? "",
-        _startDate = startDate ?? INITIAL_EPOCH_DATE,
+    super.subject,
+    int? id,
+    DateTime? createdDate,
+    int? creatorId,
+    int? remoteId,
+    DateTime? lastUpdate,
+    DateTime? lastViewedDate,
+    int? remoteViews,
+    int? views,
+    String? checksum,
+  })  : _startDate = startDate ?? INITIAL_EPOCH_DATE,
         _endDate = endDate ?? INITIAL_EPOCH_DATE,
         _workingTime = workingTime ?? 0,
         _estimatedTime = estimatedTime ?? 0,
@@ -46,9 +41,9 @@ class TaskEntity extends OrganizerItemEntity {
           creatorId: creatorId ?? 0,
           remoteId: remoteId ?? 0,
           lastUpdate: lastUpdate ?? INITIAL_EPOCH_DATE,
-          lastAccessedDate: lastViewDate ?? INITIAL_EPOCH_DATE,
-          remoteAccesses: remoteViews ?? 0,
-          accesses: views ?? 0,
+          lastViewedDate: lastViewedDate ?? INITIAL_EPOCH_DATE,
+          remoteViews: remoteViews ?? 0,
+          views: views ?? 0,
           checksum: checksum ?? '',
         );
 
@@ -62,7 +57,6 @@ class TaskEntity extends OrganizerItemEntity {
   @override
   List<Object?> get props => [
         ...super.props,
-        _subject,
         _startDate,
         _endDate,
         _workingTime,
@@ -71,9 +65,6 @@ class TaskEntity extends OrganizerItemEntity {
         _workingProgress,
         _taskStatus,
       ];
-
-  // Getters for all fields
-  String get subject => _subject;
 
   DateTime? get startDate => _startDate;
 
@@ -90,13 +81,13 @@ class TaskEntity extends OrganizerItemEntity {
   TaskStatus? get taskStatus => _taskStatus;
 
   TaskEntity copyWith({
-    int? id,
     String? subject,
-    DateTime? createdDate,
+    int? id,
     int? creatorId,
     int? remoteId,
+    DateTime? createdDate,
     DateTime? lastUpdate,
-    DateTime? lastViewDate,
+    DateTime? lastViewedDate,
     int? remoteViews,
     int? views,
     String? checksum,
@@ -109,15 +100,15 @@ class TaskEntity extends OrganizerItemEntity {
     TaskStatus? taskStatus,
   }) {
     return TaskEntity(
-      id: id ?? this.id,
       subject: subject ?? this.subject,
-      createdDate: createdDate ?? this.createdDate,
+      id: id ?? this.id,
       creatorId: creatorId ?? this.creatorId,
       remoteId: remoteId ?? this.remoteId,
+      createdDate: createdDate ?? this.createdDate,
       lastUpdate: lastUpdate ?? this.lastUpdate,
-      lastViewDate: lastViewDate ?? lastAccessedDate,
-      remoteViews: remoteViews ?? remoteAccesses,
-      views: views ?? accesses,
+      lastViewedDate: lastViewedDate ?? this.lastViewedDate,
+      remoteViews: remoteViews ?? this.remoteViews,
+      views: views ?? this.views,
       checksum: checksum ?? this.checksum,
       startDate: startDate ?? _startDate,
       endDate: endDate ?? _endDate,

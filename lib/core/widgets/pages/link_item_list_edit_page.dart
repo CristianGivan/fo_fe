@@ -1,14 +1,14 @@
 import '../../../features/organizer/utils/organizer_exports.dart';
 
-class ItemListViewPage<T extends ItemEntity> extends StatelessWidget {
-  final OrganizerItems<T> itemDtoList;
+class LinkItemListEditPage<T extends ItemEntity> extends StatelessWidget {
+  final OrganizerItems<T> itemList;
   final Widget Function(T) itemCardBuilder;
   final bool Function(T) getValue;
   final void Function(BuildContext, T, bool) updateItemUserLink;
 
-  const ItemListViewPage({
+  const LinkItemListEditPage({
     super.key,
-    required this.itemDtoList,
+    required this.itemList,
     required this.itemCardBuilder,
     required this.getValue,
     required this.updateItemUserLink,
@@ -16,16 +16,17 @@ class ItemListViewPage<T extends ItemEntity> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (itemDtoList.isEmpty) {
+    if (itemList.isEmpty) {
       return Center(child: Text('No items to display'));
     } else {
       return ListView.builder(
-        itemCount: itemDtoList.size(),
-        itemBuilder: (context, index) => _buildCheckboxListTitle(itemDtoList, index, context),
+        itemCount: itemList.size(),
+        itemBuilder: (context, index) => _buildCheckboxListTitle(itemList, index, context),
       );
     }
   }
 
+//todo -refactor- it will be changed to a smaller list
   Widget _buildCheckboxListTitle(
       OrganizerItems<ItemEntity> itemDtoList, int index, BuildContext context) {
     final itemDto = itemDtoList.getAt(index) as T;

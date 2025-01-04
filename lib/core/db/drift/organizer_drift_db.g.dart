@@ -44,23 +44,22 @@ class $OrganizerItemTableDriftTable extends OrganizerItemTableDrift
   late final GeneratedColumn<DateTime> lastUpdate = GeneratedColumn<DateTime>(
       'last_update', aliasedName, true,
       type: DriftSqlType.dateTime, requiredDuringInsert: false);
-  static const VerificationMeta _lastAccessedDateMeta =
-      const VerificationMeta('lastAccessedDate');
+  static const VerificationMeta _lastViewedDateMeta =
+      const VerificationMeta('lastViewedDate');
   @override
-  late final GeneratedColumn<DateTime> lastAccessedDate =
-      GeneratedColumn<DateTime>('last_accessed_date', aliasedName, true,
+  late final GeneratedColumn<DateTime> lastViewedDate =
+      GeneratedColumn<DateTime>('last_viewed_date', aliasedName, true,
           type: DriftSqlType.dateTime, requiredDuringInsert: false);
-  static const VerificationMeta _remoteAccessesMeta =
-      const VerificationMeta('remoteAccesses');
+  static const VerificationMeta _remoteViewsMeta =
+      const VerificationMeta('remoteViews');
   @override
-  late final GeneratedColumn<int> remoteAccesses = GeneratedColumn<int>(
-      'remote_accesses', aliasedName, true,
+  late final GeneratedColumn<int> remoteViews = GeneratedColumn<int>(
+      'remote_views', aliasedName, true,
       type: DriftSqlType.int, requiredDuringInsert: false);
-  static const VerificationMeta _accessesMeta =
-      const VerificationMeta('accesses');
+  static const VerificationMeta _viewsMeta = const VerificationMeta('views');
   @override
-  late final GeneratedColumn<int> accesses = GeneratedColumn<int>(
-      'accesses', aliasedName, true,
+  late final GeneratedColumn<int> views = GeneratedColumn<int>(
+      'views', aliasedName, true,
       type: DriftSqlType.int, requiredDuringInsert: false);
   static const VerificationMeta _checksumMeta =
       const VerificationMeta('checksum');
@@ -75,9 +74,9 @@ class $OrganizerItemTableDriftTable extends OrganizerItemTableDrift
         creatorId,
         remoteId,
         lastUpdate,
-        lastAccessedDate,
-        remoteAccesses,
-        accesses,
+        lastViewedDate,
+        remoteViews,
+        views,
         checksum
       ];
   @override
@@ -114,21 +113,21 @@ class $OrganizerItemTableDriftTable extends OrganizerItemTableDrift
           lastUpdate.isAcceptableOrUnknown(
               data['last_update']!, _lastUpdateMeta));
     }
-    if (data.containsKey('last_accessed_date')) {
+    if (data.containsKey('last_viewed_date')) {
       context.handle(
-          _lastAccessedDateMeta,
-          lastAccessedDate.isAcceptableOrUnknown(
-              data['last_accessed_date']!, _lastAccessedDateMeta));
+          _lastViewedDateMeta,
+          lastViewedDate.isAcceptableOrUnknown(
+              data['last_viewed_date']!, _lastViewedDateMeta));
     }
-    if (data.containsKey('remote_accesses')) {
+    if (data.containsKey('remote_views')) {
       context.handle(
-          _remoteAccessesMeta,
-          remoteAccesses.isAcceptableOrUnknown(
-              data['remote_accesses']!, _remoteAccessesMeta));
+          _remoteViewsMeta,
+          remoteViews.isAcceptableOrUnknown(
+              data['remote_views']!, _remoteViewsMeta));
     }
-    if (data.containsKey('accesses')) {
-      context.handle(_accessesMeta,
-          accesses.isAcceptableOrUnknown(data['accesses']!, _accessesMeta));
+    if (data.containsKey('views')) {
+      context.handle(
+          _viewsMeta, views.isAcceptableOrUnknown(data['views']!, _viewsMeta));
     }
     if (data.containsKey('checksum')) {
       context.handle(_checksumMeta,
@@ -154,12 +153,12 @@ class $OrganizerItemTableDriftTable extends OrganizerItemTableDrift
           .read(DriftSqlType.int, data['${effectivePrefix}remote_id']),
       lastUpdate: attachedDatabase.typeMapping
           .read(DriftSqlType.dateTime, data['${effectivePrefix}last_update']),
-      lastAccessedDate: attachedDatabase.typeMapping.read(
-          DriftSqlType.dateTime, data['${effectivePrefix}last_accessed_date']),
-      remoteAccesses: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}remote_accesses']),
-      accesses: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}accesses']),
+      lastViewedDate: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}last_viewed_date']),
+      remoteViews: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}remote_views']),
+      views: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}views']),
       checksum: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}checksum']),
     );
@@ -178,9 +177,9 @@ class OrganizerItemTableDriftG extends DataClass
   final int? creatorId;
   final int? remoteId;
   final DateTime? lastUpdate;
-  final DateTime? lastAccessedDate;
-  final int? remoteAccesses;
-  final int? accesses;
+  final DateTime? lastViewedDate;
+  final int? remoteViews;
+  final int? views;
   final String? checksum;
   const OrganizerItemTableDriftG(
       {required this.id,
@@ -188,9 +187,9 @@ class OrganizerItemTableDriftG extends DataClass
       this.creatorId,
       this.remoteId,
       this.lastUpdate,
-      this.lastAccessedDate,
-      this.remoteAccesses,
-      this.accesses,
+      this.lastViewedDate,
+      this.remoteViews,
+      this.views,
       this.checksum});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
@@ -206,14 +205,14 @@ class OrganizerItemTableDriftG extends DataClass
     if (!nullToAbsent || lastUpdate != null) {
       map['last_update'] = Variable<DateTime>(lastUpdate);
     }
-    if (!nullToAbsent || lastAccessedDate != null) {
-      map['last_accessed_date'] = Variable<DateTime>(lastAccessedDate);
+    if (!nullToAbsent || lastViewedDate != null) {
+      map['last_viewed_date'] = Variable<DateTime>(lastViewedDate);
     }
-    if (!nullToAbsent || remoteAccesses != null) {
-      map['remote_accesses'] = Variable<int>(remoteAccesses);
+    if (!nullToAbsent || remoteViews != null) {
+      map['remote_views'] = Variable<int>(remoteViews);
     }
-    if (!nullToAbsent || accesses != null) {
-      map['accesses'] = Variable<int>(accesses);
+    if (!nullToAbsent || views != null) {
+      map['views'] = Variable<int>(views);
     }
     if (!nullToAbsent || checksum != null) {
       map['checksum'] = Variable<String>(checksum);
@@ -234,15 +233,14 @@ class OrganizerItemTableDriftG extends DataClass
       lastUpdate: lastUpdate == null && nullToAbsent
           ? const Value.absent()
           : Value(lastUpdate),
-      lastAccessedDate: lastAccessedDate == null && nullToAbsent
+      lastViewedDate: lastViewedDate == null && nullToAbsent
           ? const Value.absent()
-          : Value(lastAccessedDate),
-      remoteAccesses: remoteAccesses == null && nullToAbsent
+          : Value(lastViewedDate),
+      remoteViews: remoteViews == null && nullToAbsent
           ? const Value.absent()
-          : Value(remoteAccesses),
-      accesses: accesses == null && nullToAbsent
-          ? const Value.absent()
-          : Value(accesses),
+          : Value(remoteViews),
+      views:
+          views == null && nullToAbsent ? const Value.absent() : Value(views),
       checksum: checksum == null && nullToAbsent
           ? const Value.absent()
           : Value(checksum),
@@ -258,10 +256,9 @@ class OrganizerItemTableDriftG extends DataClass
       creatorId: serializer.fromJson<int?>(json['creatorId']),
       remoteId: serializer.fromJson<int?>(json['remoteId']),
       lastUpdate: serializer.fromJson<DateTime?>(json['lastUpdate']),
-      lastAccessedDate:
-          serializer.fromJson<DateTime?>(json['lastAccessedDate']),
-      remoteAccesses: serializer.fromJson<int?>(json['remoteAccesses']),
-      accesses: serializer.fromJson<int?>(json['accesses']),
+      lastViewedDate: serializer.fromJson<DateTime?>(json['lastViewedDate']),
+      remoteViews: serializer.fromJson<int?>(json['remoteViews']),
+      views: serializer.fromJson<int?>(json['views']),
       checksum: serializer.fromJson<String?>(json['checksum']),
     );
   }
@@ -274,9 +271,9 @@ class OrganizerItemTableDriftG extends DataClass
       'creatorId': serializer.toJson<int?>(creatorId),
       'remoteId': serializer.toJson<int?>(remoteId),
       'lastUpdate': serializer.toJson<DateTime?>(lastUpdate),
-      'lastAccessedDate': serializer.toJson<DateTime?>(lastAccessedDate),
-      'remoteAccesses': serializer.toJson<int?>(remoteAccesses),
-      'accesses': serializer.toJson<int?>(accesses),
+      'lastViewedDate': serializer.toJson<DateTime?>(lastViewedDate),
+      'remoteViews': serializer.toJson<int?>(remoteViews),
+      'views': serializer.toJson<int?>(views),
       'checksum': serializer.toJson<String?>(checksum),
     };
   }
@@ -287,9 +284,9 @@ class OrganizerItemTableDriftG extends DataClass
           Value<int?> creatorId = const Value.absent(),
           Value<int?> remoteId = const Value.absent(),
           Value<DateTime?> lastUpdate = const Value.absent(),
-          Value<DateTime?> lastAccessedDate = const Value.absent(),
-          Value<int?> remoteAccesses = const Value.absent(),
-          Value<int?> accesses = const Value.absent(),
+          Value<DateTime?> lastViewedDate = const Value.absent(),
+          Value<int?> remoteViews = const Value.absent(),
+          Value<int?> views = const Value.absent(),
           Value<String?> checksum = const Value.absent()}) =>
       OrganizerItemTableDriftG(
         id: id ?? this.id,
@@ -297,12 +294,10 @@ class OrganizerItemTableDriftG extends DataClass
         creatorId: creatorId.present ? creatorId.value : this.creatorId,
         remoteId: remoteId.present ? remoteId.value : this.remoteId,
         lastUpdate: lastUpdate.present ? lastUpdate.value : this.lastUpdate,
-        lastAccessedDate: lastAccessedDate.present
-            ? lastAccessedDate.value
-            : this.lastAccessedDate,
-        remoteAccesses:
-            remoteAccesses.present ? remoteAccesses.value : this.remoteAccesses,
-        accesses: accesses.present ? accesses.value : this.accesses,
+        lastViewedDate:
+            lastViewedDate.present ? lastViewedDate.value : this.lastViewedDate,
+        remoteViews: remoteViews.present ? remoteViews.value : this.remoteViews,
+        views: views.present ? views.value : this.views,
         checksum: checksum.present ? checksum.value : this.checksum,
       );
   OrganizerItemTableDriftG copyWithCompanion(
@@ -315,13 +310,12 @@ class OrganizerItemTableDriftG extends DataClass
       remoteId: data.remoteId.present ? data.remoteId.value : this.remoteId,
       lastUpdate:
           data.lastUpdate.present ? data.lastUpdate.value : this.lastUpdate,
-      lastAccessedDate: data.lastAccessedDate.present
-          ? data.lastAccessedDate.value
-          : this.lastAccessedDate,
-      remoteAccesses: data.remoteAccesses.present
-          ? data.remoteAccesses.value
-          : this.remoteAccesses,
-      accesses: data.accesses.present ? data.accesses.value : this.accesses,
+      lastViewedDate: data.lastViewedDate.present
+          ? data.lastViewedDate.value
+          : this.lastViewedDate,
+      remoteViews:
+          data.remoteViews.present ? data.remoteViews.value : this.remoteViews,
+      views: data.views.present ? data.views.value : this.views,
       checksum: data.checksum.present ? data.checksum.value : this.checksum,
     );
   }
@@ -334,9 +328,9 @@ class OrganizerItemTableDriftG extends DataClass
           ..write('creatorId: $creatorId, ')
           ..write('remoteId: $remoteId, ')
           ..write('lastUpdate: $lastUpdate, ')
-          ..write('lastAccessedDate: $lastAccessedDate, ')
-          ..write('remoteAccesses: $remoteAccesses, ')
-          ..write('accesses: $accesses, ')
+          ..write('lastViewedDate: $lastViewedDate, ')
+          ..write('remoteViews: $remoteViews, ')
+          ..write('views: $views, ')
           ..write('checksum: $checksum')
           ..write(')'))
         .toString();
@@ -344,7 +338,7 @@ class OrganizerItemTableDriftG extends DataClass
 
   @override
   int get hashCode => Object.hash(id, createdDate, creatorId, remoteId,
-      lastUpdate, lastAccessedDate, remoteAccesses, accesses, checksum);
+      lastUpdate, lastViewedDate, remoteViews, views, checksum);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -354,9 +348,9 @@ class OrganizerItemTableDriftG extends DataClass
           other.creatorId == this.creatorId &&
           other.remoteId == this.remoteId &&
           other.lastUpdate == this.lastUpdate &&
-          other.lastAccessedDate == this.lastAccessedDate &&
-          other.remoteAccesses == this.remoteAccesses &&
-          other.accesses == this.accesses &&
+          other.lastViewedDate == this.lastViewedDate &&
+          other.remoteViews == this.remoteViews &&
+          other.views == this.views &&
           other.checksum == this.checksum);
 }
 
@@ -367,9 +361,9 @@ class OrganizerItemTableDriftCompanion
   final Value<int?> creatorId;
   final Value<int?> remoteId;
   final Value<DateTime?> lastUpdate;
-  final Value<DateTime?> lastAccessedDate;
-  final Value<int?> remoteAccesses;
-  final Value<int?> accesses;
+  final Value<DateTime?> lastViewedDate;
+  final Value<int?> remoteViews;
+  final Value<int?> views;
   final Value<String?> checksum;
   const OrganizerItemTableDriftCompanion({
     this.id = const Value.absent(),
@@ -377,9 +371,9 @@ class OrganizerItemTableDriftCompanion
     this.creatorId = const Value.absent(),
     this.remoteId = const Value.absent(),
     this.lastUpdate = const Value.absent(),
-    this.lastAccessedDate = const Value.absent(),
-    this.remoteAccesses = const Value.absent(),
-    this.accesses = const Value.absent(),
+    this.lastViewedDate = const Value.absent(),
+    this.remoteViews = const Value.absent(),
+    this.views = const Value.absent(),
     this.checksum = const Value.absent(),
   });
   OrganizerItemTableDriftCompanion.insert({
@@ -388,9 +382,9 @@ class OrganizerItemTableDriftCompanion
     this.creatorId = const Value.absent(),
     this.remoteId = const Value.absent(),
     this.lastUpdate = const Value.absent(),
-    this.lastAccessedDate = const Value.absent(),
-    this.remoteAccesses = const Value.absent(),
-    this.accesses = const Value.absent(),
+    this.lastViewedDate = const Value.absent(),
+    this.remoteViews = const Value.absent(),
+    this.views = const Value.absent(),
     this.checksum = const Value.absent(),
   });
   static Insertable<OrganizerItemTableDriftG> custom({
@@ -399,9 +393,9 @@ class OrganizerItemTableDriftCompanion
     Expression<int>? creatorId,
     Expression<int>? remoteId,
     Expression<DateTime>? lastUpdate,
-    Expression<DateTime>? lastAccessedDate,
-    Expression<int>? remoteAccesses,
-    Expression<int>? accesses,
+    Expression<DateTime>? lastViewedDate,
+    Expression<int>? remoteViews,
+    Expression<int>? views,
     Expression<String>? checksum,
   }) {
     return RawValuesInsertable({
@@ -410,9 +404,9 @@ class OrganizerItemTableDriftCompanion
       if (creatorId != null) 'creator_id': creatorId,
       if (remoteId != null) 'remote_id': remoteId,
       if (lastUpdate != null) 'last_update': lastUpdate,
-      if (lastAccessedDate != null) 'last_accessed_date': lastAccessedDate,
-      if (remoteAccesses != null) 'remote_accesses': remoteAccesses,
-      if (accesses != null) 'accesses': accesses,
+      if (lastViewedDate != null) 'last_viewed_date': lastViewedDate,
+      if (remoteViews != null) 'remote_views': remoteViews,
+      if (views != null) 'views': views,
       if (checksum != null) 'checksum': checksum,
     });
   }
@@ -423,9 +417,9 @@ class OrganizerItemTableDriftCompanion
       Value<int?>? creatorId,
       Value<int?>? remoteId,
       Value<DateTime?>? lastUpdate,
-      Value<DateTime?>? lastAccessedDate,
-      Value<int?>? remoteAccesses,
-      Value<int?>? accesses,
+      Value<DateTime?>? lastViewedDate,
+      Value<int?>? remoteViews,
+      Value<int?>? views,
       Value<String?>? checksum}) {
     return OrganizerItemTableDriftCompanion(
       id: id ?? this.id,
@@ -433,9 +427,9 @@ class OrganizerItemTableDriftCompanion
       creatorId: creatorId ?? this.creatorId,
       remoteId: remoteId ?? this.remoteId,
       lastUpdate: lastUpdate ?? this.lastUpdate,
-      lastAccessedDate: lastAccessedDate ?? this.lastAccessedDate,
-      remoteAccesses: remoteAccesses ?? this.remoteAccesses,
-      accesses: accesses ?? this.accesses,
+      lastViewedDate: lastViewedDate ?? this.lastViewedDate,
+      remoteViews: remoteViews ?? this.remoteViews,
+      views: views ?? this.views,
       checksum: checksum ?? this.checksum,
     );
   }
@@ -458,14 +452,14 @@ class OrganizerItemTableDriftCompanion
     if (lastUpdate.present) {
       map['last_update'] = Variable<DateTime>(lastUpdate.value);
     }
-    if (lastAccessedDate.present) {
-      map['last_accessed_date'] = Variable<DateTime>(lastAccessedDate.value);
+    if (lastViewedDate.present) {
+      map['last_viewed_date'] = Variable<DateTime>(lastViewedDate.value);
     }
-    if (remoteAccesses.present) {
-      map['remote_accesses'] = Variable<int>(remoteAccesses.value);
+    if (remoteViews.present) {
+      map['remote_views'] = Variable<int>(remoteViews.value);
     }
-    if (accesses.present) {
-      map['accesses'] = Variable<int>(accesses.value);
+    if (views.present) {
+      map['views'] = Variable<int>(views.value);
     }
     if (checksum.present) {
       map['checksum'] = Variable<String>(checksum.value);
@@ -481,9 +475,9 @@ class OrganizerItemTableDriftCompanion
           ..write('creatorId: $creatorId, ')
           ..write('remoteId: $remoteId, ')
           ..write('lastUpdate: $lastUpdate, ')
-          ..write('lastAccessedDate: $lastAccessedDate, ')
-          ..write('remoteAccesses: $remoteAccesses, ')
-          ..write('accesses: $accesses, ')
+          ..write('lastViewedDate: $lastViewedDate, ')
+          ..write('remoteViews: $remoteViews, ')
+          ..write('views: $views, ')
           ..write('checksum: $checksum')
           ..write(')'))
         .toString();
@@ -531,23 +525,22 @@ class $TaskTableDriftTable extends TaskTableDrift
   late final GeneratedColumn<DateTime> lastUpdate = GeneratedColumn<DateTime>(
       'last_update', aliasedName, true,
       type: DriftSqlType.dateTime, requiredDuringInsert: false);
-  static const VerificationMeta _lastAccessedDateMeta =
-      const VerificationMeta('lastAccessedDate');
+  static const VerificationMeta _lastViewedDateMeta =
+      const VerificationMeta('lastViewedDate');
   @override
-  late final GeneratedColumn<DateTime> lastAccessedDate =
-      GeneratedColumn<DateTime>('last_accessed_date', aliasedName, true,
+  late final GeneratedColumn<DateTime> lastViewedDate =
+      GeneratedColumn<DateTime>('last_viewed_date', aliasedName, true,
           type: DriftSqlType.dateTime, requiredDuringInsert: false);
-  static const VerificationMeta _remoteAccessesMeta =
-      const VerificationMeta('remoteAccesses');
+  static const VerificationMeta _remoteViewsMeta =
+      const VerificationMeta('remoteViews');
   @override
-  late final GeneratedColumn<int> remoteAccesses = GeneratedColumn<int>(
-      'remote_accesses', aliasedName, true,
+  late final GeneratedColumn<int> remoteViews = GeneratedColumn<int>(
+      'remote_views', aliasedName, true,
       type: DriftSqlType.int, requiredDuringInsert: false);
-  static const VerificationMeta _accessesMeta =
-      const VerificationMeta('accesses');
+  static const VerificationMeta _viewsMeta = const VerificationMeta('views');
   @override
-  late final GeneratedColumn<int> accesses = GeneratedColumn<int>(
-      'accesses', aliasedName, true,
+  late final GeneratedColumn<int> views = GeneratedColumn<int>(
+      'views', aliasedName, true,
       type: DriftSqlType.int, requiredDuringInsert: false);
   static const VerificationMeta _checksumMeta =
       const VerificationMeta('checksum');
@@ -613,9 +606,9 @@ class $TaskTableDriftTable extends TaskTableDrift
         creatorId,
         remoteId,
         lastUpdate,
-        lastAccessedDate,
-        remoteAccesses,
-        accesses,
+        lastViewedDate,
+        remoteViews,
+        views,
         checksum,
         subject,
         startDate,
@@ -659,21 +652,21 @@ class $TaskTableDriftTable extends TaskTableDrift
           lastUpdate.isAcceptableOrUnknown(
               data['last_update']!, _lastUpdateMeta));
     }
-    if (data.containsKey('last_accessed_date')) {
+    if (data.containsKey('last_viewed_date')) {
       context.handle(
-          _lastAccessedDateMeta,
-          lastAccessedDate.isAcceptableOrUnknown(
-              data['last_accessed_date']!, _lastAccessedDateMeta));
+          _lastViewedDateMeta,
+          lastViewedDate.isAcceptableOrUnknown(
+              data['last_viewed_date']!, _lastViewedDateMeta));
     }
-    if (data.containsKey('remote_accesses')) {
+    if (data.containsKey('remote_views')) {
       context.handle(
-          _remoteAccessesMeta,
-          remoteAccesses.isAcceptableOrUnknown(
-              data['remote_accesses']!, _remoteAccessesMeta));
+          _remoteViewsMeta,
+          remoteViews.isAcceptableOrUnknown(
+              data['remote_views']!, _remoteViewsMeta));
     }
-    if (data.containsKey('accesses')) {
-      context.handle(_accessesMeta,
-          accesses.isAcceptableOrUnknown(data['accesses']!, _accessesMeta));
+    if (data.containsKey('views')) {
+      context.handle(
+          _viewsMeta, views.isAcceptableOrUnknown(data['views']!, _viewsMeta));
     }
     if (data.containsKey('checksum')) {
       context.handle(_checksumMeta,
@@ -742,12 +735,12 @@ class $TaskTableDriftTable extends TaskTableDrift
           .read(DriftSqlType.int, data['${effectivePrefix}remote_id']),
       lastUpdate: attachedDatabase.typeMapping
           .read(DriftSqlType.dateTime, data['${effectivePrefix}last_update']),
-      lastAccessedDate: attachedDatabase.typeMapping.read(
-          DriftSqlType.dateTime, data['${effectivePrefix}last_accessed_date']),
-      remoteAccesses: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}remote_accesses']),
-      accesses: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}accesses']),
+      lastViewedDate: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}last_viewed_date']),
+      remoteViews: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}remote_views']),
+      views: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}views']),
       checksum: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}checksum']),
       subject: attachedDatabase.typeMapping
@@ -781,9 +774,9 @@ class TaskTableDriftG extends DataClass implements Insertable<TaskTableDriftG> {
   final int? creatorId;
   final int? remoteId;
   final DateTime? lastUpdate;
-  final DateTime? lastAccessedDate;
-  final int? remoteAccesses;
-  final int? accesses;
+  final DateTime? lastViewedDate;
+  final int? remoteViews;
+  final int? views;
   final String? checksum;
   final String subject;
   final DateTime? startDate;
@@ -799,9 +792,9 @@ class TaskTableDriftG extends DataClass implements Insertable<TaskTableDriftG> {
       this.creatorId,
       this.remoteId,
       this.lastUpdate,
-      this.lastAccessedDate,
-      this.remoteAccesses,
-      this.accesses,
+      this.lastViewedDate,
+      this.remoteViews,
+      this.views,
       this.checksum,
       required this.subject,
       this.startDate,
@@ -825,14 +818,14 @@ class TaskTableDriftG extends DataClass implements Insertable<TaskTableDriftG> {
     if (!nullToAbsent || lastUpdate != null) {
       map['last_update'] = Variable<DateTime>(lastUpdate);
     }
-    if (!nullToAbsent || lastAccessedDate != null) {
-      map['last_accessed_date'] = Variable<DateTime>(lastAccessedDate);
+    if (!nullToAbsent || lastViewedDate != null) {
+      map['last_viewed_date'] = Variable<DateTime>(lastViewedDate);
     }
-    if (!nullToAbsent || remoteAccesses != null) {
-      map['remote_accesses'] = Variable<int>(remoteAccesses);
+    if (!nullToAbsent || remoteViews != null) {
+      map['remote_views'] = Variable<int>(remoteViews);
     }
-    if (!nullToAbsent || accesses != null) {
-      map['accesses'] = Variable<int>(accesses);
+    if (!nullToAbsent || views != null) {
+      map['views'] = Variable<int>(views);
     }
     if (!nullToAbsent || checksum != null) {
       map['checksum'] = Variable<String>(checksum);
@@ -875,15 +868,14 @@ class TaskTableDriftG extends DataClass implements Insertable<TaskTableDriftG> {
       lastUpdate: lastUpdate == null && nullToAbsent
           ? const Value.absent()
           : Value(lastUpdate),
-      lastAccessedDate: lastAccessedDate == null && nullToAbsent
+      lastViewedDate: lastViewedDate == null && nullToAbsent
           ? const Value.absent()
-          : Value(lastAccessedDate),
-      remoteAccesses: remoteAccesses == null && nullToAbsent
+          : Value(lastViewedDate),
+      remoteViews: remoteViews == null && nullToAbsent
           ? const Value.absent()
-          : Value(remoteAccesses),
-      accesses: accesses == null && nullToAbsent
-          ? const Value.absent()
-          : Value(accesses),
+          : Value(remoteViews),
+      views:
+          views == null && nullToAbsent ? const Value.absent() : Value(views),
       checksum: checksum == null && nullToAbsent
           ? const Value.absent()
           : Value(checksum),
@@ -921,10 +913,9 @@ class TaskTableDriftG extends DataClass implements Insertable<TaskTableDriftG> {
       creatorId: serializer.fromJson<int?>(json['creatorId']),
       remoteId: serializer.fromJson<int?>(json['remoteId']),
       lastUpdate: serializer.fromJson<DateTime?>(json['lastUpdate']),
-      lastAccessedDate:
-          serializer.fromJson<DateTime?>(json['lastAccessedDate']),
-      remoteAccesses: serializer.fromJson<int?>(json['remoteAccesses']),
-      accesses: serializer.fromJson<int?>(json['accesses']),
+      lastViewedDate: serializer.fromJson<DateTime?>(json['lastViewedDate']),
+      remoteViews: serializer.fromJson<int?>(json['remoteViews']),
+      views: serializer.fromJson<int?>(json['views']),
       checksum: serializer.fromJson<String?>(json['checksum']),
       subject: serializer.fromJson<String>(json['subject']),
       startDate: serializer.fromJson<DateTime?>(json['startDate']),
@@ -946,9 +937,9 @@ class TaskTableDriftG extends DataClass implements Insertable<TaskTableDriftG> {
       'creatorId': serializer.toJson<int?>(creatorId),
       'remoteId': serializer.toJson<int?>(remoteId),
       'lastUpdate': serializer.toJson<DateTime?>(lastUpdate),
-      'lastAccessedDate': serializer.toJson<DateTime?>(lastAccessedDate),
-      'remoteAccesses': serializer.toJson<int?>(remoteAccesses),
-      'accesses': serializer.toJson<int?>(accesses),
+      'lastViewedDate': serializer.toJson<DateTime?>(lastViewedDate),
+      'remoteViews': serializer.toJson<int?>(remoteViews),
+      'views': serializer.toJson<int?>(views),
       'checksum': serializer.toJson<String?>(checksum),
       'subject': serializer.toJson<String>(subject),
       'startDate': serializer.toJson<DateTime?>(startDate),
@@ -967,9 +958,9 @@ class TaskTableDriftG extends DataClass implements Insertable<TaskTableDriftG> {
           Value<int?> creatorId = const Value.absent(),
           Value<int?> remoteId = const Value.absent(),
           Value<DateTime?> lastUpdate = const Value.absent(),
-          Value<DateTime?> lastAccessedDate = const Value.absent(),
-          Value<int?> remoteAccesses = const Value.absent(),
-          Value<int?> accesses = const Value.absent(),
+          Value<DateTime?> lastViewedDate = const Value.absent(),
+          Value<int?> remoteViews = const Value.absent(),
+          Value<int?> views = const Value.absent(),
           Value<String?> checksum = const Value.absent(),
           String? subject,
           Value<DateTime?> startDate = const Value.absent(),
@@ -985,12 +976,10 @@ class TaskTableDriftG extends DataClass implements Insertable<TaskTableDriftG> {
         creatorId: creatorId.present ? creatorId.value : this.creatorId,
         remoteId: remoteId.present ? remoteId.value : this.remoteId,
         lastUpdate: lastUpdate.present ? lastUpdate.value : this.lastUpdate,
-        lastAccessedDate: lastAccessedDate.present
-            ? lastAccessedDate.value
-            : this.lastAccessedDate,
-        remoteAccesses:
-            remoteAccesses.present ? remoteAccesses.value : this.remoteAccesses,
-        accesses: accesses.present ? accesses.value : this.accesses,
+        lastViewedDate:
+            lastViewedDate.present ? lastViewedDate.value : this.lastViewedDate,
+        remoteViews: remoteViews.present ? remoteViews.value : this.remoteViews,
+        views: views.present ? views.value : this.views,
         checksum: checksum.present ? checksum.value : this.checksum,
         subject: subject ?? this.subject,
         startDate: startDate.present ? startDate.value : this.startDate,
@@ -1015,13 +1004,12 @@ class TaskTableDriftG extends DataClass implements Insertable<TaskTableDriftG> {
       remoteId: data.remoteId.present ? data.remoteId.value : this.remoteId,
       lastUpdate:
           data.lastUpdate.present ? data.lastUpdate.value : this.lastUpdate,
-      lastAccessedDate: data.lastAccessedDate.present
-          ? data.lastAccessedDate.value
-          : this.lastAccessedDate,
-      remoteAccesses: data.remoteAccesses.present
-          ? data.remoteAccesses.value
-          : this.remoteAccesses,
-      accesses: data.accesses.present ? data.accesses.value : this.accesses,
+      lastViewedDate: data.lastViewedDate.present
+          ? data.lastViewedDate.value
+          : this.lastViewedDate,
+      remoteViews:
+          data.remoteViews.present ? data.remoteViews.value : this.remoteViews,
+      views: data.views.present ? data.views.value : this.views,
       checksum: data.checksum.present ? data.checksum.value : this.checksum,
       subject: data.subject.present ? data.subject.value : this.subject,
       startDate: data.startDate.present ? data.startDate.value : this.startDate,
@@ -1050,9 +1038,9 @@ class TaskTableDriftG extends DataClass implements Insertable<TaskTableDriftG> {
           ..write('creatorId: $creatorId, ')
           ..write('remoteId: $remoteId, ')
           ..write('lastUpdate: $lastUpdate, ')
-          ..write('lastAccessedDate: $lastAccessedDate, ')
-          ..write('remoteAccesses: $remoteAccesses, ')
-          ..write('accesses: $accesses, ')
+          ..write('lastViewedDate: $lastViewedDate, ')
+          ..write('remoteViews: $remoteViews, ')
+          ..write('views: $views, ')
           ..write('checksum: $checksum, ')
           ..write('subject: $subject, ')
           ..write('startDate: $startDate, ')
@@ -1073,9 +1061,9 @@ class TaskTableDriftG extends DataClass implements Insertable<TaskTableDriftG> {
       creatorId,
       remoteId,
       lastUpdate,
-      lastAccessedDate,
-      remoteAccesses,
-      accesses,
+      lastViewedDate,
+      remoteViews,
+      views,
       checksum,
       subject,
       startDate,
@@ -1094,9 +1082,9 @@ class TaskTableDriftG extends DataClass implements Insertable<TaskTableDriftG> {
           other.creatorId == this.creatorId &&
           other.remoteId == this.remoteId &&
           other.lastUpdate == this.lastUpdate &&
-          other.lastAccessedDate == this.lastAccessedDate &&
-          other.remoteAccesses == this.remoteAccesses &&
-          other.accesses == this.accesses &&
+          other.lastViewedDate == this.lastViewedDate &&
+          other.remoteViews == this.remoteViews &&
+          other.views == this.views &&
           other.checksum == this.checksum &&
           other.subject == this.subject &&
           other.startDate == this.startDate &&
@@ -1114,9 +1102,9 @@ class TaskTableDriftCompanion extends UpdateCompanion<TaskTableDriftG> {
   final Value<int?> creatorId;
   final Value<int?> remoteId;
   final Value<DateTime?> lastUpdate;
-  final Value<DateTime?> lastAccessedDate;
-  final Value<int?> remoteAccesses;
-  final Value<int?> accesses;
+  final Value<DateTime?> lastViewedDate;
+  final Value<int?> remoteViews;
+  final Value<int?> views;
   final Value<String?> checksum;
   final Value<String> subject;
   final Value<DateTime?> startDate;
@@ -1132,9 +1120,9 @@ class TaskTableDriftCompanion extends UpdateCompanion<TaskTableDriftG> {
     this.creatorId = const Value.absent(),
     this.remoteId = const Value.absent(),
     this.lastUpdate = const Value.absent(),
-    this.lastAccessedDate = const Value.absent(),
-    this.remoteAccesses = const Value.absent(),
-    this.accesses = const Value.absent(),
+    this.lastViewedDate = const Value.absent(),
+    this.remoteViews = const Value.absent(),
+    this.views = const Value.absent(),
     this.checksum = const Value.absent(),
     this.subject = const Value.absent(),
     this.startDate = const Value.absent(),
@@ -1151,9 +1139,9 @@ class TaskTableDriftCompanion extends UpdateCompanion<TaskTableDriftG> {
     this.creatorId = const Value.absent(),
     this.remoteId = const Value.absent(),
     this.lastUpdate = const Value.absent(),
-    this.lastAccessedDate = const Value.absent(),
-    this.remoteAccesses = const Value.absent(),
-    this.accesses = const Value.absent(),
+    this.lastViewedDate = const Value.absent(),
+    this.remoteViews = const Value.absent(),
+    this.views = const Value.absent(),
     this.checksum = const Value.absent(),
     required String subject,
     this.startDate = const Value.absent(),
@@ -1170,9 +1158,9 @@ class TaskTableDriftCompanion extends UpdateCompanion<TaskTableDriftG> {
     Expression<int>? creatorId,
     Expression<int>? remoteId,
     Expression<DateTime>? lastUpdate,
-    Expression<DateTime>? lastAccessedDate,
-    Expression<int>? remoteAccesses,
-    Expression<int>? accesses,
+    Expression<DateTime>? lastViewedDate,
+    Expression<int>? remoteViews,
+    Expression<int>? views,
     Expression<String>? checksum,
     Expression<String>? subject,
     Expression<DateTime>? startDate,
@@ -1189,9 +1177,9 @@ class TaskTableDriftCompanion extends UpdateCompanion<TaskTableDriftG> {
       if (creatorId != null) 'creator_id': creatorId,
       if (remoteId != null) 'remote_id': remoteId,
       if (lastUpdate != null) 'last_update': lastUpdate,
-      if (lastAccessedDate != null) 'last_accessed_date': lastAccessedDate,
-      if (remoteAccesses != null) 'remote_accesses': remoteAccesses,
-      if (accesses != null) 'accesses': accesses,
+      if (lastViewedDate != null) 'last_viewed_date': lastViewedDate,
+      if (remoteViews != null) 'remote_views': remoteViews,
+      if (views != null) 'views': views,
       if (checksum != null) 'checksum': checksum,
       if (subject != null) 'subject': subject,
       if (startDate != null) 'start_date': startDate,
@@ -1210,9 +1198,9 @@ class TaskTableDriftCompanion extends UpdateCompanion<TaskTableDriftG> {
       Value<int?>? creatorId,
       Value<int?>? remoteId,
       Value<DateTime?>? lastUpdate,
-      Value<DateTime?>? lastAccessedDate,
-      Value<int?>? remoteAccesses,
-      Value<int?>? accesses,
+      Value<DateTime?>? lastViewedDate,
+      Value<int?>? remoteViews,
+      Value<int?>? views,
       Value<String?>? checksum,
       Value<String>? subject,
       Value<DateTime?>? startDate,
@@ -1228,9 +1216,9 @@ class TaskTableDriftCompanion extends UpdateCompanion<TaskTableDriftG> {
       creatorId: creatorId ?? this.creatorId,
       remoteId: remoteId ?? this.remoteId,
       lastUpdate: lastUpdate ?? this.lastUpdate,
-      lastAccessedDate: lastAccessedDate ?? this.lastAccessedDate,
-      remoteAccesses: remoteAccesses ?? this.remoteAccesses,
-      accesses: accesses ?? this.accesses,
+      lastViewedDate: lastViewedDate ?? this.lastViewedDate,
+      remoteViews: remoteViews ?? this.remoteViews,
+      views: views ?? this.views,
       checksum: checksum ?? this.checksum,
       subject: subject ?? this.subject,
       startDate: startDate ?? this.startDate,
@@ -1261,14 +1249,14 @@ class TaskTableDriftCompanion extends UpdateCompanion<TaskTableDriftG> {
     if (lastUpdate.present) {
       map['last_update'] = Variable<DateTime>(lastUpdate.value);
     }
-    if (lastAccessedDate.present) {
-      map['last_accessed_date'] = Variable<DateTime>(lastAccessedDate.value);
+    if (lastViewedDate.present) {
+      map['last_viewed_date'] = Variable<DateTime>(lastViewedDate.value);
     }
-    if (remoteAccesses.present) {
-      map['remote_accesses'] = Variable<int>(remoteAccesses.value);
+    if (remoteViews.present) {
+      map['remote_views'] = Variable<int>(remoteViews.value);
     }
-    if (accesses.present) {
-      map['accesses'] = Variable<int>(accesses.value);
+    if (views.present) {
+      map['views'] = Variable<int>(views.value);
     }
     if (checksum.present) {
       map['checksum'] = Variable<String>(checksum.value);
@@ -1308,9 +1296,9 @@ class TaskTableDriftCompanion extends UpdateCompanion<TaskTableDriftG> {
           ..write('creatorId: $creatorId, ')
           ..write('remoteId: $remoteId, ')
           ..write('lastUpdate: $lastUpdate, ')
-          ..write('lastAccessedDate: $lastAccessedDate, ')
-          ..write('remoteAccesses: $remoteAccesses, ')
-          ..write('accesses: $accesses, ')
+          ..write('lastViewedDate: $lastViewedDate, ')
+          ..write('remoteViews: $remoteViews, ')
+          ..write('views: $views, ')
           ..write('checksum: $checksum, ')
           ..write('subject: $subject, ')
           ..write('startDate: $startDate, ')
@@ -2262,23 +2250,22 @@ class $UserTableDriftTable extends UserTableDrift
   late final GeneratedColumn<DateTime> lastUpdate = GeneratedColumn<DateTime>(
       'last_update', aliasedName, true,
       type: DriftSqlType.dateTime, requiredDuringInsert: false);
-  static const VerificationMeta _lastAccessedDateMeta =
-      const VerificationMeta('lastAccessedDate');
+  static const VerificationMeta _lastViewedDateMeta =
+      const VerificationMeta('lastViewedDate');
   @override
-  late final GeneratedColumn<DateTime> lastAccessedDate =
-      GeneratedColumn<DateTime>('last_accessed_date', aliasedName, true,
+  late final GeneratedColumn<DateTime> lastViewedDate =
+      GeneratedColumn<DateTime>('last_viewed_date', aliasedName, true,
           type: DriftSqlType.dateTime, requiredDuringInsert: false);
-  static const VerificationMeta _remoteAccessesMeta =
-      const VerificationMeta('remoteAccesses');
+  static const VerificationMeta _remoteViewsMeta =
+      const VerificationMeta('remoteViews');
   @override
-  late final GeneratedColumn<int> remoteAccesses = GeneratedColumn<int>(
-      'remote_accesses', aliasedName, true,
+  late final GeneratedColumn<int> remoteViews = GeneratedColumn<int>(
+      'remote_views', aliasedName, true,
       type: DriftSqlType.int, requiredDuringInsert: false);
-  static const VerificationMeta _accessesMeta =
-      const VerificationMeta('accesses');
+  static const VerificationMeta _viewsMeta = const VerificationMeta('views');
   @override
-  late final GeneratedColumn<int> accesses = GeneratedColumn<int>(
-      'accesses', aliasedName, true,
+  late final GeneratedColumn<int> views = GeneratedColumn<int>(
+      'views', aliasedName, true,
       type: DriftSqlType.int, requiredDuringInsert: false);
   static const VerificationMeta _checksumMeta =
       const VerificationMeta('checksum');
@@ -2317,9 +2304,9 @@ class $UserTableDriftTable extends UserTableDrift
         creatorId,
         remoteId,
         lastUpdate,
-        lastAccessedDate,
-        remoteAccesses,
-        accesses,
+        lastViewedDate,
+        remoteViews,
+        views,
         checksum,
         name,
         hashedPassword,
@@ -2359,21 +2346,21 @@ class $UserTableDriftTable extends UserTableDrift
           lastUpdate.isAcceptableOrUnknown(
               data['last_update']!, _lastUpdateMeta));
     }
-    if (data.containsKey('last_accessed_date')) {
+    if (data.containsKey('last_viewed_date')) {
       context.handle(
-          _lastAccessedDateMeta,
-          lastAccessedDate.isAcceptableOrUnknown(
-              data['last_accessed_date']!, _lastAccessedDateMeta));
+          _lastViewedDateMeta,
+          lastViewedDate.isAcceptableOrUnknown(
+              data['last_viewed_date']!, _lastViewedDateMeta));
     }
-    if (data.containsKey('remote_accesses')) {
+    if (data.containsKey('remote_views')) {
       context.handle(
-          _remoteAccessesMeta,
-          remoteAccesses.isAcceptableOrUnknown(
-              data['remote_accesses']!, _remoteAccessesMeta));
+          _remoteViewsMeta,
+          remoteViews.isAcceptableOrUnknown(
+              data['remote_views']!, _remoteViewsMeta));
     }
-    if (data.containsKey('accesses')) {
-      context.handle(_accessesMeta,
-          accesses.isAcceptableOrUnknown(data['accesses']!, _accessesMeta));
+    if (data.containsKey('views')) {
+      context.handle(
+          _viewsMeta, views.isAcceptableOrUnknown(data['views']!, _viewsMeta));
     }
     if (data.containsKey('checksum')) {
       context.handle(_checksumMeta,
@@ -2422,12 +2409,12 @@ class $UserTableDriftTable extends UserTableDrift
           .read(DriftSqlType.int, data['${effectivePrefix}remote_id']),
       lastUpdate: attachedDatabase.typeMapping
           .read(DriftSqlType.dateTime, data['${effectivePrefix}last_update']),
-      lastAccessedDate: attachedDatabase.typeMapping.read(
-          DriftSqlType.dateTime, data['${effectivePrefix}last_accessed_date']),
-      remoteAccesses: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}remote_accesses']),
-      accesses: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}accesses']),
+      lastViewedDate: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}last_viewed_date']),
+      remoteViews: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}remote_views']),
+      views: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}views']),
       checksum: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}checksum']),
       name: attachedDatabase.typeMapping
@@ -2453,9 +2440,9 @@ class UserTableDriftG extends DataClass implements Insertable<UserTableDriftG> {
   final int? creatorId;
   final int? remoteId;
   final DateTime? lastUpdate;
-  final DateTime? lastAccessedDate;
-  final int? remoteAccesses;
-  final int? accesses;
+  final DateTime? lastViewedDate;
+  final int? remoteViews;
+  final int? views;
   final String? checksum;
   final String name;
   final String hashedPassword;
@@ -2467,9 +2454,9 @@ class UserTableDriftG extends DataClass implements Insertable<UserTableDriftG> {
       this.creatorId,
       this.remoteId,
       this.lastUpdate,
-      this.lastAccessedDate,
-      this.remoteAccesses,
-      this.accesses,
+      this.lastViewedDate,
+      this.remoteViews,
+      this.views,
       this.checksum,
       required this.name,
       required this.hashedPassword,
@@ -2489,14 +2476,14 @@ class UserTableDriftG extends DataClass implements Insertable<UserTableDriftG> {
     if (!nullToAbsent || lastUpdate != null) {
       map['last_update'] = Variable<DateTime>(lastUpdate);
     }
-    if (!nullToAbsent || lastAccessedDate != null) {
-      map['last_accessed_date'] = Variable<DateTime>(lastAccessedDate);
+    if (!nullToAbsent || lastViewedDate != null) {
+      map['last_viewed_date'] = Variable<DateTime>(lastViewedDate);
     }
-    if (!nullToAbsent || remoteAccesses != null) {
-      map['remote_accesses'] = Variable<int>(remoteAccesses);
+    if (!nullToAbsent || remoteViews != null) {
+      map['remote_views'] = Variable<int>(remoteViews);
     }
-    if (!nullToAbsent || accesses != null) {
-      map['accesses'] = Variable<int>(accesses);
+    if (!nullToAbsent || views != null) {
+      map['views'] = Variable<int>(views);
     }
     if (!nullToAbsent || checksum != null) {
       map['checksum'] = Variable<String>(checksum);
@@ -2521,15 +2508,14 @@ class UserTableDriftG extends DataClass implements Insertable<UserTableDriftG> {
       lastUpdate: lastUpdate == null && nullToAbsent
           ? const Value.absent()
           : Value(lastUpdate),
-      lastAccessedDate: lastAccessedDate == null && nullToAbsent
+      lastViewedDate: lastViewedDate == null && nullToAbsent
           ? const Value.absent()
-          : Value(lastAccessedDate),
-      remoteAccesses: remoteAccesses == null && nullToAbsent
+          : Value(lastViewedDate),
+      remoteViews: remoteViews == null && nullToAbsent
           ? const Value.absent()
-          : Value(remoteAccesses),
-      accesses: accesses == null && nullToAbsent
-          ? const Value.absent()
-          : Value(accesses),
+          : Value(remoteViews),
+      views:
+          views == null && nullToAbsent ? const Value.absent() : Value(views),
       checksum: checksum == null && nullToAbsent
           ? const Value.absent()
           : Value(checksum),
@@ -2549,10 +2535,9 @@ class UserTableDriftG extends DataClass implements Insertable<UserTableDriftG> {
       creatorId: serializer.fromJson<int?>(json['creatorId']),
       remoteId: serializer.fromJson<int?>(json['remoteId']),
       lastUpdate: serializer.fromJson<DateTime?>(json['lastUpdate']),
-      lastAccessedDate:
-          serializer.fromJson<DateTime?>(json['lastAccessedDate']),
-      remoteAccesses: serializer.fromJson<int?>(json['remoteAccesses']),
-      accesses: serializer.fromJson<int?>(json['accesses']),
+      lastViewedDate: serializer.fromJson<DateTime?>(json['lastViewedDate']),
+      remoteViews: serializer.fromJson<int?>(json['remoteViews']),
+      views: serializer.fromJson<int?>(json['views']),
       checksum: serializer.fromJson<String?>(json['checksum']),
       name: serializer.fromJson<String>(json['name']),
       hashedPassword: serializer.fromJson<String>(json['hashedPassword']),
@@ -2569,9 +2554,9 @@ class UserTableDriftG extends DataClass implements Insertable<UserTableDriftG> {
       'creatorId': serializer.toJson<int?>(creatorId),
       'remoteId': serializer.toJson<int?>(remoteId),
       'lastUpdate': serializer.toJson<DateTime?>(lastUpdate),
-      'lastAccessedDate': serializer.toJson<DateTime?>(lastAccessedDate),
-      'remoteAccesses': serializer.toJson<int?>(remoteAccesses),
-      'accesses': serializer.toJson<int?>(accesses),
+      'lastViewedDate': serializer.toJson<DateTime?>(lastViewedDate),
+      'remoteViews': serializer.toJson<int?>(remoteViews),
+      'views': serializer.toJson<int?>(views),
       'checksum': serializer.toJson<String?>(checksum),
       'name': serializer.toJson<String>(name),
       'hashedPassword': serializer.toJson<String>(hashedPassword),
@@ -2586,9 +2571,9 @@ class UserTableDriftG extends DataClass implements Insertable<UserTableDriftG> {
           Value<int?> creatorId = const Value.absent(),
           Value<int?> remoteId = const Value.absent(),
           Value<DateTime?> lastUpdate = const Value.absent(),
-          Value<DateTime?> lastAccessedDate = const Value.absent(),
-          Value<int?> remoteAccesses = const Value.absent(),
-          Value<int?> accesses = const Value.absent(),
+          Value<DateTime?> lastViewedDate = const Value.absent(),
+          Value<int?> remoteViews = const Value.absent(),
+          Value<int?> views = const Value.absent(),
           Value<String?> checksum = const Value.absent(),
           String? name,
           String? hashedPassword,
@@ -2600,12 +2585,10 @@ class UserTableDriftG extends DataClass implements Insertable<UserTableDriftG> {
         creatorId: creatorId.present ? creatorId.value : this.creatorId,
         remoteId: remoteId.present ? remoteId.value : this.remoteId,
         lastUpdate: lastUpdate.present ? lastUpdate.value : this.lastUpdate,
-        lastAccessedDate: lastAccessedDate.present
-            ? lastAccessedDate.value
-            : this.lastAccessedDate,
-        remoteAccesses:
-            remoteAccesses.present ? remoteAccesses.value : this.remoteAccesses,
-        accesses: accesses.present ? accesses.value : this.accesses,
+        lastViewedDate:
+            lastViewedDate.present ? lastViewedDate.value : this.lastViewedDate,
+        remoteViews: remoteViews.present ? remoteViews.value : this.remoteViews,
+        views: views.present ? views.value : this.views,
         checksum: checksum.present ? checksum.value : this.checksum,
         name: name ?? this.name,
         hashedPassword: hashedPassword ?? this.hashedPassword,
@@ -2621,13 +2604,12 @@ class UserTableDriftG extends DataClass implements Insertable<UserTableDriftG> {
       remoteId: data.remoteId.present ? data.remoteId.value : this.remoteId,
       lastUpdate:
           data.lastUpdate.present ? data.lastUpdate.value : this.lastUpdate,
-      lastAccessedDate: data.lastAccessedDate.present
-          ? data.lastAccessedDate.value
-          : this.lastAccessedDate,
-      remoteAccesses: data.remoteAccesses.present
-          ? data.remoteAccesses.value
-          : this.remoteAccesses,
-      accesses: data.accesses.present ? data.accesses.value : this.accesses,
+      lastViewedDate: data.lastViewedDate.present
+          ? data.lastViewedDate.value
+          : this.lastViewedDate,
+      remoteViews:
+          data.remoteViews.present ? data.remoteViews.value : this.remoteViews,
+      views: data.views.present ? data.views.value : this.views,
       checksum: data.checksum.present ? data.checksum.value : this.checksum,
       name: data.name.present ? data.name.value : this.name,
       hashedPassword: data.hashedPassword.present
@@ -2646,9 +2628,9 @@ class UserTableDriftG extends DataClass implements Insertable<UserTableDriftG> {
           ..write('creatorId: $creatorId, ')
           ..write('remoteId: $remoteId, ')
           ..write('lastUpdate: $lastUpdate, ')
-          ..write('lastAccessedDate: $lastAccessedDate, ')
-          ..write('remoteAccesses: $remoteAccesses, ')
-          ..write('accesses: $accesses, ')
+          ..write('lastViewedDate: $lastViewedDate, ')
+          ..write('remoteViews: $remoteViews, ')
+          ..write('views: $views, ')
           ..write('checksum: $checksum, ')
           ..write('name: $name, ')
           ..write('hashedPassword: $hashedPassword, ')
@@ -2665,9 +2647,9 @@ class UserTableDriftG extends DataClass implements Insertable<UserTableDriftG> {
       creatorId,
       remoteId,
       lastUpdate,
-      lastAccessedDate,
-      remoteAccesses,
-      accesses,
+      lastViewedDate,
+      remoteViews,
+      views,
       checksum,
       name,
       hashedPassword,
@@ -2682,9 +2664,9 @@ class UserTableDriftG extends DataClass implements Insertable<UserTableDriftG> {
           other.creatorId == this.creatorId &&
           other.remoteId == this.remoteId &&
           other.lastUpdate == this.lastUpdate &&
-          other.lastAccessedDate == this.lastAccessedDate &&
-          other.remoteAccesses == this.remoteAccesses &&
-          other.accesses == this.accesses &&
+          other.lastViewedDate == this.lastViewedDate &&
+          other.remoteViews == this.remoteViews &&
+          other.views == this.views &&
           other.checksum == this.checksum &&
           other.name == this.name &&
           other.hashedPassword == this.hashedPassword &&
@@ -2698,9 +2680,9 @@ class UserTableDriftCompanion extends UpdateCompanion<UserTableDriftG> {
   final Value<int?> creatorId;
   final Value<int?> remoteId;
   final Value<DateTime?> lastUpdate;
-  final Value<DateTime?> lastAccessedDate;
-  final Value<int?> remoteAccesses;
-  final Value<int?> accesses;
+  final Value<DateTime?> lastViewedDate;
+  final Value<int?> remoteViews;
+  final Value<int?> views;
   final Value<String?> checksum;
   final Value<String> name;
   final Value<String> hashedPassword;
@@ -2712,9 +2694,9 @@ class UserTableDriftCompanion extends UpdateCompanion<UserTableDriftG> {
     this.creatorId = const Value.absent(),
     this.remoteId = const Value.absent(),
     this.lastUpdate = const Value.absent(),
-    this.lastAccessedDate = const Value.absent(),
-    this.remoteAccesses = const Value.absent(),
-    this.accesses = const Value.absent(),
+    this.lastViewedDate = const Value.absent(),
+    this.remoteViews = const Value.absent(),
+    this.views = const Value.absent(),
     this.checksum = const Value.absent(),
     this.name = const Value.absent(),
     this.hashedPassword = const Value.absent(),
@@ -2727,9 +2709,9 @@ class UserTableDriftCompanion extends UpdateCompanion<UserTableDriftG> {
     this.creatorId = const Value.absent(),
     this.remoteId = const Value.absent(),
     this.lastUpdate = const Value.absent(),
-    this.lastAccessedDate = const Value.absent(),
-    this.remoteAccesses = const Value.absent(),
-    this.accesses = const Value.absent(),
+    this.lastViewedDate = const Value.absent(),
+    this.remoteViews = const Value.absent(),
+    this.views = const Value.absent(),
     this.checksum = const Value.absent(),
     required String name,
     required String hashedPassword,
@@ -2744,9 +2726,9 @@ class UserTableDriftCompanion extends UpdateCompanion<UserTableDriftG> {
     Expression<int>? creatorId,
     Expression<int>? remoteId,
     Expression<DateTime>? lastUpdate,
-    Expression<DateTime>? lastAccessedDate,
-    Expression<int>? remoteAccesses,
-    Expression<int>? accesses,
+    Expression<DateTime>? lastViewedDate,
+    Expression<int>? remoteViews,
+    Expression<int>? views,
     Expression<String>? checksum,
     Expression<String>? name,
     Expression<String>? hashedPassword,
@@ -2759,9 +2741,9 @@ class UserTableDriftCompanion extends UpdateCompanion<UserTableDriftG> {
       if (creatorId != null) 'creator_id': creatorId,
       if (remoteId != null) 'remote_id': remoteId,
       if (lastUpdate != null) 'last_update': lastUpdate,
-      if (lastAccessedDate != null) 'last_accessed_date': lastAccessedDate,
-      if (remoteAccesses != null) 'remote_accesses': remoteAccesses,
-      if (accesses != null) 'accesses': accesses,
+      if (lastViewedDate != null) 'last_viewed_date': lastViewedDate,
+      if (remoteViews != null) 'remote_views': remoteViews,
+      if (views != null) 'views': views,
       if (checksum != null) 'checksum': checksum,
       if (name != null) 'name': name,
       if (hashedPassword != null) 'hashed_password': hashedPassword,
@@ -2776,9 +2758,9 @@ class UserTableDriftCompanion extends UpdateCompanion<UserTableDriftG> {
       Value<int?>? creatorId,
       Value<int?>? remoteId,
       Value<DateTime?>? lastUpdate,
-      Value<DateTime?>? lastAccessedDate,
-      Value<int?>? remoteAccesses,
-      Value<int?>? accesses,
+      Value<DateTime?>? lastViewedDate,
+      Value<int?>? remoteViews,
+      Value<int?>? views,
       Value<String?>? checksum,
       Value<String>? name,
       Value<String>? hashedPassword,
@@ -2790,9 +2772,9 @@ class UserTableDriftCompanion extends UpdateCompanion<UserTableDriftG> {
       creatorId: creatorId ?? this.creatorId,
       remoteId: remoteId ?? this.remoteId,
       lastUpdate: lastUpdate ?? this.lastUpdate,
-      lastAccessedDate: lastAccessedDate ?? this.lastAccessedDate,
-      remoteAccesses: remoteAccesses ?? this.remoteAccesses,
-      accesses: accesses ?? this.accesses,
+      lastViewedDate: lastViewedDate ?? this.lastViewedDate,
+      remoteViews: remoteViews ?? this.remoteViews,
+      views: views ?? this.views,
       checksum: checksum ?? this.checksum,
       name: name ?? this.name,
       hashedPassword: hashedPassword ?? this.hashedPassword,
@@ -2819,14 +2801,14 @@ class UserTableDriftCompanion extends UpdateCompanion<UserTableDriftG> {
     if (lastUpdate.present) {
       map['last_update'] = Variable<DateTime>(lastUpdate.value);
     }
-    if (lastAccessedDate.present) {
-      map['last_accessed_date'] = Variable<DateTime>(lastAccessedDate.value);
+    if (lastViewedDate.present) {
+      map['last_viewed_date'] = Variable<DateTime>(lastViewedDate.value);
     }
-    if (remoteAccesses.present) {
-      map['remote_accesses'] = Variable<int>(remoteAccesses.value);
+    if (remoteViews.present) {
+      map['remote_views'] = Variable<int>(remoteViews.value);
     }
-    if (accesses.present) {
-      map['accesses'] = Variable<int>(accesses.value);
+    if (views.present) {
+      map['views'] = Variable<int>(views.value);
     }
     if (checksum.present) {
       map['checksum'] = Variable<String>(checksum.value);
@@ -2854,9 +2836,9 @@ class UserTableDriftCompanion extends UpdateCompanion<UserTableDriftG> {
           ..write('creatorId: $creatorId, ')
           ..write('remoteId: $remoteId, ')
           ..write('lastUpdate: $lastUpdate, ')
-          ..write('lastAccessedDate: $lastAccessedDate, ')
-          ..write('remoteAccesses: $remoteAccesses, ')
-          ..write('accesses: $accesses, ')
+          ..write('lastViewedDate: $lastViewedDate, ')
+          ..write('remoteViews: $remoteViews, ')
+          ..write('views: $views, ')
           ..write('checksum: $checksum, ')
           ..write('name: $name, ')
           ..write('hashedPassword: $hashedPassword, ')
@@ -3346,23 +3328,22 @@ class $ReminderTableDriftTable extends ReminderTableDrift
   late final GeneratedColumn<DateTime> lastUpdate = GeneratedColumn<DateTime>(
       'last_update', aliasedName, true,
       type: DriftSqlType.dateTime, requiredDuringInsert: false);
-  static const VerificationMeta _lastAccessedDateMeta =
-      const VerificationMeta('lastAccessedDate');
+  static const VerificationMeta _lastViewedDateMeta =
+      const VerificationMeta('lastViewedDate');
   @override
-  late final GeneratedColumn<DateTime> lastAccessedDate =
-      GeneratedColumn<DateTime>('last_accessed_date', aliasedName, true,
+  late final GeneratedColumn<DateTime> lastViewedDate =
+      GeneratedColumn<DateTime>('last_viewed_date', aliasedName, true,
           type: DriftSqlType.dateTime, requiredDuringInsert: false);
-  static const VerificationMeta _remoteAccessesMeta =
-      const VerificationMeta('remoteAccesses');
+  static const VerificationMeta _remoteViewsMeta =
+      const VerificationMeta('remoteViews');
   @override
-  late final GeneratedColumn<int> remoteAccesses = GeneratedColumn<int>(
-      'remote_accesses', aliasedName, true,
+  late final GeneratedColumn<int> remoteViews = GeneratedColumn<int>(
+      'remote_views', aliasedName, true,
       type: DriftSqlType.int, requiredDuringInsert: false);
-  static const VerificationMeta _accessesMeta =
-      const VerificationMeta('accesses');
+  static const VerificationMeta _viewsMeta = const VerificationMeta('views');
   @override
-  late final GeneratedColumn<int> accesses = GeneratedColumn<int>(
-      'accesses', aliasedName, true,
+  late final GeneratedColumn<int> views = GeneratedColumn<int>(
+      'views', aliasedName, true,
       type: DriftSqlType.int, requiredDuringInsert: false);
   static const VerificationMeta _checksumMeta =
       const VerificationMeta('checksum');
@@ -3389,9 +3370,9 @@ class $ReminderTableDriftTable extends ReminderTableDrift
         creatorId,
         remoteId,
         lastUpdate,
-        lastAccessedDate,
-        remoteAccesses,
-        accesses,
+        lastViewedDate,
+        remoteViews,
+        views,
         checksum,
         subject,
         remindAt
@@ -3430,21 +3411,21 @@ class $ReminderTableDriftTable extends ReminderTableDrift
           lastUpdate.isAcceptableOrUnknown(
               data['last_update']!, _lastUpdateMeta));
     }
-    if (data.containsKey('last_accessed_date')) {
+    if (data.containsKey('last_viewed_date')) {
       context.handle(
-          _lastAccessedDateMeta,
-          lastAccessedDate.isAcceptableOrUnknown(
-              data['last_accessed_date']!, _lastAccessedDateMeta));
+          _lastViewedDateMeta,
+          lastViewedDate.isAcceptableOrUnknown(
+              data['last_viewed_date']!, _lastViewedDateMeta));
     }
-    if (data.containsKey('remote_accesses')) {
+    if (data.containsKey('remote_views')) {
       context.handle(
-          _remoteAccessesMeta,
-          remoteAccesses.isAcceptableOrUnknown(
-              data['remote_accesses']!, _remoteAccessesMeta));
+          _remoteViewsMeta,
+          remoteViews.isAcceptableOrUnknown(
+              data['remote_views']!, _remoteViewsMeta));
     }
-    if (data.containsKey('accesses')) {
-      context.handle(_accessesMeta,
-          accesses.isAcceptableOrUnknown(data['accesses']!, _accessesMeta));
+    if (data.containsKey('views')) {
+      context.handle(
+          _viewsMeta, views.isAcceptableOrUnknown(data['views']!, _viewsMeta));
     }
     if (data.containsKey('checksum')) {
       context.handle(_checksumMeta,
@@ -3481,12 +3462,12 @@ class $ReminderTableDriftTable extends ReminderTableDrift
           .read(DriftSqlType.int, data['${effectivePrefix}remote_id']),
       lastUpdate: attachedDatabase.typeMapping
           .read(DriftSqlType.dateTime, data['${effectivePrefix}last_update']),
-      lastAccessedDate: attachedDatabase.typeMapping.read(
-          DriftSqlType.dateTime, data['${effectivePrefix}last_accessed_date']),
-      remoteAccesses: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}remote_accesses']),
-      accesses: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}accesses']),
+      lastViewedDate: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}last_viewed_date']),
+      remoteViews: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}remote_views']),
+      views: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}views']),
       checksum: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}checksum']),
       subject: attachedDatabase.typeMapping
@@ -3509,9 +3490,9 @@ class ReminderTableDriftG extends DataClass
   final int? creatorId;
   final int? remoteId;
   final DateTime? lastUpdate;
-  final DateTime? lastAccessedDate;
-  final int? remoteAccesses;
-  final int? accesses;
+  final DateTime? lastViewedDate;
+  final int? remoteViews;
+  final int? views;
   final String? checksum;
   final String subject;
   final DateTime remindAt;
@@ -3521,9 +3502,9 @@ class ReminderTableDriftG extends DataClass
       this.creatorId,
       this.remoteId,
       this.lastUpdate,
-      this.lastAccessedDate,
-      this.remoteAccesses,
-      this.accesses,
+      this.lastViewedDate,
+      this.remoteViews,
+      this.views,
       this.checksum,
       required this.subject,
       required this.remindAt});
@@ -3541,14 +3522,14 @@ class ReminderTableDriftG extends DataClass
     if (!nullToAbsent || lastUpdate != null) {
       map['last_update'] = Variable<DateTime>(lastUpdate);
     }
-    if (!nullToAbsent || lastAccessedDate != null) {
-      map['last_accessed_date'] = Variable<DateTime>(lastAccessedDate);
+    if (!nullToAbsent || lastViewedDate != null) {
+      map['last_viewed_date'] = Variable<DateTime>(lastViewedDate);
     }
-    if (!nullToAbsent || remoteAccesses != null) {
-      map['remote_accesses'] = Variable<int>(remoteAccesses);
+    if (!nullToAbsent || remoteViews != null) {
+      map['remote_views'] = Variable<int>(remoteViews);
     }
-    if (!nullToAbsent || accesses != null) {
-      map['accesses'] = Variable<int>(accesses);
+    if (!nullToAbsent || views != null) {
+      map['views'] = Variable<int>(views);
     }
     if (!nullToAbsent || checksum != null) {
       map['checksum'] = Variable<String>(checksum);
@@ -3571,15 +3552,14 @@ class ReminderTableDriftG extends DataClass
       lastUpdate: lastUpdate == null && nullToAbsent
           ? const Value.absent()
           : Value(lastUpdate),
-      lastAccessedDate: lastAccessedDate == null && nullToAbsent
+      lastViewedDate: lastViewedDate == null && nullToAbsent
           ? const Value.absent()
-          : Value(lastAccessedDate),
-      remoteAccesses: remoteAccesses == null && nullToAbsent
+          : Value(lastViewedDate),
+      remoteViews: remoteViews == null && nullToAbsent
           ? const Value.absent()
-          : Value(remoteAccesses),
-      accesses: accesses == null && nullToAbsent
-          ? const Value.absent()
-          : Value(accesses),
+          : Value(remoteViews),
+      views:
+          views == null && nullToAbsent ? const Value.absent() : Value(views),
       checksum: checksum == null && nullToAbsent
           ? const Value.absent()
           : Value(checksum),
@@ -3597,10 +3577,9 @@ class ReminderTableDriftG extends DataClass
       creatorId: serializer.fromJson<int?>(json['creatorId']),
       remoteId: serializer.fromJson<int?>(json['remoteId']),
       lastUpdate: serializer.fromJson<DateTime?>(json['lastUpdate']),
-      lastAccessedDate:
-          serializer.fromJson<DateTime?>(json['lastAccessedDate']),
-      remoteAccesses: serializer.fromJson<int?>(json['remoteAccesses']),
-      accesses: serializer.fromJson<int?>(json['accesses']),
+      lastViewedDate: serializer.fromJson<DateTime?>(json['lastViewedDate']),
+      remoteViews: serializer.fromJson<int?>(json['remoteViews']),
+      views: serializer.fromJson<int?>(json['views']),
       checksum: serializer.fromJson<String?>(json['checksum']),
       subject: serializer.fromJson<String>(json['subject']),
       remindAt: serializer.fromJson<DateTime>(json['remindAt']),
@@ -3615,9 +3594,9 @@ class ReminderTableDriftG extends DataClass
       'creatorId': serializer.toJson<int?>(creatorId),
       'remoteId': serializer.toJson<int?>(remoteId),
       'lastUpdate': serializer.toJson<DateTime?>(lastUpdate),
-      'lastAccessedDate': serializer.toJson<DateTime?>(lastAccessedDate),
-      'remoteAccesses': serializer.toJson<int?>(remoteAccesses),
-      'accesses': serializer.toJson<int?>(accesses),
+      'lastViewedDate': serializer.toJson<DateTime?>(lastViewedDate),
+      'remoteViews': serializer.toJson<int?>(remoteViews),
+      'views': serializer.toJson<int?>(views),
       'checksum': serializer.toJson<String?>(checksum),
       'subject': serializer.toJson<String>(subject),
       'remindAt': serializer.toJson<DateTime>(remindAt),
@@ -3630,9 +3609,9 @@ class ReminderTableDriftG extends DataClass
           Value<int?> creatorId = const Value.absent(),
           Value<int?> remoteId = const Value.absent(),
           Value<DateTime?> lastUpdate = const Value.absent(),
-          Value<DateTime?> lastAccessedDate = const Value.absent(),
-          Value<int?> remoteAccesses = const Value.absent(),
-          Value<int?> accesses = const Value.absent(),
+          Value<DateTime?> lastViewedDate = const Value.absent(),
+          Value<int?> remoteViews = const Value.absent(),
+          Value<int?> views = const Value.absent(),
           Value<String?> checksum = const Value.absent(),
           String? subject,
           DateTime? remindAt}) =>
@@ -3642,12 +3621,10 @@ class ReminderTableDriftG extends DataClass
         creatorId: creatorId.present ? creatorId.value : this.creatorId,
         remoteId: remoteId.present ? remoteId.value : this.remoteId,
         lastUpdate: lastUpdate.present ? lastUpdate.value : this.lastUpdate,
-        lastAccessedDate: lastAccessedDate.present
-            ? lastAccessedDate.value
-            : this.lastAccessedDate,
-        remoteAccesses:
-            remoteAccesses.present ? remoteAccesses.value : this.remoteAccesses,
-        accesses: accesses.present ? accesses.value : this.accesses,
+        lastViewedDate:
+            lastViewedDate.present ? lastViewedDate.value : this.lastViewedDate,
+        remoteViews: remoteViews.present ? remoteViews.value : this.remoteViews,
+        views: views.present ? views.value : this.views,
         checksum: checksum.present ? checksum.value : this.checksum,
         subject: subject ?? this.subject,
         remindAt: remindAt ?? this.remindAt,
@@ -3661,13 +3638,12 @@ class ReminderTableDriftG extends DataClass
       remoteId: data.remoteId.present ? data.remoteId.value : this.remoteId,
       lastUpdate:
           data.lastUpdate.present ? data.lastUpdate.value : this.lastUpdate,
-      lastAccessedDate: data.lastAccessedDate.present
-          ? data.lastAccessedDate.value
-          : this.lastAccessedDate,
-      remoteAccesses: data.remoteAccesses.present
-          ? data.remoteAccesses.value
-          : this.remoteAccesses,
-      accesses: data.accesses.present ? data.accesses.value : this.accesses,
+      lastViewedDate: data.lastViewedDate.present
+          ? data.lastViewedDate.value
+          : this.lastViewedDate,
+      remoteViews:
+          data.remoteViews.present ? data.remoteViews.value : this.remoteViews,
+      views: data.views.present ? data.views.value : this.views,
       checksum: data.checksum.present ? data.checksum.value : this.checksum,
       subject: data.subject.present ? data.subject.value : this.subject,
       remindAt: data.remindAt.present ? data.remindAt.value : this.remindAt,
@@ -3682,9 +3658,9 @@ class ReminderTableDriftG extends DataClass
           ..write('creatorId: $creatorId, ')
           ..write('remoteId: $remoteId, ')
           ..write('lastUpdate: $lastUpdate, ')
-          ..write('lastAccessedDate: $lastAccessedDate, ')
-          ..write('remoteAccesses: $remoteAccesses, ')
-          ..write('accesses: $accesses, ')
+          ..write('lastViewedDate: $lastViewedDate, ')
+          ..write('remoteViews: $remoteViews, ')
+          ..write('views: $views, ')
           ..write('checksum: $checksum, ')
           ..write('subject: $subject, ')
           ..write('remindAt: $remindAt')
@@ -3699,9 +3675,9 @@ class ReminderTableDriftG extends DataClass
       creatorId,
       remoteId,
       lastUpdate,
-      lastAccessedDate,
-      remoteAccesses,
-      accesses,
+      lastViewedDate,
+      remoteViews,
+      views,
       checksum,
       subject,
       remindAt);
@@ -3714,9 +3690,9 @@ class ReminderTableDriftG extends DataClass
           other.creatorId == this.creatorId &&
           other.remoteId == this.remoteId &&
           other.lastUpdate == this.lastUpdate &&
-          other.lastAccessedDate == this.lastAccessedDate &&
-          other.remoteAccesses == this.remoteAccesses &&
-          other.accesses == this.accesses &&
+          other.lastViewedDate == this.lastViewedDate &&
+          other.remoteViews == this.remoteViews &&
+          other.views == this.views &&
           other.checksum == this.checksum &&
           other.subject == this.subject &&
           other.remindAt == this.remindAt);
@@ -3728,9 +3704,9 @@ class ReminderTableDriftCompanion extends UpdateCompanion<ReminderTableDriftG> {
   final Value<int?> creatorId;
   final Value<int?> remoteId;
   final Value<DateTime?> lastUpdate;
-  final Value<DateTime?> lastAccessedDate;
-  final Value<int?> remoteAccesses;
-  final Value<int?> accesses;
+  final Value<DateTime?> lastViewedDate;
+  final Value<int?> remoteViews;
+  final Value<int?> views;
   final Value<String?> checksum;
   final Value<String> subject;
   final Value<DateTime> remindAt;
@@ -3740,9 +3716,9 @@ class ReminderTableDriftCompanion extends UpdateCompanion<ReminderTableDriftG> {
     this.creatorId = const Value.absent(),
     this.remoteId = const Value.absent(),
     this.lastUpdate = const Value.absent(),
-    this.lastAccessedDate = const Value.absent(),
-    this.remoteAccesses = const Value.absent(),
-    this.accesses = const Value.absent(),
+    this.lastViewedDate = const Value.absent(),
+    this.remoteViews = const Value.absent(),
+    this.views = const Value.absent(),
     this.checksum = const Value.absent(),
     this.subject = const Value.absent(),
     this.remindAt = const Value.absent(),
@@ -3753,9 +3729,9 @@ class ReminderTableDriftCompanion extends UpdateCompanion<ReminderTableDriftG> {
     this.creatorId = const Value.absent(),
     this.remoteId = const Value.absent(),
     this.lastUpdate = const Value.absent(),
-    this.lastAccessedDate = const Value.absent(),
-    this.remoteAccesses = const Value.absent(),
-    this.accesses = const Value.absent(),
+    this.lastViewedDate = const Value.absent(),
+    this.remoteViews = const Value.absent(),
+    this.views = const Value.absent(),
     this.checksum = const Value.absent(),
     required String subject,
     required DateTime remindAt,
@@ -3767,9 +3743,9 @@ class ReminderTableDriftCompanion extends UpdateCompanion<ReminderTableDriftG> {
     Expression<int>? creatorId,
     Expression<int>? remoteId,
     Expression<DateTime>? lastUpdate,
-    Expression<DateTime>? lastAccessedDate,
-    Expression<int>? remoteAccesses,
-    Expression<int>? accesses,
+    Expression<DateTime>? lastViewedDate,
+    Expression<int>? remoteViews,
+    Expression<int>? views,
     Expression<String>? checksum,
     Expression<String>? subject,
     Expression<DateTime>? remindAt,
@@ -3780,9 +3756,9 @@ class ReminderTableDriftCompanion extends UpdateCompanion<ReminderTableDriftG> {
       if (creatorId != null) 'creator_id': creatorId,
       if (remoteId != null) 'remote_id': remoteId,
       if (lastUpdate != null) 'last_update': lastUpdate,
-      if (lastAccessedDate != null) 'last_accessed_date': lastAccessedDate,
-      if (remoteAccesses != null) 'remote_accesses': remoteAccesses,
-      if (accesses != null) 'accesses': accesses,
+      if (lastViewedDate != null) 'last_viewed_date': lastViewedDate,
+      if (remoteViews != null) 'remote_views': remoteViews,
+      if (views != null) 'views': views,
       if (checksum != null) 'checksum': checksum,
       if (subject != null) 'subject': subject,
       if (remindAt != null) 'remind_at': remindAt,
@@ -3795,9 +3771,9 @@ class ReminderTableDriftCompanion extends UpdateCompanion<ReminderTableDriftG> {
       Value<int?>? creatorId,
       Value<int?>? remoteId,
       Value<DateTime?>? lastUpdate,
-      Value<DateTime?>? lastAccessedDate,
-      Value<int?>? remoteAccesses,
-      Value<int?>? accesses,
+      Value<DateTime?>? lastViewedDate,
+      Value<int?>? remoteViews,
+      Value<int?>? views,
       Value<String?>? checksum,
       Value<String>? subject,
       Value<DateTime>? remindAt}) {
@@ -3807,9 +3783,9 @@ class ReminderTableDriftCompanion extends UpdateCompanion<ReminderTableDriftG> {
       creatorId: creatorId ?? this.creatorId,
       remoteId: remoteId ?? this.remoteId,
       lastUpdate: lastUpdate ?? this.lastUpdate,
-      lastAccessedDate: lastAccessedDate ?? this.lastAccessedDate,
-      remoteAccesses: remoteAccesses ?? this.remoteAccesses,
-      accesses: accesses ?? this.accesses,
+      lastViewedDate: lastViewedDate ?? this.lastViewedDate,
+      remoteViews: remoteViews ?? this.remoteViews,
+      views: views ?? this.views,
       checksum: checksum ?? this.checksum,
       subject: subject ?? this.subject,
       remindAt: remindAt ?? this.remindAt,
@@ -3834,14 +3810,14 @@ class ReminderTableDriftCompanion extends UpdateCompanion<ReminderTableDriftG> {
     if (lastUpdate.present) {
       map['last_update'] = Variable<DateTime>(lastUpdate.value);
     }
-    if (lastAccessedDate.present) {
-      map['last_accessed_date'] = Variable<DateTime>(lastAccessedDate.value);
+    if (lastViewedDate.present) {
+      map['last_viewed_date'] = Variable<DateTime>(lastViewedDate.value);
     }
-    if (remoteAccesses.present) {
-      map['remote_accesses'] = Variable<int>(remoteAccesses.value);
+    if (remoteViews.present) {
+      map['remote_views'] = Variable<int>(remoteViews.value);
     }
-    if (accesses.present) {
-      map['accesses'] = Variable<int>(accesses.value);
+    if (views.present) {
+      map['views'] = Variable<int>(views.value);
     }
     if (checksum.present) {
       map['checksum'] = Variable<String>(checksum.value);
@@ -3863,9 +3839,9 @@ class ReminderTableDriftCompanion extends UpdateCompanion<ReminderTableDriftG> {
           ..write('creatorId: $creatorId, ')
           ..write('remoteId: $remoteId, ')
           ..write('lastUpdate: $lastUpdate, ')
-          ..write('lastAccessedDate: $lastAccessedDate, ')
-          ..write('remoteAccesses: $remoteAccesses, ')
-          ..write('accesses: $accesses, ')
+          ..write('lastViewedDate: $lastViewedDate, ')
+          ..write('remoteViews: $remoteViews, ')
+          ..write('views: $views, ')
           ..write('checksum: $checksum, ')
           ..write('subject: $subject, ')
           ..write('remindAt: $remindAt')
@@ -3915,23 +3891,22 @@ class $TagTableDriftTable extends TagTableDrift
   late final GeneratedColumn<DateTime> lastUpdate = GeneratedColumn<DateTime>(
       'last_update', aliasedName, true,
       type: DriftSqlType.dateTime, requiredDuringInsert: false);
-  static const VerificationMeta _lastAccessedDateMeta =
-      const VerificationMeta('lastAccessedDate');
+  static const VerificationMeta _lastViewedDateMeta =
+      const VerificationMeta('lastViewedDate');
   @override
-  late final GeneratedColumn<DateTime> lastAccessedDate =
-      GeneratedColumn<DateTime>('last_accessed_date', aliasedName, true,
+  late final GeneratedColumn<DateTime> lastViewedDate =
+      GeneratedColumn<DateTime>('last_viewed_date', aliasedName, true,
           type: DriftSqlType.dateTime, requiredDuringInsert: false);
-  static const VerificationMeta _remoteAccessesMeta =
-      const VerificationMeta('remoteAccesses');
+  static const VerificationMeta _remoteViewsMeta =
+      const VerificationMeta('remoteViews');
   @override
-  late final GeneratedColumn<int> remoteAccesses = GeneratedColumn<int>(
-      'remote_accesses', aliasedName, true,
+  late final GeneratedColumn<int> remoteViews = GeneratedColumn<int>(
+      'remote_views', aliasedName, true,
       type: DriftSqlType.int, requiredDuringInsert: false);
-  static const VerificationMeta _accessesMeta =
-      const VerificationMeta('accesses');
+  static const VerificationMeta _viewsMeta = const VerificationMeta('views');
   @override
-  late final GeneratedColumn<int> accesses = GeneratedColumn<int>(
-      'accesses', aliasedName, true,
+  late final GeneratedColumn<int> views = GeneratedColumn<int>(
+      'views', aliasedName, true,
       type: DriftSqlType.int, requiredDuringInsert: false);
   static const VerificationMeta _checksumMeta =
       const VerificationMeta('checksum');
@@ -3952,9 +3927,9 @@ class $TagTableDriftTable extends TagTableDrift
         creatorId,
         remoteId,
         lastUpdate,
-        lastAccessedDate,
-        remoteAccesses,
-        accesses,
+        lastViewedDate,
+        remoteViews,
+        views,
         checksum,
         subject
       ];
@@ -3991,21 +3966,21 @@ class $TagTableDriftTable extends TagTableDrift
           lastUpdate.isAcceptableOrUnknown(
               data['last_update']!, _lastUpdateMeta));
     }
-    if (data.containsKey('last_accessed_date')) {
+    if (data.containsKey('last_viewed_date')) {
       context.handle(
-          _lastAccessedDateMeta,
-          lastAccessedDate.isAcceptableOrUnknown(
-              data['last_accessed_date']!, _lastAccessedDateMeta));
+          _lastViewedDateMeta,
+          lastViewedDate.isAcceptableOrUnknown(
+              data['last_viewed_date']!, _lastViewedDateMeta));
     }
-    if (data.containsKey('remote_accesses')) {
+    if (data.containsKey('remote_views')) {
       context.handle(
-          _remoteAccessesMeta,
-          remoteAccesses.isAcceptableOrUnknown(
-              data['remote_accesses']!, _remoteAccessesMeta));
+          _remoteViewsMeta,
+          remoteViews.isAcceptableOrUnknown(
+              data['remote_views']!, _remoteViewsMeta));
     }
-    if (data.containsKey('accesses')) {
-      context.handle(_accessesMeta,
-          accesses.isAcceptableOrUnknown(data['accesses']!, _accessesMeta));
+    if (data.containsKey('views')) {
+      context.handle(
+          _viewsMeta, views.isAcceptableOrUnknown(data['views']!, _viewsMeta));
     }
     if (data.containsKey('checksum')) {
       context.handle(_checksumMeta,
@@ -4036,12 +4011,12 @@ class $TagTableDriftTable extends TagTableDrift
           .read(DriftSqlType.int, data['${effectivePrefix}remote_id']),
       lastUpdate: attachedDatabase.typeMapping
           .read(DriftSqlType.dateTime, data['${effectivePrefix}last_update']),
-      lastAccessedDate: attachedDatabase.typeMapping.read(
-          DriftSqlType.dateTime, data['${effectivePrefix}last_accessed_date']),
-      remoteAccesses: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}remote_accesses']),
-      accesses: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}accesses']),
+      lastViewedDate: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}last_viewed_date']),
+      remoteViews: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}remote_views']),
+      views: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}views']),
       checksum: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}checksum']),
       subject: attachedDatabase.typeMapping
@@ -4061,9 +4036,9 @@ class TagTableDriftG extends DataClass implements Insertable<TagTableDriftG> {
   final int? creatorId;
   final int? remoteId;
   final DateTime? lastUpdate;
-  final DateTime? lastAccessedDate;
-  final int? remoteAccesses;
-  final int? accesses;
+  final DateTime? lastViewedDate;
+  final int? remoteViews;
+  final int? views;
   final String? checksum;
   final String subject;
   const TagTableDriftG(
@@ -4072,9 +4047,9 @@ class TagTableDriftG extends DataClass implements Insertable<TagTableDriftG> {
       this.creatorId,
       this.remoteId,
       this.lastUpdate,
-      this.lastAccessedDate,
-      this.remoteAccesses,
-      this.accesses,
+      this.lastViewedDate,
+      this.remoteViews,
+      this.views,
       this.checksum,
       required this.subject});
   @override
@@ -4091,14 +4066,14 @@ class TagTableDriftG extends DataClass implements Insertable<TagTableDriftG> {
     if (!nullToAbsent || lastUpdate != null) {
       map['last_update'] = Variable<DateTime>(lastUpdate);
     }
-    if (!nullToAbsent || lastAccessedDate != null) {
-      map['last_accessed_date'] = Variable<DateTime>(lastAccessedDate);
+    if (!nullToAbsent || lastViewedDate != null) {
+      map['last_viewed_date'] = Variable<DateTime>(lastViewedDate);
     }
-    if (!nullToAbsent || remoteAccesses != null) {
-      map['remote_accesses'] = Variable<int>(remoteAccesses);
+    if (!nullToAbsent || remoteViews != null) {
+      map['remote_views'] = Variable<int>(remoteViews);
     }
-    if (!nullToAbsent || accesses != null) {
-      map['accesses'] = Variable<int>(accesses);
+    if (!nullToAbsent || views != null) {
+      map['views'] = Variable<int>(views);
     }
     if (!nullToAbsent || checksum != null) {
       map['checksum'] = Variable<String>(checksum);
@@ -4120,15 +4095,14 @@ class TagTableDriftG extends DataClass implements Insertable<TagTableDriftG> {
       lastUpdate: lastUpdate == null && nullToAbsent
           ? const Value.absent()
           : Value(lastUpdate),
-      lastAccessedDate: lastAccessedDate == null && nullToAbsent
+      lastViewedDate: lastViewedDate == null && nullToAbsent
           ? const Value.absent()
-          : Value(lastAccessedDate),
-      remoteAccesses: remoteAccesses == null && nullToAbsent
+          : Value(lastViewedDate),
+      remoteViews: remoteViews == null && nullToAbsent
           ? const Value.absent()
-          : Value(remoteAccesses),
-      accesses: accesses == null && nullToAbsent
-          ? const Value.absent()
-          : Value(accesses),
+          : Value(remoteViews),
+      views:
+          views == null && nullToAbsent ? const Value.absent() : Value(views),
       checksum: checksum == null && nullToAbsent
           ? const Value.absent()
           : Value(checksum),
@@ -4145,10 +4119,9 @@ class TagTableDriftG extends DataClass implements Insertable<TagTableDriftG> {
       creatorId: serializer.fromJson<int?>(json['creatorId']),
       remoteId: serializer.fromJson<int?>(json['remoteId']),
       lastUpdate: serializer.fromJson<DateTime?>(json['lastUpdate']),
-      lastAccessedDate:
-          serializer.fromJson<DateTime?>(json['lastAccessedDate']),
-      remoteAccesses: serializer.fromJson<int?>(json['remoteAccesses']),
-      accesses: serializer.fromJson<int?>(json['accesses']),
+      lastViewedDate: serializer.fromJson<DateTime?>(json['lastViewedDate']),
+      remoteViews: serializer.fromJson<int?>(json['remoteViews']),
+      views: serializer.fromJson<int?>(json['views']),
       checksum: serializer.fromJson<String?>(json['checksum']),
       subject: serializer.fromJson<String>(json['subject']),
     );
@@ -4162,9 +4135,9 @@ class TagTableDriftG extends DataClass implements Insertable<TagTableDriftG> {
       'creatorId': serializer.toJson<int?>(creatorId),
       'remoteId': serializer.toJson<int?>(remoteId),
       'lastUpdate': serializer.toJson<DateTime?>(lastUpdate),
-      'lastAccessedDate': serializer.toJson<DateTime?>(lastAccessedDate),
-      'remoteAccesses': serializer.toJson<int?>(remoteAccesses),
-      'accesses': serializer.toJson<int?>(accesses),
+      'lastViewedDate': serializer.toJson<DateTime?>(lastViewedDate),
+      'remoteViews': serializer.toJson<int?>(remoteViews),
+      'views': serializer.toJson<int?>(views),
       'checksum': serializer.toJson<String?>(checksum),
       'subject': serializer.toJson<String>(subject),
     };
@@ -4176,9 +4149,9 @@ class TagTableDriftG extends DataClass implements Insertable<TagTableDriftG> {
           Value<int?> creatorId = const Value.absent(),
           Value<int?> remoteId = const Value.absent(),
           Value<DateTime?> lastUpdate = const Value.absent(),
-          Value<DateTime?> lastAccessedDate = const Value.absent(),
-          Value<int?> remoteAccesses = const Value.absent(),
-          Value<int?> accesses = const Value.absent(),
+          Value<DateTime?> lastViewedDate = const Value.absent(),
+          Value<int?> remoteViews = const Value.absent(),
+          Value<int?> views = const Value.absent(),
           Value<String?> checksum = const Value.absent(),
           String? subject}) =>
       TagTableDriftG(
@@ -4187,12 +4160,10 @@ class TagTableDriftG extends DataClass implements Insertable<TagTableDriftG> {
         creatorId: creatorId.present ? creatorId.value : this.creatorId,
         remoteId: remoteId.present ? remoteId.value : this.remoteId,
         lastUpdate: lastUpdate.present ? lastUpdate.value : this.lastUpdate,
-        lastAccessedDate: lastAccessedDate.present
-            ? lastAccessedDate.value
-            : this.lastAccessedDate,
-        remoteAccesses:
-            remoteAccesses.present ? remoteAccesses.value : this.remoteAccesses,
-        accesses: accesses.present ? accesses.value : this.accesses,
+        lastViewedDate:
+            lastViewedDate.present ? lastViewedDate.value : this.lastViewedDate,
+        remoteViews: remoteViews.present ? remoteViews.value : this.remoteViews,
+        views: views.present ? views.value : this.views,
         checksum: checksum.present ? checksum.value : this.checksum,
         subject: subject ?? this.subject,
       );
@@ -4205,13 +4176,12 @@ class TagTableDriftG extends DataClass implements Insertable<TagTableDriftG> {
       remoteId: data.remoteId.present ? data.remoteId.value : this.remoteId,
       lastUpdate:
           data.lastUpdate.present ? data.lastUpdate.value : this.lastUpdate,
-      lastAccessedDate: data.lastAccessedDate.present
-          ? data.lastAccessedDate.value
-          : this.lastAccessedDate,
-      remoteAccesses: data.remoteAccesses.present
-          ? data.remoteAccesses.value
-          : this.remoteAccesses,
-      accesses: data.accesses.present ? data.accesses.value : this.accesses,
+      lastViewedDate: data.lastViewedDate.present
+          ? data.lastViewedDate.value
+          : this.lastViewedDate,
+      remoteViews:
+          data.remoteViews.present ? data.remoteViews.value : this.remoteViews,
+      views: data.views.present ? data.views.value : this.views,
       checksum: data.checksum.present ? data.checksum.value : this.checksum,
       subject: data.subject.present ? data.subject.value : this.subject,
     );
@@ -4225,9 +4195,9 @@ class TagTableDriftG extends DataClass implements Insertable<TagTableDriftG> {
           ..write('creatorId: $creatorId, ')
           ..write('remoteId: $remoteId, ')
           ..write('lastUpdate: $lastUpdate, ')
-          ..write('lastAccessedDate: $lastAccessedDate, ')
-          ..write('remoteAccesses: $remoteAccesses, ')
-          ..write('accesses: $accesses, ')
+          ..write('lastViewedDate: $lastViewedDate, ')
+          ..write('remoteViews: $remoteViews, ')
+          ..write('views: $views, ')
           ..write('checksum: $checksum, ')
           ..write('subject: $subject')
           ..write(')'))
@@ -4235,17 +4205,8 @@ class TagTableDriftG extends DataClass implements Insertable<TagTableDriftG> {
   }
 
   @override
-  int get hashCode => Object.hash(
-      id,
-      createdDate,
-      creatorId,
-      remoteId,
-      lastUpdate,
-      lastAccessedDate,
-      remoteAccesses,
-      accesses,
-      checksum,
-      subject);
+  int get hashCode => Object.hash(id, createdDate, creatorId, remoteId,
+      lastUpdate, lastViewedDate, remoteViews, views, checksum, subject);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -4255,9 +4216,9 @@ class TagTableDriftG extends DataClass implements Insertable<TagTableDriftG> {
           other.creatorId == this.creatorId &&
           other.remoteId == this.remoteId &&
           other.lastUpdate == this.lastUpdate &&
-          other.lastAccessedDate == this.lastAccessedDate &&
-          other.remoteAccesses == this.remoteAccesses &&
-          other.accesses == this.accesses &&
+          other.lastViewedDate == this.lastViewedDate &&
+          other.remoteViews == this.remoteViews &&
+          other.views == this.views &&
           other.checksum == this.checksum &&
           other.subject == this.subject);
 }
@@ -4268,9 +4229,9 @@ class TagTableDriftCompanion extends UpdateCompanion<TagTableDriftG> {
   final Value<int?> creatorId;
   final Value<int?> remoteId;
   final Value<DateTime?> lastUpdate;
-  final Value<DateTime?> lastAccessedDate;
-  final Value<int?> remoteAccesses;
-  final Value<int?> accesses;
+  final Value<DateTime?> lastViewedDate;
+  final Value<int?> remoteViews;
+  final Value<int?> views;
   final Value<String?> checksum;
   final Value<String> subject;
   const TagTableDriftCompanion({
@@ -4279,9 +4240,9 @@ class TagTableDriftCompanion extends UpdateCompanion<TagTableDriftG> {
     this.creatorId = const Value.absent(),
     this.remoteId = const Value.absent(),
     this.lastUpdate = const Value.absent(),
-    this.lastAccessedDate = const Value.absent(),
-    this.remoteAccesses = const Value.absent(),
-    this.accesses = const Value.absent(),
+    this.lastViewedDate = const Value.absent(),
+    this.remoteViews = const Value.absent(),
+    this.views = const Value.absent(),
     this.checksum = const Value.absent(),
     this.subject = const Value.absent(),
   });
@@ -4291,9 +4252,9 @@ class TagTableDriftCompanion extends UpdateCompanion<TagTableDriftG> {
     this.creatorId = const Value.absent(),
     this.remoteId = const Value.absent(),
     this.lastUpdate = const Value.absent(),
-    this.lastAccessedDate = const Value.absent(),
-    this.remoteAccesses = const Value.absent(),
-    this.accesses = const Value.absent(),
+    this.lastViewedDate = const Value.absent(),
+    this.remoteViews = const Value.absent(),
+    this.views = const Value.absent(),
     this.checksum = const Value.absent(),
     required String subject,
   }) : subject = Value(subject);
@@ -4303,9 +4264,9 @@ class TagTableDriftCompanion extends UpdateCompanion<TagTableDriftG> {
     Expression<int>? creatorId,
     Expression<int>? remoteId,
     Expression<DateTime>? lastUpdate,
-    Expression<DateTime>? lastAccessedDate,
-    Expression<int>? remoteAccesses,
-    Expression<int>? accesses,
+    Expression<DateTime>? lastViewedDate,
+    Expression<int>? remoteViews,
+    Expression<int>? views,
     Expression<String>? checksum,
     Expression<String>? subject,
   }) {
@@ -4315,9 +4276,9 @@ class TagTableDriftCompanion extends UpdateCompanion<TagTableDriftG> {
       if (creatorId != null) 'creator_id': creatorId,
       if (remoteId != null) 'remote_id': remoteId,
       if (lastUpdate != null) 'last_update': lastUpdate,
-      if (lastAccessedDate != null) 'last_accessed_date': lastAccessedDate,
-      if (remoteAccesses != null) 'remote_accesses': remoteAccesses,
-      if (accesses != null) 'accesses': accesses,
+      if (lastViewedDate != null) 'last_viewed_date': lastViewedDate,
+      if (remoteViews != null) 'remote_views': remoteViews,
+      if (views != null) 'views': views,
       if (checksum != null) 'checksum': checksum,
       if (subject != null) 'subject': subject,
     });
@@ -4329,9 +4290,9 @@ class TagTableDriftCompanion extends UpdateCompanion<TagTableDriftG> {
       Value<int?>? creatorId,
       Value<int?>? remoteId,
       Value<DateTime?>? lastUpdate,
-      Value<DateTime?>? lastAccessedDate,
-      Value<int?>? remoteAccesses,
-      Value<int?>? accesses,
+      Value<DateTime?>? lastViewedDate,
+      Value<int?>? remoteViews,
+      Value<int?>? views,
       Value<String?>? checksum,
       Value<String>? subject}) {
     return TagTableDriftCompanion(
@@ -4340,9 +4301,9 @@ class TagTableDriftCompanion extends UpdateCompanion<TagTableDriftG> {
       creatorId: creatorId ?? this.creatorId,
       remoteId: remoteId ?? this.remoteId,
       lastUpdate: lastUpdate ?? this.lastUpdate,
-      lastAccessedDate: lastAccessedDate ?? this.lastAccessedDate,
-      remoteAccesses: remoteAccesses ?? this.remoteAccesses,
-      accesses: accesses ?? this.accesses,
+      lastViewedDate: lastViewedDate ?? this.lastViewedDate,
+      remoteViews: remoteViews ?? this.remoteViews,
+      views: views ?? this.views,
       checksum: checksum ?? this.checksum,
       subject: subject ?? this.subject,
     );
@@ -4366,14 +4327,14 @@ class TagTableDriftCompanion extends UpdateCompanion<TagTableDriftG> {
     if (lastUpdate.present) {
       map['last_update'] = Variable<DateTime>(lastUpdate.value);
     }
-    if (lastAccessedDate.present) {
-      map['last_accessed_date'] = Variable<DateTime>(lastAccessedDate.value);
+    if (lastViewedDate.present) {
+      map['last_viewed_date'] = Variable<DateTime>(lastViewedDate.value);
     }
-    if (remoteAccesses.present) {
-      map['remote_accesses'] = Variable<int>(remoteAccesses.value);
+    if (remoteViews.present) {
+      map['remote_views'] = Variable<int>(remoteViews.value);
     }
-    if (accesses.present) {
-      map['accesses'] = Variable<int>(accesses.value);
+    if (views.present) {
+      map['views'] = Variable<int>(views.value);
     }
     if (checksum.present) {
       map['checksum'] = Variable<String>(checksum.value);
@@ -4392,9 +4353,9 @@ class TagTableDriftCompanion extends UpdateCompanion<TagTableDriftG> {
           ..write('creatorId: $creatorId, ')
           ..write('remoteId: $remoteId, ')
           ..write('lastUpdate: $lastUpdate, ')
-          ..write('lastAccessedDate: $lastAccessedDate, ')
-          ..write('remoteAccesses: $remoteAccesses, ')
-          ..write('accesses: $accesses, ')
+          ..write('lastViewedDate: $lastViewedDate, ')
+          ..write('remoteViews: $remoteViews, ')
+          ..write('views: $views, ')
           ..write('checksum: $checksum, ')
           ..write('subject: $subject')
           ..write(')'))
@@ -4459,9 +4420,9 @@ typedef $$OrganizerItemTableDriftTableCreateCompanionBuilder
   Value<int?> creatorId,
   Value<int?> remoteId,
   Value<DateTime?> lastUpdate,
-  Value<DateTime?> lastAccessedDate,
-  Value<int?> remoteAccesses,
-  Value<int?> accesses,
+  Value<DateTime?> lastViewedDate,
+  Value<int?> remoteViews,
+  Value<int?> views,
   Value<String?> checksum,
 });
 typedef $$OrganizerItemTableDriftTableUpdateCompanionBuilder
@@ -4471,9 +4432,9 @@ typedef $$OrganizerItemTableDriftTableUpdateCompanionBuilder
   Value<int?> creatorId,
   Value<int?> remoteId,
   Value<DateTime?> lastUpdate,
-  Value<DateTime?> lastAccessedDate,
-  Value<int?> remoteAccesses,
-  Value<int?> accesses,
+  Value<DateTime?> lastViewedDate,
+  Value<int?> remoteViews,
+  Value<int?> views,
   Value<String?> checksum,
 });
 
@@ -4501,16 +4462,15 @@ class $$OrganizerItemTableDriftTableFilterComposer
   ColumnFilters<DateTime> get lastUpdate => $composableBuilder(
       column: $table.lastUpdate, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get lastAccessedDate => $composableBuilder(
-      column: $table.lastAccessedDate,
+  ColumnFilters<DateTime> get lastViewedDate => $composableBuilder(
+      column: $table.lastViewedDate,
       builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<int> get remoteAccesses => $composableBuilder(
-      column: $table.remoteAccesses,
-      builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get remoteViews => $composableBuilder(
+      column: $table.remoteViews, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<int> get accesses => $composableBuilder(
-      column: $table.accesses, builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get views => $composableBuilder(
+      column: $table.views, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get checksum => $composableBuilder(
       column: $table.checksum, builder: (column) => ColumnFilters(column));
@@ -4540,16 +4500,15 @@ class $$OrganizerItemTableDriftTableOrderingComposer
   ColumnOrderings<DateTime> get lastUpdate => $composableBuilder(
       column: $table.lastUpdate, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get lastAccessedDate => $composableBuilder(
-      column: $table.lastAccessedDate,
+  ColumnOrderings<DateTime> get lastViewedDate => $composableBuilder(
+      column: $table.lastViewedDate,
       builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get remoteAccesses => $composableBuilder(
-      column: $table.remoteAccesses,
-      builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get remoteViews => $composableBuilder(
+      column: $table.remoteViews, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get accesses => $composableBuilder(
-      column: $table.accesses, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get views => $composableBuilder(
+      column: $table.views, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get checksum => $composableBuilder(
       column: $table.checksum, builder: (column) => ColumnOrderings(column));
@@ -4579,14 +4538,14 @@ class $$OrganizerItemTableDriftTableAnnotationComposer
   GeneratedColumn<DateTime> get lastUpdate => $composableBuilder(
       column: $table.lastUpdate, builder: (column) => column);
 
-  GeneratedColumn<DateTime> get lastAccessedDate => $composableBuilder(
-      column: $table.lastAccessedDate, builder: (column) => column);
+  GeneratedColumn<DateTime> get lastViewedDate => $composableBuilder(
+      column: $table.lastViewedDate, builder: (column) => column);
 
-  GeneratedColumn<int> get remoteAccesses => $composableBuilder(
-      column: $table.remoteAccesses, builder: (column) => column);
+  GeneratedColumn<int> get remoteViews => $composableBuilder(
+      column: $table.remoteViews, builder: (column) => column);
 
-  GeneratedColumn<int> get accesses =>
-      $composableBuilder(column: $table.accesses, builder: (column) => column);
+  GeneratedColumn<int> get views =>
+      $composableBuilder(column: $table.views, builder: (column) => column);
 
   GeneratedColumn<String> get checksum =>
       $composableBuilder(column: $table.checksum, builder: (column) => column);
@@ -4628,9 +4587,9 @@ class $$OrganizerItemTableDriftTableTableManager extends RootTableManager<
             Value<int?> creatorId = const Value.absent(),
             Value<int?> remoteId = const Value.absent(),
             Value<DateTime?> lastUpdate = const Value.absent(),
-            Value<DateTime?> lastAccessedDate = const Value.absent(),
-            Value<int?> remoteAccesses = const Value.absent(),
-            Value<int?> accesses = const Value.absent(),
+            Value<DateTime?> lastViewedDate = const Value.absent(),
+            Value<int?> remoteViews = const Value.absent(),
+            Value<int?> views = const Value.absent(),
             Value<String?> checksum = const Value.absent(),
           }) =>
               OrganizerItemTableDriftCompanion(
@@ -4639,9 +4598,9 @@ class $$OrganizerItemTableDriftTableTableManager extends RootTableManager<
             creatorId: creatorId,
             remoteId: remoteId,
             lastUpdate: lastUpdate,
-            lastAccessedDate: lastAccessedDate,
-            remoteAccesses: remoteAccesses,
-            accesses: accesses,
+            lastViewedDate: lastViewedDate,
+            remoteViews: remoteViews,
+            views: views,
             checksum: checksum,
           ),
           createCompanionCallback: ({
@@ -4650,9 +4609,9 @@ class $$OrganizerItemTableDriftTableTableManager extends RootTableManager<
             Value<int?> creatorId = const Value.absent(),
             Value<int?> remoteId = const Value.absent(),
             Value<DateTime?> lastUpdate = const Value.absent(),
-            Value<DateTime?> lastAccessedDate = const Value.absent(),
-            Value<int?> remoteAccesses = const Value.absent(),
-            Value<int?> accesses = const Value.absent(),
+            Value<DateTime?> lastViewedDate = const Value.absent(),
+            Value<int?> remoteViews = const Value.absent(),
+            Value<int?> views = const Value.absent(),
             Value<String?> checksum = const Value.absent(),
           }) =>
               OrganizerItemTableDriftCompanion.insert(
@@ -4661,9 +4620,9 @@ class $$OrganizerItemTableDriftTableTableManager extends RootTableManager<
             creatorId: creatorId,
             remoteId: remoteId,
             lastUpdate: lastUpdate,
-            lastAccessedDate: lastAccessedDate,
-            remoteAccesses: remoteAccesses,
-            accesses: accesses,
+            lastViewedDate: lastViewedDate,
+            remoteViews: remoteViews,
+            views: views,
             checksum: checksum,
           ),
           withReferenceMapper: (p0) => p0
@@ -4697,9 +4656,9 @@ typedef $$TaskTableDriftTableCreateCompanionBuilder = TaskTableDriftCompanion
   Value<int?> creatorId,
   Value<int?> remoteId,
   Value<DateTime?> lastUpdate,
-  Value<DateTime?> lastAccessedDate,
-  Value<int?> remoteAccesses,
-  Value<int?> accesses,
+  Value<DateTime?> lastViewedDate,
+  Value<int?> remoteViews,
+  Value<int?> views,
   Value<String?> checksum,
   required String subject,
   Value<DateTime?> startDate,
@@ -4717,9 +4676,9 @@ typedef $$TaskTableDriftTableUpdateCompanionBuilder = TaskTableDriftCompanion
   Value<int?> creatorId,
   Value<int?> remoteId,
   Value<DateTime?> lastUpdate,
-  Value<DateTime?> lastAccessedDate,
-  Value<int?> remoteAccesses,
-  Value<int?> accesses,
+  Value<DateTime?> lastViewedDate,
+  Value<int?> remoteViews,
+  Value<int?> views,
   Value<String?> checksum,
   Value<String> subject,
   Value<DateTime?> startDate,
@@ -4755,16 +4714,15 @@ class $$TaskTableDriftTableFilterComposer
   ColumnFilters<DateTime> get lastUpdate => $composableBuilder(
       column: $table.lastUpdate, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get lastAccessedDate => $composableBuilder(
-      column: $table.lastAccessedDate,
+  ColumnFilters<DateTime> get lastViewedDate => $composableBuilder(
+      column: $table.lastViewedDate,
       builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<int> get remoteAccesses => $composableBuilder(
-      column: $table.remoteAccesses,
-      builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get remoteViews => $composableBuilder(
+      column: $table.remoteViews, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<int> get accesses => $composableBuilder(
-      column: $table.accesses, builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get views => $composableBuilder(
+      column: $table.views, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get checksum => $composableBuilder(
       column: $table.checksum, builder: (column) => ColumnFilters(column));
@@ -4820,16 +4778,15 @@ class $$TaskTableDriftTableOrderingComposer
   ColumnOrderings<DateTime> get lastUpdate => $composableBuilder(
       column: $table.lastUpdate, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get lastAccessedDate => $composableBuilder(
-      column: $table.lastAccessedDate,
+  ColumnOrderings<DateTime> get lastViewedDate => $composableBuilder(
+      column: $table.lastViewedDate,
       builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get remoteAccesses => $composableBuilder(
-      column: $table.remoteAccesses,
-      builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get remoteViews => $composableBuilder(
+      column: $table.remoteViews, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get accesses => $composableBuilder(
-      column: $table.accesses, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get views => $composableBuilder(
+      column: $table.views, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get checksum => $composableBuilder(
       column: $table.checksum, builder: (column) => ColumnOrderings(column));
@@ -4886,14 +4843,14 @@ class $$TaskTableDriftTableAnnotationComposer
   GeneratedColumn<DateTime> get lastUpdate => $composableBuilder(
       column: $table.lastUpdate, builder: (column) => column);
 
-  GeneratedColumn<DateTime> get lastAccessedDate => $composableBuilder(
-      column: $table.lastAccessedDate, builder: (column) => column);
+  GeneratedColumn<DateTime> get lastViewedDate => $composableBuilder(
+      column: $table.lastViewedDate, builder: (column) => column);
 
-  GeneratedColumn<int> get remoteAccesses => $composableBuilder(
-      column: $table.remoteAccesses, builder: (column) => column);
+  GeneratedColumn<int> get remoteViews => $composableBuilder(
+      column: $table.remoteViews, builder: (column) => column);
 
-  GeneratedColumn<int> get accesses =>
-      $composableBuilder(column: $table.accesses, builder: (column) => column);
+  GeneratedColumn<int> get views =>
+      $composableBuilder(column: $table.views, builder: (column) => column);
 
   GeneratedColumn<String> get checksum =>
       $composableBuilder(column: $table.checksum, builder: (column) => column);
@@ -4955,9 +4912,9 @@ class $$TaskTableDriftTableTableManager extends RootTableManager<
             Value<int?> creatorId = const Value.absent(),
             Value<int?> remoteId = const Value.absent(),
             Value<DateTime?> lastUpdate = const Value.absent(),
-            Value<DateTime?> lastAccessedDate = const Value.absent(),
-            Value<int?> remoteAccesses = const Value.absent(),
-            Value<int?> accesses = const Value.absent(),
+            Value<DateTime?> lastViewedDate = const Value.absent(),
+            Value<int?> remoteViews = const Value.absent(),
+            Value<int?> views = const Value.absent(),
             Value<String?> checksum = const Value.absent(),
             Value<String> subject = const Value.absent(),
             Value<DateTime?> startDate = const Value.absent(),
@@ -4974,9 +4931,9 @@ class $$TaskTableDriftTableTableManager extends RootTableManager<
             creatorId: creatorId,
             remoteId: remoteId,
             lastUpdate: lastUpdate,
-            lastAccessedDate: lastAccessedDate,
-            remoteAccesses: remoteAccesses,
-            accesses: accesses,
+            lastViewedDate: lastViewedDate,
+            remoteViews: remoteViews,
+            views: views,
             checksum: checksum,
             subject: subject,
             startDate: startDate,
@@ -4993,9 +4950,9 @@ class $$TaskTableDriftTableTableManager extends RootTableManager<
             Value<int?> creatorId = const Value.absent(),
             Value<int?> remoteId = const Value.absent(),
             Value<DateTime?> lastUpdate = const Value.absent(),
-            Value<DateTime?> lastAccessedDate = const Value.absent(),
-            Value<int?> remoteAccesses = const Value.absent(),
-            Value<int?> accesses = const Value.absent(),
+            Value<DateTime?> lastViewedDate = const Value.absent(),
+            Value<int?> remoteViews = const Value.absent(),
+            Value<int?> views = const Value.absent(),
             Value<String?> checksum = const Value.absent(),
             required String subject,
             Value<DateTime?> startDate = const Value.absent(),
@@ -5012,9 +4969,9 @@ class $$TaskTableDriftTableTableManager extends RootTableManager<
             creatorId: creatorId,
             remoteId: remoteId,
             lastUpdate: lastUpdate,
-            lastAccessedDate: lastAccessedDate,
-            remoteAccesses: remoteAccesses,
-            accesses: accesses,
+            lastViewedDate: lastViewedDate,
+            remoteViews: remoteViews,
+            views: views,
             checksum: checksum,
             subject: subject,
             startDate: startDate,
@@ -5564,9 +5521,9 @@ typedef $$UserTableDriftTableCreateCompanionBuilder = UserTableDriftCompanion
   Value<int?> creatorId,
   Value<int?> remoteId,
   Value<DateTime?> lastUpdate,
-  Value<DateTime?> lastAccessedDate,
-  Value<int?> remoteAccesses,
-  Value<int?> accesses,
+  Value<DateTime?> lastViewedDate,
+  Value<int?> remoteViews,
+  Value<int?> views,
   Value<String?> checksum,
   required String name,
   required String hashedPassword,
@@ -5580,9 +5537,9 @@ typedef $$UserTableDriftTableUpdateCompanionBuilder = UserTableDriftCompanion
   Value<int?> creatorId,
   Value<int?> remoteId,
   Value<DateTime?> lastUpdate,
-  Value<DateTime?> lastAccessedDate,
-  Value<int?> remoteAccesses,
-  Value<int?> accesses,
+  Value<DateTime?> lastViewedDate,
+  Value<int?> remoteViews,
+  Value<int?> views,
   Value<String?> checksum,
   Value<String> name,
   Value<String> hashedPassword,
@@ -5614,16 +5571,15 @@ class $$UserTableDriftTableFilterComposer
   ColumnFilters<DateTime> get lastUpdate => $composableBuilder(
       column: $table.lastUpdate, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get lastAccessedDate => $composableBuilder(
-      column: $table.lastAccessedDate,
+  ColumnFilters<DateTime> get lastViewedDate => $composableBuilder(
+      column: $table.lastViewedDate,
       builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<int> get remoteAccesses => $composableBuilder(
-      column: $table.remoteAccesses,
-      builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get remoteViews => $composableBuilder(
+      column: $table.remoteViews, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<int> get accesses => $composableBuilder(
-      column: $table.accesses, builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get views => $composableBuilder(
+      column: $table.views, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get checksum => $composableBuilder(
       column: $table.checksum, builder: (column) => ColumnFilters(column));
@@ -5666,16 +5622,15 @@ class $$UserTableDriftTableOrderingComposer
   ColumnOrderings<DateTime> get lastUpdate => $composableBuilder(
       column: $table.lastUpdate, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get lastAccessedDate => $composableBuilder(
-      column: $table.lastAccessedDate,
+  ColumnOrderings<DateTime> get lastViewedDate => $composableBuilder(
+      column: $table.lastViewedDate,
       builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get remoteAccesses => $composableBuilder(
-      column: $table.remoteAccesses,
-      builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get remoteViews => $composableBuilder(
+      column: $table.remoteViews, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get accesses => $composableBuilder(
-      column: $table.accesses, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get views => $composableBuilder(
+      column: $table.views, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get checksum => $composableBuilder(
       column: $table.checksum, builder: (column) => ColumnOrderings(column));
@@ -5718,14 +5673,14 @@ class $$UserTableDriftTableAnnotationComposer
   GeneratedColumn<DateTime> get lastUpdate => $composableBuilder(
       column: $table.lastUpdate, builder: (column) => column);
 
-  GeneratedColumn<DateTime> get lastAccessedDate => $composableBuilder(
-      column: $table.lastAccessedDate, builder: (column) => column);
+  GeneratedColumn<DateTime> get lastViewedDate => $composableBuilder(
+      column: $table.lastViewedDate, builder: (column) => column);
 
-  GeneratedColumn<int> get remoteAccesses => $composableBuilder(
-      column: $table.remoteAccesses, builder: (column) => column);
+  GeneratedColumn<int> get remoteViews => $composableBuilder(
+      column: $table.remoteViews, builder: (column) => column);
 
-  GeneratedColumn<int> get accesses =>
-      $composableBuilder(column: $table.accesses, builder: (column) => column);
+  GeneratedColumn<int> get views =>
+      $composableBuilder(column: $table.views, builder: (column) => column);
 
   GeneratedColumn<String> get checksum =>
       $composableBuilder(column: $table.checksum, builder: (column) => column);
@@ -5775,9 +5730,9 @@ class $$UserTableDriftTableTableManager extends RootTableManager<
             Value<int?> creatorId = const Value.absent(),
             Value<int?> remoteId = const Value.absent(),
             Value<DateTime?> lastUpdate = const Value.absent(),
-            Value<DateTime?> lastAccessedDate = const Value.absent(),
-            Value<int?> remoteAccesses = const Value.absent(),
-            Value<int?> accesses = const Value.absent(),
+            Value<DateTime?> lastViewedDate = const Value.absent(),
+            Value<int?> remoteViews = const Value.absent(),
+            Value<int?> views = const Value.absent(),
             Value<String?> checksum = const Value.absent(),
             Value<String> name = const Value.absent(),
             Value<String> hashedPassword = const Value.absent(),
@@ -5790,9 +5745,9 @@ class $$UserTableDriftTableTableManager extends RootTableManager<
             creatorId: creatorId,
             remoteId: remoteId,
             lastUpdate: lastUpdate,
-            lastAccessedDate: lastAccessedDate,
-            remoteAccesses: remoteAccesses,
-            accesses: accesses,
+            lastViewedDate: lastViewedDate,
+            remoteViews: remoteViews,
+            views: views,
             checksum: checksum,
             name: name,
             hashedPassword: hashedPassword,
@@ -5805,9 +5760,9 @@ class $$UserTableDriftTableTableManager extends RootTableManager<
             Value<int?> creatorId = const Value.absent(),
             Value<int?> remoteId = const Value.absent(),
             Value<DateTime?> lastUpdate = const Value.absent(),
-            Value<DateTime?> lastAccessedDate = const Value.absent(),
-            Value<int?> remoteAccesses = const Value.absent(),
-            Value<int?> accesses = const Value.absent(),
+            Value<DateTime?> lastViewedDate = const Value.absent(),
+            Value<int?> remoteViews = const Value.absent(),
+            Value<int?> views = const Value.absent(),
             Value<String?> checksum = const Value.absent(),
             required String name,
             required String hashedPassword,
@@ -5820,9 +5775,9 @@ class $$UserTableDriftTableTableManager extends RootTableManager<
             creatorId: creatorId,
             remoteId: remoteId,
             lastUpdate: lastUpdate,
-            lastAccessedDate: lastAccessedDate,
-            remoteAccesses: remoteAccesses,
-            accesses: accesses,
+            lastViewedDate: lastViewedDate,
+            remoteViews: remoteViews,
+            views: views,
             checksum: checksum,
             name: name,
             hashedPassword: hashedPassword,
@@ -6078,9 +6033,9 @@ typedef $$ReminderTableDriftTableCreateCompanionBuilder
   Value<int?> creatorId,
   Value<int?> remoteId,
   Value<DateTime?> lastUpdate,
-  Value<DateTime?> lastAccessedDate,
-  Value<int?> remoteAccesses,
-  Value<int?> accesses,
+  Value<DateTime?> lastViewedDate,
+  Value<int?> remoteViews,
+  Value<int?> views,
   Value<String?> checksum,
   required String subject,
   required DateTime remindAt,
@@ -6092,9 +6047,9 @@ typedef $$ReminderTableDriftTableUpdateCompanionBuilder
   Value<int?> creatorId,
   Value<int?> remoteId,
   Value<DateTime?> lastUpdate,
-  Value<DateTime?> lastAccessedDate,
-  Value<int?> remoteAccesses,
-  Value<int?> accesses,
+  Value<DateTime?> lastViewedDate,
+  Value<int?> remoteViews,
+  Value<int?> views,
   Value<String?> checksum,
   Value<String> subject,
   Value<DateTime> remindAt,
@@ -6124,16 +6079,15 @@ class $$ReminderTableDriftTableFilterComposer
   ColumnFilters<DateTime> get lastUpdate => $composableBuilder(
       column: $table.lastUpdate, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get lastAccessedDate => $composableBuilder(
-      column: $table.lastAccessedDate,
+  ColumnFilters<DateTime> get lastViewedDate => $composableBuilder(
+      column: $table.lastViewedDate,
       builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<int> get remoteAccesses => $composableBuilder(
-      column: $table.remoteAccesses,
-      builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get remoteViews => $composableBuilder(
+      column: $table.remoteViews, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<int> get accesses => $composableBuilder(
-      column: $table.accesses, builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get views => $composableBuilder(
+      column: $table.views, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get checksum => $composableBuilder(
       column: $table.checksum, builder: (column) => ColumnFilters(column));
@@ -6169,16 +6123,15 @@ class $$ReminderTableDriftTableOrderingComposer
   ColumnOrderings<DateTime> get lastUpdate => $composableBuilder(
       column: $table.lastUpdate, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get lastAccessedDate => $composableBuilder(
-      column: $table.lastAccessedDate,
+  ColumnOrderings<DateTime> get lastViewedDate => $composableBuilder(
+      column: $table.lastViewedDate,
       builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get remoteAccesses => $composableBuilder(
-      column: $table.remoteAccesses,
-      builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get remoteViews => $composableBuilder(
+      column: $table.remoteViews, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get accesses => $composableBuilder(
-      column: $table.accesses, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get views => $composableBuilder(
+      column: $table.views, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get checksum => $composableBuilder(
       column: $table.checksum, builder: (column) => ColumnOrderings(column));
@@ -6214,14 +6167,14 @@ class $$ReminderTableDriftTableAnnotationComposer
   GeneratedColumn<DateTime> get lastUpdate => $composableBuilder(
       column: $table.lastUpdate, builder: (column) => column);
 
-  GeneratedColumn<DateTime> get lastAccessedDate => $composableBuilder(
-      column: $table.lastAccessedDate, builder: (column) => column);
+  GeneratedColumn<DateTime> get lastViewedDate => $composableBuilder(
+      column: $table.lastViewedDate, builder: (column) => column);
 
-  GeneratedColumn<int> get remoteAccesses => $composableBuilder(
-      column: $table.remoteAccesses, builder: (column) => column);
+  GeneratedColumn<int> get remoteViews => $composableBuilder(
+      column: $table.remoteViews, builder: (column) => column);
 
-  GeneratedColumn<int> get accesses =>
-      $composableBuilder(column: $table.accesses, builder: (column) => column);
+  GeneratedColumn<int> get views =>
+      $composableBuilder(column: $table.views, builder: (column) => column);
 
   GeneratedColumn<String> get checksum =>
       $composableBuilder(column: $table.checksum, builder: (column) => column);
@@ -6267,9 +6220,9 @@ class $$ReminderTableDriftTableTableManager extends RootTableManager<
             Value<int?> creatorId = const Value.absent(),
             Value<int?> remoteId = const Value.absent(),
             Value<DateTime?> lastUpdate = const Value.absent(),
-            Value<DateTime?> lastAccessedDate = const Value.absent(),
-            Value<int?> remoteAccesses = const Value.absent(),
-            Value<int?> accesses = const Value.absent(),
+            Value<DateTime?> lastViewedDate = const Value.absent(),
+            Value<int?> remoteViews = const Value.absent(),
+            Value<int?> views = const Value.absent(),
             Value<String?> checksum = const Value.absent(),
             Value<String> subject = const Value.absent(),
             Value<DateTime> remindAt = const Value.absent(),
@@ -6280,9 +6233,9 @@ class $$ReminderTableDriftTableTableManager extends RootTableManager<
             creatorId: creatorId,
             remoteId: remoteId,
             lastUpdate: lastUpdate,
-            lastAccessedDate: lastAccessedDate,
-            remoteAccesses: remoteAccesses,
-            accesses: accesses,
+            lastViewedDate: lastViewedDate,
+            remoteViews: remoteViews,
+            views: views,
             checksum: checksum,
             subject: subject,
             remindAt: remindAt,
@@ -6293,9 +6246,9 @@ class $$ReminderTableDriftTableTableManager extends RootTableManager<
             Value<int?> creatorId = const Value.absent(),
             Value<int?> remoteId = const Value.absent(),
             Value<DateTime?> lastUpdate = const Value.absent(),
-            Value<DateTime?> lastAccessedDate = const Value.absent(),
-            Value<int?> remoteAccesses = const Value.absent(),
-            Value<int?> accesses = const Value.absent(),
+            Value<DateTime?> lastViewedDate = const Value.absent(),
+            Value<int?> remoteViews = const Value.absent(),
+            Value<int?> views = const Value.absent(),
             Value<String?> checksum = const Value.absent(),
             required String subject,
             required DateTime remindAt,
@@ -6306,9 +6259,9 @@ class $$ReminderTableDriftTableTableManager extends RootTableManager<
             creatorId: creatorId,
             remoteId: remoteId,
             lastUpdate: lastUpdate,
-            lastAccessedDate: lastAccessedDate,
-            remoteAccesses: remoteAccesses,
-            accesses: accesses,
+            lastViewedDate: lastViewedDate,
+            remoteViews: remoteViews,
+            views: views,
             checksum: checksum,
             subject: subject,
             remindAt: remindAt,
@@ -6343,9 +6296,9 @@ typedef $$TagTableDriftTableCreateCompanionBuilder = TagTableDriftCompanion
   Value<int?> creatorId,
   Value<int?> remoteId,
   Value<DateTime?> lastUpdate,
-  Value<DateTime?> lastAccessedDate,
-  Value<int?> remoteAccesses,
-  Value<int?> accesses,
+  Value<DateTime?> lastViewedDate,
+  Value<int?> remoteViews,
+  Value<int?> views,
   Value<String?> checksum,
   required String subject,
 });
@@ -6356,9 +6309,9 @@ typedef $$TagTableDriftTableUpdateCompanionBuilder = TagTableDriftCompanion
   Value<int?> creatorId,
   Value<int?> remoteId,
   Value<DateTime?> lastUpdate,
-  Value<DateTime?> lastAccessedDate,
-  Value<int?> remoteAccesses,
-  Value<int?> accesses,
+  Value<DateTime?> lastViewedDate,
+  Value<int?> remoteViews,
+  Value<int?> views,
   Value<String?> checksum,
   Value<String> subject,
 });
@@ -6387,16 +6340,15 @@ class $$TagTableDriftTableFilterComposer
   ColumnFilters<DateTime> get lastUpdate => $composableBuilder(
       column: $table.lastUpdate, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get lastAccessedDate => $composableBuilder(
-      column: $table.lastAccessedDate,
+  ColumnFilters<DateTime> get lastViewedDate => $composableBuilder(
+      column: $table.lastViewedDate,
       builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<int> get remoteAccesses => $composableBuilder(
-      column: $table.remoteAccesses,
-      builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get remoteViews => $composableBuilder(
+      column: $table.remoteViews, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<int> get accesses => $composableBuilder(
-      column: $table.accesses, builder: (column) => ColumnFilters(column));
+  ColumnFilters<int> get views => $composableBuilder(
+      column: $table.views, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get checksum => $composableBuilder(
       column: $table.checksum, builder: (column) => ColumnFilters(column));
@@ -6429,16 +6381,15 @@ class $$TagTableDriftTableOrderingComposer
   ColumnOrderings<DateTime> get lastUpdate => $composableBuilder(
       column: $table.lastUpdate, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get lastAccessedDate => $composableBuilder(
-      column: $table.lastAccessedDate,
+  ColumnOrderings<DateTime> get lastViewedDate => $composableBuilder(
+      column: $table.lastViewedDate,
       builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get remoteAccesses => $composableBuilder(
-      column: $table.remoteAccesses,
-      builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get remoteViews => $composableBuilder(
+      column: $table.remoteViews, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<int> get accesses => $composableBuilder(
-      column: $table.accesses, builder: (column) => ColumnOrderings(column));
+  ColumnOrderings<int> get views => $composableBuilder(
+      column: $table.views, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<String> get checksum => $composableBuilder(
       column: $table.checksum, builder: (column) => ColumnOrderings(column));
@@ -6471,14 +6422,14 @@ class $$TagTableDriftTableAnnotationComposer
   GeneratedColumn<DateTime> get lastUpdate => $composableBuilder(
       column: $table.lastUpdate, builder: (column) => column);
 
-  GeneratedColumn<DateTime> get lastAccessedDate => $composableBuilder(
-      column: $table.lastAccessedDate, builder: (column) => column);
+  GeneratedColumn<DateTime> get lastViewedDate => $composableBuilder(
+      column: $table.lastViewedDate, builder: (column) => column);
 
-  GeneratedColumn<int> get remoteAccesses => $composableBuilder(
-      column: $table.remoteAccesses, builder: (column) => column);
+  GeneratedColumn<int> get remoteViews => $composableBuilder(
+      column: $table.remoteViews, builder: (column) => column);
 
-  GeneratedColumn<int> get accesses =>
-      $composableBuilder(column: $table.accesses, builder: (column) => column);
+  GeneratedColumn<int> get views =>
+      $composableBuilder(column: $table.views, builder: (column) => column);
 
   GeneratedColumn<String> get checksum =>
       $composableBuilder(column: $table.checksum, builder: (column) => column);
@@ -6519,9 +6470,9 @@ class $$TagTableDriftTableTableManager extends RootTableManager<
             Value<int?> creatorId = const Value.absent(),
             Value<int?> remoteId = const Value.absent(),
             Value<DateTime?> lastUpdate = const Value.absent(),
-            Value<DateTime?> lastAccessedDate = const Value.absent(),
-            Value<int?> remoteAccesses = const Value.absent(),
-            Value<int?> accesses = const Value.absent(),
+            Value<DateTime?> lastViewedDate = const Value.absent(),
+            Value<int?> remoteViews = const Value.absent(),
+            Value<int?> views = const Value.absent(),
             Value<String?> checksum = const Value.absent(),
             Value<String> subject = const Value.absent(),
           }) =>
@@ -6531,9 +6482,9 @@ class $$TagTableDriftTableTableManager extends RootTableManager<
             creatorId: creatorId,
             remoteId: remoteId,
             lastUpdate: lastUpdate,
-            lastAccessedDate: lastAccessedDate,
-            remoteAccesses: remoteAccesses,
-            accesses: accesses,
+            lastViewedDate: lastViewedDate,
+            remoteViews: remoteViews,
+            views: views,
             checksum: checksum,
             subject: subject,
           ),
@@ -6543,9 +6494,9 @@ class $$TagTableDriftTableTableManager extends RootTableManager<
             Value<int?> creatorId = const Value.absent(),
             Value<int?> remoteId = const Value.absent(),
             Value<DateTime?> lastUpdate = const Value.absent(),
-            Value<DateTime?> lastAccessedDate = const Value.absent(),
-            Value<int?> remoteAccesses = const Value.absent(),
-            Value<int?> accesses = const Value.absent(),
+            Value<DateTime?> lastViewedDate = const Value.absent(),
+            Value<int?> remoteViews = const Value.absent(),
+            Value<int?> views = const Value.absent(),
             Value<String?> checksum = const Value.absent(),
             required String subject,
           }) =>
@@ -6555,9 +6506,9 @@ class $$TagTableDriftTableTableManager extends RootTableManager<
             creatorId: creatorId,
             remoteId: remoteId,
             lastUpdate: lastUpdate,
-            lastAccessedDate: lastAccessedDate,
-            remoteAccesses: remoteAccesses,
-            accesses: accesses,
+            lastViewedDate: lastViewedDate,
+            remoteViews: remoteViews,
+            views: views,
             checksum: checksum,
             subject: subject,
           ),

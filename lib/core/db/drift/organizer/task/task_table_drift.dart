@@ -3,8 +3,6 @@ import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
 
 @DataClassName('TaskTableDriftG')
 class TaskTableDrift extends OrganizerItemTableDrift {
-  TextColumn get subject => text().withLength(min: 1, max: 255)();
-
   DateTimeColumn get startDate => dateTime().nullable()();
 
   DateTimeColumn get endDate => dateTime().nullable()();
@@ -17,5 +15,5 @@ class TaskTableDrift extends OrganizerItemTableDrift {
 
   RealColumn get workingProgress => real().nullable()();
 
-  TextColumn get taskStatus => text().nullable()(); // Enum stored as text
+  TextColumn get taskStatus => text().nullable()();
 }

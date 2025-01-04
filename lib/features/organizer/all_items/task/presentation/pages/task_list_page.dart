@@ -1,4 +1,4 @@
-import 'package:fo_fe/core/widgets/pages/item_dto_list_view_page.dart';
+import 'package:fo_fe/core/widgets/pages/item_list_view_page.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/pages/task_card_page.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';

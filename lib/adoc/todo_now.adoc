@@ -45,9 +45,10 @@ debounce see todo code
 * Update TaskUserBlocState
 * TaskLinkUserPage to show a list with all users and update button
 * create a generic widget where to have all the items with chkbox  and the one selected to be in
-the previouse list
+the previouse list from GetItemsFromLogInUserUseCase can be tooked form TaskParams?
 
-
+* final ItemsTypeEnum itemsType; from
+* move the bloc hendlers from bloc to not dry
 * updateTagItemOfTask transfer  the logic in usecase
 * Update User
 

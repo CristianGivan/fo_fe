@@ -11,6 +11,7 @@ class TaskDto extends DtoEntity {
   }) : super(
           id: task.id,
           remoteId: task.remoteId,
+          subject: task.subject,
           isSelectedByUser: taskUserLink.isSelectedByUser,
         );
 

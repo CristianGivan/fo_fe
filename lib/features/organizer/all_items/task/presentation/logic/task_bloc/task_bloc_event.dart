@@ -1,5 +1,14 @@
 part of 'task_bloc.dart';
 
+class UpdateTaskBlocEvent<P> extends OrganizerBlocEvent {
+  final P params;
+
+  const UpdateTaskBlocEvent(this.params);
+
+  @override
+  List<Object> get props => [params as Object];
+}
+
 class TaskItemsSortBlocEvent<P> extends OrganizerBlocEvent {
   final P sortParams;
 
@@ -20,15 +29,6 @@ class TaskItemsFilterBlocEvent<P> extends OrganizerBlocEvent {
 
   @override
   List<Object> get props => [filterParams as Object];
-}
-
-class UpdateTaskBlocEvent<P> extends OrganizerBlocEvent {
-  final P params;
-
-  const UpdateTaskBlocEvent(this.params);
-
-  @override
-  List<Object> get props => [params as Object];
 }
 
 class ExportTaskToExcelBlocEvent extends OrganizerBlocEvent {

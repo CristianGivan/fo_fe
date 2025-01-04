@@ -41,7 +41,7 @@ void taskInit() {
 
   // Task User Use cases
   sl.registerLazySingleton(() => GetCreatorByTaskIdUseCase(sl()));
-  sl.registerLazySingleton(() => GetUserItemsByTaskIdUseCase(sl()));
+  sl.registerLazySingleton(() => GetLinkItemsByItemIdUseCase(sl()));
   sl.registerLazySingleton(() => UpdateTaskUserLinkUseCase(sl()));
   sl.registerLazySingleton(() => UpdateUserItemsOfTaskUseCase(sl()));
 
@@ -68,10 +68,7 @@ void taskInit() {
 
   sl.registerFactory(() => TaskFormCubit());
   sl.registerFactory(() => TaskUserLinkBloc(
-        getUserItemsByTaskId: sl(),
-        getCreatorByTaskId: sl(),
-        updateUserItemsOfTask: sl(),
-        updateTaskUserLink: sl(),
+        getUserItemsByTaskIdUseCase: sl(),
       ));
   sl.registerFactory(() => TaskTagLinkBloc(
         getTagsByTaskId: sl(),

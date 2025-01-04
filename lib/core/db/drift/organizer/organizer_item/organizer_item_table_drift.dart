@@ -4,20 +4,21 @@ import 'package:drift/drift.dart';
 class OrganizerItemTableDrift extends Table {
   IntColumn get id => integer().autoIncrement()();
 
-  DateTimeColumn get createdDate =>
-      dateTime().withDefault(currentDateAndTime)();
+  IntColumn get remoteId => integer().nullable()();
 
   IntColumn get creatorId => integer().nullable()();
 
-  IntColumn get remoteId => integer().nullable()();
+  TextColumn get subject => text().nullable()();
+
+  DateTimeColumn get createdDate => dateTime().withDefault(currentDateAndTime)();
 
   DateTimeColumn get lastUpdate => dateTime().nullable()();
 
-  DateTimeColumn get lastAccessedDate => dateTime().nullable()();
+  DateTimeColumn get lastViewedDate => dateTime().nullable()();
 
-  IntColumn get remoteAccesses => integer().nullable()();
+  IntColumn get remoteViews => integer().nullable()();
 
-  IntColumn get accesses => integer().nullable()();
+  IntColumn get views => integer().nullable()();
 
   TextColumn get checksum => text().nullable()();
 }

@@ -1,0 +1,23 @@
+=== BC1
+
+I was to focus on solving the problem only after a lait refactor where I need to use a part of
+the code I realized what I did
+
+[dart]
+----
+class LinkItemListEditPage<T extends ItemEntity> extends StatelessWidget {
+final OrganizerItems<T> itemList;
+
+...
+
+      return ListView.builder(
+        itemCount: itemList.size(),
+        itemBuilder: (context, index) => _buildCheckboxListTitle(itemList, index, context),
+
+...
+
+  Widget _buildCheckboxListTitle(
+      OrganizerItems<ItemEntity> itemDtoList, int index, BuildContext context) {
+    final itemDto = itemDtoList.getAt(index) as T;
+...
+----

@@ -4,8 +4,7 @@ import 'package:fo_fe/features/organizer/all_items/reminder/utils/reminder_expor
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class ReminderMapper {
-  static ReminderEntity entityFromTableDrift(
-      ReminderTableDriftG reminderTable) {
+  static ReminderEntity entityFromTableDrift(ReminderTableDriftG reminderTable) {
     return ReminderEntity(
       id: reminderTable.id,
       subject: reminderTable.subject,
@@ -18,16 +17,14 @@ class ReminderMapper {
     return OrganizerItems.of(items.map(entityFromTableDrift).toList());
   }
 
-  static ReminderTableDriftCompanion tableDriftCompanionFromEntity(
-      ReminderEntity reminder) {
+  static ReminderTableDriftCompanion tableDriftCompanionFromEntity(ReminderEntity reminder) {
     return ReminderTableDriftCompanion(
       id: Value(reminder.id),
       remindAt: Value(reminder.remindAt),
     );
   }
 
-  static ReminderTableDriftCompanion companionFromEntity(
-      ReminderEntity entity) {
+  static ReminderTableDriftCompanion companionFromEntity(ReminderEntity entity) {
     return ReminderTableDriftCompanion(
       id: entity.id == 0 ? const Value.absent() : Value(entity.id),
       remindAt: Value(entity.remindAt),
@@ -41,9 +38,9 @@ class ReminderMapper {
       creatorId: Value(entity.creatorId),
       remoteId: Value(entity.remoteId),
       lastUpdate: Value(entity.lastUpdate),
-      lastAccessedDate: Value(entity.lastAccessedDate),
-      remoteAccesses: Value(entity.remoteAccesses),
-      accesses: Value(entity.accesses),
+      lastViewedDate: Value(entity.lastViewedDate),
+      remoteViews: Value(entity.remoteViews),
+      views: Value(entity.views),
       checksum: Value(entity.checksum),
       subject: Value(entity.subject),
       remindAt: Value(entity.remindAt),

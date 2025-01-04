@@ -1,45 +1,50 @@
-import 'package:fo_fe/core/utils/date_time/date_time_constants.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class ReminderEntity extends OrganizerItemEntity {
-  final String _subject;
   final DateTime _remindAt;
 
   ReminderEntity({
+    required DateTime remindAt,
+    super.subject,
     int? id,
-    DateTime? createdDate,
     int? creatorId,
     int? remoteId,
+    DateTime? createdDate,
     DateTime? lastUpdate,
-    DateTime? lastViewDate,
+    DateTime? lastViewedDate,
     int? remoteViews,
     int? views,
     String? checksum,
-    required String subject,
-    required DateTime remindAt,
-    int? taskId,
-  })  : _subject = subject,
-        _remindAt = remindAt,
+  })  : _remindAt = remindAt,
         super(
           id: id ?? 0,
           createdDate: createdDate ?? INITIAL_EPOCH_DATE,
           creatorId: creatorId ?? 0,
           remoteId: remoteId ?? 0,
           lastUpdate: lastUpdate ?? INITIAL_EPOCH_DATE,
-          lastAccessedDate: lastViewDate ?? INITIAL_EPOCH_DATE,
-          remoteAccesses: remoteViews ?? 0,
-          accesses: views ?? 0,
+          lastViewedDate: lastViewedDate ?? INITIAL_EPOCH_DATE,
+          remoteViews: remoteViews ?? 0,
+          views: views ?? 0,
           checksum: checksum ?? '',
         );
 
-  static final ReminderEntity _emptyInstance =
-      ReminderEntity(remindAt: INITIAL_EPOCH_DATE, subject: '');
+  static final ReminderEntity _emptyInstance = ReminderEntity(
+    subject: "",
+    id: 0,
+    creatorId: 0,
+    createdDate: INITIAL_EPOCH_DATE,
+    lastUpdate: INITIAL_EPOCH_DATE,
+    lastViewedDate: INITIAL_EPOCH_DATE,
+    remoteViews: 0,
+    views: 0,
+    checksum: "",
+    remindAt: INITIAL_EPOCH_DATE,
+  );
 
   factory ReminderEntity.empty() => _emptyInstance;
 
+  @override
   bool get isEmpty => this == _emptyInstance;
-
-  String get subject => _subject;
 
   DateTime get remindAt => _remindAt;
 
@@ -49,27 +54,25 @@ class ReminderEntity extends OrganizerItemEntity {
     int? creatorId,
     int? remoteId,
     DateTime? lastUpdate,
-    DateTime? lastViewDate,
+    DateTime? lastViewedDate,
     int? remoteViews,
     int? views,
     String? checksum,
     String? subject,
     DateTime? remindAt,
-    int? taskId,
   }) {
     return ReminderEntity(
+      subject: subject ?? this.subject,
       id: id ?? this.id,
-      createdDate: createdDate ?? this.createdDate,
       creatorId: creatorId ?? this.creatorId,
       remoteId: remoteId ?? this.remoteId,
+      createdDate: createdDate ?? this.createdDate,
       lastUpdate: lastUpdate ?? this.lastUpdate,
-      lastViewDate: lastViewDate ?? lastAccessedDate,
-      remoteViews: remoteViews ?? remoteAccesses,
-      views: views ?? accesses,
+      lastViewedDate: lastViewedDate ?? this.lastViewedDate,
+      remoteViews: remoteViews ?? this.remoteViews,
+      views: views ?? this.views,
       checksum: checksum ?? this.checksum,
-      subject: subject ?? _subject,
       remindAt: remindAt ?? _remindAt,
-      taskId: taskId,
     );
   }
 
@@ -77,7 +80,6 @@ class ReminderEntity extends OrganizerItemEntity {
   // TODO: implement props
   List<Object?> get props => [
         ...super.props,
-        _subject,
         _remindAt,
       ];
 }

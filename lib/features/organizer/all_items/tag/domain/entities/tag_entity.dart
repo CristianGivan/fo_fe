@@ -1,44 +1,62 @@
-import 'package:fo_fe/core/utils/date_time/date_time_constants.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class TagEntity extends OrganizerItemEntity {
-  final String _subject;
-
   TagEntity({
+    super.subject,
     int? id,
-    DateTime? createdDate,
     int? creatorId,
     int? remoteId,
+    DateTime? createdDate,
     DateTime? lastUpdate,
-    DateTime? lastViewDate,
+    DateTime? lastViewedDate,
     int? remoteViews,
     int? views,
     String? checksum,
-    required String subject,
-  })  : _subject = subject,
-        super(
+  }) : super(
           id: id ?? 0,
-          createdDate: createdDate ?? INITIAL_EPOCH_DATE,
-          creatorId: creatorId ?? 0,
           remoteId: remoteId ?? 0,
+          creatorId: creatorId ?? 0,
+          createdDate: createdDate ?? INITIAL_EPOCH_DATE,
           lastUpdate: lastUpdate ?? INITIAL_EPOCH_DATE,
-          lastAccessedDate: lastViewDate ?? INITIAL_EPOCH_DATE,
-          remoteAccesses: remoteViews ?? 0,
-          accesses: views ?? 0,
+          lastViewedDate: lastViewedDate ?? INITIAL_EPOCH_DATE,
+          remoteViews: remoteViews ?? 0,
+          views: views ?? 0,
           checksum: checksum ?? '',
         );
-  static final TagEntity _emptyInstance = TagEntity(subject: "");
+
+  static final TagEntity _emptyInstance = TagEntity();
 
   factory TagEntity.empty() => _emptyInstance;
 
+  @override
   bool get isEmpty => this == _emptyInstance;
 
-  String get subject => _subject;
+  TagEntity copyWith({
+    String? subject,
+    int? id,
+    int? creatorId,
+    int? remoteId,
+    DateTime? createdDate,
+    DateTime? lastUpdate,
+    DateTime? lastViewedDate,
+    int? remoteViews,
+    int? views,
+    String? checksum,
+  }) {
+    return TagEntity(
+      subject: subject ?? this.subject,
+      id: id ?? this.id,
+      creatorId: creatorId ?? this.creatorId,
+      remoteId: remoteId ?? this.remoteId,
+      createdDate: createdDate ?? this.createdDate,
+      lastUpdate: lastUpdate ?? this.lastUpdate,
+      lastViewedDate: lastViewedDate ?? this.lastViewedDate,
+      remoteViews: remoteViews ?? this.remoteViews,
+      views: views ?? this.views,
+      checksum: checksum ?? this.checksum,
+    );
+  }
 
   @override
-  // TODO: implement props
-  List<Object?> get props => [
-        ...super.props,
-        _subject,
-      ];
+  List<Object?> get props => [super.props];
 }

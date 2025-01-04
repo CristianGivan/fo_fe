@@ -14,7 +14,6 @@ class TaskParams extends ItemParams {
     int? id,
     IdSet? idSet,
     int? forUserId,
-    ItemReturn? itemReturn,
     OrganizerItems<TaskDto>? taskItems,
   })  : taskEntity = task ?? TaskEntity.empty(),
         taskUserLinkEntity = taskUserLinkEntity ?? TaskUserLinkEntity.empty(),
@@ -23,9 +22,9 @@ class TaskParams extends ItemParams {
         taskItems = taskItems ?? OrganizerItems.empty(),
         super(
           id: id ?? 0,
-          idSet: idSet ?? IdSet.empty(),
           forUserId: forUserId ?? 0,
-          itemReturn: itemReturn ?? ItemReturn.dto,
+          idSet: idSet ?? IdSet.empty(),
+          itemType: ItemsTypeEnum.task,
         );
 
   TaskParams copyWith({
@@ -35,7 +34,6 @@ class TaskParams extends ItemParams {
     int? id,
     IdSet? idSet,
     int? forUserId,
-    ItemReturn? itemReturn,
   }) {
     return TaskParams(
       task: task ?? this.taskEntity,
@@ -44,14 +42,13 @@ class TaskParams extends ItemParams {
       id: id ?? this.id,
       idSet: idSet ?? this.idSet,
       forUserId: forUserId ?? this.forUserId,
-      itemReturn: itemReturn ?? this.itemReturn,
     );
   }
 
   @override
   List<Object> get props => [taskEntity, taskUserLinkEntity, taskDto, ...super.props];
 
-  get itemReturnType => super.itemReturn;
+  get itemReturnType => super.itemType;
 }
 
 class UpdateItemsToTaskParams<T extends OrganizerItemEntity> extends Equatable {

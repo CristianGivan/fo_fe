@@ -230,9 +230,9 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
       creatorId: row.read<int>('creator_id'),
       remoteId: row.read<int>('remote_id'),
       lastUpdate: row.read<DateTime>('last_update'),
-      lastAccessedDate: row.read<DateTime>('last_accessed_date'),
-      remoteAccesses: row.read<int>('remote_accesses'),
-      accesses: row.read<int>('accesses'),
+      lastViewedDate: row.read<DateTime>('last_viewed_date'),
+      remoteViews: row.read<int>('remote_views'),
+      views: row.read<int>('views'),
       checksum: row.read<String>('checksum'),
     );
   }

@@ -1,6 +1,5 @@
 export '../domain/entities/task_dto.dart';
 export '../domain/entities/task_entity.dart';
-export '../domain/entities/task_entity_lazy_loaded.dart';
 export '../domain/entities/task_user_entity.dart';
 export '../domain/usecases/get_task_items_by_id_set_use_case.dart';
 export '../domain/usecases/task_filter_use_case.dart';
@@ -8,8 +7,8 @@ export '../domain/usecases/task_reminder_link/get_reminder_list_by_task_id_use_c
 export '../domain/usecases/task_sort_use_case.dart';
 export '../domain/usecases/task_tag_link/get_tag_list_by_task_id_use_case.dart';
 export '../domain/usecases/task_tag_link/update_tag_items_of_task_use_case.dart';
+export '../domain/usecases/task_user_link/get_link_items_by_item_id_use_case.dart';
 export '../domain/usecases/task_user_link/get_user_creator_by_task_id_use_case.dart';
-export '../domain/usecases/task_user_link/get_user_items_by_task_id_use_case.dart';
 export '../presentation/logic/task_bloc/task_bloc.dart';
 export '../presentation/pages/task_list_page.dart';
 export '../presentation/screens/task_add_screen.dart';
