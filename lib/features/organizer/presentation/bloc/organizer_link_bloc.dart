@@ -12,10 +12,10 @@ abstract class OrganizerLinkBloc<T extends ItemEntity>
   }) : super(OrganizerBlocState<T>(status: OrganizerBlocStatus.initial));
 
   void setupEventHandlers() {
-    on<GetLinkItemsByItemIdBlocEvent>(_onGetItems);
+    on<GetLinkItemsByItemIdBlocEvent>(_onGetItemsLinked);
   }
 
-  Future<void> _onGetItems(
+  Future<void> _onGetItemsLinked(
       GetLinkItemsByItemIdBlocEvent event, Emitter<OrganizerBlocState<T>> emit) async {
     await handleEvent(
       emit: emit,

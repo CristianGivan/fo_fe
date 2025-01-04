@@ -11,6 +11,7 @@ import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_use
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/update_task_dto_use_case.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/logic/task_cubit/task_form_cubit.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
+import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 import 'package:get_it/get_it.dart';
 
@@ -41,7 +42,7 @@ void taskInit() {
 
   // Task User Use cases
   sl.registerLazySingleton(() => GetCreatorByTaskIdUseCase(sl()));
-  sl.registerLazySingleton(() => GetLinkItemsByItemIdUseCase(sl()));
+  sl.registerLazySingleton(() => GetLinkItemsByItemIdUseCase<UserEntity>(sl()));
   sl.registerLazySingleton(() => UpdateTaskUserLinkUseCase(sl()));
   sl.registerLazySingleton(() => UpdateUserItemsOfTaskUseCase(sl()));
 

@@ -1,3 +1,4 @@
+import 'package:fo_fe/core/widgets/pages/link_item_list_view_page.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/presentation/bloc/organizer_link_bloc_event.dart';
@@ -21,7 +22,7 @@ class _TaskLinkUserPageState extends State<TaskLinkUserPage> {
     context
         .read<TaskUserLinkBloc>()
         .add(GetLinkItemsByItemIdBlocEvent(TaskParams(id: widget.task.id)));
-    return BlocBuilder<TaskUserLinkBloc, OrganizerBlocState>(builder: (context, state) {
+    return BlocBuilder<TaskUserLinkBloc, OrganizerBlocState<UserEntity>>(builder: (context, state) {
       return buildStateWidget(
         state: state,
         buildErrorState: _buildErrorState,
@@ -36,39 +37,18 @@ class _TaskLinkUserPageState extends State<TaskLinkUserPage> {
 
   Widget _buildLoadingState() => const Center(child: CircularProgressIndicator());
 
-  Widget _buildItemsListPage(BuildContext context, OrganizerItems<ItemEntity> itemList) {
-    return Container(child: Text('TaskLinkUserPage'));
-    // return ItemListViewPage<UserEntity>(
-    //   itemDtoList: itemList.convertTo<UserDto>(),
-    //   itemCardBuilder: (userDto) => UserCard(userDto),
-    //   getValue: _getValue,
-    //   updateItemUserLink: _updateTaskUserLink,
-    // );
+  Widget _buildItemsListPage(BuildContext context, OrganizerItems<UserEntity> items) {
+    return Column(
+      children: [
+        if (items.isEmpty)
+          Center(child: Text('No Available'))
+        else
+          LinkItemListViewPage<UserEntity>(itemList: items),
+        ElevatedButton(
+          onPressed: () => context.pop,
+          child: Text('Update'),
+        ),
+      ],
+    );
   }
-
-// return BlocBuilder<TaskUserLinkBloc, TaskUserLinkBlocState>(
-//   builder: (context, state) {
-//     if (state is TaskUserLoadingBlocState) {
-//       return const Center(child: CircularProgressIndicator());
-//     } else if (state is TaskUserLoadedBlocState) {
-//       userItems = state.userItems;
-//       return ItemWithItemsPage<TaskEntity, UserEntity>(
-//         item: widget.task,
-//         items: userItems,
-//         type: ItemsTypeEnum.user,
-//       );
-//       // } else if (state is UserItemsUpdatedToTaskBlocState) {
-//       //   userItems = state.userItemsUpdated;
-//       //   return ItemWithItemsPage<TaskEntity, UserEntity>(
-//       //     item: widget.task,
-//       //     items: userItems,
-//       //     type: ItemsTypeEnum.user,
-//       //   );
-//     } else if (state is TaskUserErrorBlocState) {
-//       return Center(child: Text(state.message));
-//     } else {
-//       return const Center(child: Text('No Users Available'));
-//     }
-//   },
-// );
 }

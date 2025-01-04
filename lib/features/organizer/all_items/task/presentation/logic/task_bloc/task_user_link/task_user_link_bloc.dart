@@ -1,7 +1,7 @@
 part of '../task_bloc.dart';
 
-class TaskUserLinkBloc extends OrganizerLinkBloc<ItemEntity> {
-  final GetLinkItemsByItemIdUseCase getUserItemsByTaskIdUseCase;
+class TaskUserLinkBloc extends OrganizerLinkBloc<UserEntity> {
+  final GetLinkItemsByItemIdUseCase<UserEntity> getUserItemsByTaskIdUseCase;
 
   TaskUserLinkBloc({
     required this.getUserItemsByTaskIdUseCase,

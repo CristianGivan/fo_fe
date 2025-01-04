@@ -1,13 +1,11 @@
 import '../../../features/organizer/utils/organizer_exports.dart';
 
-class LinkItemListViewPage<T extends ItemEntity> extends StatelessWidget {
+class LinkItemListViewPage<T extends OrganizerItemEntity> extends StatelessWidget {
   final OrganizerItems<T> itemList;
-  final Widget Function(T) itemCardBuilder;
 
   const LinkItemListViewPage({
     super.key,
     required this.itemList,
-    required this.itemCardBuilder,
   });
 
   @override
@@ -15,25 +13,18 @@ class LinkItemListViewPage<T extends ItemEntity> extends StatelessWidget {
     if (itemList.isEmpty) {
       return Center(child: Text('No items to display'));
     } else {
-      return ListView.builder(
-        itemCount: itemList.size(),
-        itemBuilder: (context, index) => _buildListTitle(index, context),
+      return SingleChildScrollView(
+        child: Column(
+          children: itemList
+              .map((item) => _buildListTitle(itemList.indexOf(item), context))
+              .toList(),
+        ),
       );
     }
   }
 
-//todo -refactor- it will be changed to a smaller list
   Widget _buildListTitle(int index, BuildContext context) {
     final item = itemList.getAt(index);
-    return ListTile(
-        // title: item.subject,
-        );
-    // return CheckboxListTile(
-    //   title: itemCardBuilder(itemDto),
-    //   value: getValue(itemDto),
-    //   onChanged: (bool? value) {
-    //     updateItemUserLink(context, itemDto, value!);
-    //   },
-    // );
+    return Center(child: Text(item.subject));
   }
 }
