@@ -32,13 +32,13 @@ class TaskListPage extends StatelessWidget {
       return ItemListViewPage<TaskDto>(
         itemDtoList: taskDtoList,
         itemCardBuilder: (taskDto) => TaskCard(taskDto),
-        getValue: _getValue,
+        value: _isSelected,
         updateItemUserLink: _updateTaskUserLink,
       );
     }
   }
 
-  bool _getValue(TaskDto taskDto) {
+  bool _isSelected(TaskDto taskDto) {
     return taskDto.taskUserLink.isSelectedByUser;
   }
 

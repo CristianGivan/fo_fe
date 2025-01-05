@@ -42,8 +42,10 @@ debounce see todo code
 
 == Now
 
-* Update TaskUserBlocState
-* TaskLinkUserPage to show a list with all users and update button
+* from update navigate to link_item_list_edit_page where I have selected alll the usersrs that
+areallreadi in the list and can add and delete others.
+* having all the items of the user display all and marked all the items of the item as selected
+items
 * create a generic widget where to have all the items with chkbox  and the one selected to be in
 the previouse list from GetItemsFromLogInUserUseCase can be tooked form TaskParams?
 
@@ -54,6 +56,8 @@ the previouse list from GetItemsFromLogInUserUseCase can be tooked form TaskPara
 
 == Done
 
+* TaskLinkUserPage to show a list with all users and update button
+* Update TaskUserBlocState
 * refactor repository and localdatasource with proper names
 * void addUserItemsToTask(int taskId, List<int> addedUserItems) {
 * check if I can pass the Items that are in fatched allready and not not to feache them again see

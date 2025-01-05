@@ -6,10 +6,10 @@ import 'package:fo_fe/features/organizer/all_items/task/presentation/widgets/tas
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class TaskEditScreen extends StatelessWidget {
+class TaskUpdateScreen extends StatelessWidget {
   final int taskId;
 
-  const TaskEditScreen({super.key, required this.taskId});
+  const TaskUpdateScreen({super.key, required this.taskId});
 
   @override
   Widget build(BuildContext context) {

@@ -27,7 +27,7 @@ class TaskCard extends StatelessWidget {
   }
 
   void _handleLongPress(BuildContext context) {
-    context.pushNamed(TaskRouterNames.taskEditRouteName, extra: task.id);
+    context.pushNamed(TaskRouterNames.taskUpdateRouteName, extra: task.id);
   }
 
   Future<bool> _handleConfirmDismiss(DismissDirection direction, BuildContext context) async {

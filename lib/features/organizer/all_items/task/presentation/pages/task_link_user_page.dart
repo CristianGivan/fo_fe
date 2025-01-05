@@ -45,7 +45,7 @@ class _TaskLinkUserPageState extends State<TaskLinkUserPage> {
         else
           LinkItemListViewPage<UserEntity>(itemList: items),
         ElevatedButton(
-          onPressed: () => context.pop,
+          onPressed: () => context.pushNamed(TaskRouterNames.taskUpdateUserRouteName),
           child: Text('Update'),
         ),
       ],

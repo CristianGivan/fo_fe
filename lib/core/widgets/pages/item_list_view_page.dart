@@ -3,14 +3,14 @@ import '../../../features/organizer/utils/organizer_exports.dart';
 class ItemListViewPage<T extends ItemEntity> extends StatelessWidget {
   final OrganizerItems<T> itemDtoList;
   final Widget Function(T) itemCardBuilder;
-  final bool Function(T) getValue;
+  final bool Function(T) value;
   final void Function(BuildContext, T, bool) updateItemUserLink;
 
   const ItemListViewPage({
     super.key,
     required this.itemDtoList,
     required this.itemCardBuilder,
-    required this.getValue,
+    required this.value,
     required this.updateItemUserLink,
   });
 
@@ -30,7 +30,7 @@ class ItemListViewPage<T extends ItemEntity> extends StatelessWidget {
     final itemDto = itemDtoList.getAt(index);
     return CheckboxListTile(
       title: itemCardBuilder(itemDto),
-      value: getValue(itemDto),
+      value: value(itemDto),
       onChanged: (bool? value) {
         updateItemUserLink(context, itemDto, value!);
       },
