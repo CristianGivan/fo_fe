@@ -1,91 +1,94 @@
+import 'package:fo_fe/core/widgets/core_widget_exports.dart';
+import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
+import 'package:fo_fe/features/organizer/presentation/bloc/organizer_link_bloc_event.dart';
+
 import '../../../features/organizer/utils/organizer_exports.dart';
 
-class LinkItemListEditPage<T extends ItemEntity> extends StatefulWidget {
-  final ItemsTypeEnum itemsType;
+class LinkItemListEditPage extends StatefulWidget {
+  final TaskParams params;
 
-  const LinkItemListEditPage({
-    super.key,
-    required this.itemsType,
-  });
+  LinkItemListEditPage({required this.params});
 
   @override
-  _LinkItemListEditPageState<T> createState() => _LinkItemListEditPageState<T>();
+  _LinkItemListEditPageState createState() => _LinkItemListEditPageState();
 }
 
-class _LinkItemListEditPageState<T extends ItemEntity> extends State<LinkItemListEditPage<T>> {
-  late OrganizerItems<T> allItems;
-  late OrganizerItems<T> selectedItems;
+class _LinkItemListEditPageState extends State<LinkItemListEditPage> {
+  late OrganizerItems allItems;
+  late OrganizerItems selectedItems;
+  late OrganizerItems<OrganizerItemEntity> checkedItems;
+  late OrganizerItems<OrganizerItemEntity> uncheckedItems;
 
   @override
   void initState() {
     super.initState();
-    allItems = _getAllItems(widget.itemsType);
-    selectedItems = _getSelectedItems(widget.itemsType);
+    _sendGetRequest();
   }
 
-  OrganizerItems<T> _getAllItems(ItemsTypeEnum itemsType) {
-    final OrganizerItems<T> allItems;
-    allItems = OrganizerItems.empty();
-    // Add logic to populate allItems based on itemsType
-    return allItems;
+  void _sendGetRequest() {
+    final taskUserLinkBloc = context.read<TaskUserLinkBloc>();
+    if (taskUserLinkBloc.state.status != OrganizerBlocStatus.loaded) {
+      taskUserLinkBloc.add(GetLinkItemsByItemIdBlocEvent(widget.params));
+    } else {
+      setState(() {
+        checkedItems = taskUserLinkBloc.state.displayedItems;
+        uncheckedItems = OrganizerItems.empty();
+      });
+    }
   }
 
-  OrganizerItems<T> _getSelectedItems(ItemsTypeEnum itemsType) {
-    final OrganizerItems<T> selectedItems;
-    selectedItems = OrganizerItems.empty();
-    // Add logic to populate selectedItems based on itemsType
-    return selectedItems;
-  }
-
-  void _updateItems() {
+  void _onItemCheckedChanged(OrganizerItemEntity item, bool isChecked) {
     setState(() {
-      allItems = _getAllItems(widget.itemsType);
-      selectedItems = _getSelectedItems(widget.itemsType);
+      if (isChecked) {
+        uncheckedItems = uncheckedItems.copyWithRemovedItem(item);
+        checkedItems = checkedItems.copyWithAddedItem(item);
+      } else {
+        checkedItems = checkedItems.copyWithRemovedItem(item);
+        uncheckedItems = uncheckedItems.copyWithAddedItem(item);
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (allItems.isEmpty) {
-      return Center(child: Text('No items to display'));
-    } else {
-      return Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              itemCount: allItems.size(),
-              itemBuilder: (context, index) => _buildCheckboxListTitle(context, index),
-            ),
-          ),
-          ElevatedButton(
-            onPressed: _updateItems,
-            child: Text('Update Items'),
-          ),
-        ],
-      );
-    }
-  }
-
-  Widget _buildCheckboxListTitle(BuildContext context, int index) {
-    final item = allItems.getAt(index);
-    return CheckboxListTile(
-      title: Text(item.toString()),
-      value: _isSelected(item),
-      onChanged: (bool? value) => setState(() {
-        _updateState(context, item, value!);
-      }),
+    return AppContentScreen(
+      appBarTitle: TaskStrings().screenEditTitle,
+      body: _buildPage(),
+      menuOptions: (context, userId) => [],
+      onSearchSubmitted: () {},
     );
   }
 
-  bool _isSelected(T item) => selectedItems.contains(item);
-  
- void _updateState(BuildContext context, T item, bool isSelected) {
-    setState(() {
-        if (isSelected) {
-          selectedItems = selectedItems.copyWithAddedItem(item);
-        } else {
-          selectedItems = selectedItems.copyWithRemovedItem(item);
+  Column _buildPage() {
+    return Column(
+      children: [
+        Expanded(
+          child: ListView.builder(
+            itemCount: checkedItems.size(),
+            itemBuilder: (context, index) =>
+                _buildCheckboxListTitle(context, checkedItems.getAt(index), true),
+          ),
+        ),
+        Expanded(
+          child: ListView.builder(
+            itemCount: uncheckedItems.size(),
+            itemBuilder: (context, index) =>
+                _buildCheckboxListTitle(context, uncheckedItems.getAt(index), false),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildCheckboxListTitle(BuildContext context, OrganizerItemEntity item, bool isChecked) {
+    return CheckboxListTile(
+      title: Text(item.subject),
+      value: isChecked,
+      onChanged: (bool? value) {
+        if (value != null) {
+          _onItemCheckedChanged(item, value);
         }
-      });
+      },
+    );
   }
 }

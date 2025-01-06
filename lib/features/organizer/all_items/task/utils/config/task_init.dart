@@ -47,7 +47,7 @@ void taskInit() {
   sl.registerLazySingleton(() => UpdateUserItemsOfTaskUseCase(sl()));
 
   // Task Use cases
-  sl.registerLazySingleton(() => GetItemsFromLogInUserUseCase<TaskDto>(sl(), sl(), itemsType));
+  sl.registerLazySingleton(() => GetItemsFromLogInUserUseCase<TaskDto>(sl(), sl(), sl()));
   sl.registerLazySingleton(() => GetTaskItemsByIdSetUseCase(sl()));
   sl.registerLazySingleton(() => AddItemUseCase<TaskDto>(sl(), itemsType));
   sl.registerLazySingleton(() => UpdateItemUseCase<TaskDto, TaskParams>(sl()));

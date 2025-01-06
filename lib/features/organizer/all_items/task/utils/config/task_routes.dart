@@ -1,7 +1,7 @@
 import 'package:fo_fe/core/widgets/pages/link_item_list_edit_page.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/screens/task_delete_screen.dart';
-import 'package:fo_fe/features/organizer/all_items/task/presentation/screens/task_edit_screen.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/screens/task_export_to_excel_screen.dart';
+import 'package:fo_fe/features/organizer/all_items/task/presentation/screens/task_update_screen.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/screens/task_view_screen.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
@@ -27,11 +27,12 @@ class TaskRoutes {
             },
             routes: [
               GoRoute(
-                path: TaskRouterNames.taskUpdateUserRoutePath,
-                name: TaskRouterNames.taskUpdateUserRouteName,
-                pageBuilder: (context, state) => const NoTransitionPage(
-                    child: LinkItemListEditPage(itemsType: ItemsTypeEnum.taskUser)),
-              ),
+                  path: TaskRouterNames.taskUpdateUserRoutePath,
+                  name: TaskRouterNames.taskUpdateUserRouteName,
+                  pageBuilder: (context, state) {
+                    final TaskParams taskParams = TaskParams(id: state.extra as int);
+                    return NoTransitionPage(child: LinkItemListEditPage(params: taskParams));
+                  }),
             ]),
         GoRoute(
           path: TaskRouterNames.taskDeleteRoutePath,

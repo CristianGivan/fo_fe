@@ -5,7 +5,7 @@ import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 abstract class OrganizerBloc<T extends ItemEntity>
     extends Bloc<OrganizerBlocEvent, OrganizerBlocState<T>> {
   final Future<Either<Failure, T>> Function(ItemEntity) addItem;
-  final Future<Either<Failure, OrganizerItems<T>>> Function(int) getItems;
+  final Future<Either<Failure, OrganizerItems<T>>> Function(ItemParams) getItems;
   final Future<Either<Failure, IdSet>> Function(IdSet) deleteItems;
 
   OrganizerBloc({
@@ -33,7 +33,7 @@ abstract class OrganizerBloc<T extends ItemEntity>
       GetItemsFromLogInUserBlocEvent event, Emitter<OrganizerBlocState<T>> emit) async {
     await handleEvent(
       emit: emit,
-      action: () => getItems(event.userId),
+      action: () => getItems(event.params),
       originalItems: (items) => items,
       displayedItems: (items) => items,
     );

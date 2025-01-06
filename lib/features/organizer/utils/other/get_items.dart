@@ -1,3 +1,5 @@
+import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
+import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class GetItems<T extends ItemEntity> {
@@ -13,13 +15,30 @@ class GetItems<T extends ItemEntity> {
     getItems();
   }
 
-  void getItems() async {
-    GetItemsFromLogInUserUseCase getItemsFromLogInUserUseCase;
-
+  void getItems() {
     switch (itemsType) {
       case ItemsTypeEnum.taskUser:
-        allItems = OrganizerItems.empty();
-        selectedItems = OrganizerItems.empty();
+        late final int loginUserId;
+        final userUserDisplayedItems = OrganizerItems.empty();
+        final taskUserDisplayedItems = context.read<TaskUserLinkBloc>().state.displayedItems;
+
+        final state = context.read<AuthLogBloc>().state;
+        if (state is AuthAuthenticatedBlocState) {
+          loginUserId = state.userEntity.id;
+        }
+
+        if (userUserDisplayedItems.isEmpty) {
+          allItems = taskUserDisplayedItems as OrganizerItems<T>;
+        } else {
+          allItems = userUserDisplayedItems as OrganizerItems<T>;
+        }
+
+        if (taskUserDisplayedItems.isEmpty) {
+          selectedItems = OrganizerItems.empty();
+        } else {
+          selectedItems = taskUserDisplayedItems as OrganizerItems<T>;
+        }
+
         break;
       case ItemsTypeEnum.taskTag:
         allItems = OrganizerItems.empty();

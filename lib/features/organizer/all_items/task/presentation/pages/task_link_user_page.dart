@@ -19,9 +19,12 @@ class _TaskLinkUserPageState extends State<TaskLinkUserPage> {
 
   @override
   Widget build(BuildContext context) {
-    context
-        .read<TaskUserLinkBloc>()
-        .add(GetLinkItemsByItemIdBlocEvent(TaskParams(id: widget.task.id)));
+    //todo -refactor- add the event in buildStateWidget
+    final taskUserLinkBloc = context.read<TaskUserLinkBloc>();
+    //todo -update- maybe add also loading state in if
+    if (taskUserLinkBloc.state.status != OrganizerBlocStatus.loaded) {
+      taskUserLinkBloc.add(GetLinkItemsByItemIdBlocEvent(TaskParams(id: widget.task.id)));
+    }
     return BlocBuilder<TaskUserLinkBloc, OrganizerBlocState<UserEntity>>(builder: (context, state) {
       return buildStateWidget(
         state: state,
@@ -45,7 +48,8 @@ class _TaskLinkUserPageState extends State<TaskLinkUserPage> {
         else
           LinkItemListViewPage<UserEntity>(itemList: items),
         ElevatedButton(
-          onPressed: () => context.pushNamed(TaskRouterNames.taskUpdateUserRouteName),
+          onPressed: () =>
+              context.pushNamed(TaskRouterNames.taskUpdateUserRouteName, extra: widget.task.id),
           child: Text('Update'),
         ),
       ],

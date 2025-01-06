@@ -16,7 +16,7 @@ class ExportTaskToExcelUseCase extends UseCase<bool, TaskParams> {
   Future<Either<Failure, bool>> call(TaskParams params) async {
     final sheetName = 'Tasks';
     if (params.taskItems.isEmpty) {
-      final result = await getTaskItemsFromLogInUserUseCase(params.forUserId);
+      final result = await getTaskItemsFromLogInUserUseCase(params);
       return result.fold(
         (failure) => throw Exception('Failed to fetch tasks'),
         (taskItems) async => await _exportTaskItemsToExcel(sheetName, taskItems),

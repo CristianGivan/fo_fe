@@ -18,6 +18,6 @@ class TaskScreen extends StatelessWidget {
   }
 
   void _getTaskItemsFromLoggedInUser(BuildContext context, int userId) {
-    context.read<TaskBloc>().add(GetItemsFromLogInUserBlocEvent(userId));
+    context.read<TaskBloc>().add(GetItemsFromLogInUserBlocEvent(TaskParams(forUserId: userId)));
   }
 }

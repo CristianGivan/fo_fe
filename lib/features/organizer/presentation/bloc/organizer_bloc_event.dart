@@ -26,12 +26,12 @@ class UpdateItemBlocEvent extends OrganizerBlocEvent {
 }
 
 class GetItemsFromLogInUserBlocEvent extends OrganizerBlocEvent {
-  final int userId;
+  final ItemParams params;
 
-  const GetItemsFromLogInUserBlocEvent(this.userId);
+  const GetItemsFromLogInUserBlocEvent(this.params);
 
   @override
-  List<Object> get props => [userId];
+  List<Object> get props => [params];
 }
 
 class DeleteItemsBlocEvent extends OrganizerBlocEvent {
