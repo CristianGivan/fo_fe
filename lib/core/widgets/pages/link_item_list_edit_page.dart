@@ -1,5 +1,6 @@
 import 'package:fo_fe/core/widgets/core_widget_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
+import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/presentation/bloc/organizer_link_bloc_event.dart';
 
 import '../../../features/organizer/utils/organizer_exports.dart';
@@ -16,8 +17,10 @@ class LinkItemListEditPage extends StatefulWidget {
 class _LinkItemListEditPageState extends State<LinkItemListEditPage> {
   late OrganizerItems allItems;
   late OrganizerItems selectedItems;
-  late OrganizerItems<OrganizerItemEntity> checkedItems;
-  late OrganizerItems<OrganizerItemEntity> uncheckedItems;
+  late OrganizerItems<OrganizerItemEntity> selectedItemsChecked;
+  late OrganizerItems<OrganizerItemEntity> selectedItemsUnchecked;
+  late OrganizerItems<OrganizerItemEntity> allItemsChecked;
+  late OrganizerItems<OrganizerItemEntity> allItemsUnchecked;
 
   @override
   void initState() {
@@ -31,52 +34,172 @@ class _LinkItemListEditPageState extends State<LinkItemListEditPage> {
       taskUserLinkBloc.add(GetLinkItemsByItemIdBlocEvent(widget.params));
     } else {
       setState(() {
-        checkedItems = taskUserLinkBloc.state.displayedItems;
-        uncheckedItems = OrganizerItems.empty();
+        selectedItemsChecked = taskUserLinkBloc.state.displayedItems;
+        selectedItemsUnchecked = OrganizerItems.empty();
       });
+    }
+
+    final UserBloc userBloc = context.read<UserBloc>();
+    if (userBloc.state is UserItemsLoadedBlocState) {
+      var state = userBloc.state as UserItemsLoadedBlocState;
+      setState(() {
+        allItemsChecked = state.userItems;
+        allItemsUnchecked = OrganizerItems.empty();
+      });
+    } else {
+      userBloc.add(GetLinkedUserItemsBlocEvent(user: UserEntity(name: "name", id: 3)));
     }
   }
 
   void _onItemCheckedChanged(OrganizerItemEntity item, bool isChecked) {
     setState(() {
       if (isChecked) {
-        uncheckedItems = uncheckedItems.copyWithRemovedItem(item);
-        checkedItems = checkedItems.copyWithAddedItem(item);
+        selectedItemsUnchecked = selectedItemsUnchecked.copyWithRemovedItem(item);
+        selectedItemsChecked = selectedItemsChecked.copyWithAddedItem(item);
       } else {
-        checkedItems = checkedItems.copyWithRemovedItem(item);
-        uncheckedItems = uncheckedItems.copyWithAddedItem(item);
+        selectedItemsChecked = selectedItemsChecked.copyWithRemovedItem(item);
+        selectedItemsUnchecked = selectedItemsUnchecked.copyWithAddedItem(item);
       }
     });
+  }
+
+  void _handleStateChanges(dynamic state) {
+    if (state.status == OrganizerBlocStatus.loaded) {
+      setState(() {
+        selectedItemsChecked = state.displayedItems;
+        selectedItemsUnchecked = OrganizerItems.empty();
+      });
+    }
+    if (state is UserItemsLoadedBlocState) {
+      setState(() {
+        allItemsChecked = state.userItems;
+        allItemsUnchecked = OrganizerItems.empty();
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return AppContentScreen(
       appBarTitle: TaskStrings().screenEditTitle,
-      body: _buildPage(),
+      body: MultiBlocListener(
+        listeners: [
+          BlocListener<TaskUserLinkBloc, OrganizerBlocState<UserEntity>>(
+            listener: (context, state) {
+              _handleStateChanges(state);
+            },
+          ),
+          BlocListener<UserBloc, UserBlocState>(
+            listener: (context, state) {
+              _handleStateChanges(state);
+            },
+          ),
+        ],
+        child: Column(
+          children: [
+            _blocBuilder(),
+            _buildSelectedItemsUnchecked(),
+            _buildAllItemsChecked(),
+            _allItemsBlocBuilder(),
+          ],
+        ),
+      ),
       menuOptions: (context, userId) => [],
       onSearchSubmitted: () {},
     );
   }
 
-  Column _buildPage() {
+  Widget _blocBuilder() {
+    return BlocBuilder<TaskUserLinkBloc, OrganizerBlocState>(
+      builder: (context, state) {
+        if (state.status == OrganizerBlocStatus.loading) {
+          return Center(child: CircularProgressIndicator());
+        } else if (state.status == OrganizerBlocStatus.loaded) {
+          return _buildSelectedItemsChecked();
+        } else if (state.status == OrganizerBlocStatus.error) {
+          return _buildErrorState1(context, state);
+        } else {
+          return Container(); // Default case
+        }
+      },
+    );
+  }
+
+  Widget _allItemsBlocBuilder() {
+    return BlocBuilder<UserBloc, UserBlocState>(
+      builder: (context, state) {
+        if (state is UserLoadingBlocState) {
+          return Center(child: CircularProgressIndicator());
+        } else if (state is UserItemsLoadedBlocState) {
+          return _buildAllItemsUnchecked();
+        } else if (state is UserErrorBlocState) {
+          return _buildErrorState(context, state);
+        } else {
+          return Center(child: CircularProgressIndicator()); // Default case
+        }
+      },
+    );
+  }
+
+  Widget _buildErrorState1(BuildContext context, OrganizerBlocState state) {
+    return Center(child: Text('Error: '));
+  }
+
+  Widget _buildErrorState(BuildContext context, UserBlocState state) {
+    return Center(child: Text('Error: '));
+  }
+
+  Column _buildSelectedItemsChecked() {
     return Column(
       children: [
         Expanded(
-          child: ListView.builder(
-            itemCount: checkedItems.size(),
-            itemBuilder: (context, index) =>
-                _buildCheckboxListTitle(context, checkedItems.getAt(index), true),
-          ),
-        ),
-        Expanded(
-          child: ListView.builder(
-            itemCount: uncheckedItems.size(),
-            itemBuilder: (context, index) =>
-                _buildCheckboxListTitle(context, uncheckedItems.getAt(index), false),
-          ),
+          child: _buildCheckedListView(selectedItemsChecked),
         ),
       ],
+    );
+  }
+
+  Column _buildSelectedItemsUnchecked() {
+    return Column(
+      children: [
+        Expanded(
+          child: _buildUncheckedListView(selectedItemsUnchecked),
+        ),
+      ],
+    );
+  }
+
+  Column _buildAllItemsChecked() {
+    return Column(
+      children: [
+        Expanded(
+          child: _buildCheckedListView(allItemsChecked),
+        ),
+      ],
+    );
+  }
+
+  Column _buildAllItemsUnchecked() {
+    return Column(
+      children: [
+        Expanded(
+          child: _buildUncheckedListView(allItemsUnchecked),
+        ),
+      ],
+    );
+  }
+
+  ListView _buildCheckedListView(OrganizerItems<OrganizerItemEntity> items) {
+    return ListView.builder(
+      itemCount: items.size(),
+      itemBuilder: (context, index) => _buildCheckboxListTitle(context, items.getAt(index), true),
+    );
+  }
+
+  ListView _buildUncheckedListView(OrganizerItems<OrganizerItemEntity> items) {
+    return ListView.builder(
+      itemCount: items.size(),
+      itemBuilder: (context, index) => _buildCheckboxListTitle(context, items.getAt(index), false),
     );
   }
 
