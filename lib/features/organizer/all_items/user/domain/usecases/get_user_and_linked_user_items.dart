@@ -13,14 +13,23 @@ class GetUserLinkedUserItems extends UseCase<OrganizerItems<UserEntity>, UserPar
 
   @override
   Future<Either<Failure, OrganizerItems<UserEntity>>> call(UserParams params) async {
+    final loginUser = await userRepository.getUserById(params.userId);
     final allUserItemsLinkedResult =
-        await userRepository.getPendingAndAcceptedUserItems(params.user.id);
+        await userRepository.getPendingAndAcceptedUserItems(params.userId);
 
+    return loginUser.fold(
+      (failure) => Left(failure),
+      (loginUser) async => await _getLinkedUserItems(loginUser, allUserItemsLinkedResult),
+    );
+  }
+
+  Future<Either<Failure, OrganizerItems<UserEntity>>> _getLinkedUserItems(UserEntity loginUser,
+      Either<Failure, OrganizerItems<UserEntity>> allUserItemsLinkedResult) async {
     return allUserItemsLinkedResult.fold(
       (failure) => Left(failure),
       (allUserItemsConnected) {
         OrganizerItemsBuilder<UserEntity> userList =
-            OrganizerItemsBuilder<UserEntity>.of([params.user]);
+            OrganizerItemsBuilder<UserEntity>.of([loginUser]);
         userList.addAll(allUserItemsConnected);
         return Right(userList.build());
       },

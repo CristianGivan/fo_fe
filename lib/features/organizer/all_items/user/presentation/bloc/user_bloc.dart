@@ -85,7 +85,7 @@ class UserBloc extends Bloc<UserBlocEvent, UserBlocState> {
   Future<void> _onGetLinkedUserItems(
       GetLinkedUserItemsBlocEvent event, Emitter<UserBlocState> emit) async {
     emit(UserLoadingBlocState());
-    final failureOrUsers = await getUserAndLinkedUserItems(UserParams(user: event.user));
+    final failureOrUsers = await getUserAndLinkedUserItems(event.paras);
     failureOrUsers.fold(
       (failure) => emit(UserErrorBlocState(_mapFailureToMessage(failure))),
       (users) => emit(UserItemsLoadedBlocState(users)),

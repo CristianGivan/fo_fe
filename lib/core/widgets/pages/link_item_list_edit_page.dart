@@ -1,4 +1,5 @@
 import 'package:fo_fe/core/widgets/core_widget_exports.dart';
+import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/presentation/bloc/organizer_link_bloc_event.dart';
@@ -41,13 +42,40 @@ class _LinkItemListEditPageState extends State<LinkItemListEditPage> {
   }
 
   void _loadUserItems() {
-    final userBloc = context.read<UserBloc>();
-    if (userBloc.state is UserItemsLoadedBlocState) {
-      final state = userBloc.state as UserItemsLoadedBlocState;
-      _updateAllItems(state.userItems);
+    final authLogBloc = context.read<AuthLogBloc>();
+    late final int loginUserId;
+    // if (false) {
+    if (authLogBloc.state is AuthAuthenticatedBlocState) {
+      final state = authLogBloc.state as AuthAuthenticatedBlocState;
+      loginUserId = state.userEntity.id;
     } else {
-      userBloc.add(GetLinkedUserItemsBlocEvent(user: UserEntity(name: "name", id: 3)));
+      loginUserId = -1;
+      _showNotAuthenticatedDialog(context);
     }
+
+    final userBloc = context.read<UserBloc>();
+    // todo -td- reinitialization of all blocs on log off
+    // if (userBloc.state is UserItemsLoadedBlocState) {
+    //   final state = userBloc.state as UserItemsLoadedBlocState;
+    //   _updateAllItems(state.userItems);
+    // } else {
+    userBloc.add(GetLinkedUserItemsBlocEvent(UserParams(userId: loginUserId)));
+    // }
+  }
+
+  Widget _showNotAuthenticatedDialog(BuildContext context) {
+    return AlertDialog(
+      title: const Text('Not Authenticated'),
+      content: const Text('Please log in to continue.'),
+      actions: <Widget>[
+        TextButton(
+          child: const Text('OK'),
+          onPressed: () {
+            context.pushNamed(AuthRouterNames.authRouteName);
+          },
+        ),
+      ],
+    );
   }
 
   void _updateSelectedItems(OrganizerItems<OrganizerItemEntity> items) {
@@ -64,55 +92,51 @@ class _LinkItemListEditPageState extends State<LinkItemListEditPage> {
     });
   }
 
-  void _onItemCheckedChanged(OrganizerItemEntity item, bool isChecked) {
-    setState(() {
-      if (isChecked) {
-        selectedItemsUnchecked = selectedItemsUnchecked.copyWithRemovedItem(item);
-        selectedItemsChecked = selectedItemsChecked.copyWithAddedItem(item);
-      } else {
-        selectedItemsChecked = selectedItemsChecked.copyWithRemovedItem(item);
-        selectedItemsUnchecked = selectedItemsUnchecked.copyWithAddedItem(item);
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return AppContentScreen(
       appBarTitle: TaskStrings().screenEditTitle,
-      body: MultiBlocListener(
-        listeners: [
-          BlocListener<TaskUserLinkBloc, OrganizerBlocState<OrganizerItemEntity>>(
-            listener: (context, state) {
-              if (state.status == OrganizerBlocStatus.loaded) {
-                _updateSelectedItems(state.displayedItems);
-              }
-            },
-          ),
-          BlocListener<UserBloc, UserBlocState>(
-            listener: (context, state) {
-              if (state is UserItemsLoadedBlocState) {
-                _updateAllItems(state.userItems);
-              }
-            },
-          ),
-        ],
-        child: Column(
-          children: [
-            _buildListSection("Selected Items (Checked)", selectedItemsChecked, true),
-            _buildListSection("Selected Items (Unchecked)", selectedItemsUnchecked, false),
-            _buildListSection("All Items (Checked)", allItemsChecked, true),
-            _buildListSection("All Items (Unchecked)", allItemsUnchecked, false),
-          ],
-        ),
-      ),
+      body: _buildListSectionsWithListeners(),
       menuOptions: (context, userId) => [],
       onSearchSubmitted: () {},
     );
   }
 
+  Widget _buildListSectionsWithListeners() {
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<TaskUserLinkBloc, OrganizerBlocState<OrganizerItemEntity>>(
+          listener: (context, state) {
+            if (state.status == OrganizerBlocStatus.loaded) {
+              _updateSelectedItems(state.displayedItems);
+            }
+          },
+        ),
+        BlocListener<UserBloc, UserBlocState>(
+          listener: (context, state) {
+            if (state is UserItemsLoadedBlocState) {
+              _updateAllItems(state.userItems);
+            }
+          },
+        ),
+      ],
+      child: _buildUncheckedListView(allItemsUnchecked),
+    );
+  }
+
+  Widget _buildUncheckedListView(OrganizerItems<OrganizerItemEntity> items) {
+    return Column(
+      children: [
+        _buildListSection("Selected Items (Checked)", selectedItemsChecked, true, false),
+        _buildListSection("Selected Items (Unchecked)", selectedItemsUnchecked, false, false),
+        _buildListSection("All Items (Checked)", allItemsChecked, true, true),
+        _buildListSection("All Items (Unchecked)", allItemsUnchecked, false, true),
+      ],
+    );
+  }
+
   Widget _buildListSection(
-      String title, OrganizerItems<OrganizerItemEntity> items, bool isChecked) {
+      String title, OrganizerItems<OrganizerItemEntity> items, bool isChecked, bool isAllItems) {
     return Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -128,7 +152,7 @@ class _LinkItemListEditPageState extends State<LinkItemListEditPage> {
                   value: isChecked,
                   onChanged: (bool? value) {
                     if (value != null) {
-                      _onItemCheckedChanged(item, value);
+                      _onItemCheckedChanged(item, value, isAllItems);
                     }
                   },
                 );
@@ -138,5 +162,27 @@ class _LinkItemListEditPageState extends State<LinkItemListEditPage> {
         ],
       ),
     );
+  }
+
+  void _onItemCheckedChanged(OrganizerItemEntity item, bool isChecked, bool isAllItems) {
+    setState(() {
+      if (isAllItems) {
+        if (isChecked) {
+          allItemsUnchecked = allItemsUnchecked.copyWithRemovedItem(item);
+          allItemsChecked = allItemsChecked.copyWithAddedItem(item);
+        } else {
+          allItemsChecked = allItemsChecked.copyWithRemovedItem(item);
+          allItemsUnchecked = allItemsUnchecked.copyWithAddedItem(item);
+        }
+      } else {
+        if (isChecked) {
+          selectedItemsUnchecked = selectedItemsUnchecked.copyWithRemovedItem(item);
+          selectedItemsChecked = selectedItemsChecked.copyWithAddedItem(item);
+        } else {
+          selectedItemsChecked = selectedItemsChecked.copyWithRemovedItem(item);
+          selectedItemsUnchecked = selectedItemsUnchecked.copyWithAddedItem(item);
+        }
+      }
+    });
   }
 }

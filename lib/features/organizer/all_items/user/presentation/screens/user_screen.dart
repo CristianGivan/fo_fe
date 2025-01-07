@@ -48,8 +48,8 @@ class _UserScreenState extends State<UserScreen> {
   void _loadUsers(BuildContext context) {
     final auth = context.read<AuthLogBloc>().state;
     if (auth is AuthAuthenticatedBlocState) {
-      context.read<UserBloc>().add(GetLinkedUserItemsBlocEvent(user: auth.userEntity));
-      final state = context.read<UserBloc>().state;
+      context.read<UserBloc>().add(GetLinkedUserItemsBlocEvent(
+          UserParams(user: auth.userEntity, userId: auth.userEntity.id)));
     }
   }
 

@@ -44,12 +44,12 @@ class GetUserByIdBlocEvent extends UserBlocEvent {
 }
 
 class GetLinkedUserItemsBlocEvent extends UserBlocEvent {
-  final UserEntity user;
+  final UserParams paras;
 
-  const GetLinkedUserItemsBlocEvent({required this.user});
+  const GetLinkedUserItemsBlocEvent(this.paras);
 
   @override
-  List<Object> get props => [user];
+  List<Object> get props => [paras];
 }
 
 class GetUserItemsByIdSetBlocEvent extends UserBlocEvent {

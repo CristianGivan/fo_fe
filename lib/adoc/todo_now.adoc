@@ -40,7 +40,35 @@ debounce see todo code
 * can be removed extra  for all not only for  final task = state.extra as TaskEntity?;
 * update with task strings
 
+* reinitialization of all the blocs on log off or log on or switch user
+
+* to many shourch to though for UserParams and others
+---
+* make the bloc and usecase general
+* check why sliding the task is not working
+* use the same process of selection also for task
+* make the task can filter and sort
+
+*create/update tag reminder user items
+* create/update note
+
+* ctreate topics
+* create tasks
+
+* create calendar with tasks
+
+* create work item
+* create time tracking
+
+* create reteta
+
 == Now
+
+* delete the selected items from all items
+* get all the time the user item
+* on exit ask if it want to save the changes
+* save all the changes
+
 
 * from update navigate to link_item_list_edit_page where I have selected alll the usersrs that
 areallreadi in the list and can add and delete others.
@@ -56,6 +84,7 @@ the previouse list from GetItemsFromLogInUserUseCase can be tooked form TaskPara
 
 == Done
 
+* get log in user
 * TaskLinkUserPage to show a list with all users and update button
 * Update TaskUserBlocState
 * refactor repository and localdatasource with proper names
