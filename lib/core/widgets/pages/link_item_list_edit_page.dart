@@ -87,8 +87,8 @@ class _LinkItemListEditPageState extends State<LinkItemListEditPage> {
 
   void _updateAllItems(OrganizerItems<OrganizerItemEntity> items) {
     setState(() {
-      allItemsChecked = items;
-      allItemsUnchecked = OrganizerItems.empty();
+      allItemsChecked = OrganizerItems.empty();
+      allItemsUnchecked = items.copyWithRemovedItems(selectedItemsChecked);
     });
   }
 
@@ -127,10 +127,10 @@ class _LinkItemListEditPageState extends State<LinkItemListEditPage> {
   Widget _buildUncheckedListView(OrganizerItems<OrganizerItemEntity> items) {
     return Column(
       children: [
-        _buildListSection("Selected Items (Checked)", selectedItemsChecked, true, false),
-        _buildListSection("Selected Items (Unchecked)", selectedItemsUnchecked, false, false),
-        _buildListSection("All Items (Checked)", allItemsChecked, true, true),
-        _buildListSection("All Items (Unchecked)", allItemsUnchecked, false, true),
+        _buildListSection("Selected_Checked", selectedItemsChecked, true, false),
+        _buildListSection("All_Checked", allItemsChecked, true, true),
+        _buildListSection("Selected_Unchecked", selectedItemsUnchecked, false, false),
+        _buildListSection("All_Unchecked", allItemsUnchecked, false, true),
       ],
     );
   }
