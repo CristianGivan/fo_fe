@@ -5,7 +5,7 @@ import 'package:fo_fe/features/organizer/all_items/reminder/utils/reminder_expor
 import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/export_task_to_excel_use_case.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_reminder_link/update_reminder_items_of_task_use_case.dart';
-import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_user_link/update_link_items_of_item_use_case.dart';
+import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_user_link/update_items_of_item_use_case.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/update_task_dto_use_case.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart';

@@ -8,13 +8,13 @@ import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 import '../../repositories/task_repository.dart';
 
 class UpdateUserItemsOfTaskUseCase
-    extends UseCase<OrganizerItems<UserEntity>, UpdateLinkItemsOfItemParams<UserEntity>> {
+    extends UseCase<OrganizerItems<UserEntity>, UpdateItemsOfItemParams<UserEntity>> {
   final TaskRepository repository;
 
   UpdateUserItemsOfTaskUseCase(this.repository);
 
   @override
-  Future<Either<Failure, OrganizerItems<UserEntity>>> call(UpdateLinkItemsOfItemParams params) {
+  Future<Either<Failure, OrganizerItems<UserEntity>>> call(UpdateItemsOfItemParams params) {
     List<int> addedUserItems;
     List<int> removedUserItems;
     if (params.items.isEmpty && params.updatedItems.isEmpty) {

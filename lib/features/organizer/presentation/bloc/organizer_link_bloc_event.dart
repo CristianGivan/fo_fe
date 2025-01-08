@@ -7,19 +7,19 @@ abstract class OrganizerLinkBlocEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GetLinkItemsByItemIdBlocEvent extends OrganizerLinkBlocEvent {
+class GetItemsOfItemBlocEvent extends OrganizerLinkBlocEvent {
   final ItemParams params;
 
-  const GetLinkItemsByItemIdBlocEvent(this.params);
+  const GetItemsOfItemBlocEvent(this.params);
 
   @override
   List<Object> get props => [params];
 }
 
-class UpdateLinkItemsOfItemBlocEvent extends OrganizerLinkBlocEvent {
+class UpdateItemsOfItemBlocEvent extends OrganizerLinkBlocEvent {
   final ItemParams params;
 
-  const UpdateLinkItemsOfItemBlocEvent(this.params);
+  const UpdateItemsOfItemBlocEvent(this.params);
 
   @override
   List<Object> get props => [params];

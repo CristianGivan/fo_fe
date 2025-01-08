@@ -8,10 +8,10 @@ class TaskParams extends ItemParams {
   final OrganizerItems<TaskDto> taskItems;
 
   TaskParams({
+    required int id,
     TaskEntity? task,
     TaskUserLinkEntity? taskUserLinkEntity,
     TaskDto? taskDto,
-    int? id,
     IdSet? idSet,
     int? forUserId,
     OrganizerItems<TaskDto>? taskItems,
@@ -21,7 +21,7 @@ class TaskParams extends ItemParams {
             taskDto ?? TaskDto(task: TaskEntity.empty(), taskUserLink: TaskUserLinkEntity.empty()),
         taskItems = taskItems ?? OrganizerItems.empty(),
         super(
-          id: id ?? 0,
+          id: id,
           forUserId: forUserId ?? 0,
           idSet: idSet ?? IdSet.empty(),
           itemType: ItemsTypeEnum.task,
@@ -51,17 +51,16 @@ class TaskParams extends ItemParams {
   get itemReturnType => super.itemType;
 }
 
-class UpdateLinkItemsOfItemParams<T extends OrganizerItemEntity> extends ItemParams {
+class UpdateItemsOfItemParams<T extends OrganizerItemEntity> extends ItemParams {
   final int itemId;
-  final ItemsTypeEnum itemType;
   final OrganizerItems<T> items;
   final OrganizerItems<T> updatedItems;
   final OrganizerItems<T> addedItems;
   final OrganizerItems<T> removedItems;
 
-  UpdateLinkItemsOfItemParams({
+  UpdateItemsOfItemParams({
     required this.itemId,
-    required this.itemType,
+    super.itemType,
     OrganizerItems<T>? items,
     OrganizerItems<T>? updatedItems,
     OrganizerItems<T>? addedItems,
@@ -69,7 +68,8 @@ class UpdateLinkItemsOfItemParams<T extends OrganizerItemEntity> extends ItemPar
   })  : items = items ?? OrganizerItems.empty(),
         updatedItems = updatedItems ?? OrganizerItems.empty(),
         addedItems = addedItems ?? OrganizerItems.empty(),
-        removedItems = removedItems ?? OrganizerItems.empty();
+        removedItems = removedItems ?? OrganizerItems.empty(),
+        super(id: itemId);
 
   @override
   List<Object> get props => [itemId, items, updatedItems, addedItems, removedItems];

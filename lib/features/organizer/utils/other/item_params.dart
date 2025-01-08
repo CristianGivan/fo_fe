@@ -9,7 +9,7 @@ class ItemParams extends Equatable {
   final ItemsTypeEnum itemType;
 
   ItemParams({
-    this.id = 0,
+    required this.id,
     IdSet? idSet,
     this.forUserId = 0,
     this.itemType = ItemsTypeEnum.undefine,

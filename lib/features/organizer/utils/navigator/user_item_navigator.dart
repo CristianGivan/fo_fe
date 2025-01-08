@@ -22,7 +22,7 @@ class UserItemNavigator extends BaseItemNavigator<UserEntity> {
           //   userItems: items,
           //   updatedUserItems: updatedItems,
           // ),
-          GetLinkItemsByItemIdBlocEvent(TaskParams(id: taskId)),
+          GetItemsOfItemBlocEvent(TaskParams(id: taskId)),
         );
   }
 }

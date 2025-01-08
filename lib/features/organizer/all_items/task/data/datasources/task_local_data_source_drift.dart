@@ -94,7 +94,7 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
   Future<void> addUserItemsFromTask(int taskId, List<int> userItems) async {
     await db.transaction(() async {
       for (final userId in userItems) {
-        await db.taskUserLinkDaoDrift.addTaskUser(_createTaskUserCompanion(taskId, userId));
+        await db.taskUserLinkDaoDrift.addTaskUser(_createSelectedTaskUserCompanion(taskId, userId));
       }
     });
   }
@@ -166,22 +166,28 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
 
   TaskTagLinkTableDriftCompanion _createTaskTagCompanion(int taskId, int tagId) {
     return TaskTagLinkTableDriftCompanion(
+      id: Value.absent(),
       taskId: Value(taskId),
       tagId: Value(tagId),
+      linkingDate: Value(DateTime.now()),
     );
   }
 
   TaskReminderLinkTableDriftCompanion _createTaskReminderCompanion(int taskId, int reminderId) {
     return TaskReminderLinkTableDriftCompanion(
+      id: Value.absent(),
       taskId: Value(taskId),
       reminderId: Value(reminderId),
+      linkingDate: Value(DateTime.now()),
     );
   }
 
-  TaskUserLinkTableDriftCompanion _createTaskUserCompanion(int taskId, int userId) {
+  TaskUserLinkTableDriftCompanion _createSelectedTaskUserCompanion(int taskId, int userId) {
     return TaskUserLinkTableDriftCompanion(
+      id: Value.absent(),
       taskId: Value(taskId),
       userId: Value(userId),
+      linkingDate: Value(DateTime.now()),
     );
   }
 

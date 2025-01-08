@@ -6,9 +6,9 @@ import 'package:fo_fe/features/organizer/presentation/bloc/organizer_link_bloc_e
 import '../../../../utils/organizer_exports.dart';
 
 class TaskLinkUserPage extends StatefulWidget {
-  final TaskEntity task;
+  final int taskId;
 
-  TaskLinkUserPage({super.key, required int taskId}) : task = TaskEntity(id: taskId);
+  TaskLinkUserPage({super.key, required this.taskId});
 
   @override
   State<TaskLinkUserPage> createState() => _TaskLinkUserPageState();
@@ -23,7 +23,7 @@ class _TaskLinkUserPageState extends State<TaskLinkUserPage> {
     final taskUserLinkBloc = context.read<TaskUserLinkBloc>();
     //todo -update- maybe add also loading state in if
     if (taskUserLinkBloc.state.status != OrganizerBlocStatus.loaded) {
-      taskUserLinkBloc.add(GetLinkItemsByItemIdBlocEvent(TaskParams(id: widget.task.id)));
+      taskUserLinkBloc.add(GetItemsOfItemBlocEvent(TaskParams(id: widget.taskId)));
     }
     return BlocBuilder<TaskUserLinkBloc, OrganizerBlocState>(builder: (context, state) {
       return buildStateWidget(
@@ -50,7 +50,7 @@ class _TaskLinkUserPageState extends State<TaskLinkUserPage> {
           LinkItemListViewPage<UserEntity>(itemList: items),
         ElevatedButton(
           onPressed: () =>
-              context.pushNamed(TaskRouterNames.taskUpdateUserRouteName, extra: widget.task.id),
+              context.pushNamed(TaskRouterNames.taskUpdateUserRouteName, extra: widget.taskId),
           child: Text('Update'),
         ),
       ],

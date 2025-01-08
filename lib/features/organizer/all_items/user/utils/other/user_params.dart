@@ -11,18 +11,20 @@ class UserParams extends ItemParams {
   final bool isEmailVerified;
 
   UserParams({
+    super.id = 0,
     UserEntity? user,
     this.userId = 0,
-    IdSet? idSet,
+    super.idSet,
     this.name = '',
     this.email = '',
     this.password = '',
     this.userType = UserTypeEnum.Temporary,
     this.isEmailVerified = false,
-  }) : user = user ?? UserEntity.empty();
+  })  : user = user ?? UserEntity.empty(),
+        super(itemType: ItemsTypeEnum.user);
 
   @override
   List<Object> get props {
-    return [user, userId, name, email, password, userType, isEmailVerified, ...super.props];
+    return [id, user, userId, name, email, password, userType, isEmailVerified, ...super.props];
   }
 }

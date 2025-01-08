@@ -1,6 +1,6 @@
 import 'package:fo_fe/core/widgets/core_widget_exports.dart';
 import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
-import 'package:fo_fe/features/organizer/all_items/task/presentation/widgets/task_user_update_actions_menu.dart';
+import 'package:fo_fe/features/organizer/all_items/task/presentation/widgets/update_items_of_item_actions_menu.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/presentation/bloc/organizer_link_bloc_event.dart';
@@ -8,9 +8,9 @@ import 'package:fo_fe/features/organizer/presentation/bloc/organizer_link_bloc_e
 import '../../../features/organizer/utils/organizer_exports.dart';
 
 class LinkItemListEditPage<T extends OrganizerItemEntity> extends StatefulWidget {
-  final TaskParams params;
+  final ItemParams params;
 
-  const LinkItemListEditPage({Key? key, required this.params}) : super(key: key);
+  const LinkItemListEditPage({super.key, required this.params});
 
   @override
   _LinkItemListEditPageState createState() => _LinkItemListEditPageState<T>();
@@ -37,7 +37,7 @@ class _LinkItemListEditPageState<T extends OrganizerItemEntity>
   void _loadTaskUserLinkItems() {
     final taskUserLinkBloc = context.read<TaskUserLinkBloc>();
     if (taskUserLinkBloc.state.status != OrganizerBlocStatus.loaded) {
-      taskUserLinkBloc.add(GetLinkItemsByItemIdBlocEvent(widget.params));
+      taskUserLinkBloc.add(GetItemsOfItemBlocEvent(widget.params));
     } else {
       _updateSelectedItems(taskUserLinkBloc.state.displayedItems as OrganizerItems<T>);
     }
@@ -51,7 +51,7 @@ class _LinkItemListEditPageState<T extends OrganizerItemEntity>
       final state = authLogBloc.state as AuthAuthenticatedBlocState;
       loginUserId = state.userEntity.id;
     } else {
-      loginUserId = -1;
+      loginUserId = 0;
       _showNotAuthenticatedDialog(context);
     }
 
@@ -99,16 +99,19 @@ class _LinkItemListEditPageState<T extends OrganizerItemEntity>
     return AppContentScreen(
       appBarTitle: TaskStrings().screenEditTitle,
       body: _buildListSectionsWithListeners(),
-      menuOptions: (context, userId) => TaskUserUpdateActionsMenu.getMenuItems(
-          context,
-          UpdateLinkItemsOfItemParams<T>(
-            itemId: widget.params.taskEntity.id,
-            itemType: widget.params.itemType,
-            addedItems: allItemsChecked,
-            removedItems: selectedItemsUnchecked,
-          )),
+      menuOptions: (context, userId) => _getMenuItems(context),
       onSearchSubmitted: () {},
     );
+  }
+
+  List<PopupMenuEntry> _getMenuItems(BuildContext context) {
+    final params = UpdateItemsOfItemParams<T>(
+      itemId: widget.params.id,
+      itemType: widget.params.itemType,
+      addedItems: allItemsChecked,
+      removedItems: selectedItemsUnchecked,
+    );
+    return UpdateItemsOfItemActionsMenu.getMenuItems(context, params);
   }
 
   Widget _buildListSectionsWithListeners() {

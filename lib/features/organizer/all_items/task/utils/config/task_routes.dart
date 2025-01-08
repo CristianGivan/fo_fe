@@ -31,9 +31,12 @@ class TaskRoutes {
                   path: TaskRouterNames.taskUpdateUserRoutePath,
                   name: TaskRouterNames.taskUpdateUserRouteName,
                   pageBuilder: (context, state) {
-                    final TaskParams taskParams = TaskParams(id: state.extra as int);
+                    final UpdateItemsOfItemParams taskUserParams = UpdateItemsOfItemParams(
+                      itemId: state.extra as int,
+                      itemType: ItemsTypeEnum.taskUser,
+                    );
                     return NoTransitionPage(
-                        child: LinkItemListEditPage<UserEntity>(params: taskParams));
+                        child: LinkItemListEditPage<UserEntity>(params: taskUserParams));
                   }),
             ]),
         GoRoute(

@@ -2,7 +2,7 @@ part of '../task_bloc.dart';
 
 class TaskUserLinkBloc extends OrganizerLinkBloc {
   final GetLinkItemsByItemIdUseCase getUserItemsByTaskIdUseCase;
-  final UpdateLinkItemsOfItemUseCase<UserEntity> updateLinkItemsOfItemUseCase;
+  final UpdateItemsOfItemUseCase<UserEntity> updateLinkItemsOfItemUseCase;
 
   TaskUserLinkBloc({
     required this.getUserItemsByTaskIdUseCase,
@@ -11,11 +11,11 @@ class TaskUserLinkBloc extends OrganizerLinkBloc {
           getItemsLinked: getUserItemsByTaskIdUseCase,
         ) {
     setupEventHandlers();
-    on<UpdateLinkItemsOfItemBlocEvent>(_onUpdateLinkItemsOfItem);
+    on<UpdateItemsOfItemBlocEvent>(_onUpdateLinkItemsOfItem);
   }
 
   Future<void> _onUpdateLinkItemsOfItem(
-      UpdateLinkItemsOfItemBlocEvent event, Emitter<OrganizerBlocState> emit) async {
+      UpdateItemsOfItemBlocEvent event, Emitter<OrganizerBlocState> emit) async {
     await handleEvent(
       emit: emit,
       action: () => updateLinkItemsOfItemUseCase(event.params),

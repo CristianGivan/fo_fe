@@ -25,6 +25,15 @@ class TaskUserLinkMapper {
     );
   }
 
+  TaskUserLinkTableDriftCompanion _createSelectedTaskUserCompanion(int taskId, int userId) {
+    return TaskUserLinkTableDriftCompanion(
+      taskId: Value(taskId),
+      userId: Value(userId),
+      linkingDate: Value(DateTime.now()),
+      selectedByUser: Value(true),
+    );
+  }
+
   static TaskUserLinkTableDriftCompanion entityToCompanion(TaskUserLinkEntity taskUserLink) {
     return TaskUserLinkTableDriftCompanion(
       id: taskUserLink.id == 0 ? const Value.absent() : Value(taskUserLink.id),

@@ -64,6 +64,10 @@ debounce see todo code
 
 == Now
 
+* check on getit how to use singleton and when to use other type I have
+sl.registerLazySingleton(() => UpdateItemsOfItemUseCase<UserEntity>(sl()));
+registerd for several tings What shall I use fo rgeneric type
+
 * save all the changes
 * on exit ask if it want to save the changes
 
@@ -74,6 +78,7 @@ areallreadi in the list and can add and delete others.
 items
 * create a generic widget where to have all the items with chkbox  and the one selected to be in
 the previouse list from GetItemsFromLogInUserUseCase can be tooked form TaskParams?
+
 
 * usecase between user/link item and update taks are similar... check for optimisations
 * final ItemsTypeEnum itemsType; from
