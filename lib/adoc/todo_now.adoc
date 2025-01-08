@@ -64,10 +64,8 @@ debounce see todo code
 
 == Now
 
-* delete the selected items from all items
-* get all the time the user item
-* on exit ask if it want to save the changes
 * save all the changes
+* on exit ask if it want to save the changes
 
 
 * from update navigate to link_item_list_edit_page where I have selected alll the usersrs that
@@ -77,6 +75,7 @@ items
 * create a generic widget where to have all the items with chkbox  and the one selected to be in
 the previouse list from GetItemsFromLogInUserUseCase can be tooked form TaskParams?
 
+* usecase between user/link item and update taks are similar... check for optimisations
 * final ItemsTypeEnum itemsType; from
 * move the bloc hendlers from bloc to not dry
 * updateTagItemOfTask transfer  the logic in usecase
@@ -84,6 +83,8 @@ the previouse list from GetItemsFromLogInUserUseCase can be tooked form TaskPara
 
 == Done
 
+* get all the time the user item
+* all items at unchecked and the selected item not apearing in the list
 * get log in user
 * TaskLinkUserPage to show a list with all users and update button
 * Update TaskUserBlocState

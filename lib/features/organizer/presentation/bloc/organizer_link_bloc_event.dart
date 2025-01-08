@@ -15,3 +15,12 @@ class GetLinkItemsByItemIdBlocEvent extends OrganizerLinkBlocEvent {
   @override
   List<Object> get props => [params];
 }
+
+class UpdateLinkItemsOfItemBlocEvent extends OrganizerLinkBlocEvent {
+  final ItemParams params;
+
+  const UpdateLinkItemsOfItemBlocEvent(this.params);
+
+  @override
+  List<Object> get props => [params];
+}

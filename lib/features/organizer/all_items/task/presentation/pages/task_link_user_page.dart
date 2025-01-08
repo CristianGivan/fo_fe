@@ -25,12 +25,13 @@ class _TaskLinkUserPageState extends State<TaskLinkUserPage> {
     if (taskUserLinkBloc.state.status != OrganizerBlocStatus.loaded) {
       taskUserLinkBloc.add(GetLinkItemsByItemIdBlocEvent(TaskParams(id: widget.task.id)));
     }
-    return BlocBuilder<TaskUserLinkBloc, OrganizerBlocState<UserEntity>>(builder: (context, state) {
+    return BlocBuilder<TaskUserLinkBloc, OrganizerBlocState>(builder: (context, state) {
       return buildStateWidget(
         state: state,
         buildErrorState: _buildErrorState,
         buildLoadingState: _buildLoadingState,
-        buildLoadedState: () => _buildItemsListPage(context, state.displayedItems),
+        buildLoadedState: () =>
+            _buildItemsListPage(context, state.displayedItems as OrganizerItems<UserEntity>),
       );
     });
   }

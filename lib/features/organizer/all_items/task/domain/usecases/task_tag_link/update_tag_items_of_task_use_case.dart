@@ -8,15 +8,15 @@ import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 import '../../repositories/task_repository.dart';
 
 class UpdateTagItemsOfTaskUseCase
-    extends UseCase<OrganizerItems<TagEntity>, UpdateItemsToTaskParams<TagEntity>> {
+    extends UseCase<OrganizerItems<TagEntity>, UpdateLinkItemsOfItemParams<TagEntity>> {
   final TaskRepository repository;
 
   UpdateTagItemsOfTaskUseCase(this.repository);
 
   @override
-  Future<Either<Failure, OrganizerItems<TagEntity>>> call(UpdateItemsToTaskParams params) {
+  Future<Either<Failure, OrganizerItems<TagEntity>>> call(UpdateLinkItemsOfItemParams params) {
     List<int> addedTagItems = params.items.getAddedItems(params.updatedItems).getIdList();
     List<int> removedTagItems = params.items.getRemovedItems(params.updatedItems).getIdList();
-    return repository.updateTaskTagItems(params.taskId, addedTagItems, removedTagItems);
+    return repository.updateTaskTagItems(params.itemId, addedTagItems, removedTagItems);
   }
 }

@@ -1,3 +1,9 @@
+== Naming Convention
+
+* UpdateLinkItemsOfItemUseCase; UpdateLinkItemsOfItemBlocEvent; _onUpdateLinkItemsOfItem
+** "Of" conveys ownership or association. Since you’re dealing with a set of links that already
+belong to the item (with the potential to modify, add, or remove elements in that set), this naming captures the complete scope of the operation more effectively.
+
 == External Libraries
 
 * don't use external libraries unless you have to, keep the dependencies to a minimum

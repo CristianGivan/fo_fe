@@ -6,6 +6,7 @@ import 'package:fo_fe/features/organizer/all_items/task/data/repositories/task_r
 import 'package:fo_fe/features/organizer/all_items/task/domain/repositories/task_repository.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/export_task_to_excel_use_case.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_reminder_link/update_reminder_items_of_task_use_case.dart';
+import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_user_link/update_link_items_of_item_use_case.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_user_link/update_task_user_link_usecase.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_user_link/update_user_items_of_task_use_case.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/update_task_dto_use_case.dart';
@@ -42,7 +43,8 @@ void taskInit() {
 
   // Task User Use cases
   sl.registerLazySingleton(() => GetCreatorByTaskIdUseCase(sl()));
-  sl.registerLazySingleton(() => GetLinkItemsByItemIdUseCase<UserEntity>(sl()));
+  sl.registerLazySingleton(() => GetLinkItemsByItemIdUseCase<ItemEntity>(sl()));
+  sl.registerLazySingleton(() => UpdateLinkItemsOfItemUseCase<UserEntity>(sl()));
   sl.registerLazySingleton(() => UpdateTaskUserLinkUseCase(sl()));
   sl.registerLazySingleton(() => UpdateUserItemsOfTaskUseCase(sl()));
 
@@ -70,6 +72,7 @@ void taskInit() {
   sl.registerFactory(() => TaskFormCubit());
   sl.registerFactory(() => TaskUserLinkBloc(
         getUserItemsByTaskIdUseCase: sl(),
+        updateLinkItemsOfItemUseCase: sl(),
       ));
   sl.registerFactory(() => TaskTagLinkBloc(
         getTagsByTaskId: sl(),

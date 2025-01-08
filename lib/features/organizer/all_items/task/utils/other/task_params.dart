@@ -51,19 +51,28 @@ class TaskParams extends ItemParams {
   get itemReturnType => super.itemType;
 }
 
-class UpdateItemsToTaskParams<T extends OrganizerItemEntity> extends Equatable {
-  final int taskId;
+class UpdateLinkItemsOfItemParams<T extends OrganizerItemEntity> extends ItemParams {
+  final int itemId;
+  final ItemsTypeEnum itemType;
   final OrganizerItems<T> items;
   final OrganizerItems<T> updatedItems;
+  final OrganizerItems<T> addedItems;
+  final OrganizerItems<T> removedItems;
 
-  const UpdateItemsToTaskParams({
-    required this.taskId,
-    required this.items,
-    required this.updatedItems,
-  });
+  UpdateLinkItemsOfItemParams({
+    required this.itemId,
+    required this.itemType,
+    OrganizerItems<T>? items,
+    OrganizerItems<T>? updatedItems,
+    OrganizerItems<T>? addedItems,
+    OrganizerItems<T>? removedItems,
+  })  : items = items ?? OrganizerItems.empty(),
+        updatedItems = updatedItems ?? OrganizerItems.empty(),
+        addedItems = addedItems ?? OrganizerItems.empty(),
+        removedItems = removedItems ?? OrganizerItems.empty();
 
   @override
-  List<Object> get props => [taskId, items, updatedItems];
+  List<Object> get props => [itemId, items, updatedItems, addedItems, removedItems];
 }
 
 class FilterTasksParams extends Equatable {

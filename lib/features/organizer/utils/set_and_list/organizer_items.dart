@@ -30,14 +30,14 @@ class OrganizerItems<T extends ItemEntity> extends Equatable {
 
   OrganizerItems<T> getAddedItems(OrganizerItems<T>? newItems) {
     if (newItems == null) {
-      return OrganizerItems.empty();
+      return this;
     }
     return OrganizerItems.of(newItems.where((element) => !_organizerItems.contains(element)));
   }
 
   OrganizerItems<T> getRemovedItems(OrganizerItems<T>? newItems) {
     if (newItems == null) {
-      return OrganizerItems.empty();
+      return this;
     }
     return OrganizerItems.of(_organizerItems.where((element) => !newItems.contains(element)));
   }

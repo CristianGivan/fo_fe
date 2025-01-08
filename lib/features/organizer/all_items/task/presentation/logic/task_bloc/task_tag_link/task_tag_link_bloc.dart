@@ -29,15 +29,16 @@ class TaskTagLinkBloc extends Bloc<TaskTagLinkBlocEvent, TaskTagLinkBlocState> {
     Emitter<TaskTagLinkBlocState> emit,
   ) async {
     emit(TaskTagLoadingBlocState());
-    final failureOrOrganizerItems = await updateTagItemsOfTask(UpdateItemsToTaskParams(
-      taskId: event.taskId,
-      items: event.tagItems,
-      updatedItems: event.updatedTagItems,
-    ));
-    emit(failureOrOrganizerItems.fold(
-      (failure) => TaskTagErrorBlocState(_mapFailureToMessage(failure)),
-      (organizerItems) => TagItemsUpdatedToTaskBlocState(organizerItems),
-    ));
+    emit(TaskTagErrorBlocState('Not implemented'));
+    // final failureOrOrganizerItems = await updateTagItemsOfTask(UpdateLinkItemsToItemParams(
+    //   itemId: event.taskId,
+    //   items: event.tagItems,
+    //   updatedItems: event.updatedTagItems,
+    // ));
+    // emit(failureOrOrganizerItems.fold(
+    //   (failure) => TaskTagErrorBlocState(_mapFailureToMessage(failure)),
+    //   (organizerItems) => TagItemsUpdatedToTaskBlocState(organizerItems),
+    // ));
   }
 
   String _mapFailureToMessage(Failure failure) {

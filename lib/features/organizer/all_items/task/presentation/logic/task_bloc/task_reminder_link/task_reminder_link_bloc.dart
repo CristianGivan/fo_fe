@@ -29,15 +29,16 @@ class TaskReminderLinkBloc extends Bloc<TaskReminderLinkBlocEvent, TaskReminderL
     Emitter<TaskReminderLinkBlocState> emit,
   ) async {
     emit(TaskReminderLoadingBlocState());
-    final failureOrOrganizerItems = await updateReminderItemsOfTask(UpdateItemsToTaskParams(
-      taskId: event.taskId,
-      items: event.reminderItems,
-      updatedItems: event.updatedReminderItems,
-    ));
-    emit(failureOrOrganizerItems.fold(
-      (failure) => TaskReminderErrorBlocState(_mapFailureToMessage(failure)),
-      (organizerItems) => ReminderItemsUpdatedToTaskBlocState(organizerItems),
-    ));
+    emit(TaskReminderErrorBlocState('Not implemented'));
+    // final failureOrOrganizerItems = await updateReminderItemsOfTask(UpdateLinkItemsOfItemParams(
+    //   itemId: event.taskId,
+    //   items: event.reminderItems,
+    //   updatedItems: event.updatedReminderItems,
+    // ));
+    // emit(failureOrOrganizerItems.fold(
+    //   (failure) => TaskReminderErrorBlocState(_mapFailureToMessage(failure)),
+    //   (organizerItems) => ReminderItemsUpdatedToTaskBlocState(organizerItems),
+    // ));
   }
 
   String _mapFailureToMessage(Failure failure) {

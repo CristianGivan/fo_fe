@@ -1,25 +1,27 @@
 import 'package:fo_fe/core/widgets/core_widget_exports.dart';
 import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
+import 'package:fo_fe/features/organizer/all_items/task/presentation/widgets/task_user_update_actions_menu.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/presentation/bloc/organizer_link_bloc_event.dart';
 
 import '../../../features/organizer/utils/organizer_exports.dart';
 
-class LinkItemListEditPage extends StatefulWidget {
+class LinkItemListEditPage<T extends OrganizerItemEntity> extends StatefulWidget {
   final TaskParams params;
 
   const LinkItemListEditPage({Key? key, required this.params}) : super(key: key);
 
   @override
-  _LinkItemListEditPageState createState() => _LinkItemListEditPageState();
+  _LinkItemListEditPageState createState() => _LinkItemListEditPageState<T>();
 }
 
-class _LinkItemListEditPageState extends State<LinkItemListEditPage> {
-  OrganizerItems<OrganizerItemEntity> selectedItemsChecked = OrganizerItems.empty();
-  OrganizerItems<OrganizerItemEntity> selectedItemsUnchecked = OrganizerItems.empty();
-  OrganizerItems<OrganizerItemEntity> allItemsChecked = OrganizerItems.empty();
-  OrganizerItems<OrganizerItemEntity> allItemsUnchecked = OrganizerItems.empty();
+class _LinkItemListEditPageState<T extends OrganizerItemEntity>
+    extends State<LinkItemListEditPage> {
+  OrganizerItems<T> selectedItemsChecked = OrganizerItems.empty();
+  OrganizerItems<T> selectedItemsUnchecked = OrganizerItems.empty();
+  OrganizerItems<T> allItemsChecked = OrganizerItems.empty();
+  OrganizerItems<T> allItemsUnchecked = OrganizerItems.empty();
 
   @override
   void initState() {
@@ -37,7 +39,7 @@ class _LinkItemListEditPageState extends State<LinkItemListEditPage> {
     if (taskUserLinkBloc.state.status != OrganizerBlocStatus.loaded) {
       taskUserLinkBloc.add(GetLinkItemsByItemIdBlocEvent(widget.params));
     } else {
-      _updateSelectedItems(taskUserLinkBloc.state.displayedItems);
+      _updateSelectedItems(taskUserLinkBloc.state.displayedItems as OrganizerItems<T>);
     }
   }
 
@@ -78,14 +80,14 @@ class _LinkItemListEditPageState extends State<LinkItemListEditPage> {
     );
   }
 
-  void _updateSelectedItems(OrganizerItems<OrganizerItemEntity> items) {
+  void _updateSelectedItems(OrganizerItems<T> items) {
     setState(() {
       selectedItemsChecked = items;
       selectedItemsUnchecked = OrganizerItems.empty();
     });
   }
 
-  void _updateAllItems(OrganizerItems<OrganizerItemEntity> items) {
+  void _updateAllItems(OrganizerItems<T> items) {
     setState(() {
       allItemsChecked = OrganizerItems.empty();
       allItemsUnchecked = items.copyWithRemovedItems(selectedItemsChecked);
@@ -97,7 +99,14 @@ class _LinkItemListEditPageState extends State<LinkItemListEditPage> {
     return AppContentScreen(
       appBarTitle: TaskStrings().screenEditTitle,
       body: _buildListSectionsWithListeners(),
-      menuOptions: (context, userId) => [],
+      menuOptions: (context, userId) => TaskUserUpdateActionsMenu.getMenuItems(
+          context,
+          UpdateLinkItemsOfItemParams<T>(
+            itemId: widget.params.taskEntity.id,
+            itemType: widget.params.itemType,
+            addedItems: allItemsChecked,
+            removedItems: selectedItemsUnchecked,
+          )),
       onSearchSubmitted: () {},
     );
   }
@@ -105,17 +114,17 @@ class _LinkItemListEditPageState extends State<LinkItemListEditPage> {
   Widget _buildListSectionsWithListeners() {
     return MultiBlocListener(
       listeners: [
-        BlocListener<TaskUserLinkBloc, OrganizerBlocState<OrganizerItemEntity>>(
+        BlocListener<TaskUserLinkBloc, OrganizerBlocState>(
           listener: (context, state) {
             if (state.status == OrganizerBlocStatus.loaded) {
-              _updateSelectedItems(state.displayedItems);
+              _updateSelectedItems(state.displayedItems as OrganizerItems<T>);
             }
           },
         ),
         BlocListener<UserBloc, UserBlocState>(
           listener: (context, state) {
             if (state is UserItemsLoadedBlocState) {
-              _updateAllItems(state.userItems);
+              _updateAllItems(state.userItems as OrganizerItems<T>);
             }
           },
         ),
@@ -124,7 +133,7 @@ class _LinkItemListEditPageState extends State<LinkItemListEditPage> {
     );
   }
 
-  Widget _buildUncheckedListView(OrganizerItems<OrganizerItemEntity> items) {
+  Widget _buildUncheckedListView(OrganizerItems<T> items) {
     return Column(
       children: [
         _buildListSection("Selected_Checked", selectedItemsChecked, true, false),
@@ -135,8 +144,7 @@ class _LinkItemListEditPageState extends State<LinkItemListEditPage> {
     );
   }
 
-  Widget _buildListSection(
-      String title, OrganizerItems<OrganizerItemEntity> items, bool isChecked, bool isAllItems) {
+  Widget _buildListSection(String title, OrganizerItems<T> items, bool isChecked, bool isAllItems) {
     return Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -164,7 +172,7 @@ class _LinkItemListEditPageState extends State<LinkItemListEditPage> {
     );
   }
 
-  void _onItemCheckedChanged(OrganizerItemEntity item, bool isChecked, bool isAllItems) {
+  void _onItemCheckedChanged(T item, bool isChecked, bool isAllItems) {
     setState(() {
       if (isAllItems) {
         if (isChecked) {

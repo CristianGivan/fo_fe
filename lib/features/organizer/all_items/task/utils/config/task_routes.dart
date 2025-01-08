@@ -4,6 +4,7 @@ import 'package:fo_fe/features/organizer/all_items/task/presentation/screens/tas
 import 'package:fo_fe/features/organizer/all_items/task/presentation/screens/task_update_screen.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/screens/task_view_screen.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
+import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class TaskRoutes {
@@ -31,7 +32,8 @@ class TaskRoutes {
                   name: TaskRouterNames.taskUpdateUserRouteName,
                   pageBuilder: (context, state) {
                     final TaskParams taskParams = TaskParams(id: state.extra as int);
-                    return NoTransitionPage(child: LinkItemListEditPage(params: taskParams));
+                    return NoTransitionPage(
+                        child: LinkItemListEditPage<UserEntity>(params: taskParams));
                   }),
             ]),
         GoRoute(
