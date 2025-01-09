@@ -64,6 +64,8 @@ debounce see todo code
 
 == Now
 
+* getPendingAndAcceptedUserItems is not returning the right values
+
 * check on getit how to use singleton and when to use other type I have
 sl.registerLazySingleton(() => UpdateItemsOfItemUseCase<UserEntity>(sl()));
 registerd for several tings What shall I use fo rgeneric type

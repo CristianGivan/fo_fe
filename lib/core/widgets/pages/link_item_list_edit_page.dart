@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:fo_fe/core/widgets/core_widget_exports.dart';
 import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/widgets/update_items_of_item_actions_menu.dart';
@@ -26,43 +28,21 @@ class _LinkItemListEditPageState<T extends OrganizerItemEntity>
   @override
   void initState() {
     super.initState();
-    _initializeData();
+    _initializeDataWithErrorHandling();
   }
 
-  void _initializeData() {
-    _loadTaskUserLinkItems();
-    _loadUserItems();
-  }
+  Future<void> _initializeDataWithErrorHandling() async {
+    try {
+      await _loadTaskUserLinkItemsWithErrorHandling();
+      await _loadUserItemsWithErrorHandling();
 
-  void _loadTaskUserLinkItems() {
-    final taskUserLinkBloc = context.read<TaskUserLinkBloc>();
-    if (taskUserLinkBloc.state.status != OrganizerBlocStatus.loaded) {
-      taskUserLinkBloc.add(GetItemsOfItemBlocEvent(widget.params));
-    } else {
-      _updateSelectedItems(taskUserLinkBloc.state.displayedItems as OrganizerItems<T>);
+      setState(() {
+        allItemsUnchecked = allItemsUnchecked.copyWithRemoveItemsWithSameId(selectedItemsChecked);
+      });
+    } catch (error) {
+      debugPrint("Error during data initialization: $error");
+      _showErrorDialog(context, "Failed to initialize data: $error");
     }
-  }
-
-  void _loadUserItems() {
-    final authLogBloc = context.read<AuthLogBloc>();
-    late final int loginUserId;
-    // if (false) {
-    if (authLogBloc.state is AuthAuthenticatedBlocState) {
-      final state = authLogBloc.state as AuthAuthenticatedBlocState;
-      loginUserId = state.userEntity.id;
-    } else {
-      loginUserId = 0;
-      _showNotAuthenticatedDialog(context);
-    }
-
-    final userBloc = context.read<UserBloc>();
-    // todo -td- reinitialization of all blocs on log off
-    // if (userBloc.state is UserItemsLoadedBlocState) {
-    //   final state = userBloc.state as UserItemsLoadedBlocState;
-    //   _updateAllItems(state.userItems);
-    // } else {
-    userBloc.add(GetLinkedUserItemsBlocEvent(UserParams(userId: loginUserId)));
-    // }
   }
 
   Widget _showNotAuthenticatedDialog(BuildContext context) {
@@ -90,7 +70,7 @@ class _LinkItemListEditPageState<T extends OrganizerItemEntity>
   void _updateAllItems(OrganizerItems<T> items) {
     setState(() {
       allItemsChecked = OrganizerItems.empty();
-      allItemsUnchecked = items.copyWithRemovedItems(selectedItemsChecked);
+      allItemsUnchecked = items.copyWithRemoveItemsWithSameId(selectedItemsChecked);
     });
   }
 
@@ -195,5 +175,99 @@ class _LinkItemListEditPageState<T extends OrganizerItemEntity>
         }
       }
     });
+  }
+
+  Future<void> _loadTaskUserLinkItemsWithErrorHandling() async {
+    final taskUserLinkBloc = context.read<TaskUserLinkBloc>();
+
+    if (taskUserLinkBloc.state.status != OrganizerBlocStatus.loaded) {
+      final completer = Completer<void>();
+
+      taskUserLinkBloc.add(GetItemsOfItemBlocEvent(widget.params));
+
+      final subscription = taskUserLinkBloc.stream.listen(
+        (state) {
+          if (state.status == OrganizerBlocStatus.loaded) {
+            completer.complete();
+          } else if (state.status == OrganizerBlocStatus.error) {
+            completer.completeError(state.errorMessage ?? "Failed to load linked items.");
+          }
+        },
+        onError: (error) {
+          completer.completeError("Stream error: $error");
+        },
+      );
+
+      try {
+        await completer.future; // Wait for the desired state or an error
+      } catch (error) {
+        debugPrint("Error while loading linked items: $error");
+        _showErrorDialog(context, error.toString());
+      } finally {
+        await subscription.cancel(); // Clean up the stream subscription
+      }
+    } else {
+      debugPrint("Linked items are already loaded. Skipping fetch.");
+      // You can optionally handle already-loaded state here if needed
+      _updateSelectedItems(taskUserLinkBloc.state.displayedItems as OrganizerItems<T>);
+    }
+  }
+
+  Future<void> _loadUserItemsWithErrorHandling() async {
+    final completer = Completer<void>();
+
+    final authLogBloc = context.read<AuthLogBloc>();
+    late final int loginUserId;
+
+    if (authLogBloc.state is AuthAuthenticatedBlocState) {
+      final state = authLogBloc.state as AuthAuthenticatedBlocState;
+      loginUserId = state.userEntity.id;
+    } else {
+      _showNotAuthenticatedDialog(context);
+      return;
+    }
+
+    final userBloc = context.read<UserBloc>();
+    userBloc.add(GetLinkedUserItemsBlocEvent(UserParams(userId: loginUserId)));
+
+    final subscription = userBloc.stream.listen(
+      (state) {
+        if (state is UserItemsLoadedBlocState) {
+          completer.complete();
+        } else if (state is UserErrorBlocState) {
+          completer.completeError(state.errorMessage ?? "Failed to load user items.");
+        }
+      },
+      onError: (error) {
+        completer.completeError("Stream error: $error");
+      },
+    );
+
+    try {
+      await completer.future;
+    } catch (error) {
+      debugPrint("Error while loading user items: $error");
+      _showErrorDialog(context, error.toString());
+    } finally {
+      await subscription.cancel();
+    }
+  }
+
+  void _showErrorDialog(BuildContext context, String errorMessage) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Error'),
+          content: Text(errorMessage),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
   }
 }

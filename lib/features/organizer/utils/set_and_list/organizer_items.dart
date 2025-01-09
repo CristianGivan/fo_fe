@@ -104,8 +104,12 @@ class OrganizerItems<T extends ItemEntity> extends Equatable {
   }
 
   OrganizerItems<T> copyWithRemovedItems(OrganizerItems<T> items) {
-    return toBuilder().removeItems(items).build();
+    return toBuilder().removeItemsWithSameId(items).build();
   }
+  OrganizerItems<T> copyWithRemoveItemsWithSameId(OrganizerItems<T> items) {
+    return toBuilder().removeItemsWithSameId(items).build();
+  }
+
 
   OrganizerItems<T> copyWithRemovedItemsWitIds(IdSet ids) {
     return toBuilder().removeItemsWithIds(ids).build();

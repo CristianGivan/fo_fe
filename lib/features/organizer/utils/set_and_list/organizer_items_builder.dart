@@ -55,6 +55,11 @@ class OrganizerItemsBuilder<T extends ItemEntity> extends Equatable {
     return this;
   }
 
+  OrganizerItemsBuilder<T> removeItemsWithSameId(OrganizerItems<T> elements) {
+    _organizerItems.removeWhere((element) => elements.any((e) => e.id == element.id));
+    return this;
+  }
+
   OrganizerItemsBuilder<T> removeItemsWithIds(IdSet ids) {
     _organizerItems.removeWhere((element) => ids.contains(element.id));
     return this;
