@@ -29,6 +29,9 @@ be reloaded?
 debounce see todo code
 * when you search you can type : and then specified the action
 * make sense to make it constant INITIAL_EPOCH_DATE,
+* check on getit how to use singleton and when to use other type I have
+sl.registerLazySingleton(() => UpdateItemsOfItemUseCase<UserEntity>(sl()));
+registerd for several tings What shall I use fo rgeneric type
 
 == Next
 
@@ -62,17 +65,18 @@ debounce see todo code
 
 * create reteta
 
+* on exit ask if it want to save the changes I cannot make it work with  PopScope
+
 == Now
 
+* usecase between user/link item and update taks are similar... check for optimisations
+* final ItemsTypeEnum itemsType; from
+* move the bloc hendlers from bloc to not dry
+* updateTagItemOfTask transfer  the logic in usecase
+* Update User
 * getPendingAndAcceptedUserItems is not returning the right values
 
-* check on getit how to use singleton and when to use other type I have
-sl.registerLazySingleton(() => UpdateItemsOfItemUseCase<UserEntity>(sl()));
-registerd for several tings What shall I use fo rgeneric type
-
-* save all the changes
-* on exit ask if it want to save the changes
-
+== Done
 
 * from update navigate to link_item_list_edit_page where I have selected alll the usersrs that
 areallreadi in the list and can add and delete others.
@@ -80,16 +84,7 @@ areallreadi in the list and can add and delete others.
 items
 * create a generic widget where to have all the items with chkbox  and the one selected to be in
 the previouse list from GetItemsFromLogInUserUseCase can be tooked form TaskParams?
-
-
-* usecase between user/link item and update taks are similar... check for optimisations
-* final ItemsTypeEnum itemsType; from
-* move the bloc hendlers from bloc to not dry
-* updateTagItemOfTask transfer  the logic in usecase
-* Update User
-
-== Done
-
+* save all the changes
 * get all the time the user item
 * all items at unchecked and the selected item not apearing in the list
 * get log in user
