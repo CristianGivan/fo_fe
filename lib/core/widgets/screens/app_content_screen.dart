@@ -8,6 +8,7 @@ class AppContentScreen extends StatelessWidget {
   final dynamic body;
   final List<PopupMenuEntry> Function(BuildContext context, int userId) menuOptions;
   final VoidCallback onSearchSubmitted;
+  final Future<bool> Function()? onWillPop;
 
   const AppContentScreen({
     super.key,
@@ -16,6 +17,7 @@ class AppContentScreen extends StatelessWidget {
     required this.body,
     required this.menuOptions,
     required this.onSearchSubmitted,
+    this.onWillPop,
   });
 
   @override
@@ -25,12 +27,21 @@ class AppContentScreen extends StatelessWidget {
         if (state is AuthAuthenticatedBlocState) {
           final userId = state.userEntity.id;
           fetchItemsForLoggedInUser?.call(context, userId);
-          return Scaffold(
-            appBar: AppBarPage(title: appBarTitle),
-            body: AppBodyPage(body: body, context: context, userId: userId),
-            bottomNavigationBar: ScreenBottomBarSameMenu(
-              menuOptions: menuOptions(context, userId),
-              onSearchSubmitted: onSearchSubmitted,
+          return PopScope(
+            canPop: true, // Allow back navigation by default
+            onPopInvokedWithResult: (didPop, result) async {
+              if (onWillPop != null) {
+                return await onWillPop!();
+              }
+              return didPop;
+            },
+            child: Scaffold(
+              appBar: AppBarPage(title: appBarTitle),
+              body: AppBodyPage(body: body, context: context, userId: userId),
+              bottomNavigationBar: ScreenBottomBarSameMenu(
+                menuOptions: menuOptions(context, userId),
+                onSearchSubmitted: onSearchSubmitted,
+              ),
             ),
           );
         } else {
