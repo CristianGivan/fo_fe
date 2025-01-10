@@ -1,48 +1,49 @@
-import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
+import 'package:fo_fe/core/widgets/pages/link_item_list_view_page.dart';
+import 'package:fo_fe/features/organizer/all_items/task/presentation/logic/task_bloc/task_items_link/item_link_items_bloc.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
-import 'package:fo_fe/features/organizer/presentation/pages/item_with_items_page.dart';
+import 'package:fo_fe/features/organizer/presentation/bloc/organizer_link_bloc_event.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-import '../../../../utils/organizer_exports.dart';
+class ItemLinkItemsPage<T extends OrganizerItemEntity> extends StatelessWidget {
+  final ItemParams params;
 
-class TaskLinkTagPage extends StatefulWidget {
-  final TaskEntity task;
-
-  TaskLinkTagPage({super.key, required int taskId}) : task = TaskEntity(id: taskId);
-
-  @override
-  State<TaskLinkTagPage> createState() => _TaskLinkTagPageState();
-}
-
-class _TaskLinkTagPageState extends State<TaskLinkTagPage> {
-  OrganizerItems<TagEntity> tagItems = OrganizerItems.empty();
+  const ItemLinkItemsPage({super.key, required this.params});
 
   @override
   Widget build(BuildContext context) {
-    context.read<TaskTagLinkBloc>().add(GetTagItemsByTaskIdBlocEvent(widget.task.id));
-    return BlocBuilder<TaskTagLinkBloc, TaskTagLinkBlocState>(
-      builder: (context, state) {
-        if (state is TaskTagLoadingBlocState) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (state is TaskTagLoadedBlocState) {
-          tagItems = state.tagItems;
-          return ItemWithItemsPage<TaskEntity, TagEntity>(
-            item: widget.task,
-            items: tagItems,
-            type: ItemsTypeEnum.tag,
-          );
-        } else if (state is TagItemsUpdatedToTaskBlocState) {
-          tagItems = state.tagItemsUpdated;
-          return ItemWithItemsPage<TaskEntity, TagEntity>(
-            item: widget.task,
-            items: tagItems,
-            type: ItemsTypeEnum.tag,
-          );
-        } else if (state is TaskTagErrorBlocState) {
-          return Center(child: Text(state.message));
-        } else {
-          return const Center(child: Text('No Tags Available'));
-        }
-      },
+    final itemLinkItemsBloc = context.read<ItemLinkItemsBloc<T>>();
+    if (itemLinkItemsBloc.state.status != OrganizerBlocStatus.loaded) {
+      itemLinkItemsBloc.add(GetItemsOfItemBlocEvent(params));
+    }
+    return BlocBuilder<ItemLinkItemsBloc<T>, OrganizerBlocState>(builder: (context, state) {
+      return buildStateWidget(
+        state: state,
+        buildErrorState: _buildErrorState,
+        buildLoadingState: _buildLoadingState,
+        buildLoadedState: () =>
+            _buildItemsListPage(context, state.displayedItems as OrganizerItems<T>),
+      );
+    });
+  }
+
+  Widget _buildErrorState(String? message) =>
+      Center(child: Text(message ?? "Unknown error occurred"));
+
+  Widget _buildLoadingState() => const Center(child: CircularProgressIndicator());
+
+  Widget _buildItemsListPage(BuildContext context, OrganizerItems<T> items) {
+    return Column(
+      children: [
+        if (items.isEmpty)
+          Center(child: Text('No Available'))
+        else
+          LinkItemListViewPage<T>(itemList: items),
+        ElevatedButton(
+          onPressed: () =>
+              context.pushNamed(TaskRouterNames.taskUpdateUserRouteName, extra: params.id),
+          child: Text('Update'),
+        ),
+      ],
     );
   }
 }

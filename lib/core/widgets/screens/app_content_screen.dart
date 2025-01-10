@@ -34,24 +34,9 @@ class AppContentScreen extends StatelessWidget {
             ),
           );
         } else {
-          return _showNotAuthenticatedDialog(context);
+          return DialogManager.showNotAuthenticatedDialog(context);
         }
       },
-    );
-  }
-
-  Widget _showNotAuthenticatedDialog(BuildContext context) {
-    return AlertDialog(
-      title: const Text('Not Authenticated'),
-      content: const Text('Please log in to continue.'),
-      actions: <Widget>[
-        TextButton(
-          child: const Text('OK'),
-          onPressed: () {
-            context.pushNamed(AuthRouterNames.authRouteName);
-          },
-        ),
-      ],
     );
   }
 }

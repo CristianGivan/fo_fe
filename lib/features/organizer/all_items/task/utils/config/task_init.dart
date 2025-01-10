@@ -1,4 +1,5 @@
 import 'package:fo_fe/core/db/drift/organizer_drift_db.dart';
+import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/task/data/datasources/task_local_data_source_drift.dart';
 import 'package:fo_fe/features/organizer/all_items/task/data/datasources/task_remote_data_source.dart';
 import 'package:fo_fe/features/organizer/all_items/task/data/datasources/task_remote_data_source_impl.dart';
@@ -10,6 +11,7 @@ import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_use
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_user_link/update_task_user_link_usecase.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_user_link/update_user_items_of_task_use_case.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/update_task_dto_use_case.dart';
+import 'package:fo_fe/features/organizer/all_items/task/presentation/logic/task_bloc/task_items_link/item_link_items_bloc.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/logic/task_cubit/task_form_cubit.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart';
@@ -45,6 +47,7 @@ void taskInit() {
   sl.registerLazySingleton(() => GetCreatorByTaskIdUseCase(sl()));
   sl.registerLazySingleton(() => GetLinkItemsByItemIdUseCase<ItemEntity>(sl()));
   sl.registerLazySingleton(() => UpdateItemsOfItemUseCase<UserEntity>(sl()));
+  sl.registerLazySingleton(() => UpdateItemsOfItemUseCase<TagEntity>(sl()));
   sl.registerLazySingleton(() => UpdateTaskUserLinkUseCase(sl()));
   sl.registerLazySingleton(() => UpdateUserItemsOfTaskUseCase(sl()));
 
@@ -81,6 +84,10 @@ void taskInit() {
   sl.registerFactory(() => TaskReminderLinkBloc(
         getRemindersByTaskId: sl(),
         updateReminderItemsOfTask: sl(),
+      ));
+  sl.registerFactory(() => ItemLinkItemsBloc<TagEntity>(
+        getUserItemsByTaskIdUseCase: sl(),
+        updateLinkItemsOfItemUseCase: sl(),
       ));
 
   // Task Export Service

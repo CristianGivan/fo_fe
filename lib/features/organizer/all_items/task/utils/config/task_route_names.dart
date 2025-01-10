@@ -5,6 +5,8 @@ class TaskRouterNames {
   static const String taskAddRouteName = '$taskRouteName/$taskAddRoutePath';
   static const String taskUpdateRoutePath = 'update';
   static const String taskUpdateRouteName = '$taskRouteName/$taskUpdateRoutePath';
+  static const String taskUpdateTagRoutePath = 'taskTag';
+  static const String taskUpdateTagRouteName = '$taskUpdateRouteName/$taskUpdateTagRoutePath';
   static const String taskUpdateUserRoutePath = 'taskUser';
   static const String taskUpdateUserRouteName = '$taskUpdateRouteName/$taskUpdateUserRoutePath';
   static const String taskDeleteRoutePath = 'delete';

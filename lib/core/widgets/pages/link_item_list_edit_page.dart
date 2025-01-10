@@ -40,24 +40,8 @@ class _LinkItemListEditPageState<T extends OrganizerItemEntity>
         allItemsUnchecked = allItemsUnchecked.copyWithRemoveItemsWithSameId(selectedItemsChecked);
       });
     } catch (error) {
-      debugPrint("Error during data initialization: $error");
       _showErrorDialog(context, "Failed to initialize data: $error");
     }
-  }
-
-  Widget _showNotAuthenticatedDialog(BuildContext context) {
-    return AlertDialog(
-      title: const Text('Not Authenticated'),
-      content: const Text('Please log in to continue.'),
-      actions: <Widget>[
-        TextButton(
-          child: const Text('OK'),
-          onPressed: () {
-            context.pushNamed(AuthRouterNames.authRouteName);
-          },
-        ),
-      ],
-    );
   }
 
   void _updateSelectedItems(OrganizerItems<T> items) {
@@ -223,7 +207,7 @@ class _LinkItemListEditPageState<T extends OrganizerItemEntity>
       final state = authLogBloc.state as AuthAuthenticatedBlocState;
       loginUserId = state.userEntity.id;
     } else {
-      _showNotAuthenticatedDialog(context);
+      DialogManager.showNotAuthenticatedDialog(context);
       return;
     }
 

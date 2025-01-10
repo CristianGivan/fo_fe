@@ -1,29 +1,19 @@
 import 'package:fo_fe/core/widgets/pages/link_item_list_view_page.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
-import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/presentation/bloc/organizer_link_bloc_event.dart';
 
 import '../../../../utils/organizer_exports.dart';
 
-class TaskLinkUserPage extends StatefulWidget {
+class TaskLinkUserPage<T extends OrganizerItemEntity> extends StatelessWidget {
   final int taskId;
 
-  TaskLinkUserPage({super.key, required this.taskId});
-
-  @override
-  State<TaskLinkUserPage> createState() => _TaskLinkUserPageState();
-}
-
-class _TaskLinkUserPageState extends State<TaskLinkUserPage> {
-  OrganizerItems<UserEntity> userItems = OrganizerItems.empty();
+  const TaskLinkUserPage({super.key, required this.taskId});
 
   @override
   Widget build(BuildContext context) {
-    //todo -refactor- add the event in buildStateWidget
     final taskUserLinkBloc = context.read<TaskUserLinkBloc>();
-    //todo -update- maybe add also loading state in if
     if (taskUserLinkBloc.state.status != OrganizerBlocStatus.loaded) {
-      taskUserLinkBloc.add(GetItemsOfItemBlocEvent(TaskParams(id: widget.taskId)));
+      taskUserLinkBloc.add(GetItemsOfItemBlocEvent(TaskParams(id: taskId)));
     }
     return BlocBuilder<TaskUserLinkBloc, OrganizerBlocState>(builder: (context, state) {
       return buildStateWidget(
@@ -31,7 +21,7 @@ class _TaskLinkUserPageState extends State<TaskLinkUserPage> {
         buildErrorState: _buildErrorState,
         buildLoadingState: _buildLoadingState,
         buildLoadedState: () =>
-            _buildItemsListPage(context, state.displayedItems as OrganizerItems<UserEntity>),
+            _buildItemsListPage(context, state.displayedItems as OrganizerItems<T>),
       );
     });
   }
@@ -41,16 +31,16 @@ class _TaskLinkUserPageState extends State<TaskLinkUserPage> {
 
   Widget _buildLoadingState() => const Center(child: CircularProgressIndicator());
 
-  Widget _buildItemsListPage(BuildContext context, OrganizerItems<UserEntity> items) {
+  Widget _buildItemsListPage(BuildContext context, OrganizerItems<T> items) {
     return Column(
       children: [
         if (items.isEmpty)
           Center(child: Text('No Available'))
         else
-          LinkItemListViewPage<UserEntity>(itemList: items),
+          LinkItemListViewPage<T>(itemList: items),
         ElevatedButton(
           onPressed: () =>
-              context.pushNamed(TaskRouterNames.taskUpdateUserRouteName, extra: widget.taskId),
+              context.pushNamed(TaskRouterNames.taskUpdateUserRouteName, extra: taskId),
           child: Text('Update'),
         ),
       ],

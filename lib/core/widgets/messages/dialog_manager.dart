@@ -1,5 +1,6 @@
 import 'package:fo_fe/core/utils/exports/external_exports.dart';
 import 'package:fo_fe/core/widgets/core_widget_exports.dart';
+import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
 
 class DialogManager {
   static Future<void> showConfirmationDialog({
@@ -60,6 +61,22 @@ class DialogManager {
           contentStyle: TextStyle(color: Colors.red),
         );
       },
+    );
+  }
+
+  //todo -refactor- integrate in the class see above implementation
+  static Widget showNotAuthenticatedDialog(BuildContext context) {
+    return AlertDialog(
+      title: const Text('Not Authenticated'),
+      content: const Text('Please log in to continue.'),
+      actions: <Widget>[
+        TextButton(
+          child: const Text('OK'),
+          onPressed: () {
+            context.pushNamed(AuthRouterNames.authRouteName);
+          },
+        ),
+      ],
     );
   }
 }

@@ -16,6 +16,9 @@ class GetLinkItemsByItemIdUseCase<T extends ItemEntity>
     if (params.itemType == ItemsTypeEnum.task) {
       return taskRepository.getUserItemsByTaskId(params.id)
           as Future<Either<Failure, OrganizerItems<T>>>;
+    } else if (params.itemType == ItemsTypeEnum.taskTag) {
+      return taskRepository.getTagItemsByTaskId(params.id)
+          as Future<Either<Failure, OrganizerItems<T>>>;
     } else {
       return Future.value(Left(UnexpectedFailure("Invalid params")));
     }
