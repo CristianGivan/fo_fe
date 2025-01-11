@@ -33,12 +33,13 @@ class TaskUpdateScreen extends StatelessWidget {
           controller: TextEditingController(text: taskId.toString()),
         ),
         ItemLinkItemsPage<TagEntity>(
-            key: ValueKey("task_tag_$taskId"),
-            params: ItemParams(id: taskId, itemType: ItemsTypeEnum.taskTag)),
+          key: ValueKey("task_tag_$taskId"),
+          params: taskTagParams,
+        ),
         // TaskLinkReminderPage(taskId: taskId),
         ItemLinkItemsPage<UserEntity>(
           key: ValueKey("task_user_$taskId"),
-          params: ItemParams(id: taskId, itemType: ItemsTypeEnum.taskUser),
+          params: taskUserParams,
         ),
       ],
     );

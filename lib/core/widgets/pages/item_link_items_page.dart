@@ -5,15 +5,14 @@ import 'package:fo_fe/features/organizer/presentation/bloc/organizer_link_bloc_e
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class ItemLinkItemsPage<T extends OrganizerItemEntity> extends StatelessWidget {
-  final ItemParams params;
+  final ItemsLinkParams params;
 
   const ItemLinkItemsPage({super.key, required this.params});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<OrganizerLinkBloc<T>>(
-      create: (context) => createItemLinkBloc<T>(
-          ItemsLinkParamsFactory.create(id: params.id, itemType: params.itemType)),
+      create: (context) => createItemLinkBloc<T>(params),
       child: BlocConsumer<OrganizerLinkBloc<T>, OrganizerBlocState<T>>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -21,8 +20,7 @@ class ItemLinkItemsPage<T extends OrganizerItemEntity> extends StatelessWidget {
           //todo -do- a way to update the items with recived data
           // if I delete the if I get all the time a send requiest fir geting
           if (state.status == OrganizerBlocStatus.initial) {
-            itemLinkItemsBloc.add(GetItemsOfItemBlocEvent(
-                ItemsLinkParamsFactory.create(id: params.id, itemType: params.itemType)));
+            itemLinkItemsBloc.add(GetItemsOfItemBlocEvent(params));
           }
           return buildStateWidget(
             state: state,
@@ -48,10 +46,7 @@ class ItemLinkItemsPage<T extends OrganizerItemEntity> extends StatelessWidget {
         else
           LinkItemListViewPage<T>(itemList: items),
         ElevatedButton(
-          onPressed: () => context.pushNamed(
-              ItemsLinkParamsFactory.create(id: params.id, itemType: params.itemType)
-                  .pushUpdateRoute,
-              extra: params.id),
+          onPressed: () => context.pushNamed(params.pushUpdateRoute, extra: params.id),
           child: Text('Update'),
         ),
       ],
