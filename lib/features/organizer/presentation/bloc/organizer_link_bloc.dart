@@ -18,6 +18,7 @@ abstract class OrganizerLinkBloc<T extends ItemEntity>
   Future<void> _onGetItemsLinked(
       GetItemsOfItemBlocEvent event, Emitter<OrganizerBlocState<T>> emit) async {
     await handleEvent(
+      event: event,
       emit: emit,
       action: () => getItemsLinked(event.params),
       originalItems: (items) => items,
@@ -26,13 +27,14 @@ abstract class OrganizerLinkBloc<T extends ItemEntity>
   }
 
   Future<void> handleEvent<R>({
+    required OrganizerLinkBlocEvent event,
     required Emitter<OrganizerBlocState<T>> emit,
     required Future<Either<Failure, R>> Function() action,
     OrganizerItems<T>? Function(R result)? originalItems,
     OrganizerItems<T>? Function(R result)? displayedItems,
     void Function(R result)? onSuccess,
   }) async {
-    emit(state.copyWith(status: OrganizerBlocStatus.loading));
+    _onLoading(emit);
     final result = await action();
     result.fold(
       (failure) => _onFailure(failure, emit),
@@ -44,6 +46,10 @@ abstract class OrganizerLinkBloc<T extends ItemEntity>
         displayedItems,
       ),
     );
+  }
+
+  void _onLoading(Emitter<OrganizerBlocState<dynamic>> emit) {
+    emit(state.copyWith(status: OrganizerBlocStatus.loading));
   }
 
   void _onFailure(Failure failure, Emitter<OrganizerBlocState<T>> emit) {

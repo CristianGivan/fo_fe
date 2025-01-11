@@ -1,9 +1,9 @@
 import 'package:fo_fe/core/widgets/core_widget_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
-import 'package:fo_fe/features/organizer/all_items/task/presentation/pages/task_link_tag_page.dart';
-import 'package:fo_fe/features/organizer/all_items/task/presentation/pages/task_link_user_page.dart';
+import 'package:fo_fe/features/organizer/all_items/task/presentation/pages/task_link_items_page.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/widgets/task_edit_screen_actions_menu.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
+import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class TaskUpdateScreen extends StatelessWidget {
@@ -29,9 +29,13 @@ class TaskUpdateScreen extends StatelessWidget {
           controller: TextEditingController(text: taskId.toString()),
         ),
         ItemLinkItemsPage<TagEntity>(
+            key: ValueKey("task_tag_$taskId"),
             params: ItemParams(id: taskId, itemType: ItemsTypeEnum.taskTag)),
         // TaskLinkReminderPage(taskId: taskId),
-        TaskLinkUserPage(taskId: taskId),
+        ItemLinkItemsPage<UserEntity>(
+          key: ValueKey("task_user_$taskId"),
+          params: ItemParams(id: taskId, itemType: ItemsTypeEnum.taskUser),
+        ),
       ],
     );
   }

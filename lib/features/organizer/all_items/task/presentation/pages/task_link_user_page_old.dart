@@ -1,21 +1,21 @@
 import 'package:fo_fe/core/widgets/pages/link_item_list_view_page.dart';
-import 'package:fo_fe/features/organizer/all_items/task/presentation/logic/task_bloc/task_items_link/item_link_items_bloc.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/presentation/bloc/organizer_link_bloc_event.dart';
-import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class ItemLinkItemsPage<T extends OrganizerItemEntity> extends StatelessWidget {
-  final ItemParams params;
+import '../../../../utils/organizer_exports.dart';
 
-  const ItemLinkItemsPage({super.key, required this.params});
+class TaskLinkUserPageOld<T extends OrganizerItemEntity> extends StatelessWidget {
+  final int taskId;
+
+  const TaskLinkUserPageOld({super.key, required this.taskId});
 
   @override
   Widget build(BuildContext context) {
-    final itemLinkItemsBloc = context.read<ItemLinkItemsBloc<T>>();
-    if (itemLinkItemsBloc.state.status != OrganizerBlocStatus.loaded) {
-      itemLinkItemsBloc.add(GetItemsOfItemBlocEvent(params));
+    final taskUserLinkBloc = context.read<TaskUserLinkBloc>();
+    if (taskUserLinkBloc.state.status != OrganizerBlocStatus.loaded) {
+      taskUserLinkBloc.add(GetItemsOfItemBlocEvent(TaskParams(id: taskId)));
     }
-    return BlocBuilder<ItemLinkItemsBloc<T>, OrganizerBlocState>(builder: (context, state) {
+    return BlocBuilder<TaskUserLinkBloc, OrganizerBlocState>(builder: (context, state) {
       return buildStateWidget(
         state: state,
         buildErrorState: _buildErrorState,
@@ -40,7 +40,7 @@ class ItemLinkItemsPage<T extends OrganizerItemEntity> extends StatelessWidget {
           LinkItemListViewPage<T>(itemList: items),
         ElevatedButton(
           onPressed: () =>
-              context.pushNamed(TaskRouterNames.taskUpdateUserRouteName, extra: params.id),
+              context.pushNamed(TaskRouterNames.taskUpdateUserRouteName, extra: taskId),
           child: Text('Update'),
         ),
       ],

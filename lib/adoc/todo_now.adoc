@@ -75,6 +75,8 @@ registerd for several tings What shall I use fo rgeneric type
 * updateTagItemOfTask transfer  the logic in usecase
 * Update User
 * getPendingAndAcceptedUserItems is not returning the right values
+* how to not get all the items from db insted update the state   itemLinkItemsBloc.add
+(GetItemsOfItemBlocEvent(params)); in ItemLinkItemsPage
 
 == Done
 

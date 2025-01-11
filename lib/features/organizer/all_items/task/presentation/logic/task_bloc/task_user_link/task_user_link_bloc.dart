@@ -17,6 +17,7 @@ class TaskUserLinkBloc extends OrganizerLinkBloc {
   Future<void> _onUpdateLinkItemsOfItem(
       UpdateItemsOfItemBlocEvent event, Emitter<OrganizerBlocState> emit) async {
     await handleEvent(
+      event: event,
       emit: emit,
       action: () => updateLinkItemsOfItemUseCase(event.params),
       originalItems: (items) => items,

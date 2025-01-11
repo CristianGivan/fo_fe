@@ -1,4 +1,4 @@
-import 'package:fo_fe/core/widgets/pages/link_item_list_edit_page.dart';
+import 'package:fo_fe/core/widgets/pages/link_item_list_update_page.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/screens/task_delete_screen.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/screens/task_export_to_excel_screen.dart';

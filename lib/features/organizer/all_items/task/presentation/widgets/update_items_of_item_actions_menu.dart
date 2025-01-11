@@ -26,7 +26,10 @@ class UpdateItemsOfItemActionsMenu<T extends OrganizerItemEntity> {
       ),
       PopupMenuItem(
         child: Text('Update with Items'),
-        onTap: () => context.read<TaskUserLinkBloc>().add(UpdateItemsOfItemBlocEvent(params)),
+        onTap: () => {
+          context.read<TaskUserLinkBloc>().add(UpdateItemsOfItemBlocEvent(params)),
+          context.pop()
+        },
       )
     ];
   }

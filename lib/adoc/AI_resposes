@@ -1,0 +1,308 @@
+Ah, I understand now! You want to achieve different behaviors depending on the derived Bloc class while keeping the shared logic intact. This can be achieved by using polymorphism in your Bloc design and making state-specific changes in the derived classes, without duplicating logic unnecessarily.
+
+Here's how you can design your code:
+Base Bloc (Unchanged)
+
+Your OrganizerLinkBloc class remains the same as it contains the shared logic. Derived classes will handle type-specific state emissions.
+
+abstract class OrganizerLinkBloc<T extends ItemEntity>
+    extends Bloc<OrganizerLinkBlocEvent, OrganizerBlocState<T>> {
+  final Future<Either<Failure, OrganizerItems<T>>> Function(ItemParams params) getItemsLinked;
+
+  OrganizerLinkBloc({
+    required this.getItemsLinked,
+  }) : super(OrganizerBlocState<T>(status: OrganizerBlocStatus.initial));
+
+  void setupEventHandlers() {
+    on<GetItemsOfItemBlocEvent>(_onGetItemsLinked);
+  }
+
+  Future<void> _onGetItemsLinked(
+    GetItemsOfItemBlocEvent event,
+    Emitter<OrganizerBlocState<T>> emit,
+  ) async {
+    await handleEvent(
+      event: event,
+      emit: emit,
+      action: () => getItemsLinked(event.params),
+      originalItems: (items) => items,
+      displayedItems: (items) => items,
+    );
+  }
+
+  Future<void> handleEvent<R>({
+    required OrganizerLinkBlocEvent event,
+    required Emitter<OrganizerBlocState<T>> emit,
+    required Future<Either<Failure, R>> Function() action,
+    OrganizerItems<T>? Function(R result)? originalItems,
+    OrganizerItems<T>? Function(R result)? displayedItems,
+    void Function(R result)? onSuccess,
+  }) async {
+    _onLoading(emit);
+    final result = await action();
+    result.fold(
+      (failure) => _onFailure(failure, emit),
+      (success) => _onSuccess<R>(
+        emit,
+        onSuccess,
+        success,
+        originalItems,
+        displayedItems,
+      ),
+    );
+  }
+
+  void _onLoading(Emitter<OrganizerBlocState<dynamic>> emit) {
+    emit(state.copyWith(status: OrganizerBlocStatus.loading));
+  }
+
+  void _onFailure(Failure failure, Emitter<OrganizerBlocState<T>> emit) {
+    emit(state.copyWith(
+      status: OrganizerBlocStatus.error,
+      errorMessage: _mapFailureToMessage(failure),
+    ));
+  }
+
+  void _onSuccess<R>(
+    Emitter<OrganizerBlocState<T>> emit,
+    void Function(R result)? onSuccess,
+    R success,
+    OrganizerItems<T>? Function(R result)? originalItems,
+    OrganizerItems<T>? Function(R result)? displayedItems,
+  ) {
+    if (onSuccess != null) {
+      onSuccess(success);
+    } else {
+      final updatedOriginalItems = (originalItems ?? (result) => state.originalItems)(success);
+      final updatedDisplayedItems = (displayedItems ?? (result) => state.displayedItems)(success);
+      emit(state.copyWith(
+        status: OrganizerBlocStatus.loaded,
+        originalItems: updatedOriginalItems,
+        displayedItems: updatedDisplayedItems,
+      ));
+    }
+  }
+
+  String _mapFailureToMessage(Failure failure) {
+    switch (failure.runtimeType) {
+      case NetworkFailure:
+        return 'Network error occurred';
+      case ServerFailure:
+        return 'Server error occurred';
+      case CacheFailure:
+        return 'Cache error occurred';
+      default:
+        return 'Unexpected error occurred';
+    }
+  }
+}
+
+Derived Blocs
+
+Create derived Blocs for UserEntity and TagEntity. These classes override the behavior as needed.
+
+class ItemLinkUserBloc extends OrganizerLinkBloc<UserEntity> {
+  ItemLinkUserBloc({
+    required Future<Either<Failure, OrganizerItems<UserEntity>>> Function(ItemParams params)
+        getItemsLinked,
+  }) : super(getItemsLinked: getItemsLinked);
+
+  @override
+  OrganizerBlocState<UserEntity> get initialState =>
+      ItemLinkUserBlocState(status: OrganizerBlocStatus.initial);
+
+  @override
+  void _onSuccess<R>(
+    Emitter<OrganizerBlocState<UserEntity>> emit,
+    void Function(R result)? onSuccess,
+    R success,
+    OrganizerItems<UserEntity>? Function(R result)? originalItems,
+    OrganizerItems<UserEntity>? Function(R result)? displayedItems,
+  ) {
+    final updatedOriginalItems = (originalItems ?? (result) => state.originalItems)(success);
+    final updatedDisplayedItems = (displayedItems ?? (result) => state.displayedItems)(success);
+
+    emit(ItemLinkUserBlocState(
+      status: OrganizerBlocStatus.loaded,
+      originalItems: updatedOriginalItems,
+      displayedItems: updatedDisplayedItems,
+    ));
+  }
+}
+
+class ItemLinkTagBloc extends OrganizerLinkBloc<TagEntity> {
+  ItemLinkTagBloc({
+    required Future<Either<Failure, OrganizerItems<TagEntity>>> Function(ItemParams params)
+        getItemsLinked,
+  }) : super(getItemsLinked: getItemsLinked);
+
+  @override
+  OrganizerBlocState<TagEntity> get initialState =>
+      ItemLinkTagBlocState(status: OrganizerBlocStatus.initial);
+
+  @override
+  void _onSuccess<R>(
+    Emitter<OrganizerBlocState<TagEntity>> emit,
+    void Function(R result)? onSuccess,
+    R success,
+    OrganizerItems<TagEntity>? Function(R result)? originalItems,
+    OrganizerItems<TagEntity>? Function(R result)? displayedItems,
+  ) {
+    final updatedOriginalItems = (originalItems ?? (result) => state.originalItems)(success);
+    final updatedDisplayedItems = (displayedItems ?? (result) => state.displayedItems)(success);
+
+    emit(ItemLinkTagBlocState(
+      status: OrganizerBlocStatus.loaded,
+      originalItems: updatedOriginalItems,
+      displayedItems: updatedDisplayedItems,
+    ));
+  }
+}
+
+Specialized States
+
+Define the specialized state classes for each derived Bloc:
+
+class ItemLinkUserBlocState extends OrganizerBlocState<UserEntity> {
+  ItemLinkUserBlocState({
+    required OrganizerBlocStatus status,
+    OrganizerItems<UserEntity>? originalItems,
+    OrganizerItems<UserEntity>? displayedItems,
+  }) : super(
+          status: status,
+          originalItems: originalItems,
+          displayedItems: displayedItems,
+        );
+}
+
+class ItemLinkTagBlocState extends OrganizerBlocState<TagEntity> {
+  ItemLinkTagBlocState({
+    required OrganizerBlocStatus status,
+    OrganizerItems<TagEntity>? originalItems,
+    OrganizerItems<TagEntity>? displayedItems,
+  }) : super(
+          status: status,
+          originalItems: originalItems,
+          displayedItems: displayedItems,
+        );
+}
+
+Benefits:
+
+    Polymorphism: The OrganizerLinkBloc remains generic, and specific behavior is implemented in derived classes.
+    Reusability: Shared logic like _onLoading and _onFailure is inherited from the base class.
+    Flexibility: You can add new derived Blocs for other entities (e.g., TagEntity) without modifying the base class.
+
+This approach cleanly separates shared and specialized logic while adhering to the DRY principle.
+You said:
+and in my cans
+
+class ItemLinkItemsPage<T extends OrganizerItemEntity> extends StatelessWidget {
+  final ItemParams params;
+
+  const ItemLinkItemsPage({super.key, required this.params});
+
+  @override
+  Widget build(BuildContext context) {
+    final itemLinkItemsBloc = context.read<ItemLinkItemsBloc<T>>();
+    // if (itemLinkItemsBloc.state.status != OrganizerBlocStatus.loaded) {
+    itemLinkItemsBloc.add(GetItemsOfItemBlocEvent(params));
+    // }
+    return BlocBuilder<ItemLinkItemsBloc<T>, OrganizerBlocState>(builder: (context, state) {
+      return buildStateWidget(
+        state: state,
+        buildErrorState: _buildErrorState,
+        buildLoadingState: _buildLoadingState,
+        buildLoadedState: () =>
+            _buildItemsListPage(context, state.displayedItems as OrganizerItems<T>),
+      );
+    });
+  }
+how can I call different derived clases base on params.itemType?
+ChatGPT said:
+ChatGPT
+
+To call different derived Bloc classes based on params.itemType, you can use a factory or a BlocProvider that creates the appropriate instance dynamically at runtime.
+
+Here's how you can modify your ItemLinkItemsPage to achieve this:
+1. Define a Factory Function
+
+Create a factory function to return the correct Bloc instance based on params.itemType.
+
+OrganizerLinkBloc<T> createItemLinkBloc<T extends OrganizerItemEntity>(ItemParams params) {
+  switch (params.itemType) {
+    case 'taskUser':
+      return ItemLinkUserBloc(
+        getItemsLinked: getUserItemsLinked, // Replace with your implementation
+      ) as OrganizerLinkBloc<T>;
+    case 'tag':
+      return ItemLinkTagBloc(
+        getItemsLinked: getTagItemsLinked, // Replace with your implementation
+      ) as OrganizerLinkBloc<T>;
+    default:
+      throw UnsupportedError('Unsupported itemType: ${params.itemType}');
+  }
+}
+
+2. Update the ItemLinkItemsPage Widget
+
+Use the factory function to dynamically provide the correct Bloc based on params.itemType.
+
+class ItemLinkItemsPage<T extends OrganizerItemEntity> extends StatelessWidget {
+  final ItemParams params;
+
+  const ItemLinkItemsPage({super.key, required this.params});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider<OrganizerLinkBloc<T>>(
+      create: (context) => createItemLinkBloc<T>(params),
+      child: BlocConsumer<OrganizerLinkBloc<T>, OrganizerBlocState<T>>(
+        listener: (context, state) {
+          // Optional: Handle specific state changes (e.g., show a snackbar on error)
+        },
+        builder: (context, state) {
+          final itemLinkItemsBloc = context.read<OrganizerLinkBloc<T>>();
+          if (state.status == OrganizerBlocStatus.initial) {
+            itemLinkItemsBloc.add(GetItemsOfItemBlocEvent(params));
+          }
+
+          return buildStateWidget(
+            state: state,
+            buildErrorState: _buildErrorState,
+            buildLoadingState: _buildLoadingState,
+            buildLoadedState: () =>
+                _buildItemsListPage(context, state.displayedItems as OrganizerItems<T>),
+          );
+        },
+      ),
+    );
+  }
+}
+
+3. Handle getItemsLinked Implementations
+
+Provide the required getItemsLinked functions (getUserItemsLinked and getTagItemsLinked) for your Bloc classes. These should match the specific types.
+
+Future<Either<Failure, OrganizerItems<UserEntity>>> getUserItemsLinked(ItemParams params) async {
+  // Implementation for fetching user-related items
+}
+
+Future<Either<Failure, OrganizerItems<TagEntity>>> getTagItemsLinked(ItemParams params) async {
+  // Implementation for fetching tag-related items
+}
+
+Explanation of Changes
+
+    Factory Function: createItemLinkBloc determines the correct Bloc class to instantiate based on params.itemType. This centralizes the logic for deciding which Bloc to use.
+    Dynamic BlocProvider: The BlocProvider dynamically injects the correct Bloc instance into the widget tree.
+    Initialization on Initial State: The GetItemsOfItemBlocEvent is triggered when the state is OrganizerBlocStatus.initial.
+    Reusable Logic: The rest of the widget remains generic and works seamlessly with any derived Bloc.
+
+Advantages
+
+    Dynamic and Scalable: Adding new types is as simple as extending the factory function.
+    Minimal Duplication: Shared logic for widget rendering and Bloc handling remains unchanged.
+    Single Responsibility: The factory handles the decision-making, while the widget focuses on rendering.
+
+This design ensures flexibility and clean separation of concerns.

@@ -12,9 +12,9 @@ class ItemLinkItemsPage<T extends OrganizerItemEntity> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final itemLinkItemsBloc = context.read<ItemLinkItemsBloc<T>>();
-    if (itemLinkItemsBloc.state.status != OrganizerBlocStatus.loaded) {
-      itemLinkItemsBloc.add(GetItemsOfItemBlocEvent(params));
-    }
+    // if (itemLinkItemsBloc.state.status != OrganizerBlocStatus.loaded) {
+    itemLinkItemsBloc.add(GetItemsOfItemBlocEvent(params));
+    // }
     return BlocBuilder<ItemLinkItemsBloc<T>, OrganizerBlocState>(builder: (context, state) {
       return buildStateWidget(
         state: state,
@@ -39,11 +39,39 @@ class ItemLinkItemsPage<T extends OrganizerItemEntity> extends StatelessWidget {
         else
           LinkItemListViewPage<T>(itemList: items),
         ElevatedButton(
-          onPressed: () =>
-              context.pushNamed(TaskRouterNames.taskUpdateUserRouteName, extra: params.id),
+          onPressed: () => _pushNamed(context),
           child: Text('Update'),
         ),
       ],
     );
+  }
+
+  Future<Object?> _pushNamed(BuildContext context) {
+    switch (params.itemType) {
+      case ItemsTypeEnum.taskTag:
+        return context.pushNamed(TaskRouterNames.taskUpdateTagRouteName, extra: params.id);
+      case ItemsTypeEnum.taskUser:
+        {
+          return context.pushNamed(TaskRouterNames.taskUpdateUserRouteName, extra: params.id);
+        }
+      case ItemsTypeEnum.undefine:
+        // TODO: Handle this case.
+        throw UnimplementedError();
+      case ItemsTypeEnum.task:
+        // TODO: Handle this case.
+        throw UnimplementedError();
+      case ItemsTypeEnum.tag:
+        // TODO: Handle this case.
+        throw UnimplementedError();
+      case ItemsTypeEnum.reminder:
+        // TODO: Handle this case.
+        throw UnimplementedError();
+      case ItemsTypeEnum.user:
+        // TODO: Handle this case.
+        throw UnimplementedError();
+      case ItemsTypeEnum.taskReminder:
+        // TODO: Handle this case.
+        throw UnimplementedError();
+    }
   }
 }

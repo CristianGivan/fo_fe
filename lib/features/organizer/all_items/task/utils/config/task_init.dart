@@ -89,6 +89,10 @@ void taskInit() {
         getUserItemsByTaskIdUseCase: sl(),
         updateLinkItemsOfItemUseCase: sl(),
       ));
+  sl.registerFactory(() => ItemLinkItemsBloc<UserEntity>(
+        getUserItemsByTaskIdUseCase: sl(),
+        updateLinkItemsOfItemUseCase: sl(),
+      ));
 
   // Task Export Service
   sl.registerLazySingleton(() => ExportTaskToExcelUseCase(sl()));
