@@ -8,7 +8,7 @@ abstract class OrganizerLinkBlocEvent extends Equatable {
 }
 
 class GetItemsOfItemBlocEvent extends OrganizerLinkBlocEvent {
-  final ItemParams params;
+  final ItemsLinkParams params;
 
   const GetItemsOfItemBlocEvent(this.params);
 

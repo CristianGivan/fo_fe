@@ -21,7 +21,7 @@ class UserParams extends ItemParams {
     this.userType = UserTypeEnum.Temporary,
     this.isEmailVerified = false,
   })  : user = user ?? UserEntity.empty(),
-        super(itemType: ItemType.user);
+        super(itemType: ItemsTypeEnum.user);
 
   @override
   List<Object> get props {

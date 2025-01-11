@@ -7,7 +7,7 @@ import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class ItemLinkTagBloc extends OrganizerLinkBloc<TagEntity> {
   ItemLinkTagBloc({
-    required Future<Either<Failure, OrganizerItems<TagEntity>>> Function(ItemParams params)
+    required Future<Either<Failure, OrganizerItems<TagEntity>>> Function(ItemsLinkParams params)
         getItemsLinked,
   }) : super(
           getItemsLinked: getItemsLinked,

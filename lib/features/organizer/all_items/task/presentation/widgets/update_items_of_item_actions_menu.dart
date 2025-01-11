@@ -6,11 +6,11 @@ import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 class UpdateItemsOfItemActionsMenu<T extends OrganizerItemEntity> {
   static List<PopupMenuEntry> getMenuItems(BuildContext context, UpdateItemsOfItemParams params) {
     switch (params.itemType) {
-      case ItemType.taskUser:
+      case ItemsTypeEnum.taskUser:
         return _getTaskUserMenuItems(context, params);
-      case ItemType.taskTag:
+      case ItemsTypeEnum.taskTag:
         return _getTaskTagMenuItems(context, params);
-      case ItemType.taskReminder:
+      case ItemsTypeEnum.taskReminder:
         return _getTaskReminderMenuItems(context, params);
       default:
         return <PopupMenuEntry>[];

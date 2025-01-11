@@ -5,7 +5,7 @@ import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 abstract class OrganizerLinkBloc<T extends ItemEntity>
     extends Bloc<OrganizerLinkBlocEvent, OrganizerBlocState<T>> {
-  final Future<Either<Failure, OrganizerItems<T>>> Function(ItemParams params) getItemsLinked;
+  final Future<Either<Failure, OrganizerItems<T>>> Function(ItemsLinkParams params) getItemsLinked;
 
   OrganizerLinkBloc({
     required this.getItemsLinked,

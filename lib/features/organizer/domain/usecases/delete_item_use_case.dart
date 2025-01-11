@@ -8,13 +8,13 @@ import '../../all_items/task/domain/repositories/task_repository.dart';
 
 class DeleteItemsUseCase<T extends DtoEntity> extends UseCase<IdSet, IdSet> {
   final TaskRepository repository;
-  final ItemType itemsType;
+  final ItemsTypeEnum itemsType;
 
   DeleteItemsUseCase(this.repository, this.itemsType);
 
   @override
   Future<Either<Failure, IdSet>> call(IdSet idSet) {
-    if (itemsType == ItemType.task) {
+    if (itemsType == ItemsTypeEnum.task) {
       return repository.deleteTaskItems(idSet);
     } else {
       return Future.value(Left(UnexpectedFailure("Invalid params")));

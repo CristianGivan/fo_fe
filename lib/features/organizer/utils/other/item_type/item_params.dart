@@ -4,13 +4,13 @@ class ItemParams extends Equatable {
   final int id;
   final IdSet idSet;
   final int forUserId;
-  final ItemType itemType;
+  final ItemsTypeEnum itemType;
 
   ItemParams({
     required this.id,
     IdSet? idSet,
     this.forUserId = 0,
-    this.itemType = ItemType.undefine,
+    this.itemType = ItemsTypeEnum.undefine,
   }) : idSet = idSet ?? IdSet.empty();
 
   @override

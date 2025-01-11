@@ -7,7 +7,7 @@ import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class ItemLinkUserBloc extends OrganizerLinkBloc<UserEntity> {
   ItemLinkUserBloc({
-    required Future<Either<Failure, OrganizerItems<UserEntity>>> Function(ItemParams params)
+    required Future<Either<Failure, OrganizerItems<UserEntity>>> Function(ItemsLinkParams params)
         getItemsLinked,
   }) : super(
           getItemsLinked: getItemsLinked,

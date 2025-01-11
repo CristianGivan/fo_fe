@@ -10,18 +10,18 @@ import 'package:get_it/get_it.dart';
 
 import '../../../../../core/utils/exports/core_utils_exports.dart';
 
-OrganizerLinkBloc<T> createItemLinkBloc<T extends OrganizerItemEntity>(ItemParams params) {
+OrganizerLinkBloc<T> createItemLinkBloc<T extends OrganizerItemEntity>(ItemsLinkParams params) {
   final GetLinkItemsByItemIdUseCase<T> getUserItemsByTaskIdUseCase = GetIt.instance.get();
 
   switch (params.itemType) {
-    case ItemType.taskUser:
+    case ItemsTypeEnum.taskUser:
       return ItemLinkUserBloc(
-        getItemsLinked: (ItemParams params) => getUserItemsByTaskIdUseCase(params)
+        getItemsLinked: (ItemsLinkParams params) => getUserItemsByTaskIdUseCase(params)
             as Future<Either<Failure, OrganizerItems<UserEntity>>>,
       ) as OrganizerLinkBloc<T>;
-    case ItemType.taskTag:
+    case ItemsTypeEnum.taskTag:
       return ItemLinkTagBloc(
-        getItemsLinked: (ItemParams params) => getUserItemsByTaskIdUseCase(params)
+        getItemsLinked: (ItemsLinkParams params) => getUserItemsByTaskIdUseCase(params)
             as Future<Either<Failure, OrganizerItems<TagEntity>>>,
       ) as OrganizerLinkBloc<T>;
     default:

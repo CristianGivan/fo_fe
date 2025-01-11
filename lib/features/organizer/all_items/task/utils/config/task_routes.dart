@@ -32,9 +32,9 @@ class TaskRoutes {
                   path: TaskRouterNames.taskUpdateTagRoutePath,
                   name: TaskRouterNames.taskUpdateTagRouteName,
                   pageBuilder: (context, state) {
-                    final UpdateItemsOfItemParams taskTagParams = UpdateItemsOfItemParams(
-                      itemId: state.extra as int,
-                      itemType: ItemType.taskTag,
+                    final taskTagParams = ItemsLinkParamsFactory.create(
+                      id: state.extra as int,
+                      itemType: ItemsTypeEnum.taskTag,
                     );
                     return NoTransitionPage(
                         child: LinkItemListEditPage<TagEntity>(params: taskTagParams));
@@ -43,9 +43,9 @@ class TaskRoutes {
                   path: TaskRouterNames.taskUpdateUserRoutePath,
                   name: TaskRouterNames.taskUpdateUserRouteName,
                   pageBuilder: (context, state) {
-                    final UpdateItemsOfItemParams taskUserParams = UpdateItemsOfItemParams(
-                      itemId: state.extra as int,
-                      itemType: ItemType.taskUser,
+                    final taskUserParams = ItemsLinkParamsFactory.create(
+                      id: state.extra as int,
+                      itemType: ItemsTypeEnum.taskUser,
                     );
                     return NoTransitionPage(
                         child: LinkItemListEditPage<UserEntity>(params: taskUserParams));

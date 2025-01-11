@@ -1,4 +1,3 @@
-import 'package:fo_fe/core/utils/exports/external_exports.dart';
 import 'package:fo_fe/core/widgets/core_widget_exports.dart';
 import 'package:fo_fe/core/widgets/menu/navigation_menu.dart';
 import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
@@ -6,7 +5,7 @@ import 'package:fo_fe/features/organizer/all_items/reminder/utils/config/reminde
 import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/user/utils/config/user_route_names.dart';
-import 'package:fo_fe/features/organizer/utils/other/organizer_strings.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class OrganizerHomeScreen extends StatelessWidget {
   const OrganizerHomeScreen({super.key});

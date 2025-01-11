@@ -20,7 +20,7 @@ import 'package:get_it/get_it.dart';
 final sl = GetIt.instance;
 
 void taskInit() {
-  final ItemType itemsType = ItemType.task;
+  final ItemsTypeEnum itemsType = ItemsTypeEnum.task;
   // Task Data Sources
   sl.registerLazySingleton<TaskRemoteDataSource>(() => TaskRemoteDataSourceImpl(
         httpClient: sl(),
