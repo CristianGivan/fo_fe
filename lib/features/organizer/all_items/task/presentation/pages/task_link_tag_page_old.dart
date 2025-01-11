@@ -28,14 +28,14 @@ class _TaskLinkTagPageOldState extends State<TaskLinkTagPageOld> {
           return ItemWithItemsPage<TaskEntity, TagEntity>(
             item: widget.task,
             items: tagItems,
-            type: ItemsTypeEnum.tag,
+            type: ItemType.tag,
           );
         } else if (state is TagItemsUpdatedToTaskBlocState) {
           tagItems = state.tagItemsUpdated;
           return ItemWithItemsPage<TaskEntity, TagEntity>(
             item: widget.task,
             items: tagItems,
-            type: ItemsTypeEnum.tag,
+            type: ItemType.tag,
           );
         } else if (state is TaskTagErrorBlocState) {
           return Center(child: Text(state.message));

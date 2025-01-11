@@ -11,7 +11,6 @@ import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_use
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_user_link/update_task_user_link_usecase.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_user_link/update_user_items_of_task_use_case.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/update_task_dto_use_case.dart';
-import 'package:fo_fe/features/organizer/all_items/task/presentation/logic/task_bloc/task_items_link/item_link_items_bloc.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/logic/task_cubit/task_form_cubit.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart';
@@ -21,7 +20,7 @@ import 'package:get_it/get_it.dart';
 final sl = GetIt.instance;
 
 void taskInit() {
-  final ItemsTypeEnum itemsType = ItemsTypeEnum.task;
+  final ItemType itemsType = ItemType.task;
   // Task Data Sources
   sl.registerLazySingleton<TaskRemoteDataSource>(() => TaskRemoteDataSourceImpl(
         httpClient: sl(),
@@ -84,14 +83,6 @@ void taskInit() {
   sl.registerFactory(() => TaskReminderLinkBloc(
         getRemindersByTaskId: sl(),
         updateReminderItemsOfTask: sl(),
-      ));
-  sl.registerFactory(() => ItemLinkItemsBloc<TagEntity>(
-        getUserItemsByTaskIdUseCase: sl(),
-        updateLinkItemsOfItemUseCase: sl(),
-      ));
-  sl.registerFactory(() => ItemLinkItemsBloc<UserEntity>(
-        getUserItemsByTaskIdUseCase: sl(),
-        updateLinkItemsOfItemUseCase: sl(),
       ));
 
   // Task Export Service

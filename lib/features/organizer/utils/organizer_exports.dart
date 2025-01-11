@@ -17,7 +17,7 @@ export 'config/organizer_router_names.dart';
 export 'filter_and_sorting/organizer_sorting.dart';
 export 'other/item_params.dart';
 export 'other/item_strings.dart';
-export 'other/items_type_enum.dart';
+export 'other/item_type.dart';
 export 'set_and_list/id_set.dart';
 export 'set_and_list/id_set_builder.dart';
 export 'set_and_list/organizer_items.dart';

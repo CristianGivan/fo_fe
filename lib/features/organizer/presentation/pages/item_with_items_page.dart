@@ -6,7 +6,7 @@ import 'package:fo_fe/features/organizer/utils/other/items_type_selection.dart';
 class ItemWithItemsPage<T extends OrganizerItemEntity, E extends OrganizerItemEntity>
     extends StatelessWidget {
   final T item;
-  final ItemsTypeEnum type;
+  final ItemType type;
   final OrganizerItems<E> items;
 
   const ItemWithItemsPage({

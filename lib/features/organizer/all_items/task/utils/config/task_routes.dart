@@ -34,7 +34,7 @@ class TaskRoutes {
                   pageBuilder: (context, state) {
                     final UpdateItemsOfItemParams taskTagParams = UpdateItemsOfItemParams(
                       itemId: state.extra as int,
-                      itemType: ItemsTypeEnum.taskTag,
+                      itemType: ItemType.taskTag,
                     );
                     return NoTransitionPage(
                         child: LinkItemListEditPage<TagEntity>(params: taskTagParams));
@@ -45,7 +45,7 @@ class TaskRoutes {
                   pageBuilder: (context, state) {
                     final UpdateItemsOfItemParams taskUserParams = UpdateItemsOfItemParams(
                       itemId: state.extra as int,
-                      itemType: ItemsTypeEnum.taskUser,
+                      itemType: ItemType.taskUser,
                     );
                     return NoTransitionPage(
                         child: LinkItemListEditPage<UserEntity>(params: taskUserParams));

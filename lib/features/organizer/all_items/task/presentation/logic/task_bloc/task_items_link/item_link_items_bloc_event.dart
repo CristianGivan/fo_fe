@@ -1,7 +1,7 @@
 part of 'item_link_items_bloc.dart';
 
 abstract class ItemLinkItemsBlocEvent extends Equatable {
-  final ItemsTypeEnum itemsType;
+  final ItemType itemsType;
 
   const ItemLinkItemsBlocEvent({required this.itemsType});
 

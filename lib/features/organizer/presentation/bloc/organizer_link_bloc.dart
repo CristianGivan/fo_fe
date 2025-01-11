@@ -16,7 +16,9 @@ abstract class OrganizerLinkBloc<T extends ItemEntity>
   }
 
   Future<void> _onGetItemsLinked(
-      GetItemsOfItemBlocEvent event, Emitter<OrganizerBlocState<T>> emit) async {
+    GetItemsOfItemBlocEvent event,
+    Emitter<OrganizerBlocState<T>> emit,
+  ) async {
     await handleEvent(
       event: event,
       emit: emit,

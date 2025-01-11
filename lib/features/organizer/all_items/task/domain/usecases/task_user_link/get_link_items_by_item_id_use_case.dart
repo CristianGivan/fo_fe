@@ -13,10 +13,10 @@ class GetLinkItemsByItemIdUseCase<T extends ItemEntity>
 
   @override
   Future<Either<Failure, OrganizerItems<T>>> call(ItemParams params) {
-    if (params.itemType == ItemsTypeEnum.taskUser) {
+    if (params.itemType == ItemType.taskUser) {
       return taskRepository.getUserItemsByTaskId(params.id)
           as Future<Either<Failure, OrganizerItems<T>>>;
-    } else if (params.itemType == ItemsTypeEnum.taskTag) {
+    } else if (params.itemType == ItemType.taskTag) {
       return taskRepository.getTagItemsByTaskId(params.id)
           as Future<Either<Failure, OrganizerItems<T>>>;
     } else {

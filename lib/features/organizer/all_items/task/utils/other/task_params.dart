@@ -24,7 +24,7 @@ class TaskParams extends ItemParams {
           id: id,
           forUserId: forUserId ?? 0,
           idSet: idSet ?? IdSet.empty(),
-          itemType: ItemsTypeEnum.task,
+          itemType: ItemType.task,
         );
 
   TaskParams copyWith({

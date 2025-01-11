@@ -14,7 +14,7 @@ class UpdateItemsOfItemUseCase<T extends OrganizerItemEntity>
 
   @override
   Future<Either<Failure, OrganizerItems<T>>> call(ItemParams params) {
-    if (params.itemType == ItemsTypeEnum.taskUser) {
+    if (params.itemType == ItemType.taskUser) {
       final userParams = params as UpdateItemsOfItemParams<T>;
 
       final result = repository.updateTaskUserItems(

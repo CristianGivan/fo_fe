@@ -4,7 +4,7 @@ import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class GetItems<T extends ItemEntity> {
   final BuildContext context;
-  final ItemsTypeEnum itemsType;
+  final ItemType itemsType;
   late final OrganizerItems<T> allItems;
   late final OrganizerItems<T> selectedItems;
 
@@ -17,7 +17,7 @@ class GetItems<T extends ItemEntity> {
 
   void getItems() {
     switch (itemsType) {
-      case ItemsTypeEnum.taskUser:
+      case ItemType.taskUser:
         late final int loginUserId;
         final userUserDisplayedItems = OrganizerItems.empty();
         final taskUserDisplayedItems = context.read<TaskUserLinkBloc>().state.displayedItems;
@@ -40,28 +40,28 @@ class GetItems<T extends ItemEntity> {
         }
 
         break;
-      case ItemsTypeEnum.taskTag:
+      case ItemType.taskTag:
         allItems = OrganizerItems.empty();
         selectedItems = OrganizerItems.empty();
         break;
-      case ItemsTypeEnum.task:
+      case ItemType.task:
         allItems = OrganizerItems.empty();
         selectedItems = OrganizerItems.empty();
         break;
       // Add other cases as needed
-      case ItemsTypeEnum.undefine:
+      case ItemType.undefine:
         // TODO: Handle this case.
         throw UnimplementedError();
-      case ItemsTypeEnum.tag:
+      case ItemType.tag:
         // TODO: Handle this case.
         throw UnimplementedError();
-      case ItemsTypeEnum.reminder:
+      case ItemType.reminder:
         // TODO: Handle this case.
         throw UnimplementedError();
-      case ItemsTypeEnum.user:
+      case ItemType.user:
         // TODO: Handle this case.
         throw UnimplementedError();
-      case ItemsTypeEnum.taskReminder:
+      case ItemType.taskReminder:
         // TODO: Handle this case.
         throw UnimplementedError();
     }

@@ -28,14 +28,14 @@ class _TaskLinkReminderPageState extends State<TaskLinkReminderPage> {
           return ItemWithItemsPage<TaskEntity, ReminderEntity>(
             item: widget.task,
             items: reminderItems,
-            type: ItemsTypeEnum.reminder,
+            type: ItemType.reminder,
           );
         } else if (state is ReminderItemsUpdatedToTaskBlocState) {
           reminderItems = state.reminderItemsUpdated;
           return ItemWithItemsPage<TaskEntity, ReminderEntity>(
             item: widget.task,
             items: reminderItems,
-            type: ItemsTypeEnum.reminder,
+            type: ItemType.reminder,
           );
         } else if (state is TaskReminderErrorBlocState) {
           return Center(child: Text(state.message));

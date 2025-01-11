@@ -8,21 +8,21 @@ import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 import 'package:fo_fe/features/organizer/utils/other/items_type.dart';
 
 class ItemsTypeSelection {
-  static ItemsType getItemType(ItemsTypeEnum type) {
+  static ItemsType getItemType(ItemType type) {
     switch (type) {
-      case ItemsTypeEnum.tag:
+      case ItemType.tag:
         return ItemsType(
           type: type.name,
           routeName: TagRouterNames.tagRouteName,
           itemTextBuilder: (item) => (item as TagEntity).subject,
         );
-      case ItemsTypeEnum.reminder:
+      case ItemType.reminder:
         return ItemsType(
           type: type.name,
           routeName: ReminderRouterNames.reminderRouteName,
           itemTextBuilder: (item) => (item as ReminderEntity).subject,
         );
-      case ItemsTypeEnum.user:
+      case ItemType.user:
         return ItemsType(
           type: type.name,
           routeName: UserRouterNames.userRouteName,

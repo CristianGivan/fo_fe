@@ -9,13 +9,13 @@ import '../../all_items/task/domain/repositories/task_repository.dart';
 
 class AddItemUseCase<T extends DtoEntity> extends UseCase<T, ItemEntity> {
   final TaskRepository repository;
-  final ItemsTypeEnum itemsType;
+  final ItemType itemsType;
 
   AddItemUseCase(this.repository, this.itemsType);
 
   @override
   Future<Either<Failure, T>> call(ItemEntity item) async {
-    if (itemsType == ItemsTypeEnum.task) {
+    if (itemsType == ItemType.task) {
       return _handleAddTask(item as TaskEntity);
     } else {
       return Left(UnexpectedFailure("Invalid params"));

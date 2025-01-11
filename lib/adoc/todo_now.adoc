@@ -66,8 +66,11 @@ registerd for several tings What shall I use fo rgeneric type
 * create reteta
 
 * on exit ask if it want to save the changes I cannot make it work with  PopScope
+* Common Mistakes in Lifecycle Management    Not Closing Blocs Holding References Too Long Singleton Misuse:
 
 == Now
+
+* _onLoading and _onFailure are not shared
 
 * usecase between user/link item and update taks are similar... check for optimisations
 * final ItemsTypeEnum itemsType; from
@@ -77,6 +80,8 @@ registerd for several tings What shall I use fo rgeneric type
 * getPendingAndAcceptedUserItems is not returning the right values
 * how to not get all the items from db insted update the state   itemLinkItemsBloc.add
 (GetItemsOfItemBlocEvent(params)); in ItemLinkItemsPage
+
+* clean up the getit in special if I have the factory
 
 == Done
 
