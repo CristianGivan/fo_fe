@@ -19,9 +19,9 @@ class ItemLinkItemsPage<T extends OrganizerItemEntity> extends StatelessWidget {
         builder: (context, state) {
           final itemLinkItemsBloc = context.read<OrganizerLinkBloc<T>>();
           //todo -do- a way to update the items with recived data
-          // if (state.status == OrganizerBlocStatus.initial) {
-          itemLinkItemsBloc.add(GetItemsOfItemBlocEvent(params));
-          // }
+          if (state.status == OrganizerBlocStatus.initial) {
+            itemLinkItemsBloc.add(GetItemsOfItemBlocEvent(params));
+          }
           return buildStateWidget(
             state: state,
             buildErrorState: _buildErrorState,

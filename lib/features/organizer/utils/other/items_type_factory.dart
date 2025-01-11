@@ -7,7 +7,7 @@ import 'package:fo_fe/features/organizer/all_items/user/utils/config/user_route_
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 import 'package:fo_fe/features/organizer/utils/other/items_type.dart';
 
-class ItemsTypeSelection {
+class ItemsTypeFactory {
   static ItemsType getItemType(ItemType type) {
     switch (type) {
       case ItemType.tag:

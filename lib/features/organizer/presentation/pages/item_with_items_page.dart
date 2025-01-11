@@ -1,7 +1,7 @@
 import 'package:fo_fe/features/organizer/presentation/pages/item_list_link_page.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 import 'package:fo_fe/features/organizer/utils/other/items_type.dart';
-import 'package:fo_fe/features/organizer/utils/other/items_type_selection.dart';
+import 'package:fo_fe/features/organizer/utils/other/items_type_factory.dart';
 
 class ItemWithItemsPage<T extends OrganizerItemEntity, E extends OrganizerItemEntity>
     extends StatelessWidget {
@@ -18,7 +18,7 @@ class ItemWithItemsPage<T extends OrganizerItemEntity, E extends OrganizerItemEn
 
   @override
   Widget build(BuildContext context) {
-    final itemsType = ItemsTypeSelection.getItemType(type);
+    final itemsType = ItemsTypeFactory.getItemType(type);
     return Column(
       children: [
         if (items.isEmpty)
