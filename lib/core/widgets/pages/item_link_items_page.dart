@@ -18,7 +18,6 @@ class ItemLinkItemsPage<T extends OrganizerItemEntity> extends StatelessWidget {
         builder: (context, state) {
           final itemLinkItemsBloc = context.read<OrganizerLinkBloc<T>>();
           //todo -do- a way to update the items with recived data
-          // if I delete the if I get all the time a send requiest fir geting
           if (state.status == OrganizerBlocStatus.initial) {
             itemLinkItemsBloc.add(GetItemsOfItemBlocEvent(params));
           }
@@ -46,10 +45,41 @@ class ItemLinkItemsPage<T extends OrganizerItemEntity> extends StatelessWidget {
         else
           LinkItemListViewPage<T>(itemList: items),
         ElevatedButton(
-          onPressed: () => context.pushNamed(params.pushUpdateRoute, extra: params.id),
+          onPressed: () => _pushNamed(context),
           child: Text('Update'),
         ),
       ],
     );
+  }
+
+  // todo -do- a way to update the items with recived data mor as polymorfism
+
+  Future<Object?> _pushNamed(BuildContext context) {
+    switch (params.itemType) {
+      case ItemsTypeEnum.taskTag:
+        return context.pushNamed(TaskRouterNames.taskUpdateTagRouteName, extra: params.id);
+      case ItemsTypeEnum.taskUser:
+        {
+          return context.pushNamed(TaskRouterNames.taskUpdateUserRouteName, extra: params.id);
+        }
+      case ItemsTypeEnum.undefine:
+        // TODO: Handle this case.
+        throw UnimplementedError();
+      case ItemsTypeEnum.task:
+        // TODO: Handle this case.
+        throw UnimplementedError();
+      case ItemsTypeEnum.tag:
+        // TODO: Handle this case.
+        throw UnimplementedError();
+      case ItemsTypeEnum.reminder:
+        // TODO: Handle this case.
+        throw UnimplementedError();
+      case ItemsTypeEnum.user:
+        // TODO: Handle this case.
+        throw UnimplementedError();
+      case ItemsTypeEnum.taskReminder:
+        // TODO: Handle this case.
+        throw UnimplementedError();
+    }
   }
 }
