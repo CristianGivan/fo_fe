@@ -1,4 +1,3 @@
-import 'package:fo_fe/core/utils/exports/external_exports.dart';
 import 'package:fo_fe/core/widgets/core_widget_exports.dart';
 import 'package:fo_fe/core/widgets/menu/navigation_menu.dart';
 import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
