@@ -17,10 +17,10 @@ class GetItemsFromLogInUserUseCase<T extends DtoEntity>
 
   @override
   Future<Either<Failure, OrganizerItems<T>>> call(params) async {
-    if (params.itemType == ItemType.task) {
+    if (params.itemType == ItemsTypeEnum.task) {
       return taskRepository.getTaskItemsFromUser(params.forUserId)
           as Future<Either<Failure, OrganizerItems<T>>>;
-    } else if (params.itemType == ItemType.user) {
+    } else if (params.itemType == ItemsTypeEnum.user) {
       return userRepository.getPendingAndAcceptedUserItems(params.forUserId)
           as Future<Either<Failure, OrganizerItems<T>>>;
     } else {

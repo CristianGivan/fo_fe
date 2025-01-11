@@ -10,7 +10,7 @@ import 'package:fo_fe/features/organizer/presentation/bloc/organizer_link_bloc_e
 import '../../../features/organizer/utils/organizer_exports.dart';
 
 class LinkItemListEditPage<T extends OrganizerItemEntity> extends StatefulWidget {
-  final ItemParams params;
+  final ItemsLinkParams params;
 
   const LinkItemListEditPage({super.key, required this.params});
 

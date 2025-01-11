@@ -22,6 +22,10 @@ class TaskUpdateScreen extends StatelessWidget {
   }
 
   Widget _buildEditPage() {
+    final taskTagParams =
+        ItemsLinkParamsFactory.create(id: taskId, itemType: ItemsTypeEnum.taskTag);
+    final taskUserParams =
+        ItemsLinkParamsFactory.create(id: taskId, itemType: ItemsTypeEnum.taskUser);
     return Column(
       children: [
         TextField(
@@ -30,11 +34,11 @@ class TaskUpdateScreen extends StatelessWidget {
         ),
         ItemLinkItemsPage<TagEntity>(
             key: ValueKey("task_tag_$taskId"),
-            params: ItemParams(id: taskId, itemType: ItemType.taskTag)),
+            params: ItemParams(id: taskId, itemType: ItemsTypeEnum.taskTag)),
         // TaskLinkReminderPage(taskId: taskId),
         ItemLinkItemsPage<UserEntity>(
           key: ValueKey("task_user_$taskId"),
-          params: ItemParams(id: taskId, itemType: ItemType.taskUser),
+          params: ItemParams(id: taskId, itemType: ItemsTypeEnum.taskUser),
         ),
       ],
     );
