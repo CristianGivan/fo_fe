@@ -5,15 +5,14 @@ import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/widgets/update_items_of_item_actions_menu.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart';
-import 'package:fo_fe/features/organizer/presentation/bloc/organizer_link_bloc.dart';
-import 'package:fo_fe/features/organizer/presentation/bloc/organizer_link_bloc_event.dart';
 
 import '../../../features/organizer/utils/organizer_exports.dart';
 
 class ItemLinkItemsUpdatePage<T extends OrganizerItemEntity> extends StatefulWidget {
   final ItemsLinkParams params;
+  final OrganizerItems<T> initSelectedItems;
 
-  const ItemLinkItemsUpdatePage({super.key, required this.params});
+  const ItemLinkItemsUpdatePage({super.key, required this.params, required this.initSelectedItems});
 
   @override
   _ItemLinkItemsUpdatePageState createState() => _ItemLinkItemsUpdatePageState<T>();
@@ -34,8 +33,9 @@ class _ItemLinkItemsUpdatePageState<T extends OrganizerItemEntity>
 
   Future<void> _initializeDataWithErrorHandling() async {
     try {
-      await _loadTaskUserLinkItemsWithErrorHandling();
-      await _loadUserItemsWithErrorHandling();
+      selectedItemsChecked = widget.initSelectedItems as OrganizerItems<T>;
+      //todo how to have the loading bara id is not loaded
+      _loadUserItemsWithErrorHandling();
 
       setState(() {
         allItemsUnchecked = allItemsUnchecked.copyWithRemoveItemsWithSameId(selectedItemsChecked);
@@ -160,40 +160,6 @@ class _ItemLinkItemsUpdatePageState<T extends OrganizerItemEntity>
         }
       }
     });
-  }
-
-  Future<void> _loadTaskUserLinkItemsWithErrorHandling() async {
-    final taskUserLinkBloc = context.read<OrganizerLinkBloc<T>>();
-
-    if (taskUserLinkBloc.state.status != OrganizerBlocStatus.loaded) {
-      final completer = Completer<void>();
-
-      taskUserLinkBloc.add(GetItemsOfItemBlocEvent(widget.params));
-
-      final subscription = taskUserLinkBloc.stream.listen(
-        (state) {
-          if (state.status == OrganizerBlocStatus.loaded) {
-            completer.complete();
-          } else if (state.status == OrganizerBlocStatus.error) {
-            completer.completeError(state.errorMessage ?? "Failed to load linked items.");
-          }
-        },
-        onError: (error) {
-          completer.completeError("Stream error: $error");
-        },
-      );
-
-      try {
-        await completer.future; // Wait for the desired state or an error
-      } catch (error) {
-        debugPrint("Error while loading linked items: $error");
-        _showErrorDialog(context, error.toString());
-      } finally {
-        await subscription.cancel(); // Clean up the stream subscription
-      }
-    } else {
-      _updateSelectedItems(taskUserLinkBloc.state.displayedItems as OrganizerItems<T>);
-    }
   }
 
   Future<void> _loadUserItemsWithErrorHandling() async {

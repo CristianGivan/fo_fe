@@ -43,7 +43,7 @@ class ItemLinkItemsViewPage<T extends OrganizerItemEntity> extends StatelessWidg
           LinkItemListViewPage<T>(itemList: items),
         ElevatedButton(
           onPressed: () {
-            _pushUpdateItems(context);
+            _pushUpdateItems(context, items);
           },
           child: const Text('Update'),
         ),
@@ -52,14 +52,12 @@ class ItemLinkItemsViewPage<T extends OrganizerItemEntity> extends StatelessWidg
   }
 
 // todo -refactor- find a batter way to navigate to the update page
-  void _pushUpdateItems(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (_) => BlocProvider.value(
-          value: context.read<OrganizerLinkBloc<T>>(),
-          child: ItemLinkItemsUpdatePage<T>(params: params),
-        ),
+  void _pushUpdateItems(BuildContext context, OrganizerItems<T> items) {
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (_) => BlocProvider.value(
+        value: context.read<OrganizerLinkBloc<T>>(),
+        child: ItemLinkItemsUpdatePage<T>(params: params, initSelectedItems: items),
       ),
-    );
+    ));
   }
 }
