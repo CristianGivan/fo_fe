@@ -1,5 +1,4 @@
 import 'package:fo_fe/core/widgets/pages/link_item_list_view_page.dart';
-import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/presentation/bloc/link_bloc_derive/item_link_bloc_factory.dart';
 import 'package:fo_fe/features/organizer/presentation/bloc/organizer_link_bloc.dart';
 import 'package:fo_fe/features/organizer/presentation/bloc/organizer_link_bloc_event.dart';
@@ -56,31 +55,6 @@ class ItemLinkItemsPage<T extends OrganizerItemEntity> extends StatelessWidget {
   // todo -do- a way to update the items with recived data mor as polymorfism
 
   Future<Object?> _pushNamed(BuildContext context) {
-    switch (params.itemType) {
-      case ItemsTypeEnum.taskTag:
-        return context.pushNamed(TaskRouterNames.taskUpdateTagRouteName, extra: params.id);
-      case ItemsTypeEnum.taskUser:
-        {
-          return context.pushNamed(TaskRouterNames.taskUpdateUserRouteName, extra: params.id);
-        }
-      case ItemsTypeEnum.undefine:
-        // TODO: Handle this case.
-        throw UnimplementedError();
-      case ItemsTypeEnum.task:
-        // TODO: Handle this case.
-        throw UnimplementedError();
-      case ItemsTypeEnum.tag:
-        // TODO: Handle this case.
-        throw UnimplementedError();
-      case ItemsTypeEnum.reminder:
-        // TODO: Handle this case.
-        throw UnimplementedError();
-      case ItemsTypeEnum.user:
-        // TODO: Handle this case.
-        throw UnimplementedError();
-      case ItemsTypeEnum.taskReminder:
-        // TODO: Handle this case.
-        throw UnimplementedError();
-    }
+    return context.pushNamed(params.pushUpdateRoute, extra: params.id);
   }
 }
