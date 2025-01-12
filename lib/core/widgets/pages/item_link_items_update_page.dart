@@ -5,6 +5,7 @@ import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/widgets/update_items_of_item_actions_menu.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart';
+import 'package:fo_fe/features/organizer/presentation/bloc/organizer_link_bloc.dart';
 import 'package:fo_fe/features/organizer/presentation/bloc/organizer_link_bloc_event.dart';
 
 import '../../../features/organizer/utils/organizer_exports.dart';
@@ -162,7 +163,7 @@ class _ItemLinkItemsUpdatePageState<T extends OrganizerItemEntity>
   }
 
   Future<void> _loadTaskUserLinkItemsWithErrorHandling() async {
-    final taskUserLinkBloc = context.read<TaskUserLinkBloc>();
+    final taskUserLinkBloc = context.read<OrganizerLinkBloc<T>>();
 
     if (taskUserLinkBloc.state.status != OrganizerBlocStatus.loaded) {
       final completer = Completer<void>();
@@ -191,8 +192,6 @@ class _ItemLinkItemsUpdatePageState<T extends OrganizerItemEntity>
         await subscription.cancel(); // Clean up the stream subscription
       }
     } else {
-      debugPrint("Linked items are already loaded. Skipping fetch.");
-      // You can optionally handle already-loaded state here if needed
       _updateSelectedItems(taskUserLinkBloc.state.displayedItems as OrganizerItems<T>);
     }
   }

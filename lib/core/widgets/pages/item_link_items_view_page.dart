@@ -1,5 +1,5 @@
+import 'package:fo_fe/core/widgets/pages/item_link_items_update_page.dart';
 import 'package:fo_fe/core/widgets/pages/link_item_list_view_page.dart';
-import 'package:fo_fe/features/organizer/presentation/bloc/link_bloc_derive/item_link_bloc_factory.dart';
 import 'package:fo_fe/features/organizer/presentation/bloc/organizer_link_bloc.dart';
 import 'package:fo_fe/features/organizer/presentation/bloc/organizer_link_bloc_event.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
@@ -11,24 +11,21 @@ class ItemLinkItemsViewPage<T extends OrganizerItemEntity> extends StatelessWidg
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<OrganizerLinkBloc<T>>(
-      create: (context) => createItemLinkBloc<T>(params),
-      child: BlocConsumer<OrganizerLinkBloc<T>, OrganizerBlocState<T>>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          final itemLinkItemsBloc = context.read<OrganizerLinkBloc<T>>();
-          //todo -do- a way to update the items with recived data
-          if (state.status == OrganizerBlocStatus.initial) {
-            itemLinkItemsBloc.add(GetItemsOfItemBlocEvent(params));
-          }
-          return buildStateWidget(
-            state: state,
-            buildErrorState: _buildErrorState,
-            buildLoadingState: _buildLoadingState,
-            buildLoadedState: () => _buildItemsListPage(context, state.displayedItems),
-          );
-        },
-      ),
+    return BlocConsumer<OrganizerLinkBloc<T>, OrganizerBlocState<T>>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        final itemLinkItemsBloc = context.read<OrganizerLinkBloc<T>>();
+        // Trigger the initial event if the state is in the initial status
+        if (state.status == OrganizerBlocStatus.initial) {
+          itemLinkItemsBloc.add(GetItemsOfItemBlocEvent(params));
+        }
+        return buildStateWidget(
+          state: state,
+          buildErrorState: _buildErrorState,
+          buildLoadingState: _buildLoadingState,
+          buildLoadedState: () => _buildItemsListPage(context, state.displayedItems),
+        );
+      },
     );
   }
 
@@ -41,18 +38,28 @@ class ItemLinkItemsViewPage<T extends OrganizerItemEntity> extends StatelessWidg
     return Column(
       children: [
         if (items.isEmpty)
-          Center(child: Text('No Available'))
+          const Center(child: Text('No Available'))
         else
           LinkItemListViewPage<T>(itemList: items),
         ElevatedButton(
-          onPressed: () => _pushNamed(context),
-          child: Text('Update'),
+          onPressed: () {
+            _pushUpdateItems(context);
+          },
+          child: const Text('Update'),
         ),
       ],
     );
   }
 
-  Future<Object?> _pushNamed(BuildContext context) {
-    return context.pushNamed(params.pushUpdateRoute, extra: params.id);
+// todo -refactor- find a batter way to navigate to the update page
+  void _pushUpdateItems(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => BlocProvider.value(
+          value: context.read<OrganizerLinkBloc<T>>(),
+          child: ItemLinkItemsUpdatePage<T>(params: params),
+        ),
+      ),
+    );
   }
 }

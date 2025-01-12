@@ -4,6 +4,7 @@ import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/widgets/task_edit_screen_actions_menu.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart';
+import 'package:fo_fe/features/organizer/presentation/bloc/link_bloc_derive/item_link_bloc_factory.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class TaskUpdateScreen extends StatelessWidget {
@@ -26,20 +27,26 @@ class TaskUpdateScreen extends StatelessWidget {
         ItemsLinkParamsFactory.create(id: taskId, itemType: ItemsTypeEnum.taskTag);
     final taskUserParams =
         ItemsLinkParamsFactory.create(id: taskId, itemType: ItemsTypeEnum.taskUser);
+
     return Column(
       children: [
         TextField(
           decoration: const InputDecoration(labelText: 'Task ID: '),
           controller: TextEditingController(text: taskId.toString()),
         ),
-        ItemLinkItemsViewPage<TagEntity>(
-          key: ValueKey("task_tag_$taskId"),
-          params: taskTagParams,
+        BlocProvider(
+          create: (context) => createItemLinkBloc<TagEntity>(taskTagParams.itemType),
+          child: ItemLinkItemsViewPage<TagEntity>(
+            key: ValueKey("task_tag_$taskId"),
+            params: taskTagParams,
+          ),
         ),
-        // TaskLinkReminderPage(taskId: taskId),
-        ItemLinkItemsViewPage<UserEntity>(
-          key: ValueKey("task_user_$taskId"),
-          params: taskUserParams,
+        BlocProvider(
+          create: (context) => createItemLinkBloc<UserEntity>(taskUserParams.itemType),
+          child: ItemLinkItemsViewPage<UserEntity>(
+            key: ValueKey("task_user_$taskId"),
+            params: taskUserParams,
+          ),
         ),
       ],
     );
