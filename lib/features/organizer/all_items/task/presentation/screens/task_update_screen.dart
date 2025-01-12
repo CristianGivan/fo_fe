@@ -1,5 +1,5 @@
 import 'package:fo_fe/core/widgets/core_widget_exports.dart';
-import 'package:fo_fe/core/widgets/pages/item_link_items_page.dart';
+import 'package:fo_fe/core/widgets/pages/item_link_items_view_page.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/widgets/task_edit_screen_actions_menu.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
@@ -32,12 +32,12 @@ class TaskUpdateScreen extends StatelessWidget {
           decoration: const InputDecoration(labelText: 'Task ID: '),
           controller: TextEditingController(text: taskId.toString()),
         ),
-        ItemLinkItemsPage<TagEntity>(
+        ItemLinkItemsViewPage<TagEntity>(
           key: ValueKey("task_tag_$taskId"),
           params: taskTagParams,
         ),
         // TaskLinkReminderPage(taskId: taskId),
-        ItemLinkItemsPage<UserEntity>(
+        ItemLinkItemsViewPage<UserEntity>(
           key: ValueKey("task_user_$taskId"),
           params: taskUserParams,
         ),

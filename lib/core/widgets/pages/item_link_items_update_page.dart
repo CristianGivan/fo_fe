@@ -9,17 +9,17 @@ import 'package:fo_fe/features/organizer/presentation/bloc/organizer_link_bloc_e
 
 import '../../../features/organizer/utils/organizer_exports.dart';
 
-class LinkItemListEditPage<T extends OrganizerItemEntity> extends StatefulWidget {
+class ItemLinkItemsUpdatePage<T extends OrganizerItemEntity> extends StatefulWidget {
   final ItemsLinkParams params;
 
-  const LinkItemListEditPage({super.key, required this.params});
+  const ItemLinkItemsUpdatePage({super.key, required this.params});
 
   @override
-  _LinkItemListEditPageState createState() => _LinkItemListEditPageState<T>();
+  _ItemLinkItemsUpdatePageState createState() => _ItemLinkItemsUpdatePageState<T>();
 }
 
-class _LinkItemListEditPageState<T extends OrganizerItemEntity>
-    extends State<LinkItemListEditPage> {
+class _ItemLinkItemsUpdatePageState<T extends OrganizerItemEntity>
+    extends State<ItemLinkItemsUpdatePage> {
   OrganizerItems<T> selectedItemsChecked = OrganizerItems.empty();
   OrganizerItems<T> selectedItemsUnchecked = OrganizerItems.empty();
   OrganizerItems<T> allItemsChecked = OrganizerItems.empty();

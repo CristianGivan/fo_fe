@@ -4,10 +4,10 @@ import 'package:fo_fe/features/organizer/presentation/bloc/organizer_link_bloc.d
 import 'package:fo_fe/features/organizer/presentation/bloc/organizer_link_bloc_event.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class ItemLinkItemsPage<T extends OrganizerItemEntity> extends StatelessWidget {
+class ItemLinkItemsViewPage<T extends OrganizerItemEntity> extends StatelessWidget {
   final ItemsLinkParams params;
 
-  const ItemLinkItemsPage({super.key, required this.params});
+  const ItemLinkItemsViewPage({super.key, required this.params});
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +51,6 @@ class ItemLinkItemsPage<T extends OrganizerItemEntity> extends StatelessWidget {
       ],
     );
   }
-
-  // todo -do- a way to update the items with recived data mor as polymorfism
 
   Future<Object?> _pushNamed(BuildContext context) {
     return context.pushNamed(params.pushUpdateRoute, extra: params.id);
