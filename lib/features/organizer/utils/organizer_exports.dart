@@ -24,6 +24,7 @@ export 'other/item_type/items_link_params/task_tag_link_params.dart';
 export 'other/item_type/items_link_params/task_user_link_params.dart';
 export 'other/item_type/items_link_params_factory.dart';
 export 'other/item_type/items_type_enum.dart';
+export 'other/item_type/update_items_of_item_params.dart';
 export 'set_and_list/id_set.dart';
 export 'set_and_list/id_set_builder.dart';
 export 'set_and_list/organizer_items.dart';

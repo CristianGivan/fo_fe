@@ -5,6 +5,8 @@ import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/widgets/update_items_of_item_actions_menu.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart';
+import 'package:fo_fe/features/organizer/presentation/bloc/organizer_bloc.dart';
+import 'package:fo_fe/features/organizer/presentation/bloc/organizer_link_bloc.dart';
 
 import '../../../features/organizer/utils/organizer_exports.dart';
 
@@ -24,6 +26,8 @@ class _ItemLinkItemsUpdatePageState<T extends OrganizerItemEntity>
   OrganizerItems<T> selectedItemsUnchecked = OrganizerItems.empty();
   OrganizerItems<T> allItemsChecked = OrganizerItems.empty();
   OrganizerItems<T> allItemsUnchecked = OrganizerItems.empty();
+  late OrganizerLinkBloc<T> selectedItemsBloc;
+  late OrganizerBloc allItemsBloc;
 
   @override
   void initState() {
@@ -32,6 +36,9 @@ class _ItemLinkItemsUpdatePageState<T extends OrganizerItemEntity>
   }
 
   Future<void> _initializeDataWithErrorHandling() async {
+    selectedItemsBloc = context.read<OrganizerLinkBloc<T>>();
+    // allItemsBloc = createItemBloc(widget.params.itemType);
+
     try {
       selectedItemsChecked = widget.initSelectedItems as OrganizerItems<T>;
       //todo how to have the loading bara id is not loaded
@@ -45,20 +52,6 @@ class _ItemLinkItemsUpdatePageState<T extends OrganizerItemEntity>
     }
   }
 
-  void _updateSelectedItems(OrganizerItems<T> items) {
-    setState(() {
-      selectedItemsChecked = items;
-      selectedItemsUnchecked = OrganizerItems.empty();
-    });
-  }
-
-  void _updateAllItems(OrganizerItems<T> items) {
-    setState(() {
-      allItemsChecked = OrganizerItems.empty();
-      allItemsUnchecked = items.copyWithRemoveItemsWithSameId(selectedItemsChecked);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return AppContentScreen(
@@ -70,13 +63,13 @@ class _ItemLinkItemsUpdatePageState<T extends OrganizerItemEntity>
   }
 
   List<PopupMenuEntry> _getMenuItems(BuildContext context) {
-    final params = UpdateItemsOfItemParams<T>(
+    final updatedItems = UpdateItemsOfItemParams<T>(
       itemId: widget.params.id,
       itemType: widget.params.itemType,
       addedItems: allItemsChecked,
       removedItems: selectedItemsUnchecked,
     );
-    return UpdateItemsOfItemActionsMenu.getMenuItems(context, params);
+    return UpdateItemsOfItemActionsMenu.getMenuItems(context, updatedItems);
   }
 
   Widget _buildListSectionsWithListeners() {
@@ -99,6 +92,20 @@ class _ItemLinkItemsUpdatePageState<T extends OrganizerItemEntity>
       ],
       child: _buildUncheckedListView(allItemsUnchecked),
     );
+  }
+
+  void _updateSelectedItems(OrganizerItems<T> items) {
+    setState(() {
+      selectedItemsChecked = items;
+      selectedItemsUnchecked = OrganizerItems.empty();
+    });
+  }
+
+  void _updateAllItems(OrganizerItems<T> items) {
+    setState(() {
+      allItemsChecked = OrganizerItems.empty();
+      allItemsUnchecked = items.copyWithRemoveItemsWithSameId(selectedItemsChecked);
+    });
   }
 
   Widget _buildUncheckedListView(OrganizerItems<T> items) {
@@ -195,7 +202,6 @@ class _ItemLinkItemsUpdatePageState<T extends OrganizerItemEntity>
     try {
       await completer.future;
     } catch (error) {
-      debugPrint("Error while loading user items: $error");
       _showErrorDialog(context, error.toString());
     } finally {
       await subscription.cancel();

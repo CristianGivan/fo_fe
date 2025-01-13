@@ -70,6 +70,8 @@ registerd for several tings What shall I use fo rgeneric type
 
 == Now
 
+* create a usecase for getting the entities by userID or shall I have only the DTO?
+
 * _onLoading and _onFailure are not shared
 
 * usecase between user/link item and update taks are similar... check for optimisations
