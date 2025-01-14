@@ -15,6 +15,6 @@ void organizerInit() {
 }
 
 void organizerBloc() {
-  sl.registerLazySingleton(() => GetLinkItemsByItemIdUseCase<UserEntity>(sl()));
-  sl.registerLazySingleton(() => GetLinkItemsByItemIdUseCase<TagEntity>(sl()));
+  sl.registerLazySingleton(() => GetLinkItemsByItemIdUseCase<User>(sl()));
+  sl.registerLazySingleton(() => GetLinkItemsByItemIdUseCase<Tag>(sl()));
 }

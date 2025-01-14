@@ -1,8 +1,10 @@
 // Mapper for converting TaskModel to TaskTableDrift and vice versa
+
 import 'package:drift/drift.dart';
 import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
-import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
-import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
+import 'package:fo_fe/features/organizer/all_items/task/domain/entities/task_entity.dart';
+import 'package:fo_fe/features/organizer/all_items/task/utils/other/task_enums.dart';
+import 'package:fo_fe/features/organizer/utils/set_and_list/organizer_items.dart';
 
 class TaskMapper {
   static TaskEntity entityFromTableDrift(TaskTableDriftG task) {

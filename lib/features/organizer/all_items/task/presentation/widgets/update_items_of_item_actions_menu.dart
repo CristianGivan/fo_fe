@@ -1,6 +1,4 @@
-import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/user/utils/config/user_route_names.dart';
-import 'package:fo_fe/features/organizer/presentation/bloc/organizer_link_bloc_event.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class UpdateItemsOfItemActionsMenu<T extends OrganizerItemEntity> {
@@ -17,8 +15,7 @@ class UpdateItemsOfItemActionsMenu<T extends OrganizerItemEntity> {
     }
   }
 
-  static _getTaskUserMenuItems(
-      BuildContext context, UpdateItemsOfItemParams<OrganizerItemEntity> params) {
+  static _getTaskUserMenuItems(BuildContext context, UpdateItemsOfItemParams<DtoEntity> params) {
     return [
       PopupMenuItem(
         child: Text('Crate New Item'),
@@ -26,16 +23,12 @@ class UpdateItemsOfItemActionsMenu<T extends OrganizerItemEntity> {
       ),
       PopupMenuItem(
         child: Text('Update with Items'),
-        onTap: () => {
-          context.read<TaskUserLinkBloc>().add(UpdateItemsOfItemBlocEvent(params)),
-          context.pop()
-        },
+        onTap: () => {context.pop()},
       )
     ];
   }
 
-  static _getTaskTagMenuItems(
-      BuildContext context, UpdateItemsOfItemParams<OrganizerItemEntity> params) {
+  static _getTaskTagMenuItems(BuildContext context, UpdateItemsOfItemParams<DtoEntity> params) {
     PopupMenuItem(
       child: Text('Add Items'),
       onTap: () {
@@ -46,7 +39,7 @@ class UpdateItemsOfItemActionsMenu<T extends OrganizerItemEntity> {
   }
 
   static _getTaskReminderMenuItems(
-      BuildContext context, UpdateItemsOfItemParams<OrganizerItemEntity> params) {
+      BuildContext context, UpdateItemsOfItemParams<DtoEntity> params) {
     PopupMenuItem(
       child: Text('Add Items'),
       onTap: () {

@@ -9,10 +9,8 @@ class TaskDto extends DtoEntity {
     required this.task,
     required this.taskUserLink,
   }) : super(
-          id: task.id,
-          remoteId: task.remoteId,
-          subject: task.subject,
-          isSelectedByUser: taskUserLink.isSelectedByUser,
+          entity: task,
+          userLink: taskUserLink,
         );
 
   TaskDto copyWith({

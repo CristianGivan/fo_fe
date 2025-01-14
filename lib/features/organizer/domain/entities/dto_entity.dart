@@ -1,19 +1,18 @@
-import 'package:fo_fe/features/organizer/domain/entities/item_entity.dart';
+import 'package:fo_fe/features/organizer/domain/entities/user_link_entity.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class DtoEntity extends ItemEntity {
-  final bool isSelectedByUser;
-  final String subject;
+  final OrganizerItemEntity entity;
+  final UserLinkEntity userLink;
 
-  const DtoEntity({
-    required int id,
-    required int remoteId,
-    required this.isSelectedByUser,
-    required this.subject,
+  DtoEntity({
+    required this.entity,
+    required this.userLink,
   }) : super(
-          id: id,
-          remoteId: remoteId,
+          id: entity.id,
+          remoteId: entity.remoteId,
         );
 
   @override
-  List<Object?> get props => [id, remoteId, isSelectedByUser];
+  List<Object?> get props => [entity, userLink];
 }

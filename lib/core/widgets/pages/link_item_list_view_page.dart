@@ -1,6 +1,6 @@
 import '../../../features/organizer/utils/organizer_exports.dart';
 
-class LinkItemListViewPage<T extends OrganizerItemEntity> extends StatelessWidget {
+class LinkItemListViewPage<T extends DtoEntity> extends StatelessWidget {
   final OrganizerItems<T> itemList;
 
   const LinkItemListViewPage({
@@ -15,9 +15,8 @@ class LinkItemListViewPage<T extends OrganizerItemEntity> extends StatelessWidge
     } else {
       return SingleChildScrollView(
         child: Column(
-          children: itemList
-              .map((item) => _buildListTitle(itemList.indexOf(item), context))
-              .toList(),
+          children:
+              itemList.map((item) => _buildListTitle(itemList.indexOf(item), context)).toList(),
         ),
       );
     }
@@ -25,6 +24,6 @@ class LinkItemListViewPage<T extends OrganizerItemEntity> extends StatelessWidge
 
   Widget _buildListTitle(int index, BuildContext context) {
     final item = itemList.getAt(index);
-    return Center(child: Text(item.subject));
+    return Center(child: Text(item.entity.subject));
   }
 }

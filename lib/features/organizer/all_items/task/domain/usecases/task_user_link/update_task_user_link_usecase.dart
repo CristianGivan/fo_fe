@@ -11,6 +11,8 @@ class UpdateTaskUserLinkUseCase extends UseCase<TaskUserLinkEntity, TaskParams> 
 
   @override
   Future<Either<Failure, TaskUserLinkEntity>> call(TaskParams params) async {
-    return repository.updateTaskUserLink(params.taskUserLinkEntity);
+    // return repository.updateTaskUserLink(params.taskUserLinkEntity);
+
+    return Future.value(Left(UnexpectedFailure("Invalid params")));
   }
 }

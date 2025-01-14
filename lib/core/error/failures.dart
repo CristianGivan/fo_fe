@@ -13,6 +13,10 @@ class UnexpectedFailure extends Failure {
   const UnexpectedFailure(String super.message);
 }
 
+class UnImplementedFailure extends Failure {
+  const UnImplementedFailure(String super.message);
+}
+
 class ServerFailure extends Failure {
   const ServerFailure(String super.message);
 }

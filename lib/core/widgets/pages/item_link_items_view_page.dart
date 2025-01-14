@@ -1,10 +1,8 @@
 import 'package:fo_fe/core/widgets/pages/item_link_items_update_page.dart';
 import 'package:fo_fe/core/widgets/pages/link_item_list_view_page.dart';
-import 'package:fo_fe/features/organizer/presentation/bloc/organizer_link_bloc.dart';
-import 'package:fo_fe/features/organizer/presentation/bloc/organizer_link_bloc_event.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class ItemLinkItemsViewPage<T extends OrganizerItemEntity> extends StatelessWidget {
+class ItemLinkItemsViewPage<T extends DtoEntity> extends StatelessWidget {
   final ItemsLinkParams params;
 
   const ItemLinkItemsViewPage({super.key, required this.params});

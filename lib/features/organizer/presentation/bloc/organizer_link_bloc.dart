@@ -1,9 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/utils/exports/core_utils_exports.dart';
-import 'package:fo_fe/features/organizer/presentation/bloc/organizer_link_bloc_event.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-abstract class OrganizerLinkBloc<T extends ItemEntity>
+abstract class OrganizerLinkBloc<T extends DtoEntity>
     extends Bloc<OrganizerLinkBlocEvent, OrganizerBlocState<T>> {
   final Future<Either<Failure, OrganizerItems<T>>> Function(ItemsLinkParams params) getItemsLinked;
 

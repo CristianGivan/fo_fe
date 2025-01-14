@@ -1,4 +1,3 @@
-import 'package:fo_fe/features/organizer/domain/entities/dto_entity.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 extension OrganizerItemsTransform<T extends ItemEntity> on OrganizerItems<T> {
@@ -13,7 +12,7 @@ extension OrganizerItemsTransform<T extends ItemEntity> on OrganizerItems<T> {
   }
 
   OrganizerItems<R> convertWithSelected<R extends DtoEntity>() {
-    final transformedList = items.whereType<R>().where((item) => item.isSelectedByUser).toList();
+    final transformedList = items.whereType<R>().where((item) => item.userLink.isSelected).toList();
     return OrganizerItems<R>.ofList(transformedList);
   }
 }

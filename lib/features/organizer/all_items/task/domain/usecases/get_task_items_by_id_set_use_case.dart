@@ -13,15 +13,7 @@ class GetTaskItemsByIdSetUseCase extends UseCase<OrganizerItems<TaskEntity>, Tas
 
   @override
   Future<Either<Failure, OrganizerItems<TaskEntity>>> call(TaskParams params) {
-    return repository.getTaskItemsByIdSet(params.idSet);
+    // return repository.getTaskItemsByIdSet(params.idSet);
+    return Future.value(Left(UnexpectedFailure("Invalid params")));
   }
-}
-
-class GetTaskItemsByIdSetParams extends Equatable {
-  final IdSet idSet;
-
-  const GetTaskItemsByIdSetParams({required this.idSet});
-
-  @override
-  List<Object> get props => [idSet];
 }

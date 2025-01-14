@@ -1,7 +1,7 @@
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class TaskNavigatorHelper {
-  static Future<void> handleNavigation<T extends OrganizerItemEntity>(
+  static Future<void> handleNavigation<T extends DtoEntity>(
     BuildContext context,
     String routeName,
     int taskId,

@@ -5,12 +5,10 @@ import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/widgets/update_items_of_item_actions_menu.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart';
-import 'package:fo_fe/features/organizer/presentation/bloc/organizer_bloc.dart';
-import 'package:fo_fe/features/organizer/presentation/bloc/organizer_link_bloc.dart';
 
 import '../../../features/organizer/utils/organizer_exports.dart';
 
-class ItemLinkItemsUpdatePage<T extends OrganizerItemEntity> extends StatefulWidget {
+class ItemLinkItemsUpdatePage<T extends DtoEntity> extends StatefulWidget {
   final ItemsLinkParams params;
   final OrganizerItems<T> initSelectedItems;
 
@@ -20,8 +18,7 @@ class ItemLinkItemsUpdatePage<T extends OrganizerItemEntity> extends StatefulWid
   _ItemLinkItemsUpdatePageState createState() => _ItemLinkItemsUpdatePageState<T>();
 }
 
-class _ItemLinkItemsUpdatePageState<T extends OrganizerItemEntity>
-    extends State<ItemLinkItemsUpdatePage> {
+class _ItemLinkItemsUpdatePageState<T extends DtoEntity> extends State<ItemLinkItemsUpdatePage> {
   OrganizerItems<T> selectedItemsChecked = OrganizerItems.empty();
   OrganizerItems<T> selectedItemsUnchecked = OrganizerItems.empty();
   OrganizerItems<T> allItemsChecked = OrganizerItems.empty();
@@ -75,7 +72,7 @@ class _ItemLinkItemsUpdatePageState<T extends OrganizerItemEntity>
   Widget _buildListSectionsWithListeners() {
     return MultiBlocListener(
       listeners: [
-        BlocListener<TaskUserLinkBloc, OrganizerBlocState>(
+        BlocListener<ItemUserLinkBloc, OrganizerBlocState>(
           listener: (context, state) {
             if (state.status == OrganizerBlocStatus.loaded) {
               _updateSelectedItems(state.displayedItems as OrganizerItems<T>);
@@ -131,7 +128,7 @@ class _ItemLinkItemsUpdatePageState<T extends OrganizerItemEntity>
               itemBuilder: (context, index) {
                 final item = items.getAt(index);
                 return CheckboxListTile(
-                  title: Text(item.subject),
+                  title: Text(item.entity.subject),
                   value: isChecked,
                   onChanged: (bool? value) {
                     if (value != null) {

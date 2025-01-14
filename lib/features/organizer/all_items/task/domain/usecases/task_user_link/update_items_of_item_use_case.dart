@@ -1,13 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/usecase/usecase.dart';
-import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 import '../../repositories/task_repository.dart';
 
-class UpdateItemsOfItemUseCase<T extends OrganizerItemEntity>
-    extends UseCase<OrganizerItems<T>, ItemParams> {
+class UpdateItemsOfItemUseCase<T extends DtoEntity> extends UseCase<OrganizerItems<T>, ItemParams> {
   final TaskRepository repository;
 
   UpdateItemsOfItemUseCase(this.repository);

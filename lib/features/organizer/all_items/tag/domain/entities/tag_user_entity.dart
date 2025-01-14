@@ -1,37 +1,37 @@
 import 'package:fo_fe/features/organizer/domain/entities/user_link_entity.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class TaskUserLinkEntity extends UserLinkEntity {
-  final int _taskId;
+class TagUserLinkEntity extends UserLinkEntity {
+  final int _tagId;
   final int _userId;
   final DateTime? _linkingDate;
   final bool _isSelectedByUser;
   final int? _orderedByUser;
 
-  TaskUserLinkEntity({
+  TagUserLinkEntity({
     int? id,
-    int? taskId,
+    int? tagId,
     int? userId,
     DateTime? linkingDate,
     bool? selectedByUser,
     int? orderedByUser,
   })  : _linkingDate = linkingDate ?? INITIAL_EPOCH_DATE,
-        _taskId = taskId ?? 0,
+        _tagId = tagId ?? 0,
         _userId = userId ?? 0,
         _isSelectedByUser = selectedByUser ?? false,
         _orderedByUser = orderedByUser ?? 0,
         super(id: id ?? 0, isSelected: selectedByUser ?? false);
 
-  static final TaskUserLinkEntity _emptyInstance = TaskUserLinkEntity();
+  static final TagUserLinkEntity _emptyInstance = TagUserLinkEntity();
 
-  factory TaskUserLinkEntity.empty() => _emptyInstance;
+  factory TagUserLinkEntity.empty() => _emptyInstance;
 
   @override
   bool get isEmpty => this == _emptyInstance;
 
   DateTime? get linkingDate => _linkingDate;
 
-  int get taskId => _taskId;
+  int get tagId => _tagId;
 
   int get userId => _userId;
 
@@ -43,24 +43,24 @@ class TaskUserLinkEntity extends UserLinkEntity {
   List<Object?> get props => [
         id,
         _linkingDate,
-        _taskId,
+        _tagId,
         _userId,
         _isSelectedByUser,
         _orderedByUser,
       ];
 
-  TaskUserLinkEntity copyWith({
+  TagUserLinkEntity copyWith({
     int? id,
     DateTime? linkingDate,
-    int? taskId,
+    int? tagId,
     int? userId,
     bool? isSelectedByUser,
     int? orderedByUser,
   }) {
-    return TaskUserLinkEntity(
+    return TagUserLinkEntity(
       id: id ?? this.id,
       linkingDate: linkingDate ?? _linkingDate,
-      taskId: taskId ?? _taskId,
+      tagId: tagId ?? _tagId,
       userId: userId ?? _userId,
       selectedByUser: isSelectedByUser ?? _isSelectedByUser,
       orderedByUser: orderedByUser ?? _orderedByUser,

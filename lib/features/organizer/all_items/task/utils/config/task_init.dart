@@ -45,8 +45,8 @@ void taskInit() {
   // Task User Use cases
   sl.registerLazySingleton(() => GetCreatorByTaskIdUseCase(sl()));
   sl.registerLazySingleton(() => GetLinkItemsByItemIdUseCase<ItemEntity>(sl()));
-  sl.registerLazySingleton(() => UpdateItemsOfItemUseCase<UserEntity>(sl()));
-  sl.registerLazySingleton(() => UpdateItemsOfItemUseCase<TagEntity>(sl()));
+  sl.registerLazySingleton(() => UpdateItemsOfItemUseCase<User>(sl()));
+  sl.registerLazySingleton(() => UpdateItemsOfItemUseCase<Tag>(sl()));
   sl.registerLazySingleton(() => UpdateTaskUserLinkUseCase(sl()));
   sl.registerLazySingleton(() => UpdateUserItemsOfTaskUseCase(sl()));
 
@@ -72,18 +72,6 @@ void taskInit() {
       ));
 
   sl.registerFactory(() => TaskFormCubit());
-  sl.registerFactory(() => TaskUserLinkBloc(
-        getUserItemsByTaskIdUseCase: sl(),
-        updateLinkItemsOfItemUseCase: sl(),
-      ));
-  sl.registerFactory(() => TaskTagLinkBloc(
-        getTagsByTaskId: sl(),
-        updateTagItemsOfTask: sl(),
-      ));
-  sl.registerFactory(() => TaskReminderLinkBloc(
-        getRemindersByTaskId: sl(),
-        updateReminderItemsOfTask: sl(),
-      ));
 
   // Task Export Service
   sl.registerLazySingleton(() => ExportTaskToExcelUseCase(sl()));

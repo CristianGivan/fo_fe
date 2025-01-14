@@ -35,15 +35,15 @@ class TaskUpdateScreen extends StatelessWidget {
           controller: TextEditingController(text: taskId.toString()),
         ),
         BlocProvider(
-          create: (context) => createItemLinkBloc<TagEntity>(taskTagParams.itemType),
-          child: ItemLinkItemsViewPage<TagEntity>(
+          create: (context) => createItemLinkBloc<Tag>(taskTagParams.itemType),
+          child: ItemLinkItemsViewPage<Tag>(
             key: ValueKey("task_tag_$taskId"),
             params: taskTagParams,
           ),
         ),
         BlocProvider(
-          create: (context) => createItemLinkBloc<UserEntity>(taskUserParams.itemType),
-          child: ItemLinkItemsViewPage<UserEntity>(
+          create: (context) => createItemLinkBloc<User>(taskUserParams.itemType),
+          child: ItemLinkItemsViewPage<User>(
             key: ValueKey("task_user_$taskId"),
             params: taskUserParams,
           ),
