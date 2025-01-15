@@ -1,6 +1,6 @@
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class UpdateItemsOfItemParams<T extends DtoEntity> extends ItemParams {
+class UpdateItemsOfItemParams<T extends ItemEntity> extends ItemParams {
   final int itemId;
   final OrganizerItems<T> items;
   final OrganizerItems<T> updatedItems;

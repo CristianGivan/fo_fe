@@ -1,6 +1,6 @@
 import '../../../features/organizer/utils/organizer_exports.dart';
 
-class LinkItemListViewPage<T extends DtoEntity> extends StatelessWidget {
+class LinkItemListViewPage<T extends ItemEntity> extends StatelessWidget {
   final OrganizerItems<T> itemList;
 
   const LinkItemListViewPage({
@@ -24,6 +24,6 @@ class LinkItemListViewPage<T extends DtoEntity> extends StatelessWidget {
 
   Widget _buildListTitle(int index, BuildContext context) {
     final item = itemList.getAt(index);
-    return Center(child: Text(item.entity.subject));
+    return Center(child: Text(item.subject));
   }
 }

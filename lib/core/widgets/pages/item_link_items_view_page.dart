@@ -2,7 +2,7 @@ import 'package:fo_fe/core/widgets/pages/item_link_items_update_page.dart';
 import 'package:fo_fe/core/widgets/pages/link_item_list_view_page.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class ItemLinkItemsViewPage<T extends DtoEntity> extends StatelessWidget {
+class ItemLinkItemsViewPage<T extends ItemEntity> extends StatelessWidget {
   final ItemsLinkParams params;
 
   const ItemLinkItemsViewPage({super.key, required this.params});

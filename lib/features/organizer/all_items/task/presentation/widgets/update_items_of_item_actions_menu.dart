@@ -5,17 +5,17 @@ class UpdateItemsOfItemActionsMenu<T extends OrganizerItemEntity> {
   static List<PopupMenuEntry> getMenuItems(BuildContext context, UpdateItemsOfItemParams params) {
     switch (params.itemType) {
       case ItemsTypeEnum.taskUser:
-        return _getTaskUserMenuItems(context, params);
+        return _getTaskUserMenuItems(context);
       case ItemsTypeEnum.taskTag:
-        return _getTaskTagMenuItems(context, params);
+        return _getTaskTagMenuItems(context);
       case ItemsTypeEnum.taskReminder:
-        return _getTaskReminderMenuItems(context, params);
+        return _getTaskReminderMenuItems(context);
       default:
         return <PopupMenuEntry>[];
     }
   }
 
-  static _getTaskUserMenuItems(BuildContext context, UpdateItemsOfItemParams<DtoEntity> params) {
+  static _getTaskUserMenuItems(BuildContext context) {
     return [
       PopupMenuItem(
         child: Text('Crate New Item'),
@@ -28,7 +28,7 @@ class UpdateItemsOfItemActionsMenu<T extends OrganizerItemEntity> {
     ];
   }
 
-  static _getTaskTagMenuItems(BuildContext context, UpdateItemsOfItemParams<DtoEntity> params) {
+  static _getTaskTagMenuItems(BuildContext context) {
     PopupMenuItem(
       child: Text('Add Items'),
       onTap: () {
@@ -38,8 +38,7 @@ class UpdateItemsOfItemActionsMenu<T extends OrganizerItemEntity> {
     );
   }
 
-  static _getTaskReminderMenuItems(
-      BuildContext context, UpdateItemsOfItemParams<DtoEntity> params) {
+  static _getTaskReminderMenuItems(BuildContext context) {
     PopupMenuItem(
       child: Text('Add Items'),
       onTap: () {

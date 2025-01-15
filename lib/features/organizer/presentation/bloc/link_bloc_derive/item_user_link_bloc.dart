@@ -1,8 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/utils/exports/core_utils_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart';
-import 'package:fo_fe/features/organizer/presentation/bloc/organizer_link_bloc.dart';
-import 'package:fo_fe/features/organizer/presentation/bloc/organizer_link_bloc_state.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class ItemUserLinkBloc extends OrganizerLinkBloc<User> {

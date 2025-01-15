@@ -1,6 +1,8 @@
 import 'package:fo_fe/core/db/drift/organizer_drift_db.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/data/datasources/tag_local_data_source_drift.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/data/repositories/tag_repository_drift.dart';
+import 'package:fo_fe/features/organizer/all_items/tag/presentation/bloc/tag_bloc/tag_bloc.dart';
+import 'package:fo_fe/features/organizer/all_items/tag/presentation/cubit/tag_cubit.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
 import 'package:get_it/get_it.dart';
 
@@ -22,7 +24,7 @@ void tagInit() {
   sl.registerLazySingleton(() => DeleteTagUseCase(sl()));
   sl.registerLazySingleton(() => GetTagByIdUseCase(sl()));
   sl.registerLazySingleton(() => GetTagItemsAllUseCase(sl()));
-  sl.registerLazySingleton(() => GetTagItemsByIdSetUseCase(sl()));
+  sl.registerLazySingleton(() => GetTagEntitiesByIdSetUseCase(sl()));
 
   // Tag BLoCs
   sl.registerFactory(() => TagBlocTag(
@@ -32,5 +34,15 @@ void tagInit() {
         getTagById: sl(),
         getTagItemsAll: sl(),
         getTagItemsByIdSet: sl(),
+      ));
+  sl.registerFactory(() => TagBloc(
+        addTag: sl(),
+        deleteTag: sl(),
+        getTags: sl(),
+      ));
+
+  // Tag Cubit
+  sl.registerFactory(() => TagCubit(
+        getTagItemsAllUseCase: sl(),
       ));
 }

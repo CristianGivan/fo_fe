@@ -13,7 +13,7 @@ class TagBlocTag extends Bloc<TagBlocEvent, TagBlocState> {
   final DeleteTagUseCase deleteTag;
   final GetTagByIdUseCase getTagById;
   final GetTagItemsAllUseCase getTagItemsAll;
-  final GetTagItemsByIdSetUseCase getTagItemsByIdSet;
+  final GetTagEntitiesByIdSetUseCase getTagItemsByIdSet;
 
   TagBlocTag({
     required this.addTag,

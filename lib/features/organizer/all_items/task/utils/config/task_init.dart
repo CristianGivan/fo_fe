@@ -39,7 +39,7 @@ void taskInit() {
   sl.registerLazySingleton(() => UpdateReminderItemsOfTaskUseCase(sl()));
 
   // Task Tag Use cases
-  sl.registerLazySingleton(() => GetTagItemsByTaskIdUseCase(sl()));
+  sl.registerLazySingleton(() => GetTagEntitiesByTaskIdUseCase(sl()));
   sl.registerLazySingleton(() => UpdateTagItemsOfTaskUseCase(sl()));
 
   // Task User Use cases

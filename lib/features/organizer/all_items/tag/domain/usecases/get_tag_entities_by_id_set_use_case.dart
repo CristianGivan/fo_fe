@@ -6,10 +6,10 @@ import 'package:fo_fe/features/organizer/all_items/tag/domain/repositories/tag_r
 import 'package:fo_fe/features/organizer/all_items/tag/utils/parameters/tag_params.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class GetTagItemsByIdSetUseCase extends UseCase<OrganizerItems<TagEntity>, TagParams> {
+class GetTagEntitiesByIdSetUseCase extends UseCase<OrganizerItems<TagEntity>, TagParams> {
   final TagRepository repository;
 
-  GetTagItemsByIdSetUseCase(this.repository);
+  GetTagEntitiesByIdSetUseCase(this.repository);
 
   @override
   Future<Either<Failure, OrganizerItems<TagEntity>>> call(TagParams params) async {

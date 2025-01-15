@@ -1,14 +1,18 @@
 import 'dart:async';
 
+import 'package:dartz/dartz.dart' as dartz;
+import 'package:fo_fe/core/utils/exports/core_utils_exports.dart';
 import 'package:fo_fe/core/widgets/core_widget_exports.dart';
-import 'package:fo_fe/features/authentication/utils/auth_exports.dart';
+import 'package:fo_fe/features/authentication/presentation/bloc/auth_log_bloc/auth_log_bloc.dart';
+import 'package:fo_fe/features/organizer/all_items/tag/presentation/cubit/tag_cubit.dart';
+import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/widgets/update_items_of_item_actions_menu.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart';
 
 import '../../../features/organizer/utils/organizer_exports.dart';
 
-class ItemLinkItemsUpdatePage<T extends DtoEntity> extends StatefulWidget {
+class ItemLinkItemsUpdatePage<T extends ItemEntity> extends StatefulWidget {
   final ItemsLinkParams params;
   final OrganizerItems<T> initSelectedItems;
 
@@ -18,13 +22,13 @@ class ItemLinkItemsUpdatePage<T extends DtoEntity> extends StatefulWidget {
   _ItemLinkItemsUpdatePageState createState() => _ItemLinkItemsUpdatePageState<T>();
 }
 
-class _ItemLinkItemsUpdatePageState<T extends DtoEntity> extends State<ItemLinkItemsUpdatePage> {
+class _ItemLinkItemsUpdatePageState<T extends ItemEntity> extends State<ItemLinkItemsUpdatePage> {
   OrganizerItems<T> selectedItemsChecked = OrganizerItems.empty();
   OrganizerItems<T> selectedItemsUnchecked = OrganizerItems.empty();
   OrganizerItems<T> allItemsChecked = OrganizerItems.empty();
   OrganizerItems<T> allItemsUnchecked = OrganizerItems.empty();
   late OrganizerLinkBloc<T> selectedItemsBloc;
-  late OrganizerBloc allItemsBloc;
+  late TagCubit tagCubit;
 
   @override
   void initState() {
@@ -34,12 +38,39 @@ class _ItemLinkItemsUpdatePageState<T extends DtoEntity> extends State<ItemLinkI
 
   Future<void> _initializeDataWithErrorHandling() async {
     selectedItemsBloc = context.read<OrganizerLinkBloc<T>>();
-    // allItemsBloc = createItemBloc(widget.params.itemType);
+    tagCubit = context.read<TagCubit>();
+
+    selectedItemsChecked = widget.initSelectedItems as OrganizerItems<T>;
 
     try {
-      selectedItemsChecked = widget.initSelectedItems as OrganizerItems<T>;
-      //todo how to have the loading bara id is not loaded
-      _loadUserItemsWithErrorHandling();
+      // Check if tags are already fetched
+      final tagsState = tagCubit.state;
+      tagsState.fold(
+        (failure) => print("Failed to load tags: $failure"),
+        (tags) {
+          if (!tags.isEmpty) {
+            allItemsUnchecked = tags as OrganizerItems<T>;
+          } else {
+            // Fetch tags if not already fetched
+            tagCubit.fetchTags().then((_) {
+              final updatedTagsState = tagCubit.state;
+              updatedTagsState.fold(
+                (failure) => _showErrorDialog(context, "Failed to load tags: $failure"),
+                (fetchedTags) {
+                  setState(() {
+                    allItemsUnchecked = fetchedTags as OrganizerItems<T>;
+                    allItemsUnchecked =
+                        allItemsUnchecked.copyWithRemoveItemsWithSameId(selectedItemsChecked);
+                  });
+                },
+              );
+            });
+          }
+        },
+      );
+
+      // Load user items
+      await _loadUserItemsWithErrorHandling();
 
       setState(() {
         allItemsUnchecked = allItemsUnchecked.copyWithRemoveItemsWithSameId(selectedItemsChecked);
@@ -51,11 +82,18 @@ class _ItemLinkItemsUpdatePageState<T extends DtoEntity> extends State<ItemLinkI
 
   @override
   Widget build(BuildContext context) {
-    return AppContentScreen(
-      appBarTitle: TaskStrings().screenEditTitle,
-      body: _buildListSectionsWithListeners(),
-      menuOptions: (context, userId) => _getMenuItems(context),
-      onSearchSubmitted: () {},
+    return BlocBuilder<TagCubit, dartz.Either<Failure, OrganizerItems<TagEntity>>>(
+      builder: (context, state) {
+        return state.fold(
+          (failure) => Center(child: Text('Failed to load tags')),
+          (tags) => AppContentScreen(
+            appBarTitle: TaskStrings().screenEditTitle,
+            body: _buildListSectionsWithListeners(tags as OrganizerItems<T>),
+            menuOptions: (context, userId) => _getMenuItems(context),
+            onSearchSubmitted: () {},
+          ),
+        );
+      },
     );
   }
 
@@ -69,7 +107,7 @@ class _ItemLinkItemsUpdatePageState<T extends DtoEntity> extends State<ItemLinkI
     return UpdateItemsOfItemActionsMenu.getMenuItems(context, updatedItems);
   }
 
-  Widget _buildListSectionsWithListeners() {
+  Widget _buildListSectionsWithListeners(OrganizerItems<T> tags) {
     return MultiBlocListener(
       listeners: [
         BlocListener<ItemUserLinkBloc, OrganizerBlocState>(
@@ -87,7 +125,7 @@ class _ItemLinkItemsUpdatePageState<T extends DtoEntity> extends State<ItemLinkI
           },
         ),
       ],
-      child: _buildUncheckedListView(allItemsUnchecked),
+      child: _buildUncheckedListView(allItemsUnchecked, tags),
     );
   }
 
@@ -105,7 +143,7 @@ class _ItemLinkItemsUpdatePageState<T extends DtoEntity> extends State<ItemLinkI
     });
   }
 
-  Widget _buildUncheckedListView(OrganizerItems<T> items) {
+  Widget _buildUncheckedListView(OrganizerItems<T> items, OrganizerItems<T> tags) {
     return Column(
       children: [
         _buildListSection("Selected_Checked", selectedItemsChecked, true, false),
@@ -128,7 +166,7 @@ class _ItemLinkItemsUpdatePageState<T extends DtoEntity> extends State<ItemLinkI
               itemBuilder: (context, index) {
                 final item = items.getAt(index);
                 return CheckboxListTile(
-                  title: Text(item.entity.subject),
+                  title: Text(item.subject),
                   value: isChecked,
                   onChanged: (bool? value) {
                     if (value != null) {
