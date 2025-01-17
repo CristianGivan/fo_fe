@@ -29,22 +29,26 @@ class UpdateItemsOfItemActionsMenu<T extends OrganizerItemEntity> {
   }
 
   static _getTaskTagMenuItems(BuildContext context) {
-    PopupMenuItem(
-      child: Text('Add Items'),
-      onTap: () {
-        // context.read<TaskTagLinkBloc>().add(UpdateItemsOfItemBlocEvent(params));
-        context.pop();
-      },
-    );
+    return [
+      PopupMenuItem(
+        child: Text('Add Items'),
+        onTap: () {
+          // context.read<TaskTagLinkBloc>().add(UpdateItemsOfItemBlocEvent(params));
+          context.pop();
+        },
+      ),
+    ];
   }
 
   static _getTaskReminderMenuItems(BuildContext context) {
-    PopupMenuItem(
-      child: Text('Add Items'),
-      onTap: () {
-        // context.read<TaskReminderLinkBloc>().add(UpdateItemsOfItemBlocEvent(params));
-        context.pop();
-      },
-    );
+    return [
+      PopupMenuItem(
+        child: Text('Add Items'),
+        onTap: () {
+          // context.read<TaskReminderLinkBloc>().add(UpdateItemsOfItemBlocEvent(params));
+          context.pop();
+        },
+      )
+    ];
   }
 }

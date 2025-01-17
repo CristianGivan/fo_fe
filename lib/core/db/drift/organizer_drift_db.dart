@@ -2,6 +2,8 @@ import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:flutter/foundation.dart';
 import 'package:fo_fe/core/db/drift/connection/db_connection_drift.dart';
+import 'package:fo_fe/core/db/drift/organizer/tag/tag_user_link/tag_user_link_dao_drift.dart';
+import 'package:fo_fe/core/db/drift/organizer/tag/tag_user_link/tag_user_link_table_drift.dart';
 
 import 'organizer_drift_exports.dart';
 
@@ -17,6 +19,7 @@ part 'organizer_drift_db.g.dart';
   UserUserTableDrift,
   ReminderTableDrift,
   TagTableDrift,
+  TagUserLinkTableDrift,
 ], daos: [
   OrganizerItemDaoDrift,
   TaskDaoDrift,
@@ -27,6 +30,7 @@ part 'organizer_drift_db.g.dart';
   UserUserDaoDrift,
   ReminderDaoDrift,
   TagDaoDrift,
+  TagUserLinkDaoDrift,
 ])
 class OrganizerDriftDB extends _$OrganizerDriftDB {
   OrganizerDriftDB({bool isDev = false, bool inMemory = false})

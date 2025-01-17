@@ -18,6 +18,7 @@ export '../presentation/bloc/organizer_link_bloc.dart';
 export '../presentation/bloc/organizer_link_bloc_event.dart';
 export '../presentation/bloc/organizer_link_bloc_state.dart';
 export '../presentation/screens/organizer_home_screen.dart';
+export '../presentation/widgets/organizer_build_state_widget.dart';
 export '../utils/navigator/navigator_factory.dart';
 export 'config/organizer_init.dart';
 export 'config/organizer_router.dart';

@@ -43,6 +43,7 @@ void tagInit() {
 
   // Tag Cubit
   sl.registerFactory(() => TagCubit(
-        getTagItemsAllUseCase: sl(),
+        getEntitiesFromUserUseCase: sl(),
+        updateTagItemsUseCase: sl(),
       ));
 }

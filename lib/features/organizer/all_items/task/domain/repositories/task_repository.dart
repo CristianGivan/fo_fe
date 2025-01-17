@@ -16,6 +16,8 @@ abstract class TaskRepository {
 
   Future<Either<Failure, IdSet>> deleteTaskItems(IdSet idSet);
 
+  Future<Either<Failure, OrganizerItems<TaskEntity>>> getTaskEntitiesFromUser(int userId);
+
   Future<Either<Failure, OrganizerItems<TaskDto>>> getTaskItemsFromUser(int userId);
 
   Future<Either<Failure, OrganizerItems<TaskEntity>>> getTaskItemsByIdSet(IdSet idSet);

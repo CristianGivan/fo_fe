@@ -44,4 +44,15 @@ class TaskUserLinkMapper {
       orderedByUser: Value(taskUserLink.orderedByUser),
     );
   }
+
+  static TaskUserLinkEntity rowToTaskUserEntity(QueryRow row) {
+    return TaskUserLinkEntity(
+      id: row.read<int>('id'),
+      linkingDate: row.read<DateTime>('linking_date'),
+      taskId: row.read<int>('task_id'),
+      userId: row.read<int>('user_id'),
+      selectedByUser: row.read<bool>('selected_by_user'),
+      orderedByUser: row.read<int>('ordered_by_user'),
+    );
+  }
 }

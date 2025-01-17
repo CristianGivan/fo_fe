@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/error/failures.dart';
-import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class TagRepositoryImpl implements TagRepository {
   final TagLocalDataSource localDataSource;
@@ -27,8 +27,7 @@ class TagRepositoryImpl implements TagRepository {
   }
 
   @override
-  Future<Either<Failure, OrganizerItems<TagEntity>>> getTagItemsByIdSet(
-      IdSet idSet) {
+  Future<Either<Failure, OrganizerItems<TagEntity>>> getTagItemsByIdSet(IdSet idSet) {
     // TODO: implement getTagItemsByIdSet
     throw UnimplementedError();
   }
@@ -42,6 +41,18 @@ class TagRepositoryImpl implements TagRepository {
   @override
   Future<Either<Failure, bool>> updateTag(TagEntity tag) {
     // TODO: implement updateTag
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, OrganizerItems<TagEntity>>> getTagEntitiesFromUser(int userId) {
+    // TODO: implement getTagEntitiesByUser
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, OrganizerItems<Tag>>> getTagItemsFromUser(int userId) {
+    // TODO: implement getTagItemsFromUser
     throw UnimplementedError();
   }
 }

@@ -10,7 +10,7 @@ List<BlocProvider> getTagBlocProviders() {
       create: (_) => GetIt.instance<TagBlocTag>(),
     ),
     BlocProvider<TagCubit>(
-      create: (context) => TagCubit(getTagItemsAllUseCase: GetIt.instance<GetTagItemsAllUseCase>()),
+      create: (_) => GetIt.instance<TagCubit>(),
     ),
     BlocProvider<TagBloc>(
       create: (_) => GetIt.instance<TagBloc>(),

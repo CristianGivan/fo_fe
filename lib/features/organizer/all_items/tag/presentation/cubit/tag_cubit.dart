@@ -1,18 +1,38 @@
-import 'package:bloc/bloc.dart';
-import 'package:dartz/dartz.dart';
-import 'package:fo_fe/core/error/failures.dart';
-import 'package:fo_fe/core/usecase/params.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/domain/entities/tag_entity.dart';
-import 'package:fo_fe/features/organizer/all_items/tag/domain/usecases/get_tag_items_all_use_case.dart';
+import 'package:fo_fe/features/organizer/domain/usecases/get_entities_from_user_use_case.dart';
+import 'package:fo_fe/features/organizer/presentation/cubit/organizer_cubit.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class TagCubit extends Cubit<Either<Failure, OrganizerItems<TagEntity>>> {
-  final GetTagItemsAllUseCase getTagItemsAllUseCase;
+class TagCubit extends OrganizerCubit<TagEntity> {
+  final GetEntitiesFromUserUseCase getEntitiesFromUserUseCase;
+  final UpdateItemUseCase updateTagItemsUseCase;
 
-  TagCubit({required this.getTagItemsAllUseCase}) : super(Right(OrganizerItems.empty()));
+  TagCubit({
+    required this.getEntitiesFromUserUseCase,
+    required this.updateTagItemsUseCase,
+  });
 
-  Future<void> fetchTags() async {
-    final result = await getTagItemsAllUseCase(NoParams());
-    emit(result);
+  @override
+  Future<void> getEntitiesFromUser(int userId) async {
+    emit(OrganizerState.loading());
+
+    ItemParams itemParams = ItemParams(forUserId: userId, itemType: ItemsTypeEnum.tag, id: 0);
+
+    final result = await getEntitiesFromUserUseCase(itemParams);
+    result.fold(
+      (failure) => emit(OrganizerState.error(failure.message ?? "Error")),
+      (entities) => emit(OrganizerState.loaded(entities as OrganizerItems<TagEntity>)),
+    );
+  }
+
+  @override
+  Future<void> updateEntities(List<TagEntity> entities) async {
+    emit(OrganizerState.loading());
+
+    // final result = await updateTagItemsUseCase(entities);
+    // result.fold(
+    //   (failure) => emit(OrganizerState.error(failure.message)),
+    //   (_) => emit(OrganizerState.loaded(entities)),
+    emit(OrganizerState.error("Not implemented"));
   }
 }

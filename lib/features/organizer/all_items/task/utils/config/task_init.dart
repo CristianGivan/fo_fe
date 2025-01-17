@@ -44,7 +44,7 @@ void taskInit() {
 
   // Task User Use cases
   sl.registerLazySingleton(() => GetCreatorByTaskIdUseCase(sl()));
-  sl.registerLazySingleton(() => GetLinkItemsByItemIdUseCase<ItemEntity>(sl()));
+  sl.registerLazySingleton(() => GetLinkEntitiesByItemIdUseCase<ItemEntity>(sl()));
   sl.registerLazySingleton(() => UpdateItemsOfItemUseCase<User>(sl()));
   sl.registerLazySingleton(() => UpdateItemsOfItemUseCase<Tag>(sl()));
   sl.registerLazySingleton(() => UpdateTaskUserLinkUseCase(sl()));

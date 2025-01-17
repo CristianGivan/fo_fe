@@ -84,7 +84,7 @@ registerd for several tings What shall I use fo rgeneric type
 (GetItemsOfItemBlocEvent(params)); in ItemLinkItemsPage
 
 * clean up the getit in special if I have the factory
-
+* inharetance vs delagation conposiotion for ItemEntity and Bloc or Cubit
 == Done
 
 * from update navigate to link_item_list_edit_page where I have selected alll the usersrs that

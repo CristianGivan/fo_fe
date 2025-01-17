@@ -4434,6 +4434,366 @@ class TagTableDriftCompanion extends UpdateCompanion<TagTableDriftG> {
   }
 }
 
+class $TagUserLinkTableDriftTable extends TagUserLinkTableDrift
+    with TableInfo<$TagUserLinkTableDriftTable, TagUserLinkTableDriftG> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $TagUserLinkTableDriftTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _linkingDateMeta =
+      const VerificationMeta('linkingDate');
+  @override
+  late final GeneratedColumn<DateTime> linkingDate = GeneratedColumn<DateTime>(
+      'linking_date', aliasedName, false,
+      type: DriftSqlType.dateTime,
+      requiredDuringInsert: false,
+      defaultValue: currentDateAndTime);
+  static const VerificationMeta _tagIdMeta = const VerificationMeta('tagId');
+  @override
+  late final GeneratedColumn<int> tagId = GeneratedColumn<int>(
+      'tag_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'REFERENCES TagTableDrift(id)');
+  static const VerificationMeta _userIdMeta = const VerificationMeta('userId');
+  @override
+  late final GeneratedColumn<int> userId = GeneratedColumn<int>(
+      'user_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'REFERENCES UserTableDrift(id)');
+  static const VerificationMeta _selectedByUserMeta =
+      const VerificationMeta('selectedByUser');
+  @override
+  late final GeneratedColumn<bool> selectedByUser = GeneratedColumn<bool>(
+      'selected_by_user', aliasedName, true,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("selected_by_user" IN (0, 1))'));
+  static const VerificationMeta _orderedByUserMeta =
+      const VerificationMeta('orderedByUser');
+  @override
+  late final GeneratedColumn<int> orderedByUser = GeneratedColumn<int>(
+      'ordered_by_user', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, linkingDate, tagId, userId, selectedByUser, orderedByUser];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'tag_user_link_table_drift';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<TagUserLinkTableDriftG> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('linking_date')) {
+      context.handle(
+          _linkingDateMeta,
+          linkingDate.isAcceptableOrUnknown(
+              data['linking_date']!, _linkingDateMeta));
+    }
+    if (data.containsKey('tag_id')) {
+      context.handle(
+          _tagIdMeta, tagId.isAcceptableOrUnknown(data['tag_id']!, _tagIdMeta));
+    } else if (isInserting) {
+      context.missing(_tagIdMeta);
+    }
+    if (data.containsKey('user_id')) {
+      context.handle(_userIdMeta,
+          userId.isAcceptableOrUnknown(data['user_id']!, _userIdMeta));
+    } else if (isInserting) {
+      context.missing(_userIdMeta);
+    }
+    if (data.containsKey('selected_by_user')) {
+      context.handle(
+          _selectedByUserMeta,
+          selectedByUser.isAcceptableOrUnknown(
+              data['selected_by_user']!, _selectedByUserMeta));
+    }
+    if (data.containsKey('ordered_by_user')) {
+      context.handle(
+          _orderedByUserMeta,
+          orderedByUser.isAcceptableOrUnknown(
+              data['ordered_by_user']!, _orderedByUserMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  TagUserLinkTableDriftG map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return TagUserLinkTableDriftG(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      linkingDate: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}linking_date'])!,
+      tagId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}tag_id'])!,
+      userId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}user_id'])!,
+      selectedByUser: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}selected_by_user']),
+      orderedByUser: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}ordered_by_user']),
+    );
+  }
+
+  @override
+  $TagUserLinkTableDriftTable createAlias(String alias) {
+    return $TagUserLinkTableDriftTable(attachedDatabase, alias);
+  }
+}
+
+class TagUserLinkTableDriftG extends DataClass
+    implements Insertable<TagUserLinkTableDriftG> {
+  final int id;
+  final DateTime linkingDate;
+  final int tagId;
+  final int userId;
+  final bool? selectedByUser;
+  final int? orderedByUser;
+  const TagUserLinkTableDriftG(
+      {required this.id,
+      required this.linkingDate,
+      required this.tagId,
+      required this.userId,
+      this.selectedByUser,
+      this.orderedByUser});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['linking_date'] = Variable<DateTime>(linkingDate);
+    map['tag_id'] = Variable<int>(tagId);
+    map['user_id'] = Variable<int>(userId);
+    if (!nullToAbsent || selectedByUser != null) {
+      map['selected_by_user'] = Variable<bool>(selectedByUser);
+    }
+    if (!nullToAbsent || orderedByUser != null) {
+      map['ordered_by_user'] = Variable<int>(orderedByUser);
+    }
+    return map;
+  }
+
+  TagUserLinkTableDriftCompanion toCompanion(bool nullToAbsent) {
+    return TagUserLinkTableDriftCompanion(
+      id: Value(id),
+      linkingDate: Value(linkingDate),
+      tagId: Value(tagId),
+      userId: Value(userId),
+      selectedByUser: selectedByUser == null && nullToAbsent
+          ? const Value.absent()
+          : Value(selectedByUser),
+      orderedByUser: orderedByUser == null && nullToAbsent
+          ? const Value.absent()
+          : Value(orderedByUser),
+    );
+  }
+
+  factory TagUserLinkTableDriftG.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return TagUserLinkTableDriftG(
+      id: serializer.fromJson<int>(json['id']),
+      linkingDate: serializer.fromJson<DateTime>(json['linkingDate']),
+      tagId: serializer.fromJson<int>(json['tagId']),
+      userId: serializer.fromJson<int>(json['userId']),
+      selectedByUser: serializer.fromJson<bool?>(json['selectedByUser']),
+      orderedByUser: serializer.fromJson<int?>(json['orderedByUser']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'linkingDate': serializer.toJson<DateTime>(linkingDate),
+      'tagId': serializer.toJson<int>(tagId),
+      'userId': serializer.toJson<int>(userId),
+      'selectedByUser': serializer.toJson<bool?>(selectedByUser),
+      'orderedByUser': serializer.toJson<int?>(orderedByUser),
+    };
+  }
+
+  TagUserLinkTableDriftG copyWith(
+          {int? id,
+          DateTime? linkingDate,
+          int? tagId,
+          int? userId,
+          Value<bool?> selectedByUser = const Value.absent(),
+          Value<int?> orderedByUser = const Value.absent()}) =>
+      TagUserLinkTableDriftG(
+        id: id ?? this.id,
+        linkingDate: linkingDate ?? this.linkingDate,
+        tagId: tagId ?? this.tagId,
+        userId: userId ?? this.userId,
+        selectedByUser:
+            selectedByUser.present ? selectedByUser.value : this.selectedByUser,
+        orderedByUser:
+            orderedByUser.present ? orderedByUser.value : this.orderedByUser,
+      );
+  TagUserLinkTableDriftG copyWithCompanion(
+      TagUserLinkTableDriftCompanion data) {
+    return TagUserLinkTableDriftG(
+      id: data.id.present ? data.id.value : this.id,
+      linkingDate:
+          data.linkingDate.present ? data.linkingDate.value : this.linkingDate,
+      tagId: data.tagId.present ? data.tagId.value : this.tagId,
+      userId: data.userId.present ? data.userId.value : this.userId,
+      selectedByUser: data.selectedByUser.present
+          ? data.selectedByUser.value
+          : this.selectedByUser,
+      orderedByUser: data.orderedByUser.present
+          ? data.orderedByUser.value
+          : this.orderedByUser,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TagUserLinkTableDriftG(')
+          ..write('id: $id, ')
+          ..write('linkingDate: $linkingDate, ')
+          ..write('tagId: $tagId, ')
+          ..write('userId: $userId, ')
+          ..write('selectedByUser: $selectedByUser, ')
+          ..write('orderedByUser: $orderedByUser')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id, linkingDate, tagId, userId, selectedByUser, orderedByUser);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is TagUserLinkTableDriftG &&
+          other.id == this.id &&
+          other.linkingDate == this.linkingDate &&
+          other.tagId == this.tagId &&
+          other.userId == this.userId &&
+          other.selectedByUser == this.selectedByUser &&
+          other.orderedByUser == this.orderedByUser);
+}
+
+class TagUserLinkTableDriftCompanion
+    extends UpdateCompanion<TagUserLinkTableDriftG> {
+  final Value<int> id;
+  final Value<DateTime> linkingDate;
+  final Value<int> tagId;
+  final Value<int> userId;
+  final Value<bool?> selectedByUser;
+  final Value<int?> orderedByUser;
+  const TagUserLinkTableDriftCompanion({
+    this.id = const Value.absent(),
+    this.linkingDate = const Value.absent(),
+    this.tagId = const Value.absent(),
+    this.userId = const Value.absent(),
+    this.selectedByUser = const Value.absent(),
+    this.orderedByUser = const Value.absent(),
+  });
+  TagUserLinkTableDriftCompanion.insert({
+    this.id = const Value.absent(),
+    this.linkingDate = const Value.absent(),
+    required int tagId,
+    required int userId,
+    this.selectedByUser = const Value.absent(),
+    this.orderedByUser = const Value.absent(),
+  })  : tagId = Value(tagId),
+        userId = Value(userId);
+  static Insertable<TagUserLinkTableDriftG> custom({
+    Expression<int>? id,
+    Expression<DateTime>? linkingDate,
+    Expression<int>? tagId,
+    Expression<int>? userId,
+    Expression<bool>? selectedByUser,
+    Expression<int>? orderedByUser,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (linkingDate != null) 'linking_date': linkingDate,
+      if (tagId != null) 'tag_id': tagId,
+      if (userId != null) 'user_id': userId,
+      if (selectedByUser != null) 'selected_by_user': selectedByUser,
+      if (orderedByUser != null) 'ordered_by_user': orderedByUser,
+    });
+  }
+
+  TagUserLinkTableDriftCompanion copyWith(
+      {Value<int>? id,
+      Value<DateTime>? linkingDate,
+      Value<int>? tagId,
+      Value<int>? userId,
+      Value<bool?>? selectedByUser,
+      Value<int?>? orderedByUser}) {
+    return TagUserLinkTableDriftCompanion(
+      id: id ?? this.id,
+      linkingDate: linkingDate ?? this.linkingDate,
+      tagId: tagId ?? this.tagId,
+      userId: userId ?? this.userId,
+      selectedByUser: selectedByUser ?? this.selectedByUser,
+      orderedByUser: orderedByUser ?? this.orderedByUser,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (linkingDate.present) {
+      map['linking_date'] = Variable<DateTime>(linkingDate.value);
+    }
+    if (tagId.present) {
+      map['tag_id'] = Variable<int>(tagId.value);
+    }
+    if (userId.present) {
+      map['user_id'] = Variable<int>(userId.value);
+    }
+    if (selectedByUser.present) {
+      map['selected_by_user'] = Variable<bool>(selectedByUser.value);
+    }
+    if (orderedByUser.present) {
+      map['ordered_by_user'] = Variable<int>(orderedByUser.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TagUserLinkTableDriftCompanion(')
+          ..write('id: $id, ')
+          ..write('linkingDate: $linkingDate, ')
+          ..write('tagId: $tagId, ')
+          ..write('userId: $userId, ')
+          ..write('selectedByUser: $selectedByUser, ')
+          ..write('orderedByUser: $orderedByUser')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$OrganizerDriftDB extends GeneratedDatabase {
   _$OrganizerDriftDB(QueryExecutor e) : super(e);
   $OrganizerDriftDBManager get managers => $OrganizerDriftDBManager(this);
@@ -4452,6 +4812,8 @@ abstract class _$OrganizerDriftDB extends GeneratedDatabase {
   late final $ReminderTableDriftTable reminderTableDrift =
       $ReminderTableDriftTable(this);
   late final $TagTableDriftTable tagTableDrift = $TagTableDriftTable(this);
+  late final $TagUserLinkTableDriftTable tagUserLinkTableDrift =
+      $TagUserLinkTableDriftTable(this);
   late final OrganizerItemDaoDrift organizerItemDaoDrift =
       OrganizerItemDaoDrift(this as OrganizerDriftDB);
   late final TaskDaoDrift taskDaoDrift = TaskDaoDrift(this as OrganizerDriftDB);
@@ -4467,6 +4829,8 @@ abstract class _$OrganizerDriftDB extends GeneratedDatabase {
   late final ReminderDaoDrift reminderDaoDrift =
       ReminderDaoDrift(this as OrganizerDriftDB);
   late final TagDaoDrift tagDaoDrift = TagDaoDrift(this as OrganizerDriftDB);
+  late final TagUserLinkDaoDrift tagUserLinkDaoDrift =
+      TagUserLinkDaoDrift(this as OrganizerDriftDB);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -4480,7 +4844,8 @@ abstract class _$OrganizerDriftDB extends GeneratedDatabase {
         userTableDrift,
         userUserTableDrift,
         reminderTableDrift,
-        tagTableDrift
+        tagTableDrift,
+        tagUserLinkTableDrift
       ];
 }
 
@@ -6635,6 +7000,198 @@ typedef $$TagTableDriftTableProcessedTableManager = ProcessedTableManager<
     ),
     TagTableDriftG,
     PrefetchHooks Function()>;
+typedef $$TagUserLinkTableDriftTableCreateCompanionBuilder
+    = TagUserLinkTableDriftCompanion Function({
+  Value<int> id,
+  Value<DateTime> linkingDate,
+  required int tagId,
+  required int userId,
+  Value<bool?> selectedByUser,
+  Value<int?> orderedByUser,
+});
+typedef $$TagUserLinkTableDriftTableUpdateCompanionBuilder
+    = TagUserLinkTableDriftCompanion Function({
+  Value<int> id,
+  Value<DateTime> linkingDate,
+  Value<int> tagId,
+  Value<int> userId,
+  Value<bool?> selectedByUser,
+  Value<int?> orderedByUser,
+});
+
+class $$TagUserLinkTableDriftTableFilterComposer
+    extends Composer<_$OrganizerDriftDB, $TagUserLinkTableDriftTable> {
+  $$TagUserLinkTableDriftTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<DateTime> get linkingDate => $composableBuilder(
+      column: $table.linkingDate, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get tagId => $composableBuilder(
+      column: $table.tagId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<bool> get selectedByUser => $composableBuilder(
+      column: $table.selectedByUser,
+      builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get orderedByUser => $composableBuilder(
+      column: $table.orderedByUser, builder: (column) => ColumnFilters(column));
+}
+
+class $$TagUserLinkTableDriftTableOrderingComposer
+    extends Composer<_$OrganizerDriftDB, $TagUserLinkTableDriftTable> {
+  $$TagUserLinkTableDriftTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get linkingDate => $composableBuilder(
+      column: $table.linkingDate, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get tagId => $composableBuilder(
+      column: $table.tagId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get userId => $composableBuilder(
+      column: $table.userId, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get selectedByUser => $composableBuilder(
+      column: $table.selectedByUser,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get orderedByUser => $composableBuilder(
+      column: $table.orderedByUser,
+      builder: (column) => ColumnOrderings(column));
+}
+
+class $$TagUserLinkTableDriftTableAnnotationComposer
+    extends Composer<_$OrganizerDriftDB, $TagUserLinkTableDriftTable> {
+  $$TagUserLinkTableDriftTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get linkingDate => $composableBuilder(
+      column: $table.linkingDate, builder: (column) => column);
+
+  GeneratedColumn<int> get tagId =>
+      $composableBuilder(column: $table.tagId, builder: (column) => column);
+
+  GeneratedColumn<int> get userId =>
+      $composableBuilder(column: $table.userId, builder: (column) => column);
+
+  GeneratedColumn<bool> get selectedByUser => $composableBuilder(
+      column: $table.selectedByUser, builder: (column) => column);
+
+  GeneratedColumn<int> get orderedByUser => $composableBuilder(
+      column: $table.orderedByUser, builder: (column) => column);
+}
+
+class $$TagUserLinkTableDriftTableTableManager extends RootTableManager<
+    _$OrganizerDriftDB,
+    $TagUserLinkTableDriftTable,
+    TagUserLinkTableDriftG,
+    $$TagUserLinkTableDriftTableFilterComposer,
+    $$TagUserLinkTableDriftTableOrderingComposer,
+    $$TagUserLinkTableDriftTableAnnotationComposer,
+    $$TagUserLinkTableDriftTableCreateCompanionBuilder,
+    $$TagUserLinkTableDriftTableUpdateCompanionBuilder,
+    (
+      TagUserLinkTableDriftG,
+      BaseReferences<_$OrganizerDriftDB, $TagUserLinkTableDriftTable,
+          TagUserLinkTableDriftG>
+    ),
+    TagUserLinkTableDriftG,
+    PrefetchHooks Function()> {
+  $$TagUserLinkTableDriftTableTableManager(
+      _$OrganizerDriftDB db, $TagUserLinkTableDriftTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$TagUserLinkTableDriftTableFilterComposer(
+                  $db: db, $table: table),
+          createOrderingComposer: () =>
+              $$TagUserLinkTableDriftTableOrderingComposer(
+                  $db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$TagUserLinkTableDriftTableAnnotationComposer(
+                  $db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<DateTime> linkingDate = const Value.absent(),
+            Value<int> tagId = const Value.absent(),
+            Value<int> userId = const Value.absent(),
+            Value<bool?> selectedByUser = const Value.absent(),
+            Value<int?> orderedByUser = const Value.absent(),
+          }) =>
+              TagUserLinkTableDriftCompanion(
+            id: id,
+            linkingDate: linkingDate,
+            tagId: tagId,
+            userId: userId,
+            selectedByUser: selectedByUser,
+            orderedByUser: orderedByUser,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<DateTime> linkingDate = const Value.absent(),
+            required int tagId,
+            required int userId,
+            Value<bool?> selectedByUser = const Value.absent(),
+            Value<int?> orderedByUser = const Value.absent(),
+          }) =>
+              TagUserLinkTableDriftCompanion.insert(
+            id: id,
+            linkingDate: linkingDate,
+            tagId: tagId,
+            userId: userId,
+            selectedByUser: selectedByUser,
+            orderedByUser: orderedByUser,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$TagUserLinkTableDriftTableProcessedTableManager
+    = ProcessedTableManager<
+        _$OrganizerDriftDB,
+        $TagUserLinkTableDriftTable,
+        TagUserLinkTableDriftG,
+        $$TagUserLinkTableDriftTableFilterComposer,
+        $$TagUserLinkTableDriftTableOrderingComposer,
+        $$TagUserLinkTableDriftTableAnnotationComposer,
+        $$TagUserLinkTableDriftTableCreateCompanionBuilder,
+        $$TagUserLinkTableDriftTableUpdateCompanionBuilder,
+        (
+          TagUserLinkTableDriftG,
+          BaseReferences<_$OrganizerDriftDB, $TagUserLinkTableDriftTable,
+              TagUserLinkTableDriftG>
+        ),
+        TagUserLinkTableDriftG,
+        PrefetchHooks Function()>;
 
 class $OrganizerDriftDBManager {
   final _$OrganizerDriftDB _db;
@@ -6661,4 +7218,6 @@ class $OrganizerDriftDBManager {
       $$ReminderTableDriftTableTableManager(_db, _db.reminderTableDrift);
   $$TagTableDriftTableTableManager get tagTableDrift =>
       $$TagTableDriftTableTableManager(_db, _db.tagTableDrift);
+  $$TagUserLinkTableDriftTableTableManager get tagUserLinkTableDrift =>
+      $$TagUserLinkTableDriftTableTableManager(_db, _db.tagUserLinkTableDrift);
 }

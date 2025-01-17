@@ -1,14 +1,10 @@
 import 'dart:async';
 
-import 'package:dartz/dartz.dart' as dartz;
-import 'package:fo_fe/core/utils/exports/core_utils_exports.dart';
 import 'package:fo_fe/core/widgets/core_widget_exports.dart';
-import 'package:fo_fe/features/authentication/presentation/bloc/auth_log_bloc/auth_log_bloc.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/presentation/cubit/tag_cubit.dart';
-import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/widgets/update_items_of_item_actions_menu.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
-import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart';
+import 'package:fo_fe/features/organizer/presentation/cubit/organizer_cubit.dart';
 
 import '../../../features/organizer/utils/organizer_exports.dart';
 
@@ -28,7 +24,7 @@ class _ItemLinkItemsUpdatePageState<T extends ItemEntity> extends State<ItemLink
   OrganizerItems<T> allItemsChecked = OrganizerItems.empty();
   OrganizerItems<T> allItemsUnchecked = OrganizerItems.empty();
   late OrganizerLinkBloc<T> selectedItemsBloc;
-  late TagCubit tagCubit;
+  late TagCubit itemCubit;
 
   @override
   void initState() {
@@ -38,42 +34,18 @@ class _ItemLinkItemsUpdatePageState<T extends ItemEntity> extends State<ItemLink
 
   Future<void> _initializeDataWithErrorHandling() async {
     selectedItemsBloc = context.read<OrganizerLinkBloc<T>>();
-    tagCubit = context.read<TagCubit>();
-
+    itemCubit = context.read<TagCubit>();
     selectedItemsChecked = widget.initSelectedItems as OrganizerItems<T>;
 
     try {
-      // Check if tags are already fetched
-      final tagsState = tagCubit.state;
-      tagsState.fold(
-        (failure) => print("Failed to load tags: $failure"),
-        (tags) {
-          if (!tags.isEmpty) {
-            allItemsUnchecked = tags as OrganizerItems<T>;
-          } else {
-            // Fetch tags if not already fetched
-            tagCubit.fetchTags().then((_) {
-              final updatedTagsState = tagCubit.state;
-              updatedTagsState.fold(
-                (failure) => _showErrorDialog(context, "Failed to load tags: $failure"),
-                (fetchedTags) {
-                  setState(() {
-                    allItemsUnchecked = fetchedTags as OrganizerItems<T>;
-                    allItemsUnchecked =
-                        allItemsUnchecked.copyWithRemoveItemsWithSameId(selectedItemsChecked);
-                  });
-                },
-              );
-            });
-          }
-        },
-      );
-
-      // Load user items
-      await _loadUserItemsWithErrorHandling();
+      final tagsState = itemCubit.state;
+      if (tagsState.status != OrganizerCubitStatus.loaded) {
+        await itemCubit.getEntitiesFromUser(widget.params.forUserId);
+      }
+      final cubitStateEntities = itemCubit.state.entities as OrganizerItems<T>;
 
       setState(() {
-        allItemsUnchecked = allItemsUnchecked.copyWithRemoveItemsWithSameId(selectedItemsChecked);
+        allItemsUnchecked = cubitStateEntities.copyWithRemoveItemsWithSameId(selectedItemsChecked);
       });
     } catch (error) {
       _showErrorDialog(context, "Failed to initialize data: $error");
@@ -82,18 +54,11 @@ class _ItemLinkItemsUpdatePageState<T extends ItemEntity> extends State<ItemLink
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TagCubit, dartz.Either<Failure, OrganizerItems<TagEntity>>>(
-      builder: (context, state) {
-        return state.fold(
-          (failure) => Center(child: Text('Failed to load tags')),
-          (tags) => AppContentScreen(
-            appBarTitle: TaskStrings().screenEditTitle,
-            body: _buildListSectionsWithListeners(tags as OrganizerItems<T>),
-            menuOptions: (context, userId) => _getMenuItems(context),
-            onSearchSubmitted: () {},
-          ),
-        );
-      },
+    return AppContentScreen(
+      appBarTitle: TaskStrings().screenEditTitle,
+      body: _buildUncheckedListView(),
+      menuOptions: (context, userId) => _getMenuItems(context),
+      onSearchSubmitted: () {},
     );
   }
 
@@ -107,43 +72,7 @@ class _ItemLinkItemsUpdatePageState<T extends ItemEntity> extends State<ItemLink
     return UpdateItemsOfItemActionsMenu.getMenuItems(context, updatedItems);
   }
 
-  Widget _buildListSectionsWithListeners(OrganizerItems<T> tags) {
-    return MultiBlocListener(
-      listeners: [
-        BlocListener<ItemUserLinkBloc, OrganizerBlocState>(
-          listener: (context, state) {
-            if (state.status == OrganizerBlocStatus.loaded) {
-              _updateSelectedItems(state.displayedItems as OrganizerItems<T>);
-            }
-          },
-        ),
-        BlocListener<UserBloc, UserBlocState>(
-          listener: (context, state) {
-            if (state is UserItemsLoadedBlocState) {
-              _updateAllItems(state.userItems as OrganizerItems<T>);
-            }
-          },
-        ),
-      ],
-      child: _buildUncheckedListView(allItemsUnchecked, tags),
-    );
-  }
-
-  void _updateSelectedItems(OrganizerItems<T> items) {
-    setState(() {
-      selectedItemsChecked = items;
-      selectedItemsUnchecked = OrganizerItems.empty();
-    });
-  }
-
-  void _updateAllItems(OrganizerItems<T> items) {
-    setState(() {
-      allItemsChecked = OrganizerItems.empty();
-      allItemsUnchecked = items.copyWithRemoveItemsWithSameId(selectedItemsChecked);
-    });
-  }
-
-  Widget _buildUncheckedListView(OrganizerItems<T> items, OrganizerItems<T> tags) {
+  Widget _buildUncheckedListView() {
     return Column(
       children: [
         _buildListSection("Selected_Checked", selectedItemsChecked, true, false),
@@ -204,45 +133,6 @@ class _ItemLinkItemsUpdatePageState<T extends ItemEntity> extends State<ItemLink
     });
   }
 
-  Future<void> _loadUserItemsWithErrorHandling() async {
-    final completer = Completer<void>();
-
-    final authLogBloc = context.read<AuthLogBloc>();
-    late final int loginUserId;
-
-    if (authLogBloc.state is AuthAuthenticatedBlocState) {
-      final state = authLogBloc.state as AuthAuthenticatedBlocState;
-      loginUserId = state.userEntity.id;
-    } else {
-      DialogManager.showNotAuthenticatedDialog(context);
-      return;
-    }
-
-    final userBloc = context.read<UserBloc>();
-    userBloc.add(GetLinkedUserItemsBlocEvent(UserParams(userId: loginUserId)));
-
-    final subscription = userBloc.stream.listen(
-      (state) {
-        if (state is UserItemsLoadedBlocState) {
-          completer.complete();
-        } else if (state is UserErrorBlocState) {
-          completer.completeError(state.errorMessage ?? "Failed to load user items.");
-        }
-      },
-      onError: (error) {
-        completer.completeError("Stream error: $error");
-      },
-    );
-
-    try {
-      await completer.future;
-    } catch (error) {
-      _showErrorDialog(context, error.toString());
-    } finally {
-      await subscription.cancel();
-    }
-  }
-
   void _showErrorDialog(BuildContext context, String errorMessage) {
     showDialog(
       context: context,
@@ -259,5 +149,19 @@ class _ItemLinkItemsUpdatePageState<T extends ItemEntity> extends State<ItemLink
         );
       },
     );
+  }
+
+  void _updateSelectedItems(OrganizerItems<T> items) {
+    setState(() {
+      selectedItemsChecked = items;
+      selectedItemsUnchecked = OrganizerItems.empty();
+    });
+  }
+
+  void _updateAllItems(OrganizerItems<T> items) {
+    setState(() {
+      allItemsChecked = OrganizerItems.empty();
+      allItemsUnchecked = items.copyWithRemoveItemsWithSameId(selectedItemsChecked);
+    });
   }
 }

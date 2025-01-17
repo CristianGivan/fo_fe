@@ -10,7 +10,7 @@ class TaskListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TaskBloc, OrganizerBlocState>(builder: (context, state) {
-      return buildStateWidget(
+      return buildBlocStateWidget(
         state: state,
         buildErrorState: _buildErrorState,
         buildLoadingState: _buildLoadingState,

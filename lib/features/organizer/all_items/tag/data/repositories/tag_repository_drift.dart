@@ -50,8 +50,7 @@ class TagRepositoryDrift implements TagRepository {
     });
   }
 
-  Future<Either<Failure, OrganizerItems<TagEntity>>> getTagItemsByIdSet(
-      IdSet idSet) {
+  Future<Either<Failure, OrganizerItems<TagEntity>>> getTagItemsByIdSet(IdSet idSet) {
     return _handleDatabaseOperation<OrganizerItems<TagEntity>>(
       () async {
         final items = await localDataSource.getTagItemsByIdSet(idSet);
@@ -63,8 +62,31 @@ class TagRepositoryDrift implements TagRepository {
     );
   }
 
-  Future<Either<Failure, T>> _handleDatabaseOperation<T>(
-      Future<T> Function() operation) async {
+  @override
+  Future<Either<Failure, OrganizerItems<Tag>>> getTagItemsFromUser(int forUserId) {
+    return _handleDatabaseOperation(() async {
+      final rows = await localDataSource.getTagItemsFromUser(forUserId);
+      if (rows == null || rows.isEmpty) {
+        return OrganizerItems<Tag>.empty();
+      } else {
+        return TagMapper.itemsFromRows(rows);
+      }
+    });
+  }
+
+  @override
+  Future<Either<Failure, OrganizerItems<TagEntity>>> getTagEntitiesFromUser(int forUserId) {
+    return _handleDatabaseOperation(() async {
+      final rows = await localDataSource.getTagItemsFromUser(forUserId);
+      if (rows == null || rows.isEmpty) {
+        return OrganizerItems<TagEntity>.empty();
+      } else {
+        return TagMapper.entitiesFromRows(rows);
+      }
+    });
+  }
+
+  Future<Either<Failure, T>> _handleDatabaseOperation<T>(Future<T> Function() operation) async {
     try {
       final result = await operation();
       return Right(result);

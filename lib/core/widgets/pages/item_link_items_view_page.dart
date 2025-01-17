@@ -17,7 +17,7 @@ class ItemLinkItemsViewPage<T extends ItemEntity> extends StatelessWidget {
         if (state.status == OrganizerBlocStatus.initial) {
           itemLinkItemsBloc.add(GetItemsOfItemBlocEvent(params));
         }
-        return buildStateWidget(
+        return buildBlocStateWidget(
           state: state,
           buildErrorState: _buildErrorState,
           buildLoadingState: _buildLoadingState,

@@ -42,8 +42,8 @@ class TaskUpdateScreen extends StatelessWidget {
           ),
         ),
         BlocProvider(
-          create: (context) => createItemLinkBloc<User>(taskUserParams.itemType),
-          child: ItemLinkItemsViewPage<User>(
+          create: (context) => createItemLinkBloc<UserEntity>(taskUserParams.itemType),
+          child: ItemLinkItemsViewPage<UserEntity>(
             key: ValueKey("task_user_$taskId"),
             params: taskUserParams,
           ),

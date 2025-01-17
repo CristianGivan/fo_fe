@@ -5,11 +5,11 @@ import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 import '../../repositories/task_repository.dart';
 
-class GetLinkItemsByItemIdUseCase<T extends ItemEntity>
+class GetLinkEntitiesByItemIdUseCase<T extends ItemEntity>
     extends UseCase<OrganizerItems<T>, ItemsLinkParams> {
   final TaskRepository taskRepository;
 
-  GetLinkItemsByItemIdUseCase(this.taskRepository);
+  GetLinkEntitiesByItemIdUseCase(this.taskRepository);
 
   @override
   Future<Either<Failure, OrganizerItems<T>>> call(ItemsLinkParams params) {

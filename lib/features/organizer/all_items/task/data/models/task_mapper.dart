@@ -2,8 +2,8 @@
 
 import 'package:drift/drift.dart';
 import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
-import 'package:fo_fe/features/organizer/all_items/task/domain/entities/task_entity.dart';
-import 'package:fo_fe/features/organizer/all_items/task/utils/other/task_enums.dart';
+import 'package:fo_fe/features/organizer/all_items/task/data/models/task_user_link_mapper.dart';
+import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/set_and_list/organizer_items.dart';
 
 class TaskMapper {
@@ -110,4 +110,79 @@ class TaskMapper {
       "lastUpdate": model.lastUpdate?.toIso8601String(),
     };
   }
+
+  //todo -refactor- check if is possible
+  //      final taskRow = row.readTable(db.taskTableDrift);
+  //         task: TaskEntity(
+  //           id: taskRow.id,
+  //           remoteId: taskRow.remoteId,
+  //           ...
+
+  //todo -refactor- a better way to do this
+  static OrganizerItems<TaskDto> itemsFromRows(List<QueryRow> rows) {
+    List<TaskDto> items = rows
+        .map((row) => TaskDto(
+              task: taskEntityFromRow(row),
+              taskUserLink: TaskUserLinkMapper.rowToTaskUserEntity(row),
+            ))
+        .toList();
+    return OrganizerItems.of(items);
+  }
+
+  static OrganizerItems<TaskEntity> entitiesFromRows(List<QueryRow> rows) {
+    List<TaskEntity> items = rows.map((row) => taskEntityFromRow(row)).toList();
+    return OrganizerItems.of(items);
+  }
+
+  static TaskEntity taskEntityFromRow(QueryRow row) {
+    return TaskEntity(
+      id: row.read<int>('id'),
+      subject: row.read<String>('subject'),
+      startDate: row.read<DateTime>('start_date'),
+      endDate: row.read<DateTime>('end_date'),
+      workingTime: row.read<double>('working_time'),
+      estimatedTime: row.read<double>('estimated_time'),
+      estimatedLeftTime: row.read<double>('estimated_left_time'),
+      workingProgress: row.read<double>('working_progress'),
+      taskStatus: taskStatusMap[row.read<String>('task_status')],
+      createdDate: row.read<DateTime>('created_date'),
+      creatorId: row.read<int>('creator_id'),
+      remoteId: row.read<int>('remote_id'),
+      lastUpdate: row.read<DateTime>('last_update'),
+      lastViewedDate: row.read<DateTime>('last_viewed_date'),
+      remoteViews: row.read<int>('remote_views'),
+      views: row.read<int>('views'),
+      checksum: row.read<String>('checksum'),
+    );
+  }
+//
+// List<TaskDto> dtoItemsFromQueryResult(List<TypedResult> items) {
+//   return items.map((row) {
+//     final taskRow = row.readTable(db.taskTableDrift);
+//     final taskUserLinkRow = row.readTableOrNull(db.taskUserLinkTableDrift);
+//
+//     return TaskDto(
+//       task: TaskEntity(
+//         id: taskRow.id,
+//         remoteId: taskRow.remoteId,
+//         subject: taskRow.subject,
+//         startDate: taskRow.startDate,
+//         endDate: taskRow.endDate,
+//         workingTime: taskRow.workingTime,
+//         estimatedTime: taskRow.estimatedTime,
+//         estimatedLeftTime: taskRow.estimatedLeftTime,
+//         workingProgress: taskRow.workingProgress,
+//         taskStatus: taskStatusMap[taskRow.taskStatus],
+//       ),
+//       taskUserLink: TaskUserLinkEntity(
+//         id: taskUserLinkRow?.id ?? 0,
+//         linkingDate: taskUserLinkRow?.linkingDate ?? DateTime.now(),
+//         taskId: taskUserLinkRow?.taskId ?? 0,
+//         userId: taskUserLinkRow?.userId ?? 0,
+//         selectedByUser: taskUserLinkRow?.selectedByUser ?? false,
+//         orderedByUser: taskUserLinkRow?.orderedByUser ?? double.maxFinite.toInt(),
+//       ),
+//     );
+//   }).toList();
+// }
 }

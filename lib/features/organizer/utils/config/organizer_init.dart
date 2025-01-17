@@ -2,6 +2,8 @@ import 'package:fo_fe/features/organizer/all_items/reminder/utils/reminder_expor
 import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart';
+import 'package:fo_fe/features/organizer/domain/usecases/get_entities_from_user_use_case.dart';
+import 'package:fo_fe/features/organizer/presentation/bloc/link_bloc_derive/item_user_link_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 final sl = GetIt.instance;
@@ -15,6 +17,10 @@ void organizerInit() {
 }
 
 void organizerBloc() {
-  sl.registerLazySingleton(() => GetLinkItemsByItemIdUseCase<User>(sl()));
-  sl.registerLazySingleton(() => GetLinkItemsByItemIdUseCase<Tag>(sl()));
+  sl.registerLazySingleton(() => GetLinkEntitiesByItemIdUseCase<User>(sl()));
+  sl.registerLazySingleton(() => GetLinkEntitiesByItemIdUseCase<UserEntity>(sl()));
+  sl.registerLazySingleton(() => GetLinkEntitiesByItemIdUseCase<Tag>(sl()));
+  sl.registerLazySingleton(() => GetEntitiesFromUserUseCase(sl(), sl(), sl()));
+  sl.registerFactory(
+      () => ItemUserLinkBloc(getItemsLinked: sl<GetLinkEntitiesByItemIdUseCase<UserEntity>>()));
 }

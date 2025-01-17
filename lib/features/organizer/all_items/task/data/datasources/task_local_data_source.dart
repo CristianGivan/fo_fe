@@ -1,5 +1,5 @@
+import 'package:drift/drift.dart';
 import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
-import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 abstract class TaskLocalDataSource {
@@ -14,9 +14,9 @@ abstract class TaskLocalDataSource {
 
   Future<List<int>?> deleteTaskItems(List<int> taskIds);
 
-  Future<List<TaskDto>?> getTaskDtoItemsFromUser(int userId);
-
   Future<List<TaskTableDriftG?>?> getTaskItemsByIdSet(IdSet idSet);
+
+  Future<List<QueryRow>?> getTaskItemsFromUser(int userId);
 
   // User operations related to tasks
 
@@ -33,7 +33,7 @@ abstract class TaskLocalDataSource {
 
   // Tag operations related to tasks
 
-  Future<List<TagTableDriftG>?> getTagItemsByTaskId(int taskId);
+  Future<List<TagTableDriftG?>?> getTagItemsByTaskId(int taskId);
 
   Future<void> addTagItemsToTask(int taskId, List<int> tagIds);
 

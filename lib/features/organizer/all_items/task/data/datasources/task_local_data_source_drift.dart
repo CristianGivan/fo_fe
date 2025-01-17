@@ -5,8 +5,6 @@ import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/task/data/datasources/task_local_data_source.dart';
 import 'package:fo_fe/features/organizer/utils/set_and_list/id_set.dart';
 
-import '../../utils/task_exports.dart';
-
 class TaskLocalDataSourceDrift implements TaskLocalDataSource {
   final OrganizerDriftDB db;
 
@@ -55,19 +53,13 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
   }
 
   @override
-  Future<List<TaskDto>?> getTaskDtoItemsFromUser(int userId) async {
-    final taskList = await db.taskDaoDrift.getTaskDtoItemsFromUser(userId);
-    return taskList
-        ?.map((row) => TaskDto(
-              task: rowToTaskEntity(row),
-              taskUserLink: rowToTaskUserEntity(row),
-            ))
-        .toList();
+  Future<List<TaskTableDriftG?>?> getTaskItemsByIdSet(IdSet idSet) async {
+    return await db.taskDaoDrift.getTaskItemsByIdSet(idSet.toSet());
   }
 
   @override
-  Future<List<TaskTableDriftG?>?> getTaskItemsByIdSet(IdSet idSet) async {
-    return await db.taskDaoDrift.getTaskItemsByIdSet(idSet.toSet());
+  Future<List<QueryRow>?> getTaskItemsFromUser(int userId) async {
+    return await db.taskDaoDrift.getTaskDtoItemsFromUser(userId);
   }
 
 // User operations related to tasks
@@ -110,9 +102,10 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
 
   // Tags of task
   @override
-  Future<List<TagTableDriftG>?> getTagItemsByTaskId(int taskId) async {
+  Future<List<TagTableDriftG?>?> getTagItemsByTaskId(int taskId) async {
     final tagIds = await db.taskTagLinkDaoDrift.getTagIdsByTaskId(taskId);
-    return await db.tagDaoDrift.getTagItemsByTagIdSet(tagIds);
+
+    return db.tagDaoDrift.getTagItemsByIdSet(tagIds);
   }
 
   @override
@@ -188,69 +181,6 @@ class TaskLocalDataSourceDrift implements TaskLocalDataSource {
       taskId: Value(taskId),
       userId: Value(userId),
       linkingDate: Value(DateTime.now()),
-    );
-  }
-
-  List<TaskDto> dtoItemsFromQueryResult(List<TypedResult> items) {
-    return items.map((row) {
-      final taskRow = row.readTable(db.taskTableDrift);
-      final taskUserLinkRow = row.readTableOrNull(db.taskUserLinkTableDrift);
-
-      return TaskDto(
-        task: TaskEntity(
-          id: taskRow.id,
-          remoteId: taskRow.remoteId,
-          subject: taskRow.subject,
-          startDate: taskRow.startDate,
-          endDate: taskRow.endDate,
-          workingTime: taskRow.workingTime,
-          estimatedTime: taskRow.estimatedTime,
-          estimatedLeftTime: taskRow.estimatedLeftTime,
-          workingProgress: taskRow.workingProgress,
-          taskStatus: taskStatusMap[taskRow.taskStatus],
-        ),
-        taskUserLink: TaskUserLinkEntity(
-          id: taskUserLinkRow?.id ?? 0,
-          linkingDate: taskUserLinkRow?.linkingDate ?? DateTime.now(),
-          taskId: taskUserLinkRow?.taskId ?? 0,
-          userId: taskUserLinkRow?.userId ?? 0,
-          selectedByUser: taskUserLinkRow?.selectedByUser ?? false,
-          orderedByUser: taskUserLinkRow?.orderedByUser ?? double.maxFinite.toInt(),
-        ),
-      );
-    }).toList();
-  }
-
-  TaskEntity rowToTaskEntity(QueryRow row) {
-    return TaskEntity(
-      id: row.read<int>('id'),
-      subject: row.read<String>('subject'),
-      startDate: row.read<DateTime>('start_date'),
-      endDate: row.read<DateTime>('end_date'),
-      workingTime: row.read<double>('working_time'),
-      estimatedTime: row.read<double>('estimated_time'),
-      estimatedLeftTime: row.read<double>('estimated_left_time'),
-      workingProgress: row.read<double>('working_progress'),
-      taskStatus: taskStatusMap[row.read<String>('task_status')],
-      createdDate: row.read<DateTime>('created_date'),
-      creatorId: row.read<int>('creator_id'),
-      remoteId: row.read<int>('remote_id'),
-      lastUpdate: row.read<DateTime>('last_update'),
-      lastViewedDate: row.read<DateTime>('last_viewed_date'),
-      remoteViews: row.read<int>('remote_views'),
-      views: row.read<int>('views'),
-      checksum: row.read<String>('checksum'),
-    );
-  }
-
-  TaskUserLinkEntity rowToTaskUserEntity(QueryRow row) {
-    return TaskUserLinkEntity(
-      id: row.read<int>('id'),
-      linkingDate: row.read<DateTime>('linking_date'),
-      taskId: row.read<int>('task_id'),
-      userId: row.read<int>('user_id'),
-      selectedByUser: row.read<bool>('selected_by_user'),
-      orderedByUser: row.read<int>('ordered_by_user'),
     );
   }
 
