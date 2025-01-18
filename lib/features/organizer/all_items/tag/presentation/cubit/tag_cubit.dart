@@ -14,25 +14,25 @@ class TagCubit extends OrganizerCubit<TagEntity> {
 
   @override
   Future<void> getEntitiesFromUser(int userId) async {
-    emit(OrganizerState.loading());
+    emit(OrganizerCubitState.loading());
 
     ItemParams itemParams = ItemParams(forUserId: userId, itemType: ItemsTypeEnum.tag, id: 0);
 
     final result = await getEntitiesFromUserUseCase(itemParams);
     result.fold(
-      (failure) => emit(OrganizerState.error(failure.message ?? "Error")),
-      (entities) => emit(OrganizerState.loaded(entities as OrganizerItems<TagEntity>)),
+      (failure) => emit(OrganizerCubitState.error(failure.message ?? "Error")),
+      (entities) => emit(OrganizerCubitState.loaded(entities as OrganizerItems<TagEntity>)),
     );
   }
 
   @override
   Future<void> updateEntities(List<TagEntity> entities) async {
-    emit(OrganizerState.loading());
+    emit(OrganizerCubitState.loading());
 
     // final result = await updateTagItemsUseCase(entities);
     // result.fold(
     //   (failure) => emit(OrganizerState.error(failure.message)),
     //   (_) => emit(OrganizerState.loaded(entities)),
-    emit(OrganizerState.error("Not implemented"));
+    emit(OrganizerCubitState.error("Not implemented"));
   }
 }

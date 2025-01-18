@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:fo_fe/core/widgets/core_widget_exports.dart';
-import 'package:fo_fe/features/organizer/all_items/tag/presentation/cubit/tag_cubit.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/widgets/update_items_of_item_actions_menu.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/presentation/cubit/organizer_cubit.dart';
@@ -24,7 +23,7 @@ class _ItemLinkItemsUpdatePageState<T extends ItemEntity> extends State<ItemLink
   OrganizerItems<T> allItemsChecked = OrganizerItems.empty();
   OrganizerItems<T> allItemsUnchecked = OrganizerItems.empty();
   late OrganizerLinkBloc<T> selectedItemsBloc;
-  late TagCubit itemCubit;
+  late OrganizerCubit<T> itemCubit;
 
   @override
   void initState() {
@@ -34,31 +33,26 @@ class _ItemLinkItemsUpdatePageState<T extends ItemEntity> extends State<ItemLink
 
   Future<void> _initializeDataWithErrorHandling() async {
     selectedItemsBloc = context.read<OrganizerLinkBloc<T>>();
-    itemCubit = context.read<TagCubit>();
     selectedItemsChecked = widget.initSelectedItems as OrganizerItems<T>;
 
-    try {
-      final tagsState = itemCubit.state;
-      if (tagsState.status != OrganizerCubitStatus.loaded) {
-        await itemCubit.getEntitiesFromUser(widget.params.forUserId);
-      }
-      final cubitStateEntities = itemCubit.state.entities as OrganizerItems<T>;
-
-      setState(() {
-        allItemsUnchecked = cubitStateEntities.copyWithRemoveItemsWithSameId(selectedItemsChecked);
-      });
-    } catch (error) {
-      _showErrorDialog(context, "Failed to initialize data: $error");
-    }
+    itemCubit = context.read<OrganizerCubit<T>>();
+    itemCubit.getEntitiesFromUser(widget.params.forUserId);
   }
 
   @override
   Widget build(BuildContext context) {
-    return AppContentScreen(
-      appBarTitle: TaskStrings().screenEditTitle,
-      body: _buildUncheckedListView(),
-      menuOptions: (context, userId) => _getMenuItems(context),
-      onSearchSubmitted: () {},
+    return BlocListener<OrganizerCubit<T>, OrganizerCubitState<T>>(
+      listener: (context, state) {
+        if (state.status == OrganizerCubitStatus.loaded) {
+          _updateAllItems(state.entities as OrganizerItems<T>);
+        }
+      },
+      child: AppContentScreen(
+        appBarTitle: TaskStrings().screenEditTitle,
+        body: _buildUncheckedListView(),
+        menuOptions: (context, userId) => _getMenuItems(context),
+        onSearchSubmitted: () {},
+      ),
     );
   }
 

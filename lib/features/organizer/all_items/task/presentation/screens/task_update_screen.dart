@@ -16,17 +16,19 @@ class TaskUpdateScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return AppContentScreen(
       appBarTitle: TaskStrings().screenEditTitle,
-      body: _buildEditPage(),
+      body: (userId) => _buildEditPage(userId),
+      // todo -refactor- why I can have just userId and
+      // below not
       menuOptions: (context, userId) => TaskEditScreenActionsMenu.getMenuItems(context),
       onSearchSubmitted: () {},
     );
   }
 
-  Widget _buildEditPage() {
-    final taskTagParams =
-        ItemsLinkParamsFactory.create(id: taskId, itemType: ItemsTypeEnum.taskTag);
-    final taskUserParams =
-        ItemsLinkParamsFactory.create(id: taskId, itemType: ItemsTypeEnum.taskUser);
+  Widget _buildEditPage(int userId) {
+    final taskTagParams = ItemsLinkParamsFactory.create(
+        id: taskId, forUserId: userId, itemType: ItemsTypeEnum.taskTag);
+    final taskUserParams = ItemsLinkParamsFactory.create(
+        id: taskId, forUserId: userId, itemType: ItemsTypeEnum.taskUser);
 
     return Column(
       children: [

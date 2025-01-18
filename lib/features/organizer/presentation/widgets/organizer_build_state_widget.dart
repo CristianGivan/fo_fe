@@ -21,7 +21,7 @@ Widget buildBlocStateWidget({
 }
 
 Widget buildCubitStateWidget<T extends ItemEntity>({
-  required OrganizerState<T> state,
+  required OrganizerCubitState<T> state,
   required Widget Function(String?) buildErrorState,
   required Widget Function() buildLoadingState,
   required Widget Function(OrganizerItems<T>) buildLoadedState,

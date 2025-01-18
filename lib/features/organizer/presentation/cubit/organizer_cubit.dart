@@ -2,30 +2,32 @@ import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 enum OrganizerCubitStatus { initial, loading, loaded, error }
 
-class OrganizerState<T extends ItemEntity> {
+class OrganizerCubitState<T extends ItemEntity> {
   final OrganizerCubitStatus status;
   final OrganizerItems<T>? entities;
   final String? errorMessage;
 
-  const OrganizerState({
+  const OrganizerCubitState({
     required this.status,
     this.entities,
     this.errorMessage,
   });
 
-  factory OrganizerState.initial() => const OrganizerState(status: OrganizerCubitStatus.initial);
+  factory OrganizerCubitState.initial() =>
+      const OrganizerCubitState(status: OrganizerCubitStatus.initial);
 
-  factory OrganizerState.loading() => const OrganizerState(status: OrganizerCubitStatus.loading);
+  factory OrganizerCubitState.loading() =>
+      const OrganizerCubitState(status: OrganizerCubitStatus.loading);
 
-  factory OrganizerState.loaded(OrganizerItems<T> entities) =>
-      OrganizerState(status: OrganizerCubitStatus.loaded, entities: entities);
+  factory OrganizerCubitState.loaded(OrganizerItems<T> entities) =>
+      OrganizerCubitState(status: OrganizerCubitStatus.loaded, entities: entities);
 
-  factory OrganizerState.error(String errorMessage) =>
-      OrganizerState(status: OrganizerCubitStatus.error, errorMessage: errorMessage);
+  factory OrganizerCubitState.error(String errorMessage) =>
+      OrganizerCubitState(status: OrganizerCubitStatus.error, errorMessage: errorMessage);
 }
 
-abstract class OrganizerCubit<T extends ItemEntity> extends Cubit<OrganizerState<T>> {
-  OrganizerCubit() : super(OrganizerState.initial());
+abstract class OrganizerCubit<T extends ItemEntity> extends Cubit<OrganizerCubitState<T>> {
+  OrganizerCubit() : super(OrganizerCubitState.initial());
 
   Future<void> getEntitiesFromUser(int userId);
 
