@@ -4,7 +4,8 @@ import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart'
 import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/domain/usecases/get_entities_from_user_use_case.dart';
 import 'package:fo_fe/features/organizer/domain/usecases/update_item_use_case.dart';
-import 'package:fo_fe/features/organizer/presentation/bloc/link_bloc_derive/item_user_link_bloc.dart';
+import 'package:fo_fe/features/organizer/presentation/bloc/link_bloc_derived/item_user_link_bloc'
+    '.dart';
 import 'package:get_it/get_it.dart';
 
 final sl = GetIt.instance;

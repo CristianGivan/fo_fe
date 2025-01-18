@@ -17,7 +17,7 @@ class GetItemsOfItemBlocEvent extends OrganizerLinkBlocEvent {
 }
 
 class UpdateItemsOfItemBlocEvent extends OrganizerLinkBlocEvent {
-  final ItemParams params;
+  final UpdateItemsOfItemParams params;
 
   const UpdateItemsOfItemBlocEvent(this.params);
 

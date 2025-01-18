@@ -132,24 +132,6 @@ class _ItemLinkItemsUpdatePageState<T extends ItemEntity> extends State<ItemLink
     });
   }
 
-  void _showErrorDialog(BuildContext context, String errorMessage) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Error'),
-          content: Text(errorMessage),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text('OK'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   void _updateSelectedItems(OrganizerItems<T> items) {
     setState(() {
       selectedItemsChecked = items;

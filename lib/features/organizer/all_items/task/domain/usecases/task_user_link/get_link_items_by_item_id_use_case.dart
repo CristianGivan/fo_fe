@@ -1,26 +1,23 @@
 import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/usecase/usecase.dart';
+import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_user_link/get_linked_items/ItemTypeHandler.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
-
-import '../../repositories/task_repository.dart';
 
 class GetLinkEntitiesByItemIdUseCase<T extends ItemEntity>
     extends UseCase<OrganizerItems<T>, ItemsLinkParams> {
-  final TaskRepository taskRepository;
+  final ItemTypeHandlerRegistry handlerRegistry;
 
-  GetLinkEntitiesByItemIdUseCase(this.taskRepository);
+  GetLinkEntitiesByItemIdUseCase(this.handlerRegistry);
 
   @override
-  Future<Either<Failure, OrganizerItems<T>>> call(ItemsLinkParams params) {
-    if (params.itemType == ItemsTypeEnum.taskUser) {
-      return taskRepository.getUserItemsByTaskId(params.id)
-          as Future<Either<Failure, OrganizerItems<T>>>;
-    } else if (params.itemType == ItemsTypeEnum.taskTag) {
-      return taskRepository.getTagItemsByTaskId(params.id)
-          as Future<Either<Failure, OrganizerItems<T>>>;
-    } else {
-      return Future.value(Left(UnexpectedFailure("Invalid params")));
+  Future<Either<Failure, OrganizerItems<T>>> call(ItemsLinkParams params) async {
+    final handler = handlerRegistry.getHandler(params.itemType);
+
+    if (handler == null) {
+      return Left(UnexpectedFailure("No handler found for ${params.itemType}"));
     }
+
+    return await handler.handle(params.id) as Future<Either<Failure, OrganizerItems<T>>>;
   }
 }

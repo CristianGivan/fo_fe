@@ -15,3 +15,4 @@ class ItemUserLinkBloc extends OrganizerLinkBloc<UserEntity> {
   OrganizerBlocState<User> get initialState =>
       ItemLinkUserBlocState(status: OrganizerBlocStatus.initial);
 }
+//base class and derived class
