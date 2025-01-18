@@ -78,6 +78,9 @@ class _ItemLinkItemsUpdatePageState<T extends ItemEntity> extends State<ItemLink
   }
 
   Widget _buildListSection(String title, OrganizerItems<T> items, bool isChecked, bool isAllItems) {
+    if (items.isEmpty) {
+      _buildLoading();
+    }
     return Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -104,6 +107,8 @@ class _ItemLinkItemsUpdatePageState<T extends ItemEntity> extends State<ItemLink
       ),
     );
   }
+
+  Widget _buildLoading() => const Center(child: CircularProgressIndicator());
 
   void _onItemCheckedChanged(T item, bool isChecked, bool isAllItems) {
     setState(() {

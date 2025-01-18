@@ -43,8 +43,8 @@ void userInit() {
       ));
 
   sl.registerFactory(() => UserValidationBloc());
+
   sl.registerFactory(() => UserCubit(
         getEntitiesFromUserUseCase: sl(),
-        updateUserItemsUseCase: sl(),
       ));
 }

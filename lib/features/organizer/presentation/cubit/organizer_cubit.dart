@@ -2,6 +2,12 @@ import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 enum OrganizerCubitStatus { initial, loading, loaded, error }
 
+abstract class OrganizerCubit<T extends ItemEntity> extends Cubit<OrganizerCubitState<T>> {
+  OrganizerCubit() : super(OrganizerCubitState.initial());
+
+  Future<void> getEntitiesFromUser(int userId);
+}
+
 class OrganizerCubitState<T extends ItemEntity> {
   final OrganizerCubitStatus status;
   final OrganizerItems<T>? entities;
@@ -24,12 +30,4 @@ class OrganizerCubitState<T extends ItemEntity> {
 
   factory OrganizerCubitState.error(String errorMessage) =>
       OrganizerCubitState(status: OrganizerCubitStatus.error, errorMessage: errorMessage);
-}
-
-abstract class OrganizerCubit<T extends ItemEntity> extends Cubit<OrganizerCubitState<T>> {
-  OrganizerCubit() : super(OrganizerCubitState.initial());
-
-  Future<void> getEntitiesFromUser(int userId);
-
-  Future<void> updateEntities(List<T> entities);
 }

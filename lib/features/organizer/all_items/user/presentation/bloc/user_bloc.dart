@@ -4,8 +4,10 @@ import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/features/organizer/all_items/user/domain/usecases/get_user_and_linked_user_items.dart';
 import 'package:fo_fe/features/organizer/all_items/user/domain/usecases/get_user_items_by_user_id_use_case.dart';
 import 'package:fo_fe/features/organizer/all_items/user/domain/usecases/user_usecase_export.dart';
+import 'package:fo_fe/features/organizer/all_items/user/presentation/user_cubit.dart';
 import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
+import 'package:get_it/get_it.dart';
 
 part 'user_bloc_event.dart';
 part 'user_bloc_state.dart';
@@ -114,12 +116,16 @@ class UserBloc extends Bloc<UserBlocEvent, UserBlocState> {
 
   Future<void> _onAddUserToUser(AddUserToUserBlocEvent event, Emitter<UserBlocState> emit) async {
     emit(UserLoadingBlocState());
+    final userCubit = GetIt.instance.get<UserCubit>();
     final result = await addUserToUser(
         AddUserToUserParams(userLinked: event.userLinked, authUserId: event.authUserId));
-    emit(result.fold(
-      (failure) => UserErrorBlocState(_mapFailureToMessage(failure)),
-      (id) => UserAddedToUserBlocState(id: id),
-    ));
+    result.fold(
+      (failure) => emit(UserErrorBlocState(_mapFailureToMessage(failure))),
+      (id) async {
+        userCubit.getEntitiesFromUser(event.authUserId);
+        emit(UserAddedToUserBlocState(id: id));
+      },
+    );
   }
 
   Future<void> _onDeleteUserFromUser(

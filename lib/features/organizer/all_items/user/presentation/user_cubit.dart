@@ -5,11 +5,9 @@ import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class UserCubit extends OrganizerCubit<UserEntity> {
   final GetEntitiesFromUserUseCase getEntitiesFromUserUseCase;
-  final UpdateItemUseCase updateUserItemsUseCase;
 
   UserCubit({
     required this.getEntitiesFromUserUseCase,
-    required this.updateUserItemsUseCase,
   });
 
   @override
@@ -23,17 +21,5 @@ class UserCubit extends OrganizerCubit<UserEntity> {
       (failure) => emit(OrganizerCubitState.error(failure.message ?? "Error")),
       (entities) => emit(OrganizerCubitState.loaded(entities as OrganizerItems<UserEntity>)),
     );
-  }
-
-  @override
-  Future<void> updateEntities(List<UserEntity> entities) async {
-    emit(OrganizerCubitState.loading());
-
-    // final result = await updateUserItemsUseCase(entities);
-    // result.fold(
-    //   (failure) => emit(OrganizerState.error(failure.message)),
-    //   (_) => emit(OrganizerState.loaded(OrganizerItems<UserEntity>(items: entities))),
-    // );
-    emit(OrganizerCubitState.error("Not implemented"));
   }
 }

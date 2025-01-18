@@ -136,7 +136,7 @@ class TaskMapper {
 
   static TaskEntity taskEntityFromRow(QueryRow row) {
     return TaskEntity(
-      id: row.read<int>('id'),
+      id: row.read<int>('task_id'),
       subject: row.read<String>('subject'),
       startDate: row.read<DateTime>('start_date'),
       endDate: row.read<DateTime>('end_date'),

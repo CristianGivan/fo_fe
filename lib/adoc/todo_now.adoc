@@ -85,6 +85,11 @@ registerd for several tings What shall I use fo rgeneric type
 
 * clean up the getit in special if I have the factory
 * inharetance vs delagation conposiotion for ItemEntity and Bloc or Cubit
+
+* check if having BLoc and Cubit is a good Idea
+
+* extract _buildLoading() to a widget
+
 == Done
 
 * from update navigate to link_item_list_edit_page where I have selected alll the usersrs that
