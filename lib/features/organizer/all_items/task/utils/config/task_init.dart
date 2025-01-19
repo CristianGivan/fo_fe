@@ -6,10 +6,10 @@ import 'package:fo_fe/features/organizer/all_items/task/data/datasources/task_re
 import 'package:fo_fe/features/organizer/all_items/task/data/repositories/task_repository_drift.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/repositories/task_repository.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/export_task_to_excel_use_case.dart';
-import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_reminder_link/update_reminder_items_of_task_use_case.dart';
-import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_user_link/update_items_of_item_use_case.dart';
-import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_user_link/update_task_user_link_usecase.dart';
-import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_user_link/update_user_items_of_task_use_case.dart';
+import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_link_use_case/generic_handler_registry.dart';
+import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_link_use_case/get_task_link_handler.dart';
+import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_link_use_case/update_task_link_handler.dart';
+import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_link_use_case/update_task_link_use_case.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/update_task_dto_use_case.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/logic/task_cubit/task_form_cubit.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
@@ -34,21 +34,18 @@ void taskInit() {
         localDataSource: sl<TaskLocalDataSourceDrift>(),
       ));
 
-  // Task Reminder Use cases
-  sl.registerLazySingleton(() => GetReminderItemsByTaskIdUseCase(sl()));
-  sl.registerLazySingleton(() => UpdateReminderItemsOfTaskUseCase(sl()));
+  // Register GenericHandlerRegistry
+  sl.registerLazySingleton<GenericHandlerRegistry>(() => GenericHandlerRegistry());
 
-  // Task Tag Use cases
-  sl.registerLazySingleton(() => GetTagEntitiesByTaskIdUseCase(sl()));
-  sl.registerLazySingleton(() => UpdateTagItemsOfTaskUseCase(sl()));
+  // Register Handlers
+  registerHandlers(sl<GenericHandlerRegistry>(), sl<TaskRepository>());
 
-  // Task User Use cases
-  sl.registerLazySingleton(() => GetCreatorByTaskIdUseCase(sl()));
-  sl.registerLazySingleton(() => GetLinkEntitiesByItemIdUseCase<ItemEntity>(sl()));
-  sl.registerLazySingleton(() => UpdateItemsOfItemUseCase<User>(sl()));
-  sl.registerLazySingleton(() => UpdateItemsOfItemUseCase<Tag>(sl()));
-  sl.registerLazySingleton(() => UpdateTaskUserLinkUseCase(sl()));
-  sl.registerLazySingleton(() => UpdateUserItemsOfTaskUseCase(sl()));
+  // Task Link Use Cases
+
+  sl.registerLazySingleton(() => GetTaskLinkUseCase<UserEntity>(sl()));
+  sl.registerLazySingleton(() => GetTaskLinkUseCase<TagEntity>(sl()));
+  sl.registerLazySingleton(() => UpdateTaskLinkUseCase<UserEntity>(sl()));
+  sl.registerLazySingleton(() => UpdateTaskLinkUseCase<TagEntity>(sl()));
 
   // Task Use cases
   sl.registerLazySingleton(() => GetItemsFromLogInUserUseCase<TaskDto>(sl(), sl(), sl()));
@@ -73,6 +70,20 @@ void taskInit() {
 
   sl.registerFactory(() => TaskFormCubit());
 
+  sl.registerFactory(() => TaskUserLinkBloc(
+      getTaskUserUseCase: sl<GetTaskLinkUseCase<UserEntity>>(),
+      updateTaskUserUseCase: sl<UpdateTaskLinkUseCase<UserEntity>>()));
+
   // Task Export Service
   sl.registerLazySingleton(() => ExportTaskToExcelUseCase(sl()));
+}
+
+void registerHandlers(GenericHandlerRegistry registry, TaskRepository taskRepository) {
+  // Get Handlers
+  registry.registerGetHandler<UserEntity>(TaskUserHandler(taskRepository));
+  registry.registerGetHandler<TagEntity>(TaskTagHandler(taskRepository));
+
+  // Update Handlers
+  registry.registerUpdateHandler<UserEntity>(TaskUserUpdateHandler(taskRepository));
+  registry.registerUpdateHandler<TagEntity>(TaskTagUpdateHandler(taskRepository));
 }

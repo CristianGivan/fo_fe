@@ -8,7 +8,7 @@ import 'package:fo_fe/features/organizer/presentation/cubit/organizer_cubit.dart
 import '../../../features/organizer/utils/organizer_exports.dart';
 
 class ItemLinkItemsUpdatePage<T extends ItemEntity> extends StatefulWidget {
-  final ItemsLinkParams params;
+  final ItemLinkParams params;
   final OrganizerItems<T> initSelectedItems;
 
   const ItemLinkItemsUpdatePage({super.key, required this.params, required this.initSelectedItems});
@@ -36,7 +36,7 @@ class _ItemLinkItemsUpdatePageState<T extends ItemEntity> extends State<ItemLink
     selectedItemsChecked = widget.initSelectedItems as OrganizerItems<T>;
 
     itemCubit = context.read<OrganizerCubit<T>>();
-    itemCubit.getEntitiesFromUser(widget.params.forUserId);
+    itemCubit.getEntitiesFromUser(widget.params.userId);
   }
 
   @override
@@ -57,8 +57,8 @@ class _ItemLinkItemsUpdatePageState<T extends ItemEntity> extends State<ItemLink
   }
 
   List<PopupMenuEntry> _getMenuItems(BuildContext context) {
-    final updatedItems = UpdateItemsOfItemParams<T>(
-      itemId: widget.params.id,
+    final updatedItems = UpdateLinkParams<T>(
+      itemId: widget.params.itemId,
       itemType: widget.params.itemType,
       addedItems: allItemsChecked,
       removedItems: selectedItemsUnchecked,

@@ -1,20 +1,20 @@
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-abstract class ItemsLinkParams extends Equatable {
-  final int id;
+abstract class ItemLinkParams extends Equatable {
+  final int itemId;
+  final int userId;
   final IdSet idSet;
-  final int forUserId;
   final ItemsTypeEnum itemType;
   final String pushUpdateRoute;
 
-  ItemsLinkParams({
-    required this.id,
+  ItemLinkParams({
+    required this.itemId,
     IdSet? idSet,
-    this.forUserId = 0,
+    this.userId = 0,
     this.itemType = ItemsTypeEnum.undefine,
     required this.pushUpdateRoute,
   }) : idSet = idSet ?? IdSet.empty();
 
   @override
-  List<Object> get props => [id, idSet, forUserId, itemType, pushUpdateRoute];
+  List<Object> get props => [itemId, idSet, userId, itemType, pushUpdateRoute];
 }

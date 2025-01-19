@@ -1,15 +1,15 @@
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class TaskReminderLinkParams extends ItemsLinkParams {
+class TaskReminderLinkParams extends ItemLinkParams {
   TaskReminderLinkParams({
     required int id,
     IdSet? idSet,
     int forUserId = 0,
     required String pushUpdateRoute,
   }) : super(
-          id: id,
+          itemId: id,
           idSet: idSet,
-          forUserId: forUserId,
+          userId: forUserId,
           itemType: ItemsTypeEnum.taskReminder,
           pushUpdateRoute: pushUpdateRoute,
         );

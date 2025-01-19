@@ -2,15 +2,15 @@ import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 import '../../../../all_items/task/utils/task_exports.dart';
 
-class TaskUserLinkParams extends ItemsLinkParams {
+class TaskUserLinkParams extends ItemLinkParams {
   TaskUserLinkParams({
     required int id,
     IdSet? idSet,
     int forUserId = 0,
   }) : super(
-          id: id,
+          itemId: id,
           idSet: idSet,
-          forUserId: forUserId,
+          userId: forUserId,
           itemType: ItemsTypeEnum.taskUser,
           pushUpdateRoute: TaskRouterNames.taskUpdateUserRouteName,
         );

@@ -70,6 +70,10 @@ registerd for several tings What shall I use fo rgeneric type
 
 == Now
 
+UpdateLinkEntitiesOfTaskUseCase or UpdateTaskLinkUseCase
+
+* GetLinkedEntitiesHandler  make it more generic
+
 * create a usecase for getting the entities by userID or shall I have only the DTO?
 
 * _onLoading and _onFailure are not shared

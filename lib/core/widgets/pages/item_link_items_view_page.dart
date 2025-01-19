@@ -3,7 +3,7 @@ import 'package:fo_fe/core/widgets/pages/link_item_list_view_page.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class ItemLinkItemsViewPage<T extends ItemEntity> extends StatelessWidget {
-  final ItemsLinkParams params;
+  final ItemLinkParams params;
 
   const ItemLinkItemsViewPage({super.key, required this.params});
 
@@ -13,7 +13,6 @@ class ItemLinkItemsViewPage<T extends ItemEntity> extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         final itemLinkItemsBloc = context.read<OrganizerLinkBloc<T>>();
-        // Trigger the initial event if the state is in the initial status
         if (state.status == OrganizerBlocStatus.initial) {
           itemLinkItemsBloc.add(GetItemsOfItemBlocEvent(params));
         }

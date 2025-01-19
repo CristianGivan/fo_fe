@@ -14,7 +14,7 @@ class TagItemNavigator extends BaseItemNavigator<Tag> {
     OrganizerItems<Tag> items,
     OrganizerItems<Tag> updatedItems,
   ) {
-    context.read<ItemTagLinkBloc>().add(
+    context.read<TaskTagLinkBloc>().add(
             // UpdateTagItemsOfTaskBlocEvent(
             //   taskId: taskId,
             //   tagItems: items,

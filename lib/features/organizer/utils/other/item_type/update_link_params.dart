@@ -1,13 +1,13 @@
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class UpdateItemsOfItemParams<T extends ItemEntity> extends ItemParams {
+class UpdateLinkParams<T extends ItemEntity> extends ItemParams {
   final int itemId;
   final OrganizerItems<T> items;
   final OrganizerItems<T> updatedItems;
   final OrganizerItems<T> addedItems;
   final OrganizerItems<T> removedItems;
 
-  UpdateItemsOfItemParams({
+  UpdateLinkParams({
     required this.itemId,
     super.itemType,
     OrganizerItems<T>? items,

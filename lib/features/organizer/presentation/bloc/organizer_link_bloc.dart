@@ -4,8 +4,8 @@ import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 abstract class OrganizerLinkBloc<T extends ItemEntity>
     extends Bloc<OrganizerLinkBlocEvent, OrganizerBlocState<T>> {
-  final Future<Either<Failure, OrganizerItems<T>>> Function(ItemsLinkParams params) getItemsLinked;
-  final Future<Either<Failure, OrganizerItems<T>>> Function(UpdateItemsOfItemParams params)
+  final Future<Either<Failure, OrganizerItems<T>>> Function(ItemLinkParams params) getItemsLinked;
+  final Future<Either<Failure, OrganizerItems<T>>> Function(UpdateLinkParams<T> params)
       updateItemsLinked;
 
   OrganizerLinkBloc({
@@ -15,7 +15,7 @@ abstract class OrganizerLinkBloc<T extends ItemEntity>
 
   void setupEventHandlers() {
     on<GetItemsOfItemBlocEvent>(_onGetItemsLinked);
-    on<UpdateItemsOfItemBlocEvent>(_onUpdateItemsLinked);
+    on<UpdateItemsOfItemBlocEvent<T>>(_onUpdateItemsLinked);
   }
 
 // todo -refactor- to many nested functions
@@ -33,7 +33,7 @@ abstract class OrganizerLinkBloc<T extends ItemEntity>
   }
 
   Future<void> _onUpdateItemsLinked(
-    UpdateItemsOfItemBlocEvent event,
+    UpdateItemsOfItemBlocEvent<T> event,
     Emitter<OrganizerBlocState<T>> emit,
   ) async {
     await handleEvent(
