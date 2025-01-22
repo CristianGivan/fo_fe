@@ -80,11 +80,11 @@ class TaskBloc extends OrganizerBloc<TaskDto> {
 
   String _mapFailureToMessage(Failure failure) {
     switch (failure.runtimeType) {
-      case NetworkFailure:
+      case const (NetworkFailure):
         return 'Network error occurred';
-      case ServerFailure:
+      case const (ServerFailure):
         return 'Server error occurred';
-      case CacheFailure:
+      case const (CacheFailure):
         return 'Cache error occurred';
       default:
         return 'An error occurred: \n ${failure.message}';
