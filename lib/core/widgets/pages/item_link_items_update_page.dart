@@ -131,13 +131,6 @@ class _ItemLinkItemsUpdatePageState<T extends ItemEntity> extends State<ItemLink
     });
   }
 
-  void _updateSelectedItems(OrganizerItems<T> items) {
-    setState(() {
-      selectedItemsChecked = items;
-      selectedItemsUnchecked = OrganizerItems.empty();
-    });
-  }
-
   void _updateAllItems(OrganizerItems<T> items) {
     setState(() {
       allItemsChecked = OrganizerItems.empty();

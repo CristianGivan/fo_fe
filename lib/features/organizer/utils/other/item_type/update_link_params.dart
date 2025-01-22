@@ -21,5 +21,5 @@ class UpdateLinkParams<T extends ItemEntity> {
   get pushCreateLinkItemRoute => itemLinkParams.pushCreateLinkItemRoute;
 
   @override
-  List<Object> get props => [itemLinkParams, addedItems, removedItems];
+  List<Object> get props => [super.props, itemLinkParams, addedItems, removedItems];
 }

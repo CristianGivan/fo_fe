@@ -15,8 +15,6 @@ Widget buildBlocStateWidget({
       return (buildLoadingState ?? _buildLoadingIndicator)();
     case OrganizerBlocStatus.loaded:
       return buildLoadedState();
-    default:
-      return Center(child: Text("State undefined"));
   }
 }
 
@@ -41,7 +39,5 @@ Widget buildCubitStateWidget<T extends ItemEntity>({
     case OrganizerCubitStatus.loaded:
       return buildLoadedState(state.entities ?? OrganizerItems<T>.empty());
     case OrganizerCubitStatus.initial:
-    default:
-      return Center(child: Text("State undefined or initial"));
   }
 }
