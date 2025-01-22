@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:fo_fe/features/organizer/all_items/tag/presentation/screen/tag_add_screen.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
@@ -10,9 +10,8 @@ class TagRoutes {
       path: TagRouterNames.tagRoutePath,
       name: TagRouterNames.tagRouteName,
       pageBuilder: (context, state) {
-        final tagItems = state.extra as OrganizerItems<TagEntity>?;
         return MaterialPage(
-          child: TagScreen(tagItems: tagItems ?? OrganizerItems.empty()),
+          child: TagScreen(),
         );
       },
       routes: [

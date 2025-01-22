@@ -6,6 +6,7 @@ abstract class ItemLinkParams extends Equatable {
   final IdSet idSet;
   final ItemsTypeEnum itemType;
   final String pushUpdateRoute;
+  final String pushCreateLinkItemRoute;
 
   ItemLinkParams({
     required this.itemId,
@@ -13,8 +14,10 @@ abstract class ItemLinkParams extends Equatable {
     this.userId = 0,
     this.itemType = ItemsTypeEnum.undefine,
     required this.pushUpdateRoute,
+    required this.pushCreateLinkItemRoute,
   }) : idSet = idSet ?? IdSet.empty();
 
   @override
-  List<Object> get props => [itemId, idSet, userId, itemType, pushUpdateRoute];
+  List<Object> get props =>
+      [itemId, idSet, userId, itemType, pushUpdateRoute, pushCreateLinkItemRoute];
 }

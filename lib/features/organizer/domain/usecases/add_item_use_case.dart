@@ -6,6 +6,9 @@ import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 import '../../all_items/task/domain/repositories/task_repository.dart';
 
+// todo -decide-
+//v1 to have a generic use case that will have  depending on the type be writen in different class
+
 class AddItemUseCase<T extends DtoEntity> extends UseCase<T, ItemEntity> {
   final TaskRepository repository;
   final ItemsTypeEnum itemsType;

@@ -58,8 +58,7 @@ class _ItemLinkItemsUpdatePageState<T extends ItemEntity> extends State<ItemLink
 
   List<PopupMenuEntry> _getMenuItems(BuildContext context) {
     final updatedItems = UpdateLinkParams<T>(
-      itemId: widget.params.itemId,
-      itemType: widget.params.itemType,
+      itemLinkParams: widget.params,
       addedItems: allItemsChecked,
       removedItems: selectedItemsUnchecked,
     );

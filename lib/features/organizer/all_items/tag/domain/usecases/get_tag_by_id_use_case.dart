@@ -3,7 +3,7 @@ import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/usecase/usecase.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/domain/entities/tag_entity.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/domain/repositories/tag_repository.dart';
-import 'package:fo_fe/features/organizer/all_items/tag/utils/parameters/tag_params.dart';
+import 'package:fo_fe/features/organizer/all_items/tag/utils/other/tag_params.dart';
 
 class GetTagByIdUseCase extends UseCase<TagEntity?, TagParams> {
   final TagRepository repository;
@@ -12,6 +12,6 @@ class GetTagByIdUseCase extends UseCase<TagEntity?, TagParams> {
 
   @override
   Future<Either<Failure, TagEntity?>> call(TagParams params) async {
-    return await repository.getTagById(params.tagId);
+    return await repository.getTagById(params.id);
   }
 }

@@ -12,17 +12,10 @@ class TaskListPage extends StatelessWidget {
     return BlocBuilder<TaskBloc, OrganizerBlocState>(builder: (context, state) {
       return buildBlocStateWidget(
         state: state,
-        buildErrorState: _buildErrorState,
-        buildLoadingState: _buildLoadingState,
         buildLoadedState: () => _buildTaskListDto(context, state.displayedItems),
       );
     });
   }
-
-  Widget _buildErrorState(String? message) =>
-      Center(child: Text(message ?? "Unknown error occurred"));
-
-  Widget _buildLoadingState() => const Center(child: CircularProgressIndicator());
 
   Widget _buildTaskListDto(BuildContext context, OrganizerItems<ItemEntity> itemList) {
     final taskDtoList = itemList.convertTo<TaskDto>();

@@ -5,20 +5,20 @@ import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 class TagParams extends ItemParams {
   final TagEntity tagEntity;
   final TagUserLinkEntity tagUserLinkEntity;
-  final Tag tagDto;
+  final Tag tag;
   final OrganizerItems<Tag> tagItems;
 
   TagParams({
     required int id,
-    TagEntity? tag,
+    TagEntity? tagEntity,
     TagUserLinkEntity? tagUserLinkEntity,
-    Tag? tagDto,
+    Tag? tag,
     IdSet? idSet,
     int? forUserId,
     OrganizerItems<Tag>? tagItems,
-  })  : tagEntity = tag ?? TagEntity.empty(),
+  })  : tagEntity = tagEntity ?? TagEntity.empty(),
         tagUserLinkEntity = tagUserLinkEntity ?? TagUserLinkEntity.empty(),
-        tagDto = tagDto ?? Tag(tag: TagEntity.empty(), tagUserLink: TagUserLinkEntity.empty()),
+        tag = tag ?? Tag.empty,
         tagItems = tagItems ?? OrganizerItems.empty(),
         super(
           id: id,
@@ -28,7 +28,7 @@ class TagParams extends ItemParams {
         );
 
   TagParams copyWith({
-    TagEntity? tag,
+    TagEntity? tagEntity,
     TagUserLinkEntity? tagUserLinkEntity,
     Tag? tagDto,
     int? id,
@@ -36,9 +36,9 @@ class TagParams extends ItemParams {
     int? forUserId,
   }) {
     return TagParams(
-      tag: tag ?? this.tagEntity,
+      tagEntity: tagEntity ?? this.tagEntity,
       tagUserLinkEntity: tagUserLinkEntity ?? this.tagUserLinkEntity,
-      tagDto: tagDto ?? this.tagDto,
+      tag: tagDto ?? this.tag,
       id: id ?? this.id,
       idSet: idSet ?? this.idSet,
       forUserId: forUserId ?? this.forUserId,
@@ -46,7 +46,7 @@ class TagParams extends ItemParams {
   }
 
   @override
-  List<Object> get props => [tagEntity, tagUserLinkEntity, tagDto, ...super.props];
+  List<Object> get props => [tagEntity, tagUserLinkEntity, tag, ...super.props];
 
   get itemReturnType => super.itemType;
 }

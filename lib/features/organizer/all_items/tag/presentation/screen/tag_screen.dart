@@ -1,66 +1,28 @@
+import 'package:fo_fe/core/widgets/core_widget_exports.dart';
+import 'package:fo_fe/features/organizer/all_items/tag/presentation/logic/tag_bloc/tag_bloc.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/presentation/pages/tag_list_page.dart';
-import 'package:fo_fe/features/organizer/all_items/tag/presentation/pages/tag_management_actions_page.dart';
-import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
+import 'package:fo_fe/features/organizer/all_items/tag/presentation/widgets/tag_screen_actions_menu.dart';
+import 'package:fo_fe/features/organizer/all_items/tag/utils/other/tag_params.dart';
+import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_strings.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class TagScreen extends StatefulWidget {
-  final OrganizerItems<TagEntity> tagItems;
-
-  const TagScreen({super.key, required this.tagItems});
-
-  @override
-  _TagScreenState createState() => _TagScreenState();
-}
-
-class _TagScreenState extends State<TagScreen> {
-  late OrganizerItems<TagEntity> selectedItems;
-
-  @override
-  void initState() {
-    super.initState();
-    selectedItems = widget.tagItems;
-  }
+class TagScreen extends StatelessWidget {
+  const TagScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    _loadTags(context);
-
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Tag Management'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            context.pop(selectedItems);
-          },
-        ),
-      ),
-      body: Column(
-        children: [
-          const Center(child: Text('All Tags:')),
-          _buildTagList(context),
-          TagManagementActionsPage(selectedTags: selectedItems),
-        ],
-      ),
+    return AppContentScreen(
+      fetchItemsForLoggedInUser: _getTagItemsFromLoggedInUser,
+      appBarTitle: TagStrings().screenTitle,
+      body: TagListPage(),
+      menuOptions: (context, userId) => TagScreenActionsMenu.getMenuItems(context),
+      onSearchSubmitted: () {},
     );
   }
 
-  void _loadTags(BuildContext context) {
-    context.read<TagBlocTag>().add(GetTagItemsAllBlocEvent());
-  }
-
-  Widget _buildTagList(BuildContext context) {
-    return Expanded(
-      child: TagListPage(
-        onSelectTag: (tag) {
-          setState(() {
-            var builder = selectedItems.toBuilder();
-            builder.contains(tag) ? builder.remove(tag) : builder.add(tag);
-            selectedItems = builder.build();
-          });
-        },
-        selectedTags: selectedItems,
-      ),
-    );
+  void _getTagItemsFromLoggedInUser(BuildContext context, int userId) {
+    context
+        .read<TagBloc>()
+        .add(GetItemsFromLogInUserBlocEvent(TagParams(id: 0, forUserId: userId)));
   }
 }

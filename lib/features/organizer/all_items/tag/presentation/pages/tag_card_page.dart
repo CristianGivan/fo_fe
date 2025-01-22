@@ -1,13 +1,12 @@
-import 'package:flutter/material.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class TagCardPage extends StatelessWidget {
-  final TagEntity tag;
-  final Function(TagEntity) onUpdateTag;
+  final Tag tag;
+  final Function(Tag) onUpdateTag;
   final Function() onViewTag;
   final Function() onEditTag;
-  final Function(TagEntity) onDeleteTag;
+  final Function(Tag) onDeleteTag;
 
   const TagCardPage({
     super.key,
@@ -30,10 +29,8 @@ class TagCardPage extends StatelessWidget {
           // Add any status change logic for tag if needed
           return false;
         },
-        background:
-            _buildSwipeActionBackground(Icons.arrow_forward, Colors.green),
-        secondaryBackground:
-            _buildSwipeActionBackground(Icons.arrow_back, Colors.red),
+        background: _buildSwipeActionBackground(Icons.arrow_forward, Colors.green),
+        secondaryBackground: _buildSwipeActionBackground(Icons.arrow_back, Colors.red),
         child: Card(
           margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
           elevation: 4.0,

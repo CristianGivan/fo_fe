@@ -1,25 +1,25 @@
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class UpdateLinkParams<T extends ItemEntity> extends ItemParams {
-  final int itemId;
-  final OrganizerItems<T> items;
-  final OrganizerItems<T> updatedItems;
+class UpdateLinkParams<T extends ItemEntity> {
+  final ItemLinkParams itemLinkParams;
   final OrganizerItems<T> addedItems;
   final OrganizerItems<T> removedItems;
 
   UpdateLinkParams({
-    required this.itemId,
-    super.itemType,
-    OrganizerItems<T>? items,
-    OrganizerItems<T>? updatedItems,
+    required this.itemLinkParams,
     OrganizerItems<T>? addedItems,
     OrganizerItems<T>? removedItems,
-  })  : items = items ?? OrganizerItems.empty(),
-        updatedItems = updatedItems ?? OrganizerItems.empty(),
-        addedItems = addedItems ?? OrganizerItems.empty(),
-        removedItems = removedItems ?? OrganizerItems.empty(),
-        super(id: itemId);
+  })  : addedItems = addedItems ?? OrganizerItems.empty(),
+        removedItems = removedItems ?? OrganizerItems.empty();
+
+  get itemId => itemLinkParams.itemId;
+
+  get itemType => itemLinkParams.itemType;
+
+  get pushUpdateRoute => itemLinkParams.pushUpdateRoute;
+
+  get pushCreateLinkItemRoute => itemLinkParams.pushCreateLinkItemRoute;
 
   @override
-  List<Object> get props => [itemId, items, updatedItems, addedItems, removedItems];
+  List<Object> get props => [itemLinkParams, addedItems, removedItems];
 }

@@ -14,6 +14,11 @@ class Tag extends DtoEntity {
           userLink: tagUserLink,
         );
 
+  static get empty => Tag(
+        tag: TagEntity.empty(),
+        tagUserLink: TagUserLinkEntity.empty(),
+      );
+
   Tag copyWith({
     TagEntity? tag,
     TagUserLinkEntity? tagUserLink,

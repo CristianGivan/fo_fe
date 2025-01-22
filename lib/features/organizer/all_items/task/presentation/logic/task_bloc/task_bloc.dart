@@ -4,7 +4,6 @@ import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/export_task_to_excel_use_case.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/update_task_dto_use_case.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
-import 'package:fo_fe/features/organizer/presentation/bloc/organizer_bloc.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 part 'task_bloc_event.dart';

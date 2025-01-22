@@ -1,4 +1,4 @@
-import 'package:fo_fe/features/organizer/all_items/tag/presentation/cubit/tag_cubit.dart';
+import 'package:fo_fe/features/organizer/all_items/tag/presentation/logic/tag_cubit/tag_cubit.dart';
 import 'package:fo_fe/features/organizer/all_items/user/presentation/user_cubit.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 

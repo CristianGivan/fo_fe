@@ -7,7 +7,7 @@ class UpdateItemsOfItemActionsMenu<T extends OrganizerItemEntity> {
       case ItemsTypeEnum.taskUser:
         return _getTaskUserMenuItems(context, params);
       case ItemsTypeEnum.taskTag:
-        return _getTaskTagMenuItems(context);
+        return _getTaskTagMenuItems(context, params);
       case ItemsTypeEnum.taskReminder:
         return _getTaskReminderMenuItems(context);
       default:
@@ -19,13 +19,13 @@ class UpdateItemsOfItemActionsMenu<T extends OrganizerItemEntity> {
     return [
       PopupMenuItem(
         child: Text('Crate New Item'),
-        onTap: () => context.pushNamed(UserRouterNames.userAddRouteName),
+        onTap: () => context.pushNamed(params.pushCreateLinkItemRoute),
       ),
       PopupMenuItem(
         child: Text('Update with Items'),
         onTap: () => {
           context
-              .read<TaskUserLinkBloc>()
+              .read<OrganizerLinkBloc<UserEntity>>()
               .add(UpdateItemsOfItemBlocEvent<UserEntity>(params as UpdateLinkParams<UserEntity>)),
           context.pop()
         },
@@ -33,15 +33,21 @@ class UpdateItemsOfItemActionsMenu<T extends OrganizerItemEntity> {
     ];
   }
 
-  static _getTaskTagMenuItems(BuildContext context) {
+  static _getTaskTagMenuItems(BuildContext context, UpdateLinkParams params) {
     return [
       PopupMenuItem(
-        child: Text('Add Items'),
-        onTap: () {
-          // context.read<TaskTagLinkBloc>().add(UpdateItemsOfItemBlocEvent(params));
-          context.pop();
-        },
+        child: Text('Crate New Tag'),
+        onTap: () => context.pushNamed(params.pushCreateLinkItemRoute),
       ),
+      PopupMenuItem(
+        child: Text('Update with Items'),
+        onTap: () => {
+          context
+              .read<OrganizerLinkBloc<UserEntity>>()
+              .add(UpdateItemsOfItemBlocEvent<UserEntity>(params as UpdateLinkParams<UserEntity>)),
+          context.pop()
+        },
+      )
     ];
   }
 

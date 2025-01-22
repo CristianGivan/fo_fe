@@ -4,6 +4,10 @@
 ** "Of" conveys ownership or association. Since you’re dealing with a set of links that already
 belong to the item (with the potential to modify, add, or remove elements in that set), this naming captures the complete scope of the operation more effectively.
 
+* Dto suffix for data transfer objects
+** I used more generic because other terms like link or view may confuse with other elements in
+the future
+
 == External Libraries
 
 * don't use external libraries unless you have to, keep the dependencies to a minimum

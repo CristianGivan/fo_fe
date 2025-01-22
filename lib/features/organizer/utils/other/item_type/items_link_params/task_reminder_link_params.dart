@@ -1,3 +1,4 @@
+import 'package:fo_fe/features/organizer/all_items/reminder/utils/reminder_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class TaskReminderLinkParams extends ItemLinkParams {
@@ -12,5 +13,6 @@ class TaskReminderLinkParams extends ItemLinkParams {
           userId: forUserId,
           itemType: ItemsTypeEnum.taskReminder,
           pushUpdateRoute: pushUpdateRoute,
+          pushCreateLinkItemRoute: ReminderRouterNames.reminderAddRouteName,
         );
 }
