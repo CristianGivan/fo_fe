@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/export_task_to_excel_use_case.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/update_task_dto_use_case.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
@@ -78,16 +77,16 @@ class TaskBloc extends OrganizerBloc<TaskDto> {
     //   }
   }
 
-  String _mapFailureToMessage(Failure failure) {
-    switch (failure.runtimeType) {
-      case const (NetworkFailure):
-        return 'Network error occurred';
-      case const (ServerFailure):
-        return 'Server error occurred';
-      case const (CacheFailure):
-        return 'Cache error occurred';
-      default:
-        return 'An error occurred: \n ${failure.message}';
-    }
-  }
+  // String _mapFailureToMessage(Failure failure) {
+  //   switch (failure.runtimeType) {
+  //     case const (NetworkFailure):
+  //       return 'Network error occurred';
+  //     case const (ServerFailure):
+  //       return 'Server error occurred';
+  //     case const (CacheFailure):
+  //       return 'Cache error occurred';
+  //     default:
+  //       return 'An error occurred: \n ${failure.message}';
+  //   }
+  // }
 }

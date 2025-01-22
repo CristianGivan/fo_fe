@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/utils/other/tag_params.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
@@ -77,16 +76,16 @@ class TagBloc extends OrganizerBloc<Tag> {
   //   //   }
   // }
 
-  String _mapFailureToMessage(Failure failure) {
-    switch (failure.runtimeType) {
-      case const (NetworkFailure):
-        return 'Network error occurred';
-      case const (ServerFailure):
-        return 'Server error occurred';
-      case const (CacheFailure):
-        return 'Cache error occurred';
-      default:
-        return 'An error occurred: \n ${failure.message}';
-    }
-  }
+  // String _mapFailureToMessage(Failure failure) {
+  //   switch (failure.runtimeType) {
+  //     case const (NetworkFailure):
+  //       return 'Network error occurred';
+  //     case const (ServerFailure):
+  //       return 'Server error occurred';
+  //     case const (CacheFailure):
+  //       return 'Cache error occurred';
+  //     default:
+  //       return 'An error occurred: \n ${failure.message}';
+  //   }
+  // }
 }
