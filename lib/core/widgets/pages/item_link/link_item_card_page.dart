@@ -1,6 +1,6 @@
 import 'package:fo_fe/features/organizer/domain/entities/organizer_item_entity.dart';
 
-import '../../utils/exports/external_exports.dart';
+import '../../../utils/exports/external_exports.dart';
 
 class LinkItemCardPage<T extends OrganizerItemEntity> extends StatelessWidget {
   final T item;

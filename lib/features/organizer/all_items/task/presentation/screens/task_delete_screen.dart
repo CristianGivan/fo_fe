@@ -45,10 +45,10 @@ class _TaskDeleteScreenState extends State<TaskDeleteScreen> {
       return Center(child: Text('No items to display'));
     } else {
       return ItemListViewPage<TaskDto>(
-        itemDtoList: selectedTaskDtoList,
+        itemsDto: selectedTaskDtoList,
         itemCardBuilder: (itemDto) => TaskCard(itemDto),
         value: _isSelected,
-        updateItemUserLink: _updateTaskUserLink,
+        onChange: _updateTaskUserLink,
       );
     }
   }

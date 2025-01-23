@@ -63,11 +63,11 @@ class TagRepositoryDrift implements TagRepository {
   }
 
   @override
-  Future<Either<Failure, OrganizerItems<Tag>>> getTagItemsFromUser(int forUserId) {
+  Future<Either<Failure, OrganizerItems<TagDto>>> getTagItemsFromUser(int forUserId) {
     return _handleDatabaseOperation(() async {
       final rows = await localDataSource.getTagItemsFromUser(forUserId);
       if (rows == null || rows.isEmpty) {
-        return OrganizerItems<Tag>.empty();
+        return OrganizerItems<TagDto>.empty();
       } else {
         return TagMapper.itemsFromRows(rows);
       }

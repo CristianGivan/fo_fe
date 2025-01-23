@@ -18,5 +18,5 @@ abstract class TagRepository {
 
   Future<Either<Failure, OrganizerItems<TagEntity>>> getTagEntitiesFromUser(int userId);
 
-  Future<Either<Failure, OrganizerItems<Tag>>> getTagItemsFromUser(int userId);
+  Future<Either<Failure, OrganizerItems<TagDto>>> getTagItemsFromUser(int userId);
 }

@@ -1,4 +1,4 @@
-import 'package:fo_fe/core/widgets/pages/item_list_view_page.dart';
+import 'package:fo_fe/core/widgets/pages/item/item_list_view_page.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/presentation/logic/tag_bloc/tag_bloc.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/utils/other/tag_params.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
@@ -26,24 +26,24 @@ class TagListPage extends StatelessWidget {
   Widget _buildLoadingState() => const Center(child: CircularProgressIndicator());
 
   Widget _buildTagListDto(BuildContext context, OrganizerItems<ItemEntity> itemList) {
-    final tagDtoList = itemList.convertTo<Tag>();
+    final tagDtoList = itemList.convertTo<TagDto>();
     if (tagDtoList.isEmpty) {
       return Center(child: Text('No items to display'));
     } else {
-      return ItemListViewPage<Tag>(
-        itemDtoList: tagDtoList,
+      return ItemListViewPage<TagDto>(
+        itemsDto: tagDtoList,
         itemCardBuilder: (tag) => Placeholder(),
         value: _isSelected,
-        updateItemUserLink: _updateTagUserLink,
+        onChange: _updateTagUserLink,
       );
     }
   }
 
-  bool _isSelected(Tag tag) {
+  bool _isSelected(TagDto tag) {
     return tag.tagUserLink.isSelectedByUser;
   }
 
-  void _updateTagUserLink(BuildContext context, Tag tag, bool value) {
+  void _updateTagUserLink(BuildContext context, TagDto tag, bool value) {
     final updatedTagUserLink = tag.tagUserLink.copyWith(isSelectedByUser: value);
     context.read<TagBloc>().add(UpdateTagBlocEvent(TagParams(
           id: tag.id,

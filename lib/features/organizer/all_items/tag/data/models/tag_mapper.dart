@@ -84,9 +84,9 @@ class TagMapper {
     };
   }
 
-  static OrganizerItems<Tag> itemsFromRows(List<QueryRow> rows) {
-    List<Tag> items = rows
-        .map((row) => Tag(
+  static OrganizerItems<TagDto> itemsFromRows(List<QueryRow> rows) {
+    List<TagDto> items = rows
+        .map((row) => TagDto(
               tag: tagEntityFromRow(row),
               tagUserLink: TagUserLinkMapper.rowToTagUserEntity(row),
             ))

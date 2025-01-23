@@ -2,11 +2,11 @@ import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class TagCardPage extends StatelessWidget {
-  final Tag tag;
-  final Function(Tag) onUpdateTag;
+  final TagDto tag;
+  final Function(TagDto) onUpdateTag;
   final Function() onViewTag;
   final Function() onEditTag;
-  final Function(Tag) onDeleteTag;
+  final Function(TagDto) onDeleteTag;
 
   const TagCardPage({
     super.key,

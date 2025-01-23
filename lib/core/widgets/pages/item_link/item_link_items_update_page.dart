@@ -5,7 +5,7 @@ import 'package:fo_fe/features/organizer/all_items/task/presentation/widgets/upd
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/presentation/cubit/organizer_cubit.dart';
 
-import '../../../features/organizer/utils/organizer_exports.dart';
+import '../../../../features/organizer/utils/organizer_exports.dart';
 
 class ItemLinkItemsUpdatePage<T extends ItemEntity> extends StatefulWidget {
   final ItemLinkParams params;

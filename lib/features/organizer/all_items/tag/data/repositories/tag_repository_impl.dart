@@ -51,7 +51,7 @@ class TagRepositoryImpl implements TagRepository {
   }
 
   @override
-  Future<Either<Failure, OrganizerItems<Tag>>> getTagItemsFromUser(int userId) {
+  Future<Either<Failure, OrganizerItems<TagDto>>> getTagItemsFromUser(int userId) {
     // TODO: implement getTagItemsFromUser
     throw UnimplementedError();
   }

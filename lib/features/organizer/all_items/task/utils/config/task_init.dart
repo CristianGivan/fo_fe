@@ -68,6 +68,16 @@ void taskInit() {
         exportTaskToExcelUseCase: sl(),
       ));
 
+  sl.registerFactory<OrganizerBloc<TaskDto>>(() => TaskBloc(
+        addTask: sl(),
+        deleteTask: sl(),
+        getTasks: sl(),
+        exportTaskToExcelUseCase: sl(),
+        filterTasksUseCase: sl(),
+        sortTasksUseCase: sl(),
+        updateTaskDtoUseCase: sl(),
+      ));
+
   sl.registerFactory(() => TaskFormCubit());
 
   sl.registerFactory(() => TaskUserLinkBloc(

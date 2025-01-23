@@ -7,16 +7,16 @@ import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 part 'tag_bloc_event.dart';
 part 'tag_bloc_state.dart';
 
-class TagBloc extends OrganizerBloc<Tag> {
+class TagBloc extends OrganizerBloc<TagDto> {
   // final TagSortUseCase sortTagsUseCase;
   // final TagFilterUseCase filterTagsUseCase;
   // final UpdateTagUseCase updateTagUseCase;
   // final ExportTagToExcelUseCase exportTagToExcelUseCase;
 
   TagBloc({
-    required AddItemUseCase<Tag> addTag,
-    required GetItemsFromLogInUserUseCase<Tag> getTags,
-    required DeleteItemsUseCase<Tag> deleteTag,
+    required AddItemUseCase<TagDto> addTag,
+    required GetItemsFromLogInUserUseCase<TagDto> getTags,
+    required DeleteItemsUseCase<TagDto> deleteTag,
     // required this.exportTagToExcelUseCase,
     // required this.sortTagsUseCase,
     // required this.filterTagsUseCase,
@@ -34,7 +34,7 @@ class TagBloc extends OrganizerBloc<Tag> {
   }
 
   Future<void> _onExportTagToExcel(
-      ExportTagToExcelBlocEvent event, Emitter<OrganizerBlocState<Tag>> emit) async {
+      ExportTagToExcelBlocEvent event, Emitter<OrganizerBlocState<TagDto>> emit) async {
     // await handleEvent(
     //   emit: emit,
     //   action: () => exportTagToExcelUseCase(event.params),
@@ -43,7 +43,7 @@ class TagBloc extends OrganizerBloc<Tag> {
   }
 
   Future<void> _onUpdateTag(
-      UpdateTagBlocEvent<TagParams> event, Emitter<OrganizerBlocState<Tag>> emit) async {
+      UpdateTagBlocEvent<TagParams> event, Emitter<OrganizerBlocState<TagDto>> emit) async {
     // await handleEvent(
     //   emit: emit,
     //   action: () => updateTagUseCase(event.params),
@@ -52,40 +52,40 @@ class TagBloc extends OrganizerBloc<Tag> {
     // );
   }
 
-  // Future<void> _onSortTags(TagItemsSortBlocEvent<SortTagsParams> event,
-  //     Emitter<OrganizerBlocState<ItemEntity>> emit) async {
-  //   // if (state.status == OrganizerBlocStatus.loaded && state.displayedItems != null) {
-  //   //   final result = await sortTagsUseCase(event.sortParams);
-  //   //   result.fold(
-  //   //     (failure) => emit(state.copyWith(
-  //   //         status: OrganizerBlocStatus.error, errorMessage: _mapFailureToMessage(failure))),
-  //   //     (sortedTags) => emit(state.copyWith(displayedItems: sortedTags)),
-  //   //   );
-  //   // }
-  // }
+// Future<void> _onSortTags(TagItemsSortBlocEvent<SortTagsParams> event,
+//     Emitter<OrganizerBlocState<ItemEntity>> emit) async {
+//   // if (state.status == OrganizerBlocStatus.loaded && state.displayedItems != null) {
+//   //   final result = await sortTagsUseCase(event.sortParams);
+//   //   result.fold(
+//   //     (failure) => emit(state.copyWith(
+//   //         status: OrganizerBlocStatus.error, errorMessage: _mapFailureToMessage(failure))),
+//   //     (sortedTags) => emit(state.copyWith(displayedItems: sortedTags)),
+//   //   );
+//   // }
+// }
 
-  // Future<void> _onFilterTags(TagItemsFilterBlocEvent<FilterTagsParams> event,
-  //     Emitter<OrganizerBlocState<ItemEntity>> emit) async {
-  //   // if (state.status == OrganizerBlocStatus.loaded && state.displayedItems != null) {
-  //   //   final result = await filterTagsUseCase(event.filterParams);
-  //   //   result.fold(
-  //   //     (failure) => emit(state.copyWith(
-  //   //         status: OrganizerBlocStatus.error, errorMessage: _mapFailureToMessage(failure))),
-  //   //     (filteredTags) => emit(state.copyWith(displayedItems: filteredTags)),
-  //   //   );
-  //   //   }
-  // }
+// Future<void> _onFilterTags(TagItemsFilterBlocEvent<FilterTagsParams> event,
+//     Emitter<OrganizerBlocState<ItemEntity>> emit) async {
+//   // if (state.status == OrganizerBlocStatus.loaded && state.displayedItems != null) {
+//   //   final result = await filterTagsUseCase(event.filterParams);
+//   //   result.fold(
+//   //     (failure) => emit(state.copyWith(
+//   //         status: OrganizerBlocStatus.error, errorMessage: _mapFailureToMessage(failure))),
+//   //     (filteredTags) => emit(state.copyWith(displayedItems: filteredTags)),
+//   //   );
+//   //   }
+// }
 
-  // String _mapFailureToMessage(Failure failure) {
-  //   switch (failure.runtimeType) {
-  //     case const (NetworkFailure):
-  //       return 'Network error occurred';
-  //     case const (ServerFailure):
-  //       return 'Server error occurred';
-  //     case const (CacheFailure):
-  //       return 'Cache error occurred';
-  //     default:
-  //       return 'An error occurred: \n ${failure.message}';
-  //   }
-  // }
+// String _mapFailureToMessage(Failure failure) {
+//   switch (failure.runtimeType) {
+//     case const (NetworkFailure):
+//       return 'Network error occurred';
+//     case const (ServerFailure):
+//       return 'Server error occurred';
+//     case const (CacheFailure):
+//       return 'Cache error occurred';
+//     default:
+//       return 'An error occurred: \n ${failure.message}';
+//   }
+// }
 }

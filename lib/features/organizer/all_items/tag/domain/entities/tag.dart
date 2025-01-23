@@ -2,11 +2,11 @@ import 'package:fo_fe/features/organizer/all_items/tag/domain/entities/tag_user_
 import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/domain/entities/dto_entity.dart';
 
-class Tag extends DtoEntity {
+class TagDto extends DtoEntity {
   final TagEntity tag;
   final TagUserLinkEntity tagUserLink;
 
-  Tag({
+  TagDto({
     required this.tag,
     required this.tagUserLink,
   }) : super(
@@ -14,16 +14,16 @@ class Tag extends DtoEntity {
           userLink: tagUserLink,
         );
 
-  static get empty => Tag(
+  static get empty => TagDto(
         tag: TagEntity.empty(),
         tagUserLink: TagUserLinkEntity.empty(),
       );
 
-  Tag copyWith({
+  TagDto copyWith({
     TagEntity? tag,
     TagUserLinkEntity? tagUserLink,
   }) {
-    return Tag(
+    return TagDto(
       tag: tag ?? this.tag,
       tagUserLink: tagUserLink ?? this.tagUserLink,
     );

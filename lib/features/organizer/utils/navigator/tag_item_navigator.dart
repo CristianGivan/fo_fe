@@ -4,15 +4,15 @@ import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 import 'base_item_navigator.dart';
 
-class TagItemNavigator extends BaseItemNavigator<Tag> {
+class TagItemNavigator extends BaseItemNavigator<TagDto> {
   TagItemNavigator() : super(TagRouterNames.tagRouteName);
 
   @override
   void updateItems(
     BuildContext context,
     int taskId,
-    OrganizerItems<Tag> items,
-    OrganizerItems<Tag> updatedItems,
+    OrganizerItems<TagDto> items,
+    OrganizerItems<TagDto> updatedItems,
   ) {
     context.read<TaskTagLinkBloc>().add(
             // UpdateTagItemsOfTaskBlocEvent(

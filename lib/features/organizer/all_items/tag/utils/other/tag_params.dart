@@ -5,20 +5,20 @@ import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 class TagParams extends ItemParams {
   final TagEntity tagEntity;
   final TagUserLinkEntity tagUserLinkEntity;
-  final Tag tag;
-  final OrganizerItems<Tag> tagItems;
+  final TagDto tag;
+  final OrganizerItems<TagDto> tagItems;
 
   TagParams({
     required int id,
     TagEntity? tagEntity,
     TagUserLinkEntity? tagUserLinkEntity,
-    Tag? tag,
+    TagDto? tag,
     IdSet? idSet,
     int? forUserId,
-    OrganizerItems<Tag>? tagItems,
+    OrganizerItems<TagDto>? tagItems,
   })  : tagEntity = tagEntity ?? TagEntity.empty(),
         tagUserLinkEntity = tagUserLinkEntity ?? TagUserLinkEntity.empty(),
-        tag = tag ?? Tag.empty,
+        tag = tag ?? TagDto.empty,
         tagItems = tagItems ?? OrganizerItems.empty(),
         super(
           id: id,
@@ -30,7 +30,7 @@ class TagParams extends ItemParams {
   TagParams copyWith({
     TagEntity? tagEntity,
     TagUserLinkEntity? tagUserLinkEntity,
-    Tag? tagDto,
+    TagDto? tagDto,
     int? id,
     IdSet? idSet,
     int? forUserId,

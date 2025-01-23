@@ -1,5 +1,5 @@
-import 'package:fo_fe/core/widgets/pages/item_link_items_update_page.dart';
-import 'package:fo_fe/core/widgets/pages/link_item_list_view_page.dart';
+import 'package:fo_fe/core/widgets/pages/item_link/item_link_items_update_page.dart';
+import 'package:fo_fe/core/widgets/pages/item_link/link_item_list_view_page.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class ItemLinkItemsViewPage<T extends ItemEntity> extends StatelessWidget {

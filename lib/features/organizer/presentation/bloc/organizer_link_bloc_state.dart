@@ -21,7 +21,7 @@ class ItemLinkUserBlocState extends OrganizerBlocState<User> {
       ];
 }
 
-class ItemLinkTagBlocState extends OrganizerBlocState<Tag> {
+class ItemLinkTagBlocState extends OrganizerBlocState<TagDto> {
   final String? errorMessage;
 
   ItemLinkTagBlocState({

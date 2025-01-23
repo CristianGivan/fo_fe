@@ -1,3 +1,4 @@
+import 'package:fo_fe/core/widgets/core_widget_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/screens/task_delete_screen.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/screens/task_export_to_excel_screen.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/screens/task_update_screen.dart';
@@ -10,7 +11,7 @@ class TaskRoutes {
     return GoRoute(
       path: TaskRouterNames.taskRoutePath,
       name: TaskRouterNames.taskRouteName,
-      pageBuilder: (context, state) => const NoTransitionPage(child: TaskScreen()),
+      pageBuilder: (context, state) => const NoTransitionPage(child: ItemScreen<TaskDto>()),
       routes: [
         GoRoute(
           path: TaskRouterNames.taskAddRoutePath,
