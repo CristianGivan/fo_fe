@@ -1,9 +1,10 @@
 import 'package:fo_fe/core/widgets/core_widget_exports.dart';
-import 'package:fo_fe/features/organizer/all_items/task/presentation/pages/task_card_page.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/widgets/task_delete_screen_actions_menu.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 import 'package:fo_fe/features/organizer/utils/set_and_list/organizer_items_transform.dart';
+
+import '../../../../../../core/widgets/pages/item/item_card.dart';
 
 class TaskDeleteScreen extends StatefulWidget {
   const TaskDeleteScreen({super.key});
@@ -46,7 +47,7 @@ class _TaskDeleteScreenState extends State<TaskDeleteScreen> {
     } else {
       return ItemListViewPage<TaskDto>(
         itemsDto: selectedTaskDtoList,
-        itemCardBuilder: (itemDto) => TaskCard(itemDto),
+        itemCardBuilder: (itemDto) => ItemCard<TaskDto>(itemDto),
         value: _isSelected,
         onChange: _updateTaskUserLink,
       );

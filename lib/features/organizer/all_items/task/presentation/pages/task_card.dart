@@ -5,12 +5,9 @@ import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart'
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class TaskCard extends StatelessWidget {
-  final TaskEntity task;
+  final TaskEntity itemEntity;
 
-  TaskCard(
-    TaskDto taskDto, {
-    super.key,
-  }) : task = taskDto.task;
+  const TaskCard(this.itemEntity, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,22 +15,22 @@ class TaskCard extends StatelessWidget {
       onTap: () => _handleTap(context),
       onLongPress: () => _handleLongPress(context),
       onConfirmDismiss: (direction, context) => _handleConfirmDismiss(direction, context),
-      child: TaskCardWidget(task: task),
+      child: TaskCardWidget(task: itemEntity),
     );
   }
 
   void _handleTap(BuildContext context) {
-    context.pushNamed(TaskRouterNames.taskViewRouteName, extra: task.id);
+    context.pushNamed(TaskRouterNames.taskViewRouteName, extra: itemEntity.id);
   }
 
   void _handleLongPress(BuildContext context) {
-    context.pushNamed(TaskRouterNames.taskUpdateRouteName, extra: task.id);
+    context.pushNamed(TaskRouterNames.taskUpdateRouteName, extra: itemEntity.id);
   }
 
   Future<bool> _handleConfirmDismiss(DismissDirection direction, BuildContext context) async {
-    TaskStatus newStatus = _getNewStatus(direction, task.taskStatus!);
+    TaskStatus newStatus = _getNewStatus(direction, itemEntity.taskStatus!);
 
-    final updatedTask = task.copyWith(taskStatus: newStatus);
+    final updatedTask = itemEntity.copyWith(taskStatus: newStatus);
     context.read<TaskBloc>().add(UpdateItemBlocEvent(updatedTask));
 
     SnackBarWidget.showAboveBottomNavBar(context, content: 'Task status updated to $newStatus');

@@ -1,5 +1,5 @@
 import 'package:fo_fe/core/widgets/core_widget_exports.dart';
-import 'package:fo_fe/features/organizer/all_items/task/presentation/pages/task_card_page.dart';
+import 'package:fo_fe/core/widgets/pages/item/item_card.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/widgets/task_screen_actions_menu.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/presentation/bloc/dynamic_bloc_resolver.dart';
@@ -35,7 +35,7 @@ class ItemScreen<T extends DtoEntity> extends StatelessWidget {
           state: state,
           buildLoadedState: () => ItemListViewPage<T>(
             itemsDto: state.displayedItems,
-            itemCardBuilder: (itemDto) => TaskCard(itemDto as TaskDto),
+            itemCardBuilder: (itemDto) => ItemCard<T>(itemDto),
             value: _isSelected,
             onChange: (context, itemDto, value) => _updateTaskUserLink(context, itemDto, value),
           ),
