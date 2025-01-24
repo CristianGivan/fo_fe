@@ -17,7 +17,7 @@ void organizerInit() {
 }
 
 void organizerBloc() {
-  sl.registerFactory(() => UpdateItemsOfItemBlocEvent<ItemEntity>(sl()));
+  // sl.registerFactory(() => UpdateItemsOfItemBlocEvent<ItemEntity>(sl()));
   sl.registerLazySingleton(() => GetEntitiesFromUserUseCase(sl(), sl(), sl()));
   sl.registerLazySingleton(() => UpdateItemUseCase(sl()));
 }

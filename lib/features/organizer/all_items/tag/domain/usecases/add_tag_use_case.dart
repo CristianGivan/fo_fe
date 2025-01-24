@@ -1,16 +1,17 @@
 import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/usecase/usecase.dart';
-import 'package:fo_fe/features/organizer/all_items/tag/domain/repositories/tag_repository.dart';
-import 'package:fo_fe/features/organizer/all_items/tag/utils/other/tag_params.dart';
+import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
+import 'package:fo_fe/features/organizer/domain/entities/item_entity.dart';
 
-class AddTagUseCase extends UseCase<int, TagParams> {
+class AddTagUseCase extends UseCase<TagDto, TagEntity> {
   final TagRepository repository;
 
   AddTagUseCase(this.repository);
 
   @override
-  Future<Either<Failure, int>> call(TagParams params) async {
-    return await repository.addTag(params.tagEntity);
+  Future<Either<Failure, TagDto>> call(ItemEntity params) async {
+    //todo -implement-
+    return Future.value(Left(UnImplementedFailure("Invalid params")));
   }
 }

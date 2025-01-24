@@ -1,93 +1,60 @@
 import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
+import 'package:fo_fe/features/organizer/all_items/task/presentation/widgets/item_card_container.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class TagCardPage extends StatelessWidget {
-  final TagDto tag;
-  final Function(TagDto) onUpdateTag;
-  final Function() onViewTag;
-  final Function() onEditTag;
-  final Function(TagDto) onDeleteTag;
+class TagCard extends StatelessWidget {
+  final TagEntity itemEntity;
 
-  const TagCardPage({
+  const TagCard(
+    this.itemEntity, {
     super.key,
-    required this.tag,
-    required this.onUpdateTag,
-    required this.onViewTag,
-    required this.onEditTag,
-    required this.onDeleteTag,
   });
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onViewTag,
-      onLongPress: onEditTag,
-      child: Dismissible(
-        key: Key(tag.id.toString()),
-        direction: DismissDirection.horizontal,
-        confirmDismiss: (direction) async {
-          // Add any status change logic for tag if needed
-          return false;
-        },
-        background: _buildSwipeActionBackground(Icons.arrow_forward, Colors.green),
-        secondaryBackground: _buildSwipeActionBackground(Icons.arrow_back, Colors.red),
-        child: Card(
-          margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-          elevation: 4.0,
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  tag.subject,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.delete, color: Colors.red),
-                  onPressed: () => _showDeleteConfirmation(context),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
+    return ItemCardContainer(
+      onTap: () => _handleTap(context),
+      onLongPress: () => _handleLongPress(context),
+      onConfirmDismiss: (direction, context) => _handleConfirmDismiss(direction, context),
+      child: _build(context),
     );
   }
 
-  void _showDeleteConfirmation(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text("Delete Tag"),
-          content: const Text("Are you sure you want to delete this tag?"),
-          actions: <Widget>[
-            TextButton(
-              child: const Text("Cancel"),
+  void _handleTap(BuildContext context) {
+    context.pushNamed(TagRouterNames.tagViewRouteName, extra: itemEntity.id);
+  }
+
+  void _handleLongPress(BuildContext context) {
+    context.pushNamed(TagRouterNames.tagUpdateRouteName, extra: itemEntity.id);
+  }
+
+  Future<bool> _handleConfirmDismiss(DismissDirection direction, BuildContext context) async {
+    return true;
+  }
+
+  Widget _build(BuildContext context) {
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+      elevation: 4.0,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              itemEntity.subject,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            IconButton(
+              icon: const Icon(Icons.delete, color: Colors.red),
               onPressed: () => context.pop(),
             ),
-            TextButton(
-              child: const Text("Delete"),
-              onPressed: () {
-                onDeleteTag(tag);
-                context.pop();
-              },
-            ),
           ],
-        );
-      },
-    );
-  }
-
-  Widget _buildSwipeActionBackground(IconData icon, Color color) {
-    return Container(
-      color: color,
-      alignment: Alignment.center,
-      child: Icon(icon, color: Colors.white, size: 30),
+        ),
+      ),
     );
   }
 }

@@ -1,13 +1,20 @@
+import 'package:fo_fe/features/organizer/all_items/tag/presentation/logic/tag_bloc/tag_bloc.dart';
+import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-
 class DynamicBlocResolver<T extends ItemEntity> {
+  static final Map<Type, Type> _typeToBloc = {
+    TaskDto: TaskBloc,
+    TagDto: TagBloc,
+  };
+
   static OrganizerBloc<T> resolveBloc<T extends ItemEntity>(BuildContext context) {
-    if (T == TaskDto) {
-      return context.read<TaskBloc>() as OrganizerBloc<T>;
+    final blocType = _typeToBloc[T];
+    if (blocType != null) {
+      return context.read<OrganizerBloc<T>>();
     } else {
-      throw Exception('Bloc for type $T not found. Ensure it is registered.');
+      throw Exception('Bloc for type $T not registered in _typeToBloc.');
     }
   }
 }

@@ -1,8 +1,7 @@
+import 'package:fo_fe/core/widgets/core_widget_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/presentation/screen/tag_add_screen.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
-
-import '../../presentation/screen/tag_screen.dart';
 
 class TagRoutes {
   static GoRoute routes() {
@@ -10,9 +9,7 @@ class TagRoutes {
       path: TagRouterNames.tagRoutePath,
       name: TagRouterNames.tagRouteName,
       pageBuilder: (context, state) {
-        return MaterialPage(
-          child: TagScreen(),
-        );
+        return MaterialPage(child: ItemScreen<TagDto>());
       },
       routes: [
         GoRoute(

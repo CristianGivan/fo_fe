@@ -1,3 +1,5 @@
+import 'package:fo_fe/features/organizer/all_items/tag/presentation/pages/tag_card_page.dart';
+import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/pages/task_card.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
@@ -11,6 +13,7 @@ class ItemCard<T extends DtoEntity> extends StatelessWidget {
 
   static final Map<Type, WidgetBuilderFunction> _typeToWidgetBuilder = {
     TaskDto: (item) => TaskCard(item.entity as TaskEntity),
+    TagDto: (item) => TagCard(item.entity as TagEntity),
   };
 
   @override
