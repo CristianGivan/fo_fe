@@ -3,12 +3,13 @@ import 'package:excel/excel.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/usecase/usecase.dart';
 import 'package:fo_fe/core/utils/backup/export_to_excel/export_itmes_to_excel.dart';
+import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_crud_use_case/get_task_items_from_logIn_user_use_case.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 import 'package:fo_fe/features/organizer/utils/set_and_list/organizer_items_transform.dart';
 
 class ExportTaskToExcelUseCase extends UseCase<bool, TaskParams> {
-  final GetItemsFromLogInUserUseCase<TaskDto> getTaskItemsFromLogInUserUseCase;
+  final GetTaskItemsFromLogInUserUseCase getTaskItemsFromLogInUserUseCase;
 
   ExportTaskToExcelUseCase(this.getTaskItemsFromLogInUserUseCase);
 

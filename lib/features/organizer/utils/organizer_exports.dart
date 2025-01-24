@@ -5,12 +5,11 @@ export 'package:fo_fe/features/organizer/domain/entities/item_entity.dart';
 export 'package:fo_fe/features/organizer/presentation/bloc/organizer_bloc_event.dart';
 export 'package:fo_fe/features/organizer/presentation/bloc/organizer_bloc_state.dart';
 
+export '../all_items/task/domain/usecases/task_crud_use_case/add_task_use_case.dart';
+export '../all_items/task/domain/usecases/task_crud_use_case/delete_task_items_use_case.dart';
 export '../all_items/task/presentation/logic/task_link_bloc/task_tag_link_bloc.dart';
 export '../all_items/task/presentation/logic/task_link_bloc/task_user_link_bloc.dart';
 export '../domain/entities/organizer_item_entity.dart';
-export '../domain/usecases/add_item_use_case.dart';
-export '../domain/usecases/delete_item_use_case.dart';
-export '../domain/usecases/get_items_from_logIn_user_use_case.dart';
 export '../domain/usecases/update_item_use_case.dart';
 export '../presentation/bloc/organizer_bloc.dart';
 export '../presentation/bloc/organizer_link_bloc.dart';

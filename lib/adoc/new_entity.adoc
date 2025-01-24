@@ -1,3 +1,7 @@
+== Domain
+
+=== UseCase
+
 == Presentation
 
 === BLoc

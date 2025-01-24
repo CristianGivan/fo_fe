@@ -6,11 +6,12 @@ import 'package:fo_fe/features/organizer/all_items/task/data/datasources/task_re
 import 'package:fo_fe/features/organizer/all_items/task/data/repositories/task_repository_drift.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/repositories/task_repository.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/export_task_to_excel_use_case.dart';
+import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_crud_use_case/get_task_items_from_logIn_user_use_case.dart';
+import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_crud_use_case/update_task_dto_use_case.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_link_use_case/generic_handler_registry.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_link_use_case/get_task_link_handler.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_link_use_case/update_task_link_handler.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_link_use_case/update_task_link_use_case.dart';
-import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/update_task_dto_use_case.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/logic/task_cubit/task_form_cubit.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart';
@@ -48,30 +49,30 @@ void taskInit() {
   sl.registerLazySingleton(() => UpdateTaskLinkUseCase<TagEntity>(sl()));
 
   // Task Use cases
-  sl.registerLazySingleton(() => GetItemsFromLogInUserUseCase<TaskDto>(sl(), sl(), sl()));
+  sl.registerLazySingleton(() => GetTaskItemsFromLogInUserUseCase(sl()));
   sl.registerLazySingleton(() => GetTaskItemsByIdSetUseCase(sl()));
-  sl.registerLazySingleton(() => AddItemUseCase<TaskDto>(sl(), itemsType));
+  sl.registerLazySingleton(() => AddTaskUseCase(sl()));
   sl.registerLazySingleton(() => UpdateItemUseCase<TaskDto, TaskParams>(sl()));
   sl.registerLazySingleton(() => UpdateTaskDtoUseCase(sl()));
-  sl.registerLazySingleton(() => DeleteItemsUseCase<TaskDto>(sl(), itemsType));
+  sl.registerLazySingleton(() => DeleteTaskItemsUseCase(sl()));
   sl.registerLazySingleton(() => TaskFilterUseCase());
   sl.registerLazySingleton(() => TaskSortUseCase());
 
   // Task BLoCs
   sl.registerFactory(() => TaskBloc(
         addTask: sl(),
-        deleteTask: sl(),
+        deleteTaskItemsUseCase: sl(),
         sortTasksUseCase: sl(),
         filterTasksUseCase: sl(),
         updateTaskDtoUseCase: sl(),
-        getTasks: sl(),
+        getTaskItemsFromLogInUserUseCase: sl(),
         exportTaskToExcelUseCase: sl(),
       ));
 
   sl.registerFactory<OrganizerBloc<TaskDto>>(() => TaskBloc(
         addTask: sl(),
-        deleteTask: sl(),
-        getTasks: sl(),
+        deleteTaskItemsUseCase: sl(),
+        getTaskItemsFromLogInUserUseCase: sl(),
         exportTaskToExcelUseCase: sl(),
         filterTasksUseCase: sl(),
         sortTasksUseCase: sl(),

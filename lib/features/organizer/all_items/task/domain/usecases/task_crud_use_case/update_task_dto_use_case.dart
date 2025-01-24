@@ -3,7 +3,7 @@ import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/usecase/usecase.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 
-import '../repositories/task_repository.dart';
+import '../../repositories/task_repository.dart';
 
 class UpdateTaskDtoUseCase extends UseCase<TaskDto, TaskParams> {
   final TaskRepository repository;
