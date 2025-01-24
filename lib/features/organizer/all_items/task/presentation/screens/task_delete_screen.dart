@@ -4,7 +4,7 @@ import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart'
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 import 'package:fo_fe/features/organizer/utils/set_and_list/organizer_items_transform.dart';
 
-import '../../../../../../core/widgets/pages/item/item_card.dart';
+import '../../../../presentation/pages/item/item_card.dart';
 
 class TaskDeleteScreen extends StatefulWidget {
   const TaskDeleteScreen({super.key});

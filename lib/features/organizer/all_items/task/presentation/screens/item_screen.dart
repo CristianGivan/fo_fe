@@ -1,9 +1,10 @@
 import 'package:fo_fe/core/widgets/core_widget_exports.dart';
-import 'package:fo_fe/core/widgets/pages/item/item_card.dart';
-import 'package:fo_fe/features/organizer/all_items/task/presentation/widgets/task_screen_actions_menu.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/presentation/bloc/dynamic_bloc_resolver.dart';
+import 'package:fo_fe/features/organizer/presentation/pages/item/item_card.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
+import 'package:fo_fe/features/organizer/utils/other/screen_action_menu.dart';
+import 'package:fo_fe/features/organizer/utils/other/update_item_logic.dart';
 
 class ItemScreen<T extends DtoEntity> extends StatelessWidget {
   const ItemScreen({super.key});
@@ -13,7 +14,7 @@ class ItemScreen<T extends DtoEntity> extends StatelessWidget {
     return AppContentScreen(
       appBarTitle: TaskStrings().screenTitle,
       body: (userId) => _build(context, userId),
-      menuOptions: (context, userId) => TaskScreenActionsMenu.getMenuItems(context),
+      menuOptions: (context, userId) => ScreenActionMenu.getMenuItems(context, T),
       onSearchSubmitted: () {},
     );
   }
@@ -36,25 +37,12 @@ class ItemScreen<T extends DtoEntity> extends StatelessWidget {
           buildLoadedState: () => ItemListViewPage<T>(
             itemsDto: state.displayedItems,
             itemCardBuilder: (itemDto) => ItemCard<T>(itemDto),
-            value: _isSelected,
-            onChange: (context, itemDto, value) => _updateTaskUserLink(context, itemDto, value),
+            value: (itemDto) => itemDto.userLink.isSelected,
+            onChange: (context, itemDto, value) =>
+                UpdateItemLogic.updateItemUserLink<T>(context, itemDto, value),
           ),
         );
       },
     );
-  }
-
-  bool _isSelected(T itemDto) {
-    return itemDto.userLink.isSelected;
-  }
-
-  void _updateTaskUserLink(BuildContext context, T itemDto, bool value) {
-    final taskDto = itemDto as TaskDto;
-    final updatedTaskUserLink = taskDto.taskUserLink.copyWith(isSelectedByUser: value);
-    context.read<TaskBloc>().add(UpdateTaskBlocEvent(TaskParams(
-          id: taskDto.id,
-          taskDto: taskDto,
-          taskUserLinkEntity: updatedTaskUserLink,
-        )));
   }
 }

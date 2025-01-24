@@ -13,3 +13,4 @@ export 'config/task_routes.dart';
 export 'other/task_enums.dart';
 export 'other/task_params.dart';
 export 'other/task_strings.dart';
+export 'other/task_update_functions.dart';

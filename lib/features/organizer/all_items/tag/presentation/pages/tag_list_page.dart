@@ -1,4 +1,4 @@
-import 'package:fo_fe/core/widgets/pages/item/item_list_view_page.dart';
+import 'package:fo_fe/features/organizer/presentation/pages/item/item_list_view_page.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/presentation/logic/tag_bloc/tag_bloc.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/utils/other/tag_params.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';

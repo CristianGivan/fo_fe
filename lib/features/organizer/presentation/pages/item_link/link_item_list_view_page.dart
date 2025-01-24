@@ -1,4 +1,4 @@
-import '../../../../features/organizer/utils/organizer_exports.dart';
+import '../../../utils/organizer_exports.dart';
 
 class LinkItemListViewPage<T extends ItemEntity> extends StatelessWidget {
   final OrganizerItems<T> itemList;

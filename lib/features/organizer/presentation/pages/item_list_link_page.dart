@@ -1,5 +1,4 @@
 // lib/features/organizer/items/common/presentation/pages/item_list_link_page.dart
-import 'package:flutter/material.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 // Ensure T extends OrganizerItemEntity

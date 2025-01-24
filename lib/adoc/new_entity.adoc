@@ -1,0 +1,16 @@
+== Presentation
+
+=== ItemCard
+
+* create a new card in pages
+* update ItemCard
+
+=== UpdateItemLogic
+
+* create a new logic in utils/other
+* update UpdateItemLogic
+
+=== ScreenActionMenu
+
+* create a new screen in widgets
+* update ScreenActionMenu
