@@ -50,7 +50,6 @@ void taskInit() {
 
   // Task Use cases
   sl.registerLazySingleton(() => GetTaskItemsFromLogInUserUseCase(sl()));
-  sl.registerLazySingleton(() => GetTaskItemsByIdSetUseCase(sl()));
   sl.registerLazySingleton(() => AddTaskUseCase(sl()));
   sl.registerLazySingleton(() => UpdateTaskDtoUseCase(sl()));
   sl.registerLazySingleton(() => DeleteTaskItemsUseCase(sl()));

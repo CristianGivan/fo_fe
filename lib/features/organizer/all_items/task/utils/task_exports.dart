@@ -1,7 +1,6 @@
 export '../domain/entities/task_dto.dart';
 export '../domain/entities/task_entity.dart';
 export '../domain/entities/task_user_entity.dart';
-export '../domain/usecases/get_task_items_by_id_set_use_case.dart';
 export '../domain/usecases/task_filter_use_case.dart';
 export '../domain/usecases/task_link_use_case/get_task_link_use_case.dart';
 export '../domain/usecases/task_sort_use_case.dart';
