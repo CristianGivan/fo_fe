@@ -10,34 +10,49 @@ class UpdateTaskDtoUseCase extends UseCase<TaskDto, TaskParams> {
 
   UpdateTaskDtoUseCase(this.repository);
 
-//todo -refactor- find a better way
   @override
   Future<Either<Failure, TaskDto>> call(TaskParams params) async {
     if (params.taskDto.task.isEmpty) {
       return Future.value(Left(TaskFailure("Task is empty")));
-    } else {
-      TaskDto result = params.taskDto;
-      if (!params.taskEntity.isEmpty) {
-        final updateTaskRepo = await repository.updateTask(params.taskEntity);
-        if (updateTaskRepo.isLeft()) {
-          return Future.value(Left(TaskFailure("Unexpected error")));
-        } else {
-          final updatedTask = updateTaskRepo.getOrElse(() => TaskEntity.empty());
-          result = params.taskDto.copyWith(task: updatedTask);
-        }
-      }
-      if (!params.taskUserLinkEntity.isEmpty) {
-        final updateTaskUserLinkRepo =
-            await repository.updateTaskUserLink(params.taskUserLinkEntity);
-        if (updateTaskUserLinkRepo.isLeft()) {
-          return Future.value(Left(TaskFailure("Unexpected error")));
-        } else {
-          final updatedTaskUserLink =
-              updateTaskUserLinkRepo.getOrElse(() => TaskUserLinkEntity.empty());
-          result = result.copyWith(taskUserLink: updatedTaskUserLink);
-        }
-      }
-      return Right(result);
     }
+
+    TaskDto result = params.taskDto;
+
+    final updateResults = await Future.wait([
+      if (!params.taskEntity.isEmpty) _updateTaskEntity(params.taskEntity),
+      if (!params.taskUserLinkEntity.isEmpty) _updateTaskUserLinkEntity(params.taskUserLinkEntity),
+    ]);
+
+    for (var updateResult in updateResults) {
+      if (updateResult.isLeft()) {
+        return Left(TaskFailure("Unexpected error during update"));
+      }
+    }
+
+    updateResults.forEach((updateResult) {
+      updateResult.fold(
+        (failure) {},
+        (updatedEntity) {
+          if (updatedEntity is TaskEntity) {
+            result = result.copyWith(task: updatedEntity);
+          } else if (updatedEntity is TaskUserLinkEntity) {
+            result = result.copyWith(taskUserLink: updatedEntity);
+          }
+        },
+      );
+    });
+
+    return Right(result);
+  }
+
+  Future<Either<Failure, TaskEntity>> _updateTaskEntity(TaskEntity taskEntity) async {
+    final updateTaskRepo = await repository.updateTask(taskEntity);
+    return updateTaskRepo.map((updatedTask) => updatedTask);
+  }
+
+  Future<Either<Failure, TaskUserLinkEntity>> _updateTaskUserLinkEntity(
+      TaskUserLinkEntity taskUserLinkEntity) async {
+    final updateTaskUserLinkRepo = await repository.updateTaskUserLink(taskUserLinkEntity);
+    return updateTaskUserLinkRepo.map((updatedTaskUserLink) => updatedTaskUserLink);
   }
 }

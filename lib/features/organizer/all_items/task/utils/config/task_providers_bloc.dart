@@ -5,7 +5,7 @@ import 'package:get_it/get_it.dart';
 
 List<BlocProvider> getTaskBlocProviders() {
   return [
-    BlocProvider<TaskBloc>(create: (_) => GetIt.instance<TaskBloc>()),
+    BlocProvider<OrganizerBloc<TaskDto>>(create: (_) => GetIt.instance<OrganizerBloc<TaskDto>>()),
     BlocProvider<TaskFormCubit>(create: (_) => GetIt.instance<TaskFormCubit>()),
   ];
 }

@@ -57,17 +57,7 @@ void taskInit() {
   sl.registerLazySingleton(() => TaskFilterUseCase());
   sl.registerLazySingleton(() => TaskSortUseCase());
 
-  // Task BLoCs
-  sl.registerFactory(() => TaskBloc(
-        addTask: sl(),
-        deleteTaskItemsUseCase: sl(),
-        sortTasksUseCase: sl(),
-        filterTasksUseCase: sl(),
-        updateTaskDtoUseCase: sl(),
-        getTaskItemsFromLogInUserUseCase: sl(),
-        exportTaskToExcelUseCase: sl(),
-      ));
-
+  // Task Bloc
   sl.registerFactory<OrganizerBloc<TaskDto>>(() => TaskBloc(
         addTask: sl(),
         deleteTaskItemsUseCase: sl(),
