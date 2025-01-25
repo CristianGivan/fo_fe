@@ -3,7 +3,7 @@ import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class TaskParams extends ItemParams {
   final TaskEntity taskEntity;
-  final TaskUserLinkEntity taskUserLinEntity;
+  final TaskUserLinkEntity taskUserLinkEntity;
   final TaskDto taskDto;
   final OrganizerItems<TaskDto> taskItems;
 
