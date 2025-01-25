@@ -10,7 +10,6 @@ export '../all_items/task/domain/usecases/task_crud_use_case/delete_task_items_u
 export '../all_items/task/presentation/logic/task_link_bloc/task_tag_link_bloc.dart';
 export '../all_items/task/presentation/logic/task_link_bloc/task_user_link_bloc.dart';
 export '../domain/entities/organizer_item_entity.dart';
-export '../domain/usecases/update_item_use_case.dart';
 export '../presentation/bloc/organizer_bloc.dart';
 export '../presentation/bloc/organizer_link_bloc.dart';
 export '../presentation/bloc/organizer_link_bloc_event.dart';

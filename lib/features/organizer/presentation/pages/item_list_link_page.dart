@@ -1,10 +1,8 @@
-// lib/features/organizer/items/common/presentation/pages/item_list_link_page.dart
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-// Ensure T extends OrganizerItemEntity
 class ItemListLinkPage<T extends OrganizerItemEntity> extends StatelessWidget {
   final OrganizerItems<T> items;
-  final String Function(T) itemTextBuilder; // Function to extract display text
+  final String Function(T) itemTextBuilder;
 
   const ItemListLinkPage({
     super.key,
