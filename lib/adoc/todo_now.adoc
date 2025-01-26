@@ -70,7 +70,7 @@ registerd for several tings What shall I use fo rgeneric type
 
 == Now
 
-* make a better way to create the TaskLinksBlocFactory
+* update bloc with generic use case
 
 UpdateLinkEntitiesOfTaskUseCase or UpdateTaskLinkUseCase
 
@@ -97,6 +97,9 @@ UpdateLinkEntitiesOfTaskUseCase or UpdateTaskLinkUseCase
 * extract _buildLoading() to a widget
 
 == Done
+
+* make a better way to create the TaskLinksBlocFactory
+
 
 * from update navigate to link_item_list_edit_page where I have selected alll the usersrs that
 areallreadi in the list and can add and delete others.

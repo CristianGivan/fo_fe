@@ -24,10 +24,9 @@ class GetTaskLinkUseCase<T extends ItemEntity> extends UseCase<OrganizerItems<T>
     return getTaskLink(repository, params) as Future<Either<Failure, OrganizerItems<T>>>;
   }
 
-  // todo -refactor- how can I put just repository.getUserItemsByTaskId(params.itemId);
   final Map<Type, GetTaskLink> typeToGetTaskLinkMap = {
-    UserEntity: (repository, params) => getTaskUser(repository, params),
-    TagEntity: (repository, params) => getTaskTag(repository, params),
+    UserEntity: getTaskUser,
+    TagEntity: getTaskTag,
   };
 }
 

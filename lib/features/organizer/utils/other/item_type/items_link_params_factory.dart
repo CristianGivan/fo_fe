@@ -18,17 +18,15 @@ class TaskLinkParamsFactory {
   }
 
   static final Map<Type, CreateItemLinkParams> typeToParams = {
-    UserEntity: (int id, int forUserId, IdSet? idSet) =>
-        _createTaskUserLinkParams(id, forUserId, idSet),
-    TagEntity: (int id, int forUserId, IdSet? idSet) =>
-        _createTaskTagLinkParams(id, forUserId, idSet),
+    UserEntity: createTaskUserLinkParams,
+    TagEntity: createTaskTagLinkParams,
   };
 
-  static TaskUserLinkParams _createTaskUserLinkParams(int id, int forUserId, IdSet? idSet) {
+  static TaskUserLinkParams createTaskUserLinkParams(int id, int forUserId, IdSet? idSet) {
     return TaskUserLinkParams(id: id, idSet: idSet, forUserId: forUserId);
   }
 
-  static TaskTagLinkParams _createTaskTagLinkParams(int id, int forUserId, IdSet? idSet) {
+  static TaskTagLinkParams createTaskTagLinkParams(int id, int forUserId, IdSet? idSet) {
     return TaskTagLinkParams(id: id, idSet: idSet, forUserId: forUserId);
   }
 }
