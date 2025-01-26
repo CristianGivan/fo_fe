@@ -57,7 +57,7 @@ void taskInit() {
   sl.registerLazySingleton(() => TaskSortUseCase());
 
   // Task Bloc
-  sl.registerFactory<OrganizerBloc<TaskDto>>(() => TaskBloc(
+  sl.registerLazySingleton<TaskBloc>(() => TaskBloc(
         addTask: sl(),
         deleteTaskItemsUseCase: sl(),
         getTaskItemsFromLogInUserUseCase: sl(),

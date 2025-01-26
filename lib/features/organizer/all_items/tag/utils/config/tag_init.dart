@@ -4,8 +4,8 @@ import 'package:fo_fe/features/organizer/all_items/tag/data/repositories/tag_rep
 import 'package:fo_fe/features/organizer/all_items/tag/domain/usecases/get_tag_items_from_log_in_user.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/presentation/logic/tag_bloc/tag_bloc.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/presentation/logic/tag_cubit/tag_cubit.dart';
+import 'package:fo_fe/features/organizer/all_items/tag/presentation/logic/tag_cubit/tag_form_cubit.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
-import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 import 'package:get_it/get_it.dart';
 
 final sl = GetIt.instance;
@@ -30,21 +30,15 @@ void tagInit() {
   sl.registerLazySingleton(() => GetTagItemsFromLogInUserUseCase(sl()));
 
   // Tag BLoCs
-
-  sl.registerFactory(() => TagBloc(
-        addTagUseCase: sl(),
-        deleteTagUseCase: sl(),
-        getTagItemsFromLogInUserUseCase: sl(),
-      ));
-
-  sl.registerFactory<OrganizerBloc<TagDto>>(() => TagBloc(
+  sl.registerLazySingleton<TagBloc>(() => TagBloc(
         addTagUseCase: sl(),
         deleteTagUseCase: sl(),
         getTagItemsFromLogInUserUseCase: sl(),
       ));
 
   // Tag Cubit
-  sl.registerFactory(() => TagCubit(
+  sl.registerLazySingleton(() => TagCubit(
         getEntitiesFromUserUseCase: sl(),
       ));
+  sl.registerFactory(() => TagFormCubit());
 }

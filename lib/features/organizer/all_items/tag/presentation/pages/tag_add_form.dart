@@ -1,5 +1,4 @@
 // lib/features/organizer/items/tag/presentation/screen/tag_add_screen.dart
-import 'package:fo_fe/features/organizer/all_items/tag/presentation/logic/tag_bloc/tag_bloc.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/presentation/logic/tag_cubit/tag_form_cubit.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
@@ -49,7 +48,7 @@ class TagAddForm extends StatelessWidget {
       creatorId: userId,
     );
 
-    BlocProvider.of<TagBloc>(context).add(AddItemBlocEvent(tag));
+    BlocProvider.of<OrganizerBloc<TagDto>>(context).add(AddItemBlocEvent(tag));
     context.pop();
   }
 }

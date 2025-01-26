@@ -20,7 +20,7 @@ class ItemScreen<T extends DtoEntity> extends StatelessWidget {
   }
 
   Widget _build(BuildContext context, int userId) {
-    final OrganizerBloc<T> bloc = DynamicBlocResolver.resolveBloc<T>(context);
+    final bloc = DynamicBlocResolver.resolveBloc<T>(context);
     bloc.add(GetItemsFromLogInUserBlocEvent(TaskParams(id: 0, forUserId: userId)));
     return BlocConsumer<OrganizerBloc<T>, OrganizerBlocState<T>>(
       bloc: bloc,
