@@ -6,11 +6,8 @@ import '../../../all_items/user/domain/entities/user_entity.dart';
 typedef CreateItemLinkParams = ItemLinkParams Function(int id, int forUserId, IdSet? idSet);
 
 class TaskLinkParamsFactory {
-  static ItemLinkParams create<T extends ItemEntity>({
-    required int id,
-    required int forUserId,
-    IdSet? idSet,
-  }) {
+  static ItemLinkParams create<T extends ItemEntity>(
+      {required int id, required int forUserId, IdSet? idSet}) {
     final createItemLinkParams = typeToParams[T];
 
     if (createItemLinkParams == null) {
