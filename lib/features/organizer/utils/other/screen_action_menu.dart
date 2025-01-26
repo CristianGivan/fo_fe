@@ -13,7 +13,7 @@ class ScreenActionMenu {
   };
 
   static List<PopupMenuEntry> getMenuItems(BuildContext context, Type type) {
-    final getMenuItemsFunction = ScreenActionMenu.typeToGetMenuItemsFunction[type];
+    final getMenuItemsFunction = typeToGetMenuItemsFunction[type];
     if (getMenuItemsFunction != null) {
       return getMenuItemsFunction(context);
     } else {

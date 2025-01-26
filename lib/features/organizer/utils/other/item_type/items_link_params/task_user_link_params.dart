@@ -6,8 +6,8 @@ import '../../../../all_items/task/utils/task_exports.dart';
 class TaskUserLinkParams extends ItemLinkParams {
   TaskUserLinkParams({
     required int id,
+    required int forUserId,
     IdSet? idSet,
-    int forUserId = 0,
   }) : super(
           itemId: id,
           idSet: idSet,

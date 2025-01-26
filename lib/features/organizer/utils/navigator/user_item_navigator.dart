@@ -14,15 +14,9 @@ class UserItemNavigator extends BaseItemNavigator<User> {
     OrganizerItems<User> items,
     OrganizerItems<User> updatedItems,
   ) {
-    context.read<TaskUserLinkBloc>().add(
-            // UpdateUserItemsOfTaskBlocEvent(
-            //   taskId: taskId,
-            //   userItems: items,
-            //   updatedUserItems: updatedItems,
-            // ),
-            GetItemsOfItemBlocEvent(ItemsLinkParamsFactory.create(
+    context.read<TaskUserLinksBloc>().add(GetItemsOfItemBlocEvent(TaskLinkParamsFactory.create(
           id: taskId,
-          itemType: ItemsTypeEnum.taskUser,
+          forUserId: 0,
         )));
   }
 }

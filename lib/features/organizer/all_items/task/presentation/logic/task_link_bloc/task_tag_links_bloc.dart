@@ -3,8 +3,8 @@ import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_lin
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class TaskTagLinkBloc extends OrganizerLinkBloc<TagEntity> {
-  TaskTagLinkBloc({
+class TaskTagLinksBloc extends OrganizerLinkBloc<TagEntity> {
+  TaskTagLinksBloc({
     required GetTaskLinkUseCase<TagEntity> getTaskTagUseCase,
     required UpdateTaskLinkUseCase<TagEntity> updateTaskTagUseCase,
   }) : super(

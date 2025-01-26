@@ -5,13 +5,6 @@ typedef UpdateFunction<T extends DtoEntity> = void Function(
     BuildContext context, T itemDto, bool value);
 
 class UpdateItemLogic {
-  static final Map<Type, UpdateFunction> typeToUpdateFunction = {
-    TaskDto: (BuildContext context, DtoEntity itemDto, bool value) {
-      updateTaskUserLink(context, itemDto as TaskDto, value);
-    },
-    // Add mappings for other types
-  };
-
   static void updateItemUserLink<T extends DtoEntity>(BuildContext context, T itemDto, bool value) {
     final updateFunction = typeToUpdateFunction[T];
     if (updateFunction != null) {
@@ -20,4 +13,10 @@ class UpdateItemLogic {
       throw UnimplementedError('Update logic not implemented for type ${T.runtimeType}');
     }
   }
+
+  static final Map<Type, UpdateFunction> typeToUpdateFunction = {
+    TaskDto: (BuildContext context, DtoEntity itemDto, bool value) =>
+        updateTaskUserLink(context, itemDto as TaskDto, value),
+    // Add mappings for other types
+  };
 }

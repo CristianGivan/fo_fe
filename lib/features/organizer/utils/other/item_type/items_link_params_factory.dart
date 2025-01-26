@@ -1,43 +1,37 @@
+import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class ItemsLinkParamsFactory {
-  static ItemLinkParams create({
+import '../../../all_items/user/domain/entities/user_entity.dart';
+
+typedef CreateItemLinkParams = ItemLinkParams Function(int id, int forUserId, IdSet? idSet);
+
+class TaskLinkParamsFactory {
+  static ItemLinkParams create<T extends ItemEntity>({
     required int id,
+    required int forUserId,
     IdSet? idSet,
-    int forUserId = 0,
-    required ItemsTypeEnum itemType,
   }) {
-    switch (itemType) {
-      case ItemsTypeEnum.taskUser:
-        return _createTaskUserLinkParams(id, idSet, forUserId);
-      case ItemsTypeEnum.taskTag:
-        return _createTaskTagLinkParams(id, idSet, forUserId);
-      default:
-        throw UnsupportedError('Unsupported itemType: $itemType');
+    final createItemLinkParams = typeToParams[T];
+
+    if (createItemLinkParams == null) {
+      throw UnsupportedError('Unsupported type: $T');
+    } else {
+      return createItemLinkParams(id, forUserId, idSet);
     }
   }
 
-  static TaskUserLinkParams _createTaskUserLinkParams(
-    int id,
-    IdSet? idSet,
-    int forUserId,
-  ) {
-    return TaskUserLinkParams(
-      id: id,
-      idSet: idSet,
-      forUserId: forUserId,
-    );
+  static final Map<Type, CreateItemLinkParams> typeToParams = {
+    UserEntity: (int id, int forUserId, IdSet? idSet) =>
+        _createTaskUserLinkParams(id, forUserId, idSet),
+    TagEntity: (int id, int forUserId, IdSet? idSet) =>
+        _createTaskTagLinkParams(id, forUserId, idSet),
+  };
+
+  static TaskUserLinkParams _createTaskUserLinkParams(int id, int forUserId, IdSet? idSet) {
+    return TaskUserLinkParams(id: id, idSet: idSet, forUserId: forUserId);
   }
 
-  static TaskTagLinkParams _createTaskTagLinkParams(
-    int id,
-    IdSet? idSet,
-    int forUserId,
-  ) {
-    return TaskTagLinkParams(
-      id: id,
-      idSet: idSet,
-      forUserId: forUserId,
-    );
+  static TaskTagLinkParams _createTaskTagLinkParams(int id, int forUserId, IdSet? idSet) {
+    return TaskTagLinkParams(id: id, idSet: idSet, forUserId: forUserId);
   }
 }

@@ -70,6 +70,8 @@ registerd for several tings What shall I use fo rgeneric type
 
 == Now
 
+* make a better way to create the TaskLinksBlocFactory
+
 UpdateLinkEntitiesOfTaskUseCase or UpdateTaskLinkUseCase
 
 * GetLinkedEntitiesHandler  make it more generic

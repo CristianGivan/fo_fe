@@ -14,15 +14,11 @@ class TagItemNavigator extends BaseItemNavigator<TagDto> {
     OrganizerItems<TagDto> items,
     OrganizerItems<TagDto> updatedItems,
   ) {
-    context.read<TaskTagLinkBloc>().add(
-            // UpdateTagItemsOfTaskBlocEvent(
-            //   taskId: taskId,
-            //   tagItems: items,
-            //   updatedTagItems: updatedItems,
-            // ),
-            GetItemsOfItemBlocEvent(ItemsLinkParamsFactory.create(
+    context
+        .read<TaskTagLinksBloc>()
+        .add(GetItemsOfItemBlocEvent(TaskLinkParamsFactory.create<TagEntity>(
           id: taskId,
-          itemType: ItemsTypeEnum.taskUser,
+          forUserId: 0,
         )));
   }
 }
