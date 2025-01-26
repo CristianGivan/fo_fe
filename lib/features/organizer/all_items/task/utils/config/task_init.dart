@@ -8,9 +8,6 @@ import 'package:fo_fe/features/organizer/all_items/task/domain/repositories/task
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/export_task_to_excel_use_case.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_crud_use_case/get_task_items_from_logIn_user_use_case.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_crud_use_case/update_task_dto_use_case.dart';
-import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_link_use_case/generic_handler_registry.dart';
-import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_link_use_case/get_task_link_handler.dart';
-import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_link_use_case/update_task_link_handler.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_link_use_case/update_task_link_use_case.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/logic/task_cubit/task_form_cubit.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
@@ -33,12 +30,6 @@ void taskInit() {
   sl.registerLazySingleton<TaskRepository>(() => TaskRepositoryDrift(
         localDataSource: sl<TaskLocalDataSourceDrift>(),
       ));
-
-  // Register GenericHandlerRegistry
-  sl.registerLazySingleton<GenericHandlerRegistry>(() => GenericHandlerRegistry());
-
-  // Register Handlers
-  registerHandlers(sl<GenericHandlerRegistry>(), sl<TaskRepository>());
 
   // Task Link Use Cases
 
@@ -68,20 +59,8 @@ void taskInit() {
 
   sl.registerFactory(() => TaskFormCubit());
 
-  sl.registerFactory(() => TaskUserLinksBloc(
-      getTaskUserUseCase: sl<GetTaskLinkUseCase<UserEntity>>(),
-      updateTaskUserUseCase: sl<UpdateTaskLinkUseCase<UserEntity>>()));
+  sl.registerFactory(() => TaskUserLinksBloc());
 
   // Task Export Service
   sl.registerLazySingleton(() => ExportTaskToExcelUseCase(sl()));
-}
-
-void registerHandlers(GenericHandlerRegistry registry, TaskRepository taskRepository) {
-  // Get Handlers
-  registry.registerGetHandler<UserEntity>(TaskUserHandler(taskRepository));
-  registry.registerGetHandler<TagEntity>(TaskTagHandler(taskRepository));
-
-  // Update Handlers
-  registry.registerUpdateHandler<UserEntity>(TaskUserUpdateHandler(taskRepository));
-  registry.registerUpdateHandler<TagEntity>(TaskTagUpdateHandler(taskRepository));
 }
