@@ -5,31 +5,26 @@ import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_cru
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_crud_use_case/update_task_dto_use_case.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
+import 'package:get_it/get_it.dart';
 
 part 'task_bloc_event.dart';
 part 'task_bloc_state.dart';
 
 class TaskBloc extends OrganizerBloc<TaskDto> {
-  final AddTaskUseCase addTask;
-  final GetTaskItemsFromLogInUserUseCase getTaskItemsFromLogInUserUseCase;
-  final DeleteTaskItemsUseCase deleteTaskItemsUseCase;
   final TaskSortUseCase sortTasksUseCase;
   final TaskFilterUseCase filterTasksUseCase;
   final UpdateTaskDtoUseCase updateTaskDtoUseCase;
   final ExportTaskToExcelUseCase exportTaskToExcelUseCase;
 
   TaskBloc({
-    required this.addTask,
-    required this.getTaskItemsFromLogInUserUseCase,
-    required this.deleteTaskItemsUseCase,
     required this.exportTaskToExcelUseCase,
     required this.sortTasksUseCase,
     required this.filterTasksUseCase,
     required this.updateTaskDtoUseCase,
   }) : super(
-          addItem: addTask,
-          getItems: getTaskItemsFromLogInUserUseCase,
-          deleteItems: deleteTaskItemsUseCase,
+          addItem: GetIt.instance.get<AddTaskUseCase>().call,
+          getItems: GetIt.instance.get<GetTaskItemsFromLogInUserUseCase>().call,
+          deleteItems: GetIt.instance.get<DeleteTaskItemsUseCase>().call,
         ) {
     setupEventHandlers();
     on<TaskItemsSortBlocEvent<SortTasksParams>>(_onSortTasks);

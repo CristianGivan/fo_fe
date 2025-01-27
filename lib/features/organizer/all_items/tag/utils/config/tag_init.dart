@@ -30,11 +30,7 @@ void tagInit() {
   sl.registerLazySingleton(() => GetTagItemsFromLogInUserUseCase(sl()));
 
   // Tag BLoCs
-  sl.registerLazySingleton<TagBloc>(() => TagBloc(
-        addTagUseCase: sl(),
-        deleteTagUseCase: sl(),
-        getTagItemsFromLogInUserUseCase: sl(),
-      ));
+  sl.registerLazySingleton<TagBloc>(() => TagBloc());
 
   // Tag Cubit
   sl.registerLazySingleton(() => TagCubit(

@@ -4,32 +4,26 @@ import 'package:fo_fe/features/organizer/all_items/tag/domain/usecases/get_tag_i
 import 'package:fo_fe/features/organizer/all_items/tag/utils/other/tag_params.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
+import 'package:get_it/get_it.dart';
 
 part 'tag_bloc_event.dart';
 part 'tag_bloc_state.dart';
 
 class TagBloc extends OrganizerBloc<TagDto> {
-  AddTagUseCase addTagUseCase;
-  DeleteTagUseCase deleteTagUseCase;
-  GetTagItemsFromLogInUserUseCase getTagItemsFromLogInUserUseCase;
-
   // final TagSortUseCase sortTagsUseCase;
   // final TagFilterUseCase filterTagsUseCase;
   // final UpdateTagUseCase updateTagUseCase;
   // final ExportTagToExcelUseCase exportTagToExcelUseCase;
 
-  TagBloc({
-    required this.addTagUseCase,
-    required this.getTagItemsFromLogInUserUseCase,
-    required this.deleteTagUseCase,
-    // required this.exportTagToExcelUseCase,
-    // required this.sortTagsUseCase,
-    // required this.filterTagsUseCase,
-    // required this.updateTagUseCase,
-  }) : super(
-          addItem: addTagUseCase,
-          getItems: getTagItemsFromLogInUserUseCase,
-          deleteItems: deleteTagUseCase,
+  TagBloc(// required this.exportTagToExcelUseCase,
+      // required this.sortTagsUseCase,
+      // required this.filterTagsUseCase,
+      // required this.updateTagUseCase,
+      )
+      : super(
+          addItem: GetIt.instance.get<AddTagUseCase>().call,
+          getItems: GetIt.instance.get<GetTagItemsFromLogInUserUseCase>().call,
+          deleteItems: GetIt.instance.get<DeleteTagUseCase>().call,
         ) {
     setupEventHandlers();
     // on<TagItemsSortBlocEvent<SortTagsParams>>(_onSortTags);

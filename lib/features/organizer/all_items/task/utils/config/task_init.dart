@@ -48,9 +48,6 @@ void taskInit() {
 
   // Task Bloc
   sl.registerLazySingleton<TaskBloc>(() => TaskBloc(
-        addTask: sl(),
-        deleteTaskItemsUseCase: sl(),
-        getTaskItemsFromLogInUserUseCase: sl(),
         exportTaskToExcelUseCase: sl(),
         filterTasksUseCase: sl(),
         sortTasksUseCase: sl(),
