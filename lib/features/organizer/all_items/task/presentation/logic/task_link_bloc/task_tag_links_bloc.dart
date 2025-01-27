@@ -9,5 +9,7 @@ class TaskTagLinksBloc extends OrganizerLinkBloc<TagEntity> {
       : super(
           getItemsLinked: GetIt.instance<GetTaskLinkUseCase<TagEntity>>(),
           updateItemsLinked: GetIt.instance<UpdateTaskLinkUseCase<TagEntity>>(),
-        );
+        ) {
+    setupEventHandlers();
+  }
 }

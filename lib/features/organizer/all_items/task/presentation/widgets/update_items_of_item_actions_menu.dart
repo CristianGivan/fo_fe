@@ -16,6 +16,7 @@ class UpdateItemsOfItemActionsMenu<T extends OrganizerItemEntity> {
   }
 
   static _getTaskUserMenuItems(BuildContext context, UpdateLinkParams params) {
+    final linkBloc = context.read<OrganizerLinkBloc<UserEntity>>();
     return [
       PopupMenuItem(
         child: Text('Crate New Item'),
@@ -24,8 +25,7 @@ class UpdateItemsOfItemActionsMenu<T extends OrganizerItemEntity> {
       PopupMenuItem(
         child: Text('Update with Items'),
         onTap: () => {
-          context
-              .read<OrganizerLinkBloc<UserEntity>>()
+          linkBloc
               .add(UpdateItemsOfItemBlocEvent<UserEntity>(params as UpdateLinkParams<UserEntity>)),
           context.pop()
         },
