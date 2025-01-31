@@ -6,7 +6,7 @@ part 'tag_form_state.dart';
 class TagFormCubit extends Cubit<TagFormState> {
   TagFormCubit() : super(TagFormState());
 
-  void updateTagName(String tagName) {
-    emit(state.copyWith(tagName: tagName));
+  void updateSubject(String subject) {
+    emit(state.copyWith(subject: subject));
   }
 }

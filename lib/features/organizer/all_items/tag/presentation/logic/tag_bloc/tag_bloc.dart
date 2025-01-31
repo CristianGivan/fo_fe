@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:fo_fe/features/organizer/all_items/tag/domain/usecases/get_tag_items_from_log_in_user.dart';
+import 'package:fo_fe/features/organizer/all_items/tag/domain/usecases/tag_crud_use_case/add_tag_use_case.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/utils/other/tag_params.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';

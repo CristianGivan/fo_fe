@@ -1,3 +1,4 @@
+import 'package:fo_fe/features/organizer/all_items/tag/domain/entities/tag_entity.dart';
 import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
@@ -43,8 +44,8 @@ class UpdateItemsOfItemActionsMenu<T extends OrganizerItemEntity> {
         child: Text('Update with Items'),
         onTap: () => {
           context
-              .read<OrganizerLinkBloc<UserEntity>>()
-              .add(UpdateItemsOfItemBlocEvent<UserEntity>(params as UpdateLinkParams<UserEntity>)),
+              .read<OrganizerLinkBloc<TagEntity>>()
+              .add(UpdateItemsOfItemBlocEvent<TagEntity>(params as UpdateLinkParams<TagEntity>)),
           context.pop()
         },
       )

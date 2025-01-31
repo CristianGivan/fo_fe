@@ -4,7 +4,7 @@ import 'package:fo_fe/features/organizer/all_items/task/presentation/logic/task_
 import 'package:fo_fe/features/organizer/all_items/task/presentation/widgets/task_edit_screen_actions_menu.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/user/domain/entities/user_entity.dart';
-import 'package:fo_fe/features/organizer/presentation/pages/item_link/item_link_items_view_page.dart';
+import 'package:fo_fe/features/organizer/presentation/pages/item_link/item_link_entities_view_page.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class TaskUpdateScreen extends StatelessWidget {
@@ -29,21 +29,20 @@ class TaskUpdateScreen extends StatelessWidget {
           decoration: const InputDecoration(labelText: 'Task ID: '),
           controller: TextEditingController(text: taskId.toString()),
         ),
-        _buildLinkEntityBlocProvider<TagEntity>(userId),
-        _buildLinkEntityBlocProvider<UserEntity>(userId)
+        BlocProvider(
+          create: (context) => TaskLinksBlocFactory.createFor<TagEntity>(),
+          child: _buildLinkEntityBlocProvider<TagEntity>(userId),
+        ),
+        BlocProvider(
+          create: (context) => TaskLinksBlocFactory.createFor<UserEntity>(),
+          child: _buildLinkEntityBlocProvider<UserEntity>(userId),
+        ),
       ],
     );
   }
 
-// todo -analysis- check if I need itemType
   Widget _buildLinkEntityBlocProvider<T extends ItemEntity>(int userId) {
     final params = TaskLinkParamsFactory.create<T>(id: taskId, forUserId: userId);
-    return BlocProvider<OrganizerLinkBloc<T>>(
-      create: (context) => TaskLinksBlocFactory.createFor<T>(),
-      child: ItemLinkItemsViewPage<T>(
-        key: ValueKey("${params.itemType}_$taskId"),
-        params: params,
-      ),
-    );
+    return ItemLinkEntitiesViewPage<T>(params: params);
   }
 }

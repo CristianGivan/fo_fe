@@ -1,16 +1,16 @@
 part of 'tag_form_cubit.dart';
 
 class TagFormState extends Equatable {
-  final String tagName;
+  final String subject;
 
-  const TagFormState({this.tagName = ''});
+  const TagFormState({this.subject = ''});
 
-  TagFormState copyWith({String? tagName}) {
+  TagFormState copyWith({String? subject}) {
     return TagFormState(
-      tagName: tagName ?? this.tagName,
+      subject: subject ?? this.subject,
     );
   }
 
   @override
-  List<Object> get props => [tagName];
+  List<Object> get props => [subject];
 }

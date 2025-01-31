@@ -7,17 +7,19 @@ import 'package:fo_fe/features/organizer/presentation/cubit/organizer_cubit.dart
 
 import '../../../utils/organizer_exports.dart';
 
-class ItemLinkItemsUpdatePage<T extends ItemEntity> extends StatefulWidget {
-  final ItemLinkParams params;
+class ItemLinkEntitiesUpdatePage<T extends ItemEntity> extends StatefulWidget {
+  final ItemLinkParams itemLinkParams;
   final OrganizerItems<T> initSelectedItems;
 
-  const ItemLinkItemsUpdatePage({super.key, required this.params, required this.initSelectedItems});
+  const ItemLinkEntitiesUpdatePage(
+      {super.key, required this.itemLinkParams, required this.initSelectedItems});
 
   @override
-  _ItemLinkItemsUpdatePageState createState() => _ItemLinkItemsUpdatePageState<T>();
+  _ItemLinkEntitiesUpdatePageState createState() => _ItemLinkEntitiesUpdatePageState<T>();
 }
 
-class _ItemLinkItemsUpdatePageState<T extends ItemEntity> extends State<ItemLinkItemsUpdatePage> {
+class _ItemLinkEntitiesUpdatePageState<T extends ItemEntity>
+    extends State<ItemLinkEntitiesUpdatePage> {
   OrganizerItems<T> selectedItemsChecked = OrganizerItems.empty();
   OrganizerItems<T> selectedItemsUnchecked = OrganizerItems.empty();
   OrganizerItems<T> allItemsChecked = OrganizerItems.empty();
@@ -28,15 +30,15 @@ class _ItemLinkItemsUpdatePageState<T extends ItemEntity> extends State<ItemLink
   @override
   void initState() {
     super.initState();
-    _initializeDataWithErrorHandling();
+    _initializeData();
   }
 
-  Future<void> _initializeDataWithErrorHandling() async {
+  Future<void> _initializeData() async {
     selectedItemsBloc = context.read<OrganizerLinkBloc<T>>();
     selectedItemsChecked = widget.initSelectedItems as OrganizerItems<T>;
 
     itemCubit = context.read<OrganizerCubit<T>>();
-    itemCubit.getEntitiesFromUser(widget.params.userId);
+    itemCubit.getEntitiesFromUser(widget.itemLinkParams.userId);
   }
 
   @override
@@ -58,7 +60,7 @@ class _ItemLinkItemsUpdatePageState<T extends ItemEntity> extends State<ItemLink
 
   List<PopupMenuEntry> _getMenuItems(BuildContext context) {
     final updatedItems = UpdateLinkParams<T>(
-      itemLinkParams: widget.params,
+      itemLinkParams: widget.itemLinkParams,
       addedItems: allItemsChecked,
       removedItems: selectedItemsUnchecked,
     );

@@ -11,6 +11,6 @@ class GetTagItemsFromLogInUserUseCase extends UseCase<OrganizerItems<TagDto>, It
 
   @override
   Future<Either<Failure, OrganizerItems<TagDto>>> call(params) async {
-    return Future.value(Left(UnexpectedFailure("Invalid params")));
+    return repository.getTagItemsFromUser(params.forUserId);
   }
 }

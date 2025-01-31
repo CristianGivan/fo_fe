@@ -10,8 +10,8 @@ abstract class ItemLinkParams extends Equatable {
 
   ItemLinkParams({
     required this.itemId,
-    IdSet? idSet,
     this.userId = 0,
+    IdSet? idSet,
     this.itemType = ItemsTypeEnum.undefine,
     required this.pushUpdateRoute,
     required this.pushCreateLinkItemRoute,

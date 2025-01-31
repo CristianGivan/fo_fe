@@ -16,8 +16,7 @@ class TagRoutes {
           path: TagRouterNames.tagAddRoutePath,
           name: TagRouterNames.tagAddRouteName,
           pageBuilder: (context, state) {
-            // Accessing 'userId' from state.pathParameters
-            return const NoTransitionPage(child: TagAddScreen());
+            return NoTransitionPage(child: TagAddScreen());
           },
         ),
       ],

@@ -1,8 +1,7 @@
 import 'package:fo_fe/core/widgets/core_widget_exports.dart';
+import 'package:fo_fe/features/organizer/all_items/tag/presentation/widgets/tag_add_screen_actions_menu.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
-import 'package:fo_fe/features/organizer/all_items/task/presentation/widgets/task_add_screen_actions_menu.dart';
-
-import '../../../../../../core/utils/exports/external_exports.dart';
+import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class TagAddScreen extends StatelessWidget {
   const TagAddScreen({super.key});
@@ -12,7 +11,7 @@ class TagAddScreen extends StatelessWidget {
     return AppContentScreen(
       appBarTitle: "AddTag",
       body: (userId) => TagAddForm(userId: userId),
-      menuOptions: (context, userId) => TaskAddScreenActionsMenu.getMenuItems(context, userId),
+      menuOptions: (context, userId) => TagAddScreenActionsMenu.getMenuItems(context, userId),
       onSearchSubmitted: () {
         // Define the search functionality here
       },

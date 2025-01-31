@@ -1,9 +1,9 @@
 import '../../../utils/organizer_exports.dart';
 
-class LinkItemListViewPage<T extends ItemEntity> extends StatelessWidget {
+class LinkEntityListViewPage<T extends ItemEntity> extends StatelessWidget {
   final OrganizerItems<T> itemList;
 
-  const LinkItemListViewPage({
+  const LinkEntityListViewPage({
     super.key,
     required this.itemList,
   });

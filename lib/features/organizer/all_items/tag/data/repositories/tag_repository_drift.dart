@@ -1,7 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/db/drift/organizer_drift_exports.dart';
 import 'package:fo_fe/core/error/failures.dart';
+import 'package:fo_fe/features/organizer/all_items/tag/data/models/tag_user_link_mapper.dart';
+import 'package:fo_fe/features/organizer/all_items/tag/domain/entities/tag_user_entity.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
+import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class TagRepositoryDrift implements TagRepository {
@@ -10,11 +13,14 @@ class TagRepositoryDrift implements TagRepository {
   TagRepositoryDrift({required this.localDataSource});
 
   @override
-  Future<Either<Failure, int>> addTag(TagEntity tag) async {
-    return _handleDatabaseOperation(() {
+  Future<Either<Failure, TagEntity>> addTag(TagEntity tag) async {
+    return _handleDatabaseOperation(() async {
       final companion = TagMapper.entityToCompanion(tag);
       _checkItemNotNull(companion);
-      return localDataSource.addTag(companion);
+      final tagId = await localDataSource.addTag(companion);
+      final newTag = await localDataSource.getTagById(tagId);
+      _checkItemNotNull(newTag);
+      return TagMapper.entityFromTableDrift(newTag!);
     });
   }
 
@@ -86,6 +92,60 @@ class TagRepositoryDrift implements TagRepository {
     });
   }
 
+  @override
+  Future<Either<Failure, TagUserLinkEntity>> addTagUserLink(TagUserLinkEntity tagUserEntity) async {
+    return _handleDatabaseOperation(() async {
+      final companion = TagUserLinkMapper.entityToCompanion(tagUserEntity);
+      _checkItemNotNull(companion);
+      final result = await localDataSource.addTagUserLink(companion);
+      _checkItemNotNull(result);
+      return TagUserLinkMapper.entityFromTableDrift(result!);
+    });
+  }
+
+  @override
+  Future<Either<Failure, OrganizerItems<UserEntity>>> getUserItemsByTagId(int tagId) async {
+    return _handleDatabaseOperation(() async {
+      final items = await localDataSource.getUserItemsByTagId(tagId);
+      _checkItemsNotNullOrEmpty(items);
+      final nonNullItems = items!.whereType<UserTableDriftG>().toList();
+      return UserMapper.entityItemsFromTableDriftItems(nonNullItems);
+    });
+  }
+
+  @override
+  Future<Either<Failure, UserEntity>> getCreatorTagById(int tagId) async {
+    return _handleDatabaseOperation(() async {
+      final item = await localDataSource.getCreatorById(tagId);
+      _checkItemNotNull(item);
+      return UserMapper.entityFromTableDrift(item!);
+    });
+  }
+
+  @override
+  Future<Either<Failure, TagUserLinkEntity>> updateTagUserLink(
+      TagUserLinkEntity tagUserEntity) async {
+    return _handleDatabaseOperation(() async {
+      final companion = TagUserLinkMapper.entityToCompanion(tagUserEntity);
+      _checkItemNotNull(companion);
+      final result = await localDataSource.updateTagUserLink(companion);
+      _checkItemNotNull(result);
+      return TagUserLinkMapper.entityFromTableDrift(result!);
+    });
+  }
+
+  // @override
+  // Future<Either<Failure, OrganizerItems<UserEntity>>> updateTagUserItems(
+  //     int tagId, List<int> addedUserItems, List<int> removedUserItems) async {
+  //   return _handleDatabaseOperation(() async {
+  //     await localDataSource.updateTagUserItems(tagId, addedUserItems, removedUserItems);
+  //     final items = await localDataSource.getUserItemsByTagId(tagId);
+  //     _checkItemsNotNullOrEmpty(items);
+  //     final nonNullItems = items!.whereType<UserTableDriftG>().toList();
+  //     return UserMapper.entityItemsFromTableDriftItems(nonNullItems);
+  //   });
+  // }
+
   Future<Either<Failure, T>> _handleDatabaseOperation<T>(Future<T> Function() operation) async {
     try {
       final result = await operation();
@@ -120,5 +180,12 @@ class TagRepositoryDrift implements TagRepository {
     if (items == null || items.isEmpty) {
       throw const TagNotFoundFailure("Tag not found");
     }
+  }
+
+  @override
+  Future<Either<Failure, OrganizerItems<UserEntity>>> updateTagUserItems(
+      int tagId, List<int> addedUserItems, List<int> removedUserItems) {
+    // TODO: implement updateTagUserItems
+    throw UnimplementedError();
   }
 }

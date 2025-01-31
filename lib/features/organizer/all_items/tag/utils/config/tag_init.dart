@@ -2,6 +2,7 @@ import 'package:fo_fe/core/db/drift/organizer_drift_db.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/data/datasources/tag_local_data_source_drift.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/data/repositories/tag_repository_drift.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/domain/usecases/get_tag_items_from_log_in_user.dart';
+import 'package:fo_fe/features/organizer/all_items/tag/domain/usecases/tag_crud_use_case/add_tag_use_case.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/presentation/logic/tag_bloc/tag_bloc.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/presentation/logic/tag_cubit/tag_cubit.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/presentation/logic/tag_cubit/tag_form_cubit.dart';

@@ -17,8 +17,8 @@ class TagAddForm extends StatelessWidget {
             children: [
               TextFormField(
                 decoration: const InputDecoration(labelText: 'Tag Name'),
-                initialValue: state.tagName,
-                onChanged: (value) => context.read<TagFormCubit>().updateTagName(value),
+                initialValue: state.subject,
+                onChanged: (value) => context.read<TagFormCubit>().updateSubject(value),
                 validator: (value) {
                   if (value?.isEmpty ?? true) {
                     return 'Please enter a tag name';
@@ -43,7 +43,7 @@ class TagAddForm extends StatelessWidget {
 
     final tag = TagEntity(
       id: 0,
-      subject: formState.tagName,
+      subject: formState.subject,
       createdDate: DateTime.now(),
       creatorId: userId,
     );

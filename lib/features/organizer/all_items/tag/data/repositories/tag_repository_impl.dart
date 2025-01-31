@@ -1,6 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/error/failures.dart';
+import 'package:fo_fe/features/organizer/all_items/tag/domain/entities/tag_user_entity.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
+import 'package:fo_fe/features/organizer/all_items/user/domain/entities/user_entity.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class TagRepositoryImpl implements TagRepository {
@@ -33,7 +35,7 @@ class TagRepositoryImpl implements TagRepository {
   }
 
   @override
-  Future<Either<Failure, int>> addTag(TagEntity tag) {
+  Future<Either<Failure, TagEntity>> addTag(TagEntity tag) {
     // TODO: implement insertTag
     throw UnimplementedError();
   }
@@ -53,6 +55,37 @@ class TagRepositoryImpl implements TagRepository {
   @override
   Future<Either<Failure, OrganizerItems<TagDto>>> getTagItemsFromUser(int userId) {
     // TODO: implement getTagItemsFromUser
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, TagUserLinkEntity>> addTagUserLink(TagUserLinkEntity tagUserEntity) {
+    // TODO: implement addTagUserLink
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, UserEntity>> getCreatorTagById(int tagId) {
+    // TODO: implement getCreatorTagById
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, OrganizerItems<UserEntity>>> getUserItemsByTagId(int tagId) {
+    // TODO: implement getUserItemsByTagId
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, OrganizerItems<UserEntity>>> updateTagUserItems(
+      int tagId, List<int> addedUserItems, List<int> removedUserItems) {
+    // TODO: implement updateTagUserItems
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, TagUserLinkEntity>> updateTagUserLink(TagUserLinkEntity tag) {
+    // TODO: implement updateTagUserLink
     throw UnimplementedError();
   }
 }

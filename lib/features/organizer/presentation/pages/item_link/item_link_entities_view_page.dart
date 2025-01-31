@@ -1,11 +1,11 @@
-import 'package:fo_fe/features/organizer/presentation/pages/item_link/item_link_items_update_page.dart';
-import 'package:fo_fe/features/organizer/presentation/pages/item_link/link_item_list_view_page.dart';
+import 'package:fo_fe/features/organizer/presentation/pages/item_link/item_link_entities_update_page.dart';
+import 'package:fo_fe/features/organizer/presentation/pages/item_link/link_entity_list_view_page.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class ItemLinkItemsViewPage<T extends ItemEntity> extends StatelessWidget {
+class ItemLinkEntitiesViewPage<T extends ItemEntity> extends StatelessWidget {
   final ItemLinkParams params;
 
-  const ItemLinkItemsViewPage({super.key, required this.params});
+  const ItemLinkEntitiesViewPage({super.key, required this.params});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class ItemLinkItemsViewPage<T extends ItemEntity> extends StatelessWidget {
         if (items.isEmpty)
           const Center(child: Text('No Available'))
         else
-          LinkItemListViewPage<T>(itemList: items),
+          LinkEntityListViewPage<T>(itemList: items),
         ElevatedButton(
           onPressed: () {
             _pushUpdateItems(context, items);
@@ -53,7 +53,7 @@ class ItemLinkItemsViewPage<T extends ItemEntity> extends StatelessWidget {
     Navigator.of(context).push(MaterialPageRoute(
       builder: (_) => BlocProvider.value(
         value: context.read<OrganizerLinkBloc<T>>(),
-        child: ItemLinkItemsUpdatePage<T>(params: params, initSelectedItems: items),
+        child: ItemLinkEntitiesUpdatePage<T>(itemLinkParams: params, initSelectedItems: items),
       ),
     ));
   }
