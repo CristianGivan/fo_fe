@@ -6,8 +6,8 @@ import 'package:fo_fe/features/organizer/all_items/task/domain/repositories/task
 import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-typedef GetTaskLink = Future<Either<Failure, OrganizerItems<ItemEntity>>> Function(
-    TaskRepository repository, ItemLinkParams params);
+typedef GetTaskLink<T extends ItemEntity> = Future<Either<Failure, OrganizerItems<T>>> Function(
+    ItemLinkParams params);
 
 class GetTaskLinkUseCase<T extends ItemEntity> extends UseCase<OrganizerItems<T>, ItemLinkParams> {
   final TaskRepository repository;
@@ -16,26 +16,17 @@ class GetTaskLinkUseCase<T extends ItemEntity> extends UseCase<OrganizerItems<T>
 
   @override
   Future<Either<Failure, OrganizerItems<T>>> call(ItemLinkParams params) {
-    final getTaskLink = typeToGetTaskLinkMap[T];
+    final getTaskLink = typeToGetTaskLinkMap[T] as GetTaskLink<T>?;
 
     if (getTaskLink == null) {
-      return Future.value(Left(UnexpectedFailure("No handler found for type ${T.runtimeType}")));
+      return Future.value(Left(UnexpectedFailure("No handler found for type $T")));
     }
-    return getTaskLink(repository, params) as Future<Either<Failure, OrganizerItems<T>>>;
+
+    return getTaskLink(params);
   }
 
-  final Map<Type, GetTaskLink> typeToGetTaskLinkMap = {
-    UserEntity: getTaskUser,
-    TagEntity: getTaskTag,
+  late final Map<Type, GetTaskLink<ItemEntity>> typeToGetTaskLinkMap = {
+    UserEntity: (params) => repository.getUserItemsByTaskId(params.itemId),
+    TagEntity: (params) => repository.getTagItemsByTaskId(params.itemId),
   };
-}
-
-Future<Either<Failure, OrganizerItems<UserEntity>>> getTaskUser(
-    TaskRepository repository, ItemLinkParams params) {
-  return repository.getUserItemsByTaskId(params.itemId);
-}
-
-Future<Either<Failure, OrganizerItems<TagEntity>>> getTaskTag(
-    TaskRepository repository, ItemLinkParams params) {
-  return repository.getTagItemsByTaskId(params.itemId);
 }

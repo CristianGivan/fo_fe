@@ -70,12 +70,6 @@ registerd for several tings What shall I use fo rgeneric type
 
 == Now
 
-GetEntitiesFromUserUseCase
-
-* ItemLinkParams rethink may be misused
-
-* update bloc with generic use case
-
 UpdateLinkEntitiesOfTaskUseCase or UpdateTaskLinkUseCase
 
 * GetLinkedEntitiesHandler  make it more generic
@@ -102,9 +96,10 @@ UpdateLinkEntitiesOfTaskUseCase or UpdateTaskLinkUseCase
 
 == Done
 
+* update bloc with generic use case
+GetEntitiesFromUserUseCase
 * make a better way to create the TaskLinksBlocFactory
-
-
+* ItemLinkParams rethink may be misused
 * from update navigate to link_item_list_edit_page where I have selected alll the usersrs that
 areallreadi in the list and can add and delete others.
 * having all the items of the user display all and marked all the items of the item as selected

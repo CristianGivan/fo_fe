@@ -6,6 +6,9 @@ import 'package:fo_fe/features/organizer/all_items/task/domain/repositories/task
 import 'package:fo_fe/features/organizer/all_items/user/domain/repositories/user_repository.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
+typedef FetchEntities<T extends ItemEntity> = Future<Either<Failure, OrganizerItems<T>>> Function(
+    int userId);
+
 class GetEntitiesFromUserUseCase<T extends ItemEntity>
     extends UseCase<OrganizerItems<T>, ItemParams> {
   final TaskRepository taskRepository;
@@ -15,18 +18,19 @@ class GetEntitiesFromUserUseCase<T extends ItemEntity>
   GetEntitiesFromUserUseCase(this.tagRepository, this.taskRepository, this.userRepository);
 
   @override
-  Future<Either<Failure, OrganizerItems<T>>> call(params) async {
-    if (params.itemType == ItemsTypeEnum.task) {
-      return taskRepository.getTaskEntitiesFromUser(params.forUserId)
-          as Future<Either<Failure, OrganizerItems<T>>>;
-    } else if (params.itemType == ItemsTypeEnum.user) {
-      return userRepository.getPendingAndAcceptedUserItems(params.forUserId)
-          as Future<Either<Failure, OrganizerItems<T>>>;
-    } else if (params.itemType == ItemsTypeEnum.tag) {
-      return tagRepository.getTagEntitiesFromUser(params.forUserId)
-          as Future<Either<Failure, OrganizerItems<T>>>;
-    } else {
+  Future<Either<Failure, OrganizerItems<T>>> call(ItemParams params) {
+    final fetchFunction = typeToFetchFunctionMap[params.itemType] as FetchEntities<T>?;
+
+    if (fetchFunction == null) {
       return Future.value(Left(UnexpectedFailure("Invalid params")));
     }
+
+    return fetchFunction(params.forUserId);
   }
+
+  late final Map<ItemsTypeEnum, FetchEntities<ItemEntity>> typeToFetchFunctionMap = {
+    ItemsTypeEnum.task: (userId) => taskRepository.getTaskEntitiesFromUser(userId),
+    ItemsTypeEnum.user: (userId) => userRepository.getPendingAndAcceptedUserItems(userId),
+    ItemsTypeEnum.tag: (userId) => tagRepository.getTagEntitiesFromUser(userId),
+  };
 }
