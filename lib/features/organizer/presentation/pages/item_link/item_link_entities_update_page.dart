@@ -64,7 +64,9 @@ class _ItemLinkEntitiesUpdatePageState<T extends ItemEntity>
       addedItems: allItemsChecked,
       removedItems: selectedItemsUnchecked,
     );
-    return UpdateItemsOfItemActionsMenu.getMenuItems(context, updatedItems);
+    print(
+        "dbg Used ItemLinkEntitiesUpdatePage: OrganizerLinkBloc<$T>: $this (Hash: ${identityHashCode(this)})");
+    return UpdateItemsOfItemActionsMenu.getMenuItems(context, updatedItems, selectedItemsBloc);
   }
 
   Widget _buildUncheckedListView() {

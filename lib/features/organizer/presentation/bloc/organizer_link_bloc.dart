@@ -110,4 +110,11 @@ abstract class OrganizerLinkBloc<T extends ItemEntity>
         return 'Unexpected error occurred';
     }
   }
+
+//todo -delete- remove this method
+  @override
+  Future<void> close() {
+    print("dbg Closing: Closing OrganizerLinkBloc<$T>: $this (Hash: ${identityHashCode(this)})");
+    return super.close();
+  }
 }

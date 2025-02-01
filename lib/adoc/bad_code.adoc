@@ -21,3 +21,26 @@ final OrganizerItems<T> itemList;
     final itemDto = itemDtoList.getAt(index) as T;
 ...
 ----
+
+When I use it I want to create another instance of bloc every time :D
+
+[dart]
+----
+class TaskLinksBlocFactory {
+  static OrganizerLinkBloc<T> createFor<T extends ItemEntity>() {
+    final bloc = typeToBlocMap[T];
+    if (bloc == null) {
+      throw UnsupportedError('Unsupported type: $T');
+    } else {
+      print("dbg Created TaskLinksBlocFactory:  new OrganizerLinkBloc<$T>: $bloc (Hash: "
+          "${identityHashCode(bloc)})");
+      return bloc as OrganizerLinkBloc<T>;
+    }
+  }
+
+  static final Map<Type, OrganizerLinkBloc<ItemEntity>> typeToBlocMap = {
+    UserEntity: TaskUserLinksBloc(),
+    TagEntity: TaskTagLinksBloc(),
+  };
+}
+----
