@@ -101,7 +101,7 @@ class TagMapper {
 
   static TagEntity tagEntityFromRow(QueryRow row) {
     return TagEntity(
-      id: row.read<int>('id'),
+      id: row.read<int>('tag_id'),
       subject: row.read<String>('subject'),
       createdDate: row.read<DateTime>('created_date'),
       creatorId: row.read<int>('creator_id'),
