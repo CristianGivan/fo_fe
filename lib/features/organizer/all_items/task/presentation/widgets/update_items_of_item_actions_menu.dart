@@ -2,21 +2,21 @@ import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class UpdateItemsOfItemActionsMenu<T extends OrganizerItemEntity> {
   static List<PopupMenuEntry> getMenuItems<T extends ItemEntity>(
-      BuildContext context, UpdateLinkParams<T> params, OrganizerLinkBloc<T> selectedItemsBloc) {
+      BuildContext context, UpdateLinkParams<T> params) {
     switch (params.itemType) {
       case ItemsTypeEnum.taskUser:
-        return _getTaskUserMenuItems<T>(context, params, selectedItemsBloc);
+        return _getTaskUserMenuItems<T>(context, params);
       case ItemsTypeEnum.taskTag:
-        return _getTaskTagMenuItems<T>(context, params, selectedItemsBloc);
+        return _getTaskTagMenuItems<T>(context, params);
       case ItemsTypeEnum.taskReminder:
-        return _getTaskReminderMenuItems<T>(context, params, selectedItemsBloc);
+        return _getTaskReminderMenuItems<T>(context, params);
       default:
         return <PopupMenuEntry>[];
     }
   }
 
   static List<PopupMenuEntry> _getTaskUserMenuItems<T extends ItemEntity>(
-      BuildContext context, UpdateLinkParams<T> params, OrganizerLinkBloc<T> selectedItemsBloc) {
+      BuildContext context, UpdateLinkParams<T> params) {
     return [
       PopupMenuItem(
         child: Text('Create New Item'),
@@ -24,20 +24,16 @@ class UpdateItemsOfItemActionsMenu<T extends OrganizerItemEntity> {
       ),
       PopupMenuItem(
         child: Text('Update with Items'),
-        onTap: () => {selectedItemsBloc.add(UpdateItemsOfItemBlocEvent<T>(params)), context.pop()},
+        onTap: () => {
+          context.read<OrganizerLinkBloc<T>>().add(UpdateItemsOfItemBlocEvent<T>(params)),
+          context.pop()
+        },
       ),
     ];
   }
 
   static List<PopupMenuEntry> _getTaskTagMenuItems<T extends ItemEntity>(
-      BuildContext context, UpdateLinkParams<T> params, OrganizerLinkBloc<T> selectedItemsBloc) {
-    print("dbg Used UpdateItemsOfItemActionsMenu: Using OrganizerLinkBloc<$T>: $selectedItemsBloc "
-        "(Hash: ${identityHashCode(selectedItemsBloc)})");
-    if (selectedItemsBloc.isClosed) {
-      print(
-          "dbg Error: Trying to use a closed Bloc! (Hash: ${identityHashCode(selectedItemsBloc)})");
-      // return [];
-    }
+      BuildContext context, UpdateLinkParams<T> params) {
     return [
       PopupMenuItem(
         child: Text('Create New Item'),
@@ -45,13 +41,16 @@ class UpdateItemsOfItemActionsMenu<T extends OrganizerItemEntity> {
       ),
       PopupMenuItem(
         child: Text('Update with Items'),
-        onTap: () => {selectedItemsBloc.add(UpdateItemsOfItemBlocEvent<T>(params)), context.pop()},
+        onTap: () => {
+          context.read<OrganizerLinkBloc<T>>().add(UpdateItemsOfItemBlocEvent<T>(params)),
+          context.pop()
+        },
       ),
     ];
   }
 
   static List<PopupMenuEntry> _getTaskReminderMenuItems<T extends ItemEntity>(
-      BuildContext context, UpdateLinkParams<T> params, OrganizerLinkBloc<T> selectedItemsBloc) {
+      BuildContext context, UpdateLinkParams<T> params) {
     return [
       PopupMenuItem(
         child: Text('Create New Item'),
