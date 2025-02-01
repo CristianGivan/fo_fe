@@ -68,34 +68,33 @@ registerd for several tings What shall I use fo rgeneric type
 * on exit ask if it want to save the changes I cannot make it work with  PopScope
 * Common Mistakes in Lifecycle Management    Not Closing Blocs Holding References Too Long Singleton Misuse:
 
-== Now
+== No
 
-UpdateLinkEntitiesOfTaskUseCase or UpdateTaskLinkUseCase
+UpdateTaskDtoUseCase  is with user should I keep it here or move in the taskLinkItemsBloc?
+taskTag and other entity should I create?
 
-* GetLinkedEntitiesHandler  make it more generic
-
-* create a usecase for getting the entities by userID or shall I have only the DTO?
-
-* _onLoading and _onFailure are not shared
-
-* usecase between user/link item and update taks are similar... check for optimisations
-* final ItemsTypeEnum itemsType; from
-* move the bloc hendlers from bloc to not dry
-* updateTagItemOfTask transfer  the logic in usecase
-* Update User
-* getPendingAndAcceptedUserItems is not returning the right values
-* how to not get all the items from db insted update the state   itemLinkItemsBloc.add
-(GetItemsOfItemBlocEvent(params)); in ItemLinkItemsPage
-
-* clean up the getit in special if I have the factory
-* inharetance vs delagation conposiotion for ItemEntity and Bloc or Cubit
-
-* check if having BLoc and Cubit is a good Idea
-
-* extract _buildLoading() to a widget
+TaskDeleteScreen
+FilterDialog
+SortDialog
 
 == Done
 
+* check if having BLoc and Cubit is a good Idea
+* extract _buildLoading() to a widget
+* clean up the getit in special if I have the factory
+* inharetance vs delagation conposiotion for ItemEntity and Bloc or Cubit
+* how to not get all the items from db insted update the state   itemLinkItemsBloc.add
+(GetItemsOfItemBlocEvent(params)); in ItemLinkItemsPage
+* getPendingAndAcceptedUserItems is not returning the right values
+* updateTagItemOfTask transfer  the logic in usecase
+* Update User
+* move the bloc hendlers from bloc to not dry
+* final ItemsTypeEnum itemsType; from
+* usecase between user/link item and update taks are similar... check for optimisations
+* _onLoading and _onFailure are not shared
+* create a usecase for getting the entities by userID or shall I have only the DTO?
+* GetLinkedEntitiesHandler  make it more generic
+UpdateLinkEntitiesOfTaskUseCase or UpdateTaskLinkUseCase
 * update bloc with generic use case
 GetEntitiesFromUserUseCase
 * make a better way to create the TaskLinksBlocFactory

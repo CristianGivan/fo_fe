@@ -1,5 +1,5 @@
 import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
-import 'package:fo_fe/features/organizer/all_items/task/presentation/widgets/item_card_container.dart';
+import 'package:fo_fe/features/organizer/presentation/widgets/item_card_container.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class TagCard extends StatelessWidget {
