@@ -9,10 +9,10 @@ import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 typedef GetTaskLink<T extends ItemEntity> = Future<Either<Failure, OrganizerItems<T>>> Function(
     ItemLinkParams params);
 
-class GetTaskLinkUseCase<T extends ItemEntity> extends UseCase<OrganizerItems<T>, ItemLinkParams> {
+class GetTaskLinksUseCase<T extends ItemEntity> extends UseCase<OrganizerItems<T>, ItemLinkParams> {
   final TaskRepository repository;
 
-  GetTaskLinkUseCase(this.repository);
+  GetTaskLinksUseCase(this.repository);
 
   @override
   Future<Either<Failure, OrganizerItems<T>>> call(ItemLinkParams params) {

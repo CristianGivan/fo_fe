@@ -8,7 +8,7 @@ import 'package:fo_fe/features/organizer/all_items/task/domain/repositories/task
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/export_task_to_excel_use_case.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_crud_use_case/get_task_items_from_logIn_user_use_case.dart';
 import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_crud_use_case/update_task_dto_use_case.dart';
-import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_link_use_case/update_task_link_use_case.dart';
+import 'package:fo_fe/features/organizer/all_items/task/domain/usecases/task_link_use_case/update_task_links_use_case.dart';
 import 'package:fo_fe/features/organizer/all_items/task/presentation/logic/task_cubit/task_form_cubit.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart';
@@ -33,8 +33,8 @@ void taskInit() {
 
   // Task Link Use Cases
 
-  sl.registerLazySingleton(() => GetTaskLinkUseCase<UserEntity>(sl()));
-  sl.registerLazySingleton(() => GetTaskLinkUseCase<TagEntity>(sl()));
+  sl.registerLazySingleton(() => GetTaskLinksUseCase<UserEntity>(sl()));
+  sl.registerLazySingleton(() => GetTaskLinksUseCase<TagEntity>(sl()));
   sl.registerLazySingleton(() => UpdateTaskLinkUseCase<UserEntity>(sl()));
   sl.registerLazySingleton(() => UpdateTaskLinkUseCase<TagEntity>(sl()));
 

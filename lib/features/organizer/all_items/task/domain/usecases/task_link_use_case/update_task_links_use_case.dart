@@ -6,7 +6,7 @@ import 'package:fo_fe/features/organizer/all_items/task/domain/repositories/task
 import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-typedef GetTaskLink<T extends ItemEntity> = Future<Either<Failure, OrganizerItems<T>>> Function(
+typedef UpdateTaskLinks<T extends ItemEntity> = Future<Either<Failure, OrganizerItems<T>>> Function(
     TaskRepository repository, UpdateLinkParams<T> params);
 
 class UpdateTaskLinkUseCase<T extends ItemEntity>
@@ -17,7 +17,7 @@ class UpdateTaskLinkUseCase<T extends ItemEntity>
 
   @override
   Future<Either<Failure, OrganizerItems<T>>> call(UpdateLinkParams<T> params) {
-    final updateTaskLink = typeToGetTaskLinkMap[T] as GetTaskLink<T>?;
+    final updateTaskLink = typeToGetTaskLinkMap[T] as UpdateTaskLinks<T>?;
 
     if (updateTaskLink == null) {
       return Future.value(Left(UnexpectedFailure("No handler found for type ${T.runtimeType}")));
@@ -26,12 +26,12 @@ class UpdateTaskLinkUseCase<T extends ItemEntity>
   }
 }
 
-final Map<Type, GetTaskLink> typeToGetTaskLinkMap = {
-  UserEntity: updateTaskUser as GetTaskLink<ItemEntity>,
-  TagEntity: updateTaskTag as GetTaskLink<ItemEntity>,
+final Map<Type, UpdateTaskLinks> typeToGetTaskLinkMap = {
+  UserEntity: updateTaskUserLinks as UpdateTaskLinks<ItemEntity>,
+  TagEntity: updateTaskTagLinks as UpdateTaskLinks<ItemEntity>,
 };
 
-Future<Either<Failure, OrganizerItems<UserEntity>>> updateTaskUser<ItemEntity>(
+Future<Either<Failure, OrganizerItems<UserEntity>>> updateTaskUserLinks<ItemEntity>(
     TaskRepository repository, UpdateLinkParams<UserEntity> params) {
   return repository.updateTaskUserItems(
     params.itemId,
@@ -40,7 +40,7 @@ Future<Either<Failure, OrganizerItems<UserEntity>>> updateTaskUser<ItemEntity>(
   );
 }
 
-Future<Either<Failure, OrganizerItems<TagEntity>>> updateTaskTag(
+Future<Either<Failure, OrganizerItems<TagEntity>>> updateTaskTagLinks(
     TaskRepository repository, UpdateLinkParams<TagEntity> params) {
   return repository.updateTaskTagItems(
     params.itemId,

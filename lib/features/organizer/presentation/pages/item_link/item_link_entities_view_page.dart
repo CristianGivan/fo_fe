@@ -18,18 +18,11 @@ class ItemLinkEntitiesViewPage<T extends ItemEntity> extends StatelessWidget {
         }
         return buildBlocStateWidget(
           state: state,
-          buildErrorState: _buildErrorState,
-          buildLoadingState: _buildLoadingState,
           buildLoadedState: () => _buildItemsListPage(context, state.displayedItems),
         );
       },
     );
   }
-
-  Widget _buildErrorState(String? message) =>
-      Center(child: Text(message ?? "Unknown error occurred"));
-
-  Widget _buildLoadingState() => const Center(child: CircularProgressIndicator());
 
   Widget _buildItemsListPage(BuildContext context, OrganizerItems<T> items) {
     return Column(

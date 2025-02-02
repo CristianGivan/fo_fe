@@ -1,3 +1,17 @@
+=== Links
+
+* shall I put also another field userId in the itemLinkEntity?
+** I will see at filter becase there I need it for more
+
+* if a use have access to other user task can see update other user taskTag?
+** we start by not showing to the other user other field but in the future you can see them
+** or maybe it can be a flag not shared ind if is set then it cannot be share with other users
+** at the beginning no but it can opt to copy tags(can be change by user) or add the referance
+(can be change by creator)
+** how update the behaviour will be seen later
+
+== Other
+
 * where tho have the async in dao or in local data source?
 * in dao shal I return Future<Set<int>> or Future<List<UserTableDriftG?>?>
 * should I have await when I retune future

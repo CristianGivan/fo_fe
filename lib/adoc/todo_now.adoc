@@ -77,6 +77,8 @@ TaskDeleteScreen
 FilterDialog
 SortDialog
 
+check the params if I need them and what shall contain
+
 == Done
 
 * check if having BLoc and Cubit is a good Idea
