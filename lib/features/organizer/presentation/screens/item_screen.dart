@@ -1,7 +1,7 @@
 import 'package:fo_fe/core/widgets/core_widget_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/presentation/bloc/dynamic_bloc_resolver.dart';
-import 'package:fo_fe/features/organizer/presentation/pages/item/item_card.dart';
+import 'package:fo_fe/features/organizer/presentation/pages/item/item_dto_card.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 import 'package:fo_fe/features/organizer/utils/other/screen_action_menu.dart';
 import 'package:fo_fe/features/organizer/utils/other/update_item_logic.dart';
@@ -35,8 +35,8 @@ class ItemScreen<T extends DtoEntity> extends StatelessWidget {
         return buildBlocStateWidget(
           state: state,
           buildLoadedState: () => ItemListViewPage<T>(
-            itemsDto: state.displayedItems,
-            itemCardBuilder: (itemDto) => ItemCard<T>(itemDto),
+            items: state.displayedItems,
+            itemCardBuilder: (itemDto) => ItemDtoCard<T>(itemDto),
             value: (itemDto) => itemDto.userLink.isSelected,
             onChange: (context, itemDto, value) =>
                 UpdateItemLogic.updateItemUserLink<T>(context, itemDto, value),

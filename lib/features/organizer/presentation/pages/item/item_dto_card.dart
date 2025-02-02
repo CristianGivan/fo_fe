@@ -4,16 +4,16 @@ import 'package:fo_fe/features/organizer/all_items/task/presentation/pages/task_
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-typedef WidgetBuilderFunction<T extends ItemEntity> = Widget Function(T item);
+typedef WidgetBuilderFunction<T extends DtoEntity> = Widget Function(T item);
 
-class ItemCard<T extends ItemEntity> extends StatelessWidget {
+class ItemDtoCard<T extends DtoEntity> extends StatelessWidget {
   final T itemDto;
 
-  const ItemCard(this.itemDto, {super.key});
+  const ItemDtoCard(this.itemDto, {super.key});
 
   static final Map<Type, WidgetBuilderFunction> _typeToWidgetBuilder = {
-    TaskEntity: (item) => TaskCard(item as TaskEntity),
-    TagEntity: (item) => TagCard(item as TagEntity),
+    TaskDto: (item) => TaskCard(item.entity as TaskEntity),
+    TagDto: (item) => TagCard(item.entity as TagEntity),
   };
 
   @override

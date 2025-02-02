@@ -3,7 +3,7 @@ import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart'
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 import 'package:fo_fe/features/organizer/utils/set_and_list/organizer_items_transform.dart';
 
-import '../../../../presentation/pages/item/item_card.dart';
+import '../../../../presentation/pages/item/item_dto_card.dart';
 
 class TaskDeleteScreen extends StatefulWidget {
   const TaskDeleteScreen({super.key});
@@ -45,8 +45,8 @@ class _TaskDeleteScreenState extends State<TaskDeleteScreen> {
       return Center(child: Text('No items to display'));
     } else {
       return ItemListViewPage<TaskDto>(
-        itemsDto: selectedTaskDtoList,
-        itemCardBuilder: (itemDto) => ItemCard<TaskDto>(itemDto),
+        items: selectedTaskDtoList,
+        itemCardBuilder: (itemDto) => ItemDtoCard<TaskDto>(itemDto),
         value: _isSelected,
         onChange: _updateTaskUserLink,
       );

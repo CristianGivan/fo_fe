@@ -1,14 +1,14 @@
 import '../../../utils/organizer_exports.dart';
 
-class ItemListViewPage<T extends DtoEntity> extends StatelessWidget {
-  final OrganizerItems<T> itemsDto;
+class ItemListViewPage<T extends ItemEntity> extends StatelessWidget {
+  final OrganizerItems<T> items;
   final Widget Function(T) itemCardBuilder;
   final bool Function(T) value;
   final void Function(BuildContext, T, bool) onChange;
 
   const ItemListViewPage({
     super.key,
-    required this.itemsDto,
+    required this.items,
     required this.itemCardBuilder,
     required this.value,
     required this.onChange,
@@ -16,23 +16,23 @@ class ItemListViewPage<T extends DtoEntity> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (itemsDto.isEmpty) {
+    if (items.isEmpty) {
       return Center(child: Text('No items to display'));
     } else {
       return ListView.builder(
-        itemCount: itemsDto.size(),
+        itemCount: items.size(),
         itemBuilder: (context, index) => _buildCheckboxListTitle(context, index),
       );
     }
   }
 
   Widget _buildCheckboxListTitle(BuildContext context, int index) {
-    final itemDto = itemsDto.getAt(index);
+    final item = items.getAt(index);
     return CheckboxListTile(
-      title: itemCardBuilder(itemDto),
-      value: value(itemDto),
+      title: itemCardBuilder(item),
+      value: value(item),
       onChanged: (bool? value) {
-        onChange(context, itemDto, value!);
+        onChange(context, item, value!);
       },
     );
   }

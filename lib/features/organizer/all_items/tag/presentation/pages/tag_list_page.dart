@@ -1,7 +1,7 @@
-import 'package:fo_fe/features/organizer/presentation/pages/item/item_list_view_page.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/presentation/logic/tag_bloc/tag_bloc.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/utils/other/tag_params.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
+import 'package:fo_fe/features/organizer/presentation/pages/item/item_list_view_page.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 import 'package:fo_fe/features/organizer/utils/set_and_list/organizer_items_transform.dart';
 
@@ -31,7 +31,7 @@ class TagListPage extends StatelessWidget {
       return Center(child: Text('No items to display'));
     } else {
       return ItemListViewPage<TagDto>(
-        itemsDto: tagDtoList,
+        items: tagDtoList,
         itemCardBuilder: (tag) => Placeholder(),
         value: _isSelected,
         onChange: _updateTagUserLink,

@@ -68,7 +68,9 @@ registerd for several tings What shall I use fo rgeneric type
 * on exit ask if it want to save the changes I cannot make it work with  PopScope
 * Common Mistakes in Lifecycle Management    Not Closing Blocs Holding References Too Long Singleton Misuse:
 
-== No
+== Now
+
+* update screen for update taskLinkItems
 
 UpdateTaskDtoUseCase  is with user should I keep it here or move in the taskLinkItemsBloc?
 taskTag and other entity should I create?
@@ -78,6 +80,8 @@ FilterDialog
 SortDialog
 
 check the params if I need them and what shall contain
+
+item_dto_card.dart item_card.dart combine them
 
 == Done
 

@@ -19,6 +19,7 @@ class TaskViewScreen extends StatelessWidget {
     );
   }
 
+  //todo -refactor-
   _buildStateWidget() {
     return BlocBuilder<TaskBloc, OrganizerBlocState>(
       builder: (context, state) {

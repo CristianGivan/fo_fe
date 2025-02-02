@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:fo_fe/core/widgets/core_widget_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/presentation/cubit/organizer_cubit.dart';
+import 'package:fo_fe/features/organizer/presentation/pages/item/item_card.dart';
 
 import '../../../utils/organizer_exports.dart';
 
@@ -77,38 +78,47 @@ class _ItemLinkEntitiesUpdatePageState<T extends ItemEntity>
     );
   }
 
-  Widget _buildListSection(String title, OrganizerItems<T> items, bool isChecked, bool isAllItems) {
-    if (items.isEmpty) {
-      _buildLoading();
-    }
-    return Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(title, style: Theme.of(context).textTheme.bodyMedium),
-          Expanded(
-            child: ListView.builder(
-              itemCount: items.size(),
-              itemBuilder: (context, index) {
-                final item = items.getAt(index);
-                return CheckboxListTile(
-                  title: Text(item.subject),
-                  value: isChecked,
-                  onChanged: (bool? value) {
-                    if (value != null) {
-                      _onItemCheckedChanged(item, value, isAllItems);
-                    }
-                  },
-                );
-              },
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget _buildListSection(String title, OrganizerItems<T> items, bool isChecked, bool isAllItems) {
+  //   if (items.isEmpty) {
+  //     _buildLoading();
+  //   }
+  //   return Expanded(
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         Text(title, style: Theme.of(context).textTheme.bodyMedium),
+  //         Expanded(
+  //           child: ListView.builder(
+  //             itemCount: items.size(),
+  //             itemBuilder: (context, index) {
+  //               final item = items.getAt(index);
+  //               return CheckboxListTile(
+  //                 title: Text(item.subject),
+  //                 value: isChecked,
+  //                 onChanged: (bool? value) {
+  //                   if (value != null) {
+  //                     _onItemCheckedChanged(item, value, isAllItems);
+  //                   }
+  //                 },
+  //               );
+  //             },
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
-  Widget _buildLoading() => const Center(child: CircularProgressIndicator());
+  Widget _buildListSection(String title, OrganizerItems<T> items, bool isChecked, bool isAllItems) {
+    return Expanded(
+        child: ItemListViewPage<T>(
+            items: items,
+            itemCardBuilder: (item) => ItemCard<T>(item),
+            value: (item) => isChecked,
+            onChange: (context, item, value) => {
+                  if (value != null) {_onItemCheckedChanged(item, value, isAllItems)}
+                }));
+  }
 
   void _onItemCheckedChanged(T item, bool isChecked, bool isAllItems) {
     setState(() {
