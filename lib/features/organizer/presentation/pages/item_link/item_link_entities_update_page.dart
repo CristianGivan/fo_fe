@@ -78,37 +78,6 @@ class _ItemLinkEntitiesUpdatePageState<T extends ItemEntity>
     );
   }
 
-  // Widget _buildListSection(String title, OrganizerItems<T> items, bool isChecked, bool isAllItems) {
-  //   if (items.isEmpty) {
-  //     _buildLoading();
-  //   }
-  //   return Expanded(
-  //     child: Column(
-  //       crossAxisAlignment: CrossAxisAlignment.start,
-  //       children: [
-  //         Text(title, style: Theme.of(context).textTheme.bodyMedium),
-  //         Expanded(
-  //           child: ListView.builder(
-  //             itemCount: items.size(),
-  //             itemBuilder: (context, index) {
-  //               final item = items.getAt(index);
-  //               return CheckboxListTile(
-  //                 title: Text(item.subject),
-  //                 value: isChecked,
-  //                 onChanged: (bool? value) {
-  //                   if (value != null) {
-  //                     _onItemCheckedChanged(item, value, isAllItems);
-  //                   }
-  //                 },
-  //               );
-  //             },
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
-
   Widget _buildListSection(String title, OrganizerItems<T> items, bool isChecked, bool isAllItems) {
     return Expanded(
         child: ItemListViewPage<T>(

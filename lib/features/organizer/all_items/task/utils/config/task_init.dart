@@ -35,8 +35,11 @@ void taskInit() {
 
   sl.registerLazySingleton(() => GetTaskLinksUseCase<UserEntity>(sl()));
   sl.registerLazySingleton(() => GetTaskLinksUseCase<TagEntity>(sl()));
-  sl.registerLazySingleton(() => UpdateTaskLinkUseCase<UserEntity>(sl()));
-  sl.registerLazySingleton(() => UpdateTaskLinkUseCase<TagEntity>(sl()));
+  sl.registerLazySingleton(() => UpdateTagTaskLinkUseCase(sl()));
+  sl.registerLazySingleton(() => UpdateUserTaskLinkUseCase(sl()));
+
+  sl.registerSingleton<UpdateTaskLinkUseCase<UserEntity>>(UpdateUserTaskLinkUseCase(sl()));
+  sl.registerSingleton<UpdateTaskLinkUseCase<TagEntity>>(UpdateTagTaskLinkUseCase(sl()));
 
   // Task Use cases
   sl.registerLazySingleton(() => GetTaskItemsFromLogInUserUseCase(sl()));

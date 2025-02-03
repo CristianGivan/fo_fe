@@ -6,45 +6,38 @@ import 'package:fo_fe/features/organizer/all_items/task/domain/repositories/task
 import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-typedef UpdateTaskLinks<T extends ItemEntity> = Future<Either<Failure, OrganizerItems<T>>> Function(
-    TaskRepository repository, UpdateLinkParams<T> params);
-
-class UpdateTaskLinkUseCase<T extends ItemEntity>
+abstract class UpdateTaskLinkUseCase<T extends ItemEntity>
     extends UseCase<OrganizerItems<T>, UpdateLinkParams<T>> {
   final TaskRepository repository;
 
   UpdateTaskLinkUseCase(this.repository);
 
   @override
-  Future<Either<Failure, OrganizerItems<T>>> call(UpdateLinkParams<T> params) {
-    final updateTaskLink = typeToGetTaskLinkMap[T] as UpdateTaskLinks<T>?;
+  Future<Either<Failure, OrganizerItems<T>>> call(UpdateLinkParams<T> params);
+}
 
-    if (updateTaskLink == null) {
-      return Future.value(Left(UnexpectedFailure("No handler found for type ${T.runtimeType}")));
-    }
-    return updateTaskLink(repository, params);
+class UpdateUserTaskLinkUseCase extends UpdateTaskLinkUseCase<UserEntity> {
+  UpdateUserTaskLinkUseCase(TaskRepository repository) : super(repository);
+
+  @override
+  Future<Either<Failure, OrganizerItems<UserEntity>>> call(UpdateLinkParams<UserEntity> params) {
+    return repository.updateTaskUserItems(
+      params.itemId,
+      params.addedItems.getIdList(),
+      params.removedItems.getIdList(),
+    );
   }
 }
 
-final Map<Type, UpdateTaskLinks> typeToGetTaskLinkMap = {
-  UserEntity: updateTaskUserLinks as UpdateTaskLinks<ItemEntity>,
-  TagEntity: updateTaskTagLinks as UpdateTaskLinks<ItemEntity>,
-};
+class UpdateTagTaskLinkUseCase extends UpdateTaskLinkUseCase<TagEntity> {
+  UpdateTagTaskLinkUseCase(TaskRepository repository) : super(repository);
 
-Future<Either<Failure, OrganizerItems<UserEntity>>> updateTaskUserLinks<ItemEntity>(
-    TaskRepository repository, UpdateLinkParams<UserEntity> params) {
-  return repository.updateTaskUserItems(
-    params.itemId,
-    params.addedItems.getIdList(),
-    params.removedItems.getIdList(),
-  );
-}
-
-Future<Either<Failure, OrganizerItems<TagEntity>>> updateTaskTagLinks(
-    TaskRepository repository, UpdateLinkParams<TagEntity> params) {
-  return repository.updateTaskTagItems(
-    params.itemId,
-    params.addedItems.getIdList(),
-    params.removedItems.getIdList(),
-  );
+  @override
+  Future<Either<Failure, OrganizerItems<TagEntity>>> call(UpdateLinkParams<TagEntity> params) {
+    return repository.updateTaskTagItems(
+      params.itemId,
+      params.addedItems.getIdList(),
+      params.removedItems.getIdList(),
+    );
+  }
 }
