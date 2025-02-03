@@ -84,9 +84,7 @@ class _ItemLinkEntitiesUpdatePageState<T extends ItemEntity>
             items: items,
             itemCardBuilder: (item) => ItemCard<T>(item),
             value: (item) => isChecked,
-            onChange: (context, item, value) => {
-                  if (value != null) {_onItemCheckedChanged(item, value, isAllItems)}
-                }));
+            onChange: (context, item, value) => _onItemCheckedChanged(item, value, isAllItems)));
   }
 
   void _onItemCheckedChanged(T item, bool isChecked, bool isAllItems) {
