@@ -131,19 +131,20 @@ class TaskRepositoryDrift implements TaskRepository {
 
   @override
   Future<Either<Failure, OrganizerItems<UserEntity>>> updateTaskUserItems(
-    int taskId,
-    List<int> addedUserItems,
-    List<int> removedUserItems,
-  ) {
+      UpdateLinkParams<UserEntity> params) {
     return _handleDatabaseOperation(() async {
-      if (addedUserItems != []) {
-        _addUserItemsToTask(taskId, addedUserItems);
+      final itemId = params.itemId;
+      final addedIds = params.addedItems.getIdList();
+      final removedIds = params.removedItems.getIdList();
+
+      if (addedIds.isNotEmpty) {
+        _addUserItemsToTask(itemId, addedIds);
       }
-      if (removedUserItems != []) {
-        localDataSource.deleteUserItemsFromTask(taskId, removedUserItems);
+      if (removedIds.isNotEmpty) {
+        localDataSource.deleteUserItemsFromTask(itemId, removedIds);
       }
       return _filterNonNullItems<UserEntity, UserTableDriftG>(
-          await localDataSource.getUserItemsByTaskId(taskId),
+          await localDataSource.getUserItemsByTaskId(itemId),
           UserMapper.entityItemsFromTableDriftItems);
     });
   }
@@ -164,19 +165,20 @@ class TaskRepositoryDrift implements TaskRepository {
 
   @override
   Future<Either<Failure, OrganizerItems<TagEntity>>> updateTaskTagItems(
-    int taskId,
-    List<int> addedTagItems,
-    List<int> removedTagItems,
-  ) {
+      UpdateLinkParams<TagEntity> params) {
     return _handleDatabaseOperation(() async {
-      if (addedTagItems != []) {
-        localDataSource.addTagItemsToTask(taskId, addedTagItems);
+      final itemId = params.itemId;
+      final addedIds = params.addedItems.getIdList();
+      final removedIds = params.removedItems.getIdList();
+
+      if (addedIds.isNotEmpty) {
+        localDataSource.addTagItemsToTask(itemId, addedIds);
       }
-      if (removedTagItems != []) {
-        localDataSource.deleteTagItemsFromTask(taskId, removedTagItems);
+      if (removedIds.isNotEmpty) {
+        localDataSource.deleteTagItemsFromTask(itemId, removedIds);
       }
       return _filterNonNullItems<TagEntity, TagTableDriftG>(
-          await localDataSource.getTagItemsByTaskId(taskId),
+          await localDataSource.getTagItemsByTaskId(itemId),
           TagMapper.entityItemsFromTableDriftItems);
     });
   }

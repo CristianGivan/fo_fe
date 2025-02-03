@@ -7,7 +7,7 @@ import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart'
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 typedef UpdateTaskLink<T extends ItemEntity> = Future<Either<Failure, OrganizerItems<T>>> Function(
-    UpdateLinkParams params);
+    UpdateLinkParams<T> params);
 
 class UpdateTaskLinkUseCase<T extends ItemEntity>
     extends UseCase<OrganizerItems<T>, UpdateLinkParams<T>> {
@@ -26,10 +26,8 @@ class UpdateTaskLinkUseCase<T extends ItemEntity>
     }
   }
 
-  late final Map<Type, UpdateTaskLink<ItemEntity>> _typeToTaskLink = {
-    UserEntity: (params) => repository.updateTaskUserItems(
-        params.itemId, params.addedItems.getIdList(), params.removedItems.getIdList()),
-    TagEntity: (params) => repository.updateTaskTagItems(
-        params.itemId, params.addedItems.getIdList(), params.removedItems.getIdList()),
+  late final Map<Type, UpdateTaskLink> _typeToTaskLink = {
+    UserEntity: (params) => repository.updateTaskUserItems(params as UpdateLinkParams<UserEntity>),
+    TagEntity: (params) => repository.updateTaskTagItems(params as UpdateLinkParams<TagEntity>),
   };
 }

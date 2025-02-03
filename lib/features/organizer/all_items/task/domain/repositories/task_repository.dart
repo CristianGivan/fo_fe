@@ -33,13 +33,13 @@ abstract class TaskRepository {
   Future<Either<Failure, TaskUserLinkEntity>> updateTaskUserLink(TaskUserLinkEntity task);
 
   Future<Either<Failure, OrganizerItems<UserEntity>>> updateTaskUserItems(
-      int taskId, List<int> addedUserItems, List<int> removedUserItems);
+      UpdateLinkParams<UserEntity> params);
 
   // Tag operations related to tasks
   Future<Either<Failure, OrganizerItems<TagEntity>>> getTagItemsByTaskId(int taskId);
 
   Future<Either<Failure, OrganizerItems<TagEntity>>> updateTaskTagItems(
-      int taskId, List<int> addedTagItems, List<int> removedTagItems);
+      UpdateLinkParams<TagEntity> params);
 
   // Reminder operations related to tasks
   Future<Either<Failure, OrganizerItems<ReminderEntity>>> getRemindersByTaskId(int taskId);
