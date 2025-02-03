@@ -22,10 +22,7 @@ class UpdateUserTaskLinkUseCase extends UpdateTaskLinkUseCase<UserEntity> {
   @override
   Future<Either<Failure, OrganizerItems<UserEntity>>> call(UpdateLinkParams<UserEntity> params) {
     return repository.updateTaskUserItems(
-      params.itemId,
-      params.addedItems.getIdList(),
-      params.removedItems.getIdList(),
-    );
+        params.itemId, params.addedItems.getIdList(), params.removedItems.getIdList());
   }
 }
 
