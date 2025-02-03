@@ -70,10 +70,6 @@ registerd for several tings What shall I use fo rgeneric type
 
 == Now
 
-differece between UpdateLinkParams and ItemLinkParams
-
-* update screen for update taskLinkItems
-
 UpdateTaskDtoUseCase  is with user should I keep it here or move in the taskLinkItemsBloc?
 taskTag and other entity should I create?
 
@@ -87,6 +83,7 @@ item_dto_card.dart item_card.dart combine them
 
 == Done
 
+* update screen for update taskLinkItems
 * check if having BLoc and Cubit is a good Idea
 * extract _buildLoading() to a widget
 * clean up the getit in special if I have the factory
