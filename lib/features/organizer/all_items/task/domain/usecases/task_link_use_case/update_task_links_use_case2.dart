@@ -7,7 +7,7 @@ import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart'
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 typedef UpdateTaskLink<T extends ItemEntity> = Future<Either<Failure, OrganizerItems<T>>> Function(
-    UpdateLinkParams params);
+    TaskRepository repository, UpdateLinkParams params);
 
 class UpdateTaskLinkUseCase<T extends ItemEntity>
     extends UseCase<OrganizerItems<T>, UpdateLinkParams<T>> {
@@ -22,14 +22,24 @@ class UpdateTaskLinkUseCase<T extends ItemEntity>
       return Future.value(
           Left(UnImplementedFailure("UpdateTaskLinkUseCase: No implementation for type $T")));
     } else {
-      return updateTaskLink(params) as Future<Either<Failure, OrganizerItems<T>>>;
+      return updateTaskLink(repository, params) as Future<Either<Failure, OrganizerItems<T>>>;
     }
   }
-
-  late final Map<Type, UpdateTaskLink<ItemEntity>> _typeToTaskLink = {
-    UserEntity: (params) => repository.updateTaskUserItems(
-        params.itemId, params.addedItems.getIdList(), params.removedItems.getIdList()),
-    TagEntity: (params) => repository.updateTaskTagItems(
-        params.itemId, params.addedItems.getIdList(), params.removedItems.getIdList()),
-  };
 }
+
+final Map<Type, UpdateTaskLink> _typeToTaskLink = {
+  UserEntity: updateUser as UpdateTaskLink,
+  TagEntity: updateTag as UpdateTaskLink,
+};
+
+updateTag(repository, params) => repository.updateTaskTagItems(
+      params.itemId,
+      params.addedItems.getIdList(),
+      params.removedItems.getIdList(),
+    );
+
+updateUser(repository, params) => repository.updateTaskUserItems(
+      params.itemId,
+      params.addedItems.getIdList(),
+      params.removedItems.getIdList(),
+    );

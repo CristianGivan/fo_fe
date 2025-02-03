@@ -70,6 +70,8 @@ registerd for several tings What shall I use fo rgeneric type
 
 == Now
 
+differece between UpdateLinkParams and ItemLinkParams
+
 * update screen for update taskLinkItems
 
 UpdateTaskDtoUseCase  is with user should I keep it here or move in the taskLinkItemsBloc?

@@ -16,13 +16,13 @@ class GetTaskLinksUseCase<T extends ItemEntity> extends UseCase<OrganizerItems<T
 
   @override
   Future<Either<Failure, OrganizerItems<T>>> call(ItemLinkParams params) {
-    final getTaskLink = typeToGetTaskLinkMap[T] as GetTaskLink<T>?;
+    final getTaskLink = typeToGetTaskLinkMap[T];
 
     if (getTaskLink == null) {
       return Future.value(Left(UnexpectedFailure("No handler found for type $T")));
     }
 
-    return getTaskLink(params);
+    return getTaskLink(params) as Future<Either<Failure, OrganizerItems<T>>>;
   }
 
   late final Map<Type, GetTaskLink<ItemEntity>> typeToGetTaskLinkMap = {
