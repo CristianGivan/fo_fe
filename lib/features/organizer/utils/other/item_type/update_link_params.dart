@@ -1,4 +1,5 @@
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
+import 'package:fo_fe/features/organizer/utils/other/item_type/update_link_ids_params.dart';
 
 class UpdateLinkParams<T extends ItemEntity> {
   final ItemLinkParams itemLinkParams;
@@ -19,6 +20,12 @@ class UpdateLinkParams<T extends ItemEntity> {
   get pushUpdateRoute => itemLinkParams.pushUpdateRoute;
 
   get pushCreateLinkItemRoute => itemLinkParams.pushCreateLinkItemRoute;
+
+  ItemLinkIdsParams get itemLinkIdsParams => ItemLinkIdsParams(
+        itemId: itemId,
+        addedItems: addedItems.toIdSet(),
+        removedItems: removedItems.toIdSet(),
+      );
 
   List<Object> get props => [itemLinkParams, addedItems, removedItems];
 }

@@ -1,12 +1,15 @@
 // lib/features/organizer/items/tag/presentation/screen/tag_add_screen.dart
 import 'package:fo_fe/features/organizer/all_items/tag/presentation/logic/tag_cubit/tag_form_cubit.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
+import 'package:fo_fe/features/organizer/presentation/cubit/organizer_cubit.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
+import 'package:fo_fe/features/organizer/utils/other/item_type/item_add_params.dart';
 
 class TagAddForm extends StatelessWidget {
   final int userId;
+  final ItemLinkParams itemLinkParams;
 
-  const TagAddForm({super.key, required this.userId});
+  const TagAddForm({super.key, required this.userId, required this.itemLinkParams});
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +51,14 @@ class TagAddForm extends StatelessWidget {
       creatorId: userId,
     );
 
-    BlocProvider.of<OrganizerBloc<TagDto>>(context).add(AddItemBlocEvent(tag));
+    final AddItemParams addItemParams = AddItemParams(
+      item: tag,
+      linkedItemId: itemLinkParams.itemId,
+      itemType: itemLinkParams.itemType,
+    );
+
+    BlocProvider.of<OrganizerBloc<TagDto>>(context).add(AddItemBlocEvent(addItemParams));
+    context.read<OrganizerCubit<TagEntity>>().getEntitiesFromUser(userId);
     context.pop();
   }
 }

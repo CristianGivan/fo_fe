@@ -1,4 +1,5 @@
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
+import 'package:fo_fe/features/organizer/utils/other/item_type/item_add_params.dart';
 
 abstract class OrganizerBlocEvent extends Equatable {
   const OrganizerBlocEvent();
@@ -8,12 +9,12 @@ abstract class OrganizerBlocEvent extends Equatable {
 }
 
 class AddItemBlocEvent extends OrganizerBlocEvent {
-  final ItemEntity item;
+  final AddItemParams params;
 
-  const AddItemBlocEvent(this.item);
+  const AddItemBlocEvent(this.params);
 
   @override
-  List<Object> get props => [item];
+  List<Object> get props => [params];
 }
 
 class UpdateItemBlocEvent extends OrganizerBlocEvent {

@@ -2,6 +2,7 @@ import 'package:fo_fe/features/organizer/all_items/tag/presentation/logic/tag_bl
 import 'package:fo_fe/features/organizer/all_items/tag/presentation/logic/tag_cubit/tag_form_cubit.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
+import 'package:fo_fe/features/organizer/utils/other/item_type/item_add_params.dart';
 
 class TagAddScreenActionsMenu {
   static List<PopupMenuEntry> getMenuItems(BuildContext context, int userId) {
@@ -32,7 +33,12 @@ class TagAddScreenActionsMenu {
       creatorId: userId,
     );
 
-    BlocProvider.of<TagBloc>(context).add(AddItemBlocEvent(tag));
+    final AddItemParams addItemParams = AddItemParams(
+      item: tag,
+      itemType: ItemsTypeEnum.tag,
+    );
+
+    BlocProvider.of<TagBloc>(context).add(AddItemBlocEvent(addItemParams));
     context.pop();
   }
 }

@@ -1,10 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/utils/exports/core_utils_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
+import 'package:fo_fe/features/organizer/utils/other/item_type/item_add_params.dart';
 
 abstract class OrganizerBloc<T extends ItemEntity>
     extends Bloc<OrganizerBlocEvent, OrganizerBlocState<T>> {
-  final Future<Either<Failure, T>> Function(ItemEntity) addItem;
+  final Future<Either<Failure, T>> Function(AddItemParams) addItem;
   final Future<Either<Failure, OrganizerItems<T>>> Function(ItemParams) getItems;
   final Future<Either<Failure, IdSet>> Function(IdSet) deleteItems;
 
@@ -23,7 +24,7 @@ abstract class OrganizerBloc<T extends ItemEntity>
   Future<void> _onAddItem(AddItemBlocEvent event, Emitter<OrganizerBlocState<T>> emit) async {
     await handleEvent(
       emit: emit,
-      action: () => addItem(event.item),
+      action: () => addItem(event.params),
       originalItems: (newItem) => state.originalItems.copyWithAddedItem(newItem),
       displayedItems: (newItem) => state.displayedItems.copyWithAddedItem(newItem),
     );

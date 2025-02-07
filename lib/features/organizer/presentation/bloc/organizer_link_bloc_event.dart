@@ -1,4 +1,5 @@
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
+import 'package:fo_fe/features/organizer/utils/other/item_type/update_link_ids_params.dart';
 
 abstract class OrganizerLinkBlocEvent extends Equatable {
   const OrganizerLinkBlocEvent();
@@ -17,7 +18,7 @@ class GetItemsOfItemBlocEvent extends OrganizerLinkBlocEvent {
 }
 
 class UpdateItemsOfItemBlocEvent<T extends ItemEntity> extends OrganizerLinkBlocEvent {
-  final UpdateLinkParams<T> params;
+  final ItemLinkIdsParams params;
 
   const UpdateItemsOfItemBlocEvent(this.params);
 

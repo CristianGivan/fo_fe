@@ -70,7 +70,11 @@ registerd for several tings What shall I use fo rgeneric type
 
 == Now
 
-UpdateTaskDtoUseCase  is with user should I keep it here or move in the taskLinkItemsBloc?
+* AddTagUseCase and AddTaskUseCase are refactor
+
+* add link to item
+UpdateItemsOfItemActionsMenu better factory
+
 taskTag and other entity should I create?
 
 TaskDeleteScreen
@@ -83,6 +87,7 @@ item_dto_card.dart item_card.dart combine them
 
 == Done
 
+UpdateTaskDtoUseCase  is with user should I keep it here or move in the taskLinkItemsBloc?
 * update screen for update taskLinkItems
 * check if having BLoc and Cubit is a good Idea
 * extract _buildLoading() to a widget

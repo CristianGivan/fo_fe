@@ -1,11 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/utils/exports/core_utils_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
+import 'package:fo_fe/features/organizer/utils/other/item_type/update_link_ids_params.dart';
 
 abstract class OrganizerLinkBloc<T extends ItemEntity>
     extends Bloc<OrganizerLinkBlocEvent, OrganizerBlocState<T>> {
   final Future<Either<Failure, OrganizerItems<T>>> Function(ItemLinkParams params) getItemsLinked;
-  final Future<Either<Failure, OrganizerItems<T>>> Function(UpdateLinkParams<T> params)
+  final Future<Either<Failure, OrganizerItems<T>>> Function(ItemLinkIdsParams params)
       updateItemsLinked;
 
   OrganizerLinkBloc({

@@ -16,7 +16,8 @@ class TagRoutes {
           path: TagRouterNames.tagAddRoutePath,
           name: TagRouterNames.tagAddRouteName,
           pageBuilder: (context, state) {
-            return NoTransitionPage(child: TagAddScreen());
+            final itemLinkParams = state.extra as ItemLinkParams;
+            return NoTransitionPage(child: TagAddScreen(itemLinkParams));
           },
         ),
       ],

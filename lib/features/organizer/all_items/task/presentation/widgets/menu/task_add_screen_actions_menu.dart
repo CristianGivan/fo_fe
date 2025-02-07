@@ -1,6 +1,7 @@
 import 'package:fo_fe/features/organizer/all_items/task/presentation/logic/task_cubit/task_form_cubit.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
+import 'package:fo_fe/features/organizer/utils/other/item_type/item_add_params.dart';
 
 class TaskAddScreenActionsMenu {
   static List<PopupMenuEntry> getMenuItems(BuildContext context, int userId) {
@@ -39,7 +40,12 @@ class TaskAddScreenActionsMenu {
       taskStatus: taskFormState.taskStatus,
     );
 
-    BlocProvider.of<TaskBloc>(context).add(AddItemBlocEvent(task));
+    final AddItemParams addItemParams = AddItemParams(
+      item: task,
+      itemType: ItemsTypeEnum.task,
+    );
+
+    BlocProvider.of<TaskBloc>(context).add(AddItemBlocEvent(addItemParams));
     context.pop();
   }
 }

@@ -1,11 +1,13 @@
 import 'package:fo_fe/features/organizer/all_items/task/presentation/logic/task_cubit/task_form_cubit.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
+import 'package:fo_fe/features/organizer/utils/other/item_type/item_add_params.dart';
 
 class TaskAddForm extends StatelessWidget {
   final int userId;
+  final ItemLinkParams itemLinkParams;
 
-  const TaskAddForm({super.key, required this.userId});
+  const TaskAddForm({super.key, required this.userId, required this.itemLinkParams});
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +74,13 @@ class TaskAddForm extends StatelessWidget {
       taskStatus: formState.taskStatus,
     );
 
-    BlocProvider.of<TaskBloc>(context).add(AddItemBlocEvent(task));
+    final AddItemParams addItemParams = AddItemParams(
+      item: task,
+      linkedItemId: itemLinkParams.itemId,
+      itemType: itemLinkParams.itemType,
+    );
+
+    BlocProvider.of<TaskBloc>(context).add(AddItemBlocEvent(addItemParams));
     context.pop();
   }
 

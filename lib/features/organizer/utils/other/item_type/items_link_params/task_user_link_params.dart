@@ -10,7 +10,6 @@ class TaskUserLinkParams extends ItemLinkParams {
     IdSet? idSet,
   }) : super(
           itemId: id,
-          idSet: idSet,
           userId: forUserId,
           itemType: ItemsTypeEnum.taskUser,
           pushUpdateRoute: TaskRouterNames.taskUpdateUserRouteName,

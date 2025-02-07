@@ -11,6 +11,7 @@ import 'package:fo_fe/features/organizer/all_items/task/domain/repositories/task
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
+import 'package:fo_fe/features/organizer/utils/other/item_type/update_link_ids_params.dart';
 
 class TaskRepositoryDrift implements TaskRepository {
   final TaskLocalDataSource localDataSource;
@@ -131,11 +132,11 @@ class TaskRepositoryDrift implements TaskRepository {
 
   @override
   Future<Either<Failure, OrganizerItems<UserEntity>>> updateTaskUserItems(
-      UpdateLinkParams<UserEntity> params) {
+      ItemLinkIdsParams params) {
     return _handleDatabaseOperation(() async {
       final itemId = params.itemId;
-      final addedIds = params.addedItems.getIdList();
-      final removedIds = params.removedItems.getIdList();
+      final addedIds = params.addedItems.toList();
+      final removedIds = params.removedItems.toList();
 
       if (addedIds.isNotEmpty) {
         _addUserItemsToTask(itemId, addedIds);
@@ -164,12 +165,11 @@ class TaskRepositoryDrift implements TaskRepository {
   }
 
   @override
-  Future<Either<Failure, OrganizerItems<TagEntity>>> updateTaskTagItems(
-      UpdateLinkParams<TagEntity> params) {
+  Future<Either<Failure, OrganizerItems<TagEntity>>> updateTaskTagItems(ItemLinkIdsParams params) {
     return _handleDatabaseOperation(() async {
       final itemId = params.itemId;
-      final addedIds = params.addedItems.getIdList();
-      final removedIds = params.removedItems.getIdList();
+      final addedIds = params.addedItems.toList();
+      final removedIds = params.removedItems.toList();
 
       if (addedIds.isNotEmpty) {
         localDataSource.addTagItemsToTask(itemId, addedIds);

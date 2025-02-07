@@ -6,14 +6,14 @@ import '../../../../all_items/task/utils/task_exports.dart';
 class TaskTagLinkParams extends ItemLinkParams {
   TaskTagLinkParams({
     required int id,
-    IdSet? idSet,
     int forUserId = 0,
   }) : super(
           itemId: id,
-          idSet: idSet,
           userId: forUserId,
           itemType: ItemsTypeEnum.taskTag,
           pushUpdateRoute: TaskRouterNames.taskUpdateTagRouteName,
           pushCreateLinkItemRoute: TagRouterNames.tagAddRouteName,
         );
+
+  factory TaskTagLinkParams.empty() => TaskTagLinkParams(id: 0);
 }

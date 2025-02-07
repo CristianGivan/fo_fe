@@ -5,6 +5,7 @@ import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
+import 'package:fo_fe/features/organizer/utils/other/item_type/update_link_ids_params.dart';
 
 abstract class TaskRepository {
   // Task CRUD operations
@@ -32,14 +33,12 @@ abstract class TaskRepository {
 
   Future<Either<Failure, TaskUserLinkEntity>> updateTaskUserLink(TaskUserLinkEntity task);
 
-  Future<Either<Failure, OrganizerItems<UserEntity>>> updateTaskUserItems(
-      UpdateLinkParams<UserEntity> params);
+  Future<Either<Failure, OrganizerItems<UserEntity>>> updateTaskUserItems(ItemLinkIdsParams params);
 
   // Tag operations related to tasks
   Future<Either<Failure, OrganizerItems<TagEntity>>> getTagItemsByTaskId(int taskId);
 
-  Future<Either<Failure, OrganizerItems<TagEntity>>> updateTaskTagItems(
-      UpdateLinkParams<TagEntity> params);
+  Future<Either<Failure, OrganizerItems<TagEntity>>> updateTaskTagItems(ItemLinkIdsParams params);
 
   // Reminder operations related to tasks
   Future<Either<Failure, OrganizerItems<ReminderEntity>>> getRemindersByTaskId(int taskId);

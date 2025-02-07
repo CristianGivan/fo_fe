@@ -14,10 +14,12 @@ class TaskRoutes {
       pageBuilder: (context, state) => const NoTransitionPage(child: ItemScreen<TaskDto>()),
       routes: [
         GoRoute(
-          path: TaskRouterNames.taskAddRoutePath,
-          name: TaskRouterNames.taskAddRouteName,
-          pageBuilder: (context, state) => const NoTransitionPage(child: TaskAddScreen()),
-        ),
+            path: TaskRouterNames.taskAddRoutePath,
+            name: TaskRouterNames.taskAddRouteName,
+            pageBuilder: (context, state) {
+              final itemLinkParams = state.extra as ItemLinkParams;
+              return NoTransitionPage(child: TaskAddScreen(itemLinkParams));
+            }),
         GoRoute(
           path: TaskRouterNames.taskUpdateRoutePath,
           name: TaskRouterNames.taskUpdateRouteName,

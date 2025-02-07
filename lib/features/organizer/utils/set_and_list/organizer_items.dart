@@ -67,6 +67,8 @@ class OrganizerItems<T extends ItemEntity> extends Equatable {
     return OrganizerItems.of(filteredItems);
   }
 
+  IdSet toIdSet() => IdSet.fromOrganizerItems(OrganizerItems.of(_organizerItems));
+
   List<int> getIdList() => _organizerItems.map((e) => e.id).toList();
 
   // //todo tests
@@ -106,10 +108,10 @@ class OrganizerItems<T extends ItemEntity> extends Equatable {
   OrganizerItems<T> copyWithRemovedItems(OrganizerItems<T> items) {
     return toBuilder().removeItemsWithSameId(items).build();
   }
+
   OrganizerItems<T> copyWithRemoveItemsWithSameId(OrganizerItems<T> items) {
     return toBuilder().removeItemsWithSameId(items).build();
   }
-
 
   OrganizerItems<T> copyWithRemovedItemsWitIds(IdSet ids) {
     return toBuilder().removeItemsWithIds(ids).build();

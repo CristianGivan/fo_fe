@@ -58,6 +58,13 @@ class _ItemLinkEntitiesUpdatePageState<T extends ItemEntity>
     );
   }
 
+  void _updateAllItems(OrganizerItems<T> items) {
+    setState(() {
+      allItemsChecked = OrganizerItems.empty();
+      allItemsUnchecked = items.copyWithRemoveItemsWithSameId(selectedItemsChecked);
+    });
+  }
+
   List<PopupMenuEntry> _getMenuItems(BuildContext context) {
     final updatedItems = UpdateLinkParams<T>(
       itemLinkParams: widget.itemLinkParams,
@@ -106,13 +113,6 @@ class _ItemLinkEntitiesUpdatePageState<T extends ItemEntity>
           selectedItemsUnchecked = selectedItemsUnchecked.copyWithAddedItem(item);
         }
       }
-    });
-  }
-
-  void _updateAllItems(OrganizerItems<T> items) {
-    setState(() {
-      allItemsChecked = OrganizerItems.empty();
-      allItemsUnchecked = items.copyWithRemoveItemsWithSameId(selectedItemsChecked);
     });
   }
 }

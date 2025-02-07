@@ -2,21 +2,21 @@ import 'package:dartz/dartz.dart';
 import 'package:fo_fe/core/error/failures.dart';
 import 'package:fo_fe/core/usecase/usecase.dart';
 import 'package:fo_fe/features/organizer/all_items/task/utils/task_exports.dart';
-import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
+import 'package:fo_fe/features/organizer/utils/other/item_type/item_add_params.dart';
 
 import '../../repositories/task_repository.dart';
 
 // todo -decide-
 //v1 to have a generic use case that will have  depending on the type be writen in different class
 
-class AddTaskUseCase extends UseCase<TaskDto, ItemEntity> {
+class AddTaskUseCase extends UseCase<TaskDto, AddItemParams> {
   final TaskRepository repository;
 
   AddTaskUseCase(this.repository);
 
   @override
-  Future<Either<Failure, TaskDto>> call(ItemEntity item) async {
-    return _handleAddTask(item as TaskEntity);
+  Future<Either<Failure, TaskDto>> call(AddItemParams params) async {
+    return _handleAddTask(params.item as TaskEntity);
   }
 
   Future<Either<Failure, TaskDto>> _handleAddTask(TaskEntity taskEntity) async {

@@ -19,13 +19,16 @@ class UpdateItemsOfItemActionsMenu<T extends OrganizerItemEntity> {
       BuildContext context, UpdateLinkParams<T> params) {
     return [
       PopupMenuItem(
-        child: Text('Create New Item'),
-        onTap: () => context.pushNamed(params.pushCreateLinkItemRoute),
+        child: Text('Add New Item'),
+        onTap: () =>
+            context.pushNamed(params.pushCreateLinkItemRoute, extra: params.itemLinkParams),
       ),
       PopupMenuItem(
         child: Text('Update with Items'),
         onTap: () => {
-          context.read<OrganizerLinkBloc<T>>().add(UpdateItemsOfItemBlocEvent<T>(params)),
+          context
+              .read<OrganizerLinkBloc<T>>()
+              .add(UpdateItemsOfItemBlocEvent<T>(params.itemLinkIdsParams)),
           context.pop()
         },
       ),
@@ -36,13 +39,16 @@ class UpdateItemsOfItemActionsMenu<T extends OrganizerItemEntity> {
       BuildContext context, UpdateLinkParams<T> params) {
     return [
       PopupMenuItem(
-        child: Text('Create New Item'),
-        onTap: () => context.pushNamed(params.pushCreateLinkItemRoute),
+        child: Text('Add New Item'),
+        onTap: () =>
+            context.pushNamed(params.pushCreateLinkItemRoute, extra: params.itemLinkParams),
       ),
       PopupMenuItem(
         child: Text('Update with Items'),
         onTap: () => {
-          context.read<OrganizerLinkBloc<T>>().add(UpdateItemsOfItemBlocEvent<T>(params)),
+          context
+              .read<OrganizerLinkBloc<T>>()
+              .add(UpdateItemsOfItemBlocEvent<T>(params.itemLinkIdsParams)),
           context.pop()
         },
       ),
@@ -53,8 +59,9 @@ class UpdateItemsOfItemActionsMenu<T extends OrganizerItemEntity> {
       BuildContext context, UpdateLinkParams<T> params) {
     return [
       PopupMenuItem(
-        child: Text('Create New Item'),
-        onTap: () => context.pushNamed(params.pushCreateLinkItemRoute),
+        child: Text('Add New Item'),
+        onTap: () =>
+            context.pushNamed(params.pushCreateLinkItemRoute, extra: params.itemLinkParams),
       ),
       PopupMenuItem(
         child: Text('Update with Items'),

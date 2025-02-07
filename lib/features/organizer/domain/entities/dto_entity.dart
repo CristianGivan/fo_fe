@@ -1,7 +1,7 @@
 import 'package:fo_fe/features/organizer/domain/entities/user_link_entity.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class DtoEntity extends ItemEntity {
+abstract class DtoEntity extends ItemEntity {
   final OrganizerItemEntity entity;
   final UserLinkEntity userLink;
 
