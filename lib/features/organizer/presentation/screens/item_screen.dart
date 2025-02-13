@@ -37,7 +37,7 @@ class ItemScreen<T extends DtoEntity> extends StatelessWidget {
           buildLoadedState: () => ItemListViewPage<T>(
             items: state.displayedItems,
             itemCardBuilder: (itemDto) => ItemDtoCard<T>(itemDto),
-            value: (itemDto) => itemDto.userLink.isSelected,
+            value: (itemDto) => itemDto.isSelectedByUser,
             onChange: (context, itemDto, value) =>
                 UpdateItemLogic.updateItemUserLink<T>(context, itemDto, value),
           ),

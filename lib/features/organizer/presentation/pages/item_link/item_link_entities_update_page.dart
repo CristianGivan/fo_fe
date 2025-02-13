@@ -38,17 +38,29 @@ class _ItemLinkEntitiesUpdatePageState<T extends ItemEntity>
     selectedItemsChecked = widget.initSelectedItems as OrganizerItems<T>;
 
     itemCubit = context.read<OrganizerCubit<T>>();
-    itemCubit.getEntitiesFromUser(widget.itemLinkParams.userId);
+    itemCubit.getAllEntitiesFromUser(widget.itemLinkParams.userId);
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<OrganizerCubit<T>, OrganizerCubitState<T>>(
-      listener: (context, state) {
-        if (state.status == OrganizerCubitStatus.loaded) {
-          _updateAllItems(state.entities as OrganizerItems<T>);
-        }
-      },
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<OrganizerCubit<T>, OrganizerCubitState<T>>(
+          listener: (context, state) {
+            if (state.status == OrganizerCubitStatus.loaded) {
+              _updateAllItems(state.entities as OrganizerItems<T>);
+            }
+          },
+        ),
+        BlocListener<OrganizerLinkBloc<T>, OrganizerBlocState<T>>(
+          listener: (context, state) {
+            // Handle OrganizerLinkBloc state changes here
+            if (state.status == OrganizerBlocStatus.loaded) {
+              _updateSelectedItems(state.displayedItems);
+            }
+          },
+        ),
+      ],
       child: AppContentScreen(
         appBarTitle: TaskStrings().screenEditTitle,
         body: _buildUncheckedListView(),
@@ -56,6 +68,12 @@ class _ItemLinkEntitiesUpdatePageState<T extends ItemEntity>
         onSearchSubmitted: () {},
       ),
     );
+  }
+
+  void _updateSelectedItems(OrganizerItems<T> items) {
+    setState(() {
+      selectedItemsChecked = items.copyWithRemovedItems(selectedItemsUnchecked);
+    });
   }
 
   void _updateAllItems(OrganizerItems<T> items) {
@@ -66,8 +84,10 @@ class _ItemLinkEntitiesUpdatePageState<T extends ItemEntity>
   }
 
   List<PopupMenuEntry> _getMenuItems(BuildContext context) {
+    ItemLinkParams itemLinkParams =
+        widget.itemLinkParams.copyWith(organizerLinkBloc: selectedItemsBloc);
     final updatedItems = UpdateLinkParams<T>(
-      itemLinkParams: widget.itemLinkParams,
+      itemLinkParams: itemLinkParams,
       addedItems: allItemsChecked,
       removedItems: selectedItemsUnchecked,
     );

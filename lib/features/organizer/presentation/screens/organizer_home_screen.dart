@@ -28,19 +28,20 @@ class OrganizerHomeScreen extends StatelessWidget {
       ),
       MenuButton(
         title: 'Go to the tasks screen',
-        onPressed: () => context.pushNamed(TaskRouterNames.taskRouteName),
+        onPressed: () => context.pushNamed(TaskRouterNames.taskRouteName, extra: NoLinkParams()),
       ),
       MenuButton(
         title: 'Go to the reminder screen',
-        onPressed: () => context.pushNamed(ReminderRouterNames.reminderRouteName),
+        onPressed: () =>
+            context.pushNamed(ReminderRouterNames.reminderRouteName, extra: NoLinkParams()),
       ),
       MenuButton(
         title: 'Go to the tags screen',
-        onPressed: () => context.pushNamed(TagRouterNames.tagRouteName),
+        onPressed: () => context.pushNamed(TagRouterNames.tagRouteName, extra: NoLinkParams()),
       ),
       MenuButton(
         title: 'Go to the users screen',
-        onPressed: () => context.pushNamed(UserRouterNames.userRouteName),
+        onPressed: () => context.pushNamed(UserRouterNames.userRouteName, extra: NoLinkParams()),
       ),
       MenuButton(
         title: 'Go to the authentication screen',

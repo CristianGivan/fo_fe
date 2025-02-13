@@ -17,19 +17,20 @@ class AddTagUseCase extends UseCase<TagDto, AddItemParams> {
 
   @override
   Future<Either<Failure, TagDto>> call(AddItemParams params) async {
-    return _handleAddTag(params.item as TagEntity, params.linkedItemId);
+    return _handleAddTag(params.item as TagEntity, params.itemLinkParams);
   }
 
-  Future<Either<Failure, TagDto>> _handleAddTag(TagEntity tagEntity, int linkedItemId) async {
+  Future<Either<Failure, TagDto>> _handleAddTag(
+      TagEntity tagEntity, ItemLinkParams? itemLinkParams) async {
     final failureOrTag = await repository.addTag(tagEntity);
     return failureOrTag.fold(
       (failure) => Left(failure),
-      (tag) => addTagUserLinkAndReturnTagDto(tag, linkedItemId),
+      (tag) => addTagUserLinkAndReturnTagDto(tag, itemLinkParams),
     );
   }
 
   Future<Either<Failure, TagDto>> addTagUserLinkAndReturnTagDto(
-      TagEntity tag, int linkedItemId) async {
+      TagEntity tag, ItemLinkParams? itemLinkParams) async {
     final failureOrTagUserLink = await repository.addTagUserLink(TagUserLinkEntity(
       id: 0,
       tagId: tag.id,
@@ -41,19 +42,23 @@ class AddTagUseCase extends UseCase<TagDto, AddItemParams> {
     return failureOrTagUserLink.fold(
       (failure) => Left(failure),
       (tagUserLink) {
-        updateTaskTagLink(tag.id, linkedItemId);
-        return Right(TagDto(tag: tag, tagUserLink: tagUserLink));
+        TagDto tagDto = TagDto(tag: tag, tagUserLink: tagUserLink);
+        if (itemLinkParams == null) {
+          return Right(tagDto);
+        } else {
+          return Right(_handleTagLinks(tagDto, itemLinkParams));
+        }
       },
     );
   }
 
-  void updateTaskTagLink(int tagId, int linkedItemId) {
+  TagDto _handleTagLinks(TagDto tagDto, ItemLinkParams linkedItemId) {
     TaskRepository taskRepository = GetIt.I<TaskRepository>();
     ItemLinkIdsParams updateLinkParams = ItemLinkIdsParams(
-      itemId: linkedItemId,
-      addedItems: IdSet.of([tagId]),
-      removedItems: IdSet.empty(),
+      itemId: linkedItemId.itemId,
+      addedItems: IdSet.of([tagDto.tag.id]),
     );
     taskRepository.updateTaskTagItems(updateLinkParams);
+    return tagDto;
   }
 }

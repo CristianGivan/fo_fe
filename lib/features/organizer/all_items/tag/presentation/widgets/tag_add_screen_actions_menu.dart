@@ -35,7 +35,6 @@ class TagAddScreenActionsMenu {
 
     final AddItemParams addItemParams = AddItemParams(
       item: tag,
-      itemType: ItemsTypeEnum.tag,
     );
 
     BlocProvider.of<TagBloc>(context).add(AddItemBlocEvent(addItemParams));

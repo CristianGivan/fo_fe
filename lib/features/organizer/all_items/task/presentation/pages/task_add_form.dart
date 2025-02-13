@@ -74,13 +74,10 @@ class TaskAddForm extends StatelessWidget {
       taskStatus: formState.taskStatus,
     );
 
-    final AddItemParams addItemParams = AddItemParams(
-      item: task,
-      linkedItemId: itemLinkParams.itemId,
-      itemType: itemLinkParams.itemType,
-    );
+    final AddItemParams addItemParams = AddItemParams(item: task, itemLinkParams: itemLinkParams);
 
     BlocProvider.of<TaskBloc>(context).add(AddItemBlocEvent(addItemParams));
+    itemLinkParams.organizerLinkBloc?.getItemsLinked(itemLinkParams);
     context.pop();
   }
 

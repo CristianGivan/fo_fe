@@ -122,7 +122,7 @@ class UserBloc extends Bloc<UserBlocEvent, UserBlocState> {
     result.fold(
       (failure) => emit(UserErrorBlocState(_mapFailureToMessage(failure))),
       (id) async {
-        userCubit.getEntitiesFromUser(event.authUserId);
+        userCubit.getAllEntitiesFromUser(event.authUserId);
         emit(UserAddedToUserBlocState(id: id));
       },
     );

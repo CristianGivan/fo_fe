@@ -28,6 +28,8 @@ abstract class OrganizerBloc<T extends ItemEntity>
       originalItems: (newItem) => state.originalItems.copyWithAddedItem(newItem),
       displayedItems: (newItem) => state.displayedItems.copyWithAddedItem(newItem),
     );
+    event.params.itemLinkParams?.organizerLinkBloc
+        ?.add(GetItemsOfItemBlocEvent(event.params.itemLinkParams!));
   }
 
   Future<void> _onGetItems(

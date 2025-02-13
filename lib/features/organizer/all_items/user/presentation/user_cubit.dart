@@ -11,7 +11,7 @@ class UserCubit extends OrganizerCubit<UserEntity> {
   });
 
   @override
-  Future<void> getEntitiesFromUser(int userId) async {
+  Future<void> getAllEntitiesFromUser(int userId) async {
     emit(OrganizerCubitState.loading());
 
     ItemParams itemParams = ItemParams(forUserId: userId, itemType: ItemsTypeEnum.user, id: 0);

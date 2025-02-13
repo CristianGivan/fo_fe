@@ -17,7 +17,8 @@ class TaskRoutes {
             path: TaskRouterNames.taskAddRoutePath,
             name: TaskRouterNames.taskAddRouteName,
             pageBuilder: (context, state) {
-              final itemLinkParams = state.extra as ItemLinkParams;
+              final ItemLinkParams itemLinkParams =
+                  state.extra as ItemLinkParams? ?? NoLinkParams();
               return NoTransitionPage(child: TaskAddScreen(itemLinkParams));
             }),
         GoRoute(

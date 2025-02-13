@@ -8,5 +8,6 @@ Data types
 For now, you can use just the DAOs in the TaskDataSource to handle linking between Task and Tag, User, and Reminder�this keeps the architecture simpler while the relationships are straightforward.
 If any relationship becomes complex, you can always split off a dedicated data source (like TaskTagLinkDataSource) later, following the Single Responsibility Principle.
 
-
 In UI we should not operate with nullable data, it should be empty list or default value
+
+DTO is the item with all the links DTO<Entity>

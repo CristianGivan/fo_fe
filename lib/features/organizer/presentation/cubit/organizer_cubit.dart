@@ -5,7 +5,7 @@ enum OrganizerCubitStatus { initial, loading, loaded, error }
 abstract class OrganizerCubit<T extends ItemEntity> extends Cubit<OrganizerCubitState<T>> {
   OrganizerCubit() : super(OrganizerCubitState.initial());
 
-  Future<void> getEntitiesFromUser(int userId);
+  Future<void> getAllEntitiesFromUser(int userId);
 }
 
 class OrganizerCubitState<T extends ItemEntity> {

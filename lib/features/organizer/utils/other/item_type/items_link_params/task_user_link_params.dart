@@ -15,4 +15,19 @@ class TaskUserLinkParams extends ItemLinkParams {
           pushUpdateRoute: TaskRouterNames.taskUpdateUserRouteName,
           pushCreateLinkItemRoute: UserRouterNames.userAddRouteName,
         );
+
+  @override
+  copyWith({
+    int? itemId,
+    int? userId,
+    ItemsTypeEnum? itemType,
+    OrganizerLinkBloc<ItemEntity>? organizerLinkBloc,
+    String? pushUpdateRoute,
+    String? pushCreateLinkItemRoute,
+  }) {
+    return TaskUserLinkParams(
+      id: itemId ?? this.itemId,
+      forUserId: userId ?? this.userId,
+    );
+  }
 }

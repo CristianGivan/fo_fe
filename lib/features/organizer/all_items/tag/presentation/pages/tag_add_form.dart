@@ -53,12 +53,12 @@ class TagAddForm extends StatelessWidget {
 
     final AddItemParams addItemParams = AddItemParams(
       item: tag,
-      linkedItemId: itemLinkParams.itemId,
-      itemType: itemLinkParams.itemType,
+      itemLinkParams: itemLinkParams,
     );
 
     BlocProvider.of<OrganizerBloc<TagDto>>(context).add(AddItemBlocEvent(addItemParams));
-    context.read<OrganizerCubit<TagEntity>>().getEntitiesFromUser(userId);
+
+    context.read<OrganizerCubit<TagEntity>>().getAllEntitiesFromUser(userId);
     context.pop();
   }
 }

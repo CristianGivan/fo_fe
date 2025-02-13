@@ -13,4 +13,20 @@ class TaskReminderLinkParams extends ItemLinkParams {
           pushUpdateRoute: pushUpdateRoute,
           pushCreateLinkItemRoute: ReminderRouterNames.reminderAddRouteName,
         );
+
+  @override
+  copyWith({
+    int? itemId,
+    int? userId,
+    ItemsTypeEnum? itemType,
+    OrganizerLinkBloc<ItemEntity>? organizerLinkBloc,
+    String? pushUpdateRoute,
+    String? pushCreateLinkItemRoute,
+  }) {
+    return TaskReminderLinkParams(
+      id: itemId ?? this.itemId,
+      forUserId: userId ?? this.userId,
+      pushUpdateRoute: pushUpdateRoute ?? this.pushUpdateRoute,
+    );
+  }
 }

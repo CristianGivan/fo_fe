@@ -42,7 +42,6 @@ class TaskAddScreenActionsMenu {
 
     final AddItemParams addItemParams = AddItemParams(
       item: task,
-      itemType: ItemsTypeEnum.task,
     );
 
     BlocProvider.of<TaskBloc>(context).add(AddItemBlocEvent(addItemParams));

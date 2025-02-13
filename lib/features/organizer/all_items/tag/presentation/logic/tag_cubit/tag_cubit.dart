@@ -11,7 +11,7 @@ class TagCubit extends OrganizerCubit<TagEntity> {
   });
 
   @override
-  Future<void> getEntitiesFromUser(int userId) async {
+  Future<void> getAllEntitiesFromUser(int userId) async {
     emit(OrganizerCubitState.loading());
 
     ItemParams itemParams = ItemParams(forUserId: userId, itemType: ItemsTypeEnum.tag, id: 0);
