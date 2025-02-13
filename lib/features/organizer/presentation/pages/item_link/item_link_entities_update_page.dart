@@ -84,6 +84,10 @@ class _ItemLinkEntitiesUpdatePageState<T extends ItemEntity>
   }
 
   List<PopupMenuEntry> _getMenuItems(BuildContext context) {
+    return UpdateItemsOfItemActionsMenu.getMenuItems(context, getUpdatedItems());
+  }
+
+  UpdateLinkParams<T> getUpdatedItems() {
     ItemLinkParams itemLinkParams =
         widget.itemLinkParams.copyWith(organizerLinkBloc: selectedItemsBloc);
     final updatedItems = UpdateLinkParams<T>(
@@ -91,7 +95,7 @@ class _ItemLinkEntitiesUpdatePageState<T extends ItemEntity>
       addedItems: allItemsChecked,
       removedItems: selectedItemsUnchecked,
     );
-    return UpdateItemsOfItemActionsMenu.getMenuItems(context, updatedItems);
+    return updatedItems;
   }
 
   Widget _buildUncheckedListView() {
@@ -116,6 +120,8 @@ class _ItemLinkEntitiesUpdatePageState<T extends ItemEntity>
 
   void _onItemCheckedChanged(T item, bool isChecked, bool isAllItems) {
     setState(() {
+      // final itemLinkIdsParams = getUpdatedItems().itemLinkIdsParams;
+      // context.read<OrganizerLinkBloc<T>>().add(UpdateItemsOfItemBlocEvent<T>(itemLinkIdsParams));
       if (isAllItems) {
         if (isChecked) {
           allItemsUnchecked = allItemsUnchecked.copyWithRemovedItem(item);

@@ -46,6 +46,9 @@ registerd for several tings What shall I use fo rgeneric type
 * reinitialization of all the blocs on log off or log on or switch user
 
 * to many shourch to though for UserParams and others
+
+* ItemLinkEntitiesUpdatePage make it statless find a better navigation save on exit. if is the case
+
 ---
 * make the bloc and usecase general
 * check why sliding the task is not working
