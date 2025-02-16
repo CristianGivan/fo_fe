@@ -99,6 +99,13 @@ class OrganizerItemsBuilder<T extends ItemEntity> extends Equatable {
     return this;
   }
 
+  OrganizerItemsBuilder<T> filterByQuery(String query) {
+    _organizerItems = _organizerItems
+        .where((item) => item.subject.toLowerCase().contains(query.toLowerCase()))
+        .toList();
+    return this;
+  }
+
   OrganizerItems<T> build() => OrganizerItems.of(_organizerItems);
 
   @override

@@ -15,7 +15,7 @@ class AppHomeScreen extends StatelessWidget {
       appBarTitle: AppStrings().screenTitle,
       body: NavigationMenu(buttons: _buildButtons(context)),
       menuOptions: (context, userId) => [],
-      onSearchSubmitted: () {},
+      onSearchSubmitted: (String query) {},
     );
   }
 

@@ -16,9 +16,7 @@ class TaskAddScreen extends StatelessWidget {
       appBarTitle: TaskStrings().screenAddTitle,
       body: (userId) => TaskAddForm(userId: userId, itemLinkParams: itemLinkParams),
       menuOptions: (context, userId) => TaskAddScreenActionsMenu.getMenuItems(context, userId),
-      onSearchSubmitted: () {
-        // Define the search functionality here
-      },
+      onSearchSubmitted: (String query) {},
     );
   }
 }

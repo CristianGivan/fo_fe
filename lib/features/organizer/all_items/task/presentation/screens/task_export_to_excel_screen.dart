@@ -17,7 +17,7 @@ class TaskExportScreen extends StatelessWidget {
       appBarTitle: 'Export Tasks',
       body: _buildExportExcel(context, 1),
       menuOptions: (context, uiserId) => [],
-      onSearchSubmitted: () {},
+      onSearchSubmitted: (String query) {},
     );
   }
 

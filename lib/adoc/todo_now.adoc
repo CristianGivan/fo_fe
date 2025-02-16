@@ -1,46 +1,34 @@
 == Nume
 
-ALO
-ALOR
-AFLO
-OLA
-OLF
-ALF
+ALO ALOR AFLO OLA OLF ALF
 
 == Old
 
-* change    _checkItemNotNull(auth); to return empty not a fail
-create like user_presentation_export.dart for all
+* change _checkItemNotNull(auth); to return empty not a fail create like user_presentation_export.dart for all
 
-===User
-* see todo
+===User * see todo
 
 * establis a convention for enums
 
 == Try
 
-if a TagBlocState will emit a loaded stat becasue I have a OrganizerBlocState Task View will
-be reloaded?
+if a TagBlocState will emit a loaded stat becasue I have a OrganizerBlocState Task View will be reloaded?
 
 == Nice
 
 * do I need OrganizerItemBaseEntity and OtganizerItems tho have T extends OrganizerItemBaseEntity?
-* understand better statless and stafull widget
-debounce see todo code
+* understand better statless and stafull widget debounce see todo code
 * when you search you can type : and then specified the action
 * make sense to make it constant INITIAL_EPOCH_DATE,
-* check on getit how to use singleton and when to use other type I have
-sl.registerLazySingleton(() => UpdateItemsOfItemUseCase<UserEntity>(sl()));
-registerd for several tings What shall I use fo rgeneric type
+* check on getit how to use singleton and when to use other type I have sl.registerLazySingleton(() => UpdateItemsOfItemUseCase<UserEntity>(sl())); registerd for several tings What shall I use fo rgeneric type
 
 == Next
 
-* no logic in screen task delete screen change to stateless     final state = context
-.read<TaskBloc>().state;
+* no logic in screen task delete screen change to stateless final state = context .read<TaskBloc>().state;
 * refactor TaskAddForm
 * update export with all relevant fields
 * clean up adocs
-* can be removed extra  for all not only for  final task = state.extra as TaskEntity?;
+* can be removed extra for all not only for final task = state.extra as TaskEntity?;
 * update with task strings
 
 * reinitialization of all the blocs on log off or log on or switch user
@@ -55,8 +43,7 @@ registerd for several tings What shall I use fo rgeneric type
 * use the same process of selection also for task
 * make the task can filter and sort
 
-*create/update tag reminder user items
-* create/update note
+*create/update tag reminder user items * create/update note
 
 * ctreate topics
 * create tasks
@@ -68,122 +55,27 @@ registerd for several tings What shall I use fo rgeneric type
 
 * create reteta
 
-* on exit ask if it want to save the changes I cannot make it work with  PopScope
-* Common Mistakes in Lifecycle Management    Not Closing Blocs Holding References Too Long Singleton Misuse:
+* on exit ask if it want to save the changes I cannot make it work with PopScope
+* Common Mistakes in Lifecycle Management Not Closing Blocs Holding References Too Long Singleton Misuse:
 
 == Now
 
-* AddTagUseCase and AddTaskUseCase are refactor
-
-* add link to item
-UpdateItemsOfItemActionsMenu better factory
-
-taskTag and other entity should I create?
-
-TaskDeleteScreen
-FilterDialog
-SortDialog
-
-check the params if I need them and what shall contain
+FilterDialog SortDialog
 
 item_dto_card.dart item_card.dart combine them
 
 == Done
 
-UpdateTaskDtoUseCase  is with user should I keep it here or move in the taskLinkItemsBloc?
-* update screen for update taskLinkItems
-* check if having BLoc and Cubit is a good Idea
-* extract _buildLoading() to a widget
-* clean up the getit in special if I have the factory
-* inharetance vs delagation conposiotion for ItemEntity and Bloc or Cubit
-* how to not get all the items from db insted update the state   itemLinkItemsBloc.add
-(GetItemsOfItemBlocEvent(params)); in ItemLinkItemsPage
-* getPendingAndAcceptedUserItems is not returning the right values
-* updateTagItemOfTask transfer  the logic in usecase
-* Update User
-* move the bloc hendlers from bloc to not dry
-* final ItemsTypeEnum itemsType; from
-* usecase between user/link item and update taks are similar... check for optimisations
-* _onLoading and _onFailure are not shared
-* create a usecase for getting the entities by userID or shall I have only the DTO?
-* GetLinkedEntitiesHandler  make it more generic
-UpdateLinkEntitiesOfTaskUseCase or UpdateTaskLinkUseCase
-* update bloc with generic use case
-GetEntitiesFromUserUseCase
-* make a better way to create the TaskLinksBlocFactory
-* ItemLinkParams rethink may be misused
-* from update navigate to link_item_list_edit_page where I have selected alll the usersrs that
-areallreadi in the list and can add and delete others.
-* having all the items of the user display all and marked all the items of the item as selected
-items
-* create a generic widget where to have all the items with chkbox  and the one selected to be in
-the previouse list from GetItemsFromLogInUserUseCase can be tooked form TaskParams?
-* save all the changes
-* get all the time the user item
-* all items at unchecked and the selected item not apearing in the list
-* get log in user
-* TaskLinkUserPage to show a list with all users and update button
-* Update TaskUserBlocState
-* refactor repository and localdatasource with proper names
-* void addUserItemsToTask(int taskId, List<int> addedUserItems) {
-* check if I can pass the Items that are in fatched allready and not not to feache them again see
-* reduce more the Type on bloc and event
-* refactor OrganizerBloc
-* export Task Excel
-* extract _buildCheckboxListTitle to a widget
-* add delete at task
-[log] onError -- bloc: TaskBloc, error: type 'Future<Either<Failure, TaskDto>>' is not a subtype of type 'Either<Failure, ItemEntity>' in type cast
-why I don't have a message
-fix the problemll
-* add also else for  if (state is TaskLoadedBlocState) {
-* scafold for the task edit and view
-* delete implementeation for _onToggleTaskSelectionBlocEent
-* update Future<int?> addUserItemToTask(int taskId, int tagId) async {
-* return TaskUserLinkEntity(id: row.read<int>('id'),
-* check the SnackBarWidget
-* create a pop method where to add all the things that shall happen during the pop of several
-screens like poptask list to save the selecte and the order of the tasklist
-* ajust snack bar to be at bottom when I don't have a bottomNavigationBar
-* delete ScreenBarPage
-* // todo not ok
-* add select at task
-* add task is done only at user 1
-* can be removed extra  final task = state.extra as TaskEntity?;
-* update screens title names
-* update with TaskStrings
-* added item_strings to task_strings
-* switch (state.runtimeType) {
-* update dialog_manager
-* ScaffoldMessenger to rise the bottomNavigationBar ot shall be above it
-* when add a task and want to change the tatus I get an erros
-* presentation on task
-* continue with tasks
-* //todo -fix- delete user if auth fails
-* if user already exist and you wand to add it again send a message
-* shall I have a fold as in add user or not for usecases?
-* before adding user to user check if iti exist
-* add sigaltone for .empty as in authEntity
-* use bool get isEmpty =>
-* after singup to send a log in event in signup screen
-* resolve user password
-* // todo eliminating duplicate auth  do a second authen if is allready
-* should I add a validation on user entity and base on some type of user thake the mandatory fyeld
-* add user at user
-* todo -fix- don't hash password 2 times
-* decide use linmked or connected users
-* get all users
-* when an new user is added to dont have the un neded fiedl like autosingin or userType and the
-message to be user added
-* update with user type sing_up
-* update add user not dupicate
-* update all Auth with Authv
-* update AuthEntity
-* increment of usedCount
-* tyo don't have the a new auth eache log in
-* how to crete a doroping table -
-** how to crete a doroping table
-* first Id shall be 1
-* add an user to the database
-* send a message if something is not valide wnr I dont have all the fuildes
-* SignUpButtonWidget update it
-* remove Navigator.pop(context) update push routes
+check the params if I need them and what shall contain * AddTagUseCase and AddTaskUseCase are refactor * add link to item UpdateItemsOfItemActionsMenu better factory taskTag and other entity should I create TaskDeleteScreen UpdateTaskDtoUseCase is with user should I keep it here or move in the taskLinkItemsBloc?
+* update screen for update taskLinkItems * check if having BLoc and Cubit is a good Idea * extract _buildLoading() to a widget * clean up the getit in special if I have the factory * inharetance vs delagation conposiotion for ItemEntity and Bloc or Cubit * how to not get all the items from db insted update the state itemLinkItemsBloc.add (GetItemsOfItemBlocEvent(params)); in ItemLinkItemsPage * getPendingAndAcceptedUserItems is not returning the right values * updateTagItemOfTask transfer the logic in usecase * Update User * move the bloc hendlers from bloc to not dry * final ItemsTypeEnum itemsType; from * usecase between user/link item and update taks are similar... check for optimisations * _onLoading and _onFailure are not shared * create a usecase for getting the entities by userID or shall I have only the DTO?
+* GetLinkedEntitiesHandler make it more generic UpdateLinkEntitiesOfTaskUseCase or UpdateTaskLinkUseCase * update bloc with generic use case GetEntitiesFromUserUseCase * make a better way to create the TaskLinksBlocFactory * ItemLinkParams rethink may be misused * from update navigate to link_item_list_edit_page where I have selected alll the usersrs that areallreadi in the list and can add and delete others.
+* having all the items of the user display all and marked all the items of the item as selected items * create a generic widget where to have all the items with chkbox and the one selected to be in the previouse list from GetItemsFromLogInUserUseCase can be tooked form TaskParams?
+* save all the changes * get all the time the user item * all items at unchecked and the selected item not apearing in the list * get log in user * TaskLinkUserPage to show a list with all users and update button * Update TaskUserBlocState * refactor repository and localdatasource with proper names * void addUserItemsToTask(int taskId, List<int> addedUserItems) {
+* check if I can pass the Items that are in fatched allready and not not to feache them again see * reduce more the Type on bloc and event * refactor OrganizerBloc * export Task Excel * extract _buildCheckboxListTitle to a widget * add delete at task
+[log] onError -- bloc: TaskBloc, error: type 'Future<Either<Failure, TaskDto>>' is not a subtype of type 'Either<Failure, ItemEntity>' in type cast why I don't have a message fix the problemll * add also else for if (state is TaskLoadedBlocState) {
+* scafold for the task edit and view * delete implementeation for _onToggleTaskSelectionBlocEent * update Future<int?> addUserItemToTask(int taskId, int tagId) async {
+* return TaskUserLinkEntity(id: row.read<int>('id'), * check the SnackBarWidget * create a pop method where to add all the things that shall happen during the pop of several screens like poptask list to save the selecte and the order of the tasklist * ajust snack bar to be at bottom when I don't have a bottomNavigationBar * delete ScreenBarPage * // todo not ok * add select at task * add task is done only at user 1 * can be removed extra final task = state.extra as TaskEntity?; * update screens title names * update with TaskStrings * added item_strings to task_strings * switch (state.runtimeType) {
+* update dialog_manager * ScaffoldMessenger to rise the bottomNavigationBar ot shall be above it * when add a task and want to change the tatus I get an erros * presentation on task * continue with tasks * //todo -fix- delete user if auth fails * if user already exist and you wand to add it again send a message * shall I have a fold as in add user or not for usecases?
+* before adding user to user check if iti exist * add sigaltone for .empty as in authEntity * use bool get isEmpty =>
+* after singup to send a log in event in signup screen * resolve user password * // todo eliminating duplicate auth do a second authen if is allready * should I add a validation on user entity and base on some type of user thake the mandatory fyeld * add user at user * todo -fix- don't hash password 2 times * decide use linmked or connected users * get all users * when an new user is added to dont have the un neded fiedl like autosingin or userType and the message to be user added * update with user type sing_up * update add user not dupicate * update all Auth with Authv * update AuthEntity * increment of usedCount * tyo don't have the a new auth eache log in * how to crete a doroping table -
+** how to crete a doroping table * first Id shall be 1 * add an user to the database * send a message if something is not valide wnr I dont have all the fuildes * SignUpButtonWidget update it * remove Navigator.pop(context) update push routes

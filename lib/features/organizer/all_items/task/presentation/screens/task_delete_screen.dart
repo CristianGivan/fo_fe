@@ -36,7 +36,7 @@ class _TaskDeleteScreenState extends State<TaskDeleteScreen> {
       body: _buildTaskListDto(),
       menuOptions: (context, userId) =>
           TaskDeleteScreenActionsMenu.getMenuItems(context, selectedIds),
-      onSearchSubmitted: () {},
+      onSearchSubmitted: (String query) {},
     );
   }
 

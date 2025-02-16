@@ -13,9 +13,7 @@ class TaskViewScreen extends StatelessWidget {
       appBarTitle: TaskStrings().screenViewTitle,
       body: _buildStateWidget(),
       menuOptions: (context, userId) => TaskEditScreenActionsMenu.getMenuItems(context),
-      onSearchSubmitted: () {
-        // Define the search functionality here
-      },
+      onSearchSubmitted: (String query) {},
     );
   }
 

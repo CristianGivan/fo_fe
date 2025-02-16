@@ -16,7 +16,7 @@ class OrganizerHomeScreen extends StatelessWidget {
       appBarTitle: OrganizerStrings().screenTitle,
       body: (userId) => NavigationMenu(buttons: _buildButtons(context)),
       menuOptions: (context, userId) => [],
-      onSearchSubmitted: () {},
+      onSearchSubmitted: (String query) {},
     );
   }
 

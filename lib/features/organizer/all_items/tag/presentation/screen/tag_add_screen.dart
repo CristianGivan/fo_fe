@@ -17,9 +17,7 @@ class TagAddScreen extends StatelessWidget {
       appBarTitle: "AddTag",
       body: (userId) => TagAddForm(userId: userId, itemLinkParams: itemLinkParams),
       menuOptions: (context, userId) => TagAddScreenActionsMenu.getMenuItems(context, userId),
-      onSearchSubmitted: () {
-        // Define the search functionality here
-      },
+      onSearchSubmitted: (String query) {},
     );
   }
 }

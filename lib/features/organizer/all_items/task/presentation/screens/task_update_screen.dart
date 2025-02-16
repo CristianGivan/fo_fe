@@ -17,7 +17,7 @@ class TaskUpdateScreen extends StatelessWidget {
       appBarTitle: TaskStrings().screenEditTitle,
       body: (userId) => _buildEditPage(userId),
       menuOptions: (context, userId) => TaskEditScreenActionsMenu.getMenuItems(context),
-      onSearchSubmitted: () {},
+      onSearchSubmitted: (String query) {},
     );
   }
 

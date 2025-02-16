@@ -65,7 +65,7 @@ class _ItemLinkEntitiesUpdatePageState<T extends ItemEntity>
         appBarTitle: TaskStrings().screenEditTitle,
         body: _buildUncheckedListView(),
         menuOptions: (context, userId) => _getMenuItems(context),
-        onSearchSubmitted: () {},
+        onSearchSubmitted: (String query) {},
       ),
     );
   }

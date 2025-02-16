@@ -12,11 +12,15 @@ class ItemScreen<T extends DtoEntity> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppContentScreen(
-      appBarTitle: TaskStrings().screenTitle,
-      body: (userId) => _build(context, userId),
-      menuOptions: (context, userId) => ScreenActionMenu.getMenuItems(context, T),
-      onSearchSubmitted: () {},
-    );
+        appBarTitle: TaskStrings().screenTitle,
+        body: (userId) => _build(context, userId),
+        menuOptions: (context, userId) => ScreenActionMenu.getMenuItems(context, T),
+        onSearchSubmitted: (query) => _onSearchSubmitted(context, query));
+  }
+
+  void _onSearchSubmitted(BuildContext context, String query) {
+    final bloc = DynamicBlocResolver.resolveBloc<T>(context);
+    bloc.add(SearchItemsBlocEvent(query)); // Dispatch search event
   }
 
   Widget _build(BuildContext context, int userId) {

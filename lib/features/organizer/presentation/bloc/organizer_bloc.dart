@@ -19,6 +19,20 @@ abstract class OrganizerBloc<T extends ItemEntity>
     on<AddItemBlocEvent>(_onAddItem);
     on<GetItemsFromLogInUserBlocEvent>(_onGetItems);
     on<DeleteItemsBlocEvent>(_onDeleteItems);
+    on<SearchItemsBlocEvent>(_onSearchItems); // Register the search event
+  }
+
+  Future<void> _onSearchItems(
+      SearchItemsBlocEvent event, Emitter<OrganizerBlocState<T>> emit) async {
+    final query = event.query.toLowerCase();
+
+    if (query.isEmpty) {
+      emit(state.copyWith(displayedItems: state.originalItems, searchQuery: ''));
+      return;
+    }
+
+    final OrganizerItems<T> filteredItems = state.originalItems.filterByQuery(query);
+    emit(state.copyWith(displayedItems: filteredItems, searchQuery: query));
   }
 
   Future<void> _onAddItem(AddItemBlocEvent event, Emitter<OrganizerBlocState<T>> emit) async {

@@ -67,6 +67,11 @@ class OrganizerItems<T extends ItemEntity> extends Equatable {
     return OrganizerItems.of(filteredItems);
   }
 
+  OrganizerItems<T> filterByQuery(String query) {
+    final filteredItems = toBuilder().filterByQuery(query).build();
+    return filteredItems;
+  }
+
   IdSet toIdSet() => IdSet.fromOrganizerItems(OrganizerItems.of(_organizerItems));
 
   List<int> getIdList() => _organizerItems.map((e) => e.id).toList();

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppBottomBarPage extends StatefulWidget {
   final List<PopupMenuEntry> leftMenuOptions;
-  final VoidCallback onSearchSubmitted;
+  final void Function(String query) onSearchSubmitted;
   final List<PopupMenuEntry> rightMenuOptions;
 
   const AppBottomBarPage({
@@ -21,6 +21,7 @@ class _AppBottomBarPageState extends State<AppBottomBarPage> {
   bool _isRightMenuOpen = false;
 
   final double _menuWidth = 100; // Width of the menu when open
+  final TextEditingController _searchController = TextEditingController();
 
   void _toggleLeftMenu(bool isOpen) {
     setState(() {
@@ -32,6 +33,12 @@ class _AppBottomBarPageState extends State<AppBottomBarPage> {
     setState(() {
       _isRightMenuOpen = isOpen;
     });
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
   }
 
   @override
@@ -59,7 +66,8 @@ class _AppBottomBarPageState extends State<AppBottomBarPage> {
           // TextField (centered and responsive)
           Expanded(
             child: TextField(
-              onSubmitted: (query) => widget.onSearchSubmitted(),
+              controller: _searchController,
+              onSubmitted: (query) => widget.onSearchSubmitted(query), // Pass search query
               decoration: const InputDecoration(
                 hintText: 'Search...',
                 border: OutlineInputBorder(),

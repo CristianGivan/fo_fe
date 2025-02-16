@@ -3,7 +3,7 @@ import 'package:fo_fe/core/widgets/pages/app_bottom_bar_menu.dart';
 
 class ScreenBottomBarSameMenu extends StatelessWidget {
   final List<PopupMenuEntry> menuOptions;
-  final VoidCallback onSearchSubmitted;
+  final void Function(String query) onSearchSubmitted;
 
   const ScreenBottomBarSameMenu({
     required this.menuOptions,

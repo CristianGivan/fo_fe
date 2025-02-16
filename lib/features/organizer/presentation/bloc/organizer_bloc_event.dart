@@ -43,3 +43,12 @@ class DeleteItemsBlocEvent extends OrganizerBlocEvent {
   @override
   List<Object> get props => [idSet];
 }
+
+class SearchItemsBlocEvent extends OrganizerBlocEvent {
+  final String query;
+
+  const SearchItemsBlocEvent(this.query);
+
+  @override
+  List<Object> get props => [query];
+}

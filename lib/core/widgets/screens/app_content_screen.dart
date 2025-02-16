@@ -7,7 +7,7 @@ class AppContentScreen extends StatelessWidget {
   final String appBarTitle;
   final dynamic body;
   final List<PopupMenuEntry> Function(BuildContext context, int userId) menuOptions;
-  final VoidCallback onSearchSubmitted;
+  final void Function(String query) onSearchSubmitted;
 
   const AppContentScreen({
     super.key,
