@@ -31,8 +31,12 @@ abstract class OrganizerBloc<T extends ItemEntity>
       return;
     }
 
-    final OrganizerItems<T> filteredItems = state.originalItems.filterByQuery(query);
+    final OrganizerItems<T> filteredItems = filterByQuery(query);
     emit(state.copyWith(displayedItems: filteredItems, searchQuery: query));
+  }
+
+  OrganizerItems<T> filterByQuery(String query) {
+    return state.originalItems.filterByQuery(query);
   }
 
   Future<void> _onAddItem(AddItemBlocEvent event, Emitter<OrganizerBlocState<T>> emit) async {

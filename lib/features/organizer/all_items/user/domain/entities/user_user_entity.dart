@@ -20,7 +20,7 @@ class UserUserLinkEntity extends UserLinkEntity {
         _userLinkedId = userId ?? 0,
         _isSelectedByUser = isSelectedByUser ?? false,
         _orderedByUser = orderedByUser ?? 0,
-        super(id: id ?? 0, isSelected: isSelectedByUser ?? false);
+        super(id: id ?? 0, isSelected: isSelectedByUser ?? false, remoteId: 0, subject: '');
 
   static final UserUserLinkEntity _emptyInstance = UserUserLinkEntity();
 

@@ -5,10 +5,10 @@ class ReminderEntity extends OrganizerItemEntity {
 
   ReminderEntity({
     required DateTime remindAt,
-    super.subject,
     int? id,
     int? creatorId,
     int? remoteId,
+    String? subject,
     DateTime? createdDate,
     DateTime? lastUpdate,
     DateTime? lastViewedDate,
@@ -21,6 +21,7 @@ class ReminderEntity extends OrganizerItemEntity {
           createdDate: createdDate ?? INITIAL_EPOCH_DATE,
           creatorId: creatorId ?? 0,
           remoteId: remoteId ?? 0,
+          subject: subject ?? '',
           lastUpdate: lastUpdate ?? INITIAL_EPOCH_DATE,
           lastViewedDate: lastViewedDate ?? INITIAL_EPOCH_DATE,
           remoteViews: remoteViews ?? 0,

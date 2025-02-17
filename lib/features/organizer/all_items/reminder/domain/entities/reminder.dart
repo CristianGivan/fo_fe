@@ -2,11 +2,11 @@ import 'package:fo_fe/features/organizer/all_items/reminder/domain/entities/remi
 import 'package:fo_fe/features/organizer/all_items/reminder/utils/reminder_exports.dart';
 import 'package:fo_fe/features/organizer/domain/entities/dto_entity.dart';
 
-class Reminder extends DtoEntity {
+class ReminderDto extends DtoEntity {
   final ReminderEntity reminder;
   final ReminderUserLinkEntity reminderUserLink;
 
-  Reminder({
+  ReminderDto({
     required this.reminder,
     required this.reminderUserLink,
   }) : super(
@@ -14,15 +14,19 @@ class Reminder extends DtoEntity {
           userLink: reminderUserLink,
         );
 
-  Reminder copyWith({
+  ReminderDto copyWith({
     ReminderEntity? reminder,
     ReminderUserLinkEntity? reminderUserLink,
   }) {
-    return Reminder(
+    return ReminderDto(
       reminder: reminder ?? this.reminder,
       reminderUserLink: reminderUserLink ?? this.reminderUserLink,
     );
   }
+
+  @override
+  // TODO: implement isEmpty
+  bool get isEmpty => throw UnimplementedError();
 
   @override
   List<Object?> get props => [reminder, reminderUserLink];

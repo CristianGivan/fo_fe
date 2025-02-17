@@ -818,21 +818,6 @@ class MockOrganizerItemEntity extends _i1.Mock
           as int);
 
   @override
-  String get subject =>
-      (super.noSuchMethod(
-            Invocation.getter(#subject),
-            returnValue: _i9.dummyValue<String>(
-              this,
-              Invocation.getter(#subject),
-            ),
-            returnValueForMissingStub: _i9.dummyValue<String>(
-              this,
-              Invocation.getter(#subject),
-            ),
-          )
-          as String);
-
-  @override
   DateTime get createdDate =>
       (super.noSuchMethod(
             Invocation.getter(#createdDate),
@@ -861,6 +846,21 @@ class MockOrganizerItemEntity extends _i1.Mock
             returnValueForMissingStub: 0,
           )
           as int);
+
+  @override
+  String get subject =>
+      (super.noSuchMethod(
+            Invocation.getter(#subject),
+            returnValue: _i9.dummyValue<String>(
+              this,
+              Invocation.getter(#subject),
+            ),
+            returnValueForMissingStub: _i9.dummyValue<String>(
+              this,
+              Invocation.getter(#subject),
+            ),
+          )
+          as String);
 
   @override
   Map<String, dynamic> jsonToCheckForUpdates() =>

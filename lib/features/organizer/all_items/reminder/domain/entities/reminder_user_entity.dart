@@ -20,7 +20,7 @@ class ReminderUserLinkEntity extends UserLinkEntity {
         _userId = userId ?? 0,
         _isSelectedByUser = selectedByUser ?? false,
         _orderedByUser = orderedByUser ?? 0,
-        super(id: id ?? 0, isSelected: selectedByUser ?? false);
+        super(id: id ?? 0, isSelected: selectedByUser ?? false, remoteId: 0, subject: '');
 
   static final ReminderUserLinkEntity _emptyInstance = ReminderUserLinkEntity();
 

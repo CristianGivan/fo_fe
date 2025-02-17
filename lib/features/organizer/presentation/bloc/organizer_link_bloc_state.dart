@@ -1,5 +1,5 @@
 import 'package:fo_fe/features/organizer/all_items/reminder/utils/reminder_exports.dart';
-import 'package:fo_fe/features/organizer/all_items/tag/domain/entities/tag.dart';
+import 'package:fo_fe/features/organizer/all_items/tag/domain/entities/tagDto.dart';
 import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
@@ -38,7 +38,7 @@ class ItemLinkTagBlocState extends OrganizerBlocState<TagDto> {
       ];
 }
 
-class ItemLinkReminderBlocState extends OrganizerBlocState<Reminder> {
+class ItemLinkReminderBlocState extends OrganizerBlocState<ReminderDto> {
   final String? errorMessage;
 
   ItemLinkReminderBlocState({

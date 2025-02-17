@@ -13,6 +13,7 @@ abstract class DtoEntity extends ItemEntity {
         super(
           id: entity.id,
           remoteId: entity.remoteId,
+          subject: entity.subject,
         );
 
   @override

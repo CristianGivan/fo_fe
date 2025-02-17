@@ -10,7 +10,7 @@ class TaskTagLinkEntity extends ItemEntity {
     required this.linkingDate,
     required this.taskId,
     required this.tagId,
-  });
+  }) : super(remoteId: 0, subject: '');
 
   static final TaskTagLinkEntity _emptyInstance = TaskTagLinkEntity(
     id: 0,

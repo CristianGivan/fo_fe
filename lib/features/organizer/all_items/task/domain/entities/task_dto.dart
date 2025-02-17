@@ -29,5 +29,9 @@ class TaskDto extends DtoEntity {
   }
 
   @override
+  // TODO: implement isEmpty
+  bool get isEmpty => throw UnimplementedError();
+
+  @override
   List<Object?> get props => [task, taskUserLink, taskTagLink];
 }

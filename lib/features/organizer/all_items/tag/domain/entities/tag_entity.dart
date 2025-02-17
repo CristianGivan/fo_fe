@@ -2,7 +2,7 @@ import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
 class TagEntity extends OrganizerItemEntity {
   TagEntity({
-    super.subject,
+    String? subject,
     int? id,
     int? creatorId,
     int? remoteId,
@@ -16,6 +16,7 @@ class TagEntity extends OrganizerItemEntity {
           id: id ?? 0,
           remoteId: remoteId ?? 0,
           creatorId: creatorId ?? 0,
+          subject: subject ?? '',
           createdDate: createdDate ?? INITIAL_EPOCH_DATE,
           lastUpdate: lastUpdate ?? INITIAL_EPOCH_DATE,
           lastViewedDate: lastViewedDate ?? INITIAL_EPOCH_DATE,

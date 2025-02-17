@@ -60,6 +60,8 @@ if a TagBlocState will emit a loaded stat becasue I have a OrganizerBlocState Ta
 
 == Now
 
+* update DtoEntity
+* abstract class UserLinkEntity extends ItemEntity
 FilterDialog SortDialog
 
 item_dto_card.dart item_card.dart combine them

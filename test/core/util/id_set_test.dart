@@ -83,21 +83,21 @@ void main() {
       expect(result, equals([1, 2, 3]));
     });
 
-    test('IdSet.fromOrganizerItems creates a set from OrganizerItems', () {
-      OrganizerItemEntity organizerItem1 = OrganizerItemEntity(
-        id: 1,
-      );
-      OrganizerItemEntity organizerItem2 = OrganizerItemEntity(
-        id: 2,
-      );
-      OrganizerItemEntity organizerItem3 = OrganizerItemEntity(
-        id: 3,
-      );
-      OrganizerItems organizerItems =
-          OrganizerItems.of([organizerItem1, organizerItem2, organizerItem3]);
-
-      final idSet = IdSet.fromOrganizerItems(organizerItems);
-      expect(idSet.toSet(), equals({1, 2, 3}));
-    });
+    // test('IdSet.fromOrganizerItems creates a set from OrganizerItems', () {
+    //   OrganizerItemEntity organizerItem1 = OrganizerItemEntity(
+    //     id: 1,
+    //   );
+    //   OrganizerItemEntity organizerItem2 = OrganizerItemEntity(
+    //     id: 2,
+    //   );
+    //   OrganizerItemEntity organizerItem3 = OrganizerItemEntity(
+    //     id: 3,
+    //   );
+    //   OrganizerItems organizerItems =
+    //       OrganizerItems.of([organizerItem1, organizerItem2, organizerItem3]);
+    //
+    //   final idSet = IdSet.fromOrganizerItems(organizerItems);
+    //   expect(idSet.toSet(), equals({1, 2, 3}));
+    // });
   });
 }

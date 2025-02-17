@@ -67,7 +67,7 @@ class _AppBottomBarPageState extends State<AppBottomBarPage> {
           Expanded(
             child: TextField(
               controller: _searchController,
-              onSubmitted: (query) => widget.onSearchSubmitted(query), // Pass search query
+              onChanged: (query) => widget.onSearchSubmitted(query), // Pass search query
               decoration: const InputDecoration(
                 hintText: 'Search...',
                 border: OutlineInputBorder(),
