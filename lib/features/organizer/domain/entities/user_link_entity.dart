@@ -1,18 +1,18 @@
-import 'package:fo_fe/features/organizer/domain/entities/item_entity.dart';
+import 'package:fo_fe/core/utils/exports/external_exports.dart';
 
-abstract class UserLinkEntity extends ItemEntity {
+abstract class UserLinkEntity extends Equatable {
+  final int id;
+  final int remoteId;
   final bool isSelected;
 
   const UserLinkEntity({
-    required super.id,
-    required super.remoteId,
-    required super.subject,
+    required this.id,
+    required this.remoteId,
     required this.isSelected,
   });
 
-  @override
   bool get isEmpty;
 
   @override
-  List<Object?> get props => [super.props, isSelected];
+  List<Object?> get props => [id, remoteId, isSelected];
 }
