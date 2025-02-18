@@ -4,7 +4,7 @@ import 'package:fo_fe/features/organizer/all_items/tag/utils/tag_exports.dart';
 import 'package:fo_fe/features/organizer/all_items/user/utils/user_exports.dart';
 import 'package:fo_fe/features/organizer/utils/organizer_exports.dart';
 
-class ItemLinkUserBlocState extends OrganizerBlocState<User> {
+class ItemLinkUserBlocState extends OrganizerBlocState<UserDto> {
   final String? errorMessage;
 
   ItemLinkUserBlocState({

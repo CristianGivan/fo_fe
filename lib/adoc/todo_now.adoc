@@ -37,7 +37,8 @@ if a TagBlocState will emit a loaded stat becasue I have a OrganizerBlocState Ta
 
 * ItemLinkEntitiesUpdatePage make it statless find a better navigation save on exit. if is the case
 
----
+
+
 * make the bloc and usecase general
 * check why sliding the task is not working
 * use the same process of selection also for task
@@ -60,15 +61,17 @@ if a TagBlocState will emit a loaded stat becasue I have a OrganizerBlocState Ta
 
 == Now
 
-* update DtoEntity
-* abstract class UserLinkEntity extends ItemEntity
-FilterDialog SortDialog
-
-item_dto_card.dart item_card.dart combine them
+add reminder
 
 == Done
 
-check the params if I need them and what shall contain * AddTagUseCase and AddTaskUseCase are refactor * add link to item UpdateItemsOfItemActionsMenu better factory taskTag and other entity should I create TaskDeleteScreen UpdateTaskDtoUseCase is with user should I keep it here or move in the taskLinkItemsBloc?
+* update DtoEntity
+* abstract class UserLinkEntity extends ItemEntity
+* FilterDialog SortDialog
+* item_dto_card.dart item_card.dart combine them
+* check the params if I need them and what shall contain
+* AddTagUseCase and AddTaskUseCase are refactor
+* add link to item UpdateItemsOfItemActionsMenu better factory taskTag and other entity should I create TaskDeleteScreen UpdateTaskDtoUseCase is with user should I keep it here or move in the taskLinkItemsBloc?
 * update screen for update taskLinkItems * check if having BLoc and Cubit is a good Idea * extract _buildLoading() to a widget * clean up the getit in special if I have the factory * inharetance vs delagation conposiotion for ItemEntity and Bloc or Cubit * how to not get all the items from db insted update the state itemLinkItemsBloc.add (GetItemsOfItemBlocEvent(params)); in ItemLinkItemsPage * getPendingAndAcceptedUserItems is not returning the right values * updateTagItemOfTask transfer the logic in usecase * Update User * move the bloc hendlers from bloc to not dry * final ItemsTypeEnum itemsType; from * usecase between user/link item and update taks are similar... check for optimisations * _onLoading and _onFailure are not shared * create a usecase for getting the entities by userID or shall I have only the DTO?
 * GetLinkedEntitiesHandler make it more generic UpdateLinkEntitiesOfTaskUseCase or UpdateTaskLinkUseCase * update bloc with generic use case GetEntitiesFromUserUseCase * make a better way to create the TaskLinksBlocFactory * ItemLinkParams rethink may be misused * from update navigate to link_item_list_edit_page where I have selected alll the usersrs that areallreadi in the list and can add and delete others.
 * having all the items of the user display all and marked all the items of the item as selected items * create a generic widget where to have all the items with chkbox and the one selected to be in the previouse list from GetItemsFromLogInUserUseCase can be tooked form TaskParams?

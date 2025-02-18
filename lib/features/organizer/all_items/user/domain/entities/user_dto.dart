@@ -2,11 +2,11 @@ import 'package:fo_fe/features/organizer/all_items/user/domain/entities/user_ent
 import 'package:fo_fe/features/organizer/all_items/user/domain/entities/user_user_entity.dart';
 import 'package:fo_fe/features/organizer/domain/entities/dto_entity.dart';
 
-class User extends DtoEntity {
+class UserDto extends DtoEntity {
   final UserEntity user;
   final UserUserLinkEntity userUserLink;
 
-  User({
+  UserDto({
     required this.user,
     required this.userUserLink,
   }) : super(
@@ -14,11 +14,11 @@ class User extends DtoEntity {
           userLink: userUserLink,
         );
 
-  User copyWith({
+  UserDto copyWith({
     UserEntity? user,
     UserUserLinkEntity? userUserLink,
   }) {
-    return User(
+    return UserDto(
       user: user ?? this.user,
       userUserLink: userUserLink ?? this.userUserLink,
     );
